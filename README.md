@@ -7,7 +7,7 @@ this is because js Date objects are always on the local calendar of the running 
 this is a wrapper of the js Date object. Internally, it represents any wacky timezone as your own local timezone.
 so whenever you query for calendar information, it says the right thing, because it can do that.
 
-when you ask for non-calendar-based information, like an epoch, you don't need to kick it back + forth, because it can do that.
+when you ask for non-calendar-based information, like an epoch, you don't need to kick it back + forth, because it can do that too.
 
 things it does:
 
