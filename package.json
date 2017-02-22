@@ -18,7 +18,9 @@
   "files": [
     "builds/"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "cli-table": "^0.3.1"
+  },
   "devDependencies": {
     "babel-preset-es2015": "6.9.0",
     "babel-preset-stage-2": "^6.11.0",

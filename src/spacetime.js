@@ -1,5 +1,6 @@
 const timezones = require('./timezones');
 const debug = require('./debug');
+const world = require('./world');
 // const isSame = require('./isSame');
 
 //fake timezone-support, for fakers
@@ -12,11 +13,17 @@ class SpaceTime {
   log() {
     debug(this);
   }
+  epoch() {
+    return this.date.getTime();
+  }
+  world() {
+    world(this.epoch());
+  }
   here() {
     return this.date;
   }
   there() {
-    let epoch = this.date.getTime();
+    let epoch = this.epoch();
     let minutes = -420 + 240;
     console.log(this.offset);
     let ms = minutes * 60 * 1000;
@@ -43,5 +50,7 @@ module.exports = SpaceTime;
 var pst = new SpaceTime(Date.now(), 'Canada/Pacific'); //7am (back 3hrs)
 pst.log();
 
-var aus = new SpaceTime(Date.now(), 'Australia/Canberra'); //2am tomorrow (frwd 14hrs)
-aus.log();
+pst.world();
+
+// var aus = new SpaceTime(Date.now(), 'Australia/Canberra'); //2am tomorrow (frwd 14hrs)
+// aus.log();

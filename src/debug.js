@@ -1,21 +1,6 @@
 'use strict';
+const color = require('./colors');
 
-const colors = {
-  reset: '\x1b[0m',
-  red : '\x1b[31m',
-  green : '\x1b[32m',
-  yellow : '\x1b[33m',
-  blue : '\x1b[34m',
-  magenta : '\x1b[35m',
-  cyan : '\x1b[36m',
-  black: '\x1b[30m'
-};
-const cyan = function(str) {
-  return colors.cyan + str + colors.reset;
-};
-const yellow = function(str) {
-  return colors.yellow + str + colors.reset;
-};
 //
 const months = [
   'Jan',
@@ -49,11 +34,11 @@ const fmt = (d) => {
   //hours
   let hour = d.getHours();
   let am = 'am ';
-  let emoji = yellow('🌤️');
+  let emoji = color.yellow('🌤️');
   if (hour > 12) {
     hour -= 12;
     am = 'pm ';
-    emoji = cyan('🌜');
+    emoji = color.cyan('🌜');
   }
   //minutes
   let minutes = d.getMinutes();
