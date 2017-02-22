@@ -1,21 +1,9 @@
 'use strict';
 const color = require('./colors');
+const months = require('./months').short;
 
 //
-const months = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sept',
-  'Oct',
-  'Nov',
-  'Dec',
-];
+
 
 // right padding s with c to a total of n chars
 // function padRight(s, n) {
