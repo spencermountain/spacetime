@@ -8,8 +8,8 @@ test('get', (t) => {
   t.equal(s.year(), 2017, '.year()');
   t.equal(s.hour(), 15, '.hour()');
   t.equal(s.minute(), 42, '.minute()');
-  t.equal(s.month(), 'February', '.month()');
-  t.equal(s.day(), 'Wednesday', '.day()');
+  t.equal(s.month(), 'february', '.month()');
+  t.equal(s.day(), 'wednesday', '.day()');
   t.end();
 });
 
@@ -29,13 +29,13 @@ test('set', (t) => {
   t.equal(s.minute(), 8, '.minute()');
 
   s.month('february');
-  t.equal(s.month(), 'February', '.month()');
+  t.equal(s.month(), 'february', '.month()');
 
   s.month('June');
-  t.equal(s.month(), 'June', '.month()');
+  t.equal(s.month(), 'june', '.month()');
 
   s.month('apr');
-  t.equal(s.month(), 'April', '.month()');
+  t.equal(s.month(), 'april', '.month()');
 
   t.end();
 });
@@ -44,7 +44,7 @@ test('set by weekday', (t) => {
   let s = spacetime([2017, 22, 2], 'Canada/Pacific'); //wednesday
   //make sure it's in the right place
   t.equal(s.date(), 22, '.date()');
-  t.equal(s.day(), 'Wednesday', '.day()');
+  t.equal(s.day(), 'wednesday', '.day()');
   s.day('thursday');
   t.equal(s.date(), 23, 'now thursday');
   s.day('friday');

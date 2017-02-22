@@ -46,7 +46,7 @@ const addMethods = (Space) => {
           return this;
         }
         //input by month name
-        input = fns.titleCase(input);
+        input = input.toLowerCase();
         let index = months.short.indexOf(input);
         if (index === -1) {
           index = months.long.indexOf(input);
@@ -65,7 +65,7 @@ const addMethods = (Space) => {
       }
       let num = input;
       if (typeof input === 'string') {
-        input = fns.titleCase(input);
+        input = input.toLowerCase();
         num = days.short.indexOf(input);
         if (num === -1) {
           num = days.long.indexOf(input);
