@@ -1,4 +1,5 @@
 const getOffset = require('./gears/getOffset');
+const fmt = require('./methods/lib/fmt');
 
 // const isSame = require('./isSame');
 
