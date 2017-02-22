@@ -33,7 +33,7 @@ const makeTime = (o) => {
   return parseInt(Math.random() * 10, 10) + 'pm';
 };
 const makeOffset = (o) => {
-  return o.tz;
+  return colors.black(o.tz);
 };
 const makeEmoji = (o) => {
   return colors[o.color](o.emoji);
@@ -42,8 +42,18 @@ const makeTitle = (o) => {
   return colors[o.color](o.title);
 };
 
+const centerTable = (str) => {
+  str = colors.green(str);
+  for(let i = 0; i < 26; i++) {
+    str = '- ' + str + ' -';
+  }
+  for(let i = 0; i < 10; i++) {
+    str = ' ' + str;
+  }
+  return str;
+};
 
-const wordMap = (d) => {
+const wordMap = (epoch) => {
   let table = new Table({
     chars: {
       'top': '',
@@ -75,6 +85,7 @@ const wordMap = (d) => {
   table.push(places.map(makeTime));
   table.push(places.map(makeOffset));
 
+  console.log(centerTable(epoch));
   console.log(table.toString());
 };
 module.exports = wordMap;

@@ -13,6 +13,7 @@ class SpaceTime {
   log() {
     debug(this);
   }
+  in(tz) {}
   epoch() {
     return this.date.getTime();
   }
@@ -25,7 +26,6 @@ class SpaceTime {
   there() {
     let epoch = this.epoch();
     let minutes = -420 + 240;
-    console.log(this.offset);
     let ms = minutes * 60 * 1000;
     let d = new Date(epoch + ms);
     // console.log(this.offset);
@@ -50,7 +50,7 @@ module.exports = SpaceTime;
 var pst = new SpaceTime(Date.now(), 'Canada/Pacific'); //7am (back 3hrs)
 pst.log();
 
-pst.world();
+// pst.world();
 
-// var aus = new SpaceTime(Date.now(), 'Australia/Canberra'); //2am tomorrow (frwd 14hrs)
-// aus.log();
+var aus = new SpaceTime(Date.now(), 'Australia/Canberra'); //2am tomorrow (frwd 14hrs)
+aus.log();
