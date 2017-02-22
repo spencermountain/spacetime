@@ -19,7 +19,7 @@ const places = [
     title: 'Britain',
     emoji: '🌧️',
     color: 'blue',
-    tz: 'UTC-0'
+    tz: 'Etc/UCT'
   },
   {
     title: 'Brisbane',
@@ -30,10 +30,10 @@ const places = [
 ];
 
 const makeTime = (o) => {
-  return parseInt(Math.random() * 10, 10) + 'pm';
+  return o.space.niceTime();
 };
-const makeOffset = (o) => {
-  return colors.black(o.tz);
+const makeDate = (o) => {
+  return colors.black(o.space.niceDate());
 };
 const makeEmoji = (o) => {
   return colors[o.color](o.emoji);
@@ -53,7 +53,7 @@ const centerTable = (str) => {
   return str;
 };
 
-const wordMap = (epoch) => {
+const wordMap = (space) => {
   let table = new Table({
     chars: {
       'top': '',
@@ -80,12 +80,16 @@ const wordMap = (epoch) => {
     }
   });
 
+  places.forEach((o) => {
+    o.space = space.clone().goto(o.tz); //.log();
+  });
+
   table.push(places.map(makeEmoji));
   table.push(places.map(makeTitle));
   table.push(places.map(makeTime));
-  table.push(places.map(makeOffset));
+  table.push(places.map(makeDate));
 
-  console.log(centerTable(epoch));
+  console.log(centerTable(space.epoch));
   console.log(table.toString());
 };
 module.exports = wordMap;
