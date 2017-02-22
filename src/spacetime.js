@@ -4,7 +4,7 @@ const getOffset = require('./gears/getOffset');
 //fake timezone-support, for fakers
 class SpaceTime {
   constructor(epoch, tz) {
-    this.epoch = epoch || new Date().getTime();
+    epoch = epoch || new Date().getTime();
     this.d = new Date(epoch);
     this.bias = this.d.getTimezoneOffset() || 0;
     //apply the offset of the timezone
@@ -15,7 +15,10 @@ class SpaceTime {
     }
   }
   clone() {
-    return new SpaceTime(this.epoch);
+    return new SpaceTime(this.epoch, this.tz);
+  }
+  epoch() {
+    return this.d.getTime();
   }
   //travel to this timezone
   goto(tz) {
@@ -23,8 +26,9 @@ class SpaceTime {
     let offset = getOffset(tz);
     // offset += this.bias;
     //apply offset
-    this.epoch += (offset + this.bias) * 60 * 1000;
-    this.d = new Date(this.epoch);
+    let msOffset = (offset + this.bias) * 60 * 1000;
+    let epoch = this.epoch();
+    this.d = new Date(epoch + msOffset);
     // this.bias = offset;
     return this;
   }

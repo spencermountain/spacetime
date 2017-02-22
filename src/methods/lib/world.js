@@ -89,7 +89,7 @@ const wordMap = (space) => {
   table.push(places.map(makeTime));
   table.push(places.map(makeDate));
 
-  console.log(centerTable(space.epoch));
+  console.log(centerTable(space.epoch()));
   console.log(table.toString());
 };
 module.exports = wordMap;
