@@ -1,0 +1,8 @@
+.DS_Store
+.jshintrc
+.env
+node_modules/
+.nyc_output
+npm-debug.log
+viz/
+coverage/
