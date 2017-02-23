@@ -15,7 +15,7 @@ class SpaceTime {
     }
   }
   clone() {
-    return new SpaceTime(this.epoch, this.tz);
+    return new SpaceTime(this.epoch(), this.tz);
   }
   epoch() {
     return this.d.getTime();
@@ -36,6 +36,7 @@ class SpaceTime {
 //append methods
 SpaceTime = require('./methods/query')(SpaceTime);
 SpaceTime = require('./methods/move')(SpaceTime);
+SpaceTime = require('./methods/same')(SpaceTime);
 SpaceTime = require('./methods/format')(SpaceTime);
 
 module.exports = SpaceTime;
