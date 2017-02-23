@@ -14,6 +14,37 @@ test('get', (t) => {
   t.end();
 });
 
+test('get-quarters', (t) => {
+  let s = spacetime('January 22, 2017 15:42:00', 'Canada/Eastern');
+  t.equal(s.quarter(), 1, '.quarter()');
+
+  s.month(1);
+  t.equal(s.quarter(), 1, '.quarter()');
+
+  s.month('march');
+  t.equal(s.quarter(), 1, '.quarter()');
+
+  s.month(3);
+  t.equal(s.quarter(), 2, '.quarter()');
+
+  s.month('december');
+  t.equal(s.quarter(), 4, '.quarter()');
+  t.end();
+});
+
+test('get-weeks', (t) => {
+  let s = spacetime('January 1, 2015 2:00:00', 'Canada/Eastern');
+  t.equal(s.week(), 1, '.weeks()');
+
+  s.month(1);
+  t.equal(s.week(), 4, '.weeks()');
+
+  s.month('december');
+  s.date(29);
+  t.equal(s.week(), 52, '.weeks()');
+  t.end();
+});
+
 test('set', (t) => {
   let s = spacetime('June 22, 2017 20:12:01', 'Canada/Pacific');
 
@@ -43,18 +74,6 @@ test('set', (t) => {
 
   s.quarter(1);
   t.equal(s.month(), 'january', '.quarter()');
-
-  s.date(1);
-  s.month(0);
-  t.equal(s.quarter(), 1, '.quarter()');
-  s.month(1);
-  t.equal(s.quarter(), 1, '.quarter()');
-  s.month(2);
-  t.equal(s.quarter(), 1, '.quarter()');
-  s.month(3);
-  t.equal(s.quarter(), 2, '.quarter()');
-  s.month('december');
-  t.equal(s.quarter(), 4, '.quarter()');
 
   t.end();
 });

@@ -45,8 +45,14 @@ const addMethods = (Space) => {
       let tmp = this.clone();
       tmp.month(0);
       tmp.date(1);
+      tmp.hour(0);
+      tmp.minute(1);
       tmp.day(1); //monday
       const thisOne = this.epoch();
+      //if the week technically hasn't started yet
+      if (tmp.epoch() > thisOne) {
+        return 1;
+      }
       for(let i = 0; i < 52; i++) {
         if (tmp.epoch() > thisOne) {
           return i;
