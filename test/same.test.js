@@ -7,9 +7,9 @@ test('isSame', (t) => {
   let b = a.clone();
   t.equal(a.isSame(b, 'hour'), true, 'same-hour');
   t.equal(a.isSame(b, 'day'), true, 'same-day');
-  // t.equal(a.isSame(b,'week'),true,'same-week')
+  t.equal(a.isSame(b, 'week'), true, 'same-week');
   t.equal(a.isSame(b, 'month'), true, 'same-month');
-  // t.equal(a.isSame(b, 'quarter'), true, 'same-quarter');
+  t.equal(a.isSame(b, 'quarter'), true, 'same-quarter');
   t.equal(a.isSame(b, 'year'), true, 'same-year');
 
   b.add(2, 'hours');

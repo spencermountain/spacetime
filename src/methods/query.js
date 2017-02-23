@@ -1,7 +1,7 @@
 'use strict';
 const months = require('./lib/months');
 const days = require('./lib/days');
-const fns = require('./lib/fns');
+const quarters = require('./lib/quarters');
 
 const addMethods = (Space) => {
 
@@ -29,6 +29,47 @@ const addMethods = (Space) => {
         return this;
       }
       return this.d.getMinutes();
+    },
+
+    //since the start of the year
+    week: function(num) {
+      if (num !== undefined) {
+        this.month(0);
+        this.date(1);
+        this.day(1); //monday
+        num -= 1; //1-based
+        this.add(num, 'weeks');
+        return this;
+      }
+      //find-out which week it is
+      let tmp = this.clone();
+      tmp.month(0);
+      tmp.date(1);
+      tmp.day(1); //monday
+      const thisOne = this.epoch();
+      for(let i = 0; i < 52; i++) {
+        if (tmp.epoch() > thisOne) {
+          return i;
+        }
+        tmp.add(1, 'week');
+      }
+      return 52;
+    },
+
+    quarter: function(num) {
+      if (num !== undefined && quarters[num]) {
+        let month = quarters[num][0];
+        this.month(month);
+        this.date(1);
+        return this;
+      }
+      let month = this.d.getMonth();
+      for(let i = 1; i < quarters.length; i++) {
+        if (month < quarters[i][0]) {
+          return i - 1;
+        }
+      }
+      return 4;
     },
 
     year: function(num) {

@@ -6,6 +6,7 @@ test('get', (t) => {
   let s = spacetime('February 22, 2017 15:42:00', 'Canada/Eastern');
   t.equal(s.date(), 22, '.date()');
   t.equal(s.year(), 2017, '.year()');
+  t.equal(s.quarter(), 1, '.quarter()');
   t.equal(s.hour(), 15, '.hour()');
   t.equal(s.minute(), 42, '.minute()');
   t.equal(s.month(), 'february', '.month()');
@@ -36,6 +37,24 @@ test('set', (t) => {
 
   s.month('apr');
   t.equal(s.month(), 'april', '.month()');
+
+  s.week(1);
+  t.equal(s.month(), 'january', '.week()');
+
+  s.quarter(1);
+  t.equal(s.month(), 'january', '.quarter()');
+
+  s.date(1);
+  s.month(0);
+  t.equal(s.quarter(), 1, '.quarter()');
+  s.month(1);
+  t.equal(s.quarter(), 1, '.quarter()');
+  s.month(2);
+  t.equal(s.quarter(), 1, '.quarter()');
+  s.month(3);
+  t.equal(s.quarter(), 2, '.quarter()');
+  s.month('december');
+  t.equal(s.quarter(), 4, '.quarter()');
 
   t.end();
 });
