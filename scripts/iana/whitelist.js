@@ -29,7 +29,7 @@ module.exports = [
   'America/Halifax',
   'America/Havana',
   'America/Indiana/Indianapolis',
-  'America/Los_Angeles',
+  'Canada/Pacific',
   'America/Manaus',
   'America/Mexico_City',
   'America/Miquelon',
