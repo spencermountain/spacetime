@@ -79,7 +79,7 @@ test('set', (t) => {
 });
 
 test('set by weekday', (t) => {
-  let s = spacetime([2017, 22, 2], 'Canada/Pacific'); //wednesday
+  let s = spacetime([2017, 2, 22], 'Canada/Eastern'); //wednesday
   //make sure it's in the right place
   t.equal(s.date(), 22, '.date()');
   t.equal(s.day(), 'wednesday', '.day()');

@@ -9,7 +9,9 @@ const addMethods = (Space) => {
 
     date: function(num) {
       if (num !== undefined) {
-        this.d.setDate(num);
+        let d = this.d;
+        d.setDate(num);
+        this.epoch = d.getTime();
         return this;
       }
       return this.d.getDate();
@@ -17,7 +19,9 @@ const addMethods = (Space) => {
 
     hour: function(num) {
       if (num !== undefined) {
-        this.d.setHours(num);
+        let d = this.d;
+        d.setHours(num);
+        this.epoch = d.getTime();
         return this;
       }
       return this.d.getHours();
@@ -48,13 +52,13 @@ const addMethods = (Space) => {
       tmp.hour(0);
       tmp.minute(1);
       tmp.day(1); //monday
-      const thisOne = this.epoch();
+      const thisOne = this.epoch;
       //if the week technically hasn't started yet
-      if (tmp.epoch() > thisOne) {
+      if (tmp.epoch > thisOne) {
         return 1;
       }
       for(let i = 0; i < 52; i++) {
-        if (tmp.epoch() > thisOne) {
+        if (tmp.epoch > thisOne) {
           return i;
         }
         tmp.add(1, 'week');
@@ -80,16 +84,20 @@ const addMethods = (Space) => {
 
     year: function(num) {
       if (num !== undefined) {
-        this.d.setFullYear(num);
+        let d = this.d;
+        d.setFullYear(num);
+        this.epoch = d.getTime();
         return this;
       }
       return this.d.getFullYear();
     },
 
     month: function(input) {
+      let d = this.d;
       if (input !== undefined) {
         if (typeof input === 'number') {
-          this.d.setMonth(input);
+          d.setMonth(input);
+          this.epoch = d.getTime();
           return this;
         }
         //input by month name
@@ -99,7 +107,8 @@ const addMethods = (Space) => {
           index = months.long.indexOf(input);
         }
         if (index !== -1) {
-          this.d.setMonth(index);
+          d.setMonth(index);
+          this.epoch = d.getTime();
           return this;
         }
       }
@@ -124,16 +133,17 @@ const addMethods = (Space) => {
       }
       //set the day, based on a number
       //always move it forward..
-      let current = this.d.getDay();
+      let d = this.d;
+      let current = d.getDay();
       if (num > current) {
         let diff = num - current;
-        this.d.setDate(this.d.getDate() + diff);
+        d.setDate(d.getDate() + diff);
       } else if (num < current) {
         let toAdd = num + (7 - current);
-        this.d.setDate(this.d.getDate() + toAdd);
+        d.setDate(d.getDate() + toAdd);
       }
+      this.epoch = d.getTime();
       return this;
-
     },
 
   };

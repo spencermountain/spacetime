@@ -34,11 +34,13 @@ const addMethods = (Space) => {
 
   const methods = {
     add: function(num, unit) {
-      this.d = add(this.d, num, unit);
+      let d = add(this.d, num, unit);
+      this.epoch = d.getTime();
       return this;
     },
     subtract: function(num, unit) {
-      this.d = add(this.d, num * -1, unit);
+      let d = add(this.d, num * -1, unit);
+      this.epoch = d.getTime();
       return this;
     },
   };

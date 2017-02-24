@@ -1,35 +1,34 @@
 'use strict';
 const getOffset = require('./gears/getOffset');
+const getBias = require('./gears/getBias');
 
 //fake timezone-support, for fakers
 class SpaceTime {
   constructor(epoch, tz) {
-    epoch = epoch || new Date().getTime();
-    this.d = new Date(epoch);
-    this.bias = this.d.getTimezoneOffset() || 0;
-    //apply the offset of the timezone
-    if (tz) {
-      this.goto(tz);
-    } else if (typeof Intl !== 'undefined') {
-      this.tz = Intl.DateTimeFormat().resolvedOptions().timeZone; //be explicit about where we are, by default
-    }
+    //default to now
+    this.epoch = epoch || new Date().getTime();
+    //the shift for the given timezone
+    this.offset = getOffset(tz);
+    this.tz = tz;
+    //this computer's built-in offset
+    this.bias = getBias();
+  }
+  //a js date object
+  get d() {
+    //movement in milliseconds
+    let shift = (this.offset * 60 * 1000);
+    //remove this computer's offset
+    shift = shift + (this.bias * 60 * 1000);
+    let epoch = this.epoch + shift;
+    return new Date(epoch);
   }
   clone() {
-    return new SpaceTime(this.epoch(), this.tz);
-  }
-  epoch() {
-    return this.d.getTime();
+    return new SpaceTime(this.epoch, this.tz);
   }
   //travel to this timezone
   goto(tz) {
     this.tz = tz;
-    let offset = getOffset(tz);
-    // offset += this.bias;
-    //apply offset
-    let msOffset = (offset + this.bias) * 60 * 1000;
-    let epoch = this.epoch();
-    this.d = new Date(epoch + msOffset);
-    // this.bias = offset;
+    this.offset = getOffset(tz);
     return this;
   }
 }

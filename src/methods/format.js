@@ -12,6 +12,9 @@ const addMethods = (Space) => {
     niceDate: function() {
       return fmt.day(this.d);
     },
+    format: function() {
+      return fmt.daytime(this.d);
+    },
     log: function() {
       console.log(fmt.daytime(this.d));
       return this;

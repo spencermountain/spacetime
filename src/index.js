@@ -3,6 +3,9 @@ const Spacetime = require('./spacetime');
 const pkg = require('../package.json');
 
 const main = function(input, tz) {
+  if (typeof input === 'object' && input.length) {
+    input = input.join('-'); //ISO format YYYY-MM-DD
+  }
   let d = new Date(input);
   return new Spacetime(d.getTime(), tz);
 };
