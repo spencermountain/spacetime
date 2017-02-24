@@ -18,13 +18,14 @@ const addMethods = (Space) => {
     },
 
     hour: function(num) {
+      let d = this.d;
       if (num !== undefined) {
         let d = this.d;
         d.setHours(num);
         this.epoch = d.getTime();
         return this;
       }
-      return this.d.getHours();
+      return d.getHours();
     },
 
     minute: function(num) {

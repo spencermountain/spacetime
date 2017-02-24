@@ -20,3 +20,5 @@ things it does:
 * last/next/this for day, week & year
 
 * current week, quarter, season lookup
+
+##layout

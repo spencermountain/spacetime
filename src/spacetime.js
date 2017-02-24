@@ -20,7 +20,12 @@ class SpaceTime {
     //remove this computer's offset
     shift = shift + (this.bias * 60 * 1000);
     let epoch = this.epoch + shift;
-    return new Date(epoch);
+    //delete this after..
+    Date.prototype.log = function() {
+      console.log(this.toLocaleDateString().replace(/\/[0-9]{4}/, '') + '  -  ' + this.toLocaleTimeString());
+    };
+    let d = new Date(epoch);
+    return d;
   }
   clone() {
     return new SpaceTime(this.epoch, this.tz);
