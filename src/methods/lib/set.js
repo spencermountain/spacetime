@@ -27,7 +27,7 @@ module.exports = {
     let here = new Date(s.epoch);
     let there = s.d;
     let diff = dayOfYear(there) - dayOfYear(here);
-    console.log(diff);
+    // console.log(diff);
     //we can just set it with .setDate
     there.setDate(n + diff); //BUG
     return there.getTime(); // + (diff * day);
