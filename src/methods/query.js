@@ -30,7 +30,7 @@ const addMethods = (Space) => {
 
     minute: function(num) {
       if (num !== undefined) {
-        this.d.setMinutes(num);
+        this.epoch = set.minutes(this, num);
         return this;
       }
       return this.d.getMinutes();

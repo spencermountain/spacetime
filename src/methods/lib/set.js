@@ -12,5 +12,16 @@ module.exports = {
     let diff = before - d.getTime();
     //do the same thing remotely
     return s.epoch - diff;
+  },
+  //
+  minutes: (s, n) => {
+    let d = s.d;
+    let before = new Date(d.getTime());
+    //move it locally
+    d.setMinutes(n);
+    //compare before+after
+    let diff = before - d.getTime();
+    //do the same thing remotely
+    return s.epoch - diff;
   }
 };
