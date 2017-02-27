@@ -5,14 +5,6 @@
 const Spacetime = require('./src/spacetime');
 let s = new Spacetime(Date.now(), 'Canada/Pacific');
 
-let d = s.d;
-// d.log();
-// d.setHours(4);
-// d.log();
-s.hour(5);
-
-console.log(s.hour());
-
-// console.log('\n' + s.format() + '\n');
-// s.hour(2);
-// console.log('\n' + s.format() + '\n');
+s.log();
+s.hour(2);
+s.log();

@@ -2,6 +2,8 @@
 const months = require('./lib/months');
 const days = require('./lib/days');
 const quarters = require('./lib/quarters');
+const set = require('./lib/set');
+
 
 const addMethods = (Space) => {
 
@@ -20,9 +22,7 @@ const addMethods = (Space) => {
     hour: function(num) {
       let d = this.d;
       if (num !== undefined) {
-        let d = this.d;
-        d.setHours(num);
-        this.epoch = d.getTime();
+        this.epoch = set.hours(this, num);
         return this;
       }
       return d.getHours();

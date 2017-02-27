@@ -13,6 +13,7 @@ class SpaceTime {
     //this computer's built-in offset
     this.bias = getBias();
   }
+
   //a js date object
   get d() {
     //movement in milliseconds
@@ -27,9 +28,11 @@ class SpaceTime {
     let d = new Date(epoch);
     return d;
   }
+
   clone() {
     return new SpaceTime(this.epoch, this.tz);
   }
+
   //travel to this timezone
   goto(tz) {
     this.tz = tz;
