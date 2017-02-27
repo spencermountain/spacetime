@@ -45,6 +45,24 @@ test('get-weeks', (t) => {
   t.end();
 });
 
+test('day-of-year', (t) => {
+  let s = spacetime('January 5, 2017 2:00:00', 'Canada/Eastern');
+  t.equal(s.date(), 5, '.date()');
+  t.equal(s.dayOfYear(), 5, 'jan-5th()');
+
+  s = spacetime('February 1, 2017 2:00:00', 'Canada/Eastern');
+  t.equal(s.dayOfYear(), 32, 'feb 1()');
+
+  s = spacetime('February 11, 2017 2:00:00', 'Canada/Eastern');
+  t.equal(s.dayOfYear(), 42, 'feb 1()');
+
+  //after feb29th, there could be a leapyear
+  // s = spacetime('December 31, 2017 2:00:00', 'Canada/Eastern');
+  // t.equal(s.dayOfYear(), 364, 'December 31()');
+
+  t.end();
+});
+
 test('set', (t) => {
   let s = spacetime('June 22, 2017 20:12:01', 'Canada/Pacific');
 

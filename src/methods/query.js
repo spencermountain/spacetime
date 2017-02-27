@@ -3,20 +3,18 @@ const months = require('./lib/months');
 const days = require('./lib/days');
 const quarters = require('./lib/quarters');
 const set = require('./lib/set');
-
+const dayOfYear = require('./lib/dayOfYear');
 
 const addMethods = (Space) => {
 
   const methods = {
 
-    date: function(num) {
+    minute: function(num) {
       if (num !== undefined) {
-        let d = this.d;
-        d.setDate(num);
-        this.epoch = d.getTime();
+        this.epoch = set.minutes(this, num);
         return this;
       }
-      return this.d.getDate();
+      return this.d.getMinutes();
     },
 
     hour: function(num) {
@@ -28,12 +26,20 @@ const addMethods = (Space) => {
       return d.getHours();
     },
 
-    minute: function(num) {
+    date: function(num) {
       if (num !== undefined) {
-        this.epoch = set.minutes(this, num);
+        this.epoch = set.date(this, num);
         return this;
       }
-      return this.d.getMinutes();
+      return this.d.getDate();
+    },
+
+    dayOfYear: function(num) {
+      if (num !== undefined) {
+        this.epoch = set.dayOfYear(this, num);
+        return this;
+      }
+      return dayOfYear(this.d);
     },
 
     //since the start of the year

@@ -1,27 +1,40 @@
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
+const dayOfYear = require('./dayOfYear');
+const minute = 60 * 1000;
+const hour = minute * 60;
+const day = hour * 60;
+
 module.exports = {
 
-  //
-  hours: (s, n) => {
-    let d = s.d;
-    let before = new Date(d.getTime());
-    //move it locally
-    d.setHours(n);
-    //compare before+after
-    let diff = before - d.getTime();
-    //do the same thing remotely
-    return s.epoch - diff;
-  },
-  //
   minutes: (s, n) => {
-    let d = s.d;
-    let before = new Date(d.getTime());
-    //move it locally
-    d.setMinutes(n);
-    //compare before+after
-    let diff = before - d.getTime();
-    //do the same thing remotely
-    return s.epoch - diff;
+    let current = s.minute();
+    let diff = current - n;
+    //milliseconds to shift by
+    let shift = diff * minute;
+    return s.epoch - shift;
+  },
+
+  hours: (s, n) => {
+    let current = s.hour();
+    let diff = current - n;
+    //milliseconds to shift by
+    let shift = diff * hour;
+    return s.epoch - shift;
+  },
+
+  date: (s, n) => {
+    let here = new Date(s.epoch);
+    let there = s.d;
+    if (here.getDate() === there.getDate()) {
+      there.setDate(n);
+      return there.getTime();
+    }
+    return s.epoch;
+  },
+
+  dayOfYear: (s, n) => {
+    return s.epoch;
   }
+
 };
