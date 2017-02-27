@@ -26,11 +26,11 @@ module.exports = {
   date: (s, n) => {
     let here = new Date(s.epoch);
     let there = s.d;
-    if (here.getDate() === there.getDate()) {
-      there.setDate(n);
-      return there.getTime();
-    }
-    return s.epoch;
+    let diff = dayOfYear(there) - dayOfYear(here);
+    console.log(diff);
+    //we can just set it with .setDate
+    there.setDate(n + diff); //BUG
+    return there.getTime(); // + (diff * day);
   },
 
   dayOfYear: (s, n) => {
