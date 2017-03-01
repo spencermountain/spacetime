@@ -36,6 +36,13 @@ test('set', (t) => {
   t.equal(s.hour(), 7, '.hour()');
   t.equal(s.minute(), 15, '.minute()');
 
+  s.dayOfYear(15);
+  t.equal(s.month(), 'january', 'dayOfYear-.month()');
+  t.equal(s.date(), 15, '.dayofYear-date');
+
+  s.monthNum(1);
+  t.equal(s.month(), 'february', '.monthNum()');
+
   t.end();
 });
 
@@ -59,24 +66,24 @@ test('set by weekday', (t) => {
   t.end();
 });
 
-// test('set-tricky', (t) => {
-//   let s = spacetime('June 22, 2017 13:01:00', 'Canada/Eastern'); //the 22rd
-//   t.equal(s.date(), 22, '.date()');
-//   t.equal(s.hour(), 13, '.hour()');
-//
-//   s.goto('Australia/Brisbane'); //the 23rd
-//   t.equal(s.date(), 23, 'tomorrow-there');
-//   //make it 1oclock
-//   s.hour(13);
-//   t.equal(s.hour(), 13, '.hour-remote');
-//   //make it 1:30pm
-//   s.minute(30);
-//   t.equal(s.minute(), 30, '.minute-remote');
-//   //make it the 5th (not working)
-//   s.date(5);
-//   t.equal(s.date(), 5, 'set-date-remotely');
-//   t.end();
-// });
+test('set-tricky', (t) => {
+  let s = spacetime('June 22, 2017 13:01:00', 'Canada/Eastern'); //the 22rd
+  t.equal(s.date(), 22, '.date()');
+  t.equal(s.hour(), 13, '.hour()');
+
+  s.goto('Australia/Brisbane'); //the 23rd
+  t.equal(s.date(), 23, 'tomorrow-there');
+  //make it 1oclock
+  s.hour(13);
+  t.equal(s.hour(), 13, '.hour-remote');
+  //make it 1:30pm
+  s.minute(30);
+  t.equal(s.minute(), 30, '.minute-remote');
+  //make it the 5th (not working)
+  s.date(5);
+  t.equal(s.date(), 5, 'set-date-remotely');
+  t.end();
+});
 
 test('rollback-in-constructor', (t) => {
   let s = spacetime('June 22, 2017 5:01:00', 'Australia/Brisbane');

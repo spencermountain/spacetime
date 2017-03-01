@@ -138,8 +138,10 @@ const addMethods = (Space) => {
       }
       return months.long[this.d.getMonth()];
     },
+
     monthNum: function(input) {
       if (input !== undefined) {
+        let d = this.d;
         d.setMonth(input);
         this.epoch = d.getTime();
         return this;
@@ -152,6 +154,7 @@ const addMethods = (Space) => {
         return days.long[this.d.getDay()];
       }
       let num = input;
+      //take 'wednesday'
       if (typeof input === 'string') {
         input = input.toLowerCase();
         num = days.short.indexOf(input);

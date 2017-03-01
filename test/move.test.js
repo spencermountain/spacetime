@@ -34,6 +34,15 @@ test('add', (t) => {
   t.equal(s.month(), 'february', '.month()');
   t.equal(s.year(), 2018, '.year()');
 
+  s = spacetime('January 1, 2017 1:20:05', 'Canada/Eastern');
+  s.add(1, 'quarter');
+  t.equal(s.date(), 1, '.date()');
+  t.equal(s.month(), 'april', '.date()');
+
+  s.add(2, 'years');
+  t.equal(s.date(), 1, '.date()');
+  t.equal(s.month(), 'april', '.month()');
+  t.equal(s.year(), 2019, '.years()');
   t.end();
 });
 

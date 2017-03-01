@@ -29,8 +29,10 @@ module.exports = {
     return epoch + (diff * day);
   },
 
-  dayOfYear: (s, n) => {
-    return s.epoch;
+  dayOfYear: (s, want) => {
+    let diff = want - s.dayOfYear();
+    let epoch = s.epoch;
+    return epoch + (diff * day);
   }
 
 };
