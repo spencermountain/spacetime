@@ -2,6 +2,7 @@
 const months = require('./lib/months');
 const days = require('./lib/days');
 const quarters = require('./lib/quarters');
+const dayTimes = require('./lib/dayTimes');
 const set = require('./lib/set');
 const dayOfYear = require('./lib/dayOfYear');
 
@@ -9,6 +10,13 @@ const addMethods = (Space) => {
 
   const methods = {
 
+    second: function(num) {
+      if (num !== undefined) {
+        this.epoch = set.seconds(this, num);
+        return this;
+      }
+      return this.d.getSeconds();
+    },
     minute: function(num) {
       if (num !== undefined) {
         this.epoch = set.minutes(this, num);
@@ -41,6 +49,26 @@ const addMethods = (Space) => {
       let minute = d.getMinutes();
       minute = minute / 60;
       return hour + minute;
+    },
+
+    timeOfDay: function(str) {
+      //set the time of day
+      if (str !== undefined) {
+        this.epoch = set.timeOfDay(this, str);
+        return this;
+      }
+      //which time of day is it?
+      let hour = this.hour();
+      if (hour < dayTimes[hour]) {
+        return 'night';
+      }
+      let keys = Object.keys(dayTimes);
+      for(let i = 0; i < keys.length; i++) {
+        if (hour <= dayTimes[keys[i]]) {
+          return keys[i];
+        }
+      }
+      return 'night';
     },
 
     date: function(num) {

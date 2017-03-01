@@ -53,7 +53,7 @@ const centerTable = (str) => {
   return str;
 };
 
-const wordMap = (space) => {
+const wordMap = (s) => {
   let table = new Table({
     chars: {
       'top': '',
@@ -81,7 +81,7 @@ const wordMap = (space) => {
   });
 
   places.forEach((o) => {
-    o.space = space.clone().goto(o.tz); //.log();
+    o.space = s.clone().goto(o.tz); //.log();
   });
 
   table.push(places.map(makeEmoji));
@@ -89,7 +89,7 @@ const wordMap = (space) => {
   table.push(places.map(makeTime));
   table.push(places.map(makeDate));
 
-  console.log(centerTable(space.epoch()));
+  console.log(centerTable(s.epoch));
   console.log(table.toString());
 };
 module.exports = wordMap;
