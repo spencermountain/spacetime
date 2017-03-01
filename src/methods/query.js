@@ -138,6 +138,14 @@ const addMethods = (Space) => {
       }
       return months.long[this.d.getMonth()];
     },
+    monthNum: function(input) {
+      if (input !== undefined) {
+        d.setMonth(input);
+        this.epoch = d.getTime();
+        return this;
+      }
+      return this.d.getMonth();
+    },
 
     day: function(input) {
       if (input === undefined) {

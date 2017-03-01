@@ -1,19 +1,8 @@
 'use strict';
-// const spacetime = require('./src/index');
-// let s = spacetime([2017, 2, 22, 13, 45], 'Canada/Eastern');
+const spacetime = require('./src');
+let s;
 
-const Spacetime = require('./src/spacetime');
-// let s = new Spacetime(Date.now(), 'Australia/Brisbane');
-let s = new Spacetime(Date.now(), 'Canada/Pacific');
+s = spacetime('June 22, 2017 20:01:00', 'Australia/Brisbane'); //the 22rd
 // s.log();
-//
-// s.date(5);
-// s.log();
-
-s.hourFloat(7.25);
-// console.log(s.hourFloat());
+s.date(15);
 s.log();
-// s.goto('Canada/Pacific');
-// s.log();
-// s.hour(13);
-// s.log();
