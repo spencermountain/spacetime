@@ -5,6 +5,14 @@ import spacetime from '../../builds/spacetime';
 import { scaleLinear } from 'd3-scale';
 import Radium from 'radium';
 
+const timezones = [
+  'Canada/Pacific',
+  'Canada/Eastern',
+  'Etc/UCT',
+  'Europe/Istanbul',
+  'Australia/Brisbane',
+];
+
 const times = [
   [0, 6, '#5C456A', ''], //early morning
   [6, 11, '#5C909A', '6am'], //morning
@@ -27,6 +35,20 @@ controls:
   border:1px solid silver
 margin:
   padding:20
+  display:inline-block
+format:
+  color:darkgrey
+  font-size:50
+key:
+  color:grey
+  width:100
+  display:inline-block
+value:
+  color:steelblue
+  display:inline-block
+  width:100
+  text-align:left
+  font-size:20
   `;
 
 const properTime = (h) => {
@@ -49,18 +71,40 @@ const properTime = (h) => {
 class App extends React.Component {
   constructor() {
     super();
-    this.width = 600;
-    this.state = {
-      s: spacetime(Date.now(), 'Canada/Eastern')
-    };
-    this.scale = scaleLinear().domain([0, 24]).range([0, this.width]);
     this.css = style;
+    this.width = 600;
+    this.scale = scaleLinear().domain([0, 24]).range([0, this.width]);
+    this.state = {
+      s: spacetime(Date.now())
+    };
     this.drawDay = this.drawDay.bind(this);
     this.controls = this.controls.bind(this);
     this.change = this.change.bind(this);
+    this.showOff = this.showOff.bind(this);
   }
-  drawDay(h) {
+
+  showOff() {
+    let {state, css} = this;
+    let s = state.s;
+    const methods = [
+      'timeOfDay',
+      'day',
+      'dayOfYear',
+      'week',
+      'quarter',
+    ];
+    return methods.map((str) => {
+      return (
+        <div>
+          <span style={css.key}>{str + ': '}</span>
+          <span style={css.value}>{s[str]()}</span>
+        </div>
+        );
+    });
+  }
+  drawDay(s) {
     let {scale, css} = this;
+    let h = s.hour();
     let paths = times.map((a) => {
       let x = scale(a[0]);
       let width = scale(a[1] - a[0]);
@@ -74,23 +118,24 @@ class App extends React.Component {
     let nowPlace = scale(h);
     let remainder = this.width - nowPlace;
     let bar = <rect x={nowPlace} y={25} width={remainder} height={8} fill={'white'} opacity={0.8}/>;
-    let time = <text x={nowPlace - 15} y={15} fontSize={20} fill={'darkgrey'}>{properTime(h)}</text>;
+    let time = <text x={nowPlace - 15} y={15} fontSize={20} fill={'darkgrey'}>{s.niceTime()}</text>;
     return (
-      <svg style={css.day} width={this.width} height={25}>
-        {paths}
-        {bar}
-        {time}
-      </svg>
+      <div>
+        <span>{s.tz}</span>
+        <div>{s.month() + ' ' + s.date()}</div>
+        <svg style={css.day} width={this.width} height={25}>
+          {paths}
+          {bar}
+          {time}
+        </svg>
+      </div>
       );
   }
-  change(action) {
-    let {state, css} = this;
-    let s = state.s;
-    const does = {
-      upHour: () => {
-
-      }
-    };
+  change(num, unit) {
+    let s = this.state.s;
+    this.setState({
+      s: s.add(num, unit)
+    });
   }
   controls() {
     let {state, css} = this;
@@ -101,27 +146,37 @@ class App extends React.Component {
           {'epoch: ' + s.epoch}
         </div>
         <span style={css.margin}>
-          <input type='button' value={'+ hour'} onClick={this.change.bind('upHour')}/>
-          <input type='button' value={'- hour'} onClick={this.change.bind('downHour')}/>
+          <input type='button' value={'+ hour'} onClick={() => this.change(1, 'hour')}/>
+          <input type='button' value={'- hour'} onClick={() => this.change(-1, 'hour')}/>
         </span>
         <span style={css.margin}>
-          <input type='button' value={'+ day'} onClick={this.change.bind('upDay')}/>
-          <input type='button' value={'- day'} onClick={this.change.bind('downDay')}/>
+          <input type='button' value={'+ day'} onClick={() => this.change(1, 'day')}/>
+          <input type='button' value={'- day'} onClick={() => this.change(-1, 'hour')}/>
         </span>
         <span style={css.margin}>
-          <input type='button' value={'+ month'} onClick={this.change.bind('upMonth')}/>
-          <input type='button' value={'- month'} onClick={this.change.bind('downMonth')}/>
+          <input type='button' value={'+ month'} onClick={() => this.change(1, 'month')}/>
+          <input type='button' value={'- month'} onClick={() => this.change(-1, 'month')}/>
+        </span>
+        <span style={css.margin}>
+          <b style={css.format}>{`${s.month()} ${s.date()}, ${s.year()}`}</b>
+          <div style={css.format}>{`${s.niceTime()}`}</div>
+          {this.showOff()}
         </span>
       </div>
       );
   }
   render() {
+    let {state, css} = this;
+    let s = state.s;
+    let places = timezones.map((tz) => {
+      s.goto(tz);
+      return this.drawDay(s);
+    });
     return (
       <div>
         spacetime demo
         {this.controls()}
-        {this.drawDay(12)}
-        {this.drawDay(18)}
+        {places}
       </div>
       );
   }

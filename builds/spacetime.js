@@ -709,7 +709,7 @@ main.version = pkg.version;
 
 module.exports = main;
 
-},{"../package.json":2,"./spacetime":19}],7:[function(_dereq_,module,exports){
+},{"../package.json":2,"./spacetime":18}],7:[function(_dereq_,module,exports){
 'use strict';
 
 var fmt = _dereq_('./lib/fmt');
@@ -743,27 +743,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"./lib/fmt":12}],8:[function(_dereq_,module,exports){
-'use strict';
-
-var colors = {
-  reset: '\x1b[0m',
-  red: '\x1b[31m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  magenta: '\x1b[35m',
-  cyan: '\x1b[36m',
-  black: '\x1b[30m'
-};
-module.exports = Object.keys(colors).reduce(function (h, k) {
-  h[k] = function (str) {
-    return colors[k] + str + colors.reset;
-  };
-  return h;
-}, {});
-
-},{}],9:[function(_dereq_,module,exports){
+},{"./lib/fmt":11}],8:[function(_dereq_,module,exports){
 'use strict';
 
 //
@@ -789,7 +769,7 @@ var dayOfYear = function dayOfYear(d) {
 
 module.exports = dayOfYear;
 
-},{}],10:[function(_dereq_,module,exports){
+},{}],9:[function(_dereq_,module,exports){
 "use strict";
 
 module.exports = {
@@ -804,7 +784,7 @@ module.exports = {
   night: 20
 };
 
-},{}],11:[function(_dereq_,module,exports){
+},{}],10:[function(_dereq_,module,exports){
 'use strict';
 
 module.exports = {
@@ -812,27 +792,10 @@ module.exports = {
   long: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 };
 
-},{}],12:[function(_dereq_,module,exports){
+},{}],11:[function(_dereq_,module,exports){
 'use strict';
 
-var color = _dereq_('./colors');
 var months = _dereq_('./months').short;
-
-//
-
-
-// right padding s with c to a total of n chars
-// function padRight(s, n) {
-//   const c = '.';
-//   if (!s || !c || s.length >= n) {
-//     return s;
-//   }
-//   const max = (n - s.length) / c.length;
-//   for (var i = 0; i < max; i++) {
-//     s += '.';
-//   }
-//   return s;
-// }
 
 var day = function day(d) {
   return months[d.getMonth()] + ' ' + d.getDate();
@@ -842,11 +805,9 @@ var time = function time(d) {
   //hours
   var hour = d.getHours();
   var am = 'am ';
-  var emoji = color.yellow('🌤️');
   if (hour > 12) {
     hour -= 12;
     am = 'pm ';
-    emoji = color.cyan('🌜');
   } else if (hour === 0) {
     hour = 12;
   }
@@ -859,7 +820,7 @@ var time = function time(d) {
   if (('' + minutes).length === 1) {
     minutes = '0' + minutes;
   }
-  var str = hour + ':' + minutes + am + ' ' + emoji;
+  var str = hour + ':' + minutes + am;
   return str;
 };
 
@@ -873,7 +834,7 @@ module.exports = {
   daytime: daytime
 };
 
-},{"./colors":8,"./months":13}],13:[function(_dereq_,module,exports){
+},{"./months":12}],12:[function(_dereq_,module,exports){
 'use strict';
 
 module.exports = {
@@ -881,7 +842,7 @@ module.exports = {
   long: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
 };
 
-},{}],14:[function(_dereq_,module,exports){
+},{}],13:[function(_dereq_,module,exports){
 "use strict";
 
 module.exports = [null, [0, 1], //jan 1
@@ -889,7 +850,7 @@ module.exports = [null, [0, 1], //jan 1
 [6, 1], //july 1
 [9, 1]];
 
-},{}],15:[function(_dereq_,module,exports){
+},{}],14:[function(_dereq_,module,exports){
 'use strict';
 
 // javascript setX methods like setDate() can't be used because of the local bias
@@ -949,7 +910,7 @@ module.exports = {
 
 };
 
-},{"./dayTimes":10}],16:[function(_dereq_,module,exports){
+},{"./dayTimes":9}],15:[function(_dereq_,module,exports){
 'use strict';
 
 var _add = function _add(d, num, unit) {
@@ -1005,7 +966,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{}],17:[function(_dereq_,module,exports){
+},{}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var months = _dereq_('./lib/months');
@@ -1229,7 +1190,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"./lib/dayOfYear":9,"./lib/dayTimes":10,"./lib/days":11,"./lib/months":13,"./lib/quarters":14,"./lib/set":15}],18:[function(_dereq_,module,exports){
+},{"./lib/dayOfYear":8,"./lib/dayTimes":9,"./lib/days":10,"./lib/months":12,"./lib/quarters":13,"./lib/set":14}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var print = {
@@ -1292,7 +1253,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{}],19:[function(_dereq_,module,exports){
+},{}],18:[function(_dereq_,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1383,5 +1344,5 @@ SpaceTime = _dereq_('./methods/format')(SpaceTime);
 
 module.exports = SpaceTime;
 
-},{"./gears/getBias":3,"./gears/getOffset":4,"./methods/format":7,"./methods/move":16,"./methods/query":17,"./methods/same":18}]},{},[6])(6)
+},{"./gears/getBias":3,"./gears/getOffset":4,"./methods/format":7,"./methods/move":15,"./methods/query":16,"./methods/same":17}]},{},[6])(6)
 });
