@@ -1,7 +1,7 @@
 import React from 'react';
 import styler from 'react-styling/flat';
 import ReactDOM from 'react-dom';
-// import Spacetime from '../../builds/spacetime';
+import spacetime from '../../builds/spacetime';
 import { scaleLinear } from 'd3-scale';
 import Radium from 'radium';
 
@@ -21,6 +21,12 @@ day:
   display:block
   height:100
   paddingLeft:150
+controls:
+  color:silver
+  padding:20
+  border:1px solid silver
+margin:
+  padding:20
   `;
 
 const properTime = (h) => {
@@ -45,10 +51,13 @@ class App extends React.Component {
     super();
     this.width = 600;
     this.state = {
+      s: spacetime(Date.now(), 'Canada/Eastern')
     };
     this.scale = scaleLinear().domain([0, 24]).range([0, this.width]);
     this.css = style;
     this.drawDay = this.drawDay.bind(this);
+    this.controls = this.controls.bind(this);
+    this.change = this.change.bind(this);
   }
   drawDay(h) {
     let {scale, css} = this;
@@ -74,10 +83,43 @@ class App extends React.Component {
       </svg>
       );
   }
+  change(action) {
+    let {state, css} = this;
+    let s = state.s;
+    const does = {
+      upHour: () => {
+
+      }
+    };
+  }
+  controls() {
+    let {state, css} = this;
+    let s = state.s;
+    return (
+      <div style={css.controls}>
+        <div>
+          {'epoch: ' + s.epoch}
+        </div>
+        <span style={css.margin}>
+          <input type='button' value={'+ hour'} onClick={this.change.bind('upHour')}/>
+          <input type='button' value={'- hour'} onClick={this.change.bind('downHour')}/>
+        </span>
+        <span style={css.margin}>
+          <input type='button' value={'+ day'} onClick={this.change.bind('upDay')}/>
+          <input type='button' value={'- day'} onClick={this.change.bind('downDay')}/>
+        </span>
+        <span style={css.margin}>
+          <input type='button' value={'+ month'} onClick={this.change.bind('upMonth')}/>
+          <input type='button' value={'- month'} onClick={this.change.bind('downMonth')}/>
+        </span>
+      </div>
+      );
+  }
   render() {
     return (
       <div>
         spacetime demo
+        {this.controls()}
         {this.drawDay(12)}
         {this.drawDay(18)}
       </div>
