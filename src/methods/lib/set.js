@@ -3,7 +3,7 @@
 const dayOfYear = require('./dayOfYear');
 const minute = 60 * 1000;
 const hour = minute * 60;
-const day = hour * 60;
+const day = hour * 24;
 
 module.exports = {
 
@@ -23,12 +23,10 @@ module.exports = {
     return s.epoch - shift;
   },
 
-  date: (s, n) => {
-    let diff = s.date() - s.here().getDate();
-    let tmp = s.d;
-    // tmp.setDate(n - diff);
-    console.log(diff);
-    return tmp.getTime();
+  date: (s, want) => {
+    let diff = want - s.date();
+    let epoch = s.epoch;
+    return epoch + (diff * day);
   },
 
   dayOfYear: (s, n) => {
