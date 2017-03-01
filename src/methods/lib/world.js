@@ -1,5 +1,5 @@
 'use strict';
-const Table = require('cli-table');
+const Table = function() {}; //require('cli-table');
 const colors = require('./colors');
 
 const places = [

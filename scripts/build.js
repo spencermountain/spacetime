@@ -45,4 +45,4 @@ exec(cmd); // --source-map ' + compressed + '.map'
 //print filesizes
 var stats = fs.statSync(compressed);
 var fileSize = (stats['size'] / 1000.0).toFixed(2);
-console.log('\n\n' + fileSize + 'kb');
+console.log('\n\n es5: - - ' + fileSize + 'kb');

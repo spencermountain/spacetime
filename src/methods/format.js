@@ -1,6 +1,6 @@
 'use strict';
 const fmt = require('./lib/fmt');
-const world = require('./lib/world');
+// const world = require('./lib/world');
 
 const addMethods = (Space) => {
 
@@ -19,9 +19,9 @@ const addMethods = (Space) => {
       console.log(fmt.daytime(this.d));
       return this;
     },
-    world: function() {
-      return world(this);
-    },
+  // world: function() {
+  //   return world(this);
+  // },
   };
 
   //hook them into proto
