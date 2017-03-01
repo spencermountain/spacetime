@@ -32,6 +32,10 @@ test('set', (t) => {
   s.quarter(1);
   t.equal(s.month(), 'january', '.quarter()');
 
+  s.hourFloat(7.25);
+  t.equal(s.hour(), 7, '.hour()');
+  t.equal(s.minute(), 15, '.minute()');
+
   t.end();
 });
 

@@ -26,6 +26,23 @@ const addMethods = (Space) => {
       return d.getHours();
     },
 
+    //'3:30' is 3.5
+    hourFloat: function(num) {
+      if (num !== undefined) {
+        let minute = (num % 1);
+        minute = minute * 60;
+        let hour = parseInt(num, 10);
+        this.epoch = set.hours(this, hour);
+        this.epoch = set.minutes(this, minute);
+        return this;
+      }
+      let d = this.d;
+      let hour = d.getHours();
+      let minute = d.getMinutes();
+      minute = minute / 60;
+      return hour + minute;
+    },
+
     date: function(num) {
       if (num !== undefined) {
         this.epoch = set.date(this, num);
