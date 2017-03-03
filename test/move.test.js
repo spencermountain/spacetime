@@ -38,7 +38,7 @@ test('add', (t) => {
 
   s.add(1, 'year');
   t.equal(s.date(), 10, 'moveyear.date()');
-  t.equal(s.month(), 'february', 'moveyear.month()');
+  t.equal(s.monthName(), 'february', 'moveyear.month()');
   t.equal(s.year(), 2018, 'moveyear.year()');
 
   s = spacetime('January 1, 2017 1:20:05', 'Canada/Eastern');
@@ -63,37 +63,37 @@ test('subtract', (t) => {
   t.equal(s.minute(), 20, '.minute()');
 
   s.subtract(1, 'month');
-  t.equal(s.date(), 1, '.date()');
-  t.equal(s.month(), 11, '.month()');
-  t.equal(s.year(), 2015, '.year()');
+  t.equal(s.date(), 1, 'movemonth.date()');
+  t.equal(s.month(), 11, 'movemonth.month()');
+  t.equal(s.year(), 2015, 'movemonth.year()');
 
   s.subtract(2, 'days');
-  t.equal(s.date(), 29, '.date()');
-  t.equal(s.monthName(), 'november', '.month()');
-  t.equal(s.year(), 2015, '.year()');
-  t.equal(s.day(), 'sunday', '.day()');
+  t.equal(s.date(), 29, 'moveday.date()');
+  t.equal(s.monthName(), 'november', 'moveday.month()');
+  t.equal(s.year(), 2015, 'moveday.year()');
+  t.equal(s.dayName(), 'sunday', 'moveday.day()');
 
   s.subtract(1, 'week');
-  t.equal(s.date(), 22, '.date()');
-  t.equal(s.month(), 'november', '.month()');
-  t.equal(s.year(), 2015, '.year()');
-  t.equal(s.day(), 'sunday', '.day()');
+  t.equal(s.date(), 22, 'moveweek.date()');
+  t.equal(s.monthName(), 'november', 'moveweek.month()');
+  t.equal(s.year(), 2015, 'moveweek.year()');
+  t.equal(s.dayName(), 'sunday', 'moveweek.day()');
 
   s.subtract(1, 'year');
-  t.equal(s.date(), 22, '.date()');
-  t.equal(s.monthName(), 'november', '.month()');
-  t.equal(s.year(), 2014, '.year()');
+  t.equal(s.date(), 22, 'moveyear.date()');
+  t.equal(s.monthName(), 'november', 'moveyear.month()');
+  t.equal(s.year(), 2014, 'moveyear.year()');
 
   t.end();
 });
 
 test('hour regression', (t) => {
   let s = spacetime('January 1, 2017 13:20:00', 'Canada/Pacific');
-  t.equal(s.hour(), 13, '.hour()');
-  t.equal(s.minute(), 20, '.minute()');
+  t.equal(s.hour(), 13, 'init.hour()');
+  t.equal(s.minute(), 20, 'init.minute()');
 
   s.add(1, 'hour');
-  t.equal(s.hour(), 15, '.hour()');
+  t.equal(s.hour(), 14, '.hour()');
   t.equal(s.minute(), 20, '.minute()');
   t.end();
 });

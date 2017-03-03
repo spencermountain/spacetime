@@ -18,7 +18,7 @@ test('set', (t) => {
   t.equal(s.minute(), 8, '.minute()');
 
   s.month('february');
-  t.equal(s.month(), 2, '.month()');
+  t.equal(s.month(), 1, '.month()');
 
   s.month('June');
   t.equal(s.monthName(), 'june', '.month()');
@@ -30,7 +30,7 @@ test('set', (t) => {
   t.equal(s.monthName(), 'january', '.week()');
 
   s.quarter(1);
-  t.equal(s.month(), 1, '.quarter()');
+  t.equal(s.quarter(), 1, '.quarter()');
 
   s.hourFloat(7.25);
   t.equal(s.hour(), 7, '.hour()');
@@ -50,7 +50,7 @@ test('set by weekday', (t) => {
   let s = spacetime([2017, 2, 22], 'Canada/Eastern'); //wednesday
   //make sure it's in the right place
   t.equal(s.date(), 22, '.date()');
-  t.equal(s.day(), 'wednesday', '.day()');
+  t.equal(s.dayName(), 'wednesday', '.day()');
   s.day('thursday');
   t.equal(s.date(), 23, 'now thursday');
   s.day('friday');

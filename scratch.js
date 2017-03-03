@@ -5,8 +5,8 @@ let s;
 // s = spacetime('June 22, 2017 20:01:00', 'Australia/Brisbane');
 // s = spacetime('June 22, 2017 10:01:00', 'Canada/Eastern');
 s = spacetime(Date.now(), 'Canada/Pacific');
+
+s.quarter(4);
 s.log();
-s.add(1, 'hours');
-s.log();
-s.add(1, 'hour');
-s.log();
+
+console.log(s.quarter());
