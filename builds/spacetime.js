@@ -72,7 +72,7 @@ var getOffset = function getOffset(tz) {
 
   //add another hour to offset if dst is currently off (in winter)
   //this is not perfect, but it handles us + europe mostly.
-  var inDst = true; //dst(new Date());
+  var inDst = false; //dst(new Date());
   if (inDst === false) {
     offset -= 60;
   }

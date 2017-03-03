@@ -1,3 +1,4 @@
+'use strict';
 import React from 'react';
 import styler from 'react-styling/flat';
 import ReactDOM from 'react-dom';
@@ -7,10 +8,10 @@ import Radium from 'radium';
 
 const timezones = [
   'Canada/Pacific',
-// 'Canada/Eastern',
-// 'Etc/UCT',
-// 'Europe/Istanbul',
-// 'Australia/Brisbane',
+  'Canada/Eastern',
+  'Etc/UCT',
+  'Europe/Istanbul',
+  'Australia/Brisbane',
 ];
 
 const times = [
@@ -75,7 +76,7 @@ class App extends React.Component {
     this.width = 600;
     this.scale = scaleLinear().domain([0, 24]).range([0, this.width]);
     this.state = {
-      s: spacetime(Date.now())
+      s: spacetime(Date.now(), 'Canada/Eastern')
     };
     this.drawDay = this.drawDay.bind(this);
     this.controls = this.controls.bind(this);
@@ -88,7 +89,7 @@ class App extends React.Component {
     let s = state.s;
     const methods = [
       'timeOfDay',
-      'day',
+      'dayName',
       'dayOfYear',
       'week',
       'quarter',
@@ -122,7 +123,7 @@ class App extends React.Component {
     return (
       <div>
         <span>{s.tz}</span>
-        <div>{s.month() + ' ' + s.date()}</div>
+        <div>{s.monthName() + ' ' + s.date()}</div>
         <svg style={css.day} width={this.width} height={25}>
           {paths}
           {bar}
@@ -152,14 +153,14 @@ class App extends React.Component {
         </span>
         <span style={css.margin}>
           <input type='button' value={'+ day'} onClick={() => this.change(1, 'day')}/>
-          <input type='button' value={'- day'} onClick={() => this.change(-1, 'hour')}/>
+          <input type='button' value={'- day'} onClick={() => this.change(-1, 'day')}/>
         </span>
         <span style={css.margin}>
           <input type='button' value={'+ month'} onClick={() => this.change(1, 'month')}/>
           <input type='button' value={'- month'} onClick={() => this.change(-1, 'month')}/>
         </span>
         <span style={css.margin}>
-          <b style={css.format}>{`${s.month()} ${s.date()}, ${s.year()}`}</b>
+          <b style={css.format}>{`${s.monthName()} ${s.date()}, ${s.year()}`}</b>
           <div style={css.format}>{`${s.niceTime()}`}</div>
           {this.showOff()}
         </span>

@@ -11,7 +11,7 @@ const getOffset = (tz) => {
 
   //add another hour to offset if dst is currently off (in winter)
   //this is not perfect, but it handles us + europe mostly.
-  const inDst = true; //dst(new Date());
+  const inDst = false; //dst(new Date());
   if (inDst === false) {
     offset -= 60;
   }
