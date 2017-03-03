@@ -52,6 +52,26 @@ const addMethods = (Space) => {
       return hour + minute;
     },
 
+    ampm: function(input) {
+      let which = 'am';
+      let hour = this.hour();
+      if (hour >= 12) {
+        which = 'pm';
+      }
+      if (input === undefined) {
+        return which;
+      }
+      if (input === which) {
+        return this;
+      }
+      if (input === 'am') {
+        this.subtract(12, 'hours');
+      } else {
+        this.add(12, 'hours');
+      }
+      return this;
+    },
+
     timeOfDay: function(str) {
       //set the time of day
       if (str !== undefined) {

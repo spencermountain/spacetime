@@ -47,6 +47,15 @@ test('set', (t) => {
   t.equal(s.monthName(), 'june', 'season-.month()');
   t.equal(s.date(), 1, 'season-.date()');
 
+
+  s.hour(7);
+  s.ampm('am');
+  t.equal(s.ampm(), 'am', 'ampm-already-ampm()');
+  t.equal(s.hour(), 7, 'ampm-already-hour()');
+  s.ampm('pm');
+  t.equal(s.hour(), 19, 'ampm-hour()');
+  t.equal(s.ampm(), 'pm', 'ampm-ampm()');
+
   t.end();
 });
 
@@ -74,9 +83,11 @@ test('set-tricky', (t) => {
   let s = spacetime('June 22, 2017 13:01:00', 'Canada/Eastern'); //the 22rd
   t.equal(s.date(), 22, '.date()');
   t.equal(s.hour(), 13, '.hour()');
+  t.equal(s.ampm(), 'pm', 'night-here');
 
   s.goto('Australia/Brisbane'); //the 23rd
   t.equal(s.date(), 23, 'tomorrow-there');
+  t.equal(s.ampm(), 'am', 'am-there');
   //make it 1oclock
   s.hour(13);
   t.equal(s.hour(), 13, '.hour-remote');

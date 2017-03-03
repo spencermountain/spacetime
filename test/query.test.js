@@ -8,6 +8,7 @@ test('get', (t) => {
   t.equal(s.year(), 2017, '.year()');
   t.equal(s.quarter(), 1, '.quarter()');
   t.equal(s.hour(), 15, '.hour()');
+  t.equal(s.ampm(), 'pm', '.ampm()');
   t.equal(s.hourFloat(), 15.5, '.hourFloat()');
   t.equal(s.minute(), 30, '.minute()');
   t.equal(s.season(), 'winter', '.season()');
@@ -49,6 +50,7 @@ test('get-weeks', (t) => {
 
 test('day-of-year', (t) => {
   let s = spacetime('January 5, 2017 2:00:00', 'Canada/Eastern');
+  t.equal(s.ampm(), 'am', '.date()');
   t.equal(s.date(), 5, '.date()');
   t.equal(s.dayOfYear(), 5, 'jan-5th()');
 
