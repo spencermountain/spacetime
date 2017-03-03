@@ -165,11 +165,8 @@ const addMethods = (Space) => {
         return this;
       }
       let month = this.d.getMonth();
-      if (month < seasons[0][1]) {
-        return 'winter';
-      }
-      for(let i = 1; i < seasons.length; i++) {
-        if (month <= seasons[i][1]) {
+      for(let i = 0; i < seasons.length - 1; i++) {
+        if (month >= seasons[i][1] && month < seasons[i + 1][1]) {
           return seasons[i][0];
         }
       }

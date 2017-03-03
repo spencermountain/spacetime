@@ -635,7 +635,7 @@ main.version = pkg.version;
 
 module.exports = main;
 
-},{"../package.json":1,"./spacetime":18}],6:[function(_dereq_,module,exports){
+},{"../package.json":1,"./spacetime":19}],6:[function(_dereq_,module,exports){
 'use strict';
 
 var fmt = _dereq_('./lib/fmt');
@@ -805,6 +805,22 @@ module.exports = [null, [0, 1], //jan 1
 },{}],14:[function(_dereq_,module,exports){
 'use strict';
 
+//https://www.timeanddate.com/calendar/aboutseasons.html
+//northern hemisphere hard-coded for now (eep!)
+
+// Spring - from March 1 to May 31;
+// Summer - from June 1 to August 31;
+// Fall (autumn) - from September 1 to November 30; and,
+// Winter - from December 1 to February 28 (February 29 in a leap year).
+module.exports = [['spring', 2, 1], //spring march 1
+['summer', 5, 1], //june 1
+['fall', 8, 1], //sept 1
+['autumn', 8, 1], //sept 1
+['winter', 11, 1]];
+
+},{}],15:[function(_dereq_,module,exports){
+'use strict';
+
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
 var dayTimes = _dereq_('./dayTimes');
@@ -859,7 +875,7 @@ module.exports = {
 
 };
 
-},{"./dayTimes":8,"./ms":12}],15:[function(_dereq_,module,exports){
+},{"./dayTimes":8,"./ms":12}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var ms = _dereq_('./lib/ms');
@@ -898,12 +914,13 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"./lib/ms":12}],16:[function(_dereq_,module,exports){
+},{"./lib/ms":12}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var months = _dereq_('./lib/months');
 var days = _dereq_('./lib/days');
 var quarters = _dereq_('./lib/quarters');
+var seasons = _dereq_('./lib/seasons');
 var dayTimes = _dereq_('./lib/dayTimes');
 var set = _dereq_('./lib/set');
 var _dayOfYear = _dereq_('./lib/dayOfYear');
@@ -951,6 +968,26 @@ var addMethods = function addMethods(Space) {
       var minute = d.getMinutes();
       minute = minute / 60;
       return hour + minute;
+    },
+
+    ampm: function ampm(input) {
+      var which = 'am';
+      var hour = this.hour();
+      if (hour >= 12) {
+        which = 'pm';
+      }
+      if (input === undefined) {
+        return which;
+      }
+      if (input === which) {
+        return this;
+      }
+      if (input === 'am') {
+        this.subtract(12, 'hours');
+      } else {
+        this.add(12, 'hours');
+      }
+      return this;
     },
 
     timeOfDay: function timeOfDay(str) {
@@ -1034,6 +1071,27 @@ var addMethods = function addMethods(Space) {
         }
       }
       return 4;
+    },
+    season: function season(input) {
+      if (input !== undefined) {
+        for (var i = 0; i < seasons.length; i++) {
+          if (input === seasons[i][0]) {
+            this.month(seasons[i][1]);
+            this.date(1);
+          }
+        }
+        return this;
+      }
+      var month = this.d.getMonth();
+      if (month < seasons[0][1]) {
+        return 'winter';
+      }
+      for (var _i = 1; _i < seasons.length; _i++) {
+        if (month <= seasons[_i][1]) {
+          return seasons[_i][0];
+        }
+      }
+      return 'winter';
     },
 
     year: function year(num) {
@@ -1149,7 +1207,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"./lib/dayOfYear":7,"./lib/dayTimes":8,"./lib/days":9,"./lib/months":11,"./lib/quarters":13,"./lib/set":14}],17:[function(_dereq_,module,exports){
+},{"./lib/dayOfYear":7,"./lib/dayTimes":8,"./lib/days":9,"./lib/months":11,"./lib/quarters":13,"./lib/seasons":14,"./lib/set":15}],18:[function(_dereq_,module,exports){
 'use strict';
 
 var print = {
@@ -1212,7 +1270,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{}],18:[function(_dereq_,module,exports){
+},{}],19:[function(_dereq_,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1253,6 +1311,11 @@ var SpaceTime = function () {
     }
     //a js date object
 
+  }, {
+    key: 'isValid',
+    value: function isValid() {
+      return isNaN(this.d.getTime());
+    }
   }, {
     key: 'here',
     value: function here() {
@@ -1303,5 +1366,5 @@ SpaceTime = _dereq_('./methods/format')(SpaceTime);
 
 module.exports = SpaceTime;
 
-},{"./gears/getBias":2,"./gears/getOffset":3,"./methods/format":6,"./methods/move":15,"./methods/query":16,"./methods/same":17}]},{},[5])(5)
+},{"./gears/getBias":2,"./gears/getOffset":3,"./methods/format":6,"./methods/move":16,"./methods/query":17,"./methods/same":18}]},{},[5])(5)
 });

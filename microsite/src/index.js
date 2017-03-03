@@ -99,6 +99,7 @@ class App extends React.Component {
       'dayOfYear',
       'week',
       'quarter',
+      'season',
     ];
     return methods.map((str) => {
       return (
