@@ -6,6 +6,26 @@ import spacetime from '../../builds/spacetime';
 import { scaleLinear } from 'd3-scale';
 import Radium from 'radium';
 
+const months = [
+  'january',
+  'february',
+  'march',
+  'april',
+  'may',
+  'june',
+  'july',
+  'august',
+  'september',
+  'october',
+  'november',
+  'december',
+];
+const dates = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+  10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+  20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+  30, 31, 37
+];
 const timezones = [
   'Canada/Pacific',
   'Canada/Eastern',
@@ -50,24 +70,9 @@ value:
   width:100
   text-align:left
   font-size:20
+tr
+  width:50%
   `;
-
-const properTime = (h) => {
-  let minute = (h % 1) + '';
-  let hour = parseInt(h, 10);
-  let ampm = 'am';
-  if (hour >= 12) {
-    ampm = 'pm';
-    hour -= 12;
-    if (hour == 0) {
-      hour = 12;
-    }
-  }
-  if (minute.length === 1) {
-    minute = '0' + minute;
-  }
-  return `${hour}:${minute}${ampm}`;
-};
 
 class App extends React.Component {
   constructor() {
@@ -76,12 +81,13 @@ class App extends React.Component {
     this.width = 600;
     this.scale = scaleLinear().domain([0, 24]).range([0, this.width]);
     this.state = {
-      s: spacetime(Date.now(), 'Canada/Eastern')
+      s: spacetime(Date.now())
     };
     this.drawDay = this.drawDay.bind(this);
     this.controls = this.controls.bind(this);
     this.change = this.change.bind(this);
     this.showOff = this.showOff.bind(this);
+    this.setEpoch = this.setEpoch.bind(this);
   }
 
   showOff() {
@@ -132,9 +138,22 @@ class App extends React.Component {
       </div>
       );
   }
+  setEpoch(e) {
+    let epoch = e.target.value;
+    this.setState({
+      s: spacetime(epoch)
+    });
+  }
   change(num, unit) {
     let s = this.state.s;
     s.add(num, unit);
+    this.setState({
+      s: s
+    });
+  }
+  set(val, unit) {
+    let s = this.state.s;
+    s[unit](val);
     this.setState({
       s: s
     });
@@ -148,6 +167,17 @@ class App extends React.Component {
           {'epoch: ' + s.epoch}
         </div>
         <span style={css.margin}>
+          <select onChange={(e) => this.set(e.target.value, 'month')}>
+            {months.map((m, i) => <option key={i} value={m}>{m}</option>)}
+          </select>
+        </span>
+        <span style={css.margin}>
+          <select onChange={(e) => this.set(e.target.value, 'date')}>
+            {dates.map((m, i) => <option key={i} value={m}>{m}</option>)}
+          </select>
+        </span>
+        <br/>
+        <span style={css.margin}>
           <input type='button' value={'+ hour'} onClick={() => this.change(1, 'hour')}/>
           <input type='button' value={'- hour'} onClick={() => this.change(-1, 'hour')}/>
         </span>
@@ -156,17 +186,22 @@ class App extends React.Component {
           <input type='button' value={'- day'} onClick={() => this.change(-1, 'day')}/>
         </span>
         <span style={css.margin}>
+          <input type='button' value={'+ week'} onClick={() => this.change(1, 'week')}/>
+          <input type='button' value={'- week'} onClick={() => this.change(-1, 'week')}/>
+        </span>
+        <span style={css.margin}>
           <input type='button' value={'+ month'} onClick={() => this.change(1, 'month')}/>
           <input type='button' value={'- month'} onClick={() => this.change(-1, 'month')}/>
         </span>
         <span style={css.margin}>
-          <b style={css.format}>{`${s.monthName()} ${s.date()}, ${s.year()}`}</b>
-          <div style={css.format}>{`${s.niceTime()}`}</div>
-          {this.showOff()}
+          <input type='button' value={'+ quarter'} onClick={() => this.change(1, 'quarter')}/>
+          <input type='button' value={'- quarter'} onClick={() => this.change(-1, 'quarter')}/>
         </span>
+
       </div>
       );
   }
+
   render() {
     let {state, css} = this;
     let s = state.s;
@@ -178,7 +213,20 @@ class App extends React.Component {
     return (
       <div>
         spacetime demo
-        {this.controls()}
+        <table>
+          <tbody>
+            <tr>
+              <td style={css.tr}>
+                {this.controls()}
+              </td>
+              <td style={css.tr}>
+                <b style={css.format}>{`${s.monthName()} ${s.date()}, ${s.year()}`}</b>
+                <div style={css.format}>{`${s.niceTime()}`}</div>
+                {this.showOff()}
+              </td>
+            </tr>
+          </tbody>
+        </table>
         {places}
       </div>
       );

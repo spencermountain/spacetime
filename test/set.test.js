@@ -43,6 +43,10 @@ test('set', (t) => {
   s.month(1);
   t.equal(s.monthName(), 'february', '.monthNum()');
 
+  s.season('summer');
+  t.equal(s.monthName(), 'june', 'season-.month()');
+  t.equal(s.date(), 1, 'season-.date()');
+
   t.end();
 });
 

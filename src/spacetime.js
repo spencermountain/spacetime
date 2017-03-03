@@ -36,6 +36,10 @@ class SpaceTime {
     return d;
   }
 
+  isValid() {
+    return isNaN(this.d.getTime());
+  }
+
   here() {
     let d = new Date(this.epoch);
     // d.setYear(this.year());

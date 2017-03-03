@@ -2,6 +2,7 @@
 const months = require('./lib/months');
 const days = require('./lib/days');
 const quarters = require('./lib/quarters');
+const seasons = require('./lib/seasons');
 const dayTimes = require('./lib/dayTimes');
 const set = require('./lib/set');
 const dayOfYear = require('./lib/dayOfYear');
@@ -132,6 +133,27 @@ const addMethods = (Space) => {
         }
       }
       return 4;
+    },
+    season: function(input) {
+      if (input !== undefined) {
+        for(let i = 0; i < seasons.length; i++) {
+          if (input === seasons[i][0]) {
+            this.month(seasons[i][1]);
+            this.date(1);
+          }
+        }
+        return this;
+      }
+      let month = this.d.getMonth();
+      if (month < seasons[0][1]) {
+        return 'winter';
+      }
+      for(let i = 1; i < seasons.length; i++) {
+        if (month <= seasons[i][1]) {
+          return seasons[i][0];
+        }
+      }
+      return 'winter';
     },
 
     year: function(num) {

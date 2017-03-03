@@ -10,6 +10,7 @@ test('get', (t) => {
   t.equal(s.hour(), 15, '.hour()');
   t.equal(s.hourFloat(), 15.5, '.hourFloat()');
   t.equal(s.minute(), 30, '.minute()');
+  t.equal(s.season(), 'winter', '.season()');
   t.equal(s.monthName(), 'february', '.month()');
   t.equal(s.dayName(), 'wednesday', '.day()');
   t.end();
