@@ -145,6 +145,16 @@ const addMethods = (Space) => {
     },
 
     month: function(input) {
+      if (input !== undefined) {
+        let d = this.d;
+        d.setMonth(input);
+        this.epoch = d.getTime();
+        return this;
+      }
+      return this.d.getMonth();
+    },
+
+    monthName: function(input) {
       let d = this.d;
       if (input !== undefined) {
         if (typeof input === 'number') {
@@ -167,19 +177,9 @@ const addMethods = (Space) => {
       return months.long[this.d.getMonth()];
     },
 
-    monthNum: function(input) {
-      if (input !== undefined) {
-        let d = this.d;
-        d.setMonth(input);
-        this.epoch = d.getTime();
-        return this;
-      }
-      return this.d.getMonth();
-    },
-
     day: function(input) {
       if (input === undefined) {
-        return days.long[this.d.getDay()];
+        return this.d.getDay();
       }
       let num = input;
       //take 'wednesday'
@@ -209,7 +209,21 @@ const addMethods = (Space) => {
       return this;
     },
 
+    dayName: function(input) {
+      if (input === undefined) {
+        return days.long[this.d.getDay()];
+      }
+      this.day(input);
+      return this;
+    },
+
   };
+
+  //aliases
+  methods.seconds = methods.second;
+  methods.minutes = methods.minute;
+  methods.hours = methods.hour;
+  methods.days = methods.day;
 
   //hook them into proto
   Object.keys(methods).forEach((k) => {

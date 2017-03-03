@@ -7,10 +7,10 @@ import Radium from 'radium';
 
 const timezones = [
   'Canada/Pacific',
-  'Canada/Eastern',
-  'Etc/UCT',
-  'Europe/Istanbul',
-  'Australia/Brisbane',
+// 'Canada/Eastern',
+// 'Etc/UCT',
+// 'Europe/Istanbul',
+// 'Australia/Brisbane',
 ];
 
 const times = [
@@ -133,8 +133,9 @@ class App extends React.Component {
   }
   change(num, unit) {
     let s = this.state.s;
+    s.add(num, unit);
     this.setState({
-      s: s.add(num, unit)
+      s: s
     });
   }
   controls() {
@@ -169,8 +170,9 @@ class App extends React.Component {
     let {state, css} = this;
     let s = state.s;
     let places = timezones.map((tz) => {
-      s.goto(tz);
-      return this.drawDay(s);
+      let d = s.clone();
+      d.goto(tz);
+      return this.drawDay(d);
     });
     return (
       <div>

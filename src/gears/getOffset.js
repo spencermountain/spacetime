@@ -1,5 +1,5 @@
 'use strict';
-const dst = require('dst');
+// const dst = require('dst');
 const timezones = require('./timezones');
 
 const getOffset = (tz) => {
@@ -11,7 +11,7 @@ const getOffset = (tz) => {
 
   //add another hour to offset if dst is currently off (in winter)
   //this is not perfect, but it handles us + europe mostly.
-  const inDst = dst(new Date());
+  const inDst = true; //dst(new Date());
   if (inDst === false) {
     offset -= 60;
   }

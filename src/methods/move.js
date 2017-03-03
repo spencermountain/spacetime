@@ -1,46 +1,27 @@
 'use strict';
-
-const add = function(d, num, unit) {
-  if (unit === 'hour' || unit === 'hours') {
-    d.setHours(d.getHours() + num);
-    return d;
-  }
-  if (unit === 'day' || unit === 'days') {
-    d.setDate(d.getDate() + num);
-    return d;
-  }
-  if (unit === 'week' || unit === 'weeks') {
-    d.setDate(d.getDate() + (num * 7));
-    return d;
-  }
-  if (unit === 'month' || unit === 'months') {
-    d.setMonth(d.getMonth() + num);
-    return d;
-  }
-  if (unit === 'quarter' || unit === 'quarters') {
-    d.setMonth(d.getMonth() + (num * 3));
-    return d;
-  }
-  if (unit === 'year' || unit === 'years') {
-    d.setFullYear(d.getFullYear() + num);
-    return d;
-  }
-  console.warn('no unit: \'' + unit + '\'');
-  return d;
-};
-
+const ms = require('./lib/ms');
 
 const addMethods = (Space) => {
 
   const methods = {
     add: function(num, unit) {
-      let d = add(this.d, num, unit);
-      this.epoch = d.getTime();
+      if (ms[unit] !== undefined) {
+        let shift = num * ms[unit];
+        this.epoch += shift;
+      } else if (unit === 'month' || unit === 'months') {
+        let n = this.month();
+        this.month(n + num);
+      } else if (unit === 'quarter' || unit === 'quarters') {
+        let n = this.quarter();
+        this.quarter(n + num);
+      } else if (unit === 'year' || unit === 'years') {
+        let n = this.year();
+        this.year(n + num);
+      }
       return this;
     },
     subtract: function(num, unit) {
-      let d = add(this.d, num * -1, unit);
-      this.epoch = d.getTime();
+      this.add(num * -1, unit);
       return this;
     },
   };

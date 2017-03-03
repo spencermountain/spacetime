@@ -1,10 +1,7 @@
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
 const dayTimes = require('./dayTimes');
-const second = 1000;
-const minute = 60 * second;
-const hour = minute * 60;
-const day = hour * 24;
+const ms = require('./ms');
 
 module.exports = {
 
@@ -12,14 +9,14 @@ module.exports = {
     let current = s.second();
     let diff = current - n;
     //milliseconds to shift by
-    let shift = diff * second;
+    let shift = diff * ms.second;
     return s.epoch - shift;
   },
   minutes: (s, n) => {
     let current = s.minute();
     let diff = current - n;
     //milliseconds to shift by
-    let shift = diff * minute;
+    let shift = diff * ms.minute;
     return s.epoch - shift;
   },
 
@@ -27,20 +24,20 @@ module.exports = {
     let current = s.hour();
     let diff = current - n;
     //milliseconds to shift by
-    let shift = diff * hour;
+    let shift = diff * ms.hour;
     return s.epoch - shift;
   },
 
   date: (s, want) => {
     let diff = want - s.date();
     let epoch = s.epoch;
-    return epoch + (diff * day);
+    return epoch + (diff * ms.day);
   },
 
   dayOfYear: (s, want) => {
     let diff = want - s.dayOfYear();
     let epoch = s.epoch;
-    return epoch + (diff * day);
+    return epoch + (diff * ms.day);
   },
 
   timeOfDay: (s, str) => {

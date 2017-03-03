@@ -18,30 +18,30 @@ test('set', (t) => {
   t.equal(s.minute(), 8, '.minute()');
 
   s.month('february');
-  t.equal(s.month(), 'february', '.month()');
+  t.equal(s.month(), 2, '.month()');
 
   s.month('June');
-  t.equal(s.month(), 'june', '.month()');
+  t.equal(s.monthName(), 'june', '.month()');
 
   s.month('apr');
-  t.equal(s.month(), 'april', '.month()');
+  t.equal(s.monthName(), 'april', '.month()');
 
   s.week(1);
-  t.equal(s.month(), 'january', '.week()');
+  t.equal(s.monthName(), 'january', '.week()');
 
   s.quarter(1);
-  t.equal(s.month(), 'january', '.quarter()');
+  t.equal(s.month(), 1, '.quarter()');
 
   s.hourFloat(7.25);
   t.equal(s.hour(), 7, '.hour()');
   t.equal(s.minute(), 15, '.minute()');
 
   s.dayOfYear(15);
-  t.equal(s.month(), 'january', 'dayOfYear-.month()');
+  t.equal(s.monthName(), 'january', 'dayOfYear-.month()');
   t.equal(s.date(), 15, '.dayofYear-date');
 
-  s.monthNum(1);
-  t.equal(s.month(), 'february', '.monthNum()');
+  s.month(1);
+  t.equal(s.monthName(), 'february', '.monthNum()');
 
   t.end();
 });
