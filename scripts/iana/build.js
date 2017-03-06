@@ -88,7 +88,7 @@ const doAll = (year) => {
   console.log('==========\n\n\n');
   console.log(all);
   let content = JSON.stringify(all, null, 2);
-  let src = path.join(__dirname, `../../zonefile.${year}.js`);
+  let src = path.join(__dirname, `../../data/zonefile.${year}.js`);
   fs.writeFileSync(src, content, 'utf8');
 };
 

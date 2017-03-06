@@ -16,10 +16,11 @@ const months = [
   'december',
 ];
 // s = spacetime('June 22, 2017 20:01:00', 'Australia/Brisbane');
-s = spacetime('February 22, 2017 20:01:00', 'Canada/Eastern');
-// s = spacetime(Date.now(), 'Canada/Pacific');
+// s = spacetime('March 2, 2017 20:01:00', 'Canada/Eastern');
+s = spacetime(Date.now(), 'Canada/Pacific');
 
+// s.dst();
 months.forEach((m) => {
   s.month(m);
-  console.log(m + ' . . ' + s.month() + ' - - ' + s.season());
+  console.log(m + ' . . ' + s.month() + ' - - ' + s.season() + ' - - ' + s.getOffset());
 });

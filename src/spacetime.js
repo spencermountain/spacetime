@@ -1,12 +1,14 @@
 'use strict';
-const getOffset = require('./gears/getOffset');
+// const getOffset = require('./gears/getOffset');
 const getBias = require('./gears/getBias');
+const DST = require('./gears/dst');
+const zones = require('../data/zonefile.2017');
 
 //fake timezone-support, for fakers
 class SpaceTime {
   constructor(input, tz) {
     //the shift for the given timezone
-    this.offset = getOffset(tz);
+    this.offset = zones[tz].offset;
     this.tz = tz;
     //this computer's built-in offset
     this.bias = getBias();
@@ -18,6 +20,9 @@ class SpaceTime {
       this.epoch = d.getTime() - this.shift();
     }
   }
+  dst() {
+    return DST(this);
+  }
   shift() {
     //movement in milliseconds
     let shift = (this.offset * 60 * 1000);
@@ -25,13 +30,20 @@ class SpaceTime {
     shift = shift + (this.bias * 60 * 1000);
     return shift;
   }
+  getOffset() {
+    let offset = zones[this.tz].offset;
+    if (this.dst()) {
+      return offset - 60;
+    }
+    return offset;
+  }
   //a js date object
   get d() {
     let epoch = this.epoch + this.shift();
     //delete this after..
-    Date.prototype.log = function() {
-      console.log(this.toLocaleDateString().replace(/\/[0-9]{4}/, '') + '  -  ' + this.toLocaleTimeString());
-    };
+    // Date.prototype.log = function() {
+    //   console.log(this.toLocaleDateString().replace(/\/[0-9]{4}/, '') + '  -  ' + this.toLocaleTimeString());
+    // };
     let d = new Date(epoch);
     return d;
   }
