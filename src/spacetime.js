@@ -1,5 +1,4 @@
 'use strict';
-// const getOffset = require('./gears/getOffset');
 const getBias = require('./gears/getBias');
 const DST = require('./gears/dst');
 const zones = require('../data/zonefile.2017');
@@ -8,8 +7,8 @@ const zones = require('../data/zonefile.2017');
 class SpaceTime {
   constructor(input, tz) {
     //the shift for the given timezone
-    this.offset = zones[tz].offset;
     this.tz = tz;
+    this.offset = this.getOffset();
     //this computer's built-in offset
     this.bias = getBias();
 
@@ -31,6 +30,9 @@ class SpaceTime {
     return shift;
   }
   getOffset() {
+    if (!zones[this.tz]) {
+      return 0;
+    }
     let offset = zones[this.tz].offset;
     if (this.dst()) {
       return offset - 60;

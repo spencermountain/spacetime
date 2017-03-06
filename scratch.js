@@ -17,6 +17,7 @@ const months = [
 ];
 // s = spacetime('June 22, 2017 20:01:00', 'Australia/Brisbane');
 // s = spacetime('March 2, 2017 20:01:00', 'Canada/Eastern');
+// s = spacetime(Date.now(), 'Canada/Eastern');
 s = spacetime(Date.now(), 'Canada/Pacific');
 
 // s.dst();
