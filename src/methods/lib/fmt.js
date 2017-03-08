@@ -1,9 +1,10 @@
 'use strict';
 
-function zeroPad(n) {
-  let z = '0';
-  n = n + '';
-  return n.length >= 2 ? n : new Array(2 - n.length + 1).join(z) + n;
+function zeroPad(str, len) {
+  len = len || 2;
+  let pad = '0';
+  str = str + '';
+  return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str;
 }
 
 function titleCase(str){

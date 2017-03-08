@@ -18,6 +18,7 @@ class SpaceTime {
       let d = new Date(input);
       this.epoch = d.getTime();
       let meta = timezone(this);
+      // console.log(meta);
       this.epoch = d.getTime() - meta.current.epochShift;
     }
   }
@@ -26,6 +27,11 @@ class SpaceTime {
   }
   format() {
     return format(this);
+  }
+  log() {
+    console.log('');
+    console.log(format(this).nice.short);
+    return this;
   }
 
   //a js date object
@@ -51,9 +57,9 @@ class SpaceTime {
   //travel to this timezone
   goto(tz) {
     this.tz = tz;
-    let meta = timezone(this);
-    //current offset in minutes
-    this.offset = meta.current.offset;
+    // let meta = timezone(this);
+    // //current offset in minutes
+    // this.offset = meta.current.offset;
     return this;
   }
 }

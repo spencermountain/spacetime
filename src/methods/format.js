@@ -15,21 +15,21 @@ const format = (s) => {
   if (hour24 > 12) {
     hour12 = hour24 - 12;
   }
-  return {
+  let all = {
     numeric: {
       uk: `${fmt.zeroPad(date)}/${fmt.zeroPad(month)}/${year}`, //dd/mm/yyyy
       us: `${fmt.zeroPad(month)}/${fmt.zeroPad(date)}/${year}`, //mm/dd/yyyy
     },
     time: {
-      '12hour': `${hour12}:${minute}${s.ampm()}`, //3:45pm
-      '24hour': `${hour24}:${minute}` //15:45
+      h12: `${hour12}:${fmt.zeroPad(minute)}${s.ampm()}`, //3:45pm
+      h24: `${hour24}:${fmt.zeroPad(minute)}` //15:45
     },
     date: {
       short: `${fmt.titleCase(months.short[month])} ${fmt.ordinal(date)} ${year}`, //Apr 12 2016
       long: `${fmt.titleCase(months.long[month])} ${fmt.ordinal(date)} ${year}`, //April 12 2016
     },
     iso: {
-      local: `${year}-${fmt.zeroPad(month)}-${fmt.zeroPad(date)}T${hour24}:${minute}:${s.second()}:${s.millisecond()}Z`, //2017-03-08T19:45:28.367Z
+      local: `${year}-${fmt.zeroPad(month)}-${fmt.zeroPad(date)}T${hour24}:${fmt.zeroPad(minute)}:${fmt.zeroPad(s.second())}:${fmt.zeroPad(s.millisecond(), 3)}Z`, //2017-03-08T19:45:28.367Z
       utc: (new Date(s.epoch)).toISOString() //2017-03-08T19:45:28.367Z
     },
     day: {
@@ -41,5 +41,10 @@ const format = (s) => {
       long: fmt.titleCase(months.long[month]), //September
     }
   };
+  all.nice = {
+    short: `${fmt.titleCase(months.short[month])} ${fmt.ordinal(date)}, ${all.time.h12}`,
+    long: `${all.day.long} ${fmt.titleCase(months.long[month])} ${fmt.ordinal(date)}, ${all.time.h12}`
+  };
+  return all;
 };
 module.exports = format;

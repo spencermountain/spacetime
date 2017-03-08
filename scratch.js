@@ -16,14 +16,17 @@ const months = [
   'december',
 ];
 // s = spacetime('June 22, 2017 20:01:00', 'Australia/Brisbane');
-// s = spacetime('March 2, 2017 20:01:00', 'Canada/Eastern');
-// s = spacetime(Date.now(), 'Canada/Eastern');
-s = spacetime(Date.now(), 'Canada/Pacific');
+// s = spacetime('March 2, 2017 5:01:00', 'Canada/Eastern');
+// s = spacetime('February 2, 2017 5:01:00', 'Canada/Pacific');
+s = spacetime(Date.now(), 'Canada/Eastern');
+// s = spacetime(Date.now(), 'Canada/Pacific');
 // s = spacetime(Date.now(), 'Asia/Taipei');
 // console.log(s);
-// console.log(s.hour());
+s.log();
+s.goto('Canada/Pacific');
+s.log();
 // console.log(s.timezone());
-console.log(s.format());
+// console.log(s.format());
 
 // const allMonths = function(tz) {
 //   s = spacetime(Date.now(), tz);
