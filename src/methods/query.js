@@ -11,6 +11,13 @@ const addMethods = (Space) => {
 
   const methods = {
 
+    millisecond: function(num) {
+      if (num !== undefined) {
+        this.epoch = set.milliseconds(this, num);
+        return this;
+      }
+      return this.d.getMilliseconds();
+    },
     second: function(num) {
       if (num !== undefined) {
         this.epoch = set.seconds(this, num);

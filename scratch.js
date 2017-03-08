@@ -20,10 +20,10 @@ const months = [
 // s = spacetime(Date.now(), 'Canada/Eastern');
 s = spacetime(Date.now(), 'Canada/Pacific');
 // s = spacetime(Date.now(), 'Asia/Taipei');
-console.log(s);
-console.log(s.hour());
+// console.log(s);
+// console.log(s.hour());
 // console.log(s.timezone());
-// console.log(s.format());
+console.log(s.format());
 
 // const allMonths = function(tz) {
 //   s = spacetime(Date.now(), tz);

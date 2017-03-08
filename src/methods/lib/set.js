@@ -5,6 +5,12 @@ const ms = require('./ms');
 
 module.exports = {
 
+  milliseconds: (s, n) => {
+    let current = s.millisecond();
+    let diff = current - n; //milliseconds to shift by
+    return s.epoch - diff;
+  },
+
   seconds: (s, n) => {
     let current = s.second();
     let diff = current - n;

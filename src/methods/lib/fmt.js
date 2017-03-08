@@ -1,12 +1,15 @@
 'use strict';
 
 function zeroPad(n) {
-  z = z || '0';
+  let z = '0';
   n = n + '';
   return n.length >= 2 ? n : new Array(2 - n.length + 1).join(z) + n;
 }
 
 function titleCase(str){
+  if (!str) {
+    return '';
+  }
   return str[0].toUpperCase() + str.substr(1).toLowerCase();
 }
 
