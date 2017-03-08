@@ -45,6 +45,10 @@ const format = (s) => {
     short: `${fmt.titleCase(months.short[month])} ${fmt.ordinal(date)}, ${all.time.h12}`,
     long: `${all.day.long} ${fmt.titleCase(months.long[month])} ${fmt.ordinal(date)}, ${all.time.h12}`
   };
+  all.full = {
+    short: `${fmt.titleCase(days.short[day])} ${fmt.titleCase(months.short[month])} ${fmt.ordinal(date)} ${year}, ${all.time.h12}`,
+    long: `${fmt.titleCase(days.long[day])} ${fmt.titleCase(months.long[month])} ${fmt.ordinal(date)} ${year}, ${all.time.h12}`,
+  };
   return all;
 };
 module.exports = format;

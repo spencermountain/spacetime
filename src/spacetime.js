@@ -19,7 +19,7 @@ class SpaceTime {
       this.epoch = d.getTime();
       let meta = timezone(this);
       // console.log(meta);
-      this.epoch = d.getTime() - meta.current.epochShift;
+      this.epoch = d.getTime() - meta.current.epochShift - (this.bias * 60 * 1000);
     }
   }
   timezone() {
