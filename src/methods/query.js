@@ -269,6 +269,29 @@ const addMethods = (Space) => {
       return this;
     },
 
+    emoji: function() {
+      const seasons = {
+        spring: '🌱',
+        winter: '⛄',
+        summer: '☀️️',
+        fall: '🍂',
+      };
+      const times = {
+        breakfast: '🍳',
+        morning: '☕',
+        noon: '🌞',
+        lunch: '🎒',
+        afternoon: '🌤️',
+        dinner: '🍽️',
+        evening: '🌆',
+        night: '🛌',
+      };
+      return {
+        time: times[this.timeOfDay()] || '',
+        season: seasons[this.season()] || '',
+      };
+    }
+
   };
 
   //aliases

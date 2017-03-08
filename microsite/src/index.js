@@ -33,6 +33,18 @@ const timezones = [
   'Europe/Istanbul',
   'Australia/Brisbane',
 ];
+const years = [
+  1922,
+  1969,
+  2008,
+  2015,
+  2015,
+  2017,
+  2018,
+  2019,
+  2020,
+  2065,
+];
 
 const times = [
   [0, 6, '#5C456A', ''], //early morning
@@ -71,7 +83,8 @@ value:
   text-align:left
   font-size:20
 tr
-  width:50%
+  // width:50%
+  padding:20px 0px 60px 60px
   `;
 
 class App extends React.Component {
@@ -100,6 +113,7 @@ class App extends React.Component {
       'week',
       'quarter',
       'season',
+    // 'timezone',
     ];
     return methods.map((str) => {
       return (
@@ -177,26 +191,36 @@ class App extends React.Component {
             {dates.map((m, i) => <option key={i} value={m}>{m}</option>)}
           </select>
         </span>
+        <span style={css.margin}>
+          <select onChange={(e) => this.set(e.target.value, 'year')}>
+            {years.map((m, i) => <option key={i} value={m}>{m}</option>)}
+          </select>
+        </span>
         <br/>
         <span style={css.margin}>
-          <input type='button' value={'+ hour'} onClick={() => this.change(1, 'hour')}/>
-          <input type='button' value={'- hour'} onClick={() => this.change(-1, 'hour')}/>
+          hour
+          <input type='button' value={'-'} onClick={() => this.change(-1, 'hour')}/>
+          <input type='button' value={'+'} onClick={() => this.change(1, 'hour')}/>
         </span>
         <span style={css.margin}>
-          <input type='button' value={'+ day'} onClick={() => this.change(1, 'day')}/>
-          <input type='button' value={'- day'} onClick={() => this.change(-1, 'day')}/>
+          day
+          <input type='button' value={'-'} onClick={() => this.change(-1, 'day')}/>
+          <input type='button' value={'+'} onClick={() => this.change(1, 'day')}/>
         </span>
         <span style={css.margin}>
-          <input type='button' value={'+ week'} onClick={() => this.change(1, 'week')}/>
-          <input type='button' value={'- week'} onClick={() => this.change(-1, 'week')}/>
+          week
+          <input type='button' value={'-'} onClick={() => this.change(-1, 'week')}/>
+          <input type='button' value={'+'} onClick={() => this.change(1, 'week')}/>
         </span>
         <span style={css.margin}>
-          <input type='button' value={'+ month'} onClick={() => this.change(1, 'month')}/>
-          <input type='button' value={'- month'} onClick={() => this.change(-1, 'month')}/>
+          month
+          <input type='button' value={'-'} onClick={() => this.change(-1, 'month')}/>
+          <input type='button' value={'+'} onClick={() => this.change(1, 'month')}/>
         </span>
         <span style={css.margin}>
-          <input type='button' value={'+ quarter'} onClick={() => this.change(1, 'quarter')}/>
-          <input type='button' value={'- quarter'} onClick={() => this.change(-1, 'quarter')}/>
+          quarter
+          <input type='button' value={'-'} onClick={() => this.change(-1, 'quarter')}/>
+          <input type='button' value={'+'} onClick={() => this.change(1, 'quarter')}/>
         </span>
 
       </div>
@@ -218,12 +242,12 @@ class App extends React.Component {
           <tbody>
             <tr>
               <td style={css.tr}>
-                {this.controls()}
-              </td>
-              <td style={css.tr}>
                 <b style={css.format}>{`${s.monthName()} ${s.date()}, ${s.year()}`}</b>
                 <div style={css.format}>{`${s.niceTime()}`}</div>
                 {this.showOff()}
+              </td>
+              <td style={css.tr}>
+                {this.controls()}
               </td>
             </tr>
           </tbody>

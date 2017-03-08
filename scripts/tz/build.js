@@ -35,12 +35,12 @@ const parseLine = function(str) {
       meta.season = 'spring';
     }
   }
-  meta.hemisphere = 'south';
+  meta.hem = 's';
   if (meta.on && meta.season === 'spring') {
-    meta.hemisphere = 'north';
+    meta.hem = 'n';
   }
   if (!meta.on && meta.season === 'fall') {
-    meta.hemisphere = 'north';
+    meta.hem = 'n';
   }
   return meta;
 };
@@ -48,25 +48,34 @@ const parseLine = function(str) {
 const fetchZone = function(tz, year) {
   let zone = {
     tz: tz,
-    offset: iana[tz],
+    min: iana[tz],
   };
   let lines = exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n');
   lines.filter(str => str).forEach((str) => {
     let o = parseLine(str);
     if (o.season) {
       zone[o.season] = o.date;
-      zone.hemisphere = o.hemisphere;
     }
+    zone.hem = o.hem;
   });
   let obj = {
     tz: tz,
-    offset: iana[tz]
+    min: iana[tz],
+    hem: zone.hem
   };
   if (zone.spring && zone.fall) {
-    if (zone.hemisphere === 'north') {
+    if (zone.hem === 'n') {
       obj.dst = zone.spring + ' -> ' + zone.fall;
     } else {
       obj.dst = zone.fall + ' -> ' + zone.spring;
+    }
+  }
+  if (!obj.hem) {
+    if (obj.tz.match('^(Australia|Antarctica|America/Argentina)/')) {
+      obj.hem = 's';
+    }
+    if (obj.tz.match('^(Canada|Europe|Asia)/')) {
+      obj.hem = 'n';
     }
   }
   return obj;
@@ -75,26 +84,34 @@ const fetchZone = function(tz, year) {
 const doAll = (year) => {
   const all = whitelist.reduce((h, tz) => {
     let o = fetchZone(tz, year);
-    console.log(o);
-    console.log('\n');
     h[o.tz] = {
-      offset: o.offset
+      min: o.min,
+      hem: o.hem
     };
     if (o.dst) {
       h[o.tz].dst = o.dst;
     }
+    if (!o.dst) {
+      delete o.dst;
+    }
+    if (!o.hem) {
+      delete o.hem;
+    }
+    console.log(o);
+    console.log('\n');
     return h;
   }, {});
   console.log('==========\n\n\n');
   console.log(all);
-  let content = JSON.stringify(all, null, 2);
-  let src = path.join(__dirname, `../../data/zonefile.${year}.js`);
-  fs.writeFileSync(src, content, 'utf8');
+  let stuff = JSON.stringify(all, null, 2);
+
+  let src = path.join(__dirname, `../../data/zonefile.${year}.json`);
+  fs.writeFileSync(src, stuff, 'utf8');
 };
 
 doAll(year);
-// console.log(parseLine('/usr/share/zoneinfo/Europe/Belgrade  Sun Mar 26 01:00:00 2017 UT = Sun Mar 26 03:00:00 2017 CEST isdst=1 gmtoff=7200'));
-// console.log(parseLine('/usr/share/zoneinfo/America/Mexico_City  Sun Apr  2 07:59:59 2017 UT = Sun Apr  2 01:59:59 2017 CST isdst=0 gmtoff=-21600'));
+// console.log(parseLine('/usr/share/zoneinfo/Europe/Belgrade  Sun Mar 26 01:00:00 2017 UT = Sun Mar 26 03:00:00 2017 CEST isdst=1 gmtmin=7200'));
+// console.log(parseLine('/usr/share/zoneinfo/America/Mexico_City  Sun Apr  2 07:59:59 2017 UT = Sun Apr  2 01:59:59 2017 CST isdst=0 gmtmin=-21600'));
 // console.log(fetchZone('Canada/Pacific', 2017));
 // console.log(fetchZone('Europe/Belgrade', 2017));
 // console.log(fetchZone('Australia/Sydney', 2017));
