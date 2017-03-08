@@ -1,39 +1,32 @@
 'use strict';
-const months = require('./months').short;
 
-const day = (d) => {
-  return months[d.getMonth()] + ' ' + d.getDate();
-};
+function zeroPad(n) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= 2 ? n : new Array(2 - n.length + 1).join(z) + n;
+}
 
-const time = (d) => {
-  //hours
-  let hour = d.getHours();
-  let am = 'am ';
-  if (hour > 12) {
-    hour -= 12;
-    am = 'pm ';
-  } else if (hour === 0) {
-    hour = 12;
-  }
-  hour = '' + hour;
-  if (hour.length === 1) {
-    hour = ' ' + hour;
-  }
-  //minutes
-  let minutes = d.getMinutes();
-  if (('' + minutes).length === 1) {
-    minutes = '0' + minutes;
-  }
-  const str = hour + ':' + minutes + am;
-  return str;
-};
+function titleCase(str){
+  return str[0].toUpperCase() + str.substr(1).toLowerCase();
+}
 
-const daytime = (d) => {
-  return '  ' + day(d) + '  ' + time(d);
-};
+function ordinal(i) {
+  let j = i % 10;
+  let k = i % 100;
+  if (j === 1 && k !== 11) {
+    return i + 'st';
+  }
+  if (j === 2 && k !== 12) {
+    return i + 'nd';
+  }
+  if (j === 3 && k !== 13) {
+    return i + 'rd';
+  }
+  return i + 'th';
+}
 
 module.exports = {
-  day: day,
-  time: time,
-  daytime: daytime,
+  zeroPad: zeroPad,
+  titleCase: titleCase,
+  ordinal: ordinal,
 };

@@ -1,9 +1,10 @@
 'use strict';
 const getBias = require('./gears/getBias');
-const DST = require('./gears/dst');
+// const DST = require('./gears/dst');
 const guessTz = require('./gears/guessTz');
 const timezone = require('./gears/timezone');
 const zones = require('../data/zonefile.2017.json');
+const format = require('./methods/format');
 
 //fake timezone-support, for fakers
 class SpaceTime {
@@ -12,22 +13,20 @@ class SpaceTime {
     this.tz = tz || guessTz();
     //this computer's built-in offset
     this.bias = getBias();
-    //
-    this.offset = this.getOffset();
 
     if (typeof input === 'number') {
       this.epoch = input;
     } else {
       let d = new Date(input);
-      this.epoch = d.getTime() - this.shift();
+      let meta = this.timezone();
+      this.epoch = d.getTime() - meta.milliseconds;
     }
   }
   timezone() {
-    let tz = this.tz || guessTz();
-    return timezone(tz);
+    return timezone(this);
   }
-  dst() {
-    return DST(this);
+  format() {
+    return format(this);
   }
   getOffset() {
     if (!zones[this.tz]) {
@@ -69,6 +68,5 @@ class SpaceTime {
 SpaceTime = require('./methods/query')(SpaceTime);
 SpaceTime = require('./methods/move')(SpaceTime);
 SpaceTime = require('./methods/same')(SpaceTime);
-SpaceTime = require('./methods/format')(SpaceTime);
 
 module.exports = SpaceTime;

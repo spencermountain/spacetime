@@ -19,7 +19,9 @@ const months = [
 // s = spacetime('March 2, 2017 20:01:00', 'Canada/Eastern');
 // s = spacetime(Date.now(), 'Canada/Eastern');
 s = spacetime(Date.now());
-console.log(s);
+// console.log(s);
+console.log(s.timezone());
+// console.log(s.format());
 
 // const allMonths = function(tz) {
 //   s = spacetime(Date.now(), tz);
