@@ -1,8 +1,7 @@
 'use strict';
-const getBias = require('./gears/getBias');
-// const DST = require('./gears/dst');
-const guessTz = require('./gears/guessTz');
-const timezone = require('./gears/timezone');
+const getBias = require('./getBias');
+const guessTz = require('./timezone/guessTz');
+const timezone = require('./timezone/index');
 const zones = require('../data/zonefile.2017.json');
 const format = require('./methods/format');
 

@@ -18,7 +18,8 @@ const months = [
 // s = spacetime('June 22, 2017 20:01:00', 'Australia/Brisbane');
 // s = spacetime('March 2, 2017 20:01:00', 'Canada/Eastern');
 // s = spacetime(Date.now(), 'Canada/Eastern');
-s = spacetime(Date.now());
+s = spacetime(Date.now(), 'Canada/Pacific');
+// s = spacetime(Date.now(), 'Asia/Taipei');
 // console.log(s);
 console.log(s.timezone());
 // console.log(s.format());

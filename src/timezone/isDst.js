@@ -15,8 +15,8 @@ const isAfter = function(a, b) {
 };
 
 //is this time between dst.start and dst.end?
-const isDst = (s, obj) => {
-  if (!obj.dst) {
+const isDst = (s, dst) => {
+  if (!dst.start || !dst.end) {
     return false;
   }
   let current = {
@@ -24,8 +24,8 @@ const isDst = (s, obj) => {
     date: s.date(),
     hour: s.hour(),
   };
-  if (isAfter(current, obj.dst.start)) {
-    if (!isAfter(current, obj.dst.end)) {
+  if (isAfter(current, dst.start)) {
+    if (!isAfter(current, dst.end)) {
       return true;
     }
   }
