@@ -19,10 +19,14 @@ const isDst = (s, dst) => {
   if (!dst.start || !dst.end) {
     return false;
   }
+  let d = new Date(s.epoch);
   let current = {
-    month: s.month(),
-    date: s.date(),
-    hour: s.hour(),
+    month: d.getMonth(),
+    date: d.getDate(),
+    hour: d.getHours(),
+  // month: s.month(),
+  // date: s.date(),
+  // hour: s.hour(),
   };
   if (isAfter(current, dst.start)) {
     if (!isAfter(current, dst.end)) {

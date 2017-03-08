@@ -2,7 +2,6 @@
 const getBias = require('./getBias');
 const guessTz = require('./timezone/guessTz');
 const timezone = require('./timezone/index');
-const zones = require('../data/zonefile.2017.json');
 const format = require('./methods/format');
 
 //fake timezone-support, for fakers
@@ -17,8 +16,9 @@ class SpaceTime {
       this.epoch = input;
     } else {
       let d = new Date(input);
-      let meta = this.timezone();
-      this.epoch = d.getTime() - meta.milliseconds;
+      this.epoch = d.getTime();
+      let meta = timezone(this);
+      this.epoch = d.getTime() - meta.current.epochShift;
     }
   }
   timezone() {
@@ -27,20 +27,12 @@ class SpaceTime {
   format() {
     return format(this);
   }
-  getOffset() {
-    if (!zones[this.tz]) {
-      return 0;
-    }
-    let offset = zones[this.tz].offset;
-    if (!this.dst()) {
-      return offset - 60;
-    }
-    return offset;
-  }
+
   //a js date object
   get d() {
+    let meta = timezone(this);
     //movement in milliseconds
-    let shift = (this.offset * 60 * 1000);
+    let shift = meta.current.epochShift;
     //remove this computer's offset
     shift = shift + (this.bias * 60 * 1000);
     let epoch = this.epoch + shift;
@@ -59,7 +51,9 @@ class SpaceTime {
   //travel to this timezone
   goto(tz) {
     this.tz = tz;
-    this.offset = getOffset(tz);
+    let meta = timezone(this);
+    //current offset in minutes
+    this.offset = meta.current.offset;
     return this;
   }
 }

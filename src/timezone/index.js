@@ -65,9 +65,6 @@ const timezone = (s) => {
     };
   }
   meta.current.epochShift = meta.current.offset * 60 * 1000;
-
   return meta;
 };
 module.exports = timezone;
-
-// console.log(timezone_meta('America/Thunder_Bay'));
