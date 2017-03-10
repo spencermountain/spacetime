@@ -12,36 +12,37 @@ module.exports = {
   },
 
   seconds: (s, n) => {
-    let current = s.second();
-    let diff = current - n;
-    //milliseconds to shift by
+    let diff = s.second() - n;
     let shift = diff * ms.second;
     return s.epoch - shift;
   },
   minutes: (s, n) => {
-    let current = s.minute();
-    let diff = current - n;
-    //milliseconds to shift by
+    let diff = s.minute() - n;
     let shift = diff * ms.minute;
     return s.epoch - shift;
   },
 
   hours: (s, n) => {
-    let current = s.hour();
-    let diff = current - n;
-    // console.log(diff);
-    //milliseconds to shift by
+    let diff = s.hour() - n;
     let shift = diff * ms.hour;
-    console.log(shift / 1000 / 60 / 60);
-    let d = new Date(s.epoch - shift);
-    console.log(d.getDate() + ' - ' + d.getHours());
     return s.epoch - shift;
   },
 
-  date: (s, want) => {
-    let diff = want - s.date();
-    let epoch = s.epoch;
-    return epoch + (diff * ms.day);
+  date: (s, n) => {
+    let diff = n - s.date();
+    let shift = diff * ms.day;
+    //test for a dst/leap change
+    s.epoch += shift;
+    let tmp = s.d;
+    if (tmp.getDate() === n) {
+      return s.epoch;
+    }
+    if (tmp.getDate() > n) {
+      // console.warn('applying dst-unshift');
+      return s.epoch - ms.hour;
+    }
+    // console.warn('applying dst-shift');
+    return s.epoch + ms.hour;
   },
 
   dayOfYear: (s, want) => {

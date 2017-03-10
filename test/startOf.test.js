@@ -7,7 +7,6 @@ test('goto is still equal', (t) => {
 
   let monthStart = spacetime('March 1, 1999 00:00:00', 'Canada/Eastern');
   d.startOf('month');
-  console.log(d.monthName());
   // console.log(monthStart.month());
   // t.equal(d.isEqual(monthStart), true, 'month-start');
   t.equal(d.isSame(monthStart, 'day'), true, 'same-day');

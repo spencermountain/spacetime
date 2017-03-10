@@ -50,12 +50,9 @@ s = spacetime('March 1, 2017 15:01:00', 'Canada/Eastern');
 // let monthStart = spacetime('March 1, 1999 00:00:00', 'Canada/Eastern');
 s = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
 // s.startOf('month');
+
 s.hour(0);
-// console.log(s.d.toLocaleString());
-// console.log(s.d.());
-// console.log(s.date());
-// s.date(5);
-// console.log(s.d.toLocaleString());
-// console.log(s.d.getDate());
-// console.log(s.date());
+// s.date(11);
+// s.log();
+s.date(2);
 s.log();
