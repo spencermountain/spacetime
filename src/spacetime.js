@@ -3,6 +3,10 @@ const getBias = require('./getBias');
 const guessTz = require('./timezone/guessTz');
 const timezone = require('./timezone/index');
 const format = require('./methods/format');
+const progress = require('./progress');
+const startOf = require('./startOf');
+const fns = require('./lib/fns');
+
 
 //fake timezone-support, for fakers
 class SpaceTime {
@@ -28,10 +32,17 @@ class SpaceTime {
   format() {
     return format(this);
   }
+  startOf(unit) {
+    return startOf(this, unit);
+  }
+
   log() {
     console.log('');
     console.log(format(this).nice.short);
     return this;
+  }
+  get progress() {
+    return progress(this);
   }
 
   //a js date object
@@ -65,7 +76,8 @@ class SpaceTime {
 }
 //append methods
 SpaceTime = require('./methods/query')(SpaceTime);
-SpaceTime = require('./methods/move')(SpaceTime);
+SpaceTime = require('./methods/add')(SpaceTime);
 SpaceTime = require('./methods/same')(SpaceTime);
+SpaceTime = require('./methods/compare')(SpaceTime);
 
 module.exports = SpaceTime;

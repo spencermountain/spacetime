@@ -16,8 +16,8 @@ const months = [
   'december',
 ];
 // s = spacetime('June 22, 2017 20:01:00', 'Australia/Brisbane');
-s = spacetime('March 2, 2017 15:01:00', 'Canada/Eastern');
-// s = spacetime('February 2, 2017 5:01:00', 'Canada/Pacific');
+// s = spacetime('March 2, 2017 15:01:00', 'Canada/Eastern');
+s = spacetime('February 2, 2017 5:01:00', 'Canada/Pacific');
 // s = spacetime(Date.now(), 'Canada/Eastern');
 // s = spacetime(Date.now(), 'Canada/Pacific');
 // s = spacetime(Date.now(), 'Asia/Taipei');
@@ -28,17 +28,23 @@ s = spacetime('March 2, 2017 15:01:00', 'Canada/Eastern');
 // console.log(s.timezone());
 // console.log(s.format());
 
-const allMonths = function(tz) {
-  s = spacetime(Date.now(), tz);
-  console.log('\n' + tz + ':');
-  months.forEach((m) => {
-    s.month(m);
-    let meta = s.timezone();
-    console.log(m + ' . . ' + meta.current.isDst);
-  });
-};
+// const allMonths = function(tz) {
+//   s = spacetime(Date.now(), tz);
+//   console.log('\n' + tz + ':');
+//   months.forEach((m) => {
+//     s.month(m);
+//     let meta = s.timezone();
+//     console.log(m + ' . . ' + meta.current.isDst);
+//   });
+// };
 // allMonths('Canada/Pacific');
-allMonths('Canada/Eastern');
+// allMonths('Canada/Eastern');
 // allMonths('Australia/Brisbane');
-allMonths('Australia/Canberra');
+// allMonths('Australia/Canberra');
 // console.log(s.format());
+
+// s.startOf('week').log();
+let yest = new Date('February 1, 2017 5:01:00');
+let tmrw = new Date('February 3, 2017 5:01:00');
+console.log(s.isAfter(yest));
+console.log(s.isAfter(tmrw));

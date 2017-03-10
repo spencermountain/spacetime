@@ -39,16 +39,13 @@ class Year extends React.Component {
     let q = this.width / 4;
     let month = this.width / 12;
     let s = this.props.s;
-    console.log(s.timezone());
     let orange = months.map((m, i) => {
       let tmp = s.clone();
       tmp.month(m);
       let meta = tmp.timezone();
-      console.log(meta.current.isDst);
       if (meta.current.isDst) {
         return <rect x={month * i} y={18} width={month} height={2} fill={'orange'} opacity={0.8}/>;
       }
-    //     console.log(m + ' . . ' + meta.current.isDst);
     });
     return (
       <svg width={this.width + 25} height={50}>

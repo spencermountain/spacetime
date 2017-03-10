@@ -15,6 +15,9 @@ const format = (s) => {
   if (hour24 > 12) {
     hour12 = hour24 - 12;
   }
+  if (hour12 === 0) {
+    hour12 = 12;
+  }
   let all = {
     numeric: {
       uk: `${fmt.zeroPad(date)}/${fmt.zeroPad(month)}/${year}`, //dd/mm/yyyy

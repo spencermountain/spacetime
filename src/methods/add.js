@@ -1,5 +1,5 @@
 'use strict';
-const ms = require('./lib/ms');
+const ms = require('../lib/ms');
 
 const addMethods = (Space) => {
 
