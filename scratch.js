@@ -16,8 +16,8 @@ const months = [
   'december',
 ];
 // s = spacetime('June 22, 2017 20:01:00', 'Australia/Brisbane');
-// s = spacetime('March 2, 2017 15:01:00', 'Canada/Eastern');
-s = spacetime('February 2, 2017 5:01:00', 'Canada/Pacific');
+s = spacetime('March 1, 2017 15:01:00', 'Canada/Eastern');
+// s = spacetime('July 2, 2017 5:01:00', 'Canada/Pacific');
 // s = spacetime(Date.now(), 'Canada/Eastern');
 // s = spacetime(Date.now(), 'Canada/Pacific');
 // s = spacetime(Date.now(), 'Asia/Taipei');
@@ -44,7 +44,18 @@ s = spacetime('February 2, 2017 5:01:00', 'Canada/Pacific');
 // console.log(s.format());
 
 // s.startOf('week').log();
-let yest = new Date('February 1, 2017 5:01:00');
-let tmrw = new Date('February 3, 2017 5:01:00');
-console.log(s.isAfter(yest));
-console.log(s.isAfter(tmrw));
+// s.startOf('month').log();
+
+
+// let monthStart = spacetime('March 1, 1999 00:00:00', 'Canada/Eastern');
+s = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
+// s.startOf('month');
+s.hour(0);
+// console.log(s.d.toLocaleString());
+// console.log(s.d.());
+// console.log(s.date());
+// s.date(5);
+// console.log(s.d.toLocaleString());
+// console.log(s.d.getDate());
+// console.log(s.date());
+s.log();

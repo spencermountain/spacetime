@@ -29,8 +29,12 @@ module.exports = {
   hours: (s, n) => {
     let current = s.hour();
     let diff = current - n;
+    // console.log(diff);
     //milliseconds to shift by
     let shift = diff * ms.hour;
+    console.log(shift / 1000 / 60 / 60);
+    let d = new Date(s.epoch - shift);
+    console.log(d.getDate() + ' - ' + d.getHours());
     return s.epoch - shift;
   },
 
