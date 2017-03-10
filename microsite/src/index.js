@@ -115,9 +115,10 @@ class App extends React.Component {
       'week',
       'quarter',
       'season',
+    // 'hemisphere',
     // 'timezone',
     ];
-    return methods.map((str, i) => {
+    let arr = methods.map((str, i) => {
       return (
         <div key={i}>
           <span style={css.key}>{str + ': '}</span>
@@ -125,6 +126,20 @@ class App extends React.Component {
         </div>
         );
     });
+    let obj = s.timezone();
+    arr.push(
+      <div key={'timezone'}>
+          <span style={css.key}>{'hemisphere: '}</span>
+          <span style={css.value}>{obj.hemisphere}</span>
+        </div>
+    );
+    arr.push(
+      <div key={'dst'}>
+          <span style={css.key}>{'dst: '}</span>
+          <span style={css.value}>{'' + obj.current.isDst}</span>
+        </div>
+    );
+    return arr;
   }
   drawDay(s, key) {
     let {scale, css} = this;
