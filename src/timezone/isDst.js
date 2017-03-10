@@ -1,17 +1,14 @@
 'use strict';
 
-const isAfter = function(a, b) {
-  //is it after the starting?
-  if (a.month > b.month) {
-    return true;
-  }
-  if (a.month === b.month && a.date > b.date) {
-    return true;
-  }
-  if (a.month === b.month && a.date === b.date && a.hour >= b.hour) {
-    return true;
-  }
-  return false;
+function zeroPad(str, len) {
+  len = len || 2;
+  let pad = '0';
+  str = str + '';
+  return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str;
+}
+
+const toString = function(o) {
+  return [zeroPad(o.month), zeroPad(o.date), zeroPad(o.hour)].join('-');
 };
 
 //is this time between dst.start and dst.end?
@@ -25,10 +22,19 @@ const isDst = (s, dst) => {
     date: d.getDate(),
     hour: d.getHours(),
   };
-  if (isAfter(current, dst.start)) {
-    if (!isAfter(current, dst.end)) {
-      return true;
-    }
+  current = toString(current);
+  let start = toString(dst.start);
+  let end = toString(dst.end);
+  //in dst, in summer (easy)
+  if (current > start && current < end) {
+    return true;
+  }
+  //in dst, over new-years (trickier)
+  if (current > start && current > end) {
+    return true;
+  }
+  if (current < start && current < end) {
+    return true;
   }
   return false;
 };
