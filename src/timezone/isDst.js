@@ -26,15 +26,19 @@ const isDst = (s, dst) => {
   let start = toString(dst.start);
   let end = toString(dst.end);
   //in dst, in summer (easy)
-  if (current > start && current < end) {
-    return true;
-  }
-  //in dst, over new-years (trickier)
-  if (current > start && current > end) {
-    return true;
-  }
-  if (current < start && current < end) {
-    return true;
+  if (start < end) {
+    if (current > start && current < end) {
+      return true;
+    }
+    return false;
+  } else {
+    //in dst, over new-years (trickier)
+    if (current > start) {
+      return true;
+    }
+    if (current < end) {
+      return true;
+    }
   }
   return false;
 };

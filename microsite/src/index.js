@@ -1,5 +1,6 @@
 'use strict';
 import React from 'react';
+import Year from './year';
 import styler from 'react-styling/flat';
 import ReactDOM from 'react-dom';
 import spacetime from '../../builds/spacetime';
@@ -32,6 +33,7 @@ const timezones = [
   'Etc/UCT',
   'Europe/Istanbul',
   'Australia/Brisbane',
+  'Australia/Canberra',
 ];
 const years = [
   1922,
@@ -115,23 +117,23 @@ class App extends React.Component {
       'season',
     // 'timezone',
     ];
-    return methods.map((str) => {
+    return methods.map((str, i) => {
       return (
-        <div>
+        <div key={i}>
           <span style={css.key}>{str + ': '}</span>
           <span style={css.value}>{s[str]()}</span>
         </div>
         );
     });
   }
-  drawDay(s) {
+  drawDay(s, key) {
     let {scale, css} = this;
     let h = s.hour();
-    let paths = times.map((a) => {
+    let paths = times.map((a, i) => {
       let x = scale(a[0]);
       let width = scale(a[1] - a[0]);
       return (
-        <g height={50} y={50}>
+        <g height={50} y={50} key={i}>
           <text x={x} y={50} fontSize={10} fill={a[2]}>{a[3]}</text>
           <rect x={x} y={25} width={width} height={8} fill={a[2]} />
         </g>
@@ -140,9 +142,15 @@ class App extends React.Component {
     let nowPlace = scale(h);
     let remainder = this.width - nowPlace;
     let bar = <rect x={nowPlace} y={25} width={remainder} height={8} fill={'white'} opacity={0.8}/>;
-    let time = <text x={nowPlace - 15} y={15} fontSize={20} fill={'darkgrey'}>{s.niceTime()}</text>;
+    let time = <text x={nowPlace - 15} y={15} fontSize={20} fill={'darkgrey'}>{s.format().time.h12}</text>;
     return (
-      <div>
+      <div key={key}>
+        <div style={{
+        marginLeft: 500,
+        marginTop: 80
+      }}>
+          <Year width={this.width / 3} s={s}/>
+        </div>
         <span>{s.tz}</span>
         <div>{s.monthName() + ' ' + s.date()}</div>
         <svg style={css.day} width={this.width} height={25}>
@@ -230,10 +238,10 @@ class App extends React.Component {
   render() {
     let {state, css} = this;
     let s = state.s;
-    let places = timezones.map((tz) => {
+    let places = timezones.map((tz, i) => {
       let d = s.clone();
       d.goto(tz);
-      return this.drawDay(d);
+      return this.drawDay(d, i);
     });
     return (
       <div>
@@ -243,7 +251,7 @@ class App extends React.Component {
             <tr>
               <td style={css.tr}>
                 <b style={css.format}>{`${s.monthName()} ${s.date()}, ${s.year()}`}</b>
-                <div style={css.format}>{`${s.niceTime()}`}</div>
+                <div style={css.format}>{`${s.format().time.h12}`}</div>
                 {this.showOff()}
               </td>
               <td style={css.tr}>
@@ -252,6 +260,7 @@ class App extends React.Component {
             </tr>
           </tbody>
         </table>
+        <Year width={this.width / 2} s={s}/>
         {places}
       </div>
       );

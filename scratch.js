@@ -38,6 +38,7 @@ const allMonths = function(tz) {
   });
 };
 // allMonths('Canada/Pacific');
-// allMonths('Canada/Eastern');
+allMonths('Canada/Eastern');
 // allMonths('Australia/Brisbane');
 allMonths('Australia/Canberra');
+// console.log(s.format());
