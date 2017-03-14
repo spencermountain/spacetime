@@ -44,10 +44,9 @@ you may be surprised when you call `.getDate()`, or `.setDate()`, or anything re
 <div align="center">
   <h3>this is a wrapper of the js Date object</h3>
 </div>
-Internally, it can represent any timezone as your own local timezone.
-so when you query it for calendar information, it says the right thing, because it can do that. <b>really</b>.
+Internally, it can ~pretend~ *emulate* any timezone locally. So when you query it for calendar information, it says the right thing, cuz it can do that.
 
-when you ask for non-calendar-based information (like an epoch) you don't need to kick it back again, because it can do that too.
+when you ask for *non-calendar-based* information (like an epoch) you don't need to kick it around again, because it can do that too.
 
 things it does:
 
