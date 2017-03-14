@@ -45,15 +45,15 @@ you may be surprised when you call `.getDate()`, or `.setDate()`, or anything re
   <h3>this is a wrapper of the js Date object</h3>
 </div>
 
-Internally, it can ~pretend~ *emulate* any timezone locally. So when you query it for calendar information, it says the right thing, cuz it can do that.
+Internally, it can ~pretend~ **emulate** another timezone locally. So when you query it for calendar information, it says the right thing, cuz it can do that.
 
-when you ask for **non-calendar-based** information (like an epoch) you don't need to kick it around again, because it can do that too.
+when you ask for **non-calendar-based** information (like an epoch) you don't have to kick it back, cause it can do that too.
 
 things it does:
 
 * **get/set** in remote timezones (like in [moment-timezone](http://momentjs.com))
-* **Daylight-Savings-Time** lookup + support
-* comparison of remote dates+times
+* **Daylight-Savings-Time** support + lookup
+* comparison of ~exotic~ remote dates+times
 * around 25k, <b>IE9+</b>
 
 ## API
