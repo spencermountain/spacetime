@@ -16,9 +16,9 @@ d.getHours() //hmmm
 now it's <b>no-longer universal</b>, but specific to your computer.
 
 <div align="left">
-  <i>it's a little subtle</i> but <code>Date objects</code> always run with a bias of your computer.
+  <i>it's a little subtle</i> but <code>Date objects</code> always run with a bias of your computer or server.
 </div>
-<div align="center">
+<div align="right">
   They can't do anything else.
 </div>
 
