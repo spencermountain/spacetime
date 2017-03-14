@@ -15,16 +15,17 @@ d.getHours() //hmmm
 ```
 now it's <b>no-longer universal</b>, but specific to your computer.
 
-<div align="center">
-  <i>it's a little subtle</i> but `Date objects` always run with a bias of your computer.
+<div align="left">
+  <i>it's a little subtle</i> but <code>Date objects</code> always run with a bias of your computer.
 </div>
-
-They can't do anything else.
+<div align="center">
+  They can't do anything else.
+</div>
 
 <div align="left">
   <h3> try to hack another timezone 😅</h3>
 </div>
-just move forward the epoch..
+just push forward the milliseconds..
 
 ```js
 here = new Date()
