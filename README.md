@@ -2,7 +2,7 @@
   <h3>
    🌠 ...think about it this way,
   </h3>
-  a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 💫<b>entire universe</b>💫
+  a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the <b>entire universe</b>💫
   <div>
     <i>you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code></i>
   </div>
@@ -17,12 +17,12 @@ now it's <b>no-longer universal</b>, but specific to your computer.
 
 <i>it's a little subtle</i>, but `Date objects` always run with a bias of the local calendar.
 
-They can't do anything else, and it's a tricky place to be in these days.
+They can't do anything else.
 
 <div align="left">
-  <h3> try to pretend another timezone 😅</h3>
+  <h3> try to hack another timezone 😅</h3>
 </div>
-just shifting forward the epoch..
+just shift forward the epoch..
 
 ```js
 here = new Date()
@@ -31,15 +31,15 @@ var offset= 5*60*1000
 paris = new Date(here.getTime() + offset)
 paris.getHours() //ohfuuuuuu
 ```
-you are going to be surprised when call `.getDate()`, or `.setDate()`, or anything really.
+you may be surprised when you call `.getDate()`, or `.setDate()`, or anything really.
 
-<b>i know, computers.</b>
+<b>i know right, computers.</b>
 <div align="center">
   <img src="https://cloud.githubusercontent.com/assets/399657/23921748/277df1d8-08d6-11e7-8b64-d92be8750b4c.png"/>
 </div>
 
 this is a wrapper of the js Date object. Internally, it can represent any timezone as your own local timezone.
-so when you query it for calendar information, it says the right thing, because it can do that.
+so when you query it for calendar information, it says the right thing, because it can do that. <b>really</b>.
 
 when you ask for non-calendar-based information (like an epoch) you don't need to kick it back again, because it can do that too.
 
@@ -127,3 +127,5 @@ s.progress().month = 0.23 //(we're a quarter-way through the month)
 s.progress().day = 0.48 //almost noon!
 s.progress().hour = 0.99 // 8:59 and 59seconds
 ```
+
+made by [Smallwins](https://smallwins.today/)
