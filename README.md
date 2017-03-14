@@ -13,16 +13,14 @@
 d = new Date(epoch)
 d.getHours() //hmmm
 ```
-<b>it is no-longer universal</b>, but specific to the calendar of your computer.
+now <b>it's no-longer universal</b>, but specific to your computer.
 
-it's a little sneaky.
-
-`javascript's Date objects` are always running with a bias of the local calendar. They can't do anything else.
+it's a little subtle, but javascript `Date objects` are always running with a bias of the local calendar. They can't do anything else.
 
 <div align="left">
   <h3> try to pretend another timezone 😅</h3>
 </div>
-by shifting forward the epoch..
+just shifting forward the epoch..
 
 ```js
 here = new Date()
