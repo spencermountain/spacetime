@@ -2,27 +2,35 @@
   <h3>
    ...think about it this way,
   </h3>
-  a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 🌠<b>entire universe</b>💫
+  a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 💫<b>entire universe</b>🌠
   <div>
-    <i>(you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code>)</i>
+    <i>you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code></i>
   </div>
 </div>
 
-but...
+but look:
 ```js
 d = new Date(epoch)
 d.getHours() //hmmm
 ```
-<b>it's kinda sneaky,</b>
-
 <div align="center">
-it is no-longer universal. It is specific to the timezone of your computer.
+<b>it's kinda sneaky,</b>
 </div>
 
-~js Date objects~ are always running on the local calendar of the running computer. They can't do anything else.
+it is no-longer universal. It is specific to the timezone of your computer.
+
+javascript's `Date` objects are always running on the local calendar of the running computer. They can't do anything else.
 
 
-if you try to hack another timezone, by shifting forward the epoch, you are going to be surprised when call `.getDate()`, or `.setDate()` for that matter, because computer 🖥 ️
+try to hack another timezone, by shifting forward the epoch..
+```js
+here = new Date()
+// allons-y à Paris!
+var offset= 5*60*1000
+paris = new Date(here.getTime() + offset)
+paris.getHours() //ohfuuuuuu
+```
+you are going to be surprised when call `.getDate()`, or `.setDate()` for that matter, because javascript!
 
 <b>i know,</b>
 <div align="center">
