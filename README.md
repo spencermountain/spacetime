@@ -24,9 +24,14 @@ things it does:
 * metadata about current timezone + Daylight-savings state
 
 ## API
-top-level
 ```js
 var spacetime=require('spacetime')
+
+//couple helper fns:
+s = spacetime.now()
+s = spacetime.today() //this morning
+s = spacetime.tomorrow() //tomorrow morning
+
 
 //date inputs
 s = spacetime(1489520157)//epoch
@@ -34,12 +39,6 @@ s = spacetime([2017, 5, 2])//yyyy, m, d  (zero-based months, 1-based days)
 s = spacetime('July 2, 2017 5:01:00')//iso-thing
 //remotely-understood date
 s = spacetime(1489520157, 'Canada/Pacific')
-
-
-//couple helper fns:
-s = spacetime.now()
-s = spacetime.today() //this morning
-s = spacetime.tomorrow() //tomorrow morning
 
 
 //misc fns
