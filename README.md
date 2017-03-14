@@ -1,5 +1,5 @@
 
-##when you move a js Date object to a remote tz, then call `.getDate()`, you are going to get the wrong date.
+## when you move a js Date object to a remote tz, then call `.getDate()`, you are going to get the wrong date.
 
 this is because js Date objects are always on the local calendar of the running computer.
 ![pasted image at 2017_02_22 10_47 am](https://cloud.githubusercontent.com/assets/399657/23219219/7db8628a-f8ec-11e6-868c-58cf40160936.png)
@@ -23,7 +23,7 @@ things it does:
 
 * metadata about current timezone + Daylight-savings state
 
-##API
+## API
 top-level
 ```js
 var spacetime=require('spacetime')
@@ -35,15 +35,18 @@ s = spacetime('July 2, 2017 5:01:00')//iso-thing
 //remotely-understood date
 s = spacetime(1489520157, 'Canada/Pacific')
 
+
 //couple helper fns:
 s = spacetime.now()
 s = spacetime.today() //this morning
 s = spacetime.tomorrow() //tomorrow morning
 
+
 //misc fns
 s.goto('Australia/Brisbane')  //roll-into a new timezone, at the same moment
 s.clone()   // make a copy
 s.isValid() // sept 32nd -> false
+
 
 //get/set methods
 s.date()//14
@@ -55,16 +58,19 @@ s.day('monday')//change to (this weeks) monday
 s.month('march')//change to (this year's) march 1st
 s.quarter(2)//change to april 1st
 
+
 //add/subtract methods
 s.add(1, 'week')
 s.add(3, 'quarters')
 s.subtract(2, 'months').add(1,'day')
+
 
 //timezone meta-data
 s.timezone().name //'Canada/Eastern' (either inferred or explicit)
 s.timezone().hemisphere //north
 s.timezone().current.offset //-240 (in minutes)
 s.timezone().current.isDst //true
+
 
 //comparisons
 let d = spacetime([2017, 5, 2])
@@ -76,16 +82,19 @@ s.isBefore(d)//false
 s.isSame(d, 'year')//true
 s.isSame(d, 'date')//false
 
+
 //formatting
 s.format().time.short //  '5:01am'
 s.format().numeric.uk //  02/03/2017
 s.format().month.long // 'April'
 s.emoji().season      // '⛄'
 
+
 //calendar-sensitive movement
 s.startOf('day')   // 12:01am
 s.startOf('month') // 12:01am, april 1st
 s.endOf('quarter') // 11:59:59pm, june 30th
+
 
 //percentage-based information
 s.progress().month = 0.23 //(we're a quarter-way through the month)
