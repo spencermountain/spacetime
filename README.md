@@ -136,4 +136,6 @@ s.progress().day = 0.48   //almost noon!
 s.progress().hour = 0.99  //8:59 and 59seconds
 ```
 
-made by [Smallwins](https://smallwins.today/) MIT
+made by [Smallwins](https://smallwins.today/)
+
+MIT
