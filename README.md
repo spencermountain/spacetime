@@ -1,8 +1,22 @@
+## ...think about it this way,
 
-## when you move a js Date object to a remote tz, then call `.getDate()`, you are going to get the wrong date.
+an **unix epoch** is a cosmic _sagan-like_ heart-beat of the 🌠**entire universe**🌛
 
-this is because js Date objects are always on the local calendar of the running computer.
-![pasted image at 2017_02_22 10_47 am](https://cloud.githubusercontent.com/assets/399657/23219219/7db8628a-f8ec-11e6-868c-58cf40160936.png)
+you can get it [online](http://www.convert-unix-time.com/) or with `Date.now()`.
+
+but this:
+```js
+d = new Date(epoch)
+console.log(d.getHours()) //hmmm
+```
+now is no-longer universal. It is specific to the timezone of your computer.
+
+it's kinda sneaky,
+
+this is because js Date objects are always running on the local calendar of the running computer, and cannot represent anything else
+
+if you try to hack another timezone, by shifting forward the epoch, you are going to be surprised when call `.getDate()`, or `.setDate()` for that matter, because 🖥️computer🖥️
+![pasted image at 2017_02_22 10_47 am](https://cloud.githubusercontent.com/assets/399657/23921468/2808b238-08d5-11e7-8856-8aa9a241af8d.png)
 
 this is a wrapper of the js Date object. Internally, it represents any wacky timezone as your own local timezone.
 so whenever you query for calendar information, it says the right thing, because it can do that.
