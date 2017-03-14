@@ -8,12 +8,12 @@
   </div>
 </div>
 
-but look 🤓:
+<i>but look:<i>
 ```js
 d = new Date(epoch)
 d.getHours() //hmmm
 ```
-*it is no-longer universal.* 
+<b>it is no-longer universal.</b>
 
 It is specific to the timezone of your computer.
 
@@ -21,7 +21,7 @@ it's kinda sneaky,
 
 `javascript's Date objects` are always running on the local calendar of its computer. They can't do anything else.
 
-### 😅 try to hack another timezone,
+### try to pretend another timezone 😅
 by shifting forward the epoch..
 ```js
 here = new Date()
@@ -30,9 +30,9 @@ var offset= 5*60*1000
 paris = new Date(here.getTime() + offset)
 paris.getHours() //ohfuuuuuu
 ```
-you are going to be surprised when call `.getDate()`, or `.setDate()` for that matter, because javascript!
+you are going to be surprised when call `.getDate()`, or `.setDate()` for that matter
 
-<b>i know,</b>
+<b>i know, computers.</b>
 <div align="center">
   <img src="https://cloud.githubusercontent.com/assets/399657/23921748/277df1d8-08d6-11e7-8b64-d92be8750b4c.png"/>
 </div>
