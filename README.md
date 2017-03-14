@@ -1,6 +1,6 @@
 <div align="center">
   <h3>
-   ...think about it this way, 🌠
+   ...think about it this way🌠,
   </h3>
   a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 💫<b>entire universe</b>💫
   <div>
