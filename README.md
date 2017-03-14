@@ -1,6 +1,6 @@
 <div align="center">
   <h3>
-   ...think about it this way🌠,
+   🌠...think about it this way,
   </h3>
   a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 💫<b>entire universe</b>💫
   <div>
@@ -8,19 +8,21 @@
   </div>
 </div>
 
-but look:
+but look 🤓:
 ```js
 d = new Date(epoch)
 d.getHours() //hmmm
 ```
+*it is no-longer universal.* 
 
-it is no-longer universal. It is specific to the timezone of your computer.
-<b>it's kinda sneaky,</b>
+It is specific to the timezone of your computer.
 
-javascript's `Date` objects are always running on the local calendar of the running computer. They can't do anything else.
+it's kinda sneaky,
 
+`javascript's Date objects` are always running on the local calendar of its computer. They can't do anything else.
 
-try to hack another timezone, by shifting forward the epoch..
+### 😅 try to hack another timezone,
+by shifting forward the epoch..
 ```js
 here = new Date()
 // allons-y à Paris!
