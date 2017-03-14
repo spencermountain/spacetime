@@ -1,8 +1,8 @@
 <div align="center">
   <h3>
-   ...think about it this way,
+   ...think about it this way, 🌠
   </h3>
-  a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 💫<b>entire universe</b>🌠
+  a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 💫<b>entire universe</b>💫
   <div>
     <i>you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code></i>
   </div>
@@ -13,11 +13,9 @@ but look:
 d = new Date(epoch)
 d.getHours() //hmmm
 ```
-<div align="center">
-<b>it's kinda sneaky,</b>
-</div>
 
 it is no-longer universal. It is specific to the timezone of your computer.
+<b>it's kinda sneaky,</b>
 
 javascript's `Date` objects are always running on the local calendar of the running computer. They can't do anything else.
 
