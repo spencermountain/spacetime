@@ -8,20 +8,20 @@
   </div>
 </div>
 
-<i>but look:<i>
+<i>but look:</i>
 ```js
 d = new Date(epoch)
 d.getHours() //hmmm
 ```
-<b>it is no-longer universal.</b>
+<b>it is no-longer universal</b>, but specific to the calendar of your computer.
 
-It is specific to the timezone of your computer.
+it's a little sneaky.
 
-it's kinda sneaky,
+`javascript's Date objects` are always running with a bias of the local calendar. They can't do anything else.
 
-`javascript's Date objects` are always running on the local calendar of its computer. They can't do anything else.
-
-### try to pretend another timezone 😅
+<div align="center">
+  <h3> try to pretend another timezone 😅</h3>
+</div>
 by shifting forward the epoch..
 ```js
 here = new Date()
@@ -30,23 +30,24 @@ var offset= 5*60*1000
 paris = new Date(here.getTime() + offset)
 paris.getHours() //ohfuuuuuu
 ```
-you are going to be surprised when call `.getDate()`, or `.setDate()` for that matter
+you are going to be surprised when call `.getDate()`, or `.setDate()`
 
 <b>i know, computers.</b>
 <div align="center">
   <img src="https://cloud.githubusercontent.com/assets/399657/23921748/277df1d8-08d6-11e7-8b64-d92be8750b4c.png"/>
 </div>
 
-this is a wrapper of the js Date object. Internally, it can represent any wacky timezone as your own local timezone.
-so whenever you query for calendar information, it says the right thing, because it can do that.
+this is a wrapper of the js Date object. Internally, it can represent any timezone as your own local timezone.
+so when you query it for calendar information, it says the right thing, because it can do that.
 
-when you ask for non-calendar-based information (like an epoch) you don't need to kick it back + forth, because it can do that too.
+when you ask for non-calendar-based information (like an epoch) you don't need to kick it back again, because it can do that too.
 
 things it does:
 
-* Get/Set in remote timezones (like in [momentjs](http://momentjs.com))
-* Daylight-savings support + lookup
-* Lucid comparison of non-local dates
+* get/set in remote timezones (like in [moment-timezone](http://momentjs.com))
+* Daylight-savings lookup + support
+* comparison of non-local dates
+* around 25k, <b>IE9+</b>
 
 ## API
 ```js
