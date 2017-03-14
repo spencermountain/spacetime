@@ -1,6 +1,6 @@
 <div align="center">
   <h3>
-   🌠...think about it this way,
+   🌠 ...think about it this way,
   </h3>
   a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 💫<b>entire universe</b>💫
   <div>
@@ -13,9 +13,11 @@
 d = new Date(epoch)
 d.getHours() //hmmm
 ```
-now <b>it's no-longer universal</b>, but specific to your computer.
+now it's <b>no-longer universal</b>, but specific to your computer.
 
-it's a little subtle, but javascript `Date objects` are always running with a bias of the local calendar. They can't do anything else.
+<i>it's a little subtle</i>, but `Date objects` always run with a bias of the local calendar.
+
+They can't do anything else, and it's a tricky place to be in these days.
 
 <div align="left">
   <h3> try to pretend another timezone 😅</h3>
@@ -29,7 +31,7 @@ var offset= 5*60*1000
 paris = new Date(here.getTime() + offset)
 paris.getHours() //ohfuuuuuu
 ```
-you are going to be surprised when call `.getDate()`, or `.setDate()`
+you are going to be surprised when call `.getDate()`, or `.setDate()`, or anything really.
 
 <b>i know, computers.</b>
 <div align="center">
