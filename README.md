@@ -15,14 +15,16 @@ d.getHours() //hmmm
 ```
 now it's <b>no-longer universal</b>, but specific to your computer.
 
-<i>it's a little subtle</i>, but `Date objects` always run with a bias of the local calendar.
+<div align="center">
+  <i>it's a little subtle</i> but `Date objects` always run with a bias of your computer.
+</div>
 
 They can't do anything else.
 
 <div align="left">
   <h3> try to hack another timezone 😅</h3>
 </div>
-just shift forward the epoch..
+just move forward the epoch..
 
 ```js
 here = new Date()
@@ -38,7 +40,10 @@ you may be surprised when you call `.getDate()`, or `.setDate()`, or anything re
   <img src="https://cloud.githubusercontent.com/assets/399657/23921748/277df1d8-08d6-11e7-8b64-d92be8750b4c.png"/>
 </div>
 
-this is a wrapper of the js Date object. Internally, it can represent any timezone as your own local timezone.
+<div align="center">
+  <h3>this is a wrapper of the js Date object</h3>
+</div>
+Internally, it can represent any timezone as your own local timezone.
 so when you query it for calendar information, it says the right thing, because it can do that. <b>really</b>.
 
 when you ask for non-calendar-based information (like an epoch) you don't need to kick it back again, because it can do that too.
