@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<i>but look:</i>
+<i>but look,</i>
 ```js
 d = new Date(epoch)
 d.getHours() //hmmm
@@ -16,16 +16,16 @@ d.getHours() //hmmm
 now it's <b>no-longer universal</b>, but specific to your computer.
 
 <div align="left">
-  <i>it's a little subtle</i> but <code>Date objects</code> always run with a bias of your computer or server.
+  <i>it's a little subtle</i> but <code>Date objects</code> always run with a bias of your computer.
 </div>
-<div align="right">
-  They can't do anything else.
+<div align="left">
+  It can't do anything else.
 </div>
 
 <div align="left">
-  <h3> try to hack another timezone 😅</h3>
+  <h3>😅 try to hack another timezone 😅</h3>
 </div>
-just push forward the milliseconds..
+by pushing forward the milliseconds..
 
 ```js
 here = new Date()
