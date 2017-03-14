@@ -1,8 +1,8 @@
 <div align="center">
-  <h2>
+  <h3>
    ...think about it this way,
-  </h2>
-  a <b>unix epoch<b> is a cosmic <i>sagan-like<i> heart-beat of the 🌠<b>entire universe</b>🌛
+  </h3>
+  a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 🌠<b>entire universe</b>🌛
   <div>
     you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code>
   </div>
