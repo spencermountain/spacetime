@@ -19,7 +19,9 @@ things it does:
 
 * last/next/this for day, week & year
 
-* current week, quarter, season lookup
+* current week, quarter, season, lookup
+
+* metadata about current timezone + Daylight-savings state
 
 ##API
 top-level
@@ -37,6 +39,11 @@ s = spacetime(1489520157, 'Canada/Pacific')
 s = spacetime.now()
 s = spacetime.today() //this morning
 s = spacetime.tomorrow() //tomorrow morning
+
+//misc fns
+s.goto('Australia/Brisbane')  //roll-into a new timezone, at the same moment
+s.clone()   // make a copy
+s.isValid() // sept 32nd -> false
 
 //get/set methods
 s.date()//14
