@@ -19,10 +19,11 @@ it's a little sneaky.
 
 `javascript's Date objects` are always running with a bias of the local calendar. They can't do anything else.
 
-<div align="center">
+<div align="left">
   <h3> try to pretend another timezone 😅</h3>
 </div>
 by shifting forward the epoch..
+
 ```js
 here = new Date()
 // allons-y à Paris!
