@@ -23,7 +23,7 @@ now it's <b>no-longer universal</b>, but specific to your computer.
 </div>
 
 <div align="left">
-  <h3>😅 try to hack another timezone 😅</h3>
+  <h3>😅 try to hack another timezone</h3>
 </div>
 by pushing forward the milliseconds..
 
@@ -44,31 +44,33 @@ you may be surprised when you call `.getDate()`, or `.setDate()`, or anything re
 <div align="center">
   <h3>this is a wrapper of the js Date object</h3>
 </div>
+
 Internally, it can ~pretend~ *emulate* any timezone locally. So when you query it for calendar information, it says the right thing, cuz it can do that.
 
-when you ask for *non-calendar-based* information (like an epoch) you don't need to kick it around again, because it can do that too.
+when you ask for **non-calendar-based** information (like an epoch) you don't need to kick it around again, because it can do that too.
 
 things it does:
 
-* get/set in remote timezones (like in [moment-timezone](http://momentjs.com))
-* Daylight-savings lookup + support
-* comparison of non-local dates
+* **get/set** in remote timezones (like in [moment-timezone](http://momentjs.com))
+* **Daylight-Savings-Time** lookup + support
+* comparison of remote dates+times
 * around 25k, <b>IE9+</b>
 
 ## API
 ```js
 var spacetime=require('spacetime')
 
-//couple helper fns:
+//couple helpers
 s = spacetime.now()
 s = spacetime.today() //this morning
 s = spacetime.tomorrow() //tomorrow morning
 
 
 //date inputs
-s = spacetime(1489520157)//epoch
-s = spacetime([2017, 5, 2])//yyyy, m, d  (zero-based months, 1-based days)
+s = spacetime(1489520157) //epoch
+s = spacetime([2017, 5, 2]) //yyyy, m, d  (zero-based months, 1-based days)
 s = spacetime('July 2, 2017 5:01:00')//iso-thing
+
 //remotely-understood date
 s = spacetime(1489520157, 'Canada/Pacific')
 
@@ -80,14 +82,14 @@ s.isValid() // sept 32nd -> false
 
 
 //get/set methods
-s.date()//14
-s.year()//2017
-s.season()//spring
-s.hour(5)//change to 5am
-s.date(15)//change to the 15th
-s.day('monday')//change to (this weeks) monday
-s.month('march')//change to (this year's) march 1st
-s.quarter(2)//change to april 1st
+s.date() //14
+s.year() //2017
+s.season() //spring
+s.hour(5) //change to 5am
+s.date(15) //change to the 15th
+s.day('monday') //change to (this weeks) monday
+s.month('march') //change to (this year's) march 1st
+s.quarter(2) //change to april 1st
 
 
 //add/subtract methods
@@ -106,12 +108,13 @@ s.timezone().current.isDst //true
 //comparisons
 let d = spacetime([2017, 5, 2])
 //gt/lt/equals
-s.isAfter(d)//true
-s.isEqual(d)//false
-s.isBefore(d)//false
+s.isAfter(d) //true
+s.isEqual(d) //false
+s.isBefore(d) //false
+
 //comparison-by-unit
-s.isSame(d, 'year')//true
-s.isSame(d, 'date')//false
+s.isSame(d, 'year') //true
+s.isSame(d, 'date') //false
 
 
 //formatting
@@ -129,8 +132,8 @@ s.endOf('quarter') // 11:59:59pm, june 30th
 
 //percentage-based information
 s.progress().month = 0.23 //(we're a quarter-way through the month)
-s.progress().day = 0.48 //almost noon!
-s.progress().hour = 0.99 // 8:59 and 59seconds
+s.progress().day = 0.48   //almost noon!
+s.progress().hour = 0.99  //8:59 and 59seconds
 ```
 
-made by [Smallwins](https://smallwins.today/)
+made by [Smallwins](https://smallwins.today/) MIT
