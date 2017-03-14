@@ -2,49 +2,43 @@
   <h3>
    ...think about it this way,
   </h3>
-  a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 🌠<b>entire universe</b>🌛
+  a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the 🌠<b>entire universe</b>💫
   <div>
-    you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code>
+    <i>(you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code>)</i>
   </div>
 </div>
 
 but...
 ```js
 d = new Date(epoch)
-console.log(d.getHours()) //hmmm
+d.getHours() //hmmm
 ```
-<div align="center">
-now is no-longer universal. It is specific to the timezone of your computer.
-</div>
-
 <b>it's kinda sneaky,</b>
 
-this is because js Date objects are always running on the local calendar of the running computer, and cannot represent anything else
+<div align="center">
+it is no-longer universal. It is specific to the timezone of your computer.
+</div>
+
+~js Date objects~ are always running on the local calendar of the running computer. They can't do anything else.
+
 
 if you try to hack another timezone, by shifting forward the epoch, you are going to be surprised when call `.getDate()`, or `.setDate()` for that matter, because computer 🖥 ️
 
+<b>i know,</b>
 <div align="center">
   <img src="https://cloud.githubusercontent.com/assets/399657/23921748/277df1d8-08d6-11e7-8b64-d92be8750b4c.png"/>
 </div>
 
-this is a wrapper of the js Date object. Internally, it represents any wacky timezone as your own local timezone.
+this is a wrapper of the js Date object. Internally, it can represent any wacky timezone as your own local timezone.
 so whenever you query for calendar information, it says the right thing, because it can do that.
 
-when you ask for non-calendar-based information, like an epoch, you don't need to kick it back + forth, because it can do that too.
+when you ask for non-calendar-based information (like an epoch) you don't need to kick it back + forth, because it can do that too.
 
 things it does:
 
-* easy output of `local`, `remote`, or `utc/epoch` dates
-
-* morning, evening, midnight
-
-* sameDay, week month, year comparisons (tricksy)
-
-* last/next/this for day, week & year
-
-* current week, quarter, season, lookup
-
-* metadata about current timezone + Daylight-savings state
+* Get/Set in remote timezones (like in [momentjs](http://momentjs.com))
+* Daylight-savings support + lookup
+* Lucid comparison of non-local dates
 
 ## API
 ```js
