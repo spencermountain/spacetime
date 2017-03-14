@@ -1,22 +1,31 @@
-## ...think about it this way,
+<div align="center">
+  <h2>
+   ...think about it this way,
+  </h2>
+  a <b>unix epoch<b> is a cosmic <i>sagan-like<i> heart-beat of the 🌠<b>entire universe</b>🌛
+  <div>
+    you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code>
+  </div>
+</div>
 
-an **unix epoch** is a cosmic _sagan-like_ heart-beat of the 🌠**entire universe**🌛
-
-you can get it [online](http://www.convert-unix-time.com/) or with `Date.now()`.
-
-but this:
+but...
 ```js
 d = new Date(epoch)
 console.log(d.getHours()) //hmmm
 ```
+<div align="center">
 now is no-longer universal. It is specific to the timezone of your computer.
+</div>
 
-it's kinda sneaky,
+<b>it's kinda sneaky,</b>
 
 this is because js Date objects are always running on the local calendar of the running computer, and cannot represent anything else
 
-if you try to hack another timezone, by shifting forward the epoch, you are going to be surprised when call `.getDate()`, or `.setDate()` for that matter, because 🖥️computer🖥️
-![pasted image at 2017_02_22 10_47 am](https://cloud.githubusercontent.com/assets/399657/23921468/2808b238-08d5-11e7-8856-8aa9a241af8d.png)
+if you try to hack another timezone, by shifting forward the epoch, you are going to be surprised when call `.getDate()`, or `.setDate()` for that matter, because computer 🖥 ️
+
+<div align="center">
+  <img src="https://cloud.githubusercontent.com/assets/399657/23921748/277df1d8-08d6-11e7-8b64-d92be8750b4c.png"/>
+</div>
 
 this is a wrapper of the js Date object. Internally, it represents any wacky timezone as your own local timezone.
 so whenever you query for calendar information, it says the right thing, because it can do that.
