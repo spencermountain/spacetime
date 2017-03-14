@@ -14,6 +14,10 @@ main.today = function(tz) {
   let space = new Spacetime(new Date().getTime(), tz);
   return space.morning();
 };
+main.tomorrow = function(tz) {
+  let space = new Spacetime(new Date().getTime(), tz);
+  return space.add(1, 'day').morning();
+};
 
 //this is handy
 main.version = pkg.version;
