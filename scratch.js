@@ -1,7 +1,5 @@
 'use strict';
 const spacetime = require('./src');
-let s;
 
-let b = spacetime(Date.now(), 'Canada/Eastern');
-// a = a.format();
-b = b.format();
+let s = spacetime('Feb 22, 2017 15:30:00', 'Canada/Eastern');
+s.log();

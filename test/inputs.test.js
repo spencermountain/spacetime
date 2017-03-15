@@ -10,11 +10,11 @@ test('inputs', (t) => {
   let e = spacetime('2015/03/25');
   let f = spacetime('2015-03-25');
 
-  t.ok(a.isSame(b, 'day'), 'b-is-equal');
-  t.ok(a.isSame(c, 'day'), 'c-is-equal');
-  t.ok(a.isSame(d, 'day'), 'd-is-equal');
-  t.ok(a.isSame(e, 'day'), 'e-is-equal');
-  t.ok(a.isSame(f, 'day'), 'f-is-equal');
+  t.ok(a.isSame(b, 'hour'), 'b-is-equal');
+  t.ok(a.isSame(c, 'hour'), 'c-is-equal');
+  t.ok(a.isSame(d, 'hour'), 'd-is-equal');
+  t.ok(a.isSame(e, 'hour'), 'e-is-equal');
+  t.ok(a.isSame(f, 'hour'), 'f-is-equal');
   t.end();
 });
 

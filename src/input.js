@@ -34,6 +34,20 @@ const handleArray = function(s, arr) {
   return s;
 };
 
+const parseHour = function(s, str) {
+  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?:?([0-9]{1,2})?/);
+  if (arr) {
+    s.hour(arr[1]);
+    s.minute(arr[2]);
+    if (arr[3]) {
+      s.seconds(arr[3]);
+    }
+    if (arr[4]) {
+      s.seconds(arr[4]);
+    }
+  }
+};
+
 const strFmt = [
   //iso "2015-03-25" or "2015/03/25" //0-based-months!
   {
@@ -56,17 +70,21 @@ const strFmt = [
     }
   },
   //Long "Mar 25 2015"
+  //February 22, 2017 15:30:00
   {
-    reg: /^([a-z]+) ([0-9]{1,2}) ([0-9]{4})$/i,
+    reg: /^([a-z]+) ([0-9]{1,2}),? ([0-9]{4}) ([0-9:]+)?$/i,
     parse: (s, arr) => {
       s.month(arr[1]);
       s.date(arr[2]);
       s.year(arr[3]);
+      if (arr[4]) {
+        parseHour(s, arr[4]);
+      }
     }
   },
   //Long "25 Mar 2015"
   {
-    reg: /^([0-9]{1,2}) ([a-z]+) ([0-9]{4})$/i,
+    reg: /^([0-9]{1,2}) ([a-z]+),? ([0-9]{4})$/i,
     parse: (s, arr) => {
       s.date(arr[1]);
       s.month(arr[2]);
