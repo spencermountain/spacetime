@@ -4,8 +4,8 @@ const guessTz = require('./timezone/guessTz');
 const timezone = require('./timezone/index');
 const format = require('./methods/format');
 const progress = require('./progress');
-const startOf = require('./startOf');
-const fns = require('./lib/fns');
+const ends = require('./startOf');
+const handleInput = require('./input');
 
 
 //fake timezone-support, for fakers
@@ -15,16 +15,8 @@ class SpaceTime {
     this.tz = tz || guessTz();
     //this computer's built-in offset
     this.bias = getBias();
-
-    if (typeof input === 'number') {
-      this.epoch = input;
-    } else {
-      let d = new Date(input);
-      this.epoch = d.getTime();
-      let meta = timezone(this);
-      // console.log(meta);
-      this.epoch = d.getTime() - meta.current.epochShift - (this.bias * 60 * 1000);
-    }
+    //parse the various formats
+    handleInput(this, input);
   }
   timezone() {
     return timezone(this);
@@ -33,7 +25,10 @@ class SpaceTime {
     return format(this);
   }
   startOf(unit) {
-    return startOf(this, unit);
+    return ends.startOf(this, unit);
+  }
+  endOf(unit) {
+    return ends.endOf(this, unit);
   }
 
   log() {

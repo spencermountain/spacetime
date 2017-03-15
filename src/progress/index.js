@@ -1,5 +1,5 @@
 'use strict';
-const ms = require('../lib/ms');
+// const ms = require('../lib/milliseconds');
 
 //how far it is, from 0-1
 const year = (s) => {

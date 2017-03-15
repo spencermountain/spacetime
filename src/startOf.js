@@ -66,4 +66,18 @@ const startOf = (s, unit) => {
   }
   return s;
 };
-module.exports = startOf;
+
+//piggy-backs off startOf
+const endOf = (s, unit) => {
+  if (units[unit]) {
+    s = units[unit](s);
+    s.add(1, unit);
+    s.subtract(2, 'milliseconds');
+    return s;
+  }
+  return s;
+};
+module.exports = {
+  startOf: startOf,
+  endOf: endOf
+};

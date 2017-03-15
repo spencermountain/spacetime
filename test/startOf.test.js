@@ -25,13 +25,43 @@ test('start of winter', (t) => {
 
   let start = spacetime('December 1, 2017 00:00:00', 'Canada/Pacific');
   start.millisecond(1);
+  t.equal(d.isEqual(start), true, 'month-is-exactly-start');
 
-  t.equal(d.isEqual(start), true, 'month-start');
   t.equal(d.isSame(start, 'day'), true, 'same-day');
   t.equal(d.isSame(start, 'month'), true, 'same-month');
   t.equal(d.isSame(start, 'year'), true, 'same-year');
   t.equal(d.date(), 1, 'first day');
   t.equal(d.hour(), 0, 'first hour');
+  t.equal(d.minute(), 0, 'first minute');
+  t.equal(d.second(), 0, 'first second');
+
+  t.end();
+});
+
+test('end of day', (t) => {
+  let d = spacetime('March 28, 1999 20:42:00', 'Africa/Algiers');
+  d.endOf('month');
+
+  // let tmp = d.clone();
+  // tmp.add(1, 'second');
+  // t.equal(d.isSame(tmp, 'day'), false, '1-millisecond-changes day');
+
+  let end = spacetime('March 31, 1999 23:59:59', 'Africa/Algiers');
+  // end.millisecond(999);
+  // t.equal(d.isEqual(end), true, 'day-is-exactly-end');
+
+  d.log();
+  end.log();
+  console.log(d.format().iso.local);
+  console.log(end.format().iso.local);
+
+  // t.equal(d.isSame(end, 'day'), false, 'same-day');
+  // t.equal(d.isSame(end, 'month'), true, 'same-month');
+  // t.equal(d.isSame(end, 'year'), true, 'same-year');
+  // t.equal(d.date(), 31, 'last day');
+  // t.equal(d.hour(), 23, 'last hour');
+  // t.equal(d.minute(), 59, 'last minute');
+  // t.equal(d.second(), 59, 'last second');
 
   t.end();
 });

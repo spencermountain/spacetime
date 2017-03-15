@@ -1,7 +1,7 @@
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
 const dayTimes = require('./dayTimes');
-const ms = require('../../lib/ms');
+const ms = require('../../lib/milliseconds');
 
 module.exports = {
 

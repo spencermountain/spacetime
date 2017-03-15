@@ -6,6 +6,9 @@ const day = hour * 24;
 const week = day * 7;
 //
 module.exports = {
+  millisecond: 1,
+  milliseconds: 1,
+
   second: second,
   seconds: second,
 

@@ -302,6 +302,7 @@ const addMethods = (Space) => {
   };
 
   //aliases
+  methods.milliseconds = methods.millisecond;
   methods.seconds = methods.second;
   methods.minutes = methods.minute;
   methods.hours = methods.hour;
