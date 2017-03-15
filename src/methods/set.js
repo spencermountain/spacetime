@@ -1,7 +1,7 @@
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
-const dayTimes = require('./dayTimes');
-const ms = require('../../lib/milliseconds');
+const dayTimes = require('./lib/dayTimes');
+const ms = require('../lib/milliseconds');
 
 const validate = function(n) {
   //handle number as a string
@@ -56,6 +56,14 @@ module.exports = {
     }
     // console.warn('applying dst-shift');
     return s.epoch + ms.hour;
+  },
+
+  year: (s, n) => {
+    n = validate(n);
+    let diff = n - s.year();
+    let shift = diff * ms.year;
+    s.epoch += shift;
+    return s.epoch;
   },
 
   dayOfYear: (s, want) => {

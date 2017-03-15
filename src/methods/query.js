@@ -4,7 +4,7 @@ const days = require('./lib/days');
 const quarters = require('../lib/quarters');
 const seasons = require('../lib/seasons');
 const dayTimes = require('./lib/dayTimes');
-const set = require('./lib/set');
+const set = require('./set');
 const dayOfYear = require('./lib/dayOfYear');
 
 const clearMinutes = function(s) {
@@ -195,6 +195,7 @@ const addMethods = (Space) => {
         let d = this.d;
         d.setFullYear(num);
         this.epoch = d.getTime();
+        // this.epoch = set.year(this, num);
         return this;
       }
       return this.d.getFullYear();

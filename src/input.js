@@ -76,6 +76,7 @@ const strFmt = [
       s.month(arr[1]);
       s.date(arr[2]);
       s.year(arr[3]);
+      s.log();
       if (arr[4]) {
         parseHour(s, arr[4]);
       }

@@ -32,7 +32,7 @@ const format = (s) => {
       long: `${fmt.titleCase(months.long[month])} ${fmt.ordinal(date)} ${year}`, //April 12 2016
     },
     iso: {
-      short: `${year}-${fmt.zeroPad(month)}-${fmt.zeroPad(date)}`, //2017-02-15 
+      short: `${year}-${fmt.zeroPad(month)}-${fmt.zeroPad(date)}`, //2017-02-15
       local: `${year}-${fmt.zeroPad(month)}-${fmt.zeroPad(date)}T${hour24}:${fmt.zeroPad(minute)}:${fmt.zeroPad(s.second())}:${fmt.zeroPad(s.millisecond(), 3)}Z`, //2017-03-08T19:45:28.367Z
       utc: (new Date(s.epoch)).toISOString(), //2017-03-08T19:45:28.367Z
     },
