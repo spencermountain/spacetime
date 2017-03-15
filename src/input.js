@@ -35,6 +35,7 @@ const handleArray = function(s, arr) {
 };
 
 const parseHour = function(s, str) {
+  str = str.replace(/^\s+/, ''); //trim
   let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?:?([0-9]{1,2})?/);
   if (arr) {
     s.hour(arr[1]);
@@ -72,7 +73,7 @@ const strFmt = [
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {
-    reg: /^([a-z]+) ([0-9]{1,2}),? ([0-9]{4}) ([0-9:]+)?$/i,
+    reg: /^([a-z]+) ([0-9]{1,2}),? ([0-9]{4})( ([0-9:]+))?$/i,
     parse: (s, arr) => {
       s.month(arr[1]);
       s.date(arr[2]);

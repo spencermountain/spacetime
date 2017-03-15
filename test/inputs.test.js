@@ -18,6 +18,15 @@ test('inputs', (t) => {
   t.end();
 });
 
+test('hour-inputs', (t) => {
+  let s = spacetime('March 21, 2017 20:42:00');
+  t.equal(s.date(), 21, 'before-dst.date()');
+
+  s = spacetime('March 11, 2017 20:42:00');
+  t.equal(s.date(), 11, 'after-dst.date()');
+  t.end();
+});
+
 test('null input', (t) => {
 
   let a = spacetime(null, 'Canada/Eastern');
