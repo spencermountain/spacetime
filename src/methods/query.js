@@ -1,8 +1,8 @@
 'use strict';
 const months = require('./lib/months');
 const days = require('./lib/days');
-const quarters = require('./lib/quarters');
-const seasons = require('./lib/seasons');
+const quarters = require('../lib/quarters');
+const seasons = require('../lib/seasons');
 const dayTimes = require('./lib/dayTimes');
 const set = require('./lib/set');
 const dayOfYear = require('./lib/dayOfYear');
