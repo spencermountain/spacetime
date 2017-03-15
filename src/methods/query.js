@@ -7,6 +7,12 @@ const dayTimes = require('./lib/dayTimes');
 const set = require('./lib/set');
 const dayOfYear = require('./lib/dayOfYear');
 
+const clearMinutes = function(s) {
+  s.minute(0);
+  s.second(0);
+  s.millisecond(1);
+};
+
 const addMethods = (Space) => {
 
   const methods = {
@@ -121,6 +127,7 @@ const addMethods = (Space) => {
         this.month(0);
         this.date(1);
         this.day(1); //monday
+        clearMinutes(this);
         num -= 1; //1-based
         this.add(num, 'weeks');
         return this;
@@ -129,8 +136,7 @@ const addMethods = (Space) => {
       let tmp = this.clone();
       tmp.month(0);
       tmp.date(1);
-      tmp.hour(0);
-      tmp.minute(1);
+      clearMinutes(tmp);
       tmp.day(1); //monday
       const thisOne = this.epoch;
       //if the week technically hasn't started yet
@@ -151,6 +157,8 @@ const addMethods = (Space) => {
         let month = quarters[num][0];
         this.month(month);
         this.date(1);
+        this.hour(0);
+        clearMinutes(this);
         return this;
       }
       let month = this.d.getMonth();
@@ -167,6 +175,8 @@ const addMethods = (Space) => {
           if (input === seasons[i][0]) {
             this.month(seasons[i][1]);
             this.date(1);
+            this.hour(0);
+            clearMinutes(this);
           }
         }
         return this;

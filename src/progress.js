@@ -1,10 +1,9 @@
 'use strict';
-
-//how far it is, from 0-1
+//how far it is along, from 0-1
 const progress = function(s) {
   const units = [
     'year',
-    // 'season',
+    'season',
     'quarter',
     'month',
     'week',
@@ -16,10 +15,16 @@ const progress = function(s) {
   units.forEach((k) => {
     let start = s.clone().startOf(k);
     let end = s.clone().endOf(k);
-    let duration = end.epoch - start.epoch + 1;
+    let duration = end.epoch - start.epoch;
+    // if (k === 'season') {
+    //   start.log();
+    //   end.log();
+    //   console.log(k, duration);
+    // }
     let percent = (s.epoch - start.epoch) / duration;
     obj[k] = parseFloat(percent.toFixed(2));
   });
   return obj;
 };
+
 module.exports = progress;

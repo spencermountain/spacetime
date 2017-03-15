@@ -12,8 +12,6 @@ const isArray = function(input) {
   return Object.prototype.toString.call(input) === '[object Array]';
 };
 
-const zeroHour = function() {};
-
 //support [2016, 03, 01] format
 const handleArray = function(s, arr) {
   let units = [
