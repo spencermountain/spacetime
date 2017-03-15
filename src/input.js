@@ -12,6 +12,8 @@ const isArray = function(input) {
   return Object.prototype.toString.call(input) === '[object Array]';
 };
 
+const zeroHour = function() {};
+
 //support [2016, 03, 01] format
 const handleArray = function(s, arr) {
   let units = [
@@ -25,28 +27,30 @@ const handleArray = function(s, arr) {
   ];
   for(let i = 0; i < arr.length; i++) {
     let unit = units[i];
-    let num = arr[i];
-    console.log(num);
+    let num = arr[i] || 0;
     s[unit](num);
   }
+  // s.millisecond(1);
   return s;
 };
 
 const strFmt = [
-  //iso "2015-03-25" or "2015/03/25"
+  //iso "2015-03-25" or "2015/03/25" //0-based-months!
   {
     reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2})$/,
     parse: (s, arr) => {
       s.year(arr[1]);
-      s.month(arr[2]);
+      let month = parseInt(arr[2], 10) - 1;
+      s.month(month);
       s.date(arr[3]);
     }
   },
-  //short - uk "03/25/2015"
+  //short - uk "03/25/2015"  //0-based-months!
   {
-    reg: /^([0-9]{1,2})-([0-9]{1,2})-([0-9]{4})$/,
+    reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]([0-9]{4})$/,
     parse: (s, arr) => {
-      s.month(arr[1]);
+      let month = parseInt(arr[1], 10) - 1;
+      s.month(month);
       s.date(arr[2]);
       s.year(arr[3]);
     }
@@ -74,7 +78,7 @@ const strFmt = [
 //find the epoch from different input styles
 const parseInput = (s, input) => {
   if (typeof input === 'number') {
-    this.epoch = input;
+    s.epoch = input;
     return;
   }
   //set tmp time

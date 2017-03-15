@@ -5,6 +5,12 @@ const spacetime = require('../src');
 test('set', (t) => {
   let s = spacetime('June 22, 2017 20:12:01', 'Canada/Pacific');
 
+  s.date(5);
+  t.equal(s.date(), 5, '.date(5)');
+
+  s.date('24');
+  t.equal(s.date(), 24, '.date-string-int');
+
   s.date(12);
   t.equal(s.date(), 12, '.date()');
 
