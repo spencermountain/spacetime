@@ -1,24 +1,25 @@
 'use strict';
-// const ms = require('../lib/milliseconds');
 
 //how far it is, from 0-1
-const year = (s) => {
-  return s.dayOfYear() / 365;
-};
-const day = (s) => {
-  return s.hour() / 24;
-};
-const hour = (s) => {
-  return s.minute() / 60;
-};
 const progress = function(s) {
-  const k = 3;
-  s = s.clone();
-
-  return {
-    year: year(s).toFixed(k),
-    day: day(s).toFixed(k),
-    hour: hour(s).toFixed(k),
-  };
+  const units = [
+    'year',
+    // 'season',
+    'quarter',
+    'month',
+    'week',
+    'day',
+    'hour',
+    'minute',
+  ];
+  let obj = {};
+  units.forEach((k) => {
+    let start = s.clone().startOf(k);
+    let end = s.clone().endOf(k);
+    let duration = end.epoch - start.epoch + 1;
+    let percent = (s.epoch - start.epoch) / duration;
+    obj[k] = parseFloat(percent.toFixed(2));
+  });
+  return obj;
 };
 module.exports = progress;

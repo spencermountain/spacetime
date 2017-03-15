@@ -1,26 +1,15 @@
 'use strict';
-const second = 1000;
-const minute = 60 * second;
-const hour = minute * 60;
-const day = hour * 24;
-const week = day * 7;
-//
-module.exports = {
-  millisecond: 1,
-  milliseconds: 1,
-
-  second: second,
-  seconds: second,
-
-  minute: minute,
-  minutes: minute,
-
-  hour: hour,
-  hours: hour,
-
-  day: day,
-  days: day,
-
-  week: week,
-  weeks: week,
+let o = {
+  millisecond: 1
 };
+o.second = o.millisecond * 1000;
+o.minute = o.second * 60;
+o.hour = o.minute * 60;
+o.day = o.hour * 24;
+o.week = o.day * 7;
+
+//add plurals
+Object.keys(o).forEach((k) => {
+  o[k + 's'] = o[k];
+});
+module.exports = o;

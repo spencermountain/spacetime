@@ -36,7 +36,7 @@ class SpaceTime {
     console.log(format(this).nice.short);
     return this;
   }
-  get progress() {
+  progress() {
     return progress(this);
   }
 

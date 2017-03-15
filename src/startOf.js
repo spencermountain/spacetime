@@ -11,6 +11,11 @@ const toHour = function(s, h) {
 };
 
 const units = {
+  minute: (s) => {
+    s.second(0);
+    s.millisecond(0);
+    return s;
+  },
   hour: (s) => {
     s.minute(0);
     s.second(0);

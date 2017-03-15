@@ -1,10 +1,10 @@
 'use strict';
 const spacetime = require('./src');
 
-let s = spacetime('March 11, 2017 20:42:00');
-// console.log(s.date());
+// let a = spacetime('March 14, 2017 22:48:00', 'Africa/Algiers');
+// let b = spacetime('March 14, 2017 22:48:00', 'Canada/Pacific');
+let b = spacetime();
+// a.log();
+b.log();
 
-// let b = spacetime('25 Mar 2015');
-// b.log();
-let c = spacetime('Mar 25 2015');
-c.log();
+console.log(b.progress());

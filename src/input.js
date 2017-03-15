@@ -2,7 +2,7 @@
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
 //=========================================
-// ISO Date	"2015-03-25" (The International Standard)
+// ISO Date	  "2015-03-25"
 // Short Date	"03/25/2015" or "2015/03/25"
 // Long Date	"Mar 25 2015" or "25 Mar 2015"
 // Full Date	"Wednesday March 25 2015"
