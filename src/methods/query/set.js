@@ -3,6 +3,7 @@
 const dayTimes = require('../lib/dayTimes');
 const ms = require('../../lib/milliseconds');
 const months = require('../lib/months');
+const monthLength = require('../lib/monthLength');
 
 const validate = function(n) {
   //handle number as a string
@@ -66,13 +67,35 @@ module.exports = {
     return s.epoch;
   },
 
+  //support setting time by '4:25pm' - this isn't very-well developed..
+  time: (s, str) => {
+    let m = str.match(/([0-9]{1,2}):([0-9]{1,2})(am|pm)?/);
+    if (!m) {
+      return s.epoch;
+    }
+    let h24 = false;
+    let hour = parseInt(m[1], 10);
+    let minute = parseInt(m[2], 10);
+    if (hour > 12) {
+      h24 = true;
+    }
+    if (!h24 && m[3] === 'pm') {
+      hour += 12;
+    }
+    s.hour(hour);
+    s.minute(minute);
+    s.second(0);
+    s.millisecond(0);
+    return s.epoch;
+  },
+
   date: (s, n) => {
     n = validate(n);
     let old = s.clone();
     let diff = n - s.date();
     let shift = diff * ms.day;
     s.epoch += shift;
-    //test for a dst/leap change
+    //account for a dst/leap change
     confirm(s, old, 'hour');
     return s.epoch;
   },
@@ -84,10 +107,20 @@ module.exports = {
       n = months.mapping[n.toLowerCase()];
     }
     n = validate(n);
+    //months are zero-based
+    let date = s.date();
+    //there's no 30th of february, etc.
+    if (date > monthLength[n]) {
+      //make it as close as we can..
+      date = monthLength[n];
+    }
+    s.date(date);
+    // s.log();
     let diff = n - s.month();
     let shift = diff * ms.month;
     s.epoch += shift;
-    confirm(s, old, 'date');
+    s.date(date);
+    confirm(s, old, 'hour');
     return s.epoch;
   },
 
@@ -97,6 +130,7 @@ module.exports = {
     let diff = n - s.year();
     let shift = diff * ms.year;
     s.epoch += shift;
+    //account for a dst/leap change
     confirm(s, old, 'month');
     return s.epoch;
   },

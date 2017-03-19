@@ -62,6 +62,17 @@ test('set', (t) => {
   t.equal(s.hour(), 19, 'ampm-hour()');
   t.equal(s.ampm(), 'pm', 'ampm-ampm()');
 
+  s.time('5:25');
+  t.equal(s.hour(), 5, 'time-hour()');
+  t.equal(s.minute(), 25, 'time-minute()');
+  s.time('5:20pm');
+  t.equal(s.hour(), 17, 'time-hour-pm()');
+  t.equal(s.minute(), 20, 'time-minute-pm()');
+  s.time('13:20pm');
+  t.equal(s.hour(), 13, 'time-hour-24h()');
+  t.equal(s.minute(), 20, 'time-minute-24h()');
+
+
   t.end();
 });
 

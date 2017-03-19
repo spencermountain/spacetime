@@ -154,7 +154,7 @@ for reference:
 ####non-destructive
 *millisecond()*, *second()*, *minute()*, *hour()*, *date()*
 ####destructive
-*week()*, *quarter()*, *hourFloat()*, *season()*, *emoji()*
+*week()*, *quarter()*, *hourFloat()*, *season()*, *time()*
 ####sometimes-destructive
 *month()*, *year()*
 ```js

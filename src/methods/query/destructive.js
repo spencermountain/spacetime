@@ -13,6 +13,15 @@ const clearMinutes = function(s) {
 
 module.exports = {
 
+  //some ambiguity here with 12/24h
+  time: function(str) {
+    if (str !== undefined) {
+      this.epoch = set.time(this, str);
+      return this;
+    }
+    return this.format().time.h12;
+  },
+
   //since the start of the year
   week: function(num) {
     if (num !== undefined) {
@@ -45,13 +54,19 @@ module.exports = {
   },
 
   quarter: function(num) {
-    if (num !== undefined && quarters[num]) {
-      let month = quarters[num][0];
-      this.month(month);
-      this.date(1);
-      this.hour(0);
-      clearMinutes(this);
-      return this;
+    if (num !== undefined) {
+      if (typeof num === 'string') {
+        num = num.replace(/^q/i, '');
+        num = parseInt(num, 10);
+      }
+      if (quarters[num]) {
+        let month = quarters[num][0];
+        this.month(month);
+        this.date(1);
+        this.hour(0);
+        clearMinutes(this);
+        return this;
+      }
     }
     let month = this.d.getMonth();
     for(let i = 1; i < quarters.length; i++) {

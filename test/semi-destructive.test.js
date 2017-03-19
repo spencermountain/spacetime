@@ -6,7 +6,7 @@ test('non-destructive', (t) => {
   let s = spacetime([2017, 5, 25]);
   s.seconds(5);
   s.year(2025);
-  t.equal(s.date(), 5, 'init-date');
+  t.equal(s.date(), 25, 'init-date');
   t.equal(s.seconds(), 5, 'still-5-seconds');
 
   //but this method 0's-out things:
@@ -28,7 +28,7 @@ test('semi-destructive', (t) => {
   s.month('february');
   t.equal(s.monthName(), 'february', 'now-february');
   //close-as-possible
-  t.equal(s.date(), 28, 'still-12th');
+  t.equal(s.date(), 28, 'now-28th');
 
   t.end();
 });
