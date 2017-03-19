@@ -136,5 +136,24 @@ s.progress().day = 0.48   //almost noon!
 s.progress().hour = 0.99  //8:59 and 59seconds
 ```
 
+when it comes to setting new values, some commands are destructive to smaller values, like seconds, and others are not. For example:
+```js
+s= spacetime([2017,5,25])
+s.seconds(5)
+s.year(2025)
+s.seconds()//still 5
+
+//but,
+s.quarter('q2')
+s.seconds()//now 0
+```
+for reference:
+####non-destructive
+* millisecond
+* second
+* minute
+* hour
+
+
 made by [Smallwins](https://smallwins.today/)
 MIT

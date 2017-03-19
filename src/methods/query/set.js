@@ -1,7 +1,7 @@
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
-const dayTimes = require('./lib/dayTimes');
-const ms = require('../lib/milliseconds');
+const dayTimes = require('../lib/dayTimes');
+const ms = require('../../lib/milliseconds');
 
 const validate = function(n) {
   //handle number as a string
@@ -9,6 +9,24 @@ const validate = function(n) {
     n = parseInt(n, 10);
   }
   return n;
+};
+
+const units = {
+  second: ['second', 'millisecond'],
+  minute: ['minute', 'second', 'millisecond'],
+  hour: ['hour', 'minute', 'second', 'millisecond'],
+  date: ['date', 'hour', 'minute', 'second', 'millisecond'],
+  month: ['month', 'date', 'hour', 'minute', 'second', 'millisecond'],
+  year: ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'],
+};
+//reduce hostile micro-changes when moving dates by millisecond
+const confirm = function(s, tmp, unit) {
+  let arr = units[unit];
+  for(let i = 0; i < arr.length; i++) {
+    let want = tmp[arr[i]]();
+    s[arr[i]](want);
+  }
+  return s;
 };
 
 module.exports = {
@@ -26,51 +44,56 @@ module.exports = {
     let shift = diff * ms.second;
     return s.epoch - shift;
   },
+
   minutes: (s, n) => {
     n = validate(n);
+    let old = s.clone();
     let diff = s.minute() - n;
     let shift = diff * ms.minute;
-    return s.epoch - shift;
+    s.epoch -= shift;
+    confirm(s, old, 'second');
+    return s.epoch;
   },
 
   hours: (s, n) => {
     n = validate(n);
+    let old = s.clone();
     let diff = s.hour() - n;
     let shift = diff * ms.hour;
-    return s.epoch - shift;
+    s.epoch -= shift;
+    confirm(s, old, 'minute');
+    return s.epoch;
   },
 
   date: (s, n) => {
     n = validate(n);
+    let old = s.clone();
     let diff = n - s.date();
     let shift = diff * ms.day;
-    //test for a dst/leap change
     s.epoch += shift;
-    let tmp = s.d;
-    if (tmp.getDate() === n) {
-      return s.epoch;
-    }
-    if (tmp.getDate() > n) {
-      // console.warn('applying dst-unshift');
-      return s.epoch - ms.hour;
-    }
-    // console.warn('applying dst-shift');
-    return s.epoch + ms.hour;
+    //test for a dst/leap change
+    confirm(s, old, 'hour');
+    return s.epoch;
   },
 
   year: (s, n) => {
     n = validate(n);
+    let old = s.clone();
     let diff = n - s.year();
     let shift = diff * ms.year;
     s.epoch += shift;
+    confirm(s, old, 'month');
     return s.epoch;
   },
 
-  dayOfYear: (s, want) => {
-    want = validate(want);
-    let diff = want - s.dayOfYear();
-    let epoch = s.epoch;
-    return epoch + (diff * ms.day);
+  dayOfYear: (s, n) => {
+    n = validate(n);
+    let old = s.clone();
+    let diff = n - s.dayOfYear();
+    let shift = diff * ms.day;
+    s.epoch += shift;
+    confirm(s, old, 'hour');
+    return s.epoch;
   },
 
   timeOfDay: (s, str) => {

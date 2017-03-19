@@ -63,9 +63,9 @@ const strFmt = [
     reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]([0-9]{4})$/,
     parse: (s, arr) => {
       let month = parseInt(arr[1], 10) - 1;
+      s.year(arr[3]);
       s.month(month);
       s.date(arr[2]);
-      s.year(arr[3]);
     }
   },
   //Long "Mar 25 2015"
@@ -73,10 +73,9 @@ const strFmt = [
   {
     reg: /^([a-z]+) ([0-9]{1,2}),? ([0-9]{4})( ([0-9:]+))?$/i,
     parse: (s, arr) => {
+      s.year(arr[3]);
       s.month(arr[1]);
       s.date(arr[2]);
-      s.year(arr[3]);
-      s.log();
       if (arr[4]) {
         parseHour(s, arr[4]);
       }
@@ -86,9 +85,9 @@ const strFmt = [
   {
     reg: /^([0-9]{1,2}) ([a-z]+),? ([0-9]{4})$/i,
     parse: (s, arr) => {
-      s.date(arr[1]);
-      s.month(arr[2]);
       s.year(arr[3]);
+      s.month(arr[2]);
+      s.date(arr[1]);
     }
   },
 ];
