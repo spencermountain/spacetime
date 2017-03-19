@@ -5,18 +5,26 @@ const addMethods = (Space) => {
 
   const methods = {
     add: function(num, unit) {
+      if (unit === 'month' || unit === 'months') {
+        let n = this.month();
+        // console.log('current:', n);
+        this.month(n + num);
+        return this;
+      }
+      if (unit === 'quarter' || unit === 'quarters') {
+        let n = this.quarter();
+        this.quarter(n + num);
+        return this;
+      }
+      if (unit === 'year' || unit === 'years') {
+        let n = this.year();
+        this.year(n + num);
+        return this;
+      }
       if (ms[unit] !== undefined) {
         let shift = num * ms[unit];
         this.epoch += shift;
-      } else if (unit === 'month' || unit === 'months') {
-        let n = this.month();
-        this.month(n + num);
-      } else if (unit === 'quarter' || unit === 'quarters') {
-        let n = this.quarter();
-        this.quarter(n + num);
-      } else if (unit === 'year' || unit === 'years') {
-        let n = this.year();
-        this.year(n + num);
+        return this;
       }
       return this;
     },

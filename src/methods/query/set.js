@@ -4,6 +4,8 @@ const dayTimes = require('../lib/dayTimes');
 const ms = require('../../lib/milliseconds');
 const months = require('../lib/months');
 const monthLength = require('../lib/monthLength');
+const walkTo = require('./walk');
+
 
 const validate = function(n) {
   //handle number as a string
@@ -91,6 +93,9 @@ module.exports = {
 
   date: (s, n) => {
     n = validate(n);
+    if (s.date() === n) {
+      return s.epoch;
+    }
     let old = s.clone();
     let diff = n - s.date();
     let shift = diff * ms.day;
@@ -114,24 +119,19 @@ module.exports = {
       //make it as close as we can..
       date = monthLength[n];
     }
-    // s.log();
-    s.date(date);
-    let diff = n - s.month();
-    let shift = diff * ms.month;
-    s.epoch += shift;
-    if (s.d.getMonth() > n) {
-      s.epoch -= ms.month;
-    }
-    if (s.d.getMonth() < n) {
-      s.epoch += ms.month;
-    }
-    s.date(date);
+    walkTo(s, {
+      month: n
+    });
+    // s.date(date);
     confirm(s, old, 'hour');
     return s.epoch;
   },
 
   year: (s, n) => {
     n = validate(n);
+    if (s.year() === n) {
+      return s.epoch;
+    }
     let old = s.clone();
     let diff = n - s.year();
     let shift = diff * ms.year;

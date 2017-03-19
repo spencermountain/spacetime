@@ -1,8 +1,10 @@
 'use strict';
 const spacetime = require('./src');
-let s = spacetime('June 30, 2017 20:01:00', 'Canada/Eastern');
-s.month('February');
+// let s = spacetime('January 21, 2017 1:20:05', 'Canada/Eastern');
+let s = spacetime(null);
 s.log();
 
+s.year();
 
+// s.add(1, 'month');
 // console.log(s.monthName());
