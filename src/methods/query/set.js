@@ -93,26 +93,18 @@ module.exports = {
 
   date: (s, n) => {
     n = validate(n);
-    if (s.date() === n) {
-      return s.epoch;
-    }
-    let old = s.clone();
-    let diff = n - s.date();
-    let shift = diff * ms.day;
-    s.epoch += shift;
-    //account for a dst/leap change
-    confirm(s, old, 'hour');
+    walkTo(s, {
+      date: n
+    });
     return s.epoch;
   },
 
   //this one's tricky
   month: (s, n) => {
-    let old = s.clone();
     if (typeof n === 'string') {
       n = months.mapping[n.toLowerCase()];
     }
     n = validate(n);
-    //months are zero-based
     let date = s.date();
     //there's no 30th of february, etc.
     if (date > monthLength[n]) {
@@ -120,24 +112,17 @@ module.exports = {
       date = monthLength[n];
     }
     walkTo(s, {
-      month: n
+      month: n,
+      date: date
     });
-    // s.date(date);
-    confirm(s, old, 'hour');
     return s.epoch;
   },
 
   year: (s, n) => {
     n = validate(n);
-    if (s.year() === n) {
-      return s.epoch;
-    }
-    let old = s.clone();
-    let diff = n - s.year();
-    let shift = diff * ms.year;
-    s.epoch += shift;
-    //account for a dst/leap change
-    confirm(s, old, 'month');
+    walkTo(s, {
+      year: n
+    });
     return s.epoch;
   },
 
