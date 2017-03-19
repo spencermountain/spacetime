@@ -42,7 +42,6 @@ let methods = {
     return this.d.getDate();
   },
   month: function(input) {
-    let d = this.d;
     if (input !== undefined) {
       this.epoch = set.month(this, input);
       return this;

@@ -114,11 +114,17 @@ module.exports = {
       //make it as close as we can..
       date = monthLength[n];
     }
-    s.date(date);
     // s.log();
+    s.date(date);
     let diff = n - s.month();
     let shift = diff * ms.month;
     s.epoch += shift;
+    if (s.d.getMonth() > n) {
+      s.epoch -= ms.month;
+    }
+    if (s.d.getMonth() < n) {
+      s.epoch += ms.month;
+    }
     s.date(date);
     confirm(s, old, 'hour');
     return s.epoch;
