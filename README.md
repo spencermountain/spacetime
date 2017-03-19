@@ -136,6 +136,7 @@ s.progress().day = 0.48   //almost noon!
 s.progress().hour = 0.99  //8:59 and 59seconds
 ```
 
+## Greediness
 when it comes to setting new values, some commands are destructive to smaller values, like seconds, and others are not. For example:
 ```js
 s= spacetime([2017,5,25])
@@ -143,16 +144,25 @@ s.seconds(5)
 s.year(2025)
 s.seconds()//still 5
 
-//but,
+//but this method 0's-out things:
 s.quarter('q2')
 s.seconds()//now 0
 ```
+
+
 for reference:
 ####non-destructive
-*millisecond()*, *second()*, *minute()*, *hour()*, *date()*, *month()*, *year()*
+*millisecond()*, *second()*, *minute()*, *hour()*, *date()*
 ####destructive
 *week()*, *quarter()*, *hourFloat()*, *season()*, *emoji()*
-
+####sometimes-destructive
+*month()*, *year()*
+```js
+s= spacetime('September 30, 2016 00:00:05')
+//(sometimes-destructive)
+s.month('February') //doesn't have a 30th day 😬
+s.date() // 28
+```
 
 made by [Smallwins](https://smallwins.today/)
 MIT

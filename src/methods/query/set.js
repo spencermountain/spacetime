@@ -2,6 +2,7 @@
 //these methods wrap around them.
 const dayTimes = require('../lib/dayTimes');
 const ms = require('../../lib/milliseconds');
+const months = require('../lib/months');
 
 const validate = function(n) {
   //handle number as a string
@@ -73,6 +74,20 @@ module.exports = {
     s.epoch += shift;
     //test for a dst/leap change
     confirm(s, old, 'hour');
+    return s.epoch;
+  },
+
+  //this one's tricky
+  month: (s, n) => {
+    let old = s.clone();
+    if (typeof n === 'string') {
+      n = months.mapping[n.toLowerCase()];
+    }
+    n = validate(n);
+    let diff = n - s.month();
+    let shift = diff * ms.month;
+    s.epoch += shift;
+    confirm(s, old, 'date');
     return s.epoch;
   },
 

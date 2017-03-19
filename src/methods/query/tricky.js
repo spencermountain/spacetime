@@ -5,6 +5,20 @@ const months = require('../lib/months');
 
 //non-destructive getters/setters with fancy moves to do
 module.exports = {
+
+  //
+  // //this one's tricky
+  // month: (s, n) => {
+  //   n = validate(n);
+  //   let old = s.clone();
+  //   let diff = n - s.month();
+  //   let shift = diff * ms.month;
+  //   s.epoch += shift;
+  //   confirm(s, old, 'date');
+  //   return s.epoch;
+  // },
+
+
   //like 'wednesday' (hard!)
   day: function(input) {
     if (input === undefined) {

@@ -103,25 +103,27 @@ module.exports = {
 
 
   emoji: function() {
-    const seasons = {
-      spring: '🌱',
-      winter: '⛄',
-      summer: '☀️️',
-      fall: '🍂',
-    };
-    const times = {
-      breakfast: '🍳',
-      morning: '☕',
-      noon: '🌞',
-      lunch: '🎒',
-      afternoon: '🌤️',
-      dinner: '🍽️',
-      evening: '🌆',
-      night: '🛌',
+    const obj = {
+      seasons : {
+        spring: '🌱',
+        winter: '⛄',
+        summer: '☀️️',
+        fall: '🍂',
+      },
+      times : {
+        breakfast: '🍳',
+        morning: '☕',
+        noon: '🌞',
+        lunch: '🎒',
+        afternoon: '🌤️',
+        dinner: '🍽️',
+        evening: '🌆',
+        night: '🛌',
+      }
     };
     return {
-      time: times[this.timeOfDay()] || '',
-      season: seasons[this.season()] || '',
+      time: obj.times[this.timeOfDay()] || '',
+      season: obj.seasons[this.season()] || '',
     };
   }
 };
