@@ -149,10 +149,9 @@ s.seconds()//now 0
 ```
 for reference:
 ####non-destructive
-* millisecond
-* second
-* minute
-* hour
+*millisecond()*, *second()*, *minute()*, *hour()*, *date()*, *month()*, *year()*
+####destructive
+*week()*, *quarter()*, *hourFloat()*, *season()*, *emoji()*
 
 
 made by [Smallwins](https://smallwins.today/)
