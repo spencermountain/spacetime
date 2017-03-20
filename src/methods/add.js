@@ -1,31 +1,50 @@
 'use strict';
+const walkTo = require('./query/walk');
 const ms = require('../lib/milliseconds');
+
+
+const normalize = (str) => {
+  str = str.toLowerCase();
+  str = str.replace(/s$/, '');
+  if (str === 'day') {
+    return 'date';
+  }
+  return str;
+};
+
+
 
 const addMethods = (Space) => {
 
   const methods = {
     add: function(num, unit) {
-      if (unit === 'month' || unit === 'months') {
-        let n = this.month();
-        // console.log('current:', n);
-        this.month(n + num);
+      unit = normalize(unit);
+
+      //we shift milliseconds for these ones..
+      if (unit === 'week') {
+        this.epoch += ms.day * (num * 7);
         return this;
       }
-      if (unit === 'quarter' || unit === 'quarters') {
-        let n = this.quarter();
-        this.quarter(n + num);
+      if (unit === 'quarter') {
+        this.epoch += ms.month * (num * 4);
         return this;
       }
-      if (unit === 'year' || unit === 'years') {
-        let n = this.year();
-        this.year(n + num);
+      if (unit === 'season') {
+        this.epoch += ms.month * (num * 4);
         return this;
       }
-      if (ms[unit] !== undefined) {
-        let shift = num * ms[unit];
-        this.epoch += shift;
-        return this;
-      }
+
+      let want = {
+        year: this.year(),
+        month: this.month(),
+        date: this.date(),
+        hour: this.hour(),
+        minute: this.minute(),
+      };
+      want[unit] = this[unit]() + num;
+      // console.log(want);
+      walkTo(this, want);
+
       return this;
     },
     subtract: function(num, unit) {

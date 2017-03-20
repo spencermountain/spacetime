@@ -1,5 +1,6 @@
 'use strict';
 const walkTo = require('./methods/query/walk');
+const months = require('./methods/lib/months');
 
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
@@ -79,9 +80,10 @@ const strFmt = [
   {
     reg: /^([a-z]+) ([0-9]{1,2}),? ([0-9]{4})( ([0-9:]+))?$/i,
     parse: (s, arr) => {
+      let month = months.mapping[arr[1].toLowerCase()];
       walkTo(s, {
         year: arr[3],
-        month: arr[1],
+        month: month,
         date: arr[2],
       });
       if (arr[4]) {
@@ -93,9 +95,10 @@ const strFmt = [
   {
     reg: /^([0-9]{1,2}) ([a-z]+),? ([0-9]{4})$/i,
     parse: (s, arr) => {
+      let month = months.mapping[arr[2].toLowerCase()];
       walkTo(s, {
         year: arr[3],
-        month: arr[2],
+        month: month,
         date: arr[1],
       });
     }
