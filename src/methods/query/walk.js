@@ -37,7 +37,7 @@ const units = {
     }
   },
   hour: {
-    valid: (n) => n > 0 && n < 24,
+    valid: (n) => n >= 0 && n < 24,
     walkTo: (s, n) => {
       while (s.hour() < n) {
         s.epoch += ms.hour;
@@ -48,7 +48,7 @@ const units = {
     }
   },
   minute: {
-    valid: (n) => n > 0 && n < 60,
+    valid: (n) => n >= 0 && n < 60,
     walkTo: (s, n) => {
       while (s.minute() < n) {
         s.epoch += ms.minute;
@@ -59,7 +59,7 @@ const units = {
     }
   },
   second: {
-    valid: (n) => n > 0 && n < 60,
+    valid: (n) => n >= 0 && n < 60,
     walkTo: (s, n) => {
       while (s.second() < n) {
         s.epoch += ms.second;
@@ -70,7 +70,7 @@ const units = {
     }
   },
   millisecond: {
-    valid: (n) => n > 0 && n < 1000,
+    valid: (n) => n >= 0 && n < 1000,
     walkTo: (s, n) => {
       //do this one directly
       let diff = s.millisecond() - n;
