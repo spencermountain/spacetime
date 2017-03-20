@@ -7,10 +7,10 @@ const units = {
     valid: (n) => n > 0 && n < 4000,
     walkTo: (s, n) => {
       while (s.year() < n) {
-        s.epoch += ms.month;
+        s.epoch += ms.year;
       }
       while (s.year() > n) {
-        s.epoch -= ms.month;
+        s.epoch -= ms.year;
       }
     }
   },
@@ -57,6 +57,25 @@ const units = {
         s.epoch -= ms.minute;
       }
     }
+  },
+  second: {
+    valid: (n) => n > 0 && n < 60,
+    walkTo: (s, n) => {
+      while (s.second() < n) {
+        s.epoch += ms.second;
+      }
+      while (s.second() > n) {
+        s.epoch -= ms.second;
+      }
+    }
+  },
+  millisecond: {
+    valid: (n) => n > 0 && n < 1000,
+    walkTo: (s, n) => {
+      //do this one directly
+      let diff = s.millisecond() - n;
+      s.epoch += diff;
+    }
   }
 };
 
@@ -67,7 +86,7 @@ const walkTo = (s, wants) => {
     let k = keys[i];
     let n = wants[k];
     if (n === undefined) {
-      continue;
+      n = old[k]();
     }
     if (typeof n === 'string') {
       n = parseInt(n, 10);
