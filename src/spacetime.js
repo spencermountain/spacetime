@@ -3,8 +3,8 @@ const getBias = require('./getBias');
 const guessTz = require('./timezone/guessTz');
 const timezone = require('./timezone/index');
 const format = require('./methods/format');
-const progress = require('./progress');
-const ends = require('./startOf');
+const progress = require('./methods/progress');
+const ends = require('./methods/startOf');
 const handleInput = require('./input');
 
 

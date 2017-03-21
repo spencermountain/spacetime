@@ -1,9 +1,9 @@
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
-const dayTimes = require('../lib/dayTimes');
-const ms = require('../../lib/milliseconds');
-const months = require('../lib/months');
-const monthLength = require('../lib/monthLength');
+const dayTimes = require('../../data/dayTimes');
+const ms = require('../../data/milliseconds');
+const months = require('../../data/months');
+const monthLength = require('../../data/monthLength');
 const walkTo = require('./walk');
 
 

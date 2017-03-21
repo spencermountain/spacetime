@@ -1,6 +1,6 @@
 'use strict';
-const walkTo = require('./methods/query/walk');
-const months = require('./methods/lib/months');
+const walkTo = require('./methods/set/walk');
+const months = require('./data/months');
 
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(

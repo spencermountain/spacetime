@@ -1,6 +1,6 @@
 'use strict';
-const walkTo = require('./query/walk');
-const ms = require('../lib/milliseconds');
+const walkTo = require('./set/walk');
+const ms = require('../data/milliseconds');
 
 
 const normalize = (str) => {
@@ -12,6 +12,9 @@ const normalize = (str) => {
   return str;
 };
 
+const computePlace = (want) => {
+
+};
 
 
 const addMethods = (Space) => {
@@ -25,7 +28,7 @@ const addMethods = (Space) => {
         this.epoch += ms.day * (num * 7);
         return this;
       }
-      if (unit === 'quarter') {
+      if (unit === 'quarter' || unit === 'season') {
         this.epoch += ms.month * (num * 4);
         return this;
       }
@@ -33,17 +36,20 @@ const addMethods = (Space) => {
         this.epoch += ms.month * (num * 4);
         return this;
       }
-
-      let want = {
-        year: this.year(),
-        month: this.month(),
-        date: this.date(),
-        hour: this.hour(),
-        minute: this.minute(),
-      };
-      want[unit] = this[unit]() + num;
+      if (ms[unit]) {
+        this.epoch += ms[unit] * num;
+      }
+      //
+      // let want = {
+      //   year: this.year(),
+      //   month: this.month(),
+      //   date: this.date(),
+      //   hour: this.hour(),
+      //   minute: this.minute(),
+      // };
+      // want[unit] = this[unit]() + num;
       // console.log(want);
-      walkTo(this, want);
+      // walkTo(this, want);
 
       return this;
     },

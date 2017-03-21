@@ -1,7 +1,7 @@
 'use strict';
-const quarters = require('../../lib/quarters');
-const seasons = require('../../lib/seasons');
-const set = require('./set');
+const quarters = require('../../data/quarters');
+const seasons = require('../../data/seasons');
+const set = require('../set/set');
 //destructive setters change the seconds, milliseconds, etc
 //- not just the unit they're setting
 

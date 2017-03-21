@@ -1,5 +1,5 @@
 'use strict';
-const seasons = require('./lib/seasons');
+const seasons = require('../data/seasons');
 
 //
 const toHour = function(s, h) {

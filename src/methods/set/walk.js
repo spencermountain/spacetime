@@ -1,5 +1,5 @@
 'use strict';
-const ms = require('../../lib/milliseconds');
+const ms = require('../../data/milliseconds');
 
 //find the desired date by a increment/check while loop
 const units = {
