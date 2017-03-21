@@ -25,6 +25,17 @@ keep.week = keep.date;
 keep.season = keep.date;
 keep.quarter = keep.date;
 
+//handle negatives
+const rollDown = function(want) {
+  if (want.month < 0) {
+    want.year -= 1 - parseInt(want.month / 12, 10);
+    want.month = (want.month % 12) + 12;
+    console.log(want.month);
+    console.log(want.year);
+  }
+  return want;
+};
+
 const addMethods = (Space) => {
 
   const methods = {
@@ -49,6 +60,8 @@ const addMethods = (Space) => {
           want[u] = old[u]();
         });
       }
+      //handle negative values
+      want = rollDown(want);
       //ensure month/year has ticked-over
       if (unit === 'month') {
         want.month = old.month() + num;
@@ -63,7 +76,6 @@ const addMethods = (Space) => {
           want.date = max;
         }
       }
-      // console.log(want);
       walkTo(this, want);
       return this;
     },
