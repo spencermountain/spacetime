@@ -12,41 +12,43 @@ const normalize = (str) => {
   return str;
 };
 
+let keep = {
+  second: ['millisecond'],
+  minute: ['millisecond', 'second'],
+  hour: ['millisecond', 'second', 'minute'],
+  date: ['millisecond', 'second', 'minute', 'hour'],
+  month: ['millisecond', 'second', 'minute', 'hour', 'date'],
+  year: ['millisecond', 'second', 'minute', 'hour', 'date', 'month'],
+};
+keep.week = keep.date;
+keep.season = keep.date;
+keep.quarter = keep.date;
 
 const addMethods = (Space) => {
 
   const methods = {
     add: function(num, unit) {
       unit = normalize(unit);
+      let old = this.clone();
 
-      //guessing-step
-      if (unit === 'week') {
-        this.epoch += ms.day * (num * 7);
-        return this;
-      }
-      if (unit === 'quarter' || unit === 'season') {
-        this.epoch += ms.month * (num * 4);
-        return this;
-      }
-      if (unit === 'season') {
-        this.epoch += ms.month * (num * 4);
-        return this;
-      }
+      //move forward by the estimated milliseconds (rough)
       if (ms[unit]) {
         this.epoch += ms[unit] * num;
+      } else if (unit === 'week') {
+        this.epoch += ms.day * (num * 7);
+      } else if (unit === 'quarter' || unit === 'season') {
+        this.epoch += ms.month * (num * 4);
+      } else if (unit === 'season') {
+        this.epoch += ms.month * (num * 4);
       }
-      //
-      // let want = {
-      //   year: this.year(),
-      //   month: this.month(),
-      //   date: this.date(),
-      //   hour: this.hour(),
-      //   minute: this.minute(),
-      // };
-      // want[unit] = this[unit]() + num;
-      // console.log(want);
-      // walkTo(this, want);
-
+      //ensure our milliseconds are in-line
+      let want = {};
+      if (keep[unit]) {
+        keep[unit].forEach((u) => {
+          want[u] = old[u]();
+        });
+      }
+      walkTo(this, want);
       return this;
     },
     subtract: function(num, unit) {
