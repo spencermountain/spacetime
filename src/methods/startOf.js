@@ -1,43 +1,54 @@
 'use strict';
 const seasons = require('../data/seasons');
-
-//
-const toHour = function(s, h) {
-  s.hour(h);
-  s.minute(0);
-  s.second(0);
-  s.millisecond(1);
-  return s;
-};
+const walkTo = require('./set/walk');
 
 const units = {
   minute: (s) => {
-    s.second(0);
-    s.millisecond(0);
+    walkTo(s, {
+      second: 0,
+      millisecond: 0,
+    });
     return s;
   },
   hour: (s) => {
-    s.minute(0);
-    s.second(0);
-    s.millisecond(0);
+    walkTo(s, {
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    });
     return s;
   },
   day: (s) => {
-    s = toHour(s, 0);
+    walkTo(s, {
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    });
     return s;
   },
   week: (s) => {
     let original = s.epoch;
-    s = toHour(s, 0);
-    s.day(0);
+    s.day(1); //monday
     if (s.isAfter(original)) {
       s.subtract(1, 'week');
     }
+    walkTo(s, {
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    });
     return s;
   },
   month: (s) => {
-    s = toHour(s, 1);
-    s.date(1);
+    walkTo(s, {
+      date: 1,
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    });
     return s;
   },
   quarter: (s) => {
@@ -58,9 +69,14 @@ const units = {
     return s;
   },
   year: (s) => {
-    s = toHour(s, 1);
-    s.month(0);
-    s.date(1);
+    walkTo(s, {
+      month: 0,
+      date: 1,
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    });
     return s;
   },
 };
@@ -77,7 +93,7 @@ const endOf = (s, unit) => {
   if (units[unit]) {
     s = units[unit](s);
     s.add(1, unit);
-    s.subtract(2, 'milliseconds');
+    s.subtract(1, 'milliseconds');
     return s;
   }
   return s;

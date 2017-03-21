@@ -12,10 +12,6 @@ const normalize = (str) => {
   return str;
 };
 
-const computePlace = (want) => {
-
-};
-
 
 const addMethods = (Space) => {
 
@@ -23,7 +19,7 @@ const addMethods = (Space) => {
     add: function(num, unit) {
       unit = normalize(unit);
 
-      //we shift milliseconds for these ones..
+      //guessing-step
       if (unit === 'week') {
         this.epoch += ms.day * (num * 7);
         return this;
