@@ -3,8 +3,8 @@ const getBias = require('./getBias');
 const guessTz = require('./timezone/guessTz');
 const timezone = require('./timezone/index');
 const format = require('./methods/format');
-const progress = require('./progress');
-const ends = require('./startOf');
+const progress = require('./methods/progress');
+const ends = require('./methods/startOf');
 const handleInput = require('./input');
 
 
@@ -29,6 +29,10 @@ class SpaceTime {
   }
   endOf(unit) {
     return ends.endOf(this, unit);
+  }
+  leapYear() {
+    let year = this.year();
+    return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
   }
 
   log() {

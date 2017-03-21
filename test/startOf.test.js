@@ -7,7 +7,7 @@ test('start of month', (t) => {
   d.startOf('month');
 
   let monthStart = spacetime('March 1, 1999 00:00:00', 'Canada/Eastern');
-  monthStart.millisecond(1);
+  monthStart.milliseconds(0);
 
   t.equal(d.isEqual(monthStart), true, 'month-start');
   t.equal(d.isSame(monthStart, 'day'), true, 'same-day');
@@ -23,8 +23,8 @@ test('start of winter', (t) => {
   let d = spacetime('January 28, 2017 20:42:00', 'Canada/Pacific');
   d.startOf('season');
 
-  let start = spacetime('December 1, 2017 00:00:00', 'Canada/Pacific');
-  start.millisecond(1);
+  let start = spacetime('December 1, 2016 00:00:00', 'Canada/Pacific');
+  start.millisecond(0);
   t.equal(d.isEqual(start), true, 'month-is-exactly-start');
 
   t.equal(d.isSame(start, 'day'), true, 'same-day');
@@ -50,7 +50,7 @@ test('end of day', (t) => {
   end.millisecond(999);
   t.equal(d.isEqual(end), true, 'day-is-exactly-end');
 
-  t.equal(d.isSame(end, 'day'), false, 'same-day');
+  t.equal(d.isSame(end, 'day'), true, 'same-day');
   t.equal(d.isSame(end, 'month'), true, 'same-month');
   t.equal(d.isSame(end, 'year'), true, 'same-year');
   t.equal(d.date(), 31, 'last day');
@@ -58,5 +58,25 @@ test('end of day', (t) => {
   t.equal(d.minute(), 59, 'last minute');
   t.equal(d.second(), 59, 'last second');
 
+  t.end();
+});
+
+test('start-end are idempodent', (t) => {
+  let units = [
+    'day',
+    'week',
+    'month',
+    'quarter',
+    'season',
+    'year',
+  ];
+  units.forEach((unit) => {
+    let s = spacetime('December 31, 1999 23:59:58', 'Africa/Algiers');
+    let a = s.clone().endOf(unit);
+    let b = a.clone().endOf(unit);
+    let c = b.clone().endOf(unit);
+    let d = c.clone().endOf(unit);
+    t.equal(a.isEqual(d), true, unit + '-is-idempodent');
+  });
   t.end();
 });

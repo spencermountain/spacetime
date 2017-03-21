@@ -1,9 +1,11 @@
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
-const dayTimes = require('../lib/dayTimes');
-const ms = require('../../lib/milliseconds');
-const months = require('../lib/months');
-const monthLength = require('../lib/monthLength');
+const dayTimes = require('../../data/dayTimes');
+const ms = require('../../data/milliseconds');
+const months = require('../../data/months');
+const monthLength = require('../../data/monthLength');
+const walkTo = require('./walk');
+
 
 const validate = function(n) {
   //handle number as a string
@@ -91,53 +93,36 @@ module.exports = {
 
   date: (s, n) => {
     n = validate(n);
-    let old = s.clone();
-    let diff = n - s.date();
-    let shift = diff * ms.day;
-    s.epoch += shift;
-    //account for a dst/leap change
-    confirm(s, old, 'hour');
+    walkTo(s, {
+      date: n
+    });
     return s.epoch;
   },
 
   //this one's tricky
   month: (s, n) => {
-    let old = s.clone();
     if (typeof n === 'string') {
       n = months.mapping[n.toLowerCase()];
     }
     n = validate(n);
-    //months are zero-based
     let date = s.date();
     //there's no 30th of february, etc.
     if (date > monthLength[n]) {
       //make it as close as we can..
       date = monthLength[n];
     }
-    // s.log();
-    s.date(date);
-    let diff = n - s.month();
-    let shift = diff * ms.month;
-    s.epoch += shift;
-    if (s.d.getMonth() > n) {
-      s.epoch -= ms.month;
-    }
-    if (s.d.getMonth() < n) {
-      s.epoch += ms.month;
-    }
-    s.date(date);
-    confirm(s, old, 'hour');
+    walkTo(s, {
+      month: n,
+      date: date
+    });
     return s.epoch;
   },
 
   year: (s, n) => {
     n = validate(n);
-    let old = s.clone();
-    let diff = n - s.year();
-    let shift = diff * ms.year;
-    s.epoch += shift;
-    //account for a dst/leap change
-    confirm(s, old, 'month');
+    walkTo(s, {
+      year: n
+    });
     return s.epoch;
   },
 

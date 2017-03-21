@@ -1,7 +1,7 @@
 'use strict';
-const days = require('../lib/days');
-const dayTimes = require('../lib/dayTimes');
-const months = require('../lib/months');
+const days = require('../../data/days');
+const dayTimes = require('../../data/dayTimes');
+const months = require('../../data/months');
 
 //non-destructive getters/setters with fancy moves to do
 module.exports = {

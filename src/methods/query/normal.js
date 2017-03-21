@@ -1,6 +1,6 @@
 'use strict';
-const set = require('./set');
-const dayOfYear = require('../lib/dayOfYear');
+const set = require('../set/set');
+const dayOfYear = require('../../lib/dayOfYear');
 
 //the most basic get/set methods
 let methods = {
