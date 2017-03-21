@@ -25,13 +25,25 @@ keep.week = keep.date;
 keep.season = keep.date;
 keep.quarter = keep.date;
 
-//handle negatives
-const rollDown = function(want) {
+const rollMonth = function(want, old) {
+
+  if (want.month > 12) {
+    let years = parseInt(want.month / 12, 10);
+    want.year = old.year() + years;
+    want.month = want.month % 12;
+    return want;
+  }
   if (want.month < 0) {
-    want.year -= 1 - parseInt(want.month / 12, 10);
+    let years = parseInt(want.month / 12, 10);
+    want.year = old.year() + years;
     want.month = (want.month % 12) + 12;
-    console.log(want.month);
-    console.log(want.year);
+    console.log(want);
+  }
+  //special-case for month, keeping dates
+  let max = monthLength[old.month()];
+  want.date = old.date();
+  if (want.date > max) {
+    want.date = max;
   }
   return want;
 };
@@ -60,21 +72,11 @@ const addMethods = (Space) => {
           want[u] = old[u]();
         });
       }
-      //handle negative values
-      want = rollDown(want);
       //ensure month/year has ticked-over
       if (unit === 'month') {
         want.month = old.month() + num;
-        //roll-over to year
-        want.year = old.year();
-        want.year += parseInt(want.month / 12, 10);
-        want.month = want.month % 12;
-        //special-case for month, keeping dates
-        let max = monthLength[old.month()];
-        want.date = old.date();
-        if (want.date > max) {
-          want.date = max;
-        }
+        //month is the one unit we 'model' directly
+        want = rollMonth(want, old);
       }
       walkTo(this, want);
       return this;
