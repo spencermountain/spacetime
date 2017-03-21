@@ -1,11 +1,11 @@
 'use strict';
 const spacetime = require('./src');
-// let s = spacetime('January 1, 2017 1:21:05', 'Canada/Eastern');
-let s = spacetime();
+let s = spacetime('January 5, 2017 23:21:05', 'Canada/Eastern');
+// let s = spacetime();
 // s.add(6, 'months');
+s.endOf('month');
 // s.startOf('year');
-// s.endOf('year');
-console.log(s.format().date.long + '  -  ' + s.format().time.h12);
-s.add(1, 'year');
-console.log(s.format().date.long + '  -  ' + s.format().time.h12);
-// s.log();
+// console.log(s.format().date.long + '  -  ' + s.format().time.h12);
+// s.add(1, 'hour');
+// console.log(s.format().date.long + '  -  ' + s.format().time.h12);
+s.log();

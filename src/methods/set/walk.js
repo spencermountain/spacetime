@@ -73,8 +73,7 @@ const units = {
     valid: (n) => n >= 0 && n < 1000,
     walkTo: (s, n) => {
       //do this one directly
-      let diff = s.millisecond() - n;
-      s.epoch += diff;
+      s.milliseconds(n);
     }
   }
 };

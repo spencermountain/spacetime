@@ -27,10 +27,10 @@ keep.quarter = keep.date;
 const addMethods = (Space) => {
 
   const methods = {
-    add: function(num, unit) {
-      unit = normalize(unit);
-      let old = this.clone();
 
+    add: function(num, unit) {
+      let old = this.clone();
+      unit = normalize(unit);
       //move forward by the estimated milliseconds (rough)
       if (ms[unit]) {
         this.epoch += ms[unit] * num;
@@ -41,7 +41,7 @@ const addMethods = (Space) => {
       } else if (unit === 'season') {
         this.epoch += ms.month * (num * 4);
       }
-      //ensure our milliseconds are in-line
+      //now ensure our milliseconds/etc are in-line
       let want = {};
       if (keep[unit]) {
         keep[unit].forEach((u) => {
@@ -51,6 +51,7 @@ const addMethods = (Space) => {
       walkTo(this, want);
       return this;
     },
+
     subtract: function(num, unit) {
       this.add(num * -1, unit);
       return this;
