@@ -61,8 +61,22 @@ test('subtract-rollover', (t) => {
   t.equal(tmp.year(), 2008, 'minus-13-months-2-years');
 
   tmp = s.clone();
+  tmp.subtract(0, 'month');
+  t.equal(tmp.year(), 2010, 'minus-0-months-0-years');
+  t.equal(tmp.monthName(), s.monthName(), '0-months-same-month');
+  t.equal(tmp.date(), s.date(), '0-months-same-date');
+
+  tmp = s.clone();
+  tmp.subtract(12, 'month');
+  t.equal(tmp.year(), 2009, 'minus-12-months-1-years');
+  t.equal(tmp.monthName(), s.monthName(), '12-months-same-month');
+  t.equal(tmp.date(), s.date(), '12-months-same-date');
+
+  tmp = s.clone();
   tmp.subtract(120, 'month');
   t.equal(tmp.year(), 2000, 'minus-120-months-10-years');
+  t.equal(tmp.monthName(), s.monthName(), 'same-month');
+  t.equal(tmp.date(), s.date(), 'same-date');
 
   t.end();
 });

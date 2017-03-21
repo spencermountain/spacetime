@@ -43,9 +43,6 @@ const rollMonth = function(want, old) {
     if (want.month === 12) {
       want.month = 0;
     }
-    // want.month = Math.abs(want.month);
-    // want.month = (want.month % 12) + 12;
-    console.log('back ' + years + ' years - set month to ' + want.month);
   }
   //keep date, unless the month doesn't have it.
   let max = monthLength[old.month()];
