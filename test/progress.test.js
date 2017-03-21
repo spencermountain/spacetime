@@ -8,7 +8,7 @@ test('progress', (t) => {
   t.ok(obj.year > 0.95, 'almost-done-year');
   t.ok(obj.quarter > 0.9, 'almost-done-quarter');
   t.ok(obj.month > 0.9, 'almost-done-month');
-  t.ok(obj.week > 0.8, 'almost-done-week'); //friday
+  t.ok(obj.week > 0.7, 'almost-done-week'); //friday
   t.ok(obj.day > 0.95, 'almost-done-day');
   t.ok(obj.hour > 0.95, 'almost-done-hour');
   t.ok(obj.minute > 0.95, 'almost-done-minute');
