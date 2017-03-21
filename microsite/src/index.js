@@ -47,6 +47,15 @@ const years = [
   2020,
   2065,
 ];
+const timeArrs = [
+  '6:00',
+  '8:00am',
+  '12:00pm',
+  '12:01pm',
+  '4:20pm',
+  '17:00',
+  '11:55pm',
+];
 
 const times = [
   [0, 6, '#5C456A', ''], //early morning
@@ -72,7 +81,7 @@ margin:
   padding:20
   display:inline-block
 format:
-  color:darkgrey
+  color:cadetblue
   font-size:40
 key:
   color:grey
@@ -85,7 +94,7 @@ value:
   text-align:left
   font-size:20
 black:
-  color:silver;
+  color:steelblue;
 tr
   min-width:400px
   padding:20px 0px 60px 60px
@@ -135,6 +144,12 @@ class App extends React.Component {
           <span style={css.key}>{'hemisphere: '}</span>
           <span style={css.value}>{obj.hemisphere}</span>
         </div>
+    );
+    arr.push(
+      <div key={'epoch'}>
+      <span style={css.key}>{'epoch: '}</span>
+      <span >{'' + s.epoch}</span>
+      </div>
     );
     arr.push(
       <div key={'dst'}>
@@ -241,8 +256,9 @@ class App extends React.Component {
           </select>
         </span>
         <span style={css.margin}>
-          {'epoch: '}
-          <b style={css.black}>{s.epoch}</b>
+          <select onChange={(e) => this.set(e.target.value, 'time')}>
+            {timeArrs.map((m, i) => <option key={i} value={m}>{m}</option>)}
+          </select>
         </span>
         <br/>
 
@@ -253,26 +269,44 @@ class App extends React.Component {
           </select>
         </span>
         <br/>
-        <b style={css.black}>add:</b>
+        <b style={css.black}>add/subtract:</b>
           <span style={css.margin}>
-            <input type='button' value={'+1 hour'} onClick={() => this.change(1, '+hour')}/>
-            <input type='button' value={'+1 day'} onClick={() => this.change(1, 'day')}/>
-            <input type='button' value={'+1 week'} onClick={() => this.change(1, 'week')}/>
-            <input type='button' value={'+1 month'} onClick={() => this.change(1, 'month')}/>
-            <input type='button' value={'+1 season'} onClick={() => this.change(1, 'season')}/>
-            <input type='button' value={'+1 quarter'} onClick={() => this.change(1, 'quarter')}/>
-            <input type='button' value={'+1 year'} onClick={() => this.change(1, 'year')}/>
-          </span>
-        <br/>
-        <b style={css.black}>subtract:</b>
-          <span style={css.margin}>
-            <input type='button' value={'-1 hour'} onClick={() => this.change(-1, 'hour')}/>
-            <input type='button' value={'-1 day'} onClick={() => this.change(-1, 'day')}/>
-            <input type='button' value={'-1 week'} onClick={() => this.change(-1, 'week')}/>
-            <input type='button' value={'-1 month'} onClick={() => this.change(-1, 'month')}/>
-            <input type='button' value={'-1 season'} onClick={() => this.change(-1, 'season')}/>
-            <input type='button' value={'-1 quarter'} onClick={() => this.change(-1, 'quarter')}/>
-            <input type='button' value={'-1 year'} onClick={() => this.change(-1, 'year')}/>
+            <span style={css.margin}>
+              {'hour '}
+              <input type='button' value={'+1'} onClick={() => this.change(1, 'hour')}/>
+              <input type='button' value={'-1'} onClick={() => this.change(-1, 'hour')}/>
+            </span>
+            <span style={css.margin}>
+              {'day '}
+              <input type='button' value={'+1'} onClick={() => this.change(1, 'day')}/>
+              <input type='button' value={'-1'} onClick={() => this.change(-1, 'day')}/>
+            </span>
+            <span style={css.margin}>
+              {'week '}
+              <input type='button' value={'+1'} onClick={() => this.change(1, 'week')}/>
+              <input type='button' value={'-1'} onClick={() => this.change(-1, 'week')}/>
+            </span>
+            <span style={css.margin}>
+              {'month '}
+              <input type='button' value={'+1'} onClick={() => this.change(1, 'month')}/>
+              <input type='button' value={'-1'} onClick={() => this.change(-1, 'month')}/>
+            </span>
+            <span style={css.margin}>
+              {'season '}
+              <input type='button' value={'+1'} onClick={() => this.change(1, 'season')}/>
+              <input type='button' value={'-1'} onClick={() => this.change(-1, 'season')}/>
+            </span>
+            <span style={css.margin}>
+              {'quarter '}
+              <input type='button' value={'+1'} onClick={() => this.change(1, 'quarter')}/>
+              <input type='button' value={'-1'} onClick={() => this.change(-1, 'quarter')}/>
+            </span>
+            <span style={css.margin}>
+              {'year '}
+              <input type='button' value={'+1'} onClick={() => this.change(1, 'year')}/>
+              <input type='button' value={'-1'} onClick={() => this.change(-1, 'year')}/>
+            </span>
+
           </span>
         <br/>
         <b style={css.black}>startOf:</b>
@@ -318,6 +352,8 @@ class App extends React.Component {
               <td style={css.tr}>
                 <b style={css.format}>{`${s.format().nice.short}`}</b>
                 {this.showOff()}
+                <p></p>
+                <Year width={this.width / 2} s={s}/>
               </td>
               <td style={css.tr}>
                 {this.controls()}
@@ -325,7 +361,6 @@ class App extends React.Component {
             </tr>
           </tbody>
         </table>
-        <Year width={this.width / 2} s={s}/>
         <hr/>
         {'elsewhere:'}
         <ul>

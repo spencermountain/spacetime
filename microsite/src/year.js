@@ -58,7 +58,7 @@ class Year extends React.Component {
          <text x={(q * 2) - 15} y={35} fontSize={15} fill={'darkgrey'}>{'july'}</text>;
          <text x={(q * 3) - 15} y={35} fontSize={15} fill={'darkgrey'}>{'oct'}</text>;
          <text x={this.width - 15} y={35} fontSize={15} fill={'darkgrey'}>{'jan'}</text>;
-         <rect x={nowX} y={0} width={2} height={20} fill={'black'}/>
+         <rect x={nowX} y={0} width={2} height={20} fill={'cadetblue'}/>
       </svg>
       );
   }
