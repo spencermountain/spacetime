@@ -50,7 +50,7 @@ test('end of day', (t) => {
   end.millisecond(999);
   t.equal(d.isEqual(end), true, 'day-is-exactly-end');
 
-  t.equal(d.isSame(end, 'day'), false, 'same-day');
+  t.equal(d.isSame(end, 'day'), true, 'same-day');
   t.equal(d.isSame(end, 'month'), true, 'same-month');
   t.equal(d.isSame(end, 'year'), true, 'same-year');
   t.equal(d.date(), 31, 'last day');

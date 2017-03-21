@@ -9,6 +9,7 @@ module.exports = {
   timezone: {},
   progress: {},
   format: {},
+  leapYear: {},
 
   //comparison
   isAfter: {},
