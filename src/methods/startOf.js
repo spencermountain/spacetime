@@ -1,5 +1,6 @@
 'use strict';
 const seasons = require('../data/seasons');
+const quarters = require('../data/quarters');
 const walkTo = require('./set/walk');
 
 const units = {
@@ -53,16 +54,30 @@ const units = {
   },
   quarter: (s) => {
     let q = s.quarter();
-    s.quarter(q);
+    if (quarters[q]) {
+      walkTo(s, {
+        month: quarters[q][0],
+        date: quarters[q][1],
+        hour: 0,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+      });
+    }
     return s;
   },
   season: (s) => {
     let current = s.season();
     for(let i = 0; i < seasons.length; i++) {
       if (seasons[i][0] === current) {
-        s.month(seasons[i][1]);
-        s.date(seasons[i][2]);
-        s = toHour(s, 0);
+        walkTo(s, {
+          month: seasons[i][1],
+          date: seasons[i][2],
+          hour: 0,
+          minute: 0,
+          second: 0,
+          millisecond: 0,
+        });
         return s;
       }
     }
@@ -80,6 +95,7 @@ const units = {
     return s;
   },
 };
+units.date = units.day;
 
 const startOf = (s, unit) => {
   if (units[unit]) {

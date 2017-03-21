@@ -2,8 +2,7 @@
 const spacetime = require('./src');
 let s = spacetime('January 5, 2017 23:21:05', 'Canada/Eastern');
 // let s = spacetime();
-// s.add(6, 'months');
-s.endOf('month');
+s.endOf('day');
 // s.startOf('year');
 // console.log(s.format().date.long + '  -  ' + s.format().time.h12);
 // s.add(1, 'hour');

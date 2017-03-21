@@ -17,7 +17,7 @@ let keep = {
   minute: ['millisecond', 'second'],
   hour: ['millisecond', 'second', 'minute'],
   date: ['millisecond', 'second', 'minute', 'hour'],
-  month: ['millisecond', 'second', 'minute', 'hour', 'date'],
+  month: ['millisecond', 'second', 'minute', 'hour'],
   year: ['millisecond', 'second', 'minute', 'hour', 'date', 'month'],
 };
 keep.week = keep.date;
