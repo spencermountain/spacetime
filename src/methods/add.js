@@ -25,21 +25,29 @@ keep.week = keep.date;
 keep.season = keep.date;
 keep.quarter = keep.date;
 
+//month is the only thing we 'model/compute'
+//- because ms-shifting can be off by enough
 const rollMonth = function(want, old) {
-
-  if (want.month > 12) {
+  //increment year
+  if (want.month > 0) {
     let years = parseInt(want.month / 12, 10);
     want.year = old.year() + years;
     want.month = want.month % 12;
-    return want;
+  } else if (want.month < 0) { //decrement year
+    let years = Math.floor(Math.abs(want.month) / 13, 10);
+    years = Math.abs(years) + 1;
+    want.year = old.year() - years;
+    //ignore extras
+    want.month = want.month % 12;
+    want.month = want.month + 12;
+    if (want.month === 12) {
+      want.month = 0;
+    }
+    // want.month = Math.abs(want.month);
+    // want.month = (want.month % 12) + 12;
+    console.log('back ' + years + ' years - set month to ' + want.month);
   }
-  if (want.month < 0) {
-    let years = parseInt(want.month / 12, 10);
-    want.year = old.year() + years;
-    want.month = (want.month % 12) + 12;
-    console.log(want);
-  }
-  //special-case for month, keeping dates
+  //keep date, unless the month doesn't have it.
   let max = monthLength[old.month()];
   want.date = old.date();
   if (want.date > max) {
