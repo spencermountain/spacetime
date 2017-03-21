@@ -44,9 +44,11 @@ class Year extends React.Component {
       tmp.month(m);
       let meta = tmp.timezone();
       if (meta.current.isDst) {
-        return <rect x={month * i} y={18} width={month} height={2} fill={'orange'} opacity={0.8}/>;
+        return <rect key={i} x={month * i} y={18} width={month} height={2} fill={'orange'} opacity={0.8}/>;
       }
     });
+    let now = s.progress().year;
+    let nowX = now * this.width;
     return (
       <svg width={this.width + 25} height={50}>
         <rect x={0} y={20} width={this.width} height={2} fill={'silver'} opacity={0.8}/>
@@ -56,6 +58,7 @@ class Year extends React.Component {
          <text x={(q * 2) - 15} y={35} fontSize={15} fill={'darkgrey'}>{'july'}</text>;
          <text x={(q * 3) - 15} y={35} fontSize={15} fill={'darkgrey'}>{'oct'}</text>;
          <text x={this.width - 15} y={35} fontSize={15} fill={'darkgrey'}>{'jan'}</text>;
+         <rect x={nowX} y={0} width={2} height={20} fill={'black'}/>
       </svg>
       );
   }
