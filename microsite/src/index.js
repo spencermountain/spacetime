@@ -84,6 +84,8 @@ value:
   width:100
   text-align:left
   font-size:20
+black:
+  color:black;
 tr
   // width:50%
   padding:20px 0px 60px 60px
@@ -137,6 +139,12 @@ class App extends React.Component {
       <div key={'dst'}>
           <span style={css.key}>{'dst: '}</span>
           <span style={css.value}>{'' + obj.current.isDst}</span>
+        </div>
+    );
+    arr.unshift(
+      <div key={'dst'}>
+          <span style={css.key}>{'timezone: '}</span>
+          <span style={css.value}>{'' + obj.name}</span>
         </div>
     );
     return arr;
@@ -201,9 +209,7 @@ class App extends React.Component {
     let s = state.s;
     return (
       <div style={css.controls}>
-        <div>
-          {'epoch: ' + s.epoch}
-        </div>
+        <b style={css.black}>set:</b>
         <span style={css.margin}>
           <select onChange={(e) => this.set(e.target.value, 'month')}>
             {months.map((m, i) => <option key={i} value={m}>{m}</option>)}
@@ -219,7 +225,21 @@ class App extends React.Component {
             {years.map((m, i) => <option key={i} value={m}>{m}</option>)}
           </select>
         </span>
+        <span style={css.margin}>
+          {'epoch: '}
+          <b style={css.black}>{s.epoch}</b>
+        </span>
         <br/>
+
+        <b style={css.black}>timezone:</b>
+        <span style={css.margin}>
+          <select onChange={(e) => this.set(e.target.value, 'goto')}>
+            {timezones.map((m, i) => <option key={i} value={m}>{m}</option>)}
+          </select>
+        </span>
+        <br/>
+
+        <b style={css.black}>add/subtract:</b>
         <span style={css.margin}>
           hour
           <input type='button' value={'-'} onClick={() => this.change(-1, 'hour')}/>
@@ -260,7 +280,7 @@ class App extends React.Component {
     });
     return (
       <div>
-        spacetime demo
+        spacetime <b>{spacetime.version}</b>
         <table>
           <tbody>
             <tr>
