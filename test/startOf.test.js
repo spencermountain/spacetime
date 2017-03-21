@@ -23,7 +23,7 @@ test('start of winter', (t) => {
   let d = spacetime('January 28, 2017 20:42:00', 'Canada/Pacific');
   d.startOf('season');
 
-  let start = spacetime('December 1, 2017 00:00:00', 'Canada/Pacific');
+  let start = spacetime('December 1, 2016 00:00:00', 'Canada/Pacific');
   start.millisecond(0);
   t.equal(d.isEqual(start), true, 'month-is-exactly-start');
 
@@ -58,5 +58,25 @@ test('end of day', (t) => {
   t.equal(d.minute(), 59, 'last minute');
   t.equal(d.second(), 59, 'last second');
 
+  t.end();
+});
+
+test('start-end are idempodent', (t) => {
+  let units = [
+    'day',
+    'week',
+    'month',
+    'quarter',
+    'season',
+    'year',
+  ];
+  units.forEach((unit) => {
+    let s = spacetime('December 31, 1999 23:59:58', 'Africa/Algiers');
+    let a = s.clone().endOf(unit);
+    let b = a.clone().endOf(unit);
+    let c = b.clone().endOf(unit);
+    let d = c.clone().endOf(unit);
+    t.equal(a.isEqual(d), true, unit + '-is-idempodent');
+  });
   t.end();
 });

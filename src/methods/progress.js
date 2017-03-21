@@ -16,11 +16,6 @@ const progress = function(s) {
     let start = s.clone().startOf(k);
     let end = s.clone().endOf(k);
     let duration = end.epoch - start.epoch;
-    // if (k === 'season') {
-    //   start.log();
-    //   end.log();
-    //   console.log(k, duration);
-    // }
     let percent = (s.epoch - start.epoch) / duration;
     obj[k] = parseFloat(percent.toFixed(2));
   });

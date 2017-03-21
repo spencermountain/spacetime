@@ -19,12 +19,20 @@ let keep = {
   hour: ['millisecond', 'second', 'minute'],
   date: ['millisecond', 'second', 'minute', 'hour'],
   month: ['millisecond', 'second', 'minute', 'hour'],
+  quarter: ['millisecond', 'second', 'minute', 'hour'],
+  season: ['millisecond', 'second', 'minute', 'hour'],
   year: ['millisecond', 'second', 'minute', 'hour', 'date', 'month'],
 };
 keep.week = keep.date;
 keep.season = keep.date;
 keep.quarter = keep.date;
 
+const keepDate = {
+  month: true,
+  quarter: true,
+  season: true,
+  year: true,
+};
 //month is the only thing we 'model/compute'
 //- because ms-shifting can be off by enough
 const rollMonth = function(want, old) {
@@ -43,12 +51,6 @@ const rollMonth = function(want, old) {
     if (want.month === 12) {
       want.month = 0;
     }
-  }
-  //keep date, unless the month doesn't have it.
-  let max = monthLength[old.month()];
-  want.date = old.date();
-  if (want.date > max) {
-    want.date = max;
   }
   return want;
 };
@@ -82,6 +84,15 @@ const addMethods = (Space) => {
         want.month = old.month() + num;
         //month is the one unit we 'model' directly
         want = rollMonth(want, old);
+      }
+
+      //keep current date, unless the month doesn't have it.
+      if (keepDate[unit]) {
+        let max = monthLength[want.month];
+        want.date = old.date();
+        if (want.date > max) {
+          want.date = max;
+        }
       }
       walkTo(this, want);
       return this;

@@ -70,7 +70,13 @@ const units = {
     let current = s.season();
     for(let i = 0; i < seasons.length; i++) {
       if (seasons[i][0] === current) {
+        //winter goes between years
+        let year = s.year();
+        if (current === 'winter' && s.month() < 3) {
+          year -= 1;
+        }
         walkTo(s, {
+          year: year,
           month: seasons[i][1],
           date: seasons[i][2],
           hour: 0,
