@@ -7,7 +7,7 @@ test('start of month', (t) => {
   d.startOf('month');
 
   let monthStart = spacetime('March 1, 1999 00:00:00', 'Canada/Eastern');
-  monthStart.millisecond(1);
+  monthStart.milliseconds(0);
 
   t.equal(d.isEqual(monthStart), true, 'month-start');
   t.equal(d.isSame(monthStart, 'day'), true, 'same-day');
@@ -24,7 +24,7 @@ test('start of winter', (t) => {
   d.startOf('season');
 
   let start = spacetime('December 1, 2017 00:00:00', 'Canada/Pacific');
-  start.millisecond(1);
+  start.millisecond(0);
   t.equal(d.isEqual(start), true, 'month-is-exactly-start');
 
   t.equal(d.isSame(start, 'day'), true, 'same-day');

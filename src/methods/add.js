@@ -1,6 +1,7 @@
 'use strict';
 const walkTo = require('./set/walk');
 const ms = require('../data/milliseconds');
+const monthLength = require('../data/monthLength');
 
 
 const normalize = (str) => {
@@ -48,6 +49,21 @@ const addMethods = (Space) => {
           want[u] = old[u]();
         });
       }
+      //ensure month/year has ticked-over
+      if (unit === 'month') {
+        want.month = old.month() + num;
+        //roll-over to year
+        want.year = old.year();
+        want.year += parseInt(want.month / 12, 10);
+        want.month = want.month % 12;
+        //special-case for month, keeping dates
+        let max = monthLength[old.month()];
+        want.date = old.date();
+        if (want.date > max) {
+          want.date = max;
+        }
+      }
+      // console.log(want);
       walkTo(this, want);
       return this;
     },
