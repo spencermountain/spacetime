@@ -37,14 +37,14 @@ test('get-quarters', (t) => {
 
 test('get-weeks', (t) => {
   let s = spacetime('January 1, 2015 2:00:00', 'Canada/Eastern');
-  t.equal(s.week(), 1, '.weeks()');
+  t.equal(s.week(), 1, '.weeks()1');
 
   s.month(1);
-  t.equal(s.week(), 4, '.weeks()');
+  t.equal(s.week(), 4, '.weeks()2');
 
   s.month('december');
   s.date(29);
-  t.equal(s.week(), 52, '.weeks()');
+  t.equal(s.week(), 52, '.weeks()3');
   t.end();
 });
 

@@ -38,7 +38,10 @@ module.exports = {
     tmp.month(0);
     tmp.date(1);
     clearMinutes(tmp);
-    tmp.day(1); //monday
+    tmp.day('monday');
+    if (tmp.monthName() === 'december') {
+      tmp.add(1, 'week');
+    }
     const thisOne = this.epoch;
     //if the week technically hasn't started yet
     if (tmp.epoch > thisOne) {

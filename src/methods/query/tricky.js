@@ -38,15 +38,14 @@ module.exports = {
       return this;
     }
     //set the day, based on a number
-    //always move it forward..
     let d = this.d;
     let current = d.getDay();
     if (num > current) {
       let diff = num - current;
       d.setDate(d.getDate() + diff);
-    } else if (num < current) {
-      let toAdd = num + (7 - current);
-      d.setDate(d.getDate() + toAdd);
+    } else if (num < current) { //should go backwards
+      let diff = current - num;
+      d.setDate(d.getDate() - diff);
     }
     this.epoch = d.getTime();
     return this;
