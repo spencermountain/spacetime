@@ -28,8 +28,14 @@ const format = (s) => {
       h24: `${hour24}:${fmt.zeroPad(minute)}` //15:45
     },
     date: {
-      short: `${fmt.titleCase(months.short[month])} ${fmt.ordinal(date)} ${year}`, //Apr 12 2016
-      long: `${fmt.titleCase(months.long[month])} ${fmt.ordinal(date)} ${year}`, //April 12 2016
+      ordinal: fmt.ordinal(date), //12th
+      cardinal: '' + date, //12
+      short: `${fmt.titleCase(months.short[month])} ${fmt.ordinal(date)}`, //Apr 12
+      long: `${fmt.titleCase(months.long[month])} ${fmt.ordinal(date)}`, //April 12
+    },
+    year: {
+      long: '' + year,
+      short: '\'' + ('' + year).substr(2, 4)
     },
     iso: {
       short: `${year}-${fmt.zeroPad(month)}-${fmt.zeroPad(date)}`, //2017-02-15
