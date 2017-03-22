@@ -57,7 +57,7 @@ class SpaceTime {
   }
 
   isValid() {
-    return isNaN(this.d.getTime());
+    return !isNaN(this.d.getTime());
   }
 
   clone() {
