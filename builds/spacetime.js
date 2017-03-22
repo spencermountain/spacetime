@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v0.0.3
+/* @smallwins/spacetime v0.0.4
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -2082,7 +2082,7 @@ module.exports={
 },{}],2:[function(_dereq_,module,exports){
 module.exports={
   "name": "@smallwins/spacetime",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "UNLICENSED",
@@ -2665,8 +2665,14 @@ var format = function format(s) {
       h24: hour24 + ':' + fmt.zeroPad(minute) //15:45
     },
     date: {
-      short: fmt.titleCase(months.short[month]) + ' ' + fmt.ordinal(date) + ' ' + year, //Apr 12 2016
-      long: fmt.titleCase(months.long[month]) + ' ' + fmt.ordinal(date) + ' ' + year },
+      ordinal: fmt.ordinal(date), //12th
+      cardinal: '' + date, //12
+      short: fmt.titleCase(months.short[month]) + ' ' + fmt.ordinal(date), //Apr 12
+      long: fmt.titleCase(months.long[month]) + ' ' + fmt.ordinal(date) },
+    year: {
+      long: '' + year,
+      short: '\'' + ('' + year).substr(2, 4)
+    },
     iso: {
       short: year + '-' + fmt.zeroPad(month) + '-' + fmt.zeroPad(date), //2017-02-15
       local: year + '-' + fmt.zeroPad(month) + '-' + fmt.zeroPad(date) + 'T' + hour24 + ':' + fmt.zeroPad(minute) + ':' + fmt.zeroPad(s.second()) + ':' + fmt.zeroPad(s.millisecond(), 3) + 'Z', //2017-03-08T19:45:28.367Z
