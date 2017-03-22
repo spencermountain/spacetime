@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v0.0.4
+/* @smallwins/spacetime v0.0.5
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -2082,7 +2082,7 @@ module.exports={
 },{}],2:[function(_dereq_,module,exports){
 module.exports={
   "name": "@smallwins/spacetime",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "UNLICENSED",
@@ -2265,7 +2265,7 @@ main.version = pkg.version;
 
 module.exports = main;
 
-},{"../package.json":2,"./spacetime":28}],12:[function(_dereq_,module,exports){
+},{"../package.json":2,"./spacetime":29}],12:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('./methods/set/walk');
@@ -2384,6 +2384,10 @@ var parseInput = function parseInput(s, input) {
   if (typeof input !== 'string') {
     return;
   }
+  if (input.epoch) {
+    s.epoch = input.epoch;
+    return;
+  }
 
   for (var i = 0; i < strFmt.length; i++) {
     var m = input.match(strFmt[i].reg);
@@ -2395,7 +2399,7 @@ var parseInput = function parseInput(s, input) {
 };
 module.exports = parseInput;
 
-},{"./data/months":7,"./methods/set/walk":26}],13:[function(_dereq_,module,exports){
+},{"./data/months":7,"./methods/set/walk":27}],13:[function(_dereq_,module,exports){
 'use strict';
 
 //days since newyears - jan 1st is 1, jan 2nd is 2...
@@ -2594,7 +2598,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"../data/milliseconds":5,"../data/monthLength":6,"./set/walk":26}],17:[function(_dereq_,module,exports){
+},{"../data/milliseconds":5,"../data/monthLength":6,"./set/walk":27}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../lib/fns');
@@ -2635,6 +2639,46 @@ var addMethods = function addMethods(Space) {
 module.exports = addMethods;
 
 },{"../lib/fns":15}],18:[function(_dereq_,module,exports){
+'use strict';
+// const ms = require('../data/milliseconds');
+
+//
+
+var normalize = function normalize(str) {
+  str = str.toLowerCase();
+  str = str.replace(/s$/, '');
+  if (str === 'day') {
+    return 'date';
+  }
+  return str;
+};
+
+//increment until same
+var climb = function climb(a, b, unit) {
+  var i = 0;
+  a = a.clone();
+  while (a.isBefore(b)) {
+    a.add(1, unit);
+    i += 1;
+  }
+  if (!a.isSame(b, unit)) {
+    i -= 1;
+  }
+  return i;
+};
+
+var diff = function diff(a, b, unit) {
+  unit = normalize(unit);
+  if (a.isBefore(b)) {
+    return climb(a, b, unit);
+  } else {
+    //reverse it
+    return climb(b, a, unit) * -1;
+  }
+};
+module.exports = diff;
+
+},{}],19:[function(_dereq_,module,exports){
 'use strict';
 
 var fmt = _dereq_('../lib/fmt');
@@ -2696,7 +2740,7 @@ var format = function format(s) {
 };
 module.exports = format;
 
-},{"../data/days":4,"../data/months":7,"../lib/fmt":14}],19:[function(_dereq_,module,exports){
+},{"../data/days":4,"../data/months":7,"../lib/fmt":14}],20:[function(_dereq_,module,exports){
 'use strict';
 //how far it is along, from 0-1
 
@@ -2715,7 +2759,7 @@ var progress = function progress(s) {
 
 module.exports = progress;
 
-},{}],20:[function(_dereq_,module,exports){
+},{}],21:[function(_dereq_,module,exports){
 'use strict';
 
 var quarters = _dereq_('../../data/quarters');
@@ -2860,7 +2904,7 @@ module.exports = {
   }
 };
 
-},{"../../data/quarters":8,"../../data/seasons":9,"../set/set":25}],21:[function(_dereq_,module,exports){
+},{"../../data/quarters":8,"../../data/seasons":9,"../set/set":26}],22:[function(_dereq_,module,exports){
 'use strict';
 
 var normal = _dereq_('./normal');
@@ -2885,7 +2929,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"./destructive":20,"./normal":22,"./tricky":23}],22:[function(_dereq_,module,exports){
+},{"./destructive":21,"./normal":23,"./tricky":24}],23:[function(_dereq_,module,exports){
 'use strict';
 
 var set = _dereq_('../set/set');
@@ -2962,7 +3006,7 @@ methods.days = methods.day;
 
 module.exports = methods;
 
-},{"../../lib/dayOfYear":13,"../set/set":25}],23:[function(_dereq_,module,exports){
+},{"../../lib/dayOfYear":13,"../set/set":26}],24:[function(_dereq_,module,exports){
 'use strict';
 
 var days = _dereq_('../../data/days');
@@ -3075,7 +3119,7 @@ module.exports = {
   }
 };
 
-},{"../../data/dayTimes":3,"../../data/days":4,"../../data/months":7}],24:[function(_dereq_,module,exports){
+},{"../../data/dayTimes":3,"../../data/days":4,"../../data/months":7}],25:[function(_dereq_,module,exports){
 'use strict';
 
 var print = {
@@ -3138,7 +3182,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{}],25:[function(_dereq_,module,exports){
+},{}],26:[function(_dereq_,module,exports){
 'use strict';
 
 // javascript setX methods like setDate() can't be used because of the local bias
@@ -3290,7 +3334,7 @@ module.exports = {
 
 };
 
-},{"../../data/dayTimes":3,"../../data/milliseconds":5,"../../data/monthLength":6,"../../data/months":7,"./walk":26}],26:[function(_dereq_,module,exports){
+},{"../../data/dayTimes":3,"../../data/milliseconds":5,"../../data/monthLength":6,"../../data/months":7,"./walk":27}],27:[function(_dereq_,module,exports){
 'use strict';
 
 var ms = _dereq_('../../data/milliseconds');
@@ -3433,7 +3477,7 @@ var walkTo = function walkTo(s, wants) {
 };
 module.exports = walkTo;
 
-},{"../../data/milliseconds":5}],27:[function(_dereq_,module,exports){
+},{"../../data/milliseconds":5}],28:[function(_dereq_,module,exports){
 'use strict';
 
 var seasons = _dereq_('../data/seasons');
@@ -3562,7 +3606,7 @@ module.exports = {
   endOf: endOf
 };
 
-},{"../data/quarters":8,"../data/seasons":9,"./set/walk":26}],28:[function(_dereq_,module,exports){
+},{"../data/quarters":8,"../data/seasons":9,"./set/walk":27}],29:[function(_dereq_,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -3574,6 +3618,7 @@ var guessTz = _dereq_('./timezone/guessTz');
 var _timezone = _dereq_('./timezone/index');
 var _format = _dereq_('./methods/format');
 var _progress = _dereq_('./methods/progress');
+var _diff = _dereq_('./methods/diff');
 var ends = _dereq_('./methods/startOf');
 var handleInput = _dereq_('./input');
 
@@ -3629,6 +3674,11 @@ var SpaceTime = function () {
     value: function progress() {
       return _progress(this);
     }
+  }, {
+    key: 'diff',
+    value: function diff(d, unit) {
+      return _diff(this, d, unit);
+    }
 
     //a js date object
 
@@ -3680,7 +3730,7 @@ SpaceTime = _dereq_('./methods/compare')(SpaceTime);
 
 module.exports = SpaceTime;
 
-},{"./getBias":10,"./input":12,"./methods/add":16,"./methods/compare":17,"./methods/format":18,"./methods/progress":19,"./methods/query":21,"./methods/same":24,"./methods/startOf":27,"./timezone/guessTz":29,"./timezone/index":30}],29:[function(_dereq_,module,exports){
+},{"./getBias":10,"./input":12,"./methods/add":16,"./methods/compare":17,"./methods/diff":18,"./methods/format":19,"./methods/progress":20,"./methods/query":22,"./methods/same":25,"./methods/startOf":28,"./timezone/guessTz":30,"./timezone/index":31}],30:[function(_dereq_,module,exports){
 'use strict';
 //find the implicit iana code for this machine.
 //safely query the Intl object
@@ -3704,7 +3754,7 @@ var guessTz = function guessTz() {
 };
 module.exports = guessTz;
 
-},{}],30:[function(_dereq_,module,exports){
+},{}],31:[function(_dereq_,module,exports){
 'use strict';
 
 var zones = _dereq_('../../data/zonefile.2017');
@@ -3777,7 +3827,7 @@ var timezone = function timezone(s) {
 };
 module.exports = timezone;
 
-},{"../../data/zonefile.2017":1,"./isDst":31}],31:[function(_dereq_,module,exports){
+},{"../../data/zonefile.2017":1,"./isDst":32}],32:[function(_dereq_,module,exports){
 'use strict';
 
 function zeroPad(str, len) {
