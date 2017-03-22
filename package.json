@@ -1,6 +1,7 @@
 {
   "name": "@smallwins/spacetime",
   "version": "0.0.1",
+  "private":true,
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "UNLICENSED",

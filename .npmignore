@@ -1,6 +1,8 @@
 demo
-builds/remark.js
 scripts
+microsite
+data
+docs
 src
 test
 viz
@@ -9,4 +11,4 @@ viz
 .eslintrc
 .gitignore
 changelog.md
-scratch_file.js
+scratch.js
