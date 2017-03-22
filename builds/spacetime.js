@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v0.0.6
+/* @smallwins/spacetime v0.0.7
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -2082,7 +2082,7 @@ module.exports={
 },{}],2:[function(_dereq_,module,exports){
 module.exports={
   "name": "@smallwins/spacetime",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "UNLICENSED",
@@ -2569,6 +2569,10 @@ var addMethods = function addMethods(Space) {
         want.month = old.month() + num;
         //month is the one unit we 'model' directly
         want = rollMonth(want, old);
+      }
+      //ensure year has changed (leap-years)
+      if (unit === 'year' && this.year() === old.year()) {
+        this.epoch += ms.week;
       }
 
       //keep current date, unless the month doesn't have it.
@@ -3675,6 +3679,13 @@ var SpaceTime = function () {
     value: function log() {
       console.log('');
       console.log(_format(this).nice.short);
+      return this;
+    }
+  }, {
+    key: 'logYear',
+    value: function logYear() {
+      console.log('');
+      console.log(_format(this).date.short + ' ' + this.year());
       return this;
     }
   }, {
