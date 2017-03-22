@@ -27,8 +27,12 @@ module.exports = {
     if (num !== undefined) {
       this.month(0);
       this.date(1);
-      this.day(1); //monday
+      this.day('monday');
       clearMinutes(this);
+      //don't go into last-year
+      if (this.monthName() === 'december') {
+        this.add(1, 'week');
+      }
       num -= 1; //1-based
       this.add(num, 'weeks');
       return this;
@@ -39,6 +43,7 @@ module.exports = {
     tmp.date(1);
     clearMinutes(tmp);
     tmp.day('monday');
+    //don't go into last-year
     if (tmp.monthName() === 'december') {
       tmp.add(1, 'week');
     }

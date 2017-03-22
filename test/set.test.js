@@ -88,11 +88,12 @@ test('set by weekday', (t) => {
   s.day('sat');
   t.equal(s.date(), 25, 'now saturday');
   s.day('sunday');
-  t.equal(s.date(), 26, 'now sunday');
+  //never click-into the next week
+  t.equal(s.date(), 19, 'now sunday');
   s.day('monday');
-  t.equal(s.date(), 27, 'now monday');
+  t.equal(s.date(), 20, 'now monday');
   s.day(2);
-  t.equal(s.date(), 28, 'now tuesday');
+  t.equal(s.date(), 21, 'now tuesday');
   t.end();
 });
 
