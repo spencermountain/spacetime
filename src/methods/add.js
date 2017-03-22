@@ -85,6 +85,10 @@ const addMethods = (Space) => {
         //month is the one unit we 'model' directly
         want = rollMonth(want, old);
       }
+      //ensure year has changed (leap-years)
+      if (unit === 'year' && this.year() === old.year()) {
+        this.epoch += ms.week;
+      }
 
       //keep current date, unless the month doesn't have it.
       if (keepDate[unit]) {

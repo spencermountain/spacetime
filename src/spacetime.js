@@ -41,6 +41,11 @@ class SpaceTime {
     console.log(format(this).nice.short);
     return this;
   }
+  logYear() {
+    console.log('');
+    console.log(format(this).date.short + ' ' + this.year());
+    return this;
+  }
   progress() {
     return progress(this);
   }

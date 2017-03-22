@@ -1,7 +1,7 @@
 'use strict';
 const spacetime = require('./src');
 
-let s = spacetime('January 1, 2015 2:00:00', 'Canada/Eastern');
-s.month(1);
-s.log();
-console.log(s.week());
+let s = spacetime(1451667600000, 'Canada/Eastern');
+s.logYear();
+s.add(1, 'year').logYear();
+// s.endOf('year').logYear();

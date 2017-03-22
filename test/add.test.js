@@ -45,9 +45,7 @@ test('add', (t) => {
   // s.add(1, 'quarter');
   // t.equal(s.date(), 1, 'movequarter.date()');
   // t.equal(s.monthName(), 'april', 'movequarter.date()');
-  s.log();
   s.add(2, 'years');
-  s.log();
   t.equal(s.date(), 1, 'moveyear-.date()');
   // t.equal(s.monthName(), 'april', 'moveyear.month()');
   t.equal(s.year(), 2019, 'moveyear.years()');
@@ -62,5 +60,17 @@ test('hour regression', (t) => {
   s.add(1, 'hour');
   t.equal(s.hour(), 14, '.hour()');
   t.equal(s.minute(), 20, '.minute()');
+  t.end();
+});
+
+test('year-tricky', (t) => {
+  let s = spacetime(1451667600000, 'Canada/Eastern'); //jan 1 2016 (leap year)
+  t.equal(s.year(), 2016, 'year1');
+
+  let a = s.clone().add(1, 'year');
+  t.equal(a.year(), 2017, 'year-next');
+
+  let b = s.clone().subtract(1, 'year');
+  t.equal(b.year(), 2015, 'year-last');
   t.end();
 });
