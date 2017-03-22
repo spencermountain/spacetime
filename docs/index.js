@@ -16,6 +16,7 @@ module.exports = {
   isBefore: {},
   isEqual: {},
   isSame: {},
+  diff: {},
 
   //set
   startOf: {}, //confirm

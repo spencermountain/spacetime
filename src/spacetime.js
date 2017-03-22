@@ -4,6 +4,7 @@ const guessTz = require('./timezone/guessTz');
 const timezone = require('./timezone/index');
 const format = require('./methods/format');
 const progress = require('./methods/progress');
+const diff = require('./methods/diff');
 const ends = require('./methods/startOf');
 const handleInput = require('./input');
 
@@ -42,6 +43,9 @@ class SpaceTime {
   }
   progress() {
     return progress(this);
+  }
+  diff(d, unit) {
+    return diff(this, d, unit);
   }
 
   //a js date object

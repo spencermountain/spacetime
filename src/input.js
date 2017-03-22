@@ -124,6 +124,10 @@ const parseInput = (s, input) => {
   if (typeof input !== 'string') {
     return;
   }
+  if (input.epoch) {
+    s.epoch = input.epoch;
+    return;
+  }
 
   for(let i = 0; i < strFmt.length; i++) {
     let m = input.match(strFmt[i].reg);

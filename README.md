@@ -115,6 +115,8 @@ s.isBefore(d) //false
 //comparison-by-unit
 s.isSame(d, 'year') //true
 s.isSame(d, 'date') //false
+s.diff(d, 'day') // 5
+s.diff(d, 'month') // 0
 
 
 //formatting
