@@ -28,13 +28,54 @@ test('hour-inputs', (t) => {
 });
 
 test('null input', (t) => {
-
   let a = spacetime(null, 'Canada/Eastern');
   let b = spacetime(Date.now(), 'Canada/Eastern');
   a = a.format();
   b = b.format();
   t.equal(a.iso.short, b.iso.short, 'dates are the same');
   t.equal(a.time.h12, b.time.h12, 'times are the same');
+  t.end();
+});
 
+test('arr-input', (t) => {
+  let s = spacetime([2020, 2, 28]);
+  t.equal(s.year(), 2020, 'arr-year');
+  t.equal(s.date(), 28, 'arr-date');
+  t.equal(s.monthName(), 'march', 'arr-month');
+
+  s.set([2017, 1, 2]);
+  t.equal(s.year(), 2017, 'set-arr-year');
+  t.equal(s.date(), 2, 'set-arr-date');
+  t.equal(s.month(), 1, 'set-arr-month');
+  t.end();
+});
+
+test('obj-input', (t) => {
+  let s = spacetime({
+    year: 2020,
+    month: 'march',
+    date: 28
+  });
+  t.equal(s.date(), 28, 'obj-date');
+  t.equal(s.year(), 2020, 'obj-year');
+  t.equal(s.monthName(), 'march', 'obj-month');
+  t.end();
+});
+
+test('date-input', (t) => {
+  let d = new Date('March 11, 2017');
+  let s = spacetime(d);
+  // t.equal(s.date(), 11, 'date-date');
+  t.equal(s.year(), 2017, 'date-year');
+  t.equal(s.monthName(), 'march', 'date-month');
+  t.end();
+});
+
+test('self-input', (t) => {
+  let a = spacetime('March 11, 2017');
+  let s = spacetime(a);
+  t.equal(s.date(), 11, 'self-date');
+  t.equal(s.year(), 2017, 'self-year');
+  t.equal(s.monthName(), 'march', 'self-month');
   t.end();
 });

@@ -1,7 +1,13 @@
 'use strict';
 const spacetime = require('./src');
 
-let s = spacetime(1451667600000, 'Canada/Eastern');
-s.logYear();
-s.add(1, 'year').logYear();
-// s.endOf('year').logYear();
+//bug. 1
+// let d = new Date('March 11, 2017');
+// let s = spacetime(d, 'Canada/Eastern');
+// s.log();
+
+let d = new Date('March 11, 2017');
+// let epoch = d.getTime();
+let s = spacetime(d);
+console.log(s.timezone());
+s.log();

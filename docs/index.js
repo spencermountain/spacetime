@@ -19,12 +19,13 @@ module.exports = {
   diff: {},
 
   //set
-  startOf: {}, //confirm
-  endOf: {}, //confirm
-  add: {}, //ms+confirm
-  subtract: {}, //ms+confirm
+  set: {},
+  startOf: {},
+  endOf: {},
+  add: {},
+  subtract: {},
 
-  //getter/setters  //ms+confirm
+  //getter/setters
   millisecond: {},
   second: {},
   minute: {},

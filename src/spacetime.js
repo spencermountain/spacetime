@@ -19,6 +19,10 @@ class SpaceTime {
     //parse the various formats
     handleInput(this, input);
   }
+  set(input) {
+    handleInput(this, input);
+    return this;
+  }
   timezone() {
     return timezone(this);
   }
