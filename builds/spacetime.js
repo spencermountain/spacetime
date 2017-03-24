@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v0.0.7
+/* @smallwins/spacetime v0.0.8
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -2082,7 +2082,7 @@ module.exports={
 },{}],2:[function(_dereq_,module,exports){
 module.exports={
   "name": "@smallwins/spacetime",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "UNLICENSED",
@@ -2265,11 +2265,10 @@ main.version = pkg.version;
 
 module.exports = main;
 
-},{"../package.json":2,"./spacetime":29}],12:[function(_dereq_,module,exports){
+},{"../package.json":2,"./spacetime":30}],12:[function(_dereq_,module,exports){
 'use strict';
 
-var walkTo = _dereq_('./methods/set/walk');
-var months = _dereq_('./data/months');
+var strFmt = _dereq_('./strParse');
 
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
@@ -2283,6 +2282,12 @@ var months = _dereq_('./data/months');
 var isArray = function isArray(input) {
   return Object.prototype.toString.call(input) === '[object Array]';
 };
+var isObject = function isObject(input) {
+  return Object.prototype.toString.call(input) === '[object Object]';
+};
+var isDate = function isDate(d) {
+  return d instanceof Date && !isNaN(d.valueOf());
+};
 
 //support [2016, 03, 01] format
 var handleArray = function handleArray(s, arr) {
@@ -2292,9 +2297,71 @@ var handleArray = function handleArray(s, arr) {
     var num = arr[i] || 0;
     s[unit](num);
   }
-  // s.millisecond(1);
   return s;
 };
+//support {year:2016, month:3} format
+var handleObject = function handleObject(s, obj) {
+  var keys = Object.keys(obj);
+  for (var i = 0; i < keys.length; i++) {
+    var unit = keys[i];
+    if (s[unit] !== undefined) {
+      var num = obj[unit] || 0;
+      s[unit](num);
+    }
+  }
+  return s;
+};
+
+//find the epoch from different input styles
+var parseInput = function parseInput(s, input) {
+  if (typeof input === 'number') {
+    s.epoch = input;
+    return;
+  }
+  //set tmp time
+  s.epoch = Date.now();
+  if (input === null || input === undefined) {
+    return; //k, we're good.
+  }
+  //support input of Date() object
+  if (isDate(input) === true) {
+    s.epoch = input.getTime();
+    return;
+  }
+  //support [2016, 03, 01] format
+  if (isArray(input) === true) {
+    handleArray(s, input);
+    return;
+  }
+  //support {year:2016, month:3} format
+  if (isObject(input) === true) {
+    //support spacetime object as input
+    if (input.epoch) {
+      s.epoch = input.epoch;
+      return;
+    }
+    handleObject(s, input);
+    return;
+  }
+  if (typeof input !== 'string') {
+    return;
+  }
+
+  for (var i = 0; i < strFmt.length; i++) {
+    var m = input.match(strFmt[i].reg);
+    if (m) {
+      strFmt[i].parse(s, m);
+      return;
+    }
+  }
+};
+module.exports = parseInput;
+
+},{"./strParse":13}],13:[function(_dereq_,module,exports){
+'use strict';
+
+var walkTo = _dereq_('../methods/set/walk');
+var months = _dereq_('../data/months');
 
 var parseHour = function parseHour(s, str) {
   str = str.replace(/^\s+/, ''); //trim
@@ -2365,41 +2432,9 @@ var strFmt = [
   }
 }];
 
-//find the epoch from different input styles
-var parseInput = function parseInput(s, input) {
-  if (typeof input === 'number') {
-    s.epoch = input;
-    return;
-  }
-  //set tmp time
-  s.epoch = Date.now();
-  if (input === null || input === undefined) {
-    return; //k, we're good.
-  }
-  //support [2016, 03, 01] format
-  if (isArray(input)) {
-    handleArray(s, input);
-    return;
-  }
-  if (typeof input !== 'string') {
-    return;
-  }
-  if (input.epoch) {
-    s.epoch = input.epoch;
-    return;
-  }
+module.exports = strFmt;
 
-  for (var i = 0; i < strFmt.length; i++) {
-    var m = input.match(strFmt[i].reg);
-    if (m) {
-      strFmt[i].parse(s, m);
-      return;
-    }
-  }
-};
-module.exports = parseInput;
-
-},{"./data/months":7,"./methods/set/walk":27}],13:[function(_dereq_,module,exports){
+},{"../data/months":7,"../methods/set/walk":28}],14:[function(_dereq_,module,exports){
 'use strict';
 
 //days since newyears - jan 1st is 1, jan 2nd is 2...
@@ -2421,7 +2456,7 @@ var dayOfYear = function dayOfYear(d) {
 
 module.exports = dayOfYear;
 
-},{}],14:[function(_dereq_,module,exports){
+},{}],15:[function(_dereq_,module,exports){
 'use strict';
 
 function zeroPad(str, len) {
@@ -2459,7 +2494,7 @@ module.exports = {
   ordinal: ordinal
 };
 
-},{}],15:[function(_dereq_,module,exports){
+},{}],16:[function(_dereq_,module,exports){
 'use strict';
 
 exports.isDate = function (d) {
@@ -2481,7 +2516,7 @@ exports.getEpoch = function (tmp) {
   return null;
 };
 
-},{}],16:[function(_dereq_,module,exports){
+},{}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('./set/walk');
@@ -2602,7 +2637,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"../data/milliseconds":5,"../data/monthLength":6,"./set/walk":27}],17:[function(_dereq_,module,exports){
+},{"../data/milliseconds":5,"../data/monthLength":6,"./set/walk":28}],18:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../lib/fns');
@@ -2642,7 +2677,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"../lib/fns":15}],18:[function(_dereq_,module,exports){
+},{"../lib/fns":16}],19:[function(_dereq_,module,exports){
 'use strict';
 // const ms = require('../data/milliseconds');
 
@@ -2682,7 +2717,7 @@ var diff = function diff(a, b, unit) {
 };
 module.exports = diff;
 
-},{}],19:[function(_dereq_,module,exports){
+},{}],20:[function(_dereq_,module,exports){
 'use strict';
 
 var fmt = _dereq_('../lib/fmt');
@@ -2744,7 +2779,7 @@ var format = function format(s) {
 };
 module.exports = format;
 
-},{"../data/days":4,"../data/months":7,"../lib/fmt":14}],20:[function(_dereq_,module,exports){
+},{"../data/days":4,"../data/months":7,"../lib/fmt":15}],21:[function(_dereq_,module,exports){
 'use strict';
 //how far it is along, from 0-1
 
@@ -2763,7 +2798,7 @@ var progress = function progress(s) {
 
 module.exports = progress;
 
-},{}],21:[function(_dereq_,module,exports){
+},{}],22:[function(_dereq_,module,exports){
 'use strict';
 
 var quarters = _dereq_('../../data/quarters');
@@ -2916,7 +2951,7 @@ module.exports = {
   }
 };
 
-},{"../../data/quarters":8,"../../data/seasons":9,"../set/set":26}],22:[function(_dereq_,module,exports){
+},{"../../data/quarters":8,"../../data/seasons":9,"../set/set":27}],23:[function(_dereq_,module,exports){
 'use strict';
 
 var normal = _dereq_('./normal');
@@ -2941,7 +2976,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"./destructive":21,"./normal":23,"./tricky":24}],23:[function(_dereq_,module,exports){
+},{"./destructive":22,"./normal":24,"./tricky":25}],24:[function(_dereq_,module,exports){
 'use strict';
 
 var set = _dereq_('../set/set');
@@ -3018,7 +3053,7 @@ methods.days = methods.day;
 
 module.exports = methods;
 
-},{"../../lib/dayOfYear":13,"../set/set":26}],24:[function(_dereq_,module,exports){
+},{"../../lib/dayOfYear":14,"../set/set":27}],25:[function(_dereq_,module,exports){
 'use strict';
 
 var days = _dereq_('../../data/days');
@@ -3131,7 +3166,7 @@ module.exports = {
   }
 };
 
-},{"../../data/dayTimes":3,"../../data/days":4,"../../data/months":7}],25:[function(_dereq_,module,exports){
+},{"../../data/dayTimes":3,"../../data/days":4,"../../data/months":7}],26:[function(_dereq_,module,exports){
 'use strict';
 
 var print = {
@@ -3194,7 +3229,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{}],26:[function(_dereq_,module,exports){
+},{}],27:[function(_dereq_,module,exports){
 'use strict';
 
 // javascript setX methods like setDate() can't be used because of the local bias
@@ -3346,7 +3381,7 @@ module.exports = {
 
 };
 
-},{"../../data/dayTimes":3,"../../data/milliseconds":5,"../../data/monthLength":6,"../../data/months":7,"./walk":27}],27:[function(_dereq_,module,exports){
+},{"../../data/dayTimes":3,"../../data/milliseconds":5,"../../data/monthLength":6,"../../data/months":7,"./walk":28}],28:[function(_dereq_,module,exports){
 'use strict';
 
 var ms = _dereq_('../../data/milliseconds');
@@ -3460,6 +3495,15 @@ var units = {
 //   return want;
 // };
 
+// const postProcess = function(s, wants) {
+//   Object.keys(wants).forEach((k) => {
+//     if (s[k]() !== wants[k]) {
+//       console.warn('invalid ' + k + ':   - want ' + wants[k]);
+//     }
+//   });
+//   return s;
+// };
+
 var walkTo = function walkTo(s, wants) {
   // wants = preProcess(wants);
   var keys = Object.keys(units);
@@ -3485,11 +3529,12 @@ var walkTo = function walkTo(s, wants) {
   if (wants.hour === undefined && s.hour() !== old.hour()) {
     s.hour(old.hour());
   }
+  // s = postProcess(s, wants);
   return;
 };
 module.exports = walkTo;
 
-},{"../../data/milliseconds":5}],28:[function(_dereq_,module,exports){
+},{"../../data/milliseconds":5}],29:[function(_dereq_,module,exports){
 'use strict';
 
 var seasons = _dereq_('../data/seasons');
@@ -3618,7 +3663,7 @@ module.exports = {
   endOf: endOf
 };
 
-},{"../data/quarters":8,"../data/seasons":9,"./set/walk":27}],29:[function(_dereq_,module,exports){
+},{"../data/quarters":8,"../data/seasons":9,"./set/walk":28}],30:[function(_dereq_,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -3649,6 +3694,12 @@ var SpaceTime = function () {
   }
 
   _createClass(SpaceTime, [{
+    key: 'set',
+    value: function set(input) {
+      handleInput(this, input);
+      return this;
+    }
+  }, {
     key: 'timezone',
     value: function timezone() {
       return _timezone(this);
@@ -3749,7 +3800,7 @@ SpaceTime = _dereq_('./methods/compare')(SpaceTime);
 
 module.exports = SpaceTime;
 
-},{"./getBias":10,"./input":12,"./methods/add":16,"./methods/compare":17,"./methods/diff":18,"./methods/format":19,"./methods/progress":20,"./methods/query":22,"./methods/same":25,"./methods/startOf":28,"./timezone/guessTz":30,"./timezone/index":31}],30:[function(_dereq_,module,exports){
+},{"./getBias":10,"./input":12,"./methods/add":17,"./methods/compare":18,"./methods/diff":19,"./methods/format":20,"./methods/progress":21,"./methods/query":23,"./methods/same":26,"./methods/startOf":29,"./timezone/guessTz":31,"./timezone/index":32}],31:[function(_dereq_,module,exports){
 'use strict';
 //find the implicit iana code for this machine.
 //safely query the Intl object
@@ -3773,7 +3824,7 @@ var guessTz = function guessTz() {
 };
 module.exports = guessTz;
 
-},{}],31:[function(_dereq_,module,exports){
+},{}],32:[function(_dereq_,module,exports){
 'use strict';
 
 var zones = _dereq_('../../data/zonefile.2017');
@@ -3846,7 +3897,7 @@ var timezone = function timezone(s) {
 };
 module.exports = timezone;
 
-},{"../../data/zonefile.2017":1,"./isDst":32}],32:[function(_dereq_,module,exports){
+},{"../../data/zonefile.2017":1,"./isDst":33}],33:[function(_dereq_,module,exports){
 'use strict';
 
 function zeroPad(str, len) {

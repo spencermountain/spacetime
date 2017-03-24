@@ -65,7 +65,7 @@ test('obj-input', (t) => {
 test('date-input', (t) => {
   let d = new Date('March 11, 2017');
   let s = spacetime(d);
-  // t.equal(s.date(), 11, 'date-date');
+  // t.equal(s.date(), 11, 'date-date');//FIXME:!
   t.equal(s.year(), 2017, 'date-year');
   t.equal(s.monthName(), 'march', 'date-month');
   t.end();

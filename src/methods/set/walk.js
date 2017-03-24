@@ -96,6 +96,15 @@ const units = {
 //   return want;
 // };
 
+// const postProcess = function(s, wants) {
+//   Object.keys(wants).forEach((k) => {
+//     if (s[k]() !== wants[k]) {
+//       console.warn('invalid ' + k + ':   - want ' + wants[k]);
+//     }
+//   });
+//   return s;
+// };
+
 const walkTo = (s, wants) => {
   // wants = preProcess(wants);
   let keys = Object.keys(units);
@@ -121,6 +130,7 @@ const walkTo = (s, wants) => {
   if (wants.hour === undefined && s.hour() !== old.hour()) {
     s.hour(old.hour());
   }
+  // s = postProcess(s, wants);
   return;
 };
 module.exports = walkTo;
