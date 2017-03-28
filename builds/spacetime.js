@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v0.0.10
+/* @smallwins/spacetime v0.0.11
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -2083,7 +2083,7 @@ module.exports={
 },{}],2:[function(_dereq_,module,exports){
 module.exports={
   "name": "@smallwins/spacetime",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "UNLICENSED",
@@ -2254,11 +2254,11 @@ main.now = function (tz) {
 };
 main.today = function (tz) {
   var space = new Spacetime(new Date().getTime(), tz);
-  return space.morning();
+  return space.startOf('day');
 };
 main.tomorrow = function (tz) {
   var space = new Spacetime(new Date().getTime(), tz);
-  return space.add(1, 'day').morning();
+  return space.add(1, 'day').startOf('day');
 };
 
 //this is handy

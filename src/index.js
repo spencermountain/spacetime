@@ -12,11 +12,11 @@ main.now = function(tz) {
 };
 main.today = function(tz) {
   let space = new Spacetime(new Date().getTime(), tz);
-  return space.morning();
+  return space.startOf('day');
 };
 main.tomorrow = function(tz) {
   let space = new Spacetime(new Date().getTime(), tz);
-  return space.add(1, 'day').morning();
+  return space.add(1, 'day').startOf('day');
 };
 
 //this is handy
