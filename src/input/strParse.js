@@ -4,7 +4,7 @@ const months = require('../data/months');
 
 const parseHour = function(s, str) {
   str = str.replace(/^\s+/, ''); //trim
-  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?:?([0-9]{1,2})?/);
+  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?:?([0-9]{1,4})?/);
   if (arr) {
     s.hour(arr[1]);
     s.minute(arr[2]);
@@ -12,12 +12,25 @@ const parseHour = function(s, str) {
       s.seconds(arr[3]);
     }
     if (arr[4]) {
-      s.seconds(arr[4]);
+      s.millisecond(arr[4]);
     }
   }
 };
 
 const strFmt = [
+  //iso-this 1998-05-30T22:00:00:000Z
+  {
+    reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9:]+)Z$/,
+    parse: (s, arr) => {
+      let month = parseInt(arr[2], 10) - 1;
+      walkTo(s, {
+        year: arr[1],
+        month: month,
+        date: arr[3],
+      });
+      parseHour(s, arr[4]);
+    }
+  },
   //iso "2015-03-25" or "2015/03/25" //0-based-months!
   {
     reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2})$/,

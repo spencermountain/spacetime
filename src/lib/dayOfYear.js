@@ -10,7 +10,6 @@ const dayOfYear = (d) => {
     tmp.setMonth(i);
     tmp.setDate(1);
     tmp.setHours(-2);
-    // console.log(i + '   ' + tmp.getDate());
     sum += tmp.getDate();
   }
   return sum + d.getDate();

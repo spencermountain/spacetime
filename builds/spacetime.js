@@ -1,2088 +1,2089 @@
-/* @smallwins/spacetime v0.0.8
+/* @smallwins/spacetime v0.0.9
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 module.exports={
   "Africa/Abidjan": {
-    "min": 0
+    "o": 0
   },
   "Africa/Accra": {
-    "min": 0
+    "o": 0
   },
   "Africa/Addis_Ababa": {
-    "min": 180
+    "o": 180
   },
   "Africa/Algiers": {
-    "min": 60
+    "o": 60
   },
   "Africa/Asmara": {
-    "min": 180
+    "o": 180
   },
   "Africa/Asmera": {
-    "min": 180
+    "o": 180
   },
   "Africa/Bamako": {
-    "min": 0
+    "o": 0
   },
   "Africa/Bangui": {
-    "min": 60
+    "o": 60
   },
   "Africa/Banjul": {
-    "min": 0
+    "o": 0
   },
   "Africa/Bissau": {
-    "min": 0
+    "o": 0
   },
   "Africa/Blantyre": {
-    "min": 120
+    "o": 120
   },
   "Africa/Brazzaville": {
-    "min": 60
+    "o": 60
   },
   "Africa/Bujumbura": {
-    "min": 120
+    "o": 120
   },
   "Africa/Cairo": {
-    "min": 120
+    "o": 120
   },
   "Africa/Casablanca": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "6/2/3 -> 9/29/2"
   },
   "Africa/Ceuta": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Africa/Conakry": {
-    "min": 0
+    "o": 0
   },
   "Africa/Dakar": {
-    "min": 0
+    "o": 0
   },
   "Africa/Dar_es_Salaam": {
-    "min": 180
+    "o": 180
   },
   "Africa/Djibouti": {
-    "min": 180
+    "o": 180
   },
   "Africa/Douala": {
-    "min": 60
+    "o": 60
   },
   "Africa/El_Aaiun": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "6/2/3 -> 9/29/2"
   },
   "Africa/Freetown": {
-    "min": 0
+    "o": 0
   },
   "Africa/Gaborone": {
-    "min": 120
+    "o": 120
   },
   "Africa/Harare": {
-    "min": 120
+    "o": 120
   },
   "Africa/Johannesburg": {
-    "min": 120
+    "o": 120
   },
   "Africa/Juba": {
-    "min": 180
+    "o": 180
   },
   "Africa/Kampala": {
-    "min": 180
+    "o": 180
   },
   "Africa/Khartoum": {
-    "min": 180
+    "o": 180
   },
   "Africa/Kigali": {
-    "min": 120
+    "o": 120
   },
   "Africa/Kinshasa": {
-    "min": 60
+    "o": 60
   },
   "Africa/Lagos": {
-    "min": 60
+    "o": 60
   },
   "Africa/Libreville": {
-    "min": 60
+    "o": 60
   },
   "Africa/Lome": {
-    "min": 0
+    "o": 0
   },
   "Africa/Luanda": {
-    "min": 60
+    "o": 60
   },
   "Africa/Lubumbashi": {
-    "min": 120
+    "o": 120
   },
   "Africa/Lusaka": {
-    "min": 120
+    "o": 120
   },
   "Africa/Malabo": {
-    "min": 60
+    "o": 60
   },
   "Africa/Maputo": {
-    "min": 120
+    "o": 120
   },
   "Africa/Maseru": {
-    "min": 120
+    "o": 120
   },
   "Africa/Mbabane": {
-    "min": 120
+    "o": 120
   },
   "Africa/Mogadishu": {
-    "min": 180
+    "o": 180
   },
   "Africa/Monrovia": {
-    "min": 0
+    "o": 0
   },
   "Africa/Nairobi": {
-    "min": 180
+    "o": 180
   },
   "Africa/Ndjamena": {
-    "min": 60
+    "o": 60
   },
   "Africa/Niamey": {
-    "min": 60
+    "o": 60
   },
   "Africa/Nouakchott": {
-    "min": 0
+    "o": 0
   },
   "Africa/Ouagadougou": {
-    "min": 0
+    "o": 0
   },
   "Africa/Porto-Novo": {
-    "min": 60
+    "o": 60
   },
   "Africa/Sao_Tome": {
-    "min": 0
+    "o": 0
   },
   "Africa/Timbuktu": {
-    "min": 0
+    "o": 0
   },
   "Africa/Tripoli": {
-    "min": 120
+    "o": 120
   },
   "Africa/Tunis": {
-    "min": 60
+    "o": 60
   },
   "Africa/Windhoek": {
-    "min": 60,
+    "o": 60,
     "hem": "s",
     "dst": "8/3/3 -> 3/2/1"
   },
   "America/Adak": {
-    "min": -540,
+    "o": -540,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Anchorage": {
-    "min": -480,
+    "o": -480,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Anguilla": {
-    "min": -240
+    "o": -240
   },
   "America/Antigua": {
-    "min": -240
+    "o": -240
   },
   "America/Araguaina": {
-    "min": -180
+    "o": -180
   },
   "America/Argentina/Buenos_Aires": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/Catamarca": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/ComodRivadavia": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/Cordoba": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/Jujuy": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/La_Rioja": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/Mendoza": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/Rio_Gallegos": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/Salta": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/San_Juan": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/San_Luis": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/Tucuman": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Argentina/Ushuaia": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "America/Aruba": {
-    "min": -240
+    "o": -240
   },
   "America/Asuncion": {
-    "min": -240,
+    "o": -240,
     "hem": "s",
     "dst": "9/1/1 -> 2/25/23"
   },
   "America/Atikokan": {
-    "min": -300
+    "o": -300
   },
   "America/Atka": {
-    "min": -540,
+    "o": -540,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Bahia": {
-    "min": -180
+    "o": -180
   },
   "America/Bahia_Banderas": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "3/2/3 -> 9/29/1"
   },
   "America/Barbados": {
-    "min": -240
+    "o": -240
   },
   "America/Belem": {
-    "min": -180
+    "o": -180
   },
   "America/Belize": {
-    "min": -360
+    "o": -360
   },
   "America/Blanc-Sablon": {
-    "min": -240
+    "o": -240
   },
   "America/Boa_Vista": {
-    "min": -240
+    "o": -240
   },
   "America/Bogota": {
-    "min": -300
+    "o": -300
   },
   "America/Boise": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Buenos_Aires": {
-    "min": -180
+    "o": -180
   },
   "America/Cambridge_Bay": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Campo_Grande": {
-    "min": -240,
+    "o": -240,
     "hem": "s",
     "dst": "9/15/1 -> 1/18/23"
   },
   "America/Cancun": {
-    "min": -300
+    "o": -300
   },
   "America/Caracas": {
-    "min": -270
+    "o": -270
   },
   "America/Catamarca": {
-    "min": -180
+    "o": -180
   },
   "America/Cayenne": {
-    "min": -180
+    "o": -180
   },
   "America/Cayman": {
-    "min": -300
+    "o": -300
   },
   "America/Chicago": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Chihuahua": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "3/2/3 -> 9/29/1"
   },
   "America/Coral_Harbour": {
-    "min": -300
+    "o": -300
   },
   "America/Cordoba": {
-    "min": -180
+    "o": -180
   },
   "America/Costa_Rica": {
-    "min": -360,
+    "o": -360,
     "hem": "s"
   },
   "America/Creston": {
-    "min": -420
+    "o": -420
   },
   "America/Cuiaba": {
-    "min": -240,
+    "o": -240,
     "hem": "s",
     "dst": "9/15/1 -> 1/18/23"
   },
   "America/Curacao": {
-    "min": -240
+    "o": -240
   },
   "America/Danmarkshavn": {
-    "min": 0
+    "o": 0
   },
   "America/Dawson": {
-    "min": -420,
+    "o": -420,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Dawson_Creek": {
-    "min": -420
+    "o": -420
   },
   "America/Denver": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Detroit": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Dominica": {
-    "min": -240
+    "o": -240
   },
   "America/Edmonton": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Eirunepe": {
-    "min": -300
+    "o": -300
   },
   "America/El_Salvador": {
-    "min": -360
+    "o": -360
   },
   "America/Ensenada": {
-    "min": -420,
+    "o": -420,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Fort_Wayne": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Fortaleza": {
-    "min": -180
+    "o": -180
   },
   "America/Glace_Bay": {
-    "min": -180,
+    "o": -180,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Godthab": {
-    "min": -120,
+    "o": -120,
     "hem": "n",
     "dst": "2/25/23 -> 9/28/22"
   },
   "America/Goose_Bay": {
-    "min": -180,
+    "o": -180,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Grand_Turk": {
-    "min": -240
+    "o": -240
   },
   "America/Grenada": {
-    "min": -240
+    "o": -240
   },
   "America/Guadeloupe": {
-    "min": -240
+    "o": -240
   },
   "America/Guatemala": {
-    "min": -360
+    "o": -360
   },
   "America/Guayaquil": {
-    "min": -300
+    "o": -300
   },
   "America/Guyana": {
-    "min": -240
+    "o": -240
   },
   "America/Halifax": {
-    "min": -180,
+    "o": -180,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Havana": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/1 -> 10/5/0"
   },
   "America/Hermosillo": {
-    "min": -420
+    "o": -420
   },
   "America/Indiana/Indianapolis": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Indiana/Knox": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Indiana/Marengo": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Indiana/Petersburg": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Indiana/Tell_City": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Indiana/Vevay": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Indiana/Vincennes": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Indiana/Winamac": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Indianapolis": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Inuvik": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Iqaluit": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Jamaica": {
-    "min": -300
+    "o": -300
   },
   "America/Jujuy": {
-    "min": -180
+    "o": -180
   },
   "America/Juneau": {
-    "min": -480,
+    "o": -480,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Kentucky/Louisville": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Kentucky/Monticello": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Knox_IN": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Kralendijk": {
-    "min": -240
+    "o": -240
   },
   "America/La_Paz": {
-    "min": -240
+    "o": -240
   },
   "America/Lima": {
-    "min": -300
+    "o": -300
   },
   "America/Los_Angeles": {
-    "min": -420,
+    "o": -420,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Louisville": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Lower_Princes": {
-    "min": -240
+    "o": -240
   },
   "America/Maceio": {
-    "min": -180
+    "o": -180
   },
   "America/Managua": {
-    "min": -360
+    "o": -360
   },
   "America/Manaus": {
-    "min": -240
+    "o": -240
   },
   "America/Marigot": {
-    "min": -240
+    "o": -240
   },
   "America/Martinique": {
-    "min": -240
+    "o": -240
   },
   "America/Matamoros": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Mazatlan": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "3/2/3 -> 9/29/1"
   },
   "America/Mendoza": {
-    "min": -180
+    "o": -180
   },
   "America/Menominee": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Merida": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "3/2/3 -> 9/29/1"
   },
   "America/Metlakatla": {
-    "min": -480,
+    "o": -480,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Mexico_City": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "3/2/3 -> 9/29/1"
   },
   "America/Miquelon": {
-    "min": -120,
+    "o": -120,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Moncton": {
-    "min": -180,
+    "o": -180,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Monterrey": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "3/2/3 -> 9/29/1"
   },
   "America/Montevideo": {
-    "min": -180
+    "o": -180
   },
   "America/Montreal": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Montserrat": {
-    "min": -240
+    "o": -240
   },
   "America/Nassau": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/New_York": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Nipigon": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Nome": {
-    "min": -480,
+    "o": -480,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Noronha": {
-    "min": -120
+    "o": -120
   },
   "America/North_Dakota/Beulah": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/North_Dakota/Center": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/North_Dakota/New_Salem": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Ojinaga": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Panama": {
-    "min": -300
+    "o": -300
   },
   "America/Pangnirtung": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Paramaribo": {
-    "min": -180
+    "o": -180
   },
   "America/Phoenix": {
-    "min": -420
+    "o": -420
   },
   "America/Port-au-Prince": {
-    "min": -240
+    "o": -240
   },
   "America/Port_of_Spain": {
-    "min": -240
+    "o": -240
   },
   "America/Porto_Acre": {
-    "min": -300
+    "o": -300
   },
   "America/Porto_Velho": {
-    "min": -240
+    "o": -240
   },
   "America/Puerto_Rico": {
-    "min": -240
+    "o": -240
   },
   "America/Rainy_River": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Rankin_Inlet": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Recife": {
-    "min": -180
+    "o": -180
   },
   "America/Regina": {
-    "min": -360
+    "o": -360
   },
   "America/Resolute": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Rio_Branco": {
-    "min": -300
+    "o": -300
   },
   "America/Rosario": {
-    "min": -180
+    "o": -180
   },
   "America/Santa_Isabel": {
-    "min": -420,
+    "o": -420,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Santarem": {
-    "min": -180
+    "o": -180
   },
   "America/Santiago": {
-    "min": -180,
+    "o": -180,
     "hem": "s",
     "dst": "7/13/1 -> 4/13/23"
   },
   "America/Santo_Domingo": {
-    "min": -240
+    "o": -240
   },
   "America/Sao_Paulo": {
-    "min": -180,
+    "o": -180,
     "hem": "s",
     "dst": "9/15/1 -> 1/18/23"
   },
   "America/Scoresbysund": {
-    "min": 0,
+    "o": 0,
     "hem": "n",
     "dst": "2/26/1 -> 9/29/0"
   },
   "America/Shiprock": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Sitka": {
-    "min": -480,
+    "o": -480,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/St_Barthelemy": {
-    "min": -240
+    "o": -240
   },
   "America/St_Johns": {
-    "min": -150,
+    "o": -150,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/St_Kitts": {
-    "min": -240
+    "o": -240
   },
   "America/St_Lucia": {
-    "min": -240
+    "o": -240
   },
   "America/St_Thomas": {
-    "min": -240
+    "o": -240
   },
   "America/St_Vincent": {
-    "min": -240
+    "o": -240
   },
   "America/Swift_Current": {
-    "min": -360
+    "o": -360
   },
   "America/Tegucigalpa": {
-    "min": -360
+    "o": -360
   },
   "America/Thule": {
-    "min": -180,
+    "o": -180,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Thunder_Bay": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Tijuana": {
-    "min": -420,
+    "o": -420,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Toronto": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Tortola": {
-    "min": -240
+    "o": -240
   },
   "America/Vancouver": {
-    "min": -420,
+    "o": -420,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Virgin": {
-    "min": -240
+    "o": -240
   },
   "America/Whitehorse": {
-    "min": -420,
+    "o": -420,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Winnipeg": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Yakutat": {
-    "min": -480,
+    "o": -480,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "America/Yellowknife": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "Antarctica/Casey": {
-    "min": 480,
+    "o": 480,
     "hem": "s"
   },
   "Antarctica/Davis": {
-    "min": 420,
+    "o": 420,
     "hem": "s"
   },
   "Antarctica/DumontDUrville": {
-    "min": 600,
+    "o": 600,
     "hem": "s"
   },
   "Antarctica/Macquarie": {
-    "min": 660,
+    "o": 660,
     "hem": "s"
   },
   "Antarctica/Mawson": {
-    "min": 300,
+    "o": 300,
     "hem": "s"
   },
   "Antarctica/McMurdo": {
-    "min": 720,
+    "o": 720,
     "hem": "s",
     "dst": "8/24/3 -> 3/2/2"
   },
   "Antarctica/Palmer": {
-    "min": -180,
+    "o": -180,
     "hem": "s",
     "dst": "7/13/1 -> 4/13/23"
   },
   "Antarctica/Rothera": {
-    "min": -180,
+    "o": -180,
     "hem": "s"
   },
   "Antarctica/South_Pole": {
-    "min": 720,
+    "o": 720,
     "hem": "s",
     "dst": "8/24/3 -> 3/2/2"
   },
   "Antarctica/Syowa": {
-    "min": 180,
+    "o": 180,
     "hem": "s"
   },
   "Antarctica/Troll": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/1"
   },
   "Antarctica/Vostok": {
-    "min": 360,
+    "o": 360,
     "hem": "s"
   },
   "Arctic/Longyearbyen": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Asia/Aden": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Asia/Almaty": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Amman": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/31/1 -> 9/27/0"
   },
   "Asia/Anadyr": {
-    "min": 720,
+    "o": 720,
     "hem": "n"
   },
   "Asia/Aqtau": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Aqtobe": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Ashgabat": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Ashkhabad": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Baghdad": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Asia/Bahrain": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Asia/Baku": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Bangkok": {
-    "min": 420,
+    "o": 420,
     "hem": "n"
   },
   "Asia/Beirut": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/1 -> 9/28/23"
   },
   "Asia/Bishkek": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Brunei": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Calcutta": {
-    "min": 330,
+    "o": 330,
     "hem": "n"
   },
   "Asia/Chita": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Choibalsan": {
-    "min": 480,
+    "o": 480,
     "hem": "n",
     "dst": "2/25/3 -> 8/29/23"
   },
   "Asia/Chongqing": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Chungking": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Colombo": {
-    "min": 330,
+    "o": 330,
     "hem": "n"
   },
   "Asia/Dacca": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Damascus": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/31/1 -> 9/26/23"
   },
   "Asia/Dhaka": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Dili": {
-    "min": 540,
+    "o": 540,
     "hem": "n"
   },
   "Asia/Dubai": {
-    "min": 240,
+    "o": 240,
     "hem": "n"
   },
   "Asia/Dushanbe": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Gaza": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/25/2 -> 9/28/0"
   },
   "Asia/Harbin": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Hebron": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/25/2 -> 9/28/0"
   },
   "Asia/Ho_Chi_Minh": {
-    "min": 420,
+    "o": 420,
     "hem": "n"
   },
   "Asia/Hong_Kong": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Hovd": {
-    "min": 420,
+    "o": 420,
     "hem": "n",
     "dst": "2/25/3 -> 8/29/23"
   },
   "Asia/Irkutsk": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Istanbul": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Asia/Jakarta": {
-    "min": 420,
+    "o": 420,
     "hem": "n"
   },
   "Asia/Jayapura": {
-    "min": 540,
+    "o": 540,
     "hem": "n"
   },
   "Asia/Jerusalem": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/24/3 -> 9/29/1"
   },
   "Asia/Kabul": {
-    "min": 270,
+    "o": 270,
     "hem": "n"
   },
   "Asia/Kamchatka": {
-    "min": 720,
+    "o": 720,
     "hem": "n"
   },
   "Asia/Karachi": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Kashgar": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Kathmandu": {
-    "min": 345,
+    "o": 345,
     "hem": "n"
   },
   "Asia/Katmandu": {
-    "min": 345,
+    "o": 345,
     "hem": "n"
   },
   "Asia/Khandyga": {
-    "min": 540,
+    "o": 540,
     "hem": "n"
   },
   "Asia/Kolkata": {
-    "min": 330,
+    "o": 330,
     "hem": "n"
   },
   "Asia/Krasnoyarsk": {
-    "min": 420,
+    "o": 420,
     "hem": "n"
   },
   "Asia/Kuala_Lumpur": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Kuching": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Kuwait": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Asia/Macao": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Macau": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Magadan": {
-    "min": 600,
+    "o": 600,
     "hem": "n"
   },
   "Asia/Makassar": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Manila": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Muscat": {
-    "min": 240,
+    "o": 240,
     "hem": "n"
   },
   "Asia/Nicosia": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Asia/Novokuznetsk": {
-    "min": 420,
+    "o": 420,
     "hem": "n"
   },
   "Asia/Novosibirsk": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Omsk": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Oral": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Phnom_Penh": {
-    "min": 420,
+    "o": 420,
     "hem": "n"
   },
   "Asia/Pontianak": {
-    "min": 420,
+    "o": 420,
     "hem": "n"
   },
   "Asia/Pyongyang": {
-    "min": 540,
+    "o": 540,
     "hem": "n"
   },
   "Asia/Qatar": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Asia/Qyzylorda": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Rangoon": {
-    "min": 390,
+    "o": 390,
     "hem": "n"
   },
   "Asia/Riyadh": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Asia/Saigon": {
-    "min": 420,
+    "o": 420,
     "hem": "n"
   },
   "Asia/Sakhalin": {
-    "min": 600,
+    "o": 600,
     "hem": "n"
   },
   "Asia/Samarkand": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Seoul": {
-    "min": 540,
+    "o": 540,
     "hem": "n"
   },
   "Asia/Shanghai": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Singapore": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Srednekolymsk": {
-    "min": 660,
+    "o": 660,
     "hem": "n"
   },
   "Asia/Taipei": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Tashkent": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Tbilisi": {
-    "min": 240,
+    "o": 240,
     "hem": "n"
   },
   "Asia/Tehran": {
-    "min": 270,
+    "o": 270,
     "hem": "n",
     "dst": "2/22/1 -> 8/21/23"
   },
   "Asia/Tel_Aviv": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/24/3 -> 9/29/1"
   },
   "Asia/Thimbu": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Thimphu": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Tokyo": {
-    "min": 540,
+    "o": 540,
     "hem": "n"
   },
   "Asia/Ujung_Pandang": {
-    "min": 480,
+    "o": 480,
     "hem": "n"
   },
   "Asia/Ulaanbaatar": {
-    "min": 480,
+    "o": 480,
     "hem": "n",
     "dst": "2/25/3 -> 8/29/23"
   },
   "Asia/Ulan_Bator": {
-    "min": 480,
+    "o": 480,
     "hem": "n",
     "dst": "2/25/3 -> 8/29/23"
   },
   "Asia/Urumqi": {
-    "min": 360,
+    "o": 360,
     "hem": "n"
   },
   "Asia/Ust-Nera": {
-    "min": 600,
+    "o": 600,
     "hem": "n"
   },
   "Asia/Vientiane": {
-    "min": 420,
+    "o": 420,
     "hem": "n"
   },
   "Asia/Vladivostok": {
-    "min": 600,
+    "o": 600,
     "hem": "n"
   },
   "Asia/Yakutsk": {
-    "min": 540,
+    "o": 540,
     "hem": "n"
   },
   "Asia/Yekaterinburg": {
-    "min": 300,
+    "o": 300,
     "hem": "n"
   },
   "Asia/Yerevan": {
-    "min": 240,
+    "o": 240,
     "hem": "n"
   },
   "Atlantic/Azores": {
-    "min": 0,
+    "o": 0,
     "hem": "n",
     "dst": "2/26/1 -> 9/29/0"
   },
   "Atlantic/Bermuda": {
-    "min": -180,
+    "o": -180,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "Atlantic/Canary": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Atlantic/Cape_Verde": {
-    "min": -60
+    "o": -60
   },
   "Atlantic/Faeroe": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Atlantic/Faroe": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Atlantic/Jan_Mayen": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Atlantic/Madeira": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Atlantic/Reykjavik": {
-    "min": 0
+    "o": 0
   },
   "Atlantic/South_Georgia": {
-    "min": -120
+    "o": -120
   },
   "Atlantic/St_Helena": {
-    "min": 0
+    "o": 0
   },
   "Atlantic/Stanley": {
-    "min": -180
+    "o": -180
   },
   "Australia/ACT": {
-    "min": 600,
+    "o": 600,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/Adelaide": {
-    "min": 570,
+    "o": 570,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/Brisbane": {
-    "min": 600,
+    "o": 600,
     "hem": "s"
   },
   "Australia/Broken_Hill": {
-    "min": 570,
+    "o": 570,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/Canberra": {
-    "min": 600,
+    "o": 600,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/Currie": {
-    "min": 600,
+    "o": 600,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/Darwin": {
-    "min": 570,
+    "o": 570,
     "hem": "s"
   },
   "Australia/Eucla": {
-    "min": 525,
+    "o": 525,
     "hem": "s"
   },
   "Australia/Hobart": {
-    "min": 600,
+    "o": 600,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/LHI": {
-    "min": 630,
+    "o": 630,
     "hem": "s",
     "dst": "9/1/2 -> 3/2/1"
   },
   "Australia/Lindeman": {
-    "min": 600,
+    "o": 600,
     "hem": "s"
   },
   "Australia/Lord_Howe": {
-    "min": 630,
+    "o": 630,
     "hem": "s",
     "dst": "9/1/2 -> 3/2/1"
   },
   "Australia/Melbourne": {
-    "min": 600,
+    "o": 600,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/NSW": {
-    "min": 600,
+    "o": 600,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/North": {
-    "min": 570,
+    "o": 570,
     "hem": "s"
   },
   "Australia/Perth": {
-    "min": 480,
+    "o": 480,
     "hem": "s"
   },
   "Australia/Queensland": {
-    "min": 600,
+    "o": 600,
     "hem": "s"
   },
   "Australia/South": {
-    "min": 570,
+    "o": 570,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/Sydney": {
-    "min": 600,
+    "o": 600,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/Tasmania": {
-    "min": 600,
+    "o": 600,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/Victoria": {
-    "min": 600,
+    "o": 600,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Australia/West": {
-    "min": 480,
+    "o": 480,
     "hem": "s"
   },
   "Australia/Yancowinna": {
-    "min": 570,
+    "o": 570,
     "hem": "s",
     "dst": "9/1/3 -> 3/2/2"
   },
   "Brazil/Acre": {
-    "min": -300
+    "o": -300
   },
   "Brazil/DeNoronha": {
-    "min": -120
+    "o": -120
   },
   "Brazil/East": {
-    "min": -180,
+    "o": -180,
     "hem": "s",
     "dst": "9/15/1 -> 1/18/23"
   },
   "Brazil/West": {
-    "min": -240
+    "o": -240
   },
   "Canada/Atlantic": {
-    "min": -180,
+    "o": -180,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "Canada/Central": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "Canada/East-Saskatchewan": {
-    "min": -360,
+    "o": -360,
     "hem": "n"
   },
   "Canada/Eastern": {
-    "min": -240,
+    "o": -240,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "Canada/Mountain": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "Canada/Newfoundland": {
-    "min": -150,
+    "o": -150,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "Canada/Pacific": {
-    "min": -420,
+    "o": -420,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "Canada/Saskatchewan": {
-    "min": -360,
+    "o": -360,
     "hem": "n"
   },
   "Canada/Yukon": {
-    "min": -420,
+    "o": -420,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "Chile/Continental": {
-    "min": -180,
+    "o": -180,
     "hem": "s",
     "dst": "7/13/1 -> 4/13/23"
   },
   "Chile/EasterIsland": {
-    "min": -300,
+    "o": -300,
     "hem": "s",
     "dst": "7/12/23 -> 4/13/21"
   },
   "Etc/GMT": {
-    "min": 0
+    "o": 0
   },
   "Etc/GMT+0": {
-    "min": 0
+    "o": 0
   },
   "Etc/GMT+1": {
-    "min": -60
+    "o": -60
   },
   "Etc/GMT+10": {
-    "min": -600
+    "o": -600
   },
   "Etc/GMT+11": {
-    "min": -660
+    "o": -660
   },
   "Etc/GMT+12": {
-    "min": -720
+    "o": -720
   },
   "Etc/GMT+2": {
-    "min": -120
+    "o": -120
   },
   "Etc/GMT+3": {
-    "min": -180
+    "o": -180
   },
   "Etc/GMT+4": {
-    "min": -240
+    "o": -240
   },
   "Etc/GMT+5": {
-    "min": -300
+    "o": -300
   },
   "Etc/GMT+6": {
-    "min": -360
+    "o": -360
   },
   "Etc/GMT+7": {
-    "min": -420
+    "o": -420
   },
   "Etc/GMT+8": {
-    "min": -480
+    "o": -480
   },
   "Etc/GMT+9": {
-    "min": -540
+    "o": -540
   },
   "Etc/GMT-0": {
-    "min": 0
+    "o": 0
   },
   "Etc/GMT-1": {
-    "min": 60
+    "o": 60
   },
   "Etc/GMT-10": {
-    "min": 600
+    "o": 600
   },
   "Etc/GMT-11": {
-    "min": 660
+    "o": 660
   },
   "Etc/GMT-12": {
-    "min": 720
+    "o": 720
   },
   "Etc/GMT-13": {
-    "min": 780
+    "o": 780
   },
   "Etc/GMT-14": {
-    "min": 840
+    "o": 840
   },
   "Etc/GMT-2": {
-    "min": 120
+    "o": 120
   },
   "Etc/GMT-3": {
-    "min": 180
+    "o": 180
   },
   "Etc/GMT-4": {
-    "min": 240
+    "o": 240
   },
   "Etc/GMT-5": {
-    "min": 300
+    "o": 300
   },
   "Etc/GMT-6": {
-    "min": 360
+    "o": 360
   },
   "Etc/GMT-7": {
-    "min": 420
+    "o": 420
   },
   "Etc/GMT-8": {
-    "min": 480
+    "o": 480
   },
   "Etc/GMT-9": {
-    "min": 540
+    "o": 540
   },
   "Etc/GMT0": {
-    "min": 0
+    "o": 0
   },
   "Etc/Greenwich": {
-    "min": 0
+    "o": 0
   },
   "Etc/UCT": {
-    "min": 0
+    "o": 0
   },
   "Etc/UTC": {
-    "min": 0
+    "o": 0
   },
   "Etc/Universal": {
-    "min": 0
+    "o": 0
   },
   "Etc/Zulu": {
-    "min": 0
+    "o": 0
   },
   "Europe/Amsterdam": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Andorra": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Athens": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Belfast": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Europe/Belgrade": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Berlin": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Bratislava": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Brussels": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Bucharest": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Budapest": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Busingen": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Chisinau": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Copenhagen": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Dublin": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Europe/Gibraltar": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Guernsey": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Europe/Helsinki": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Isle_of_Man": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Europe/Istanbul": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Europe/Jersey": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Europe/Kaliningrad": {
-    "min": 120,
+    "o": 120,
     "hem": "n"
   },
   "Europe/Kiev": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Lisbon": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Europe/Ljubljana": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/London": {
-    "min": 60,
+    "o": 60,
     "hem": "n",
     "dst": "2/26/2 -> 9/29/1"
   },
   "Europe/Luxembourg": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Madrid": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Malta": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Mariehamn": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Minsk": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Europe/Monaco": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Moscow": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Europe/Nicosia": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Oslo": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Paris": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Podgorica": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Prague": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Riga": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Rome": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Samara": {
-    "min": 240,
+    "o": 240,
     "hem": "n"
   },
   "Europe/San_Marino": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Sarajevo": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Simferopol": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Europe/Skopje": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Sofia": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Stockholm": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Tallinn": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Tirane": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Tiraspol": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Uzhgorod": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Vaduz": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Vatican": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Vienna": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Vilnius": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Volgograd": {
-    "min": 180,
+    "o": 180,
     "hem": "n"
   },
   "Europe/Warsaw": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Zagreb": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Europe/Zaporozhye": {
-    "min": 180,
+    "o": 180,
     "hem": "n",
     "dst": "2/26/4 -> 9/29/3"
   },
   "Europe/Zurich": {
-    "min": 120,
+    "o": 120,
     "hem": "n",
     "dst": "2/26/3 -> 9/29/2"
   },
   "Indian/Antananarivo": {
-    "min": 180
+    "o": 180
   },
   "Indian/Chagos": {
-    "min": 360
+    "o": 360
   },
   "Indian/Christmas": {
-    "min": 420
+    "o": 420
   },
   "Indian/Cocos": {
-    "min": 390
+    "o": 390
   },
   "Indian/Comoro": {
-    "min": 180
+    "o": 180
   },
   "Indian/Kerguelen": {
-    "min": 300
+    "o": 300
   },
   "Indian/Mahe": {
-    "min": 240
+    "o": 240
   },
   "Indian/Maldives": {
-    "min": 300
+    "o": 300
   },
   "Indian/Mauritius": {
-    "min": 240
+    "o": 240
   },
   "Indian/Mayotte": {
-    "min": 180
+    "o": 180
   },
   "Indian/Reunion": {
-    "min": 240
+    "o": 240
   },
   "Mexico/BajaNorte": {
-    "min": -420,
+    "o": -420,
     "hem": "n",
     "dst": "2/12/3 -> 10/5/1"
   },
   "Mexico/BajaSur": {
-    "min": -360,
+    "o": -360,
     "hem": "n",
     "dst": "3/2/3 -> 9/29/1"
   },
   "Mexico/General": {
-    "min": -300,
+    "o": -300,
     "hem": "n",
     "dst": "3/2/3 -> 9/29/1"
   },
   "Pacific/Apia": {
-    "min": 780,
+    "o": 780,
     "hem": "s",
     "dst": "8/24/4 -> 3/2/3"
   },
   "Pacific/Auckland": {
-    "min": 720,
+    "o": 720,
     "hem": "s",
     "dst": "8/24/3 -> 3/2/2"
   },
   "Pacific/Chatham": {
-    "min": 765,
+    "o": 765,
     "hem": "s",
     "dst": "8/24/3 -> 3/2/2"
   },
   "Pacific/Chuuk": {
-    "min": 600
+    "o": 600
   },
   "Pacific/Easter": {
-    "min": -300,
+    "o": -300,
     "hem": "s",
     "dst": "7/12/23 -> 4/13/21"
   },
   "Pacific/Efate": {
-    "min": 660
+    "o": 660
   },
   "Pacific/Enderbury": {
-    "min": 780
+    "o": 780
   },
   "Pacific/Fakaofo": {
-    "min": 780
+    "o": 780
   },
   "Pacific/Fiji": {
-    "min": 720,
+    "o": 720,
     "hem": "s",
     "dst": "10/5/3 -> 0/15/2"
   },
   "Pacific/Funafuti": {
-    "min": 720
+    "o": 720
   },
   "Pacific/Galapagos": {
-    "min": -360
+    "o": -360
   },
   "Pacific/Gambier": {
-    "min": -540
+    "o": -540
   },
   "Pacific/Guadalcanal": {
-    "min": 660
+    "o": 660
   },
   "Pacific/Guam": {
-    "min": 600
+    "o": 600
   },
   "Pacific/Honolulu": {
-    "min": -600
+    "o": -600
   },
   "Pacific/Johnston": {
-    "min": -600
+    "o": -600
   },
   "Pacific/Kiritimati": {
-    "min": 840
+    "o": 840
   },
   "Pacific/Kosrae": {
-    "min": 660
+    "o": 660
   },
   "Pacific/Kwajalein": {
-    "min": 720
+    "o": 720
   },
   "Pacific/Majuro": {
-    "min": 720
+    "o": 720
   },
   "Pacific/Marquesas": {
-    "min": -570
+    "o": -570
   },
   "Pacific/Midway": {
-    "min": -660
+    "o": -660
   },
   "Pacific/Nauru": {
-    "min": 720
+    "o": 720
   },
   "Pacific/Niue": {
-    "min": -660
+    "o": -660
   },
   "Pacific/Norfolk": {
-    "min": 690
+    "o": 690
   },
   "Pacific/Noumea": {
-    "min": 660
+    "o": 660
   },
   "Pacific/Pago_Pago": {
-    "min": -660
+    "o": -660
   },
   "Pacific/Palau": {
-    "min": 540
+    "o": 540
   },
   "Pacific/Pitcairn": {
-    "min": -480
+    "o": -480
   },
   "Pacific/Pohnpei": {
-    "min": 660
+    "o": 660
   },
   "Pacific/Ponape": {
-    "min": 660
+    "o": 660
   },
   "Pacific/Port_Moresby": {
-    "min": 600
+    "o": 600
   },
   "Pacific/Rarotonga": {
-    "min": -600
+    "o": -600
   },
   "Pacific/Saipan": {
-    "min": 600
+    "o": 600
   },
   "Pacific/Samoa": {
-    "min": -660
+    "o": -660
   },
   "Pacific/Tahiti": {
-    "min": -600
+    "o": -600
   },
   "Pacific/Tarawa": {
-    "min": 720
+    "o": 720
   },
   "Pacific/Tongatapu": {
-    "min": 780,
+    "o": 780,
     "hem": "s",
     "dst": "10/5/3 -> 0/15/2"
   },
   "Pacific/Truk": {
-    "min": 600
+    "o": 600
   },
   "Pacific/Wake": {
-    "min": 720
+    "o": 720
   },
   "Pacific/Wallis": {
-    "min": 720
+    "o": 720
   },
   "Pacific/Yap": {
-    "min": 600
+    "o": 600
   }
 }
+
 },{}],2:[function(_dereq_,module,exports){
 module.exports={
   "name": "@smallwins/spacetime",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "UNLICENSED",
@@ -2354,6 +2355,8 @@ var parseInput = function parseInput(s, input) {
       return;
     }
   }
+  s.epoch = null;
+  return;
 };
 module.exports = parseInput;
 
@@ -2365,7 +2368,7 @@ var months = _dereq_('../data/months');
 
 var parseHour = function parseHour(s, str) {
   str = str.replace(/^\s+/, ''); //trim
-  var arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?:?([0-9]{1,2})?/);
+  var arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?:?([0-9]{1,4})?/);
   if (arr) {
     s.hour(arr[1]);
     s.minute(arr[2]);
@@ -2373,12 +2376,25 @@ var parseHour = function parseHour(s, str) {
       s.seconds(arr[3]);
     }
     if (arr[4]) {
-      s.seconds(arr[4]);
+      s.millisecond(arr[4]);
     }
   }
 };
 
 var strFmt = [
+//iso-this 1998-05-30T22:00:00:000Z
+{
+  reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9:]+)Z$/,
+  parse: function parse(s, arr) {
+    var month = parseInt(arr[2], 10) - 1;
+    walkTo(s, {
+      year: arr[1],
+      month: month,
+      date: arr[3]
+    });
+    parseHour(s, arr[4]);
+  }
+},
 //iso "2015-03-25" or "2015/03/25" //0-based-months!
 {
   reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2})$/,
@@ -2448,7 +2464,6 @@ var dayOfYear = function dayOfYear(d) {
     tmp.setMonth(i);
     tmp.setDate(1);
     tmp.setHours(-2);
-    // console.log(i + '   ' + tmp.getDate());
     sum += tmp.getDate();
   }
   return sum + d.getDate();
@@ -3877,8 +3892,8 @@ var timezone = function timezone(s) {
 
   //both offsets (in mins)
   meta.offsets = {
-    base: zones[tz].min + meta.dst.change,
-    dst: zones[tz].min
+    base: zones[tz].o + meta.dst.change,
+    dst: zones[tz].o
   };
 
   if (isDst(s, meta.dst)) {

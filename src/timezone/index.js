@@ -49,8 +49,8 @@ const timezone = (s) => {
 
   //both offsets (in mins)
   meta.offsets = {
-    base: zones[tz].min + meta.dst.change,
-    dst: zones[tz].min
+    base: zones[tz].o + meta.dst.change,
+    dst: zones[tz].o
   };
 
   if (isDst(s, meta.dst)) {

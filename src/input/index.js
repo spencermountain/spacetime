@@ -94,5 +94,7 @@ const parseInput = (s, input) => {
       return;
     }
   }
+  s.epoch = null;
+  return;
 };
 module.exports = parseInput;
