@@ -39,7 +39,7 @@ const format = (s) => {
     },
     iso: {
       short: `${year}-${fmt.zeroPad(month)}-${fmt.zeroPad(date)}`, //2017-02-15
-      local: `${year}-${fmt.zeroPad(month)}-${fmt.zeroPad(date)}T${hour24}:${fmt.zeroPad(minute)}:${fmt.zeroPad(s.second())}:${fmt.zeroPad(s.millisecond(), 3)}Z`, //2017-03-08T19:45:28.367Z
+      local: `${year}-${fmt.zeroPad(month + 1)}-${fmt.zeroPad(date)}T${hour24}:${fmt.zeroPad(minute)}:${fmt.zeroPad(s.second())}:${fmt.zeroPad(s.millisecond(), 3)}Z`, //2017-03-08T19:45:28.367Z
       utc: (new Date(s.epoch)).toISOString(), //2017-03-08T19:45:28.367Z
     },
     day: {
