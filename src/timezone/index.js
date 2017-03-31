@@ -24,7 +24,12 @@ const parseDst = (dst) => {
 const timezone = (s) => {
   let tz = s.tz;
   if (!zones[tz]) {
-    return {};
+    console.warn('Warn: could not find timezone - \'' + tz + '\'');
+    return {
+      current: {
+        epochShift: 0
+      }
+    };
   }
   let meta = {
     name: tz,

@@ -59,7 +59,7 @@ class SpaceTime {
 
   //a js date object
   get d() {
-    let meta = timezone(this);
+    let meta = timezone(this) || {};
     //movement in milliseconds
     let shift = meta.current.epochShift;
     //remove this computer's offset
