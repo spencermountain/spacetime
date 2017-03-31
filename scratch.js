@@ -1,5 +1,6 @@
 'use strict';
-const spacetime = require('./src');
+// const spacetime = require('./src');
+const spacetime = require('./builds/spacetime');
 
 //bug. 1
 let s = spacetime('2016-01-01T9:00:00:122Z', 'Canada/Eastern');
