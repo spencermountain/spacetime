@@ -1594,6 +1594,9 @@
   "Etc/UTC": {
     "o": 0
   },
+  "UTC": {
+    "o": 0
+  },
   "Etc/Universal": {
     "o": 0
   },

@@ -103,6 +103,7 @@ const doAll = (year) => {
   }, {});
   console.log('==========\n\n\n');
   console.log(all);
+  all.UTC = all['Etc/UTC'];
   let stuff = JSON.stringify(all, null, 2);
 
   let src = path.join(__dirname, `../../data/zonefile.${year}.json`);
