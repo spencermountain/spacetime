@@ -14,11 +14,8 @@ const spacetime = require('./builds/spacetime');
 // console.log(s.timezone());
 // s.log();
 
-let s = spacetime('February 22, 2017 14:42:00', 'Canada/Pacific');
-// s.goto('Canada/Pacific');
-// s.goto('Canada/Eastern');
-s.log();
-
-
-//eastern 5:37 PM
-//pacific 2:37 PM
+let s = spacetime('December 31, 1999 23:59:58', 'Canada/Eastern');
+// console.log(s.format().nice.long);
+// console.log(s.day());
+let start = s.startOf('week');
+console.log(start.format().nice.long);

@@ -29,7 +29,7 @@ const units = {
     return s;
   },
   week: (s) => {
-    let original = s.epoch;
+    let original = s.clone();
     s.day(1); //monday
     if (s.isAfter(original)) {
       s.subtract(1, 'week');
