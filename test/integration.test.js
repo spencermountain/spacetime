@@ -1,12 +1,8 @@
 'use strict';
 const test = require('tape');
 const spacetime = require('../src');
-
-//ST = winter.  november -> march
-//DST = summer. march -> november  - june 5th
-
-var st = [2010, 6, 5]; //june 5th 2010
-var dst = [2010, 12, 5]; //december 5th 2010
+//ST  = winter.   november -> march
+//DST = summer.   march    -> november
 
 var timezones = [
   'America/Los_Angeles',
