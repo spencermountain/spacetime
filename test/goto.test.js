@@ -115,3 +115,29 @@ test('move-from-not-dst', (t) => {
   t.equal(s.timezone().current.offset, 0, 'london-is-+0h');
   t.end();
 });
+
+test('move-to-dst', (t) => {
+  //move from never-dst (uruguay) to a dst (moncton)
+  let s = spacetime('August 1, 2017 00:01:05', 'America/Montevideo');
+  t.equal(s.format().nice.long, 'Tuesday August 1st, 12:01am', 'init-uruguay');
+  t.equal(s.timezone().current.isDst, false, 'uruguay-is-never-dst');
+  t.equal(s.timezone().current.offset, -180, 'uruguay-is-always -3hrs');
+  s.goto('America/Moncton');
+  t.equal(s.format().nice.long, 'Tuesday August 1st, 12:01am', 'init-Moncton');
+  t.equal(s.timezone().current.isDst, true, 'Moncton-is-dst');
+  t.equal(s.timezone().current.offset, -180, 'Moncton-is -3hrs');
+  t.end();
+});
+
+test('move-to-not-dst', (t) => {
+  //now move from never-dst (uruguay) to a not-dst (moncton)
+  let s = spacetime('January 1, 2017 00:01:05', 'America/Montevideo');
+  t.equal(s.format().nice.long, 'Sunday January 1st, 12:01am', 'init-uruguay');
+  t.equal(s.timezone().current.isDst, false, 'uruguay-is-never-dst');
+  t.equal(s.timezone().current.offset, -180, 'uruguay-is-always -3hrs');
+  s.goto('America/Moncton');
+  t.equal(s.format().nice.long, 'Saturday December 31st, 11:01pm', 'init-Moncton');
+  t.equal(s.timezone().current.isDst, false, 'Moncton-is-not-dst');
+  t.equal(s.timezone().current.offset, -240, 'Moncton-is -4hrs');
+  t.end();
+});
