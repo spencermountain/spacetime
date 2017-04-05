@@ -73,3 +73,45 @@ test('goto-from-algiers (no-dst-places)', (t) => {
 
   t.end();
 });
+
+test('move-from-dst', (t) => {
+  //dst in Paris (+2h)
+  let s = spacetime('March 27, 2017 22:48:00', 'Europe/Paris');
+  t.equal(s.format().nice.long, 'Monday March 27th, 10:48pm', 'init-paris');
+  t.equal(s.timezone().current.isDst, true, 'paris-is-in-dst');
+  t.equal(s.timezone().current.offset, 120, 'paris-is-+2h');
+
+  //in Johannesburg (+2h)
+  s.goto('Africa/Johannesburg');
+  t.equal(s.format().nice.long, 'Monday March 27th, 10:48pm', 'init-joburg');
+  t.equal(s.timezone().current.isDst, false, 'joburg-is-never-in-dst');
+  t.equal(s.timezone().current.offset, 120, 'joburg-is+2');
+
+  //dst London (+1h)
+  s.goto('Europe/London');
+  t.equal(s.format().nice.long, 'Monday March 27th, 9:48pm', 'init-london');
+  t.equal(s.timezone().current.isDst, true, 'london-is-in-dst');
+  t.equal(s.timezone().current.offset, 60, 'london-is-+1h');
+  t.end();
+});
+
+test('move-from-not-dst', (t) => {
+  //not-dst in Paris (+1h)
+  let s = spacetime('March 17, 2017 22:48:00', 'Europe/Paris');
+  t.equal(s.format().nice.long, 'Friday March 17th, 10:48pm', 'init-paris');
+  t.equal(s.timezone().current.isDst, false, 'paris-is-not-in-dst');
+  t.equal(s.timezone().current.offset, 60, 'paris-is-+1h');
+
+  //in Johannesburg (+2h)
+  s.goto('Africa/Johannesburg');
+  t.equal(s.format().nice.long, 'Friday March 17th, 11:48pm', 'move-to-joburg');
+  t.equal(s.timezone().current.isDst, false, 'joburg-is-never-in-dst');
+  t.equal(s.timezone().current.offset, 120, 'joburg-is+2');
+
+  //not-dst London (+0h)
+  s.goto('Europe/London');
+  t.equal(s.format().nice.long, 'Friday March 17th, 9:48pm', 'init-london');
+  t.equal(s.timezone().current.isDst, false, 'london-is-not-in-dst');
+  t.equal(s.timezone().current.offset, 0, 'london-is-+0h');
+  t.end();
+});
