@@ -54,6 +54,19 @@ test('is-always-input-date', (t) => {
     t.equal(d.date(), 7, tz + ' 7th');
     t.equal(d.year(), 2018, tz + ' is 2018');
   });
+  t.end();
+});
 
+test('all-timezones-move', (t) => {
+  timezones.forEach((tz) => {
+    let d = spacetime('January 13 2018', tz);
+    t.equal(d.dayName(), 'saturday', tz + ' saturday');
+    d.date(12);
+    t.equal(d.dayName(), 'friday', tz + ' friday');
+    d.startOf('week');
+    t.equal(d.dayName(), 'monday', tz + ' monday');
+    d.endOf('week');
+    t.equal(d.dayName(), 'sunday', tz + ' sunday');
+  });
   t.end();
 });
