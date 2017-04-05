@@ -25,6 +25,7 @@ const allMonths = function(s) {
 };
 
 test('dst-by-date', (t) => {
+  //this may be too hard to do.
   let s = spacetime('March 11, 2017 20:42:00', 'Canada/Eastern');
   let dst = s.timezone().current.isDst;
   t.equal(dst, false, 'march-11 not dst');

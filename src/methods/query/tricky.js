@@ -2,6 +2,8 @@
 const days = require('../../data/days');
 const dayTimes = require('../../data/dayTimes');
 const months = require('../../data/months');
+const set = require('../set/set');
+const walkTo = require('../set/walk');
 
 //non-destructive getters/setters with fancy moves to do
 module.exports = {
@@ -24,31 +26,28 @@ module.exports = {
     if (input === undefined) {
       return this.d.getDay();
     }
-    let num = input;
-    //take 'wednesday'
+    let original = this.clone();
+    let want = input;
+    // accept 'wednesday'
     if (typeof input === 'string') {
       input = input.toLowerCase();
-      num = days.short.indexOf(input);
-      if (num === -1) {
-        num = days.long.indexOf(input);
+      want = days.short.indexOf(input);
+      if (want === -1) {
+        want = days.long.indexOf(input);
       }
     }
-    //fail silent
-    if (typeof num !== 'number' || num < 0 || num > 6) {
-      return this;
-    }
-    //set the day, based on a number
-    let d = this.d;
-    let current = d.getDay();
-    if (num > current) {
-      let diff = num - current;
-      d.setDate(d.getDate() + diff);
-    } else if (num < current) { //should go backwards
-      let diff = current - num;
-      d.setDate(d.getDate() - diff);
-    }
-    this.epoch = d.getTime();
-    return this;
+    //move approx
+    let day = this.d.getDay();
+    let diff = day - want;
+    let s = this.subtract(diff * 24, 'hours');
+    //tighten it back up
+    walkTo(s, {
+      hour: original.hour(),
+      minute: original.minute(),
+      second: original.second(),
+    });
+    this.epoch = s.epoch;
+    return s;
   },
 
 
