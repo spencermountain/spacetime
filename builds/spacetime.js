@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v0.0.12
+/* @smallwins/spacetime v0.0.13
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -1298,7 +1298,7 @@ module.exports={
 },{}],3:[function(_dereq_,module,exports){
 module.exports={
   "name": "@smallwins/spacetime",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "UNLICENSED",
@@ -1937,6 +1937,7 @@ var days = _dereq_('../data/days');
 
 //
 var format = function format(s) {
+  //pre-compute the re-used values
   var year = s.year();
   var date = s.date();
   var month = s.month();
@@ -1953,6 +1954,7 @@ var format = function format(s) {
   var ord = fmt.ordinal(date);
   var numDate = fmt.zeroPad(date);
   var numMonth = fmt.zeroPad(date);
+
   //start building format object
   var all = {
     day: {
@@ -1970,22 +1972,27 @@ var format = function format(s) {
       short: '\'' + ('' + year).substr(2, 4)
     }
   };
+
   all.numeric = {
     uk: numDate + '/' + numMonth + '/' + year, //dd/mm/yyyy
     us: numMonth + '/' + numDate + '/' + year };
+
   all.date = {
     ordinal: ord, //12th
     cardinal: '' + date, //12
     short: all.month.short + ' ' + ord, //Apr 12
     long: all.month.long + ' ' + ord };
+
   all.iso = {
     short: year + '-' + numMonth + '-' + numDate, //2017-02-15
     local: year + '-' + fmt.zeroPad(month + 1) + '-' + numDate + 'T' + hour24 + ':' + minute + ':' + fmt.zeroPad(s.second()) + ':' + fmt.zeroPad(s.millisecond(), 3) + 'Z', //2017-03-08T19:45:28.367Z
     utc: new Date(s.epoch).toISOString() };
+
   all.nice = {
     short: all.month.short + ' ' + ord + ', ' + all.time.h12,
     long: all.day.long + ' ' + all.month.long + ' ' + ord + ', ' + all.time.h12
   };
+
   all.full = {
     short: all.day.short + ' ' + all.month.short + ' ' + ord + ' ' + year + ', ' + all.time.h12,
     long: all.day.long + ' ' + all.month.long + ' ' + ord + ' ' + year + ', ' + all.time.h12
@@ -2329,7 +2336,12 @@ module.exports = {
 },{"../../data/days":4,"../../data/months":7,"../set/walk":26}],24:[function(_dereq_,module,exports){
 'use strict';
 
+//easy comparison between dates
+
 var print = {
+  millisecond: function millisecond(s) {
+    return s.epoch;
+  },
   second: function second(s) {
     return [s.year(), s.month(), s.date(), s.hour(), s.minute(), s.second()].join('-');
   },
@@ -2355,39 +2367,19 @@ var print = {
     return s.year();
   }
 };
+print.date = print.day;
 
 var addMethods = function addMethods(SpaceTime) {
   SpaceTime.prototype.isSame = function (b, unit) {
     var a = this;
     if (typeof b === 'string' || typeof b === 'number') {
-      b = new Space(b);
+      b = new SpaceTime(b, this.timezone.name);
     }
-    if (unit === 'millisecond' || unit === 'milliseconds') {
-      return a.epoch === b.epoch;
-    }
-    if (unit === 'second' || unit === 'seconds') {
-      return print.second(a) === print.second(b);
-    }
-    if (unit === 'minute' || unit === 'minutes') {
-      return print.minute(a) === print.minute(b);
-    }
-    if (unit === 'hour' || unit === 'hours') {
-      return print.hour(a) === print.hour(b);
-    }
-    if (unit === 'day' || unit === 'days' || unit === 'date') {
-      return print.day(a) === print.day(b);
-    }
-    if (unit === 'week' || unit === 'weeks') {
-      return print.week(a) === print.week(b);
-    }
-    if (unit === 'month' || unit === 'months') {
-      return print.month(a) === print.month(b);
-    }
-    if (unit === 'quarter' || unit === 'quarters') {
-      return print.quarter(a) === print.quarter(b);
-    }
-    if (unit === 'year' || unit === 'years') {
-      return print.year(a) === print.year(b);
+    //support 'seconds' aswell as 'second'
+    unit = unit.replace(/s$/, '');
+
+    if (print[unit]) {
+      return print[unit](a) === print[unit](b);
     }
     return null;
   };
