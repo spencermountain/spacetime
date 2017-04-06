@@ -20,7 +20,7 @@ you computer <i>automatically</i> applies <b>the bias of your computer</b> when 
   It can't do anything else.
 </div>
 
-<div align="left">
+<div align="center">
   <h4>i mean, try to hack another timezone 😅</h4>
 </div>
 by pushing around the milliseconds:
