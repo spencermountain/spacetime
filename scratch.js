@@ -14,8 +14,6 @@ const spacetime = require('./src');
 // console.log(s.timezone());
 // s.log();
 
-let a = spacetime('March 26, 1999 20:42:00', 'Canada/Eastern');
-let b = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
-a.log();
-b.log();
-console.log(a.diff(b, 'day'));
+
+let s = spacetime([2018, 5, 5, 0, 0, 0, 0], 'Europe/London');
+console.log(s.timezone());
