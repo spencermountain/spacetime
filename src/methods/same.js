@@ -1,6 +1,10 @@
 'use strict';
 
+//easy comparison between dates
 const print = {
+  millisecond: (s) => {
+    return s.epoch;
+  },
   second: (s) => {
     return [s.year(), s.month(), s.date(), s.hour(), s.minute(), s.second()].join('-');
   },
@@ -26,39 +30,19 @@ const print = {
     return s.year();
   }
 };
+print.date = print.day;
 
 const addMethods = (SpaceTime) => {
   SpaceTime.prototype.isSame = function(b, unit) {
     let a = this;
     if (typeof b === 'string' || typeof b === 'number') {
-      b = new Space(b);
+      b = new SpaceTime(b, this.timezone.name);
     }
-    if (unit === 'millisecond' || unit === 'milliseconds') {
-      return a.epoch === b.epoch;
-    }
-    if (unit === 'second' || unit === 'seconds') {
-      return print.second(a) === print.second(b);
-    }
-    if (unit === 'minute' || unit === 'minutes') {
-      return print.minute(a) === print.minute(b);
-    }
-    if (unit === 'hour' || unit === 'hours') {
-      return print.hour(a) === print.hour(b);
-    }
-    if (unit === 'day' || unit === 'days' || unit === 'date') {
-      return print.day(a) === print.day(b);
-    }
-    if (unit === 'week' || unit === 'weeks') {
-      return print.week(a) === print.week(b);
-    }
-    if (unit === 'month' || unit === 'months') {
-      return print.month(a) === print.month(b);
-    }
-    if (unit === 'quarter' || unit === 'quarters') {
-      return print.quarter(a) === print.quarter(b);
-    }
-    if (unit === 'year' || unit === 'years') {
-      return print.year(a) === print.year(b);
+    //support 'seconds' aswell as 'second'
+    unit = unit.replace(/s$/, '');
+
+    if (print[unit]) {
+      return print[unit](a) === print[unit](b);
     }
     return null;
   };

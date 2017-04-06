@@ -16,6 +16,9 @@ test('now-is-now', (t) => {
   d = spacetime.now('Canada/Eastern');
   t.equal(d.format().nice.short, 'Apr 1st, 12:20am', 'its not 4:20 in toronto');
 
+  d = spacetime.today('Etc/GMT');
+  t.equal(d.format().nice.short, 'Apr 1st, 12:00am', 'its april 1st today');
+
   d = spacetime.tomorrow('Etc/GMT');
   t.equal(d.format().nice.short, 'Apr 2nd, 12:00am', 'its april 2nd tomorrow');
 
