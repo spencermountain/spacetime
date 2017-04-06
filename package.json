@@ -27,10 +27,11 @@
     "derequire": "^2.0.3",
     "eslint": "^3.1.1",
     "gaze": "^1.1.1",
+    "nyc": "^8.4.0",
     "shelljs": "^0.7.2",
     "tap-spec": "4.1.1",
     "tape": "4.6.0",
-    "nyc": "^8.4.0",
+    "timekeeper": "^1.0.0",
     "uglify-js": "2.7.0"
   }
 }
