@@ -6,7 +6,7 @@ const ends = require('./methods/startOf');
 const timezone = require('./timezone/index');
 const handleInput = require('./input');
 
-//its instance methods
+//the spacetime instance methods (also, the API)
 module.exports = {
   set: function(input) {
     handleInput(this, input);
@@ -42,7 +42,6 @@ module.exports = {
     this.tz = tz; //science!
     return this;
   },
-
   //pretty-printing
   log: function() {
     console.log('');
@@ -53,5 +52,5 @@ module.exports = {
     console.log('');
     console.log(format(this).date.short + ' ' + this.year());
     return this;
-  },
+  }
 };

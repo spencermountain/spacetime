@@ -78,35 +78,7 @@ const units = {
   }
 };
 
-// const preProcess = function(want) {
-//   const sizes = {
-//     millisecond: 1000,
-//     second: 60,
-//     minute: 60,
-//   };
-//   const units = Object.keys(sizes);
-//   for(let i = 0; i < units.length - 1; i++) {
-//     let unit = units[i];
-//     let nextUnit = units[i + 1];
-//     if (want[unit] >= sizes[unit]) {
-//       want.second += parseInt(want.millisecond / 1000, 10);
-//       want.millisecond = want.millisecond % 1000;
-//     }
-//   }
-//   return want;
-// };
-
-// const postProcess = function(s, wants) {
-//   Object.keys(wants).forEach((k) => {
-//     if (s[k]() !== wants[k]) {
-//       console.warn('invalid ' + k + ':   - want ' + wants[k]);
-//     }
-//   });
-//   return s;
-// };
-
 const walkTo = (s, wants) => {
-  // wants = preProcess(wants);
   let keys = Object.keys(units);
   let old = s.clone();
   for(let i = 0; i < keys.length; i++) {
@@ -123,14 +95,12 @@ const walkTo = (s, wants) => {
       console.log('invalid ' + k + ': ' + n);
       return;
     }
-    // console.log('walking ' + k + ' to ' + n);
     units[k].walkTo(s, n);
   }
   //if we've gone over a dst-change or something..
   if (wants.hour === undefined && s.hour() !== old.hour()) {
     s.hour(old.hour());
   }
-  // s = postProcess(s, wants);
   return;
 };
 module.exports = walkTo;

@@ -2,15 +2,7 @@
 const walkTo = require('./set/walk');
 const ms = require('../data/milliseconds');
 const monthLength = require('../data/monthLength');
-
-const normalize = (str) => {
-  str = str.toLowerCase();
-  str = str.replace(/s$/, '');
-  if (str === 'day') {
-    return 'date';
-  }
-  return str;
-};
+const fns = require('../fns');
 
 let keep = {
   second: ['millisecond'],
@@ -58,7 +50,7 @@ const addMethods = (SpaceTime) => {
 
   SpaceTime.prototype.add = function(num, unit) {
     let old = this.clone();
-    unit = normalize(unit);
+    unit = fns.normalize(unit);
     //move forward by the estimated milliseconds (rough)
     if (ms[unit]) {
       this.epoch += ms[unit] * num;

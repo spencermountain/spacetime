@@ -6,7 +6,7 @@ const main = function(input, tz) {
   return new Spacetime(input, tz);
 };
 
-//some helper fns
+//some helper functions on the main method
 main.now = function(tz) {
   return new Spacetime(new Date().getTime(), tz);
 };

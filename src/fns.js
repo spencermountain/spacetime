@@ -39,6 +39,15 @@ exports.ordinal = function(i) {
   return i + 'th';
 };
 
+exports.normalize = (str) => {
+  str = str.toLowerCase();
+  str = str.replace(/s$/, '');
+  if (str === 'day') {
+    return 'date';
+  }
+  return str;
+};
+
 exports.getEpoch = function(tmp) {
   //support epoch
   if (typeof tmp === 'number') {

@@ -8,7 +8,6 @@ const months = require('../../data/months');
 const monthLength = require('../../data/monthLength');
 const walkTo = require('./walk');
 
-
 const validate = function(n) {
   //handle number as a string
   if (typeof n === 'string') {
@@ -25,6 +24,7 @@ const units = {
   month: ['month', 'date', 'hour', 'minute', 'second', 'millisecond'],
   year: ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'],
 };
+
 //reduce hostile micro-changes when moving dates by millisecond
 const confirm = function(s, tmp, unit) {
   let arr = units[unit];

@@ -3,7 +3,7 @@ const quarters = require('../../data/quarters');
 const seasons = require('../../data/seasons');
 const set = require('../set/set');
 //destructive setters change the seconds, milliseconds, etc
-//- not just the unit they're setting
+//- and not just the unit they're setting
 
 const clearMinutes = function(s) {
   s.minute(0);
@@ -12,7 +12,6 @@ const clearMinutes = function(s) {
 };
 
 module.exports = {
-
   //some ambiguity here with 12/24h
   time: function(str) {
     if (str !== undefined) {
@@ -122,31 +121,6 @@ module.exports = {
       }
     }
     return 'winter';
-  },
-
-
-  emoji: function() {
-    const obj = {
-      seasons : {
-        spring: '🌱',
-        winter: '⛄',
-        summer: '☀️️',
-        fall: '🍂',
-      },
-      times : {
-        breakfast: '🍳',
-        morning: '☕',
-        noon: '🌞',
-        lunch: '🎒',
-        afternoon: '🌤️',
-        dinner: '🍽️',
-        evening: '🌆',
-        night: '🛌',
-      }
-    };
-    return {
-      time: obj.times[this.time()] || '',
-      season: obj.seasons[this.season()] || '',
-    };
   }
+
 };

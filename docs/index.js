@@ -39,11 +39,8 @@ module.exports = {
   quarter: {},
   season: {},
   hourFloat: {},
-  emoji: {},
   day: {},
   ampm: {},
-  timeOfDay: {},
   dayName: {},
   monthName: {},
-
 };

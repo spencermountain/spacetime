@@ -123,8 +123,6 @@ s.diff(d, 'month') // 0
 s.format().time.short //  '5:01am'
 s.format().numeric.uk //  02/03/2017
 s.format().month.long // 'April'
-s.emoji().season      // '⛄'
-
 
 //calendar-sensitive movement
 s.startOf('day')   // 12:01am
