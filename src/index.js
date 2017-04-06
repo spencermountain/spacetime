@@ -11,12 +11,16 @@ main.now = function(tz) {
   return new Spacetime(new Date().getTime(), tz);
 };
 main.today = function(tz) {
-  let space = new Spacetime(new Date().getTime(), tz);
-  return space.startOf('day');
+  let s = new Spacetime(new Date().getTime(), tz);
+  return s.startOf('day');
 };
 main.tomorrow = function(tz) {
-  let space = new Spacetime(new Date().getTime(), tz);
-  return space.add(1, 'day').startOf('day');
+  let s = new Spacetime(new Date().getTime(), tz);
+  return s.add(1, 'day').startOf('day');
+};
+main.yesterday = function(tz) {
+  let s = new Spacetime(new Date().getTime(), tz);
+  return s.subtract(1, 'day').startOf('day');
 };
 
 //this is handy
