@@ -20,7 +20,7 @@ you computer <b>automatically applies</b> the bias of your computer when interpr
 </div>
 
 <div align="left">
-  <h3>😅 try to hack another timezone</h3>
+  <h3>try to hack another timezone - 😅</h3>
 </div>
 by pushing around the milliseconds..
 
@@ -42,7 +42,7 @@ you may be surprised when you call `.getDate()`, or `.setDate()`, or anything re
   <h3>this is a wrapper of the js Date object</h3>
 </div>
 
-Internally, it can ~pretend~ **emulate** another timezone locally. So when you query it for calendar information, it says the right thing, cuz it can do that.
+Internally, it can **emulate** another timezone locally. So when you query it for calendar information, it's right:
 
 ```js
 let s=spacetime('March 1 2020', 'America/New_York')
@@ -51,8 +51,8 @@ s.time('4:20pm')
 s.goto('America/Los_Angeles')
 //Mar 1st, 1:20pm
 
-s.subtract(1, 'days')
-//Feb 29th, 1:20pm (leap-year)
+s.subtract(1, 'day')
+//Feb 29th, 1:20pm (leap-year!)
 ```
 
 things it does:
