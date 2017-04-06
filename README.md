@@ -4,7 +4,7 @@
   </h3>
   a <b>unix epoch</b> is like a <b>heart-beat</b> of the <b>entire universe</b>💫
   <div>
-    <i>(you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code>)</i>
+    <i>(you can get it <a href="http://www.convert-unix-time.com">online</a> or with <b>Date.now()</b>)</i>
   </div>
 </div>
 
