@@ -151,7 +151,7 @@ For that reason. a `.goto()` command will never cross the international date lin
 * and you want to go to `Pacific/Midway` (left side of the map)
 it will subtract a bunch of hours, instead of just adding 1.
 
-## greediness of date manipulation
+## greediness of changes
 when it comes to setting new values, some commands are destructive to smaller values, like seconds, and others are not. For example:
 ```js
 s= spacetime([2017,5,25])
@@ -163,28 +163,27 @@ s.seconds()//still 5
 s.quarter('q2')
 s.seconds()//now 0
 ```
-
-for reference:
 #### non-destructive
-* *millisecond()*,
-* *second()*
-* *minute()*
-* *hour()*
-* *date()*
+* `millisecond()`
+* `second()`
+* `minute()`
+* `hour()`
+* `date()`
 #### destructive
-* *week()*
-* *quarter()*
-* *hourFloat()*
-* *season()*
-* *time()*
+* `week()`
+* `quarter()`
+* `hourFloat()`
+* `season()`
+* `time()`
 #### sometimes-destructive
-* *month()* - if it's March 30th and you do `.month('february')`, it becomes the last day of February.
-* *year()* - if it's february 29th, and you move to a non-leap year, it becomes feb 28th.
+* `month()` - if it's March 30th and you do `.month('february')`, it becomes the last day of February.
+* `year()` - if it's february 29th, and you move to a non-leap year, it becomes feb 28th.
+
 ```js
-s= spacetime('September 30, 2016 00:00:05')
-//(sometimes-destructive)
+var s= spacetime('September 30, 2016 00:00:05')
 s.month('February') //doesn't have a 30th day 😬
-s.date() // 28
+s.date()
+// 28
 ```
 
 made by [Smallwins](https://smallwins.today/)
