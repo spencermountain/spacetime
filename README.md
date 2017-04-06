@@ -1,6 +1,6 @@
 <div align="center">
   <h3>
-   🌠 ...think about it this way,
+   🌠 so think about it this way,
   </h3>
   a <b>unix epoch</b> is a cosmic heart-beat of the <b>entire universe</b>💫
   <div>
@@ -44,13 +44,22 @@ you may be surprised when you call `.getDate()`, or `.setDate()`, or anything re
 
 Internally, it can ~pretend~ **emulate** another timezone locally. So when you query it for calendar information, it says the right thing, cuz it can do that.
 
-when you ask for **non-calendar-based** information (like an epoch) you don't have to kick it back, cause it can do that too.
+```js
+let s=spacetime('March 1 2020', 'America/New_York')
+s.time('4:20pm')
+
+s.goto('America/Los_Angeles')
+//Mar 1st, 1:20pm
+
+s.subtract(1, 'days')
+//Feb 29th, 1:20pm (leap-year)
+```
 
 things it does:
 
 * **get/set** in remote timezones (like in [moment-timezone](http://momentjs.com))
 * **Daylight-Savings-Time** and **leap-year** support + lookup
-* comparison of ~exotic~ remote dates+times
+* comparison of remote dates
 * 30k, <b>IE9+</b>
 
 ## API
@@ -155,11 +164,20 @@ s.seconds()//now 0
 
 for reference:
 #### non-destructive
-*millisecond()*, *second()*, *minute()*, *hour()*, *date()*
+* *millisecond()*,
+* *second()*
+* *minute()*
+* *hour()*
+* *date()*
 #### destructive
-*week()*, *quarter()*, *hourFloat()*, *season()*, *time()*
+* *week()*
+* *quarter()*
+* *hourFloat()*
+* *season()*
+* *time()*
 #### sometimes-destructive
-*month()*, *year()*
+* *month()* - if it's March 30th and you do `.month('february')`, it becomes the last day of February.
+* *year()* - if it's february 29th, and you move to a non-leap year, it becomes feb 28th.
 ```js
 s= spacetime('September 30, 2016 00:00:05')
 //(sometimes-destructive)
