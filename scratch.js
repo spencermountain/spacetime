@@ -15,5 +15,11 @@ const spacetime = require('./src');
 // s.log();
 
 
-let s = spacetime([2018, 5, 5, 0, 0, 0, 0], 'Europe/London');
-console.log(s.timezone());
+let rightSide = spacetime([2022, 8, 24, 4, 1], 'Pacific/Fiji');
+//try move across dateline (to left side of the map)
+let leftSide = rightSide.clone().goto('Pacific/Midway');
+
+console.log('right: ' + rightSide.format().nice.long);
+console.log('left: ' + leftSide.format().nice.long);
+
+console.log(leftSide.isEqual(rightSide.epoch));

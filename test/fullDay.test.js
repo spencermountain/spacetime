@@ -32,7 +32,7 @@ const left = [
   'Etc/GMT+12', //-12
 ];
 
-test('test every hour of a day', (t) => {
+test('test date-line at 180deg', (t) => {
   let s = spacetime([2018, 2, 5, 0, 0, 0, 0], 'Europe/London');
   s.startOf('day');
   t.equal(s.time(), '12:00am', 'the first millisecond of the day');
@@ -41,13 +41,62 @@ test('test every hour of a day', (t) => {
   right.forEach((timezone) => {
     let d = s.clone();
     d.goto(timezone);
-    t.equal(d.date(), 5, timezone + ' is 5th');
+    t.equal(d.date(), 5, timezone + ' is today');
   });
   //everything to the left is yesterday
   left.forEach((timezone) => {
     let d = s.clone();
     d.goto(timezone);
-    t.equal(d.date(), 4, timezone + ' is 4th');
+    t.equal(d.date(), 4, timezone + ' is yesterday');
   });
   t.end();
 });
+
+test('test date-line at 0deg', (t) => {
+  let s = spacetime([2018, 2, 5, 0, 0, 0, 0], 'Europe/London');
+  s.endOf('day');
+  t.equal(s.time(), '11:59pm', 'the last millisecond of the day');
+  t.equal(s.timezone().current.offset, 0, 'start at 0 offset');
+  //everything to the right is tomorrow
+  right.forEach((timezone) => {
+    let d = s.clone();
+    d.goto(timezone);
+    t.equal(d.date(), 6, timezone + ' is tomorrow');
+  });
+  //everything to the left is today
+  left.forEach((timezone) => {
+    let d = s.clone();
+    d.goto(timezone);
+    t.equal(d.date(), 5, timezone + ' is today');
+  });
+  t.end();
+});
+
+test('never cross the intl dateline going right', (t) => {
+  for(let h = 0; h < 24; h++) {
+    //h ocklock on right side of the map
+    let rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Fiji');
+    let time = h + ':01';
+    t.equal(rightSide.format().time.h24, time, 'time is ' + time);
+    t.equal(rightSide.date(), 24, 'date is 24th');
+    //try move across dateline (to left side of the map)
+    let leftSide = rightSide.clone().goto('Pacific/Midway');
+    t.ok(leftSide.epoch === rightSide.epoch, 'we never actually moved');
+    //but...
+    if (leftSide.date() === rightSide.date()) {
+      t.ok(leftSide.hour() < rightSide.hour(), 'hour moved backward');
+    } else {
+      t.ok(leftSide.date() === rightSide.date() - 1, 'date moved backward');
+    }
+  }
+  t.end();
+});
+
+// test('never cross the intl dateline going left', (t) => {
+//   //try to cross again, moving to the left this time
+//   s = spacetime([2022, 8, 24, h, 1], 'Pacific/Midway');
+//   t.equal(s.date(), 24, 'date is 24th');
+//   s.goto('Pacific/Fiji');
+//   t.ok(s.date() === 24 || s.date() === 23, 'date is not yesterday');
+//   t.end();
+// });

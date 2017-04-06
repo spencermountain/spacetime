@@ -35,6 +35,16 @@ let timezones = [
   'Pacific/Yap',
 ];
 
+test('epochs dont move on goto', (t) => {
+  let a = spacetime('January 13 2018', 'Pacific/Fiji');
+  timezones.forEach((tz) => {
+    let b = a.clone();
+    b.goto(tz);
+    t.ok(a.isEqual(b), tz + ' stable epoch');
+  });
+  t.end();
+});
+
 test('is-always-input-date', (t) => {
   timezones.forEach((tz) => {
     let a = spacetime([2030, 3, 2], tz);
