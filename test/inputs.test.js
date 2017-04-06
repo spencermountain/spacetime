@@ -85,3 +85,13 @@ test('self-input', (t) => {
   t.equal(s.monthName(), 'march', 'self-month');
   t.end();
 });
+
+test('inputs-in-comparisons', (t) => {
+  let s = spacetime('March 11, 2017');
+  t.ok(s.isAfter(new Date('March 10, 2017')), 'compare with date obj');
+  // t.ok(s.isBefore([2022, 3, 2]), 'compare with array'); //this isn't working yet
+  let future = spacetime([2022, 3, 2]);
+  t.ok(s.isBefore(future.epoch), 'compare with epoch');
+  t.ok(s.isBefore(future), 'compare with spacetimeObj');
+  t.end();
+});
