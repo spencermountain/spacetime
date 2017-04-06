@@ -2,9 +2,9 @@
   <h3>
    🌠 ...think about it this way,
   </h3>
-  a <b>unix epoch</b> is a cosmic <i>sagan-like</i> heart-beat of the <b>entire universe</b>💫
+  a <b>unix epoch</b> is a cosmic heart-beat of the <b>entire universe</b>💫
   <div>
-    <i>you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code></i>
+    <i>(you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code>)</i>
   </div>
 </div>
 
@@ -13,11 +13,8 @@
 d = new Date(epoch)
 d.getHours() //hmmm
 ```
-now it's <b>no-longer universal</b>, but specific to your computer.
+you computer automatically applies the bias of your computer's date and time.
 
-<div align="left">
-  <i>it's a little subtle</i> but <code>Date objects</code> always run with a bias of your computer.
-</div>
 <div align="left">
   It can't do anything else.
 </div>
