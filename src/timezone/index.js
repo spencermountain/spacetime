@@ -7,11 +7,11 @@ const parseDst = (dst) => {
     return {};
   }
   let arr = dst.split(' -> ').map((s) => {
-    let tmp = s.split('/');
+    let tmp = s.split('/').map((n) => parseInt(n, 10));
     return {
-      month: parseInt(tmp[0], 10),
-      date: parseInt(tmp[1], 10),
-      hour: parseInt(tmp[2], 10),
+      month: tmp[0],
+      date: tmp[1],
+      hour: tmp[2],
     };
   });
   return {
@@ -24,7 +24,7 @@ const parseDst = (dst) => {
 const timezone = (s) => {
   let tz = s.tz;
   if (!zones[tz]) {
-    console.warn('Warn: could not find timezone - \'' + tz + '\'');
+    console.warn('Warn: could not find given or local timezone - \'' + tz + '\'');
     return {
       current: {
         epochShift: 0
@@ -43,12 +43,11 @@ const timezone = (s) => {
       meta.dst.change = -30;
     }
   }
-
   //include hemisphere (for seasons)
   meta.hemisphere = null;
-  if (zones[tz].hem === 'n') {
+  if (zones[tz].h === 'n') {
     meta.hemisphere = 'North';
-  } else if (zones[tz].hem === 's') {
+  } else if (zones[tz].h === 's') {
     meta.hemisphere = 'South';
   }
 

@@ -1,6 +1,6 @@
 'use strict';
 const strFmt = require('./strParse');
-
+const fns = require('../lib/fns');
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
 //=========================================
@@ -10,19 +10,9 @@ const strFmt = require('./strParse');
 // Full Date	"Wednesday March 25 2015"
 //=========================================
 
-const isArray = function(input) {
-  return Object.prototype.toString.call(input) === '[object Array]';
-};
-const isObject = function(input) {
-  return Object.prototype.toString.call(input) === '[object Object]';
-};
-const isDate = function(d) {
-  return d instanceof Date && !isNaN(d.valueOf());
-};
-
 //support [2016, 03, 01] format
 const handleArray = function(s, arr) {
-  let units = [
+  let order = [
     'year',
     'month',
     'date',
@@ -32,9 +22,8 @@ const handleArray = function(s, arr) {
     'millisecond',
   ];
   for(let i = 0; i < arr.length; i++) {
-    let unit = units[i];
     let num = arr[i] || 0;
-    s[unit](num);
+    s[order[i]](num);
   }
   return s;
 };
@@ -51,7 +40,6 @@ const handleObject = function(s, obj) {
   return s;
 };
 
-
 //find the epoch from different input styles
 const parseInput = (s, input) => {
   if (typeof input === 'number') {
@@ -64,17 +52,17 @@ const parseInput = (s, input) => {
     return; //k, we're good.
   }
   //support input of Date() object
-  if (isDate(input) === true) {
+  if (fns.isDate(input) === true) {
     s.epoch = input.getTime();
     return;
   }
   //support [2016, 03, 01] format
-  if (isArray(input) === true) {
+  if (fns.isArray(input) === true) {
     handleArray(s, input);
     return;
   }
   //support {year:2016, month:3} format
-  if (isObject(input) === true) {
+  if (fns.isObject(input) === true) {
     //support spacetime object as input
     if (input.epoch) {
       s.epoch = input.epoch;

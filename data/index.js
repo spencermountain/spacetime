@@ -10,11 +10,19 @@ const unpack = (obj) => {
     cities.forEach((city) => {
       let tz = cont + '/' + city;
       all[tz] = obj[cont][city];
+      if (typeof all[tz] === 'number') {
+        all[tz] = {
+          o: all[tz]
+        };
+      }
       all[tz].tz = tz;
     });
   });
+  //alias this one
+  all.UTC = all['Etc/UTC'];
   return all;
 };
 
 const data = unpack(zonefile);
+// console.log(data);
 module.exports = data;

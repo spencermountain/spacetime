@@ -35,12 +35,12 @@ const parseLine = function(str) {
       meta.season = 'spring';
     }
   }
-  meta.hem = 's';
+  meta.h = 's';
   if (meta.on && meta.season === 'spring') {
-    meta.hem = 'n';
+    meta.h = 'n';
   }
   if (!meta.on && meta.season === 'fall') {
-    meta.hem = 'n';
+    meta.h = 'n';
   }
   return meta;
 };
@@ -56,26 +56,26 @@ const fetchZone = function(tz) {
     if (o.season) {
       zone[o.season] = o.date;
     }
-    zone.hem = o.hem;
+    zone.h = o.h;
   });
   let obj = {
     tz: tz,
     o: iana[tz],
-    hem: zone.hem
+    h: zone.h
   };
   if (zone.spring && zone.fall) {
-    if (zone.hem === 'n') {
+    if (zone.h === 'n') {
       obj.dst = zone.spring + ' -> ' + zone.fall;
     } else {
       obj.dst = zone.fall + ' -> ' + zone.spring;
     }
   }
-  if (!obj.hem) {
+  if (!obj.h) {
     if (obj.tz.match('^(Australia|Antarctica|America/Argentina)/')) {
-      obj.hem = 's';
+      obj.h = 's';
     }
     if (obj.tz.match('^(Canada|Europe|Asia)/')) {
-      obj.hem = 'n';
+      obj.h = 'n';
     }
   }
   return obj;
@@ -88,8 +88,13 @@ const prefixCompress = function(obj) {
     let name = k.split('/');
     result[name[0]] = result[name[0]] || {};
     result[name[0]][name[1]] = result[name[0]][name[1]] || {};
-    delete obj[k].name;
-    result[name[0]][name[1]] = obj[k];
+    let tmp = obj[k];
+    delete tmp.name;
+    //reduce to number if no dst
+    if (obj[k].dst === undefined) {
+      tmp = obj[k].o;
+    }
+    result[name[0]][name[1]] = tmp;
   });
   return result;
 };
@@ -99,7 +104,7 @@ const doAll = () => {
     let o = fetchZone(tz, year);
     h[o.tz] = {
       o: o.o,
-      hem: o.hem
+      h: o.h
     };
     if (o.dst) {
       h[o.tz].dst = o.dst;
@@ -107,8 +112,8 @@ const doAll = () => {
     if (!o.dst) {
       delete o.dst;
     }
-    if (!o.hem) {
-      delete o.hem;
+    if (!o.h) {
+      delete o.h;
     }
     console.log(o);
     console.log('\n');
@@ -116,7 +121,6 @@ const doAll = () => {
   }, {});
   console.log('==========\n\n\n');
   console.log(all);
-  all.UTC = all['Etc/UTC'];
 
   console.log('compressing...');
   all = prefixCompress(all);
@@ -125,6 +129,7 @@ const doAll = () => {
 
   let src = path.join(__dirname, `../../data/zonefile.${year}.json`);
   fs.writeFileSync(src, stuff, 'utf8');
+  console.log('done!');
 };
 
 doAll(year);

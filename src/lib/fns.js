@@ -1,7 +1,13 @@
 'use strict';
 
 exports.isDate = function(d) {
-  return Object.prototype.toString.call(d) === '[object Date]';
+  return Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf());
+};
+exports.isArray = function(input) {
+  return Object.prototype.toString.call(input) === '[object Array]';
+};
+exports.isObject = function(input) {
+  return Object.prototype.toString.call(input) === '[object Object]';
 };
 
 exports.getEpoch = function(tmp) {
