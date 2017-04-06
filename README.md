@@ -1,8 +1,8 @@
 <div align="center">
   <h3>
-   🌠 so think about it this way,
+   🌠 think about it this way,
   </h3>
-  a <b>unix epoch</b> is a cosmic heart-beat of the <b>entire universe</b>💫
+  a <b>unix epoch</b> is like a <b>heart-beat</b> of the <b>entire universe</b>💫
   <div>
     <i>(you can get it <a href="http://www.convert-unix-time.com">online</a> or with <code>Date.now()</code>)</i>
   </div>
@@ -11,23 +11,24 @@
 <i>but look:</i>
 ```js
 d = new Date(epoch)
-d.getHours() //hmmm
+d.getHours()
+//hmmm
 ```
-you computer <b>automatically applies</b> the bias of your computer when interpreting the date.
+you computer <i>automatically</i> applies the <b>bias of your computer</b> when interpreting the date.
 
 <div align="left">
   It can't do anything else.
 </div>
 
 <div align="left">
-  <h3>try to hack another timezone - 😅</h3>
+  <h3>see, try to hack another timezone 😅</h3>
 </div>
-by pushing around the milliseconds..
+by pushing around the milliseconds:
 
 ```js
-var here = new Date()
+let here = new Date()
 // allons-y à Paris!
-var offset= 5 * 60 * 1000
+let offset= 5 * 60 * 1000
 paris = new Date(here.getTime() + offset)
 paris.getHours() //ohfuuuuuu
 ```
@@ -50,9 +51,11 @@ s.time('4:20pm')
 
 s.goto('America/Los_Angeles')
 //Mar 1st, 1:20pm
+s.hour(4)
+//Mar 1st, 4:20pm
 
 s.subtract(1, 'day')
-//Feb 29th, 1:20pm (leap-year!)
+//Feb 29th, 4:20pm (leap-year!)
 ```
 
 things it does:
