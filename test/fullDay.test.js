@@ -72,7 +72,7 @@ test('test date-line at 0deg', (t) => {
   t.end();
 });
 
-test('never cross the intl dateline going right', (t) => {
+test('never cross the intl dateline moving right', (t) => {
   for(let h = 0; h < 24; h++) {
     //h ocklock on right side of the map
     let rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Fiji');
@@ -84,19 +84,32 @@ test('never cross the intl dateline going right', (t) => {
     t.ok(leftSide.epoch === rightSide.epoch, 'we never actually moved');
     //but...
     if (leftSide.date() === rightSide.date()) {
-      t.ok(leftSide.hour() < rightSide.hour(), 'hour moved backward');
+      t.ok(leftSide.hour() < rightSide.hour(), '.. but hour moved backward');
     } else {
-      t.ok(leftSide.date() === rightSide.date() - 1, 'date moved backward');
+      t.ok(leftSide.date() + 1 === rightSide.date(), '..but date moved backward');
+      t.ok(leftSide.hour() > rightSide.hour(), '..and hour moved < 24');
     }
   }
   t.end();
 });
 
-// test('never cross the intl dateline going left', (t) => {
-//   //try to cross again, moving to the left this time
-//   s = spacetime([2022, 8, 24, h, 1], 'Pacific/Midway');
-//   t.equal(s.date(), 24, 'date is 24th');
-//   s.goto('Pacific/Fiji');
-//   t.ok(s.date() === 24 || s.date() === 23, 'date is not yesterday');
-//   t.end();
-// });
+test('never cross the intl dateline moving left', (t) => {
+  for(let h = 0; h < 24; h++) {
+    //h ocklock on right side of the map
+    let rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Midway');
+    let time = h + ':01';
+    t.equal(rightSide.format().time.h24, time, 'time is ' + time);
+    t.equal(rightSide.date(), 24, 'date is 24th');
+    //try move across dateline (to left side of the map)
+    let leftSide = rightSide.clone().goto('Pacific/Fiji');
+    t.ok(leftSide.epoch === rightSide.epoch, 'we never actually moved');
+    //but...
+    if (leftSide.date() === rightSide.date()) {
+      t.ok(leftSide.hour() > rightSide.hour(), '.. but hour moved forward');
+    } else {
+      t.ok(leftSide.date() - 1 === rightSide.date(), '..but date moved forward');
+      t.ok(leftSide.hour() < rightSide.hour(), '..and hour moved < 24');
+    }
+  }
+  t.end();
+});
