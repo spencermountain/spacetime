@@ -136,16 +136,6 @@ module.exports = {
     s.epoch += shift;
     confirm(s, old, 'hour');
     return s.epoch;
-  },
-
-  timeOfDay: (s, str) => {
-    if (dayTimes[str] !== undefined) {
-      s.hour(dayTimes[str]);
-      s.minute(0);
-      s.second(0);
-      return s.epoch;
-    }
-    return null;
   }
 
 };

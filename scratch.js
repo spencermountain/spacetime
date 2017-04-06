@@ -3,8 +3,8 @@ const spacetime = require('./src');
 // const spacetime = require('./builds/spacetime');
 
 //bug. 1
-let s = spacetime('2016-01-01T9:00:00:122Z', 'Canada/Eastern');
-console.log(s.format().iso.local);
+// let s = spacetime('2016-01-01T9:00:00:122Z', 'Canada/Eastern');
+// console.log(s.format().iso.local);
 //
 // spacetime.today();
 
@@ -15,7 +15,8 @@ console.log(s.format().iso.local);
 // s.log();
 
 
-// let rightSide = spacetime([2022, 8, 24, 4, 1], 'Pacific/Fiji');
+let s = spacetime([2022, 8, 24, 4, 1], 'Pacific/Fiji');
+// console.log(s.d);
 // //try move across dateline (to left side of the map)
 // let leftSide = rightSide.clone().goto('Pacific/Midway');
 //

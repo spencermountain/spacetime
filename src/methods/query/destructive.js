@@ -145,7 +145,7 @@ module.exports = {
       }
     };
     return {
-      time: obj.times[this.timeOfDay()] || '',
+      time: obj.times[this.time()] || '',
       season: obj.seasons[this.season()] || '',
     };
   }
