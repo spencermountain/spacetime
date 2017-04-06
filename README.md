@@ -8,12 +8,12 @@
   </div>
 </div>
 
-<i>but look,</i>
+<i>but look:</i>
 ```js
 d = new Date(epoch)
 d.getHours() //hmmm
 ```
-you computer automatically applies the bias of your computer's date and time.
+you computer <b>automatically applies</b> the bias of your computer when interpreting the date.
 
 <div align="left">
   It can't do anything else.
@@ -22,12 +22,12 @@ you computer automatically applies the bias of your computer's date and time.
 <div align="left">
   <h3>😅 try to hack another timezone</h3>
 </div>
-by pushing forward the milliseconds..
+by pushing around the milliseconds..
 
 ```js
-here = new Date()
+var here = new Date()
 // allons-y à Paris!
-var offset= 5*60*1000
+var offset= 5 * 60 * 1000
 paris = new Date(here.getTime() + offset)
 paris.getHours() //ohfuuuuuu
 ```
@@ -49,9 +49,9 @@ when you ask for **non-calendar-based** information (like an epoch) you don't ha
 things it does:
 
 * **get/set** in remote timezones (like in [moment-timezone](http://momentjs.com))
-* **Daylight-Savings-Time** support + lookup
+* **Daylight-Savings-Time** and **leap-year** support + lookup
 * comparison of ~exotic~ remote dates+times
-* around 25k, <b>IE9+</b>
+* 30k, <b>IE9+</b>
 
 ## API
 ```js
@@ -133,7 +133,14 @@ s.progress().day = 0.48   //almost noon!
 s.progress().hour = 0.99  //8:59 and 59seconds
 ```
 
-## Greediness
+## .goto()
+when moving to another timezone, the current epoch never changes. It's the same moment, just somewhere else.
+For that reason. a `.goto()` command will never cross the international date line:
+* if you're in `Pacific/Fiji` (right side of the map)
+* and you want to go to `Pacific/Midway` (left side of the map)
+it will subtract a bunch of hours, instead of just adding 1.
+
+## greediness of date manipulation
 when it comes to setting new values, some commands are destructive to smaller values, like seconds, and others are not. For example:
 ```js
 s= spacetime([2017,5,25])
@@ -146,13 +153,12 @@ s.quarter('q2')
 s.seconds()//now 0
 ```
 
-
 for reference:
-####non-destructive
+#### non-destructive
 *millisecond()*, *second()*, *minute()*, *hour()*, *date()*
-####destructive
+#### destructive
 *week()*, *quarter()*, *hourFloat()*, *season()*, *time()*
-####sometimes-destructive
+#### sometimes-destructive
 *month()*, *year()*
 ```js
 s= spacetime('September 30, 2016 00:00:05')
