@@ -4,15 +4,16 @@ const ms = require('../data/milliseconds');
 const monthLength = require('../data/monthLength');
 const fns = require('../fns');
 
+const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month'];
 let keep = {
-  second: ['millisecond'],
-  minute: ['millisecond', 'second'],
-  hour: ['millisecond', 'second', 'minute'],
-  date: ['millisecond', 'second', 'minute', 'hour'],
-  month: ['millisecond', 'second', 'minute', 'hour'],
-  quarter: ['millisecond', 'second', 'minute', 'hour'],
-  season: ['millisecond', 'second', 'minute', 'hour'],
-  year: ['millisecond', 'second', 'minute', 'hour', 'date', 'month'],
+  second: order.slice(0, 1),
+  minute: order.slice(0, 2),
+  hour: order.slice(0, 3),
+  date: order.slice(0, 4),
+  month: order.slice(0, 4),
+  quarter: order.slice(0, 4),
+  season: order.slice(0, 4),
+  year: order,
 };
 keep.week = keep.date;
 keep.season = keep.date;
@@ -78,7 +79,6 @@ const addMethods = (SpaceTime) => {
     if (unit === 'year' && this.year() === old.year()) {
       this.epoch += ms.week;
     }
-
     //keep current date, unless the month doesn't have it.
     if (keepDate[unit]) {
       let max = monthLength[want.month];
@@ -91,6 +91,7 @@ const addMethods = (SpaceTime) => {
     return this;
   };
 
+  //subtract is only add *-1
   SpaceTime.prototype.subtract = function(num, unit) {
     this.add(num * -1, unit);
     return this;

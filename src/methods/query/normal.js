@@ -71,8 +71,7 @@ let methods = {
       sum += tmp.getDate();
     }
     return sum + this.d.getDate();
-  },
-
+  }
 };
 //aliases
 methods.milliseconds = methods.millisecond;

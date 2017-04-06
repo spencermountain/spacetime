@@ -92,7 +92,7 @@ const walkTo = (s, wants) => {
     }
     //make-sure it's valid
     if (!units[k].valid(n)) {
-      console.log('invalid ' + k + ': ' + n);
+      console.warn('invalid ' + k + ': ' + n);
       return;
     }
     units[k].walkTo(s, n);

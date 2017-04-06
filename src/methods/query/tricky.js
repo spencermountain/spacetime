@@ -1,25 +1,10 @@
 'use strict';
 const days = require('../../data/days');
-const dayTimes = require('../../data/dayTimes');
 const months = require('../../data/months');
-const set = require('../set/set');
 const walkTo = require('../set/walk');
 
 //non-destructive getters/setters with fancy moves to do
 module.exports = {
-
-  //
-  // //this one's tricky
-  // month: (s, n) => {
-  //   n = validate(n);
-  //   let old = s.clone();
-  //   let diff = n - s.month();
-  //   let shift = diff * ms.month;
-  //   s.epoch += shift;
-  //   confirm(s, old, 'date');
-  //   return s.epoch;
-  // },
-
 
   //like 'wednesday' (hard!)
   day: function(input) {
@@ -79,6 +64,7 @@ module.exports = {
     this.day(input);
     return this;
   },
+
   monthName: function(input) {
     if (input === undefined) {
       return months.long[this.month()];

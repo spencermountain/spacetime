@@ -1,8 +1,6 @@
 'use strict';
-
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
-const dayTimes = require('../../data/dayTimes');
 const ms = require('../../data/milliseconds');
 const months = require('../../data/months');
 const monthLength = require('../../data/monthLength');
@@ -16,18 +14,12 @@ const validate = function(n) {
   return n;
 };
 
-const units = {
-  second: ['second', 'millisecond'],
-  minute: ['minute', 'second', 'millisecond'],
-  hour: ['hour', 'minute', 'second', 'millisecond'],
-  date: ['date', 'hour', 'minute', 'second', 'millisecond'],
-  month: ['month', 'date', 'hour', 'minute', 'second', 'millisecond'],
-  year: ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'],
-};
+const order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
 
 //reduce hostile micro-changes when moving dates by millisecond
 const confirm = function(s, tmp, unit) {
-  let arr = units[unit];
+  let n = order.indexOf(unit);
+  let arr = order.slice(n, order.length);
   for(let i = 0; i < arr.length; i++) {
     let want = tmp[arr[i]]();
     s[arr[i]](want);
