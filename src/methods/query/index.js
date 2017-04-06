@@ -4,7 +4,6 @@ const destructive = require('./destructive');
 const tricky = require('./tricky');
 
 const addMethods = (Space) => {
-
   //hook the methods into prototype
   Object.keys(normal).forEach((k) => {
     Space.prototype[k] = normal[k];
@@ -15,8 +14,6 @@ const addMethods = (Space) => {
   Object.keys(tricky).forEach((k) => {
     Space.prototype[k] = tricky[k];
   });
-
-  return Space;
 };
 
 module.exports = addMethods;

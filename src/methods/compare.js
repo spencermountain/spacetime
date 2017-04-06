@@ -1,7 +1,7 @@
 'use strict';
 const fns = require('../lib/fns');
 
-const addMethods = (Space) => {
+const addMethods = (SpaceTime) => {
 
   const methods = {
     isAfter: function(d) {
@@ -29,9 +29,8 @@ const addMethods = (Space) => {
 
   //hook them into proto
   Object.keys(methods).forEach((k) => {
-    Space.prototype[k] = methods[k];
+    SpaceTime.prototype[k] = methods[k];
   });
-  return Space;
 };
 
 module.exports = addMethods;

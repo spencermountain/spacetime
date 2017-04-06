@@ -11,7 +11,7 @@ const SpaceTime = function(input, tz) {
   this.tz = tz || guessTz();
   //this computer's built-in offset
   this.bias = getBias();
-  //getter/setters
+  //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object
     get: function() {
@@ -37,7 +37,7 @@ SpaceTime.prototype.clone = function() {
   return new SpaceTime(this.epoch, this.tz);
 };
 
-//append methods
+//append more methods
 require('./methods/query')(SpaceTime);
 require('./methods/add')(SpaceTime);
 require('./methods/same')(SpaceTime);

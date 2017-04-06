@@ -3,7 +3,6 @@ const walkTo = require('./set/walk');
 const ms = require('../data/milliseconds');
 const monthLength = require('../data/monthLength');
 
-
 const normalize = (str) => {
   str = str.toLowerCase();
   str = str.replace(/s$/, '');
@@ -55,64 +54,56 @@ const rollMonth = function(want, old) {
   return want;
 };
 
-const addMethods = (Space) => {
+const addMethods = (SpaceTime) => {
 
-  const methods = {
+  SpaceTime.prototype.add = function(num, unit) {
+    let old = this.clone();
+    unit = normalize(unit);
+    //move forward by the estimated milliseconds (rough)
+    if (ms[unit]) {
+      this.epoch += ms[unit] * num;
+    } else if (unit === 'week') {
+      this.epoch += ms.day * (num * 7);
+    } else if (unit === 'quarter' || unit === 'season') {
+      this.epoch += ms.month * (num * 4);
+    } else if (unit === 'season') {
+      this.epoch += ms.month * (num * 4);
+    }
+    //now ensure our milliseconds/etc are in-line
+    let want = {};
+    if (keep[unit]) {
+      keep[unit].forEach((u) => {
+        want[u] = old[u]();
+      });
+    }
+    //ensure month/year has ticked-over
+    if (unit === 'month') {
+      want.month = old.month() + num;
+      //month is the one unit we 'model' directly
+      want = rollMonth(want, old);
+    }
+    //ensure year has changed (leap-years)
+    if (unit === 'year' && this.year() === old.year()) {
+      this.epoch += ms.week;
+    }
 
-    add: function(num, unit) {
-      let old = this.clone();
-      unit = normalize(unit);
-      //move forward by the estimated milliseconds (rough)
-      if (ms[unit]) {
-        this.epoch += ms[unit] * num;
-      } else if (unit === 'week') {
-        this.epoch += ms.day * (num * 7);
-      } else if (unit === 'quarter' || unit === 'season') {
-        this.epoch += ms.month * (num * 4);
-      } else if (unit === 'season') {
-        this.epoch += ms.month * (num * 4);
+    //keep current date, unless the month doesn't have it.
+    if (keepDate[unit]) {
+      let max = monthLength[want.month];
+      want.date = old.date();
+      if (want.date > max) {
+        want.date = max;
       }
-      //now ensure our milliseconds/etc are in-line
-      let want = {};
-      if (keep[unit]) {
-        keep[unit].forEach((u) => {
-          want[u] = old[u]();
-        });
-      }
-      //ensure month/year has ticked-over
-      if (unit === 'month') {
-        want.month = old.month() + num;
-        //month is the one unit we 'model' directly
-        want = rollMonth(want, old);
-      }
-      //ensure year has changed (leap-years)
-      if (unit === 'year' && this.year() === old.year()) {
-        this.epoch += ms.week;
-      }
-
-      //keep current date, unless the month doesn't have it.
-      if (keepDate[unit]) {
-        let max = monthLength[want.month];
-        want.date = old.date();
-        if (want.date > max) {
-          want.date = max;
-        }
-      }
-      walkTo(this, want);
-      return this;
-    },
-
-    subtract: function(num, unit) {
-      this.add(num * -1, unit);
-      return this;
-    },
+    }
+    walkTo(this, want);
+    return this;
   };
 
-  //hook them into proto
-  Object.keys(methods).forEach((k) => {
-    Space.prototype[k] = methods[k];
-  });
-  return Space;
+  SpaceTime.prototype.subtract = function(num, unit) {
+    this.add(num * -1, unit);
+    return this;
+  };
+
 };
 
 module.exports = addMethods;
