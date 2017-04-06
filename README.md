@@ -14,23 +14,22 @@ d = new Date(epoch)
 d.getHours()
 //hmmm
 ```
-you computer <i>automatically</i> applies the <b>bias of your computer</b> when interpreting the date.
+you computer <i>automatically</i> applies <b>the bias of your computer</b> when interpreting the date.
 
 <div align="left">
   It can't do anything else.
 </div>
 
 <div align="left">
-  <h3>see, try to hack another timezone 😅</h3>
+  <h4>i mean, try to hack another timezone 😅</h4>
 </div>
 by pushing around the milliseconds:
 
 ```js
 let here = new Date()
-// allons-y à Paris!
-let offset= 5 * 60 * 1000
+let offset= 5 * 60 * 1000 // allons-y à Paris!
 paris = new Date(here.getTime() + offset)
-paris.getHours() //ohfuuuuuu
+paris.getHours() // ohfuuuuuu
 ```
 you may be surprised when you call `.getDate()`, or `.setDate()`, or anything really.
 
