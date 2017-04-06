@@ -1,5 +1,4 @@
 'use strict';
-const getBias = require('./getBias');
 const guessTz = require('./timezone/guessTz');
 const timezone = require('./timezone/index');
 const handleInput = require('./input');
@@ -9,8 +8,8 @@ const methods = require('./methods');
 const SpaceTime = function(input, tz) {
   //the shift for the given timezone
   this.tz = tz || guessTz();
-  //this computer's built-in offset
-  this.bias = getBias();
+  //every computer is somewhere- get this computer's built-in offset
+  this.bias = new Date().getTimezoneOffset() || 0;
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object

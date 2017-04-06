@@ -29,52 +29,674 @@ var unpack = function unpack(obj) {
 };
 
 var data = unpack(zonefile);
-console.log(data);
+// console.log(data);
 module.exports = data;
 
 },{"./zonefile.2017.json":2}],2:[function(_dereq_,module,exports){
 module.exports={
   "Africa": {
+    "Abidjan": 0,
+    "Accra": 0,
+    "Addis_Ababa": 180,
     "Algiers": 60,
+    "Asmara": 180,
+    "Asmera": 180,
+    "Bamako": 0,
+    "Bangui": 60,
+    "Banjul": 0,
+    "Bissau": 0,
+    "Blantyre": 120,
+    "Brazzaville": 60,
+    "Bujumbura": 120,
     "Cairo": 120,
     "Casablanca": {
       "o": 60,
-      "hem": "n",
+      "h": "n",
       "dst": "6/2/3 -> 9/29/2"
     },
+    "Ceuta": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Conakry": 0,
+    "Dakar": 0,
+    "Dar_es_Salaam": 180,
+    "Djibouti": 180,
+    "Douala": 60,
+    "El_Aaiun": {
+      "o": 60,
+      "h": "n",
+      "dst": "6/2/3 -> 9/29/2"
+    },
+    "Freetown": 0,
+    "Gaborone": 120,
     "Harare": 120,
-    "Monrovia": 0
+    "Johannesburg": 120,
+    "Juba": 180,
+    "Kampala": 180,
+    "Khartoum": 180,
+    "Kigali": 120,
+    "Kinshasa": 60,
+    "Lagos": 60,
+    "Libreville": 60,
+    "Lome": 0,
+    "Luanda": 60,
+    "Lubumbashi": 120,
+    "Lusaka": 120,
+    "Malabo": 60,
+    "Maputo": 120,
+    "Maseru": 120,
+    "Mbabane": 120,
+    "Mogadishu": 180,
+    "Monrovia": 0,
+    "Nairobi": 180,
+    "Ndjamena": 60,
+    "Niamey": 60,
+    "Nouakchott": 0,
+    "Ouagadougou": 0,
+    "Porto-Novo": 60,
+    "Sao_Tome": 0,
+    "Timbuktu": 0,
+    "Tripoli": 120,
+    "Tunis": 60,
+    "Windhoek": {
+      "o": 60,
+      "h": "s",
+      "dst": "8/3/3 -> 3/2/1"
+    }
+  },
+  "America": {
+    "Adak": {
+      "o": -540,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Anchorage": {
+      "o": -480,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Anguilla": -240,
+    "Antigua": -240,
+    "Araguaina": -180,
+    "Argentina": -180,
+    "Aruba": -240,
+    "Asuncion": {
+      "o": -240,
+      "h": "s",
+      "dst": "9/1/1 -> 2/25/23"
+    },
+    "Atikokan": -300,
+    "Atka": {
+      "o": -540,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Bahia": -180,
+    "Bahia_Banderas": {
+      "o": -300,
+      "h": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Barbados": -240,
+    "Belem": -180,
+    "Belize": -360,
+    "Blanc-Sablon": -240,
+    "Boa_Vista": -240,
+    "Bogota": -300,
+    "Boise": {
+      "o": -360,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Buenos_Aires": -180,
+    "Cambridge_Bay": {
+      "o": -360,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Campo_Grande": {
+      "o": -240,
+      "h": "s",
+      "dst": "9/15/1 -> 1/18/23"
+    },
+    "Cancun": -300,
+    "Caracas": -270,
+    "Catamarca": -180,
+    "Cayenne": -180,
+    "Cayman": -300,
+    "Chicago": {
+      "o": -300,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Chihuahua": {
+      "o": -360,
+      "h": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Coral_Harbour": -300,
+    "Cordoba": -180,
+    "Costa_Rica": -360,
+    "Creston": -420,
+    "Cuiaba": {
+      "o": -240,
+      "h": "s",
+      "dst": "9/15/1 -> 1/18/23"
+    },
+    "Curacao": -240,
+    "Danmarkshavn": 0,
+    "Dawson": {
+      "o": -420,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Dawson_Creek": -420,
+    "Denver": {
+      "o": -360,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Detroit": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Dominica": -240,
+    "Edmonton": {
+      "o": -360,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Eirunepe": -300,
+    "El_Salvador": -360,
+    "Ensenada": {
+      "o": -420,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Fort_Wayne": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Fortaleza": -180,
+    "Glace_Bay": {
+      "o": -180,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Godthab": {
+      "o": -120,
+      "h": "n",
+      "dst": "2/25/23 -> 9/28/22"
+    },
+    "Goose_Bay": {
+      "o": -180,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Grand_Turk": -240,
+    "Grenada": -240,
+    "Guadeloupe": -240,
+    "Guatemala": -360,
+    "Guayaquil": -300,
+    "Guyana": -240,
+    "Halifax": {
+      "o": -180,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Havana": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/1 -> 10/5/0"
+    },
+    "Hermosillo": -420,
+    "Indiana": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Indianapolis": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Inuvik": {
+      "o": -360,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Iqaluit": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Jamaica": -300,
+    "Jujuy": -180,
+    "Juneau": {
+      "o": -480,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Kentucky": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Knox_IN": {
+      "o": -300,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Kralendijk": -240,
+    "La_Paz": -240,
+    "Lima": -300,
+    "Los_Angeles": {
+      "o": -420,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Louisville": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Lower_Princes": -240,
+    "Maceio": -180,
+    "Managua": -360,
+    "Manaus": -240,
+    "Marigot": -240,
+    "Martinique": -240,
+    "Matamoros": {
+      "o": -300,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Mazatlan": {
+      "o": -360,
+      "h": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Mendoza": -180,
+    "Menominee": {
+      "o": -300,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Merida": {
+      "o": -300,
+      "h": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Metlakatla": {
+      "o": -480,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Mexico_City": {
+      "o": -300,
+      "h": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Miquelon": {
+      "o": -120,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Moncton": {
+      "o": -180,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Monterrey": {
+      "o": -300,
+      "h": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Montevideo": -180,
+    "Montreal": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Montserrat": -240,
+    "Nassau": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "New_York": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Nipigon": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Nome": {
+      "o": -480,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Noronha": -120,
+    "North_Dakota": {
+      "o": -300,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Ojinaga": {
+      "o": -360,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Panama": -300,
+    "Pangnirtung": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Paramaribo": -180,
+    "Phoenix": -420,
+    "Port-au-Prince": -240,
+    "Port_of_Spain": -240,
+    "Porto_Acre": -300,
+    "Porto_Velho": -240,
+    "Puerto_Rico": -240,
+    "Rainy_River": {
+      "o": -300,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Rankin_Inlet": {
+      "o": -300,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Recife": -180,
+    "Regina": -360,
+    "Resolute": {
+      "o": -300,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Rio_Branco": -300,
+    "Rosario": -180,
+    "Santa_Isabel": {
+      "o": -420,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Santarem": -180,
+    "Santiago": {
+      "o": -180,
+      "h": "s",
+      "dst": "7/13/1 -> 4/13/23"
+    },
+    "Santo_Domingo": -240,
+    "Sao_Paulo": {
+      "o": -180,
+      "h": "s",
+      "dst": "9/15/1 -> 1/18/23"
+    },
+    "Scoresbysund": {
+      "o": 0,
+      "h": "n",
+      "dst": "2/26/1 -> 9/29/0"
+    },
+    "Shiprock": {
+      "o": -360,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Sitka": {
+      "o": -480,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "St_Barthelemy": -240,
+    "St_Johns": {
+      "o": -150,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "St_Kitts": -240,
+    "St_Lucia": -240,
+    "St_Thomas": -240,
+    "St_Vincent": -240,
+    "Swift_Current": -360,
+    "Tegucigalpa": -360,
+    "Thule": {
+      "o": -180,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Thunder_Bay": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Tijuana": {
+      "o": -420,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Toronto": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Tortola": -240,
+    "Vancouver": {
+      "o": -420,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Virgin": -240,
+    "Whitehorse": {
+      "o": -420,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Winnipeg": {
+      "o": -300,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Yakutat": {
+      "o": -480,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Yellowknife": {
+      "o": -360,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    }
+  },
+  "Antarctica": {
+    "Casey": 480,
+    "Davis": 420,
+    "DumontDUrville": 600,
+    "Macquarie": 660,
+    "Mawson": 300,
+    "McMurdo": {
+      "o": 720,
+      "h": "s",
+      "dst": "8/24/3 -> 3/2/2"
+    },
+    "Palmer": {
+      "o": -180,
+      "h": "s",
+      "dst": "7/13/1 -> 4/13/23"
+    },
+    "Rothera": -180,
+    "South_Pole": {
+      "o": 720,
+      "h": "s",
+      "dst": "8/24/3 -> 3/2/2"
+    },
+    "Syowa": 180,
+    "Troll": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/1"
+    },
+    "Vostok": 360
+  },
+  "Arctic": {
+    "Longyearbyen": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    }
   },
   "Asia": {
+    "Aden": 180,
+    "Almaty": 360,
+    "Amman": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/31/1 -> 9/27/0"
+    },
+    "Anadyr": 720,
+    "Aqtau": 300,
+    "Aqtobe": 300,
+    "Ashgabat": 300,
+    "Ashkhabad": 300,
+    "Baghdad": 180,
+    "Bahrain": 180,
+    "Baku": 300,
+    "Bangkok": 420,
+    "Beirut": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/1 -> 9/28/23"
+    },
+    "Bishkek": 360,
+    "Brunei": 480,
+    "Calcutta": 330,
+    "Chita": 480,
+    "Choibalsan": {
+      "o": 480,
+      "h": "n",
+      "dst": "2/25/3 -> 8/29/23"
+    },
+    "Chongqing": 480,
+    "Chungking": 480,
+    "Colombo": 330,
+    "Dacca": 360,
+    "Damascus": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/31/1 -> 9/26/23"
+    },
+    "Dhaka": 360,
+    "Dili": 540,
+    "Dubai": 240,
+    "Dushanbe": 300,
+    "Gaza": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/25/2 -> 9/28/0"
+    },
+    "Harbin": 480,
+    "Hebron": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/25/2 -> 9/28/0"
+    },
+    "Ho_Chi_Minh": 420,
+    "Hong_Kong": 480,
+    "Hovd": {
+      "o": 420,
+      "h": "n",
+      "dst": "2/25/3 -> 8/29/23"
+    },
+    "Irkutsk": 480,
+    "Istanbul": 180,
+    "Jakarta": 420,
+    "Jayapura": 540,
+    "Jerusalem": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/24/3 -> 9/29/1"
+    },
     "Kabul": 270,
+    "Kamchatka": 720,
     "Karachi": 300,
+    "Kashgar": 360,
+    "Kathmandu": 345,
     "Katmandu": 345,
+    "Khandyga": 540,
     "Kolkata": 330,
     "Krasnoyarsk": 420,
     "Kuala_Lumpur": 480,
+    "Kuching": 480,
     "Kuwait": 180,
+    "Macao": 480,
+    "Macau": 480,
     "Magadan": 600,
+    "Makassar": 480,
+    "Manila": 480,
     "Muscat": 240,
+    "Nicosia": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Novokuznetsk": 420,
     "Novosibirsk": 360,
+    "Omsk": 360,
+    "Oral": 300,
+    "Phnom_Penh": 420,
+    "Pontianak": 420,
     "Pyongyang": 540,
+    "Qatar": 180,
+    "Qyzylorda": 360,
     "Rangoon": 390,
+    "Riyadh": 180,
+    "Saigon": 420,
     "Sakhalin": 600,
+    "Samarkand": 300,
     "Seoul": 540,
+    "Shanghai": 480,
+    "Singapore": 480,
     "Srednekolymsk": 660,
     "Taipei": 480,
     "Tashkent": 300,
     "Tbilisi": 240,
     "Tehran": {
       "o": 270,
-      "hem": "n",
+      "h": "n",
       "dst": "2/22/1 -> 8/21/23"
     },
+    "Tel_Aviv": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/24/3 -> 9/29/1"
+    },
+    "Thimbu": 360,
+    "Thimphu": 360,
     "Tokyo": 540,
+    "Ujung_Pandang": 480,
     "Ulaanbaatar": {
       "o": 480,
-      "hem": "n",
+      "h": "n",
       "dst": "2/25/3 -> 8/29/23"
     },
+    "Ulan_Bator": {
+      "o": 480,
+      "h": "n",
+      "dst": "2/25/3 -> 8/29/23"
+    },
+    "Urumqi": 360,
+    "Ust-Nera": 600,
+    "Vientiane": 420,
     "Vladivostok": 600,
     "Yakutsk": 540,
     "Yekaterinburg": 300,
@@ -83,120 +705,594 @@ module.exports={
   "Atlantic": {
     "Azores": {
       "o": 0,
-      "hem": "n",
+      "h": "n",
       "dst": "2/26/1 -> 9/29/0"
     },
-    "Cape_Verde": -60
+    "Bermuda": {
+      "o": -180,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Canary": {
+      "o": 60,
+      "h": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Cape_Verde": -60,
+    "Faeroe": {
+      "o": 60,
+      "h": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Faroe": {
+      "o": 60,
+      "h": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Jan_Mayen": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Madeira": {
+      "o": 60,
+      "h": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Reykjavik": 0,
+    "South_Georgia": -120,
+    "St_Helena": 0,
+    "Stanley": -180
   },
   "Australia": {
+    "ACT": {
+      "o": 600,
+      "h": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
     "Adelaide": {
       "o": 570,
-      "hem": "s",
+      "h": "s",
       "dst": "9/1/3 -> 3/2/2"
     },
     "Brisbane": 600,
+    "Broken_Hill": {
+      "o": 570,
+      "h": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
     "Canberra": {
       "o": 600,
-      "hem": "s",
+      "h": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Currie": {
+      "o": 600,
+      "h": "s",
       "dst": "9/1/3 -> 3/2/2"
     },
     "Darwin": 570,
     "Eucla": 525,
     "Hobart": {
       "o": 600,
-      "hem": "s",
+      "h": "s",
       "dst": "9/1/3 -> 3/2/2"
     },
-    "Lord_Howe": {
+    "LHI": {
       "o": 630,
-      "hem": "s",
+      "h": "s",
       "dst": "9/1/2 -> 3/2/1"
     },
-    "Perth": 480
+    "Lindeman": 600,
+    "Lord_Howe": {
+      "o": 630,
+      "h": "s",
+      "dst": "9/1/2 -> 3/2/1"
+    },
+    "Melbourne": {
+      "o": 600,
+      "h": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "NSW": {
+      "o": 600,
+      "h": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "North": 570,
+    "Perth": 480,
+    "Queensland": 600,
+    "South": {
+      "o": 570,
+      "h": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Sydney": {
+      "o": 600,
+      "h": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Tasmania": {
+      "o": 600,
+      "h": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Victoria": {
+      "o": 600,
+      "h": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "West": 480,
+    "Yancowinna": {
+      "o": 570,
+      "h": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    }
+  },
+  "Brazil": {
+    "Acre": -300,
+    "DeNoronha": -120,
+    "East": {
+      "o": -180,
+      "h": "s",
+      "dst": "9/15/1 -> 1/18/23"
+    },
+    "West": -240
+  },
+  "Canada": {
+    "Atlantic": {
+      "o": -180,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Central": {
+      "o": -300,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "East-Saskatchewan": -360,
+    "Eastern": {
+      "o": -240,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Mountain": {
+      "o": -360,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Newfoundland": {
+      "o": -150,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Pacific": {
+      "o": -420,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Saskatchewan": -360,
+    "Yukon": {
+      "o": -420,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    }
+  },
+  "Chile": {
+    "Continental": {
+      "o": -180,
+      "h": "s",
+      "dst": "7/13/1 -> 4/13/23"
+    },
+    "EasterIsland": {
+      "o": -300,
+      "h": "s",
+      "dst": "7/12/23 -> 4/13/21"
+    }
+  },
+  "Etc": {
+    "GMT": 0,
+    "GMT+0": 0,
+    "GMT+1": -60,
+    "GMT+10": -600,
+    "GMT+11": -660,
+    "GMT+12": -720,
+    "GMT+2": -120,
+    "GMT+3": -180,
+    "GMT+4": -240,
+    "GMT+5": -300,
+    "GMT+6": -360,
+    "GMT+7": -420,
+    "GMT+8": -480,
+    "GMT+9": -540,
+    "GMT-0": 0,
+    "GMT-1": 60,
+    "GMT-10": 600,
+    "GMT-11": 660,
+    "GMT-12": 720,
+    "GMT-13": 780,
+    "GMT-14": 840,
+    "GMT-2": 120,
+    "GMT-3": 180,
+    "GMT-4": 240,
+    "GMT-5": 300,
+    "GMT-6": 360,
+    "GMT-7": 420,
+    "GMT-8": 480,
+    "GMT-9": 540,
+    "GMT0": 0,
+    "Greenwich": 0,
+    "UCT": 0,
+    "UTC": 0,
+    "Universal": 0,
+    "Zulu": 0
   },
   "Europe": {
     "Amsterdam": {
       "o": 120,
-      "hem": "n",
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Andorra": {
+      "o": 120,
+      "h": "n",
       "dst": "2/26/3 -> 9/29/2"
     },
     "Athens": {
       "o": 180,
-      "hem": "n",
+      "h": "n",
       "dst": "2/26/4 -> 9/29/3"
+    },
+    "Belfast": {
+      "o": 60,
+      "h": "n",
+      "dst": "2/26/2 -> 9/29/1"
     },
     "Belgrade": {
       "o": 120,
-      "hem": "n",
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Berlin": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Bratislava": {
+      "o": 120,
+      "h": "n",
       "dst": "2/26/3 -> 9/29/2"
     },
     "Brussels": {
       "o": 120,
-      "hem": "n",
+      "h": "n",
       "dst": "2/26/3 -> 9/29/2"
+    },
+    "Bucharest": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Budapest": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Busingen": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Chisinau": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Copenhagen": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Dublin": {
+      "o": 60,
+      "h": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Gibraltar": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Guernsey": {
+      "o": 60,
+      "h": "n",
+      "dst": "2/26/2 -> 9/29/1"
     },
     "Helsinki": {
       "o": 180,
-      "hem": "n",
+      "h": "n",
       "dst": "2/26/4 -> 9/29/3"
     },
-    "Kaliningrad": 120,
-    "London": {
+    "Isle_of_Man": {
       "o": 60,
-      "hem": "n",
+      "h": "n",
       "dst": "2/26/2 -> 9/29/1"
     },
+    "Istanbul": 180,
+    "Jersey": {
+      "o": 60,
+      "h": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Kaliningrad": 120,
+    "Kiev": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Lisbon": {
+      "o": 60,
+      "h": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Ljubljana": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "London": {
+      "o": 60,
+      "h": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Luxembourg": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Madrid": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Malta": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Mariehamn": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
     "Minsk": 180,
+    "Monaco": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
     "Moscow": 180,
+    "Nicosia": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Oslo": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Paris": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Podgorica": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Prague": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Riga": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Rome": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
     "Samara": 240,
+    "San_Marino": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Sarajevo": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Simferopol": 180,
+    "Skopje": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Sofia": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Stockholm": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Tallinn": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Tirane": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Tiraspol": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Uzhgorod": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Vaduz": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Vatican": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Vienna": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Vilnius": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Volgograd": 180,
     "Warsaw": {
       "o": 120,
-      "hem": "n",
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Zagreb": {
+      "o": 120,
+      "h": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Zaporozhye": {
+      "o": 180,
+      "h": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Zurich": {
+      "o": 120,
+      "h": "n",
       "dst": "2/26/3 -> 9/29/2"
     }
   },
   "Indian": {
-    "Mauritius": 240
+    "Antananarivo": 180,
+    "Chagos": 360,
+    "Christmas": 420,
+    "Cocos": 390,
+    "Comoro": 180,
+    "Kerguelen": 300,
+    "Mahe": 240,
+    "Maldives": 300,
+    "Mauritius": 240,
+    "Mayotte": 180,
+    "Reunion": 240
+  },
+  "Mexico": {
+    "BajaNorte": {
+      "o": -420,
+      "h": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "BajaSur": {
+      "o": -360,
+      "h": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "General": {
+      "o": -300,
+      "h": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    }
   },
   "Pacific": {
     "Apia": {
       "o": 780,
-      "hem": "s",
+      "h": "s",
       "dst": "8/24/4 -> 3/2/3"
     },
     "Auckland": {
       "o": 720,
-      "hem": "s",
+      "h": "s",
       "dst": "8/24/3 -> 3/2/2"
     },
     "Chatham": {
       "o": 765,
-      "hem": "s",
+      "h": "s",
       "dst": "8/24/3 -> 3/2/2"
     },
+    "Chuuk": 600,
     "Easter": {
       "o": -300,
-      "hem": "s",
+      "h": "s",
       "dst": "7/12/23 -> 4/13/21"
     },
+    "Efate": 660,
+    "Enderbury": 780,
+    "Fakaofo": 780,
     "Fiji": {
       "o": 720,
-      "hem": "s",
+      "h": "s",
       "dst": "10/5/3 -> 0/15/2"
     },
+    "Funafuti": 720,
+    "Galapagos": -360,
+    "Gambier": -540,
     "Guadalcanal": 660,
     "Guam": 600,
     "Honolulu": -600,
+    "Johnston": -600,
     "Kiritimati": 840,
+    "Kosrae": 660,
+    "Kwajalein": 720,
+    "Majuro": 720,
     "Marquesas": -570,
     "Midway": -660,
+    "Nauru": 720,
+    "Niue": -660,
     "Norfolk": 690,
     "Noumea": 660,
+    "Pago_Pago": -660,
+    "Palau": 540,
+    "Pitcairn": -480,
+    "Pohnpei": 660,
+    "Ponape": 660,
+    "Port_Moresby": 600,
+    "Rarotonga": -600,
+    "Saipan": 600,
+    "Samoa": -660,
+    "Tahiti": -600,
+    "Tarawa": 720,
     "Tongatapu": {
       "o": 780,
-      "hem": "s",
+      "h": "s",
       "dst": "10/5/3 -> 0/15/2"
-    }
+    },
+    "Truk": 600,
+    "Wake": 720,
+    "Wallis": 720,
+    "Yap": 600
   }
 }
 },{}],3:[function(_dereq_,module,exports){
@@ -394,7 +1490,7 @@ module.exports = main;
 'use strict';
 
 var strFmt = _dereq_('./strParse');
-
+var fns = _dereq_('../lib/fns');
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
 //=========================================
@@ -404,23 +1500,12 @@ var strFmt = _dereq_('./strParse');
 // Full Date	"Wednesday March 25 2015"
 //=========================================
 
-var isArray = function isArray(input) {
-  return Object.prototype.toString.call(input) === '[object Array]';
-};
-var isObject = function isObject(input) {
-  return Object.prototype.toString.call(input) === '[object Object]';
-};
-var isDate = function isDate(d) {
-  return d instanceof Date && !isNaN(d.valueOf());
-};
-
 //support [2016, 03, 01] format
 var handleArray = function handleArray(s, arr) {
-  var units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
+  var order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
   for (var i = 0; i < arr.length; i++) {
-    var unit = units[i];
     var num = arr[i] || 0;
-    s[unit](num);
+    s[order[i]](num);
   }
   return s;
 };
@@ -449,17 +1534,17 @@ var parseInput = function parseInput(s, input) {
     return; //k, we're good.
   }
   //support input of Date() object
-  if (isDate(input) === true) {
+  if (fns.isDate(input) === true) {
     s.epoch = input.getTime();
     return;
   }
   //support [2016, 03, 01] format
-  if (isArray(input) === true) {
+  if (fns.isArray(input) === true) {
     handleArray(s, input);
     return;
   }
   //support {year:2016, month:3} format
-  if (isObject(input) === true) {
+  if (fns.isObject(input) === true) {
     //support spacetime object as input
     if (input.epoch) {
       s.epoch = input.epoch;
@@ -484,7 +1569,7 @@ var parseInput = function parseInput(s, input) {
 };
 module.exports = parseInput;
 
-},{"./strParse":14}],14:[function(_dereq_,module,exports){
+},{"../lib/fns":17,"./strParse":14}],14:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('../methods/set/walk');
@@ -637,7 +1722,13 @@ module.exports = {
 'use strict';
 
 exports.isDate = function (d) {
-  return Object.prototype.toString.call(d) === '[object Date]';
+  return Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf());
+};
+exports.isArray = function (input) {
+  return Object.prototype.toString.call(input) === '[object Array]';
+};
+exports.isObject = function (input) {
+  return Object.prototype.toString.call(input) === '[object Object]';
 };
 
 exports.getEpoch = function (tmp) {
@@ -1908,11 +2999,13 @@ var parseDst = function parseDst(dst) {
     return {};
   }
   var arr = dst.split(' -> ').map(function (s) {
-    var tmp = s.split('/');
+    var tmp = s.split('/').map(function (n) {
+      return parseInt(n, 10);
+    });
     return {
-      month: parseInt(tmp[0], 10),
-      date: parseInt(tmp[1], 10),
-      hour: parseInt(tmp[2], 10)
+      month: tmp[0],
+      date: tmp[1],
+      hour: tmp[2]
     };
   });
   return {
@@ -1925,7 +3018,7 @@ var parseDst = function parseDst(dst) {
 var timezone = function timezone(s) {
   var tz = s.tz;
   if (!zones[tz]) {
-    console.warn('Warn: could not find timezone - \'' + tz + '\'');
+    console.warn('Warn: could not find given or local timezone - \'' + tz + '\'');
     return {
       current: {
         epochShift: 0
@@ -1944,12 +3037,11 @@ var timezone = function timezone(s) {
       meta.dst.change = -30;
     }
   }
-
   //include hemisphere (for seasons)
   meta.hemisphere = null;
-  if (zones[tz].hem === 'n') {
+  if (zones[tz].h === 'n') {
     meta.hemisphere = 'North';
-  } else if (zones[tz].hem === 's') {
+  } else if (zones[tz].h === 's') {
     meta.hemisphere = 'South';
   }
 

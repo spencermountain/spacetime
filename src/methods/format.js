@@ -1,5 +1,5 @@
 'use strict';
-const fmt = require('../lib/fmt');
+const fmt = require('../fns');
 const months = require('../data/months');
 const days = require('../data/days');
 

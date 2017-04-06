@@ -1,6 +1,5 @@
 'use strict';
 const set = require('../set/set');
-const dayOfYear = require('../../lib/dayOfYear');
 
 //the most basic get/set methods
 let methods = {
@@ -60,7 +59,18 @@ let methods = {
       this.epoch = set.dayOfYear(this, num);
       return this;
     }
-    return dayOfYear(this.d);
+    //days since newyears - jan 1st is 1, jan 2nd is 2...
+    let sum = 0;
+    let month = this.d.getMonth();
+    let tmp;
+    for(let i = 0; i < month; i++) {
+      tmp = new Date();
+      tmp.setMonth(i);
+      tmp.setDate(1);
+      tmp.setHours(-2);
+      sum += tmp.getDate();
+    }
+    return sum + this.d.getDate();
   },
 
 };

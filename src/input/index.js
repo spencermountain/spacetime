@@ -1,6 +1,6 @@
 'use strict';
 const strFmt = require('./strParse');
-const fns = require('../lib/fns');
+const fns = require('../fns');
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
 //=========================================

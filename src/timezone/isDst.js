@@ -1,11 +1,5 @@
 'use strict';
-
-function zeroPad(str, len) {
-  len = len || 2;
-  let pad = '0';
-  str = str + '';
-  return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str;
-}
+const zeroPad = require('../fns').zeroPad;
 
 const toString = function(o) {
   return [zeroPad(o.month), zeroPad(o.date), zeroPad(o.hour)].join('-');
