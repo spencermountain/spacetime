@@ -1,5 +1,5 @@
 'use strict';
-const zones = require('../../data/zonefile.2017');
+const zones = require('../../data');
 const isDst = require('./isDst');
 
 const parseDst = (dst) => {

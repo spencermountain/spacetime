@@ -1,5 +1,7 @@
 'use strict';
-//
+const zonefile = require('./zonefile.2017.json');
+
+//compress timezone data by continent
 const unpack = (obj) => {
   let all = {};
   let keys = Object.keys(obj);
@@ -13,4 +15,6 @@ const unpack = (obj) => {
   });
   return all;
 };
-module.exports = unpack;
+
+const data = unpack(zonefile);
+module.exports = data;

@@ -2,2088 +2,2044 @@
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+'use strict';
+
+var zonefile = _dereq_('./zonefile.2017.json');
+
+//compress timezone data by continent
+var unpack = function unpack(obj) {
+  var all = {};
+  var keys = Object.keys(obj);
+  keys.forEach(function (cont) {
+    var cities = Object.keys(obj[cont]);
+    cities.forEach(function (city) {
+      var tz = cont + '/' + city;
+      all[tz] = obj[cont][city];
+      all[tz].tz = tz;
+    });
+  });
+  return all;
+};
+
+var data = unpack(zonefile);
+module.exports = data;
+
+},{"./zonefile.2017.json":2}],2:[function(_dereq_,module,exports){
 module.exports={
-  "Africa/Abidjan": {
-    "o": 0
-  },
-  "Africa/Accra": {
-    "o": 0
-  },
-  "Africa/Addis_Ababa": {
-    "o": 180
-  },
-  "Africa/Algiers": {
-    "o": 60
-  },
-  "Africa/Asmara": {
-    "o": 180
-  },
-  "Africa/Asmera": {
-    "o": 180
-  },
-  "Africa/Bamako": {
-    "o": 0
-  },
-  "Africa/Bangui": {
-    "o": 60
-  },
-  "Africa/Banjul": {
-    "o": 0
-  },
-  "Africa/Bissau": {
-    "o": 0
-  },
-  "Africa/Blantyre": {
-    "o": 120
-  },
-  "Africa/Brazzaville": {
-    "o": 60
-  },
-  "Africa/Bujumbura": {
-    "o": 120
-  },
-  "Africa/Cairo": {
-    "o": 120
-  },
-  "Africa/Casablanca": {
-    "o": 60,
-    "hem": "n",
-    "dst": "6/2/3 -> 9/29/2"
-  },
-  "Africa/Ceuta": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Africa/Conakry": {
-    "o": 0
-  },
-  "Africa/Dakar": {
-    "o": 0
-  },
-  "Africa/Dar_es_Salaam": {
-    "o": 180
-  },
-  "Africa/Djibouti": {
-    "o": 180
-  },
-  "Africa/Douala": {
-    "o": 60
-  },
-  "Africa/El_Aaiun": {
-    "o": 60,
-    "hem": "n",
-    "dst": "6/2/3 -> 9/29/2"
-  },
-  "Africa/Freetown": {
-    "o": 0
-  },
-  "Africa/Gaborone": {
-    "o": 120
-  },
-  "Africa/Harare": {
-    "o": 120
-  },
-  "Africa/Johannesburg": {
-    "o": 120
-  },
-  "Africa/Juba": {
-    "o": 180
-  },
-  "Africa/Kampala": {
-    "o": 180
-  },
-  "Africa/Khartoum": {
-    "o": 180
-  },
-  "Africa/Kigali": {
-    "o": 120
-  },
-  "Africa/Kinshasa": {
-    "o": 60
-  },
-  "Africa/Lagos": {
-    "o": 60
-  },
-  "Africa/Libreville": {
-    "o": 60
-  },
-  "Africa/Lome": {
-    "o": 0
-  },
-  "Africa/Luanda": {
-    "o": 60
-  },
-  "Africa/Lubumbashi": {
-    "o": 120
-  },
-  "Africa/Lusaka": {
-    "o": 120
-  },
-  "Africa/Malabo": {
-    "o": 60
-  },
-  "Africa/Maputo": {
-    "o": 120
-  },
-  "Africa/Maseru": {
-    "o": 120
-  },
-  "Africa/Mbabane": {
-    "o": 120
-  },
-  "Africa/Mogadishu": {
-    "o": 180
-  },
-  "Africa/Monrovia": {
-    "o": 0
-  },
-  "Africa/Nairobi": {
-    "o": 180
-  },
-  "Africa/Ndjamena": {
-    "o": 60
-  },
-  "Africa/Niamey": {
-    "o": 60
-  },
-  "Africa/Nouakchott": {
-    "o": 0
-  },
-  "Africa/Ouagadougou": {
-    "o": 0
-  },
-  "Africa/Porto-Novo": {
-    "o": 60
-  },
-  "Africa/Sao_Tome": {
-    "o": 0
-  },
-  "Africa/Timbuktu": {
-    "o": 0
-  },
-  "Africa/Tripoli": {
-    "o": 120
-  },
-  "Africa/Tunis": {
-    "o": 60
-  },
-  "Africa/Windhoek": {
-    "o": 60,
-    "hem": "s",
-    "dst": "8/3/3 -> 3/2/1"
-  },
-  "America/Adak": {
-    "o": -540,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Anchorage": {
-    "o": -480,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Anguilla": {
-    "o": -240
-  },
-  "America/Antigua": {
-    "o": -240
-  },
-  "America/Araguaina": {
-    "o": -180
-  },
-  "America/Argentina/Buenos_Aires": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/Catamarca": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/ComodRivadavia": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/Cordoba": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/Jujuy": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/La_Rioja": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/Mendoza": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/Rio_Gallegos": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/Salta": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/San_Juan": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/San_Luis": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/Tucuman": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Argentina/Ushuaia": {
-    "o": -180,
-    "hem": "s"
-  },
-  "America/Aruba": {
-    "o": -240
-  },
-  "America/Asuncion": {
-    "o": -240,
-    "hem": "s",
-    "dst": "9/1/1 -> 2/25/23"
-  },
-  "America/Atikokan": {
-    "o": -300
-  },
-  "America/Atka": {
-    "o": -540,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Bahia": {
-    "o": -180
-  },
-  "America/Bahia_Banderas": {
-    "o": -300,
-    "hem": "n",
-    "dst": "3/2/3 -> 9/29/1"
-  },
-  "America/Barbados": {
-    "o": -240
-  },
-  "America/Belem": {
-    "o": -180
-  },
-  "America/Belize": {
-    "o": -360
-  },
-  "America/Blanc-Sablon": {
-    "o": -240
-  },
-  "America/Boa_Vista": {
-    "o": -240
-  },
-  "America/Bogota": {
-    "o": -300
-  },
-  "America/Boise": {
-    "o": -360,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Buenos_Aires": {
-    "o": -180
-  },
-  "America/Cambridge_Bay": {
-    "o": -360,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Campo_Grande": {
-    "o": -240,
-    "hem": "s",
-    "dst": "9/15/1 -> 1/18/23"
-  },
-  "America/Cancun": {
-    "o": -300
-  },
-  "America/Caracas": {
-    "o": -270
-  },
-  "America/Catamarca": {
-    "o": -180
-  },
-  "America/Cayenne": {
-    "o": -180
-  },
-  "America/Cayman": {
-    "o": -300
-  },
-  "America/Chicago": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Chihuahua": {
-    "o": -360,
-    "hem": "n",
-    "dst": "3/2/3 -> 9/29/1"
-  },
-  "America/Coral_Harbour": {
-    "o": -300
-  },
-  "America/Cordoba": {
-    "o": -180
-  },
-  "America/Costa_Rica": {
-    "o": -360,
-    "hem": "s"
-  },
-  "America/Creston": {
-    "o": -420
-  },
-  "America/Cuiaba": {
-    "o": -240,
-    "hem": "s",
-    "dst": "9/15/1 -> 1/18/23"
-  },
-  "America/Curacao": {
-    "o": -240
-  },
-  "America/Danmarkshavn": {
-    "o": 0
-  },
-  "America/Dawson": {
-    "o": -420,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Dawson_Creek": {
-    "o": -420
-  },
-  "America/Denver": {
-    "o": -360,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Detroit": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Dominica": {
-    "o": -240
-  },
-  "America/Edmonton": {
-    "o": -360,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Eirunepe": {
-    "o": -300
-  },
-  "America/El_Salvador": {
-    "o": -360
-  },
-  "America/Ensenada": {
-    "o": -420,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Fort_Wayne": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Fortaleza": {
-    "o": -180
-  },
-  "America/Glace_Bay": {
-    "o": -180,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Godthab": {
-    "o": -120,
-    "hem": "n",
-    "dst": "2/25/23 -> 9/28/22"
-  },
-  "America/Goose_Bay": {
-    "o": -180,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Grand_Turk": {
-    "o": -240
-  },
-  "America/Grenada": {
-    "o": -240
-  },
-  "America/Guadeloupe": {
-    "o": -240
-  },
-  "America/Guatemala": {
-    "o": -360
-  },
-  "America/Guayaquil": {
-    "o": -300
-  },
-  "America/Guyana": {
-    "o": -240
-  },
-  "America/Halifax": {
-    "o": -180,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Havana": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/1 -> 10/5/0"
-  },
-  "America/Hermosillo": {
-    "o": -420
-  },
-  "America/Indiana/Indianapolis": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Indiana/Knox": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Indiana/Marengo": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Indiana/Petersburg": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Indiana/Tell_City": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Indiana/Vevay": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Indiana/Vincennes": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Indiana/Winamac": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Indianapolis": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Inuvik": {
-    "o": -360,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Iqaluit": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Jamaica": {
-    "o": -300
-  },
-  "America/Jujuy": {
-    "o": -180
-  },
-  "America/Juneau": {
-    "o": -480,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Kentucky/Louisville": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Kentucky/Monticello": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Knox_IN": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Kralendijk": {
-    "o": -240
-  },
-  "America/La_Paz": {
-    "o": -240
-  },
-  "America/Lima": {
-    "o": -300
-  },
-  "America/Los_Angeles": {
-    "o": -420,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Louisville": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Lower_Princes": {
-    "o": -240
-  },
-  "America/Maceio": {
-    "o": -180
-  },
-  "America/Managua": {
-    "o": -360
-  },
-  "America/Manaus": {
-    "o": -240
-  },
-  "America/Marigot": {
-    "o": -240
-  },
-  "America/Martinique": {
-    "o": -240
-  },
-  "America/Matamoros": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Mazatlan": {
-    "o": -360,
-    "hem": "n",
-    "dst": "3/2/3 -> 9/29/1"
-  },
-  "America/Mendoza": {
-    "o": -180
-  },
-  "America/Menominee": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Merida": {
-    "o": -300,
-    "hem": "n",
-    "dst": "3/2/3 -> 9/29/1"
-  },
-  "America/Metlakatla": {
-    "o": -480,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Mexico_City": {
-    "o": -300,
-    "hem": "n",
-    "dst": "3/2/3 -> 9/29/1"
-  },
-  "America/Miquelon": {
-    "o": -120,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Moncton": {
-    "o": -180,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Monterrey": {
-    "o": -300,
-    "hem": "n",
-    "dst": "3/2/3 -> 9/29/1"
-  },
-  "America/Montevideo": {
-    "o": -180
-  },
-  "America/Montreal": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Montserrat": {
-    "o": -240
-  },
-  "America/Nassau": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/New_York": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Nipigon": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Nome": {
-    "o": -480,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Noronha": {
-    "o": -120
-  },
-  "America/North_Dakota/Beulah": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/North_Dakota/Center": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/North_Dakota/New_Salem": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Ojinaga": {
-    "o": -360,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Panama": {
-    "o": -300
-  },
-  "America/Pangnirtung": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Paramaribo": {
-    "o": -180
-  },
-  "America/Phoenix": {
-    "o": -420
-  },
-  "America/Port-au-Prince": {
-    "o": -240
-  },
-  "America/Port_of_Spain": {
-    "o": -240
-  },
-  "America/Porto_Acre": {
-    "o": -300
-  },
-  "America/Porto_Velho": {
-    "o": -240
-  },
-  "America/Puerto_Rico": {
-    "o": -240
-  },
-  "America/Rainy_River": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Rankin_Inlet": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Recife": {
-    "o": -180
-  },
-  "America/Regina": {
-    "o": -360
-  },
-  "America/Resolute": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Rio_Branco": {
-    "o": -300
-  },
-  "America/Rosario": {
-    "o": -180
-  },
-  "America/Santa_Isabel": {
-    "o": -420,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Santarem": {
-    "o": -180
-  },
-  "America/Santiago": {
-    "o": -180,
-    "hem": "s",
-    "dst": "7/13/1 -> 4/13/23"
-  },
-  "America/Santo_Domingo": {
-    "o": -240
-  },
-  "America/Sao_Paulo": {
-    "o": -180,
-    "hem": "s",
-    "dst": "9/15/1 -> 1/18/23"
-  },
-  "America/Scoresbysund": {
-    "o": 0,
-    "hem": "n",
-    "dst": "2/26/1 -> 9/29/0"
-  },
-  "America/Shiprock": {
-    "o": -360,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Sitka": {
-    "o": -480,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/St_Barthelemy": {
-    "o": -240
-  },
-  "America/St_Johns": {
-    "o": -150,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/St_Kitts": {
-    "o": -240
-  },
-  "America/St_Lucia": {
-    "o": -240
-  },
-  "America/St_Thomas": {
-    "o": -240
-  },
-  "America/St_Vincent": {
-    "o": -240
-  },
-  "America/Swift_Current": {
-    "o": -360
-  },
-  "America/Tegucigalpa": {
-    "o": -360
-  },
-  "America/Thule": {
-    "o": -180,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Thunder_Bay": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Tijuana": {
-    "o": -420,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Toronto": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Tortola": {
-    "o": -240
-  },
-  "America/Vancouver": {
-    "o": -420,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Virgin": {
-    "o": -240
-  },
-  "America/Whitehorse": {
-    "o": -420,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Winnipeg": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Yakutat": {
-    "o": -480,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "America/Yellowknife": {
-    "o": -360,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "Antarctica/Casey": {
-    "o": 480,
-    "hem": "s"
-  },
-  "Antarctica/Davis": {
-    "o": 420,
-    "hem": "s"
-  },
-  "Antarctica/DumontDUrville": {
-    "o": 600,
-    "hem": "s"
-  },
-  "Antarctica/Macquarie": {
-    "o": 660,
-    "hem": "s"
-  },
-  "Antarctica/Mawson": {
-    "o": 300,
-    "hem": "s"
-  },
-  "Antarctica/McMurdo": {
-    "o": 720,
-    "hem": "s",
-    "dst": "8/24/3 -> 3/2/2"
-  },
-  "Antarctica/Palmer": {
-    "o": -180,
-    "hem": "s",
-    "dst": "7/13/1 -> 4/13/23"
-  },
-  "Antarctica/Rothera": {
-    "o": -180,
-    "hem": "s"
-  },
-  "Antarctica/South_Pole": {
-    "o": 720,
-    "hem": "s",
-    "dst": "8/24/3 -> 3/2/2"
-  },
-  "Antarctica/Syowa": {
-    "o": 180,
-    "hem": "s"
-  },
-  "Antarctica/Troll": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/1"
-  },
-  "Antarctica/Vostok": {
-    "o": 360,
-    "hem": "s"
-  },
-  "Arctic/Longyearbyen": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Asia/Aden": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Asia/Almaty": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Amman": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/31/1 -> 9/27/0"
-  },
-  "Asia/Anadyr": {
-    "o": 720,
-    "hem": "n"
-  },
-  "Asia/Aqtau": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Aqtobe": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Ashgabat": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Ashkhabad": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Baghdad": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Asia/Bahrain": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Asia/Baku": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Bangkok": {
-    "o": 420,
-    "hem": "n"
-  },
-  "Asia/Beirut": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/1 -> 9/28/23"
-  },
-  "Asia/Bishkek": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Brunei": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Calcutta": {
-    "o": 330,
-    "hem": "n"
-  },
-  "Asia/Chita": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Choibalsan": {
-    "o": 480,
-    "hem": "n",
-    "dst": "2/25/3 -> 8/29/23"
-  },
-  "Asia/Chongqing": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Chungking": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Colombo": {
-    "o": 330,
-    "hem": "n"
-  },
-  "Asia/Dacca": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Damascus": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/31/1 -> 9/26/23"
-  },
-  "Asia/Dhaka": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Dili": {
-    "o": 540,
-    "hem": "n"
-  },
-  "Asia/Dubai": {
-    "o": 240,
-    "hem": "n"
-  },
-  "Asia/Dushanbe": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Gaza": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/25/2 -> 9/28/0"
-  },
-  "Asia/Harbin": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Hebron": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/25/2 -> 9/28/0"
-  },
-  "Asia/Ho_Chi_Minh": {
-    "o": 420,
-    "hem": "n"
-  },
-  "Asia/Hong_Kong": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Hovd": {
-    "o": 420,
-    "hem": "n",
-    "dst": "2/25/3 -> 8/29/23"
-  },
-  "Asia/Irkutsk": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Istanbul": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Asia/Jakarta": {
-    "o": 420,
-    "hem": "n"
-  },
-  "Asia/Jayapura": {
-    "o": 540,
-    "hem": "n"
-  },
-  "Asia/Jerusalem": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/24/3 -> 9/29/1"
-  },
-  "Asia/Kabul": {
-    "o": 270,
-    "hem": "n"
-  },
-  "Asia/Kamchatka": {
-    "o": 720,
-    "hem": "n"
-  },
-  "Asia/Karachi": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Kashgar": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Kathmandu": {
-    "o": 345,
-    "hem": "n"
-  },
-  "Asia/Katmandu": {
-    "o": 345,
-    "hem": "n"
-  },
-  "Asia/Khandyga": {
-    "o": 540,
-    "hem": "n"
-  },
-  "Asia/Kolkata": {
-    "o": 330,
-    "hem": "n"
-  },
-  "Asia/Krasnoyarsk": {
-    "o": 420,
-    "hem": "n"
-  },
-  "Asia/Kuala_Lumpur": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Kuching": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Kuwait": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Asia/Macao": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Macau": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Magadan": {
-    "o": 600,
-    "hem": "n"
-  },
-  "Asia/Makassar": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Manila": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Muscat": {
-    "o": 240,
-    "hem": "n"
-  },
-  "Asia/Nicosia": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Asia/Novokuznetsk": {
-    "o": 420,
-    "hem": "n"
-  },
-  "Asia/Novosibirsk": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Omsk": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Oral": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Phnom_Penh": {
-    "o": 420,
-    "hem": "n"
-  },
-  "Asia/Pontianak": {
-    "o": 420,
-    "hem": "n"
-  },
-  "Asia/Pyongyang": {
-    "o": 540,
-    "hem": "n"
-  },
-  "Asia/Qatar": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Asia/Qyzylorda": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Rangoon": {
-    "o": 390,
-    "hem": "n"
-  },
-  "Asia/Riyadh": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Asia/Saigon": {
-    "o": 420,
-    "hem": "n"
-  },
-  "Asia/Sakhalin": {
-    "o": 600,
-    "hem": "n"
-  },
-  "Asia/Samarkand": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Seoul": {
-    "o": 540,
-    "hem": "n"
-  },
-  "Asia/Shanghai": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Singapore": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Srednekolymsk": {
-    "o": 660,
-    "hem": "n"
-  },
-  "Asia/Taipei": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Tashkent": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Tbilisi": {
-    "o": 240,
-    "hem": "n"
-  },
-  "Asia/Tehran": {
-    "o": 270,
-    "hem": "n",
-    "dst": "2/22/1 -> 8/21/23"
-  },
-  "Asia/Tel_Aviv": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/24/3 -> 9/29/1"
-  },
-  "Asia/Thimbu": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Thimphu": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Tokyo": {
-    "o": 540,
-    "hem": "n"
-  },
-  "Asia/Ujung_Pandang": {
-    "o": 480,
-    "hem": "n"
-  },
-  "Asia/Ulaanbaatar": {
-    "o": 480,
-    "hem": "n",
-    "dst": "2/25/3 -> 8/29/23"
-  },
-  "Asia/Ulan_Bator": {
-    "o": 480,
-    "hem": "n",
-    "dst": "2/25/3 -> 8/29/23"
-  },
-  "Asia/Urumqi": {
-    "o": 360,
-    "hem": "n"
-  },
-  "Asia/Ust-Nera": {
-    "o": 600,
-    "hem": "n"
-  },
-  "Asia/Vientiane": {
-    "o": 420,
-    "hem": "n"
-  },
-  "Asia/Vladivostok": {
-    "o": 600,
-    "hem": "n"
-  },
-  "Asia/Yakutsk": {
-    "o": 540,
-    "hem": "n"
-  },
-  "Asia/Yekaterinburg": {
-    "o": 300,
-    "hem": "n"
-  },
-  "Asia/Yerevan": {
-    "o": 240,
-    "hem": "n"
-  },
-  "Atlantic/Azores": {
-    "o": 0,
-    "hem": "n",
-    "dst": "2/26/1 -> 9/29/0"
-  },
-  "Atlantic/Bermuda": {
-    "o": -180,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "Atlantic/Canary": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Atlantic/Cape_Verde": {
-    "o": -60
-  },
-  "Atlantic/Faeroe": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Atlantic/Faroe": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Atlantic/Jan_Mayen": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Atlantic/Madeira": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Atlantic/Reykjavik": {
-    "o": 0
-  },
-  "Atlantic/South_Georgia": {
-    "o": -120
-  },
-  "Atlantic/St_Helena": {
-    "o": 0
-  },
-  "Atlantic/Stanley": {
-    "o": -180
-  },
-  "Australia/ACT": {
-    "o": 600,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/Adelaide": {
-    "o": 570,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/Brisbane": {
-    "o": 600,
-    "hem": "s"
-  },
-  "Australia/Broken_Hill": {
-    "o": 570,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/Canberra": {
-    "o": 600,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/Currie": {
-    "o": 600,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/Darwin": {
-    "o": 570,
-    "hem": "s"
-  },
-  "Australia/Eucla": {
-    "o": 525,
-    "hem": "s"
-  },
-  "Australia/Hobart": {
-    "o": 600,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/LHI": {
-    "o": 630,
-    "hem": "s",
-    "dst": "9/1/2 -> 3/2/1"
-  },
-  "Australia/Lindeman": {
-    "o": 600,
-    "hem": "s"
-  },
-  "Australia/Lord_Howe": {
-    "o": 630,
-    "hem": "s",
-    "dst": "9/1/2 -> 3/2/1"
-  },
-  "Australia/Melbourne": {
-    "o": 600,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/NSW": {
-    "o": 600,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/North": {
-    "o": 570,
-    "hem": "s"
-  },
-  "Australia/Perth": {
-    "o": 480,
-    "hem": "s"
-  },
-  "Australia/Queensland": {
-    "o": 600,
-    "hem": "s"
-  },
-  "Australia/South": {
-    "o": 570,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/Sydney": {
-    "o": 600,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/Tasmania": {
-    "o": 600,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/Victoria": {
-    "o": 600,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Australia/West": {
-    "o": 480,
-    "hem": "s"
-  },
-  "Australia/Yancowinna": {
-    "o": 570,
-    "hem": "s",
-    "dst": "9/1/3 -> 3/2/2"
-  },
-  "Brazil/Acre": {
-    "o": -300
-  },
-  "Brazil/DeNoronha": {
-    "o": -120
-  },
-  "Brazil/East": {
-    "o": -180,
-    "hem": "s",
-    "dst": "9/15/1 -> 1/18/23"
-  },
-  "Brazil/West": {
-    "o": -240
-  },
-  "Canada/Atlantic": {
-    "o": -180,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "Canada/Central": {
-    "o": -300,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "Canada/East-Saskatchewan": {
-    "o": -360,
-    "hem": "n"
-  },
-  "Canada/Eastern": {
-    "o": -240,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "Canada/Mountain": {
-    "o": -360,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "Canada/Newfoundland": {
-    "o": -150,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "Canada/Pacific": {
-    "o": -420,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "Canada/Saskatchewan": {
-    "o": -360,
-    "hem": "n"
-  },
-  "Canada/Yukon": {
-    "o": -420,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "Chile/Continental": {
-    "o": -180,
-    "hem": "s",
-    "dst": "7/13/1 -> 4/13/23"
-  },
-  "Chile/EasterIsland": {
-    "o": -300,
-    "hem": "s",
-    "dst": "7/12/23 -> 4/13/21"
-  },
-  "Etc/GMT": {
-    "o": 0
-  },
-  "Etc/GMT+0": {
-    "o": 0
-  },
-  "Etc/GMT+1": {
-    "o": -60
-  },
-  "Etc/GMT+10": {
-    "o": -600
-  },
-  "Etc/GMT+11": {
-    "o": -660
-  },
-  "Etc/GMT+12": {
-    "o": -720
-  },
-  "Etc/GMT+2": {
-    "o": -120
-  },
-  "Etc/GMT+3": {
-    "o": -180
-  },
-  "Etc/GMT+4": {
-    "o": -240
-  },
-  "Etc/GMT+5": {
-    "o": -300
-  },
-  "Etc/GMT+6": {
-    "o": -360
-  },
-  "Etc/GMT+7": {
-    "o": -420
-  },
-  "Etc/GMT+8": {
-    "o": -480
-  },
-  "Etc/GMT+9": {
-    "o": -540
-  },
-  "Etc/GMT-0": {
-    "o": 0
-  },
-  "Etc/GMT-1": {
-    "o": 60
-  },
-  "Etc/GMT-10": {
-    "o": 600
-  },
-  "Etc/GMT-11": {
-    "o": 660
-  },
-  "Etc/GMT-12": {
-    "o": 720
-  },
-  "Etc/GMT-13": {
-    "o": 780
-  },
-  "Etc/GMT-14": {
-    "o": 840
-  },
-  "Etc/GMT-2": {
-    "o": 120
-  },
-  "Etc/GMT-3": {
-    "o": 180
-  },
-  "Etc/GMT-4": {
-    "o": 240
-  },
-  "Etc/GMT-5": {
-    "o": 300
-  },
-  "Etc/GMT-6": {
-    "o": 360
-  },
-  "Etc/GMT-7": {
-    "o": 420
-  },
-  "Etc/GMT-8": {
-    "o": 480
-  },
-  "Etc/GMT-9": {
-    "o": 540
-  },
-  "Etc/GMT0": {
-    "o": 0
-  },
-  "Etc/Greenwich": {
-    "o": 0
-  },
-  "Etc/UCT": {
-    "o": 0
-  },
-  "Etc/UTC": {
-    "o": 0
+  "Africa": {
+    "Abidjan": {
+      "o": 0
+    },
+    "Accra": {
+      "o": 0
+    },
+    "Addis_Ababa": {
+      "o": 180
+    },
+    "Algiers": {
+      "o": 60
+    },
+    "Asmara": {
+      "o": 180
+    },
+    "Asmera": {
+      "o": 180
+    },
+    "Bamako": {
+      "o": 0
+    },
+    "Bangui": {
+      "o": 60
+    },
+    "Banjul": {
+      "o": 0
+    },
+    "Bissau": {
+      "o": 0
+    },
+    "Blantyre": {
+      "o": 120
+    },
+    "Brazzaville": {
+      "o": 60
+    },
+    "Bujumbura": {
+      "o": 120
+    },
+    "Cairo": {
+      "o": 120
+    },
+    "Casablanca": {
+      "o": 60,
+      "hem": "n",
+      "dst": "6/2/3 -> 9/29/2"
+    },
+    "Ceuta": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Conakry": {
+      "o": 0
+    },
+    "Dakar": {
+      "o": 0
+    },
+    "Dar_es_Salaam": {
+      "o": 180
+    },
+    "Djibouti": {
+      "o": 180
+    },
+    "Douala": {
+      "o": 60
+    },
+    "El_Aaiun": {
+      "o": 60,
+      "hem": "n",
+      "dst": "6/2/3 -> 9/29/2"
+    },
+    "Freetown": {
+      "o": 0
+    },
+    "Gaborone": {
+      "o": 120
+    },
+    "Harare": {
+      "o": 120
+    },
+    "Johannesburg": {
+      "o": 120
+    },
+    "Juba": {
+      "o": 180
+    },
+    "Kampala": {
+      "o": 180
+    },
+    "Khartoum": {
+      "o": 180
+    },
+    "Kigali": {
+      "o": 120
+    },
+    "Kinshasa": {
+      "o": 60
+    },
+    "Lagos": {
+      "o": 60
+    },
+    "Libreville": {
+      "o": 60
+    },
+    "Lome": {
+      "o": 0
+    },
+    "Luanda": {
+      "o": 60
+    },
+    "Lubumbashi": {
+      "o": 120
+    },
+    "Lusaka": {
+      "o": 120
+    },
+    "Malabo": {
+      "o": 60
+    },
+    "Maputo": {
+      "o": 120
+    },
+    "Maseru": {
+      "o": 120
+    },
+    "Mbabane": {
+      "o": 120
+    },
+    "Mogadishu": {
+      "o": 180
+    },
+    "Monrovia": {
+      "o": 0
+    },
+    "Nairobi": {
+      "o": 180
+    },
+    "Ndjamena": {
+      "o": 60
+    },
+    "Niamey": {
+      "o": 60
+    },
+    "Nouakchott": {
+      "o": 0
+    },
+    "Ouagadougou": {
+      "o": 0
+    },
+    "Porto-Novo": {
+      "o": 60
+    },
+    "Sao_Tome": {
+      "o": 0
+    },
+    "Timbuktu": {
+      "o": 0
+    },
+    "Tripoli": {
+      "o": 120
+    },
+    "Tunis": {
+      "o": 60
+    },
+    "Windhoek": {
+      "o": 60,
+      "hem": "s",
+      "dst": "8/3/3 -> 3/2/1"
+    }
+  },
+  "America": {
+    "Adak": {
+      "o": -540,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Anchorage": {
+      "o": -480,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Anguilla": {
+      "o": -240
+    },
+    "Antigua": {
+      "o": -240
+    },
+    "Araguaina": {
+      "o": -180
+    },
+    "Argentina": {
+      "o": -180,
+      "hem": "s"
+    },
+    "Aruba": {
+      "o": -240
+    },
+    "Asuncion": {
+      "o": -240,
+      "hem": "s",
+      "dst": "9/1/1 -> 2/25/23"
+    },
+    "Atikokan": {
+      "o": -300
+    },
+    "Atka": {
+      "o": -540,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Bahia": {
+      "o": -180
+    },
+    "Bahia_Banderas": {
+      "o": -300,
+      "hem": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Barbados": {
+      "o": -240
+    },
+    "Belem": {
+      "o": -180
+    },
+    "Belize": {
+      "o": -360
+    },
+    "Blanc-Sablon": {
+      "o": -240
+    },
+    "Boa_Vista": {
+      "o": -240
+    },
+    "Bogota": {
+      "o": -300
+    },
+    "Boise": {
+      "o": -360,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Buenos_Aires": {
+      "o": -180
+    },
+    "Cambridge_Bay": {
+      "o": -360,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Campo_Grande": {
+      "o": -240,
+      "hem": "s",
+      "dst": "9/15/1 -> 1/18/23"
+    },
+    "Cancun": {
+      "o": -300
+    },
+    "Caracas": {
+      "o": -270
+    },
+    "Catamarca": {
+      "o": -180
+    },
+    "Cayenne": {
+      "o": -180
+    },
+    "Cayman": {
+      "o": -300
+    },
+    "Chicago": {
+      "o": -300,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Chihuahua": {
+      "o": -360,
+      "hem": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Coral_Harbour": {
+      "o": -300
+    },
+    "Cordoba": {
+      "o": -180
+    },
+    "Costa_Rica": {
+      "o": -360,
+      "hem": "s"
+    },
+    "Creston": {
+      "o": -420
+    },
+    "Cuiaba": {
+      "o": -240,
+      "hem": "s",
+      "dst": "9/15/1 -> 1/18/23"
+    },
+    "Curacao": {
+      "o": -240
+    },
+    "Danmarkshavn": {
+      "o": 0
+    },
+    "Dawson": {
+      "o": -420,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Dawson_Creek": {
+      "o": -420
+    },
+    "Denver": {
+      "o": -360,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Detroit": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Dominica": {
+      "o": -240
+    },
+    "Edmonton": {
+      "o": -360,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Eirunepe": {
+      "o": -300
+    },
+    "El_Salvador": {
+      "o": -360
+    },
+    "Ensenada": {
+      "o": -420,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Fort_Wayne": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Fortaleza": {
+      "o": -180
+    },
+    "Glace_Bay": {
+      "o": -180,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Godthab": {
+      "o": -120,
+      "hem": "n",
+      "dst": "2/25/23 -> 9/28/22"
+    },
+    "Goose_Bay": {
+      "o": -180,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Grand_Turk": {
+      "o": -240
+    },
+    "Grenada": {
+      "o": -240
+    },
+    "Guadeloupe": {
+      "o": -240
+    },
+    "Guatemala": {
+      "o": -360
+    },
+    "Guayaquil": {
+      "o": -300
+    },
+    "Guyana": {
+      "o": -240
+    },
+    "Halifax": {
+      "o": -180,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Havana": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/1 -> 10/5/0"
+    },
+    "Hermosillo": {
+      "o": -420
+    },
+    "Indiana": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Indianapolis": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Inuvik": {
+      "o": -360,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Iqaluit": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Jamaica": {
+      "o": -300
+    },
+    "Jujuy": {
+      "o": -180
+    },
+    "Juneau": {
+      "o": -480,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Kentucky": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Knox_IN": {
+      "o": -300,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Kralendijk": {
+      "o": -240
+    },
+    "La_Paz": {
+      "o": -240
+    },
+    "Lima": {
+      "o": -300
+    },
+    "Los_Angeles": {
+      "o": -420,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Louisville": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Lower_Princes": {
+      "o": -240
+    },
+    "Maceio": {
+      "o": -180
+    },
+    "Managua": {
+      "o": -360
+    },
+    "Manaus": {
+      "o": -240
+    },
+    "Marigot": {
+      "o": -240
+    },
+    "Martinique": {
+      "o": -240
+    },
+    "Matamoros": {
+      "o": -300,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Mazatlan": {
+      "o": -360,
+      "hem": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Mendoza": {
+      "o": -180
+    },
+    "Menominee": {
+      "o": -300,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Merida": {
+      "o": -300,
+      "hem": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Metlakatla": {
+      "o": -480,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Mexico_City": {
+      "o": -300,
+      "hem": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Miquelon": {
+      "o": -120,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Moncton": {
+      "o": -180,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Monterrey": {
+      "o": -300,
+      "hem": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "Montevideo": {
+      "o": -180
+    },
+    "Montreal": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Montserrat": {
+      "o": -240
+    },
+    "Nassau": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "New_York": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Nipigon": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Nome": {
+      "o": -480,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Noronha": {
+      "o": -120
+    },
+    "North_Dakota": {
+      "o": -300,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Ojinaga": {
+      "o": -360,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Panama": {
+      "o": -300
+    },
+    "Pangnirtung": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Paramaribo": {
+      "o": -180
+    },
+    "Phoenix": {
+      "o": -420
+    },
+    "Port-au-Prince": {
+      "o": -240
+    },
+    "Port_of_Spain": {
+      "o": -240
+    },
+    "Porto_Acre": {
+      "o": -300
+    },
+    "Porto_Velho": {
+      "o": -240
+    },
+    "Puerto_Rico": {
+      "o": -240
+    },
+    "Rainy_River": {
+      "o": -300,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Rankin_Inlet": {
+      "o": -300,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Recife": {
+      "o": -180
+    },
+    "Regina": {
+      "o": -360
+    },
+    "Resolute": {
+      "o": -300,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Rio_Branco": {
+      "o": -300
+    },
+    "Rosario": {
+      "o": -180
+    },
+    "Santa_Isabel": {
+      "o": -420,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Santarem": {
+      "o": -180
+    },
+    "Santiago": {
+      "o": -180,
+      "hem": "s",
+      "dst": "7/13/1 -> 4/13/23"
+    },
+    "Santo_Domingo": {
+      "o": -240
+    },
+    "Sao_Paulo": {
+      "o": -180,
+      "hem": "s",
+      "dst": "9/15/1 -> 1/18/23"
+    },
+    "Scoresbysund": {
+      "o": 0,
+      "hem": "n",
+      "dst": "2/26/1 -> 9/29/0"
+    },
+    "Shiprock": {
+      "o": -360,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Sitka": {
+      "o": -480,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "St_Barthelemy": {
+      "o": -240
+    },
+    "St_Johns": {
+      "o": -150,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "St_Kitts": {
+      "o": -240
+    },
+    "St_Lucia": {
+      "o": -240
+    },
+    "St_Thomas": {
+      "o": -240
+    },
+    "St_Vincent": {
+      "o": -240
+    },
+    "Swift_Current": {
+      "o": -360
+    },
+    "Tegucigalpa": {
+      "o": -360
+    },
+    "Thule": {
+      "o": -180,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Thunder_Bay": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Tijuana": {
+      "o": -420,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Toronto": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Tortola": {
+      "o": -240
+    },
+    "Vancouver": {
+      "o": -420,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Virgin": {
+      "o": -240
+    },
+    "Whitehorse": {
+      "o": -420,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Winnipeg": {
+      "o": -300,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Yakutat": {
+      "o": -480,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Yellowknife": {
+      "o": -360,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    }
+  },
+  "Antarctica": {
+    "Casey": {
+      "o": 480,
+      "hem": "s"
+    },
+    "Davis": {
+      "o": 420,
+      "hem": "s"
+    },
+    "DumontDUrville": {
+      "o": 600,
+      "hem": "s"
+    },
+    "Macquarie": {
+      "o": 660,
+      "hem": "s"
+    },
+    "Mawson": {
+      "o": 300,
+      "hem": "s"
+    },
+    "McMurdo": {
+      "o": 720,
+      "hem": "s",
+      "dst": "8/24/3 -> 3/2/2"
+    },
+    "Palmer": {
+      "o": -180,
+      "hem": "s",
+      "dst": "7/13/1 -> 4/13/23"
+    },
+    "Rothera": {
+      "o": -180,
+      "hem": "s"
+    },
+    "South_Pole": {
+      "o": 720,
+      "hem": "s",
+      "dst": "8/24/3 -> 3/2/2"
+    },
+    "Syowa": {
+      "o": 180,
+      "hem": "s"
+    },
+    "Troll": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/1"
+    },
+    "Vostok": {
+      "o": 360,
+      "hem": "s"
+    }
+  },
+  "Arctic": {
+    "Longyearbyen": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    }
+  },
+  "Asia": {
+    "Aden": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Almaty": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Amman": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/31/1 -> 9/27/0"
+    },
+    "Anadyr": {
+      "o": 720,
+      "hem": "n"
+    },
+    "Aqtau": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Aqtobe": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Ashgabat": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Ashkhabad": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Baghdad": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Bahrain": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Baku": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Bangkok": {
+      "o": 420,
+      "hem": "n"
+    },
+    "Beirut": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/1 -> 9/28/23"
+    },
+    "Bishkek": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Brunei": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Calcutta": {
+      "o": 330,
+      "hem": "n"
+    },
+    "Chita": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Choibalsan": {
+      "o": 480,
+      "hem": "n",
+      "dst": "2/25/3 -> 8/29/23"
+    },
+    "Chongqing": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Chungking": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Colombo": {
+      "o": 330,
+      "hem": "n"
+    },
+    "Dacca": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Damascus": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/31/1 -> 9/26/23"
+    },
+    "Dhaka": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Dili": {
+      "o": 540,
+      "hem": "n"
+    },
+    "Dubai": {
+      "o": 240,
+      "hem": "n"
+    },
+    "Dushanbe": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Gaza": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/25/2 -> 9/28/0"
+    },
+    "Harbin": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Hebron": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/25/2 -> 9/28/0"
+    },
+    "Ho_Chi_Minh": {
+      "o": 420,
+      "hem": "n"
+    },
+    "Hong_Kong": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Hovd": {
+      "o": 420,
+      "hem": "n",
+      "dst": "2/25/3 -> 8/29/23"
+    },
+    "Irkutsk": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Istanbul": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Jakarta": {
+      "o": 420,
+      "hem": "n"
+    },
+    "Jayapura": {
+      "o": 540,
+      "hem": "n"
+    },
+    "Jerusalem": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/24/3 -> 9/29/1"
+    },
+    "Kabul": {
+      "o": 270,
+      "hem": "n"
+    },
+    "Kamchatka": {
+      "o": 720,
+      "hem": "n"
+    },
+    "Karachi": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Kashgar": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Kathmandu": {
+      "o": 345,
+      "hem": "n"
+    },
+    "Katmandu": {
+      "o": 345,
+      "hem": "n"
+    },
+    "Khandyga": {
+      "o": 540,
+      "hem": "n"
+    },
+    "Kolkata": {
+      "o": 330,
+      "hem": "n"
+    },
+    "Krasnoyarsk": {
+      "o": 420,
+      "hem": "n"
+    },
+    "Kuala_Lumpur": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Kuching": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Kuwait": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Macao": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Macau": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Magadan": {
+      "o": 600,
+      "hem": "n"
+    },
+    "Makassar": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Manila": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Muscat": {
+      "o": 240,
+      "hem": "n"
+    },
+    "Nicosia": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Novokuznetsk": {
+      "o": 420,
+      "hem": "n"
+    },
+    "Novosibirsk": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Omsk": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Oral": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Phnom_Penh": {
+      "o": 420,
+      "hem": "n"
+    },
+    "Pontianak": {
+      "o": 420,
+      "hem": "n"
+    },
+    "Pyongyang": {
+      "o": 540,
+      "hem": "n"
+    },
+    "Qatar": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Qyzylorda": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Rangoon": {
+      "o": 390,
+      "hem": "n"
+    },
+    "Riyadh": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Saigon": {
+      "o": 420,
+      "hem": "n"
+    },
+    "Sakhalin": {
+      "o": 600,
+      "hem": "n"
+    },
+    "Samarkand": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Seoul": {
+      "o": 540,
+      "hem": "n"
+    },
+    "Shanghai": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Singapore": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Srednekolymsk": {
+      "o": 660,
+      "hem": "n"
+    },
+    "Taipei": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Tashkent": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Tbilisi": {
+      "o": 240,
+      "hem": "n"
+    },
+    "Tehran": {
+      "o": 270,
+      "hem": "n",
+      "dst": "2/22/1 -> 8/21/23"
+    },
+    "Tel_Aviv": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/24/3 -> 9/29/1"
+    },
+    "Thimbu": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Thimphu": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Tokyo": {
+      "o": 540,
+      "hem": "n"
+    },
+    "Ujung_Pandang": {
+      "o": 480,
+      "hem": "n"
+    },
+    "Ulaanbaatar": {
+      "o": 480,
+      "hem": "n",
+      "dst": "2/25/3 -> 8/29/23"
+    },
+    "Ulan_Bator": {
+      "o": 480,
+      "hem": "n",
+      "dst": "2/25/3 -> 8/29/23"
+    },
+    "Urumqi": {
+      "o": 360,
+      "hem": "n"
+    },
+    "Ust-Nera": {
+      "o": 600,
+      "hem": "n"
+    },
+    "Vientiane": {
+      "o": 420,
+      "hem": "n"
+    },
+    "Vladivostok": {
+      "o": 600,
+      "hem": "n"
+    },
+    "Yakutsk": {
+      "o": 540,
+      "hem": "n"
+    },
+    "Yekaterinburg": {
+      "o": 300,
+      "hem": "n"
+    },
+    "Yerevan": {
+      "o": 240,
+      "hem": "n"
+    }
+  },
+  "Atlantic": {
+    "Azores": {
+      "o": 0,
+      "hem": "n",
+      "dst": "2/26/1 -> 9/29/0"
+    },
+    "Bermuda": {
+      "o": -180,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Canary": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Cape_Verde": {
+      "o": -60
+    },
+    "Faeroe": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Faroe": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Jan_Mayen": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Madeira": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Reykjavik": {
+      "o": 0
+    },
+    "South_Georgia": {
+      "o": -120
+    },
+    "St_Helena": {
+      "o": 0
+    },
+    "Stanley": {
+      "o": -180
+    }
+  },
+  "Australia": {
+    "ACT": {
+      "o": 600,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Adelaide": {
+      "o": 570,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Brisbane": {
+      "o": 600,
+      "hem": "s"
+    },
+    "Broken_Hill": {
+      "o": 570,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Canberra": {
+      "o": 600,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Currie": {
+      "o": 600,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Darwin": {
+      "o": 570,
+      "hem": "s"
+    },
+    "Eucla": {
+      "o": 525,
+      "hem": "s"
+    },
+    "Hobart": {
+      "o": 600,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "LHI": {
+      "o": 630,
+      "hem": "s",
+      "dst": "9/1/2 -> 3/2/1"
+    },
+    "Lindeman": {
+      "o": 600,
+      "hem": "s"
+    },
+    "Lord_Howe": {
+      "o": 630,
+      "hem": "s",
+      "dst": "9/1/2 -> 3/2/1"
+    },
+    "Melbourne": {
+      "o": 600,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "NSW": {
+      "o": 600,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "North": {
+      "o": 570,
+      "hem": "s"
+    },
+    "Perth": {
+      "o": 480,
+      "hem": "s"
+    },
+    "Queensland": {
+      "o": 600,
+      "hem": "s"
+    },
+    "South": {
+      "o": 570,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Sydney": {
+      "o": 600,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Tasmania": {
+      "o": 600,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "Victoria": {
+      "o": 600,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    },
+    "West": {
+      "o": 480,
+      "hem": "s"
+    },
+    "Yancowinna": {
+      "o": 570,
+      "hem": "s",
+      "dst": "9/1/3 -> 3/2/2"
+    }
+  },
+  "Brazil": {
+    "Acre": {
+      "o": -300
+    },
+    "DeNoronha": {
+      "o": -120
+    },
+    "East": {
+      "o": -180,
+      "hem": "s",
+      "dst": "9/15/1 -> 1/18/23"
+    },
+    "West": {
+      "o": -240
+    }
+  },
+  "Canada": {
+    "Atlantic": {
+      "o": -180,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Central": {
+      "o": -300,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "East-Saskatchewan": {
+      "o": -360,
+      "hem": "n"
+    },
+    "Eastern": {
+      "o": -240,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Mountain": {
+      "o": -360,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Newfoundland": {
+      "o": -150,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Pacific": {
+      "o": -420,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "Saskatchewan": {
+      "o": -360,
+      "hem": "n"
+    },
+    "Yukon": {
+      "o": -420,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    }
+  },
+  "Chile": {
+    "Continental": {
+      "o": -180,
+      "hem": "s",
+      "dst": "7/13/1 -> 4/13/23"
+    },
+    "EasterIsland": {
+      "o": -300,
+      "hem": "s",
+      "dst": "7/12/23 -> 4/13/21"
+    }
+  },
+  "Etc": {
+    "GMT": {
+      "o": 0
+    },
+    "GMT+0": {
+      "o": 0
+    },
+    "GMT+1": {
+      "o": -60
+    },
+    "GMT+10": {
+      "o": -600
+    },
+    "GMT+11": {
+      "o": -660
+    },
+    "GMT+12": {
+      "o": -720
+    },
+    "GMT+2": {
+      "o": -120
+    },
+    "GMT+3": {
+      "o": -180
+    },
+    "GMT+4": {
+      "o": -240
+    },
+    "GMT+5": {
+      "o": -300
+    },
+    "GMT+6": {
+      "o": -360
+    },
+    "GMT+7": {
+      "o": -420
+    },
+    "GMT+8": {
+      "o": -480
+    },
+    "GMT+9": {
+      "o": -540
+    },
+    "GMT-0": {
+      "o": 0
+    },
+    "GMT-1": {
+      "o": 60
+    },
+    "GMT-10": {
+      "o": 600
+    },
+    "GMT-11": {
+      "o": 660
+    },
+    "GMT-12": {
+      "o": 720
+    },
+    "GMT-13": {
+      "o": 780
+    },
+    "GMT-14": {
+      "o": 840
+    },
+    "GMT-2": {
+      "o": 120
+    },
+    "GMT-3": {
+      "o": 180
+    },
+    "GMT-4": {
+      "o": 240
+    },
+    "GMT-5": {
+      "o": 300
+    },
+    "GMT-6": {
+      "o": 360
+    },
+    "GMT-7": {
+      "o": 420
+    },
+    "GMT-8": {
+      "o": 480
+    },
+    "GMT-9": {
+      "o": 540
+    },
+    "GMT0": {
+      "o": 0
+    },
+    "Greenwich": {
+      "o": 0
+    },
+    "UCT": {
+      "o": 0
+    },
+    "UTC": {
+      "o": 0
+    },
+    "Universal": {
+      "o": 0
+    },
+    "Zulu": {
+      "o": 0
+    }
+  },
+  "Europe": {
+    "Amsterdam": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Andorra": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Athens": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Belfast": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Belgrade": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Berlin": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Bratislava": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Brussels": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Bucharest": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Budapest": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Busingen": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Chisinau": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Copenhagen": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Dublin": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Gibraltar": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Guernsey": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Helsinki": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Isle_of_Man": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Istanbul": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Jersey": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Kaliningrad": {
+      "o": 120,
+      "hem": "n"
+    },
+    "Kiev": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Lisbon": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Ljubljana": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "London": {
+      "o": 60,
+      "hem": "n",
+      "dst": "2/26/2 -> 9/29/1"
+    },
+    "Luxembourg": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Madrid": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Malta": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Mariehamn": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Minsk": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Monaco": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Moscow": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Nicosia": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Oslo": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Paris": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Podgorica": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Prague": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Riga": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Rome": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Samara": {
+      "o": 240,
+      "hem": "n"
+    },
+    "San_Marino": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Sarajevo": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Simferopol": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Skopje": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Sofia": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Stockholm": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Tallinn": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Tirane": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Tiraspol": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Uzhgorod": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Vaduz": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Vatican": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Vienna": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Vilnius": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Volgograd": {
+      "o": 180,
+      "hem": "n"
+    },
+    "Warsaw": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Zagreb": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    },
+    "Zaporozhye": {
+      "o": 180,
+      "hem": "n",
+      "dst": "2/26/4 -> 9/29/3"
+    },
+    "Zurich": {
+      "o": 120,
+      "hem": "n",
+      "dst": "2/26/3 -> 9/29/2"
+    }
+  },
+  "Indian": {
+    "Antananarivo": {
+      "o": 180
+    },
+    "Chagos": {
+      "o": 360
+    },
+    "Christmas": {
+      "o": 420
+    },
+    "Cocos": {
+      "o": 390
+    },
+    "Comoro": {
+      "o": 180
+    },
+    "Kerguelen": {
+      "o": 300
+    },
+    "Mahe": {
+      "o": 240
+    },
+    "Maldives": {
+      "o": 300
+    },
+    "Mauritius": {
+      "o": 240
+    },
+    "Mayotte": {
+      "o": 180
+    },
+    "Reunion": {
+      "o": 240
+    }
+  },
+  "Mexico": {
+    "BajaNorte": {
+      "o": -420,
+      "hem": "n",
+      "dst": "2/12/3 -> 10/5/1"
+    },
+    "BajaSur": {
+      "o": -360,
+      "hem": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    },
+    "General": {
+      "o": -300,
+      "hem": "n",
+      "dst": "3/2/3 -> 9/29/1"
+    }
+  },
+  "Pacific": {
+    "Apia": {
+      "o": 780,
+      "hem": "s",
+      "dst": "8/24/4 -> 3/2/3"
+    },
+    "Auckland": {
+      "o": 720,
+      "hem": "s",
+      "dst": "8/24/3 -> 3/2/2"
+    },
+    "Chatham": {
+      "o": 765,
+      "hem": "s",
+      "dst": "8/24/3 -> 3/2/2"
+    },
+    "Chuuk": {
+      "o": 600
+    },
+    "Easter": {
+      "o": -300,
+      "hem": "s",
+      "dst": "7/12/23 -> 4/13/21"
+    },
+    "Efate": {
+      "o": 660
+    },
+    "Enderbury": {
+      "o": 780
+    },
+    "Fakaofo": {
+      "o": 780
+    },
+    "Fiji": {
+      "o": 720,
+      "hem": "s",
+      "dst": "10/5/3 -> 0/15/2"
+    },
+    "Funafuti": {
+      "o": 720
+    },
+    "Galapagos": {
+      "o": -360
+    },
+    "Gambier": {
+      "o": -540
+    },
+    "Guadalcanal": {
+      "o": 660
+    },
+    "Guam": {
+      "o": 600
+    },
+    "Honolulu": {
+      "o": -600
+    },
+    "Johnston": {
+      "o": -600
+    },
+    "Kiritimati": {
+      "o": 840
+    },
+    "Kosrae": {
+      "o": 660
+    },
+    "Kwajalein": {
+      "o": 720
+    },
+    "Majuro": {
+      "o": 720
+    },
+    "Marquesas": {
+      "o": -570
+    },
+    "Midway": {
+      "o": -660
+    },
+    "Nauru": {
+      "o": 720
+    },
+    "Niue": {
+      "o": -660
+    },
+    "Norfolk": {
+      "o": 690
+    },
+    "Noumea": {
+      "o": 660
+    },
+    "Pago_Pago": {
+      "o": -660
+    },
+    "Palau": {
+      "o": 540
+    },
+    "Pitcairn": {
+      "o": -480
+    },
+    "Pohnpei": {
+      "o": 660
+    },
+    "Ponape": {
+      "o": 660
+    },
+    "Port_Moresby": {
+      "o": 600
+    },
+    "Rarotonga": {
+      "o": -600
+    },
+    "Saipan": {
+      "o": 600
+    },
+    "Samoa": {
+      "o": -660
+    },
+    "Tahiti": {
+      "o": -600
+    },
+    "Tarawa": {
+      "o": 720
+    },
+    "Tongatapu": {
+      "o": 780,
+      "hem": "s",
+      "dst": "10/5/3 -> 0/15/2"
+    },
+    "Truk": {
+      "o": 600
+    },
+    "Wake": {
+      "o": 720
+    },
+    "Wallis": {
+      "o": 720
+    },
+    "Yap": {
+      "o": 600
+    }
   },
   "UTC": {
-    "o": 0
-  },
-  "Etc/Universal": {
-    "o": 0
-  },
-  "Etc/Zulu": {
-    "o": 0
-  },
-  "Europe/Amsterdam": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Andorra": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Athens": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Belfast": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Europe/Belgrade": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Berlin": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Bratislava": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Brussels": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Bucharest": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Budapest": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Busingen": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Chisinau": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Copenhagen": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Dublin": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Europe/Gibraltar": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Guernsey": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Europe/Helsinki": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Isle_of_Man": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Europe/Istanbul": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Europe/Jersey": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Europe/Kaliningrad": {
-    "o": 120,
-    "hem": "n"
-  },
-  "Europe/Kiev": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Lisbon": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Europe/Ljubljana": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/London": {
-    "o": 60,
-    "hem": "n",
-    "dst": "2/26/2 -> 9/29/1"
-  },
-  "Europe/Luxembourg": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Madrid": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Malta": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Mariehamn": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Minsk": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Europe/Monaco": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Moscow": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Europe/Nicosia": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Oslo": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Paris": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Podgorica": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Prague": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Riga": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Rome": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Samara": {
-    "o": 240,
-    "hem": "n"
-  },
-  "Europe/San_Marino": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Sarajevo": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Simferopol": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Europe/Skopje": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Sofia": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Stockholm": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Tallinn": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Tirane": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Tiraspol": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Uzhgorod": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Vaduz": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Vatican": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Vienna": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Vilnius": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Volgograd": {
-    "o": 180,
-    "hem": "n"
-  },
-  "Europe/Warsaw": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Zagreb": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Europe/Zaporozhye": {
-    "o": 180,
-    "hem": "n",
-    "dst": "2/26/4 -> 9/29/3"
-  },
-  "Europe/Zurich": {
-    "o": 120,
-    "hem": "n",
-    "dst": "2/26/3 -> 9/29/2"
-  },
-  "Indian/Antananarivo": {
-    "o": 180
-  },
-  "Indian/Chagos": {
-    "o": 360
-  },
-  "Indian/Christmas": {
-    "o": 420
-  },
-  "Indian/Cocos": {
-    "o": 390
-  },
-  "Indian/Comoro": {
-    "o": 180
-  },
-  "Indian/Kerguelen": {
-    "o": 300
-  },
-  "Indian/Mahe": {
-    "o": 240
-  },
-  "Indian/Maldives": {
-    "o": 300
-  },
-  "Indian/Mauritius": {
-    "o": 240
-  },
-  "Indian/Mayotte": {
-    "o": 180
-  },
-  "Indian/Reunion": {
-    "o": 240
-  },
-  "Mexico/BajaNorte": {
-    "o": -420,
-    "hem": "n",
-    "dst": "2/12/3 -> 10/5/1"
-  },
-  "Mexico/BajaSur": {
-    "o": -360,
-    "hem": "n",
-    "dst": "3/2/3 -> 9/29/1"
-  },
-  "Mexico/General": {
-    "o": -300,
-    "hem": "n",
-    "dst": "3/2/3 -> 9/29/1"
-  },
-  "Pacific/Apia": {
-    "o": 780,
-    "hem": "s",
-    "dst": "8/24/4 -> 3/2/3"
-  },
-  "Pacific/Auckland": {
-    "o": 720,
-    "hem": "s",
-    "dst": "8/24/3 -> 3/2/2"
-  },
-  "Pacific/Chatham": {
-    "o": 765,
-    "hem": "s",
-    "dst": "8/24/3 -> 3/2/2"
-  },
-  "Pacific/Chuuk": {
-    "o": 600
-  },
-  "Pacific/Easter": {
-    "o": -300,
-    "hem": "s",
-    "dst": "7/12/23 -> 4/13/21"
-  },
-  "Pacific/Efate": {
-    "o": 660
-  },
-  "Pacific/Enderbury": {
-    "o": 780
-  },
-  "Pacific/Fakaofo": {
-    "o": 780
-  },
-  "Pacific/Fiji": {
-    "o": 720,
-    "hem": "s",
-    "dst": "10/5/3 -> 0/15/2"
-  },
-  "Pacific/Funafuti": {
-    "o": 720
-  },
-  "Pacific/Galapagos": {
-    "o": -360
-  },
-  "Pacific/Gambier": {
-    "o": -540
-  },
-  "Pacific/Guadalcanal": {
-    "o": 660
-  },
-  "Pacific/Guam": {
-    "o": 600
-  },
-  "Pacific/Honolulu": {
-    "o": -600
-  },
-  "Pacific/Johnston": {
-    "o": -600
-  },
-  "Pacific/Kiritimati": {
-    "o": 840
-  },
-  "Pacific/Kosrae": {
-    "o": 660
-  },
-  "Pacific/Kwajalein": {
-    "o": 720
-  },
-  "Pacific/Majuro": {
-    "o": 720
-  },
-  "Pacific/Marquesas": {
-    "o": -570
-  },
-  "Pacific/Midway": {
-    "o": -660
-  },
-  "Pacific/Nauru": {
-    "o": 720
-  },
-  "Pacific/Niue": {
-    "o": -660
-  },
-  "Pacific/Norfolk": {
-    "o": 690
-  },
-  "Pacific/Noumea": {
-    "o": 660
-  },
-  "Pacific/Pago_Pago": {
-    "o": -660
-  },
-  "Pacific/Palau": {
-    "o": 540
-  },
-  "Pacific/Pitcairn": {
-    "o": -480
-  },
-  "Pacific/Pohnpei": {
-    "o": 660
-  },
-  "Pacific/Ponape": {
-    "o": 660
-  },
-  "Pacific/Port_Moresby": {
-    "o": 600
-  },
-  "Pacific/Rarotonga": {
-    "o": -600
-  },
-  "Pacific/Saipan": {
-    "o": 600
-  },
-  "Pacific/Samoa": {
-    "o": -660
-  },
-  "Pacific/Tahiti": {
-    "o": -600
-  },
-  "Pacific/Tarawa": {
-    "o": 720
-  },
-  "Pacific/Tongatapu": {
-    "o": 780,
-    "hem": "s",
-    "dst": "10/5/3 -> 0/15/2"
-  },
-  "Pacific/Truk": {
-    "o": 600
-  },
-  "Pacific/Wake": {
-    "o": 720
-  },
-  "Pacific/Wallis": {
-    "o": 720
-  },
-  "Pacific/Yap": {
-    "o": 600
+    "undefined": {
+      "o": 0
+    }
   }
 }
-
-},{}],2:[function(_dereq_,module,exports){
+},{}],3:[function(_dereq_,module,exports){
 module.exports={
   "name": "@smallwins/spacetime",
   "version": "0.0.12",
@@ -2113,15 +2069,16 @@ module.exports={
     "derequire": "^2.0.3",
     "eslint": "^3.1.1",
     "gaze": "^1.1.1",
+    "nyc": "^8.4.0",
     "shelljs": "^0.7.2",
     "tap-spec": "4.1.1",
     "tape": "4.6.0",
-    "nyc": "^8.4.0",
+    "timekeeper": "^1.0.0",
     "uglify-js": "2.7.0"
   }
 }
 
-},{}],3:[function(_dereq_,module,exports){
+},{}],4:[function(_dereq_,module,exports){
 "use strict";
 
 module.exports = {
@@ -2136,7 +2093,7 @@ module.exports = {
   night: 20
 };
 
-},{}],4:[function(_dereq_,module,exports){
+},{}],5:[function(_dereq_,module,exports){
 'use strict';
 
 module.exports = {
@@ -2144,7 +2101,7 @@ module.exports = {
   long: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 };
 
-},{}],5:[function(_dereq_,module,exports){
+},{}],6:[function(_dereq_,module,exports){
 'use strict';
 
 var o = {
@@ -2164,7 +2121,7 @@ Object.keys(o).forEach(function (k) {
 });
 module.exports = o;
 
-},{}],6:[function(_dereq_,module,exports){
+},{}],7:[function(_dereq_,module,exports){
 "use strict";
 
 module.exports = [31, //January - 31 days
@@ -2180,7 +2137,7 @@ module.exports = [31, //January - 31 days
 30, //November - 30 days
 31];
 
-},{}],7:[function(_dereq_,module,exports){
+},{}],8:[function(_dereq_,module,exports){
 'use strict';
 
 var shortMonth = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'];
@@ -2202,7 +2159,7 @@ module.exports = {
   mapping: obj
 };
 
-},{}],8:[function(_dereq_,module,exports){
+},{}],9:[function(_dereq_,module,exports){
 "use strict";
 
 module.exports = [null, [0, 1], //jan 1
@@ -2210,7 +2167,7 @@ module.exports = [null, [0, 1], //jan 1
 [6, 1], //july 1
 [9, 1]];
 
-},{}],9:[function(_dereq_,module,exports){
+},{}],10:[function(_dereq_,module,exports){
 'use strict';
 
 //https://www.timeanddate.com/calendar/aboutseasons.html
@@ -2226,7 +2183,7 @@ module.exports = [['spring', 2, 1], //spring march 1
 ['autumn', 8, 1], //sept 1
 ['winter', 11, 1]];
 
-},{}],10:[function(_dereq_,module,exports){
+},{}],11:[function(_dereq_,module,exports){
 'use strict';
 //every computer is somewhere, and this effects their interpretation in the date object
 //find the offset this computer has
@@ -2241,7 +2198,7 @@ var getBias = function getBias() {
 };
 module.exports = getBias;
 
-},{}],11:[function(_dereq_,module,exports){
+},{}],12:[function(_dereq_,module,exports){
 'use strict';
 
 var Spacetime = _dereq_('./spacetime');
@@ -2256,12 +2213,16 @@ main.now = function (tz) {
   return new Spacetime(new Date().getTime(), tz);
 };
 main.today = function (tz) {
-  var space = new Spacetime(new Date().getTime(), tz);
-  return space.startOf('day');
+  var s = new Spacetime(new Date().getTime(), tz);
+  return s.startOf('day');
 };
 main.tomorrow = function (tz) {
-  var space = new Spacetime(new Date().getTime(), tz);
-  return space.add(1, 'day').startOf('day');
+  var s = new Spacetime(new Date().getTime(), tz);
+  return s.add(1, 'day').startOf('day');
+};
+main.yesterday = function (tz) {
+  var s = new Spacetime(new Date().getTime(), tz);
+  return s.subtract(1, 'day').startOf('day');
 };
 
 //this is handy
@@ -2269,7 +2230,7 @@ main.version = pkg.version;
 
 module.exports = main;
 
-},{"../package.json":2,"./spacetime":30}],12:[function(_dereq_,module,exports){
+},{"../package.json":3,"./spacetime":32}],13:[function(_dereq_,module,exports){
 'use strict';
 
 var strFmt = _dereq_('./strParse');
@@ -2363,7 +2324,7 @@ var parseInput = function parseInput(s, input) {
 };
 module.exports = parseInput;
 
-},{"./strParse":13}],13:[function(_dereq_,module,exports){
+},{"./strParse":14}],14:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('../methods/set/walk');
@@ -2453,7 +2414,7 @@ var strFmt = [
 
 module.exports = strFmt;
 
-},{"../data/months":7,"../methods/set/walk":28}],14:[function(_dereq_,module,exports){
+},{"../data/months":8,"../methods/set/walk":30}],15:[function(_dereq_,module,exports){
 'use strict';
 
 //days since newyears - jan 1st is 1, jan 2nd is 2...
@@ -2474,7 +2435,7 @@ var dayOfYear = function dayOfYear(d) {
 
 module.exports = dayOfYear;
 
-},{}],15:[function(_dereq_,module,exports){
+},{}],16:[function(_dereq_,module,exports){
 'use strict';
 
 function zeroPad(str, len) {
@@ -2512,7 +2473,7 @@ module.exports = {
   ordinal: ordinal
 };
 
-},{}],16:[function(_dereq_,module,exports){
+},{}],17:[function(_dereq_,module,exports){
 'use strict';
 
 exports.isDate = function (d) {
@@ -2534,7 +2495,67 @@ exports.getEpoch = function (tmp) {
   return null;
 };
 
-},{}],17:[function(_dereq_,module,exports){
+},{}],18:[function(_dereq_,module,exports){
+'use strict';
+
+var _format = _dereq_('./methods/format');
+var _progress = _dereq_('./methods/progress');
+var _diff = _dereq_('./methods/diff');
+var ends = _dereq_('./methods/startOf');
+var _timezone = _dereq_('./timezone/index');
+var handleInput = _dereq_('./input');
+
+//its instance methods
+module.exports = {
+  set: function set(input) {
+    handleInput(this, input);
+    return this;
+  },
+  timezone: function timezone() {
+    return _timezone(this);
+  },
+  format: function format() {
+    return _format(this);
+  },
+  startOf: function startOf(unit) {
+    return ends.startOf(this, unit);
+  },
+  endOf: function endOf(unit) {
+    return ends.endOf(this, unit);
+  },
+  leapYear: function leapYear() {
+    var year = this.year();
+    return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
+  },
+  progress: function progress() {
+    return _progress(this);
+  },
+  diff: function diff(d, unit) {
+    return _diff(this, d, unit);
+  },
+  isValid: function isValid() {
+    return !isNaN(this.d.getTime());
+  },
+  //travel to this timezone
+  goto: function goto(tz) {
+    this.tz = tz; //science!
+    return this;
+  },
+
+  //pretty-printing
+  log: function log() {
+    console.log('');
+    console.log(_format(this).nice.short);
+    return this;
+  },
+  logYear: function logYear() {
+    console.log('');
+    console.log(_format(this).date.short + ' ' + this.year());
+    return this;
+  }
+};
+
+},{"./input":13,"./methods/diff":21,"./methods/format":22,"./methods/progress":23,"./methods/startOf":31,"./timezone/index":34}],19:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('./set/walk');
@@ -2593,74 +2614,65 @@ var rollMonth = function rollMonth(want, old) {
   return want;
 };
 
-var addMethods = function addMethods(Space) {
+var addMethods = function addMethods(SpaceTime) {
 
-  var methods = {
-
-    add: function add(num, unit) {
-      var old = this.clone();
-      unit = normalize(unit);
-      //move forward by the estimated milliseconds (rough)
-      if (ms[unit]) {
-        this.epoch += ms[unit] * num;
-      } else if (unit === 'week') {
-        this.epoch += ms.day * (num * 7);
-      } else if (unit === 'quarter' || unit === 'season') {
-        this.epoch += ms.month * (num * 4);
-      } else if (unit === 'season') {
-        this.epoch += ms.month * (num * 4);
-      }
-      //now ensure our milliseconds/etc are in-line
-      var want = {};
-      if (keep[unit]) {
-        keep[unit].forEach(function (u) {
-          want[u] = old[u]();
-        });
-      }
-      //ensure month/year has ticked-over
-      if (unit === 'month') {
-        want.month = old.month() + num;
-        //month is the one unit we 'model' directly
-        want = rollMonth(want, old);
-      }
-      //ensure year has changed (leap-years)
-      if (unit === 'year' && this.year() === old.year()) {
-        this.epoch += ms.week;
-      }
-
-      //keep current date, unless the month doesn't have it.
-      if (keepDate[unit]) {
-        var max = monthLength[want.month];
-        want.date = old.date();
-        if (want.date > max) {
-          want.date = max;
-        }
-      }
-      walkTo(this, want);
-      return this;
-    },
-
-    subtract: function subtract(num, unit) {
-      this.add(num * -1, unit);
-      return this;
+  SpaceTime.prototype.add = function (num, unit) {
+    var old = this.clone();
+    unit = normalize(unit);
+    //move forward by the estimated milliseconds (rough)
+    if (ms[unit]) {
+      this.epoch += ms[unit] * num;
+    } else if (unit === 'week') {
+      this.epoch += ms.day * (num * 7);
+    } else if (unit === 'quarter' || unit === 'season') {
+      this.epoch += ms.month * (num * 4);
+    } else if (unit === 'season') {
+      this.epoch += ms.month * (num * 4);
     }
+    //now ensure our milliseconds/etc are in-line
+    var want = {};
+    if (keep[unit]) {
+      keep[unit].forEach(function (u) {
+        want[u] = old[u]();
+      });
+    }
+    //ensure month/year has ticked-over
+    if (unit === 'month') {
+      want.month = old.month() + num;
+      //month is the one unit we 'model' directly
+      want = rollMonth(want, old);
+    }
+    //ensure year has changed (leap-years)
+    if (unit === 'year' && this.year() === old.year()) {
+      this.epoch += ms.week;
+    }
+
+    //keep current date, unless the month doesn't have it.
+    if (keepDate[unit]) {
+      var max = monthLength[want.month];
+      want.date = old.date();
+      if (want.date > max) {
+        want.date = max;
+      }
+    }
+    walkTo(this, want);
+    return this;
   };
 
-  //hook them into proto
-  Object.keys(methods).forEach(function (k) {
-    Space.prototype[k] = methods[k];
-  });
-  return Space;
+  SpaceTime.prototype.subtract = function (num, unit) {
+    this.add(num * -1, unit);
+    return this;
+  };
 };
 
 module.exports = addMethods;
 
-},{"../data/milliseconds":5,"../data/monthLength":6,"./set/walk":28}],18:[function(_dereq_,module,exports){
+},{"../data/milliseconds":6,"../data/monthLength":7,"./set/walk":30}],20:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../lib/fns');
 
-var addMethods = function addMethods(Space) {
+var addMethods = function addMethods(SpaceTime) {
 
   var methods = {
     isAfter: function isAfter(d) {
@@ -2688,14 +2700,13 @@ var addMethods = function addMethods(Space) {
 
   //hook them into proto
   Object.keys(methods).forEach(function (k) {
-    Space.prototype[k] = methods[k];
+    SpaceTime.prototype[k] = methods[k];
   });
-  return Space;
 };
 
 module.exports = addMethods;
 
-},{"../lib/fns":16}],19:[function(_dereq_,module,exports){
+},{"../lib/fns":17}],21:[function(_dereq_,module,exports){
 'use strict';
 // const ms = require('../data/milliseconds');
 
@@ -2735,7 +2746,7 @@ var diff = function diff(a, b, unit) {
 };
 module.exports = diff;
 
-},{}],20:[function(_dereq_,module,exports){
+},{}],22:[function(_dereq_,module,exports){
 'use strict';
 
 var fmt = _dereq_('../lib/fmt');
@@ -2797,7 +2808,7 @@ var format = function format(s) {
 };
 module.exports = format;
 
-},{"../data/days":4,"../data/months":7,"../lib/fmt":15}],21:[function(_dereq_,module,exports){
+},{"../data/days":5,"../data/months":8,"../lib/fmt":16}],23:[function(_dereq_,module,exports){
 'use strict';
 //how far it is along, from 0-1
 
@@ -2816,7 +2827,7 @@ var progress = function progress(s) {
 
 module.exports = progress;
 
-},{}],22:[function(_dereq_,module,exports){
+},{}],24:[function(_dereq_,module,exports){
 'use strict';
 
 var quarters = _dereq_('../../data/quarters');
@@ -2963,13 +2974,13 @@ module.exports = {
       }
     };
     return {
-      time: obj.times[this.timeOfDay()] || '',
+      time: obj.times[this.time()] || '',
       season: obj.seasons[this.season()] || ''
     };
   }
 };
 
-},{"../../data/quarters":8,"../../data/seasons":9,"../set/set":27}],23:[function(_dereq_,module,exports){
+},{"../../data/quarters":9,"../../data/seasons":10,"../set/set":29}],25:[function(_dereq_,module,exports){
 'use strict';
 
 var normal = _dereq_('./normal');
@@ -2977,7 +2988,6 @@ var destructive = _dereq_('./destructive');
 var tricky = _dereq_('./tricky');
 
 var addMethods = function addMethods(Space) {
-
   //hook the methods into prototype
   Object.keys(normal).forEach(function (k) {
     Space.prototype[k] = normal[k];
@@ -2988,13 +2998,11 @@ var addMethods = function addMethods(Space) {
   Object.keys(tricky).forEach(function (k) {
     Space.prototype[k] = tricky[k];
   });
-
-  return Space;
 };
 
 module.exports = addMethods;
 
-},{"./destructive":22,"./normal":24,"./tricky":25}],24:[function(_dereq_,module,exports){
+},{"./destructive":24,"./normal":26,"./tricky":27}],26:[function(_dereq_,module,exports){
 'use strict';
 
 var set = _dereq_('../set/set');
@@ -3071,12 +3079,14 @@ methods.days = methods.day;
 
 module.exports = methods;
 
-},{"../../lib/dayOfYear":14,"../set/set":27}],25:[function(_dereq_,module,exports){
+},{"../../lib/dayOfYear":15,"../set/set":29}],27:[function(_dereq_,module,exports){
 'use strict';
 
 var days = _dereq_('../../data/days');
 var dayTimes = _dereq_('../../data/dayTimes');
 var months = _dereq_('../../data/months');
+var set = _dereq_('../set/set');
+var walkTo = _dereq_('../set/walk');
 
 //non-destructive getters/setters with fancy moves to do
 module.exports = {
@@ -3099,32 +3109,28 @@ module.exports = {
     if (input === undefined) {
       return this.d.getDay();
     }
-    var num = input;
-    //take 'wednesday'
+    var original = this.clone();
+    var want = input;
+    // accept 'wednesday'
     if (typeof input === 'string') {
       input = input.toLowerCase();
-      num = days.short.indexOf(input);
-      if (num === -1) {
-        num = days.long.indexOf(input);
+      want = days.short.indexOf(input);
+      if (want === -1) {
+        want = days.long.indexOf(input);
       }
     }
-    //fail silent
-    if (typeof num !== 'number' || num < 0 || num > 6) {
-      return this;
-    }
-    //set the day, based on a number
-    var d = this.d;
-    var current = d.getDay();
-    if (num > current) {
-      var diff = num - current;
-      d.setDate(d.getDate() + diff);
-    } else if (num < current) {
-      //should go backwards
-      var _diff = current - num;
-      d.setDate(d.getDate() - _diff);
-    }
-    this.epoch = d.getTime();
-    return this;
+    //move approx
+    var day = this.d.getDay();
+    var diff = day - want;
+    var s = this.subtract(diff * 24, 'hours');
+    //tighten it back up
+    walkTo(s, {
+      hour: original.hour(),
+      minute: original.minute(),
+      second: original.second()
+    });
+    this.epoch = s.epoch;
+    return s;
   },
 
   ampm: function ampm(input) {
@@ -3147,26 +3153,6 @@ module.exports = {
     return this;
   },
 
-  timeOfDay: function timeOfDay(str) {
-    //set the time of day
-    if (str !== undefined) {
-      this.epoch = set.timeOfDay(this, str);
-      return this;
-    }
-    //which time of day is it?
-    var hour = this.hour();
-    if (hour < dayTimes[hour]) {
-      return 'night';
-    }
-    var keys = Object.keys(dayTimes);
-    for (var i = 0; i < keys.length; i++) {
-      if (hour <= dayTimes[keys[i]]) {
-        return keys[i];
-      }
-    }
-    return 'night';
-  },
-
   //these are helpful name-wrappers
   dayName: function dayName(input) {
     if (input === undefined) {
@@ -3184,10 +3170,16 @@ module.exports = {
   }
 };
 
-},{"../../data/dayTimes":3,"../../data/days":4,"../../data/months":7}],26:[function(_dereq_,module,exports){
+},{"../../data/dayTimes":4,"../../data/days":5,"../../data/months":8,"../set/set":29,"../set/walk":30}],28:[function(_dereq_,module,exports){
 'use strict';
 
 var print = {
+  second: function second(s) {
+    return [s.year(), s.month(), s.date(), s.hour(), s.minute(), s.second()].join('-');
+  },
+  minute: function minute(s) {
+    return [s.year(), s.month(), s.date(), s.hour(), s.minute()].join('-');
+  },
   hour: function hour(s) {
     return [s.year(), s.month(), s.date(), s.hour()].join('-');
   },
@@ -3208,46 +3200,46 @@ var print = {
   }
 };
 
-var addMethods = function addMethods(Space) {
-
-  var methods = {
-    isSame: function isSame(b, unit) {
-      var a = this;
-      if (typeof b === 'string' || typeof b === 'number') {
-        b = new Space(b);
-      }
-      if (unit === 'hour' || unit === 'hours') {
-        return print.hour(a) === print.hour(b);
-      }
-      if (unit === 'day' || unit === 'days' || unit === 'date') {
-        return print.day(a) === print.day(b);
-      }
-      if (unit === 'week' || unit === 'weeks') {
-        return print.week(a) === print.week(b);
-      }
-      if (unit === 'month' || unit === 'months') {
-        return print.month(a) === print.month(b);
-      }
-      if (unit === 'quarter' || unit === 'quarters') {
-        return print.quarter(a) === print.quarter(b);
-      }
-      if (unit === 'year' || unit === 'years') {
-        return print.year(a) === print.year(b);
-      }
-      return null;
+var addMethods = function addMethods(SpaceTime) {
+  SpaceTime.prototype.isSame = function (b, unit) {
+    var a = this;
+    if (typeof b === 'string' || typeof b === 'number') {
+      b = new Space(b);
     }
+    if (unit === 'millisecond' || unit === 'milliseconds') {
+      return a.epoch === b.epoch;
+    }
+    if (unit === 'second' || unit === 'seconds') {
+      return print.second(a) === print.second(b);
+    }
+    if (unit === 'minute' || unit === 'minutes') {
+      return print.minute(a) === print.minute(b);
+    }
+    if (unit === 'hour' || unit === 'hours') {
+      return print.hour(a) === print.hour(b);
+    }
+    if (unit === 'day' || unit === 'days' || unit === 'date') {
+      return print.day(a) === print.day(b);
+    }
+    if (unit === 'week' || unit === 'weeks') {
+      return print.week(a) === print.week(b);
+    }
+    if (unit === 'month' || unit === 'months') {
+      return print.month(a) === print.month(b);
+    }
+    if (unit === 'quarter' || unit === 'quarters') {
+      return print.quarter(a) === print.quarter(b);
+    }
+    if (unit === 'year' || unit === 'years') {
+      return print.year(a) === print.year(b);
+    }
+    return null;
   };
-
-  //hook them into proto
-  Object.keys(methods).forEach(function (k) {
-    Space.prototype[k] = methods[k];
-  });
-  return Space;
 };
 
 module.exports = addMethods;
 
-},{}],27:[function(_dereq_,module,exports){
+},{}],29:[function(_dereq_,module,exports){
 'use strict';
 
 // javascript setX methods like setDate() can't be used because of the local bias
@@ -3386,21 +3378,11 @@ module.exports = {
     s.epoch += shift;
     confirm(s, old, 'hour');
     return s.epoch;
-  },
-
-  timeOfDay: function timeOfDay(s, str) {
-    if (dayTimes[str] !== undefined) {
-      s.hour(dayTimes[str]);
-      s.minute(0);
-      s.second(0);
-      return s.epoch;
-    }
-    return null;
   }
 
 };
 
-},{"../../data/dayTimes":3,"../../data/milliseconds":5,"../../data/monthLength":6,"../../data/months":7,"./walk":28}],28:[function(_dereq_,module,exports){
+},{"../../data/dayTimes":4,"../../data/milliseconds":6,"../../data/monthLength":7,"../../data/months":8,"./walk":30}],30:[function(_dereq_,module,exports){
 'use strict';
 
 var ms = _dereq_('../../data/milliseconds');
@@ -3553,7 +3535,7 @@ var walkTo = function walkTo(s, wants) {
 };
 module.exports = walkTo;
 
-},{"../../data/milliseconds":5}],29:[function(_dereq_,module,exports){
+},{"../../data/milliseconds":6}],31:[function(_dereq_,module,exports){
 'use strict';
 
 var seasons = _dereq_('../data/seasons');
@@ -3586,7 +3568,7 @@ var units = {
     return s;
   },
   week: function week(s) {
-    var original = s.epoch;
+    var original = s.clone();
     s.day(1); //monday
     if (s.isAfter(original)) {
       s.subtract(1, 'week');
@@ -3682,121 +3664,26 @@ module.exports = {
   endOf: endOf
 };
 
-},{"../data/quarters":8,"../data/seasons":9,"./set/walk":28}],30:[function(_dereq_,module,exports){
+},{"../data/quarters":9,"../data/seasons":10,"./set/walk":30}],32:[function(_dereq_,module,exports){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var getBias = _dereq_('./getBias');
 var guessTz = _dereq_('./timezone/guessTz');
-var _timezone = _dereq_('./timezone/index');
-var _format = _dereq_('./methods/format');
-var _progress = _dereq_('./methods/progress');
-var _diff = _dereq_('./methods/diff');
-var ends = _dereq_('./methods/startOf');
+var timezone = _dereq_('./timezone/index');
 var handleInput = _dereq_('./input');
+var methods = _dereq_('./methods');
 
-//fake timezone-support, for fakers
-
-var SpaceTime = function () {
-  function SpaceTime(input, tz) {
-    _classCallCheck(this, SpaceTime);
-
-    //the shift for the given timezone
-    this.tz = tz || guessTz();
-    //this computer's built-in offset
-    this.bias = getBias();
-    //parse the various formats
-    handleInput(this, input);
-  }
-
-  _createClass(SpaceTime, [{
-    key: 'set',
-    value: function set(input) {
-      handleInput(this, input);
-      return this;
-    }
-  }, {
-    key: 'timezone',
-    value: function timezone() {
-      return _timezone(this);
-    }
-  }, {
-    key: 'format',
-    value: function format() {
-      return _format(this);
-    }
-  }, {
-    key: 'startOf',
-    value: function startOf(unit) {
-      return ends.startOf(this, unit);
-    }
-  }, {
-    key: 'endOf',
-    value: function endOf(unit) {
-      return ends.endOf(this, unit);
-    }
-  }, {
-    key: 'leapYear',
-    value: function leapYear() {
-      var year = this.year();
-      return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-    }
-  }, {
-    key: 'log',
-    value: function log() {
-      console.log('');
-      console.log(_format(this).nice.short);
-      return this;
-    }
-  }, {
-    key: 'logYear',
-    value: function logYear() {
-      console.log('');
-      console.log(_format(this).date.short + ' ' + this.year());
-      return this;
-    }
-  }, {
-    key: 'progress',
-    value: function progress() {
-      return _progress(this);
-    }
-  }, {
-    key: 'diff',
-    value: function diff(d, unit) {
-      return _diff(this, d, unit);
-    }
-
-    //a js date object
-
-  }, {
-    key: 'isValid',
-    value: function isValid() {
-      return !isNaN(this.d.getTime());
-    }
-  }, {
-    key: 'clone',
-    value: function clone() {
-      return new SpaceTime(this.epoch, this.tz);
-    }
-
-    //travel to this timezone
-
-  }, {
-    key: 'goto',
-    value: function goto(tz) {
-      this.tz = tz;
-      // let meta = timezone(this);
-      // //current offset in minutes
-      // this.offset = meta.current.offset;
-      return this;
-    }
-  }, {
-    key: 'd',
+//fake timezone-support, for fakers (es5 class)
+var SpaceTime = function SpaceTime(input, tz) {
+  //the shift for the given timezone
+  this.tz = tz || guessTz();
+  //this computer's built-in offset
+  this.bias = getBias();
+  //add getter/setters
+  Object.defineProperty(this, 'd', {
+    //return a js date object
     get: function get() {
-      var meta = _timezone(this) || {};
+      var meta = timezone(this) || {};
       //movement in milliseconds
       var shift = meta.current.epochShift;
       //remove this computer's offset
@@ -3805,21 +3692,28 @@ var SpaceTime = function () {
       var d = new Date(epoch);
       return d;
     }
-  }]);
+  });
+  //parse the various formats
+  handleInput(this, input);
+};
 
-  return SpaceTime;
-}();
-//append methods
+//(add instance methods to prototype)
+Object.keys(methods).forEach(function (k) {
+  SpaceTime.prototype[k] = methods[k];
+});
+SpaceTime.prototype.clone = function () {
+  return new SpaceTime(this.epoch, this.tz);
+};
 
-
-SpaceTime = _dereq_('./methods/query')(SpaceTime);
-SpaceTime = _dereq_('./methods/add')(SpaceTime);
-SpaceTime = _dereq_('./methods/same')(SpaceTime);
-SpaceTime = _dereq_('./methods/compare')(SpaceTime);
+//append more methods
+_dereq_('./methods/query')(SpaceTime);
+_dereq_('./methods/add')(SpaceTime);
+_dereq_('./methods/same')(SpaceTime);
+_dereq_('./methods/compare')(SpaceTime);
 
 module.exports = SpaceTime;
 
-},{"./getBias":10,"./input":12,"./methods/add":17,"./methods/compare":18,"./methods/diff":19,"./methods/format":20,"./methods/progress":21,"./methods/query":23,"./methods/same":26,"./methods/startOf":29,"./timezone/guessTz":31,"./timezone/index":32}],31:[function(_dereq_,module,exports){
+},{"./getBias":11,"./input":13,"./methods":18,"./methods/add":19,"./methods/compare":20,"./methods/query":25,"./methods/same":28,"./timezone/guessTz":33,"./timezone/index":34}],33:[function(_dereq_,module,exports){
 'use strict';
 //find the implicit iana code for this machine.
 //safely query the Intl object
@@ -3843,10 +3737,10 @@ var guessTz = function guessTz() {
 };
 module.exports = guessTz;
 
-},{}],32:[function(_dereq_,module,exports){
+},{}],34:[function(_dereq_,module,exports){
 'use strict';
 
-var zones = _dereq_('../../data/zonefile.2017');
+var zones = _dereq_('../../data');
 var isDst = _dereq_('./isDst');
 
 var parseDst = function parseDst(dst) {
@@ -3921,7 +3815,7 @@ var timezone = function timezone(s) {
 };
 module.exports = timezone;
 
-},{"../../data/zonefile.2017":1,"./isDst":33}],33:[function(_dereq_,module,exports){
+},{"../../data":1,"./isDst":35}],35:[function(_dereq_,module,exports){
 'use strict';
 
 function zeroPad(str, len) {
@@ -3968,5 +3862,5 @@ var isDst = function isDst(s, dst) {
 };
 module.exports = isDst;
 
-},{}]},{},[11])(11)
+},{}]},{},[12])(12)
 });

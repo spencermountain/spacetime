@@ -45,10 +45,10 @@ const parseLine = function(str) {
   return meta;
 };
 
-const fetchZone = function(tz, year) {
+const fetchZone = function(tz) {
   let zone = {
     tz: tz,
-    min: iana[tz],
+    o: iana[tz],
   };
   let lines = exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n');
   lines.filter(str => str).forEach((str) => {
@@ -60,7 +60,7 @@ const fetchZone = function(tz, year) {
   });
   let obj = {
     tz: tz,
-    min: iana[tz],
+    o: iana[tz],
     hem: zone.hem
   };
   if (zone.spring && zone.fall) {
@@ -81,11 +81,24 @@ const fetchZone = function(tz, year) {
   return obj;
 };
 
-const doAll = (year) => {
-  const all = whitelist.reduce((h, tz) => {
+const prefixCompress = function(obj) {
+  let result = {};
+  let keys = Object.keys(obj);
+  keys.forEach((k) => {
+    let name = k.split('/');
+    result[name[0]] = result[name[0]] || {};
+    result[name[0]][name[1]] = result[name[0]][name[1]] || {};
+    delete obj[k].name;
+    result[name[0]][name[1]] = obj[k];
+  });
+  return result;
+};
+
+const doAll = () => {
+  let all = whitelist.reduce((h, tz) => {
     let o = fetchZone(tz, year);
     h[o.tz] = {
-      min: o.min,
+      o: o.o,
       hem: o.hem
     };
     if (o.dst) {
@@ -104,6 +117,10 @@ const doAll = (year) => {
   console.log('==========\n\n\n');
   console.log(all);
   all.UTC = all['Etc/UTC'];
+
+  console.log('compressing...');
+  all = prefixCompress(all);
+
   let stuff = JSON.stringify(all, null, 2);
 
   let src = path.join(__dirname, `../../data/zonefile.${year}.json`);
