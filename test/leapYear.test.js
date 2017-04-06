@@ -51,8 +51,8 @@ test('leapyear-in-add', (t) => {
   t.end();
 });
 
-test('feb 29th exists', (t) => {
-  var leaps = [
+test('feb-29th-exists', (t) => {
+  let leaps = [
     2004,
     2008,
     2012,
@@ -64,13 +64,17 @@ test('feb 29th exists', (t) => {
     //feb 28th 11:30pm
     let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers');
     s.add(1, 'hour');
-    t.equal(s.format().nice.short, 'Feb 29th, 12:30am', 'leap on ' + y);
+    t.equal(s.format().nice.short, 'Feb 29th, 12:30am', 'forward into leapday on ' + y);
+    //march 1st 5:30pm
+    s = spacetime([y, 2, 1, 17, 30], 'Canada/Mountain');
+    s.subtract(1, 'day');
+    t.equal(s.format().nice.short, 'Feb 29th, 5:30pm', 'backward into leapday on ' + y);
   });
   t.end();
 });
 
-test('feb 29th doesnt exist', (t) => {
-  var noLeaps = [
+test('feb-29th-doesnt-exist', (t) => {
+  let noLeaps = [
     2005,
     2009,
     2010,
@@ -85,6 +89,10 @@ test('feb 29th doesnt exist', (t) => {
     let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers');
     s.add(1, 'hour');
     t.equal(s.format().nice.short, 'Mar 1st, 12:30am', 'no leap on ' + y);
+    //march 1st 5:30pm
+    s = spacetime([y, 2, 1, 17, 30], 'Canada/Eastern');
+    s.subtract(1, 'day');
+    t.equal(s.format().nice.short, 'Feb 28th, 5:30pm', 'backward with no leapday on ' + y);
   });
   t.end();
 });

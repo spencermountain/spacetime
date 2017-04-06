@@ -81,10 +81,10 @@ test('all-timezones-move', (t) => {
     t.equal(d.dayName(), 'friday', tz + ' friday');
     d.day('saturday');
     t.equal(d.dayName(), 'saturday', tz + ' set-saturday');
-  // d.startOf('week');
-  // t.equal(d.dayName(), 'monday', tz + ' monday');
-  // d.endOf('week');
-  // t.equal(d.dayName(), 'sunday', tz + ' sunday');
+    d.startOf('week');
+    t.equal(d.dayName(), 'monday', tz + ' monday');
+    d.endOf('week');
+    t.equal(d.dayName(), 'sunday', tz + ' sunday');
   });
   t.end();
 });

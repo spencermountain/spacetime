@@ -52,7 +52,7 @@ test('add', (t) => {
   t.end();
 });
 
-test('hour regression', (t) => {
+test('hour-regression', (t) => {
   let s = spacetime('January 1, 2017 13:20:00', 'Canada/Pacific');
   t.equal(s.hour(), 13, 'init.hour()');
   t.equal(s.minute(), 20, 'init.minute()');

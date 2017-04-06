@@ -32,7 +32,7 @@ const left = [
   'Etc/GMT+12', //-12
 ];
 
-test('test date-line at 180deg', (t) => {
+test('test-date-line-at-180deg', (t) => {
   let s = spacetime([2018, 2, 5, 0, 0, 0, 0], 'Europe/London');
   s.startOf('day');
   t.equal(s.time(), '12:00am', 'the first millisecond of the day');
@@ -52,7 +52,7 @@ test('test date-line at 180deg', (t) => {
   t.end();
 });
 
-test('test date-line at 0deg', (t) => {
+test('test-date-line-at-0deg', (t) => {
   let s = spacetime([2018, 2, 5, 0, 0, 0, 0], 'Europe/London');
   s.endOf('day');
   t.equal(s.time(), '11:59pm', 'the last millisecond of the day');

@@ -53,7 +53,6 @@ test('set', (t) => {
   t.equal(s.monthName(), 'june', 'season-.month()');
   t.equal(s.date(), 1, 'season-.date()');
 
-
   s.hour(7);
   s.ampm('am');
   t.equal(s.ampm(), 'am', 'ampm-already-ampm()');
@@ -71,7 +70,6 @@ test('set', (t) => {
   s.time('13:20pm');
   t.equal(s.hour(), 13, 'time-hour-24h()');
   t.equal(s.minute(), 20, 'time-minute-24h()');
-
 
   t.end();
 });

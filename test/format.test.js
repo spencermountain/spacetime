@@ -2,7 +2,7 @@
 var test = require('tape');
 var spacetime = require('../src');
 
-test('to-from utc format', t => {
+test('to-from utc-format', t => {
 
   [
     '1998-05-01T8:00:00:000Z', '1998-05-30T22:00:00:000Z',
