@@ -1,6 +1,12 @@
 'use strict';
 
 const print = {
+  second: (s) => {
+    return [s.year(), s.month(), s.date(), s.hour(), s.minute(), s.second()].join('-');
+  },
+  minute: (s) => {
+    return [s.year(), s.month(), s.date(), s.hour(), s.minute()].join('-');
+  },
   hour: (s) => {
     return [s.year(), s.month(), s.date(), s.hour()].join('-');
   },
@@ -28,6 +34,15 @@ const addMethods = (Space) => {
       let a = this;
       if (typeof b === 'string' || typeof b === 'number') {
         b = new Space(b);
+      }
+      if (unit === 'millisecond' || unit === 'milliseconds') {
+        return a.epoch === b.epoch;
+      }
+      if (unit === 'second' || unit === 'seconds') {
+        return print.second(a) === print.second(b);
+      }
+      if (unit === 'minute' || unit === 'minutes') {
+        return print.minute(a) === print.minute(b);
       }
       if (unit === 'hour' || unit === 'hours') {
         return print.hour(a) === print.hour(b);

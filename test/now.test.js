@@ -22,8 +22,8 @@ test('now-is-now', (t) => {
 
 
 test('epoch-input', (t) => {
-  let gmt420 = 1554092400000;
-  var time = new Date(gmt420); // 4:20, april 1st 2019 GMT
+  let gmt420 = 1554092400000; // 4:20, april 1st 2019 GMT
+  var time = new Date(gmt420);
   tk.travel(time);
 
   let moved = spacetime.now('Etc/GMT'); //4:20
@@ -33,7 +33,7 @@ test('epoch-input', (t) => {
   t.equal(moved.format().nice.short, epoch.format().nice.short, 'epoch input moves with goto');
 
   let explicit = spacetime([2019, 3, 1, 0, 20], 'Canada/Eastern');
-  t.ok(explicit.isSame(epoch, 'hour'), 'explicit inputs==epoch inputs');
+  t.ok(explicit.isSame(epoch, 'minute'), 'explicit inputs==epoch inputs');
 
   tk.reset();
   t.end();
