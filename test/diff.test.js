@@ -25,8 +25,6 @@ test('simple-diff', (t) => {
   let a = spacetime('March 26, 1999 20:42:00', 'Canada/Eastern');
   let b = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
   t.equal(a.diff(b, 'day'), 2, '2-days');
-
-
   a = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
   b = spacetime('March 26, 1999 20:42:00', 'Canada/Eastern');
   t.equal(a.diff(b, 'day'), -2, '-2-days');

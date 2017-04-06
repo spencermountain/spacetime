@@ -88,3 +88,13 @@ test('all-timezones-move', (t) => {
   });
   t.end();
 });
+
+test('all-timezones-have-leap-years', (t) => {
+  timezones.forEach((tz) => {
+    let d = spacetime('February 28 2020', tz);
+    d.time('11:30pm');
+    d.add(1, 'hour');
+    t.equal(d.format().nice.short, 'Feb 29th, 12:30am', 'leap year in ' + tz);
+  });
+  t.end();
+});

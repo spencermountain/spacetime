@@ -50,3 +50,41 @@ test('leapyear-in-add', (t) => {
 
   t.end();
 });
+
+test('feb 29th exists', (t) => {
+  var leaps = [
+    2004,
+    2008,
+    2012,
+    2016,
+    2020,
+    2024,
+  ];
+  leaps.forEach((y) => {
+    //feb 28th 11:30pm
+    let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers');
+    s.add(1, 'hour');
+    t.equal(s.format().nice.short, 'Feb 29th, 12:30am', 'leap on ' + y);
+  });
+  t.end();
+});
+
+test('feb 29th doesnt exist', (t) => {
+  var noLeaps = [
+    2005,
+    2009,
+    2010,
+    2011,
+    2013,
+    2017,
+    2019,
+    2021,
+  ];
+  noLeaps.forEach((y) => {
+    //feb 28th 11:30pm
+    let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers');
+    s.add(1, 'hour');
+    t.equal(s.format().nice.short, 'Mar 1st, 12:30am', 'no leap on ' + y);
+  });
+  t.end();
+});
