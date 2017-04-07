@@ -7,6 +7,7 @@
     <i>(you can get it <a href="http://www.convert-unix-time.com">online</a> or with <b>Date.now()</b>)</i>
   </div>
 </div>
+<img src="https://secure.static.tumblr.com/7653f7f83998032c1e64715e772ea3a9/hssca6q/nupn5y48d/tumblr_static_tumblr_static_8ctif1c8h20wsk8ck4404oc4k_640.gif"/>
 
 <i>but look:</i>
 ```js
