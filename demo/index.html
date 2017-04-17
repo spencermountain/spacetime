@@ -1,72 +1,20 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-body {
-}
-.graticule {
-  fill: none;
-  stroke: #777;
-  stroke-opacity: .5;
-  stroke-width: .5px;
-  pointer-events: none;
-}
-
-.timezones {
-  fill: #dbb2c1;
-}
-
-.timezones :hover {
-  fill: cornflowerblue;
-}
-
-.boundary {
-  fill: none;
-  stroke: #fff;
-  stroke-width: .5px;
-  pointer-events: none;
-}
-.nice {
-  color:#6b7279;
-  font-family: 'Bitter', serif;
-}
-.big {
-  font-size:45px;
-}
-.middle {
-  text-align:center;
-  margin:25px;
-  padding-top:30px;
-}
-.boom {
-  color:#8cc5df;
-  font-size:17px;
-}
-.list {
-  font-size:22px;
-  line-height:150%;
-  text-align:left;
-}
-#map {
-  position:relative;
-  display:block;
-  top:-30px;
-  width:960px;
-  height:660px;
-}
-.byline {
-  margin:100px;
-  font-size:18px;
-}
-.link{
-  color:steelblue;
-}
-</style>
+<head>
+  <meta charset="utf-8">
+  <link href="./index.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+  <link rel="stylesheet" href="lib/codemirror.css">
+  <link rel="stylesheet" href="lib/mytheme.css">
+</head>
 <body>
+  <a class="topright" href="https://github.com/smallwins/spacetime">
+    github
+  </a>
   <div class="nice big">
     Yeah, 🙌
   </div>
   <div class="nice">
-    it's really big
+    the world's really big
   </div>
   <div id="map">
   </div>
@@ -80,8 +28,8 @@ body {
 
   <div class="nice big middle">
     — <b>spacetime</b> date-utility —
-    <div>
-      <span class="list">
+    <div class="table">
+      <span class="list tr">
         <div>
           <b class="boom">💥</b> - local model of remote TZ
         </div>
@@ -93,8 +41,15 @@ body {
           moment-like<span style="color:pink;">💙</span> API
         </div>
         <div>
-          <b class="boom">💥</b> - quarter, season, and week-oriented crud
+          <b class="boom">💥</b> - quarter, season, and week-oriented
         </div>
+      </span>
+      <span class="tr nice">
+        <div style="color:#8cc5df; margin-top:20px;">
+          <span class="number">33</span>
+          <span class="">kb</span>
+        </div>
+        <div style="font-size:18px;">that's more like it</div>
       </span>
     </div>
   </div>
@@ -108,59 +63,15 @@ body {
     but by making <a class="link" href="#">realistic compromises</a> spacetime considerably under-weighs most date libraries.<br/>
     It lets you have a <i>mostly-great</i> time, without thinking about awful things.
   </div>
+  <div class="codemirror" id="html"></div>
+  <div class="codemirror" id="node"></div>
 </body>
+<script src="lib/codemirror.js"></script>
+<script src="lib/javascript-mode.js"></script>
+<script src="lib/html-mode.js"></script>
 <script src="https://unpkg.com/vue"></script>
-<script type="text/javascript" src="./day/index.js"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
-<script>
-
-var width = 960,
-    height = 660;
-
-var projection = d3.geo.mercator()
-    .scale(width / 2 / Math.PI)
-    .translate([width, height])
-    .precision(.1);
-
-var path = d3.geo.path()
-    .projection(projection);
-
-var graticule = d3.geo.graticule();
-
-var svg = d3.select("#map").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-// svg.append("path")
-//     .datum(graticule)
-//     .attr("class", "graticule")
-//     .attr("d", path);
-
-d3.json("timezones.json", function(error, timezones) {
-  if (error) throw error;
-
-  path.projection(null);
-
-  svg.insert("g", ".graticule")
-      .attr("class", "timezones")
-    .selectAll("path")
-      .data(topojson.feature(timezones, timezones.objects.timezones).features)
-    .enter().append("path")
-      .attr("d", path)
-    .on('click',function(d){
-      alert(d.id)
-    })
-    .append("title")
-      .text(function(d) { return d.id; });
-
-  svg.insert("path", ".graticule")
-      .datum(topojson.mesh(timezones, timezones.objects.timezones, function(a, b) { return a !== b; }))
-      .attr("class", "boundary")
-      .attr("d", path);
-});
-
-d3.select(self.frameElement).style("height", height + "px");
-
-</script>
+<script src="./codemirror.js"></script>
+<script src="./day/index.js"></script>
+<script src="./map.js"></script>
