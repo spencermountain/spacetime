@@ -65,6 +65,35 @@
   </div>
   <div class="codemirror" id="html"></div>
   <div class="codemirror" id="node"></div>
+
+  <div id="explain" v-cloak>
+    <div class="nice big" style="margin:20px;">how the?</div>
+    <div style="margin-left:10%;">
+    <div class="nice explain">
+      the real<span style="color:#8cc5df;">*</span> time everywhere on earth is currently:
+      <span class="epoch">{{epoch}}</span>
+    </div>
+
+    <div class="nice explain">
+      and we know the offset (bias?) of your computer is <span class="epoch">{{offset}} mins</span>
+    </div>
+
+    <div class="nice explain">
+      even if you move milliseconds around carefully, javascript still applies your offset - so you can't easily <i>fake</i> other timezones.
+    </div>
+
+    <div class="nice explain">
+      and the JSON of all the timezones and their DST-times is
+      <a class="link" href="https://github.com/smallwins/spacetime/blob/master/data/zonefile.2017.json">
+        actually pretty small
+      </a>.
+    </div>
+  </div>
+</div>
+  <p></p>
+  <p></p>
+  <p></p>
+  <span style="color:#8cc5df;">* real?!</span>
 </body>
 <script src="lib/codemirror.js"></script>
 <script src="lib/javascript-mode.js"></script>
@@ -74,4 +103,5 @@
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <script src="./codemirror.js"></script>
 <script src="./day/index.js"></script>
+<script src="./explain.js"></script>
 <script src="./map.js"></script>
