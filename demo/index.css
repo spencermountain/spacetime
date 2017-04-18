@@ -10,6 +10,9 @@
   fill: #dbb2c1;
 }
 .timezones :hover {
+  fill: #7da0df;
+}
+.chosenTz {
   fill: cornflowerblue;
 }
 .boundary {
