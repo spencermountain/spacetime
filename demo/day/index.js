@@ -1,34 +1,29 @@
 var width = 960;
 var height = 660;
-var projection = d3.geo.mercator()
-  .scale(width / 2 / Math.PI)
-  .translate([width, height])
-  .precision(.1);
-
-var path = d3.geo.path()
-  .projection(projection);
-
 var svg = d3.select('#map').append('svg')
   .attr('width', width)
   .attr('height', height);
 
+var s = spacetime();
+
 window.day = new Vue({
   el: '#today',
   data: {
-    width: width,
-    height: height,
-    hour: 3,
-    timezone: spacetime().timezone().name,
+    s: s,
+    timezone: s.timezone().name,
     progress: 50,
     tzData: []
   },
   methods: {
+
     changeTZ: function(tz) {
       this.timezone = tz;
     },
 
     drawMap: function() {
       var timezones = this.tzData;
+      var projection = d3.geo.mercator().scale(width / 2 / Math.PI).translate([width, height]).precision(.1);
+      var path = d3.geo.path().projection(projection);
       path.projection(null);
 
       svg.insert('g', '.graticule')
@@ -58,8 +53,6 @@ window.day = new Vue({
         }))
         .attr('class', 'boundary')
         .attr('d', path);
-
-      d3.select(self.frameElement).style('height', height + 'px');
     }
 
   },
