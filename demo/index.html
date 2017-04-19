@@ -55,7 +55,7 @@
           moment-like<span style="color:pink;">💙</span> API
         </div>
         <div>
-          <b class="boom">💥</b> - quarter, season, and week-oriented
+          <b class="boom">💥</b> - quarter, season, and week-orientation
         </div>
       </span>
       <span class="tr nice">
@@ -74,7 +74,7 @@
     it can sometimes get confused. <span style="color:#8cc5df;">🌌</span>
   </div>
   <div class="nice byline">
-    but by making <a class="link" href="#">realistic compromises</a> spacetime considerably under-weighs most date libraries.<br/>
+    but by making <a class="link" href="https://github.com/smallwins/spacetime/wiki#limitations">realistic compromises</a> spacetime considerably under-weighs most date libraries.<br/>
     It lets you have a <i>mostly-great</i> time, without thinking about awful things.
   </div>
   <div class="codemirror" id="html"></div>
@@ -125,18 +125,18 @@
       </p>
       <div class="codemirror" id="docBad"></div>
        <div class="nice explain" style="margin-top:25px;">
-         to use .set methods, you have to shift to your computer's offset again, make the calendar-based change, then shift it back to Paris time,
+         to change the date, you have to shift to your computer's offset, make the calendar-based change, then shift it back to Paris time,
          in some kind of distopian web programming:
       </div>
       <div class="codemirror" id="docThree"></div>
       <div class="nice explain" style="margin-top:25px;">
         this is error-prone!<br/>
         <p></p>
-        one challenge is that different <b>DST rules</b> may apply on your computer, compared to Paris-time. <br/>
-         - you may miss a DST-shift while pretending to be in Paris, but lying about it.
+        one challenge is that <b>different DST rules</b> may apply on your computer, compared to Paris-time.<br/>
+         <div style="margin-left:20px;">- you may miss a DST-shift while pretending to be in Paris, but lying about it.</div>
       </div>
       <div class="nice explain">
-        another possibility is setting a very specific time locally, then invalidating it while shifting back to Paris-time.
+        another possibility is making a very specific time locally, that doesn't exist in Paris-time.
       </div>
       <div class="nice explain">
         <b>spacetime</b>   <span style="color:indianred">🎉</span>
@@ -144,16 +144,17 @@
          to ensure the funny-business is a minimum.<br/>
         <p></p>
         if it's <b>9:37pm</b>, and you move forward 6 months, it should still be <b>9:37pm</b>.<br/>
-        <p></p>
-        Ideally, the day of the month should remain stable too, when possible.
+        <div style="margin-left:20px;">
+          - even the day of the month should remain stable too, when possible
+        </div>
         <p></p>
         There is admittedly, some guesswork involved.
-        <div style="margin-top:25px; margin-left:50px;">
-          but what a pleasure, to let this <i>little library</i> do that for you.
+        <div style="margin-top:15px; margin-left:50px;">
+          but what a pleasure, to let this <i>little library</i> do that for you
           <span style="color:indianred">🌈</span>
         </div>
         <p></p>
-        - not for <a class="link" href="https://github.com/smallwins/spacetime/wiki#limitations">every use-case</a>, fine for most. -
+         not for <a class="link" href="https://github.com/smallwins/spacetime/wiki#limitations">every use-case</a>, fine for most. -
       </div>
     </div>
 

@@ -3,12 +3,9 @@ var html = '<script src="https://unpkg.com/spacetime"></script>\n';
 html += '<script>\n';
 html += '  // make a new Date in New York\n';
 html += '  var d = spacetime(\'March 1 2012\', \'America/New_York\')\n';
-html += '  // set the time\n';
 html += '  d.time(\'4:20pm\')\n';
-html += '  // go to another timezone\n';
 html += '  d.goto(\'America/Los_Angeles\')\n';
-html += '  // get the time there\n';
-html += '  d.time()\n  //1:20pm\n';
+html += '  d.time()\n  //\'1:20pm\'\n';
 html += '</script>';
 
 var options = {
@@ -21,10 +18,11 @@ var el = document.getElementById('html');
 CodeMirror(el, options);
 
 // - node example -
-var node = 'var spacetime = require(\'spacetime\')\n';
+var node = '// npm install spacetime\n';
+node += 'var spacetime = require(\'spacetime\')\n\n';
 node += 'var d = spacetime.now(\'Europe/Paris\')\n';
-node += 'd.dayOfYear()\n';
-node += '//142\n';
+node += 'd.isAsleep()\n';
+node += '//true\n\n';
 node += 'd.dayName()\n';
 node += '//\'Wednesday\'';
 options = {
