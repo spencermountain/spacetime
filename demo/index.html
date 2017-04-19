@@ -84,7 +84,7 @@
     <div class="nice big" style="margin:20px;">how the?</div>
     <div style="margin-left:10%;">
        <div class="nice explain">
-        it is currently <span class="epoch">{{epoch}}</span> everywhere (even in Australia!).
+        it is currently <span class="epoch">{{epoch}}</span> everywhere (even in Australia).
       </div>
       <div class="table">
         <span class="tr nice">
@@ -116,33 +116,55 @@
       </div>
       <div class="codemirror" id="doc"></div>
     </div>
-       <div class="nice explain" style="margin-top:25px;">
+       <div class="nice explain" style="margin-top:25px; margin-left:25px;">
         that's not too bad.
       </div>
     <div class="nice explain" style="margin-left:10%;">
       <p>
-        but hold up:
+        but hold up -
       </p>
       <div class="codemirror" id="docBad"></div>
-
-    </div>
-<!--
-      <div class="nice explain">
-        even if you move milliseconds around carefully, javascript still applies your offset - so you can't easily <i>fake</i> other timezones.
+       <div class="nice explain" style="margin-top:25px;">
+         to use .set methods, you have to shift to your computer's offset again, make the calendar-based change, then shift it back to Paris time,
+         in some kind of distopian web programming:
       </div>
-
+      <div class="codemirror" id="docThree"></div>
+      <div class="nice explain" style="margin-top:25px;">
+        this is error-prone!<br/>
+        <p></p>
+        one challenge is that different <b>DST rules</b> may apply on your computer, compared to Paris-time. <br/>
+         - you may miss a DST-shift while pretending to be in Paris, but lying about it.
+      </div>
       <div class="nice explain">
-        and the JSON of all the timezones and their DST-times is
-        <a class="link" href="https://github.com/smallwins/spacetime/blob/master/data/zonefile.2017.json">
-          actually pretty small
-        </a>.
-      </div> -->
+        another possibility is setting a very specific time locally, then invalidating it while shifting back to Paris-time.
+      </div>
+      <div class="nice explain">
+        <b>spacetime</b>   <span style="color:indianred">🎉</span>
+        (mostly) addresses these problems in post-processing the date after every transformation,
+         to ensure the funny-business is a minimum.<br/>
+        <p></p>
+        if it's <b>9:37pm</b>, and you move forward 6 months, it should still be <b>9:37pm</b>.<br/>
+        <p></p>
+        Ideally, the day of the month should remain stable too, when possible.
+        <p></p>
+        There is admittedly, some guesswork involved.
+        <div style="margin-top:25px; margin-left:50px;">
+          but what a pleasure, to let this <i>little library</i> do that for you.
+          <span style="color:indianred">🌈</span>
+        </div>
+        <p></p>
+        - not for <a class="link" href="https://github.com/smallwins/spacetime/wiki#limitations">every use-case</a>, fine for most. -
+      </div>
+    </div>
+
 
   </div>
   <p></p>
   <p></p>
   <p></p>
-  <span style="color:#8cc5df;">* real?!</span>
+    <div class="nice">
+        Apache-2.0<br/> - by <a class="link" href="https://begin.com/">SmallWins</a>
+    </div>
 </body>
 <script src="./lib/spacetime.min.js"></script>
 <script src="lib/codemirror.js"></script>

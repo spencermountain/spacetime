@@ -90,8 +90,13 @@
 }
 
 .codemirror {
-  background-color:whitesmoke;
+  /*background-color:whitesmoke;*/
+  /*width:500px;*/
+  display:inline-block;
   border:1px solid lightgrey;
+  line-height:125%;
+  padding-left:15px;
+  padding-right:50px;
   border-radius:5px;
 }
 .epoch {

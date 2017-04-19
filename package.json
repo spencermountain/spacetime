@@ -3,7 +3,7 @@
   "version": "0.0.13",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
-  "license": "UNLICENSED",
+  "license": "Apache 2.0",
   "scripts": {
     "build": "node ./scripts/build.js",
     "demo": "node ./scripts/demo.js",

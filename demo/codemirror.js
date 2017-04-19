@@ -53,3 +53,13 @@ CodeMirror(document.getElementById('docBad'), {
   readOnly: true,
   value: doc
 });
+doc = 'var localTime = fakeParis - parisOffset + myOffset \n';
+doc += 'local = new Date(localTime)\n';
+doc += 'local.setHours(6)// 🎉\n';
+doc += 'var parisAgain = local.getTIme() - myOffset + parisOffset\n// ¯\\_(ツ)_/¯';
+CodeMirror(document.getElementById('docThree'), {
+  mode: 'javascript',
+  theme: 'spencertheme',
+  readOnly: true,
+  value: doc
+});
