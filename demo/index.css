@@ -63,6 +63,9 @@
   font-size:18px;
   line-height:150%;
 }
+.math {
+  font-size:30px;
+}
 .link{
   color:steelblue;
 }
@@ -75,6 +78,10 @@
 .tr {
   flex-grow:1;
   width:50%;
+}
+.details {
+  color:silver;
+  font-size:15px;
 }
 .number {
   font-size:90px;

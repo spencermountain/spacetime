@@ -15,8 +15,18 @@ module.exports = {
   timezone: function() {
     return timezone(this);
   },
-  format: function() {
-    return format(this);
+  isDST: function() {
+    return timezone(this).current.isDst;
+  },
+  hasDST: function() {
+    return timezone(this).dst.change !== 0;
+  },
+  offset: function() {
+    return timezone(this).current.offset / 60;
+  },
+
+  format: function(str) {
+    return format(this, str);
   },
   startOf: function(unit) {
     return ends.startOf(this, unit);

@@ -35,3 +35,21 @@ options = {
 };
 el = document.getElementById('node');
 CodeMirror(el, options);
+
+//---docs---
+var doc = 'd = new Date(fakeParis)\n';
+doc += 'd.getHours()// ✔️ weee!';
+CodeMirror(document.getElementById('doc'), {
+  mode: 'javascript',
+  theme: 'spencertheme',
+  readOnly: true,
+  value: doc
+});
+doc = 'd = new Date(fakeParis)\n';
+doc += 'd.setHours(6)// ✖️ uh-oh';
+CodeMirror(document.getElementById('docBad'), {
+  mode: 'javascript',
+  theme: 'spencertheme',
+  readOnly: true,
+  value: doc
+});

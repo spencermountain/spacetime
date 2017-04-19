@@ -16,10 +16,15 @@ const spacetime = require('./src');
 
 
 let s = spacetime('March 1 2020', 'America/New_York');
+// let s = spacetime('March 1 2020', 'Africa/Abidjan');
 s.time('4:20pm');
 
-s.goto('America/Los_Angeles');
+// s.goto('America/Los_Angeles');
 //Mar 1st, 1:20pm
 
-s.subtract(1, 'days');
+// s.subtract(1, 'days');
 //Feb 29th, 1:20pm (leap-year)
+
+console.log(s.hasDST());
+console.log(s.isDST());
+console.log(s.offset());

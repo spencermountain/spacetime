@@ -22,8 +22,22 @@
     but this library, it's really small ✨
   </div>
 
-  <div id="today" v-cloak>
-    {{hour}}
+  <div id="today" style="text-align:center; margin-top:60px;" v-cloak>
+    <span class="tr nice details">
+      {{s.timezone().name}}
+      <span style="margin-left:30px;">DST: {{s.isDST() ? 'on' : 'off'}}</span>
+      <span style="margin-left:30px;">leapYear: {{s.leapYear() ? 'yes' : 'no'}}</span>
+    </span>
+    <div class="table" >
+      <span class="tr nice details">{{s.dayName()}}</span>
+      <span class="tr nice details">{{s.monthName()}}</span>
+      <span class="tr nice details">{{s.season()}}</span>
+      <span class="tr nice details">week {{s.week()}}</span>
+      <span class="tr nice details">Q{{s.quarter()}}</span>
+    </div>
+    <svg width="600" height="100">
+      <rect x="0" y="25" width="500" height="5" fill="#af6161"/>
+    </svg>
   </div>
 
   <div class="nice big middle">
@@ -69,33 +83,68 @@
   <div id="explain" v-cloak>
     <div class="nice big" style="margin:20px;">how the?</div>
     <div style="margin-left:10%;">
-    <div class="nice explain">
-      the real<span style="color:#8cc5df;">*</span> time everywhere on earth is currently:
-      <span class="epoch">{{epoch}}</span>
+       <div class="nice explain">
+        it is currently <span class="epoch">{{epoch}}</span> everywhere (even in Australia!).
+      </div>
+      <div class="table">
+        <span class="tr nice">
+          Epoch time<br/>
+          (<b>{{epoch}}</b>)
+        </span>
+        <span class="tr nice math">
+          <b>	‒</b>
+        </span>
+        <span class="tr nice">
+          you computer's offset<br/>
+          (<b>{{offset}}</b> mins)
+        </span>
+        <span class="tr nice math">
+          <b>+</b>
+        </span>
+        <span class="tr nice">
+          current offset of<br/>
+          <b>Europe/Paris</b><br/>
+          (with DST)
+        </span>
+        <span class="tr nice math">
+          <b>=</b>
+        </span>
+        <span class="tr nice">
+          <b>[Fake-Paris]</b><br/>
+          time
+        </span>
+      </div>
+      <div class="codemirror" id="doc"></div>
     </div>
+       <div class="nice explain" style="margin-top:25px;">
+        that's not too bad.
+      </div>
+    <div class="nice explain" style="margin-left:10%;">
+      <p>
+        but hold up:
+      </p>
+      <div class="codemirror" id="docBad"></div>
 
-    <div class="nice explain">
-      and we know the offset (bias?) of your computer is <span class="epoch">{{offset}} mins</span>
     </div>
+<!--
+      <div class="nice explain">
+        even if you move milliseconds around carefully, javascript still applies your offset - so you can't easily <i>fake</i> other timezones.
+      </div>
 
-    <div class="nice explain">
-      even if you move milliseconds around carefully, javascript still applies your offset - so you can't easily <i>fake</i> other timezones.
-    </div>
+      <div class="nice explain">
+        and the JSON of all the timezones and their DST-times is
+        <a class="link" href="https://github.com/smallwins/spacetime/blob/master/data/zonefile.2017.json">
+          actually pretty small
+        </a>.
+      </div> -->
 
-    <div class="nice explain">
-      and the JSON of all the timezones and their DST-times is
-      <a class="link" href="https://github.com/smallwins/spacetime/blob/master/data/zonefile.2017.json">
-        actually pretty small
-      </a>.
-    </div>
   </div>
-</div>
   <p></p>
   <p></p>
   <p></p>
   <span style="color:#8cc5df;">* real?!</span>
 </body>
-<script src="../builds/spacetime.min.js"></script>
+<script src="./lib/spacetime.min.js"></script>
 <script src="lib/codemirror.js"></script>
 <script src="lib/javascript-mode.js"></script>
 <script src="lib/html-mode.js"></script>
@@ -103,6 +152,5 @@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <script src="./codemirror.js"></script>
-<script src="./day/map.js"></script>
 <script src="./day/index.js"></script>
 <script src="./explain.js"></script>

@@ -1714,8 +1714,18 @@ module.exports = {
   timezone: function timezone() {
     return _timezone(this);
   },
-  format: function format() {
-    return _format(this);
+  isDST: function isDST() {
+    return _timezone(this).current.isDst;
+  },
+  hasDST: function hasDST() {
+    return _timezone(this).dst.change !== 0;
+  },
+  offset: function offset() {
+    return _timezone(this).current.offset / 60;
+  },
+
+  format: function format(str) {
+    return _format(this, str);
   },
   startOf: function startOf(unit) {
     return ends.startOf(this, unit);
@@ -1740,6 +1750,14 @@ module.exports = {
   goto: function goto(tz) {
     this.tz = tz; //science!
     return this;
+  },
+  isAsleep: function isAsleep() {
+    var hour = this.hour();
+    if (hour < 8 || hour > 22) {
+      //10pm -> 8am
+      return true;
+    }
+    return false;
   },
   //pretty-printing
   log: function log() {
