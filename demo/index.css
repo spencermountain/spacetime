@@ -83,6 +83,10 @@
   color:silver;
   font-size:15px;
 }
+.control {
+  color:grey;
+  font-size:15px;
+}
 .number {
   font-size:90px;
   font-weight:300;
@@ -109,4 +113,21 @@
 
 .explain {
   padding-bottom:30px;
+}
+.plus {
+  color:steelblue;
+  cursor:pointer;
+  font-size:29px;
+  margin-left:4px;
+  position:relative;
+  /*top:-15px;*/
+}
+.minus {
+  color:darkred;
+  cursor:pointer;
+  font-size:35px;
+  margin:0px;
+  border-radius:2px 4px 4px 2px;
+  position:relative;
+  /*top:-15px;*/
 }

@@ -24,7 +24,7 @@ s.time('4:20pm');
 
 // s.subtract(1, 'days');
 //Feb 29th, 1:20pm (leap-year)
-
-console.log(s.hasDST());
-console.log(s.isDST());
-console.log(s.offset());
+// s.hour12('2am');
+// console.log(s.hour12());
+// console.log(s.hour12());
+// console.log(s.time());

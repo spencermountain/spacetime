@@ -35,9 +35,59 @@
       <span class="tr nice details">week {{s.week()}}</span>
       <span class="tr nice details">Q{{s.quarter()}}</span>
     </div>
-    <svg width="600" height="100">
+    <svg width="600" height="50">
       <rect x="0" y="25" width="500" height="5" fill="#af6161"/>
     </svg>
+    <div class="table" >
+      <span class="tr nice control">
+        <div>
+          -hour-
+        </div>
+        <span class="minus">﹣</span>
+        {{s.hour()}}
+        <span class="plus">+</span>
+      </span>
+      <span class="tr nice control">
+        <div>
+          -minute-
+        </div>
+        <span class="minus">﹣</span>
+         {{s.minute()}}
+        <span class="plus">+</span>
+      </span>
+      <span class="tr nice control">
+        <div>
+          -date-
+        </div>
+        <span class="minus">﹣</span>
+          {{s.date()}}
+        <span class="plus">+</span>
+      </span>
+      <span class="tr nice control">
+        <div>
+          -week-
+        </div>
+        <span class="minus">﹣</span>
+          {{s.week()}}
+        <span class="plus">+</span>
+      </span>
+      <span class="tr nice control">
+        <div>
+          -month-
+        </div>
+        <span class="minus">﹣</span>
+          {{s.monthName()}}
+        <span class="plus">+</span>
+      </span>
+      <span class="tr nice control">
+        <div>
+          -year-
+        </div>
+        <span class="minus">﹣</span>
+          {{s.year()}}
+        <span class="plus">+</span>
+      </span>
+    </div>
   </div>
 
   <div class="nice big middle">
@@ -92,7 +142,7 @@
           (<b>{{epoch}}</b>)
         </span>
         <span class="tr nice math">
-          <b>	‒</b>
+          <b>﹣</b>
         </span>
         <span class="tr nice">
           you computer's offset<br/>

@@ -12,13 +12,7 @@ const format = (s) => {
   let day = s.day();
   let minute = fmt.zeroPad(s.minute());
   let hour24 = s.hour();
-  let hour12 = hour24;
-  if (hour24 > 12) {
-    hour12 = hour24 - 12;
-  }
-  if (hour12 === 0) {
-    hour12 = 12;
-  }
+  let hour12 = s.hour12();
   let ord = fmt.ordinal(date);
   let numDate = fmt.zeroPad(date);
   let numMonth = fmt.zeroPad(date);

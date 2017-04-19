@@ -33,6 +33,31 @@ let methods = {
     }
     return d.getHours();
   },
+  hour12: function(str) {
+    let d = this.d;
+    if (str !== undefined) {
+      str = '' + str;
+      let m = str.match(/^([0-9]+)(am|pm)$/);
+      if (m) {
+        let hour = parseInt(m[1], 10);
+        if (m[2] === 'pm') {
+          hour += 12;
+        }
+        this.epoch = set.hours(this, hour);
+      }
+      return this;
+    }
+    //get the hour
+    let hour12 = d.getHours();
+    if (hour12 > 12) {
+      hour12 = hour12 - 12;
+    }
+    if (hour12 === 0) {
+      hour12 = 12;
+    }
+    return hour12;
+  },
+
   date: function(num) {
     if (num !== undefined) {
       this.epoch = set.date(this, num);
@@ -78,6 +103,7 @@ methods.milliseconds = methods.millisecond;
 methods.seconds = methods.second;
 methods.minutes = methods.minute;
 methods.hours = methods.hour;
+methods.hour24 = methods.hour;
 methods.days = methods.day;
 
 module.exports = methods;
