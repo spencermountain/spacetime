@@ -42,6 +42,13 @@ module.exports = {
     this.tz = tz; //science!
     return this;
   },
+  isAsleep: function() {
+    let hour = this.hour();
+    if (hour < 8 || hour > 22) { //10pm -> 8am
+      return true;
+    }
+    return false;
+  },
   //pretty-printing
   log: function() {
     console.log('');
