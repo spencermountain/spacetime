@@ -1301,7 +1301,7 @@ module.exports={
   "version": "0.0.13",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
-  "license": "UNLICENSED",
+  "license": "Apache 2.0",
   "scripts": {
     "build": "node ./scripts/build.js",
     "demo": "node ./scripts/demo.js",
@@ -1962,13 +1962,7 @@ var format = function format(s) {
   var day = s.day();
   var minute = fmt.zeroPad(s.minute());
   var hour24 = s.hour();
-  var hour12 = hour24;
-  if (hour24 > 12) {
-    hour12 = hour24 - 12;
-  }
-  if (hour12 === 0) {
-    hour12 = 12;
-  }
+  var hour12 = s.hour12();
   var ord = fmt.ordinal(date);
   var numDate = fmt.zeroPad(date);
   var numMonth = fmt.zeroPad(date);
@@ -2225,6 +2219,31 @@ var methods = {
     }
     return d.getHours();
   },
+  hour12: function hour12(str) {
+    var d = this.d;
+    if (str !== undefined) {
+      str = '' + str;
+      var m = str.match(/^([0-9]+)(am|pm)$/);
+      if (m) {
+        var hour = parseInt(m[1], 10);
+        if (m[2] === 'pm') {
+          hour += 12;
+        }
+        this.epoch = set.hours(this, hour);
+      }
+      return this;
+    }
+    //get the hour
+    var hour12 = d.getHours();
+    if (hour12 > 12) {
+      hour12 = hour12 - 12;
+    }
+    if (hour12 === 0) {
+      hour12 = 12;
+    }
+    return hour12;
+  },
+
   date: function date(num) {
     if (num !== undefined) {
       this.epoch = set.date(this, num);
@@ -2270,6 +2289,7 @@ methods.milliseconds = methods.millisecond;
 methods.seconds = methods.second;
 methods.minutes = methods.minute;
 methods.hours = methods.hour;
+methods.hour24 = methods.hour;
 methods.days = methods.day;
 
 module.exports = methods;

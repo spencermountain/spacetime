@@ -22,73 +22,65 @@
     but this library, it's really small ✨
   </div>
 
-  <div id="today" style="text-align:center; margin-top:60px;" v-cloak>
-    <span class="tr nice details">
-      {{s.timezone().name}}
-      <span style="margin-left:30px;">DST: {{s.isDST() ? 'on' : 'off'}}</span>
-      <span style="margin-left:30px;">leapYear: {{s.leapYear() ? 'yes' : 'no'}}</span>
-    </span>
-    <div class="table" >
-      <span class="tr nice details">{{s.dayName()}}</span>
-      <span class="tr nice details">{{s.monthName()}}</span>
-      <span class="tr nice details">{{s.season()}}</span>
-      <span class="tr nice details">week {{s.week()}}</span>
-      <span class="tr nice details">Q{{s.quarter()}}</span>
+  <div id="today" style="text-align:center;" v-cloak>
+
+    <div id="leftBox" style="display:inline-block; width:150px; font-size:15px; text-align:left;" class="nice">
+      <div>
+        {{s.dayName()}},
+      </div>
+      {{s.format().date.long}}
+      <div>
+        {{s.year()}}
+      </div>
     </div>
-    <svg width="600" height="50">
-      <rect x="0" y="25" width="500" height="5" fill="#af6161"/>
-    </svg>
+
+    <div id="graph" class="nice" style="postion:relative; text-align:left; display:inline-block; height:90px; margin-top:60px; width:600px;">
+      <div id="nowThing"  v-bind:style="{ left:(scale(s.progress().day)-100)+'px' }" style="position:relative; display:inline-block; font-size:22px; text-align:center; max-width:200px; min-width:200px;">
+        {{s.timezone().name}}
+        <div>
+          {{s.time()}}
+        </div>
+        <div>
+        	▼
+        </div>
+      </div>
+      <div id="dayline" style="position:relative; height:3px;">
+        <div style="position:absolute; width:25%; left:0%; top:0px; height:3px; background-color:#4682b4;"></div>
+        <div style="position:absolute; width:63%; left:25%; top:0px; height:3px; background-color:#dbb2c1;"></div>
+        <div style="position:absolute; width:12%; left:88%; top:0px; height:3px; background-color:#4682b4;" ></div>
+      </div>
+      <div style="position:relative; width:100%; height:2px; background-color:#af6161;"></div>
+      <div style="position:relative; height:15px; font-size:9px; text-align:left;">
+        <div style="position:absolute; left:23%;">6am</div>
+        <div style="position:absolute; left:48%;">noon</div>
+        <div style="position:absolute; left:73%;">6pm</div>
+        <div style="position:absolute; left:86%;">10pm</div>
+      </div>
+      <span id="yearline" style="position:relative; height:3px;"  v-for="m,i in months">
+        <span v-bind:style="{backgroundColor:m, left:50*i+'px'}" style="position:absolute; width:50px; top:0px; height:3px; "></span>
+      </span>
+     </div>
+
+     <div id="rightBox" style="display:inline-block;">
+       <span style="margin-left:30px;">DST: {{s.isDST() ? 'on' : 'off'}}</span>
+       <span style="margin-left:30px;">leapYear: {{s.leapYear() ? 'yes' : 'no'}}</span>
+     </div>
+
     <div class="table" >
-      <span class="tr nice control">
-        <div>
-          -hour-
-        </div>
+
+      <span class="tr nice control" v-for="c in controls">
         <span class="minus">﹣</span>
-        {{s.hour()}}
+        {{s.hour12() + s.ampm()}}
         <span class="plus">+</span>
-      </span>
-      <span class="tr nice control">
-        <div>
-          -minute-
+        <br/>
+        <div style="position:relative; top:-5px; color:silver; display:inline; padding-left:25px; padding-right:25px; border-bottom:1px solid silver;">
+          {{c.title}}
         </div>
-        <span class="minus">﹣</span>
-         {{s.minute()}}
-        <span class="plus">+</span>
       </span>
-      <span class="tr nice control">
-        <div>
-          -date-
-        </div>
-        <span class="minus">﹣</span>
-          {{s.date()}}
-        <span class="plus">+</span>
-      </span>
-      <span class="tr nice control">
-        <div>
-          -week-
-        </div>
-        <span class="minus">﹣</span>
-          {{s.week()}}
-        <span class="plus">+</span>
-      </span>
-      <span class="tr nice control">
-        <div>
-          -month-
-        </div>
-        <span class="minus">﹣</span>
-          {{s.monthName()}}
-        <span class="plus">+</span>
-      </span>
-      <span class="tr nice control">
-        <div>
-          -year-
-        </div>
-        <span class="minus">﹣</span>
-          {{s.year()}}
-        <span class="plus">+</span>
-      </span>
+
     </div>
   </div>
+
 
   <div class="nice big middle">
     — <b>spacetime</b> date-utility —

@@ -3,7 +3,7 @@ var height = 660;
 var map = d3.select('#map').append('svg');
 map.attr('width', width).attr('height', height);
 
-var dayWidth = 550;
+var dayWidth = 600;
 var scale = d3.scale.linear();
 scale.range([0, dayWidth]).domain([0, 1]);
 var dayel = d3.select('#map').append('svg');
@@ -18,7 +18,37 @@ window.day = new Vue({
     timezone: s.timezone().name,
     scale: scale,
     progress: 50,
-    tzData: []
+    tzData: [],
+    months: [
+      '#844448',
+      '#95A572',
+      '#B698BC',
+      '#534B52',
+      '#C9AFAF',
+      '#839A9E',
+      '#C7DCE0',
+      '#989ABC',
+      '#DDEDD0',
+      '#BA7171',
+      '#818687',
+    ],
+    controls: [
+      {
+        title: 'minute'
+      },
+      {
+        title: 'hour'
+      },
+      {
+        title: 'day'
+      },
+      {
+        title: 'week'
+      },
+      {
+        title: 'year'
+      },
+    ]
   },
   methods: {
 
