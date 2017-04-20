@@ -3,7 +3,7 @@ const test = require('tape');
 const spacetime = require('../src');
 
 const fmt = (s) => {
-  return s.format().nice.short;
+  return s.format('nice-short');
 };
 
 test('leapyear-basic', (t) => {
@@ -64,11 +64,11 @@ test('feb-29th-exists', (t) => {
     //feb 28th 11:30pm
     let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers');
     s.add(1, 'hour');
-    t.equal(s.format().nice.short, 'Feb 29th, 12:30am', 'forward into leapday on ' + y);
+    t.equal(s.format('nice-short'), 'Feb 29th, 12:30am', 'forward into leapday on ' + y);
     //march 1st 5:30pm
     s = spacetime([y, 2, 1, 17, 30], 'Canada/Mountain');
     s.subtract(1, 'day');
-    t.equal(s.format().nice.short, 'Feb 29th, 5:30pm', 'backward into leapday on ' + y);
+    t.equal(s.format('nice-short'), 'Feb 29th, 5:30pm', 'backward into leapday on ' + y);
   });
   t.end();
 });
@@ -88,11 +88,11 @@ test('feb-29th-doesnt-exist', (t) => {
     //feb 28th 11:30pm
     let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers');
     s.add(1, 'hour');
-    t.equal(s.format().nice.short, 'Mar 1st, 12:30am', 'no leap on ' + y);
+    t.equal(s.format('nice-short'), 'Mar 1st, 12:30am', 'no leap on ' + y);
     //march 1st 5:30pm
     s = spacetime([y, 2, 1, 17, 30], 'Canada/Eastern');
     s.subtract(1, 'day');
-    t.equal(s.format().nice.short, 'Feb 28th, 5:30pm', 'backward with no leapday on ' + y);
+    t.equal(s.format('nice-short'), 'Feb 28th, 5:30pm', 'backward with no leapday on ' + y);
   });
   t.end();
 });

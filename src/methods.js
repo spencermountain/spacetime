@@ -25,8 +25,8 @@ module.exports = {
     return timezone(this).current.offset / 60;
   },
 
-  format: function(str) {
-    return format(this, str);
+  format: function(fmt) {
+    return format(this, fmt);
   },
   startOf: function(unit) {
     return ends.startOf(this, unit);

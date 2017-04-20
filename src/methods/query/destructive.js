@@ -18,7 +18,7 @@ module.exports = {
       this.epoch = set.time(this, str);
       return this;
     }
-    return this.format().time.h12;
+    return this.format('time-h12');
   },
 
   //since the start of the year
