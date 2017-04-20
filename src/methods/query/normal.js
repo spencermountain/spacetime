@@ -104,6 +104,8 @@ methods.seconds = methods.second;
 methods.minutes = methods.minute;
 methods.hours = methods.hour;
 methods.hour24 = methods.hour;
+methods.h12 = methods.hour12;
+methods.h24 = methods.hour24;
 methods.days = methods.day;
 
 module.exports = methods;

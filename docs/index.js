@@ -10,6 +10,9 @@ module.exports = {
   progress: {},
   format: {},
   leapYear: {},
+  isDST: {},
+  hasDST: {},
+  offset: {},
 
   //comparison
   isAfter: {},

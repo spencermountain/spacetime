@@ -18,6 +18,7 @@ const spacetime = require('./src');
 let s = spacetime('March 1 2020', 'America/New_York');
 // let s = spacetime('March 1 2020', 'Africa/Abidjan');
 s.time('4:20pm');
+console.log(s.format());
 
 // s.goto('America/Los_Angeles');
 //Mar 1st, 1:20pm
