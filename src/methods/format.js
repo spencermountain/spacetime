@@ -95,6 +95,7 @@ fmt['full-short'] = (s) => {
   return `${day} ${month} ${ord}, ${year}`;
 };
 //aliases
+fmt['ordinal'] = fmt['date-ordinal'];
 fmt['date-short'] = fmt.date;
 fmt['time-12h'] = fmt.time;
 fmt['time-h12'] = fmt['time-12h'];

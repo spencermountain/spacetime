@@ -67,7 +67,12 @@ module.exports = {
   time: (s, str) => {
     let m = str.match(/([0-9]{1,2}):([0-9]{1,2})(am|pm)?/);
     if (!m) {
-      return s.epoch;
+      //fallback to support just '2am'
+      m = str.match(/([0-9]{1,2})(am|pm)/);
+      if (!m) {
+        return s.epoch;
+      }
+      m.splice(2, 0, '0'); //add implicit 0 minutes
     }
     let h24 = false;
     let hour = parseInt(m[1], 10);
@@ -75,8 +80,14 @@ module.exports = {
     if (hour > 12) {
       h24 = true;
     }
-    if (!h24 && m[3] === 'pm') {
-      hour += 12;
+    //make the hour into proper 24h time
+    if (h24 === false) {
+      if (m[3] === 'am' && hour === 12) { //12am is midnight
+        hour = 0;
+      }
+      if (m[3] === 'pm' && hour < 12) { //12pm is noon
+        hour += 12;
+      }
     }
     s.hour(hour);
     s.minute(minute);

@@ -13,7 +13,7 @@
   <div class="nice big">
     Yeah, 🙌
   </div>
-  <div class="nice">
+  <div class="nice" v-cloak>
     the world's really big
   </div>
   <div id="map">
@@ -21,14 +21,13 @@
   <div class="nice">
     but this library, it's really small ✨
   </div>
-
   <div id="today" style="text-align:center;" v-cloak>
 
     <div id="leftBox" style="display:inline-block; width:150px; font-size:15px; text-align:left;" class="nice">
       <div>
-        {{s.dayName()}},
+        {{s.format('day')}}
       </div>
-      {{s.format().date.long}}
+      {{s.format('month')+' '+s.format('date-ordinal')}}
       <div>
         {{s.year()}}
       </div>
@@ -222,5 +221,6 @@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <script src="./codemirror.js"></script>
+<script src="./map.js"></script>
 <script src="./day/index.js"></script>
 <script src="./explain.js"></script>

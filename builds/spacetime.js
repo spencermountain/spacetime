@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v0.0.13
+/* @smallwins/spacetime v0.0.14
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -1298,7 +1298,7 @@ module.exports={
 },{}],3:[function(_dereq_,module,exports){
 module.exports={
   "name": "@smallwins/spacetime",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache 2.0",
@@ -1724,8 +1724,8 @@ module.exports = {
     return _timezone(this).current.offset / 60;
   },
 
-  format: function format(str) {
-    return _format(this, str);
+  format: function format(fmt) {
+    return _format(this, fmt);
   },
   startOf: function startOf(unit) {
     return ends.startOf(this, unit);
@@ -1949,66 +1949,125 @@ module.exports = diff;
 },{"../fns":10}],18:[function(_dereq_,module,exports){
 'use strict';
 
-var fmt = _dereq_('../fns');
+var fns = _dereq_('../fns');
 var months = _dereq_('../data/months');
 var days = _dereq_('../data/days');
 
-//
-var format = function format(s) {
-  //pre-compute the re-used values
+var fmt = {
+  day: function day(s) {
+    return fns.titleCase(days.long[s.day()]);
+  },
+  'day-short': function dayShort(s) {
+    return fns.titleCase(days.short[s.day()]);
+  },
+  date: function date(s) {
+    return '' + s.date();
+  },
+  'date-ordinal': function dateOrdinal(s) {
+    return fns.ordinal(s.date());
+  },
+  'month': function month(s) {
+    return fns.titleCase(months.long[s.month()]);
+  },
+  'month-short': function monthShort(s) {
+    return fns.titleCase(months.short[s.month()]);
+  },
+  'time': function time(s) {
+    return s.h12() + ':' + fns.zeroPad(s.minute()) + s.ampm(); //3:45pm
+  },
+  'time-24h': function time24h(s) {
+    return s.hour() + ':' + fns.zeroPad(s.minute()); //13:45
+  },
+  'year': function year(s) {
+    return '' + s.year();
+  },
+  'year-short': function yearShort(s) {
+    return '\'' + ('' + s.year()).substr(2, 4);
+  },
+  'numeric-us': function numericUs(s) {
+    return fns.zeroPad(s.month()) + '/' + fns.zeroPad(s.date()) + '/' + s.year(); //mm/dd/yyyy
+  },
+  'numeric-uk': function numericUk(s) {
+    return fns.zeroPad(s.date()) + '/' + fns.zeroPad(s.month()) + '/' + s.year(); //dd/mm/yyyy
+  },
+  'numeric-cn': function numericCn(s) {
+    return s.year() + '/' + fns.zeroPad(s.month()) + '/' + fns.zeroPad(s.date()); //yyyy/mm/dd
+  },
+  'iso': function iso(s) {
+    var month = fns.zeroPad(s.month() + 1); //1-based months
+    var date = fns.zeroPad(s.date());
+    var hour = fns.zeroPad(s.h24());
+    var minute = fns.zeroPad(s.minute());
+    var second = fns.zeroPad(s.second());
+    var ms = fns.zeroPad(s.millisecond(), 3);
+    return s.year() + '-' + month + '-' + date + 'T' + hour + ':' + minute + ':' + second + ':' + ms + 'Z'; //2017-03-08T19:45:28.367Z
+  },
+  'iso-short': function isoShort(s) {
+    var month = fns.zeroPad(s.month() + 1); //1-based months
+    var date = fns.zeroPad(s.date());
+    return s.year() + '-' + month + '-' + date; //2017-02-15
+  },
+  'iso-utc': function isoUtc(s) {
+    return new Date(s.epoch).toISOString(); //2017-03-08T19:45:28.367Z
+  }
+};
+fmt['nice'] = function (s) {
+  var month = fmt.month(s);
+  var ord = fmt['date-ordinal'](s);
+  var time = fmt.time(s);
+  return month + ' ' + ord + ', ' + time;
+};
+fmt['nice-day'] = function (s) {
+  var day = fmt.day(s);
+  var month = fmt.month(s);
+  var ord = fmt['date-ordinal'](s);
+  var time = fmt.time(s);
+  return day + ' ' + month + ' ' + ord + ', ' + time;
+};
+fmt['nice-short'] = function (s) {
+  var month = fmt['month-short'](s);
+  var ord = fmt['date-ordinal'](s);
+  var time = fmt.time(s);
+  return month + ' ' + ord + ', ' + time;
+};
+fmt['full'] = function (s) {
+  var day = fmt.day(s);
+  var month = fmt.month(s);
+  var ord = fmt['date-ordinal'](s);
   var year = s.year();
-  var date = s.date();
-  var month = s.month();
-  var day = s.day();
-  var minute = fmt.zeroPad(s.minute());
-  var hour24 = s.hour();
-  var hour12 = s.hour12();
-  var ord = fmt.ordinal(date);
-  var numDate = fmt.zeroPad(date);
-  var numMonth = fmt.zeroPad(date);
+  return day + ' ' + month + ' ' + ord + ', ' + year;
+};
+fmt['full-short'] = function (s) {
+  var day = fmt['day-short'](s);
+  var month = fmt['month-short'](s);
+  var ord = fmt['date-ordinal'](s);
+  var year = s.year();
+  return day + ' ' + month + ' ' + ord + ', ' + year;
+};
+//aliases
+fmt['ordinal'] = fmt['date-ordinal'];
+fmt['date-short'] = fmt.date;
+fmt['time-12h'] = fmt.time;
+fmt['time-h12'] = fmt['time-12h'];
+fmt['time-h24'] = fmt['time-24h'];
+fmt['numeric'] = fmt['numeric-us']; //sorry!
+fmt['mdy'] = fmt['numeric-us'];
+fmt['dmy'] = fmt['numeric-uk'];
+fmt['ymd'] = fmt['numeric-cn'];
+fmt['little-endian'] = fmt['numeric-uk'];
+fmt['big-endian'] = fmt['numeric-cn'];
 
+//
+var format = function format(s, type) {
+  if (fmt && fmt[type]) {
+    return fmt[type](s);
+  }
   //start building format object
-  var all = {
-    day: {
-      short: fmt.titleCase(days.short[day]), //wed
-      long: fmt.titleCase(days.long[day]) },
-    month: {
-      short: fmt.titleCase(months.short[month]), //Sept
-      long: fmt.titleCase(months.long[month]) },
-    time: {
-      h12: hour12 + ':' + minute + s.ampm(), //3:45pm
-      h24: hour24 + ':' + minute //15:45
-    },
-    year: {
-      long: '' + year,
-      short: '\'' + ('' + year).substr(2, 4)
-    }
-  };
+  var all = Object.keys(fmt).reduce(function (h, k) {
+    h[k] = fmt[k](s);
+    return h;
+  }, {});
 
-  all.numeric = {
-    uk: numDate + '/' + numMonth + '/' + year, //dd/mm/yyyy
-    us: numMonth + '/' + numDate + '/' + year };
-
-  all.date = {
-    ordinal: ord, //12th
-    cardinal: '' + date, //12
-    short: all.month.short + ' ' + ord, //Apr 12
-    long: all.month.long + ' ' + ord };
-
-  all.iso = {
-    short: year + '-' + numMonth + '-' + numDate, //2017-02-15
-    local: year + '-' + fmt.zeroPad(month + 1) + '-' + numDate + 'T' + hour24 + ':' + minute + ':' + fmt.zeroPad(s.second()) + ':' + fmt.zeroPad(s.millisecond(), 3) + 'Z', //2017-03-08T19:45:28.367Z
-    utc: new Date(s.epoch).toISOString() };
-
-  all.nice = {
-    short: all.month.short + ' ' + ord + ', ' + all.time.h12,
-    long: all.day.long + ' ' + all.month.long + ' ' + ord + ', ' + all.time.h12
-  };
-
-  all.full = {
-    short: all.day.short + ' ' + all.month.short + ' ' + ord + ' ' + year + ', ' + all.time.h12,
-    long: all.day.long + ' ' + all.month.long + ' ' + ord + ' ' + year + ', ' + all.time.h12
-  };
   return all;
 };
 module.exports = format;
@@ -2054,7 +2113,7 @@ module.exports = {
       this.epoch = set.time(this, str);
       return this;
     }
-    return this.format().time.h12;
+    return this.format('time-h12');
   },
 
   //since the start of the year
@@ -2290,6 +2349,8 @@ methods.seconds = methods.second;
 methods.minutes = methods.minute;
 methods.hours = methods.hour;
 methods.hour24 = methods.hour;
+methods.h12 = methods.hour12;
+methods.h24 = methods.hour24;
 methods.days = methods.day;
 
 module.exports = methods;

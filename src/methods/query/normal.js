@@ -79,6 +79,41 @@ let methods = {
     }
     return this.d.getFullYear();
   },
+  dayTime: function(str) {
+    if (str !== undefined) {
+      const times = {
+        morning: '7:00am',
+        breakfast: '7:00am',
+        noon: '12:00am',
+        lunch: '12:00pm',
+        afternoon: '2:00pm',
+        evening: '6:00pm',
+        dinner: '6:00pm',
+        night: '11:00pm',
+        midnight: '23:59pm',
+      };
+      str = str || '';
+      str = str.toLowerCase();
+      if (times[str]) {
+        this.time(times[str]);
+      }
+      return this;
+    }
+    let h = this.hour();
+    if (h < 6) {
+      return 'night';
+    }
+    if (h < 12) { //until noon
+      return 'morning';
+    }
+    if (h < 17) { //until 5pm
+      return 'afternoon';
+    }
+    if (h < 22) { //until 10pm
+      return 'evening';
+    }
+    return 'night';
+  },
   dayOfYear: function(num) {
     if (num !== undefined) {
       this.epoch = set.dayOfYear(this, num);
