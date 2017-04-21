@@ -1706,7 +1706,7 @@ var _timezone = _dereq_('./timezone/index');
 var handleInput = _dereq_('./input');
 
 //the spacetime instance methods (also, the API)
-module.exports = {
+var methods = {
   set: function set(input) {
     handleInput(this, input);
     return this;
@@ -1771,6 +1771,8 @@ module.exports = {
     return this;
   }
 };
+methods.inDST = methods.isDST;
+module.exports = methods;
 
 },{"./input":12,"./methods/diff":17,"./methods/format":18,"./methods/progress":19,"./methods/startOf":27,"./timezone/index":30}],15:[function(_dereq_,module,exports){
 'use strict';
