@@ -10,7 +10,7 @@ module.exports = {
   progress: {},
   format: {},
   leapYear: {},
-  isDST: {},
+  inDST: {},
   hasDST: {},
   offset: {},
 
@@ -45,5 +45,6 @@ module.exports = {
   day: {},
   ampm: {},
   dayName: {},
+  dayTime: {},
   monthName: {},
 };

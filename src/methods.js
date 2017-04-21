@@ -7,7 +7,7 @@ const timezone = require('./timezone/index');
 const handleInput = require('./input');
 
 //the spacetime instance methods (also, the API)
-module.exports = {
+const methods = {
   set: function(input) {
     handleInput(this, input);
     return this;
@@ -71,3 +71,5 @@ module.exports = {
     return this;
   }
 };
+methods.inDST = methods.isDST;
+module.exports = methods;

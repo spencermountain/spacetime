@@ -64,3 +64,17 @@ test('sneaky-dst', (t) => {
   t.equal(s.date(), 2, 'sneaky-apply-dst');
   t.end();
 });
+
+test('has-dst', (t) => {
+  let s = spacetime('March 28, 1999 20:42:00', 'Africa/Algiers');
+  t.equal(s.hasDST(), false, 'never has dst');
+  t.equal(s.inDST(), false, 'not in dst');
+
+  s = spacetime('March 11, 2017 20:42:00', 'Canada/Eastern');
+  t.equal(s.hasDST(), true, 'sometimes has dst');
+  t.equal(s.inDST(), false, 'not in dst though');
+  s.add(3, 'weeks');
+  //now its in dst
+  t.equal(s.inDST(), true, 'in dst now');
+  t.end();
+});
