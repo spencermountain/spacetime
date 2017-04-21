@@ -34,23 +34,46 @@ window.day = new Vue({
     ],
     controls: [
       {
-        title: 'minute'
+        title: 'minute',
+        render: function() {
+          return s.hour12() + ':' + s.minute();
+        }
       },
       {
-        title: 'hour'
+        title: 'hour',
+        render: function() {
+          return s.h12() + s.ampm();
+        }
       },
       {
-        title: 'day'
+        title: 'day',
+        render: function() {
+          return s.format('ordinal');
+        }
       },
       {
-        title: 'week'
+        title: 'month',
+        render: function() {
+          return s.format('month-short');
+        }
       },
       {
-        title: 'year'
+        title: 'week',
+        render: function() {
+          return s.week();
+        }
+      },
+      {
+        title: 'year',
+        render: function() {
+          return s.year();
+        }
       },
     ]
   },
+
   methods: {
+
 
     changeTZ: function(tz) {
       s.goto(tz);

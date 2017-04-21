@@ -19,18 +19,18 @@
   </div>
   <div id="map">
   </div>
-  <div class="nice">
+  <div class="nice" style="position:relative; top:-30px;">
     but this library, it's really small ✨
   </div>
-  <div id="today" style="text-align:center;" v-cloak>
-    <div class="nice" style="font-size:22px; color:#6b7279">
+  <div id="today" style="text-align:center; position:relative; top:-50px" v-cloak>
+    <div class="nice" style="font-size:22px; color:#546879">
       {{timezone}}:
     </div>
 
     <div id="leftBox" style="display:inline-block; position:relative; width:150px; top:-25px; font-size:15px; text-align:left;" class="nice">
     </div>
 
-    <div id="graph" class="nice" style="postion:relative; text-align:left; display:inline-block; height:90px; margin-top:5px; width:600px;">
+    <div id="graph" class="nice" style="position:relative; top:-10px; text-align:left; display:inline-block; height:90px; margin-top:5px; width:600px;">
       <div id="nowThing"  v-bind:style="{ left:(scale(s.progress().day)-100)+'px' }" style="position:relative; display:inline-block; font-size:20px; text-align:center; max-width:200px; min-width:200px; color:#838d97;">
         {{s.format('month')+' '+s.format('ordinal')}}
         <div>
@@ -66,7 +66,7 @@
        </div>
      </div>
 
-     <div id="rightBox" style="position:relative; display:inline-block; width:150px; top:30px; margin-left:45px; font-size:14px; text-align:left;">
+     <div id="rightBox" style="position:relative; display:inline-block; width:150px; top:30px; margin-left:50px; font-size:14px; text-align:left;">
        <div class="fact">{{s.season()}}</div>
        <div v-bind:class="[s.isDST() ? 'yes' : 'no']" class="fact">dst</div>
        <div v-bind:class="{ no: !s.leapYear() }" class="fact">leap-year</div>
@@ -78,14 +78,14 @@
 
       <span class="tr nice control" v-for="c in controls">
         <div style="position:relative; text-align:center;">
-          <span class="minus">﹣</span>
-          {{s.hour12() + s.ampm()}}
-          <span class="plus">+</span>
+          <span class="minus" v-on:click="s.subtract(1, c.title)">﹣</span>
+          <span style="display:inline-block; width:40px; min-width:40px; max-width:40px;">{{c.render()}}</span>
+          <span class="plus" v-on:click="s.add(1, c.title)">+</span>
         </div>
         <div style="position:relative; top:-5px; color:silver; display:inline; border-bottom:1px solid silver; padding-bottom:6px;">
-          <i class="material-icons skip">skip_previous</i>
-          {{c.title}}
-          <i class="material-icons skip">skip_next</i>
+          <span class="skip" title="start-of" v-on:click="s.startOf(c.title)">⟻</span>
+          <span>{{c.title}}</span>
+          <span class="skip" title="end-of" v-on:click="s.endOf(c.title)">⟼</span>
         </div>
       </span>
 
@@ -93,7 +93,7 @@
   </div>
 
 
-  <div class="nice big middle">
+  <div class="nice big middle" style="margin-top:0px; padding-top:0px;">
     — <b>spacetime</b> date-utility —
     <div class="table">
       <span class="list tr">
@@ -138,6 +138,11 @@
   <div class="codemirror" id="html"></div>
   <div class="codemirror" id="node"></div>
 
+    <div style="margin-top:25px; text-align:center; color:silver; text-align:left; margin-left:15%;">
+      now go crazy:<br/>
+      <div class="codemirror" id="showoff"></div>
+    </div>
+
   <div id="explain" v-cloak>
     <div class="nice big" style="margin:20px;">how the?</div>
     <div style="margin-left:10%;">
@@ -146,6 +151,13 @@
       </div>
       <div class="table">
         <span class="tr nice">
+          <b>[Fake-Paris]</b><br/>
+          time
+        </span>
+        <span class="tr nice math">
+          <b>=</b>
+        </span>
+        <span class="tr nice">
           Epoch time<br/>
           (<b>{{epoch}}</b>)
         </span>
@@ -153,23 +165,16 @@
           <b>﹣</b>
         </span>
         <span class="tr nice">
-          you computer's offset<br/>
+          your computer's offset<br/>
           (<b>{{offset}}</b> mins)
         </span>
         <span class="tr nice math">
           <b>+</b>
         </span>
         <span class="tr nice">
-          current offset of<br/>
+          current offset<br/>
           <b>Europe/Paris</b><br/>
           (with DST)
-        </span>
-        <span class="tr nice math">
-          <b>=</b>
-        </span>
-        <span class="tr nice">
-          <b>[Fake-Paris]</b><br/>
-          time
         </span>
       </div>
       <div class="codemirror" id="doc"></div>
