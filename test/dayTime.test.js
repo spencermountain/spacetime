@@ -78,3 +78,20 @@ test('daytime-sanity-test', (t) => {
 
   t.end();
 });
+
+test('asleep-test', (t) => {
+  let s = spacetime.now();
+  s.dayTime('night');
+  t.equal(s.isAsleep(), true, 'sleeping at night');
+  s.hour(2);
+  t.equal(s.isAsleep(), true, 'sleeping at 2am');
+  s.hour12(4);
+  t.equal(s.isAsleep(), true, 'sleeping at 4am');
+  s.dayTime('lunch');
+  t.equal(s.isAsleep(), false, 'awake at lunch');
+  s.hour24(14);
+  t.equal(s.isAsleep(), false, 'awake at 2pm');
+  s.dayTime('evening');
+  t.equal(s.isAsleep(), false, 'awake at evening');
+  t.end();
+});

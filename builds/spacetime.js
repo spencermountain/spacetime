@@ -2324,6 +2324,44 @@ var methods = {
     }
     return this.d.getFullYear();
   },
+  dayTime: function dayTime(str) {
+    if (str !== undefined) {
+      var times = {
+        morning: '7:00am',
+        breakfast: '7:00am',
+        noon: '12:00am',
+        lunch: '12:00pm',
+        afternoon: '2:00pm',
+        evening: '6:00pm',
+        dinner: '6:00pm',
+        night: '11:00pm',
+        midnight: '23:59pm'
+      };
+      str = str || '';
+      str = str.toLowerCase();
+      if (times[str]) {
+        this.time(times[str]);
+      }
+      return this;
+    }
+    var h = this.hour();
+    if (h < 6) {
+      return 'night';
+    }
+    if (h < 12) {
+      //until noon
+      return 'morning';
+    }
+    if (h < 17) {
+      //until 5pm
+      return 'afternoon';
+    }
+    if (h < 22) {
+      //until 10pm
+      return 'evening';
+    }
+    return 'night';
+  },
   dayOfYear: function dayOfYear(num) {
     if (num !== undefined) {
       this.epoch = set.dayOfYear(this, num);
@@ -2557,7 +2595,12 @@ module.exports = {
   time: function time(s, str) {
     var m = str.match(/([0-9]{1,2}):([0-9]{1,2})(am|pm)?/);
     if (!m) {
-      return s.epoch;
+      //fallback to support just '2am'
+      m = str.match(/([0-9]{1,2})(am|pm)/);
+      if (!m) {
+        return s.epoch;
+      }
+      m.splice(2, 0, '0'); //add implicit 0 minutes
     }
     var h24 = false;
     var hour = parseInt(m[1], 10);
@@ -2565,8 +2608,16 @@ module.exports = {
     if (hour > 12) {
       h24 = true;
     }
-    if (!h24 && m[3] === 'pm') {
-      hour += 12;
+    //make the hour into proper 24h time
+    if (h24 === false) {
+      if (m[3] === 'am' && hour === 12) {
+        //12am is midnight
+        hour = 0;
+      }
+      if (m[3] === 'pm' && hour < 12) {
+        //12pm is noon
+        hour += 12;
+      }
     }
     s.hour(hour);
     s.minute(minute);
