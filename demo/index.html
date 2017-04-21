@@ -3,6 +3,7 @@
   <meta charset="utf-8">
   <link href="./index.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="lib/codemirror.css">
   <link rel="stylesheet" href="lib/mytheme.css">
 </head>
@@ -22,19 +23,16 @@
     but this library, it's really small ✨
   </div>
   <div id="today" style="text-align:center;" v-cloak>
-    <div id="leftBox" style="display:inline-block; width:150px; font-size:15px; text-align:left;" class="nice">
-      <div>
-        {{s.format('day')}}
-      </div>
-      {{s.format('month')+' '+s.format('date-ordinal')}}
-      <div>
-        {{s.year()}}
-      </div>
+    <div class="nice" style="font-size:22px; color:#6b7279">
+      {{timezone}}:
     </div>
 
-    <div id="graph" class="nice" style="postion:relative; text-align:left; display:inline-block; height:90px; margin-top:60px; width:600px;">
-      <div id="nowThing"  v-bind:style="{ left:(scale(s.progress().day)-100)+'px' }" style="position:relative; display:inline-block; font-size:22px; text-align:center; max-width:200px; min-width:200px;">
-        {{timezone}}
+    <div id="leftBox" style="display:inline-block; position:relative; width:150px; top:-25px; font-size:15px; text-align:left;" class="nice">
+    </div>
+
+    <div id="graph" class="nice" style="postion:relative; text-align:left; display:inline-block; height:90px; margin-top:5px; width:600px;">
+      <div id="nowThing"  v-bind:style="{ left:(scale(s.progress().day)-100)+'px' }" style="position:relative; display:inline-block; font-size:20px; text-align:center; max-width:200px; min-width:200px; color:#838d97;">
+        {{s.format('month')+' '+s.format('ordinal')}}
         <div>
           {{s.time()}}
         </div>
@@ -56,7 +54,7 @@
       </div>
       <div id="yearline" style="position:relative; top:15px; height:3px;" >
         <span  v-for="m,i in months">
-          <span v-bind:style="{backgroundColor:m, left:50*i+'px'}" style="position:absolute; width:50px; top:0px; height:3px; opacity:0.6;"></span>
+          <span v-bind:style="{backgroundColor:m, left:50*i+'px'}" style="position:absolute; border-radius:1px; width:50px; top:0px; height:3px; opacity:0.8;"></span>
         </span>
         <div class="month" style="left:0px;">january</div>
         <div class="month" style="left:100px;">march</div>
@@ -64,24 +62,30 @@
         <div class="month" style="left:300px;">july</div>
         <div class="month" style="left:400px;">september</div>
         <div class="month" style="left:500px;">november</div>
-        <div id="nowYear"  v-bind:style="{ left:(scale(s.progress().year)-7)+'px' }" class="nowYear">&nbsp;</div>
+        <div id="nowYear"  v-bind:style="{ left:(scale(s.progress().year)-7)+'px' }" class="nowYear" v-bind:title="s.format('nice')">&nbsp;</div>
        </div>
      </div>
 
-     <div id="rightBox" style="display:inline-block;">
-       <span style="margin-left:30px;">DST: {{s.isDST() ? 'on' : 'off'}}</span>
-       <span style="margin-left:30px;">leapYear: {{s.leapYear() ? 'yes' : 'no'}}</span>
+     <div id="rightBox" style="position:relative; display:inline-block; width:150px; top:30px; margin-left:45px; font-size:14px; text-align:left;">
+       <div class="fact">{{s.season()}}</div>
+       <div v-bind:class="[s.isDST() ? 'yes' : 'no']" class="fact">dst</div>
+       <div v-bind:class="{ no: !s.leapYear() }" class="fact">leap-year</div>
+       <div class="fact">Q{{s.quarter()}}</div>
+       <div class="fact">{{s.dayTime()}}</div>
      </div>
 
-    <div class="table" style="margin-top:40px;">
+    <div class="table" style="margin-top:40px; text-align:center;">
 
       <span class="tr nice control" v-for="c in controls">
-        <span class="minus">﹣</span>
-        {{s.hour12() + s.ampm()}}
-        <span class="plus">+</span>
-        <br/>
-        <div style="position:relative; top:-5px; color:silver; display:inline; padding-left:25px; padding-right:25px; border-bottom:1px solid silver;">
+        <div style="position:relative; text-align:center;">
+          <span class="minus">﹣</span>
+          {{s.hour12() + s.ampm()}}
+          <span class="plus">+</span>
+        </div>
+        <div style="position:relative; top:-5px; color:silver; display:inline; border-bottom:1px solid silver; padding-bottom:6px;">
+          <i class="material-icons skip">skip_previous</i>
           {{c.title}}
+          <i class="material-icons skip">skip_next</i>
         </div>
       </span>
 

@@ -118,16 +118,16 @@
   color:steelblue;
   cursor:pointer;
   font-size:29px;
-  margin-left:4px;
+  margin:4px;
   position:relative;
   /*top:-15px;*/
 }
 .minus {
   color:darkred;
   cursor:pointer;
-  font-size:35px;
-  margin:0px;
-  border-radius:2px 4px 4px 2px;
+  font-size:29px;
+  margin:4px;
+  font-weight:600;
   position:relative;
   /*top:-15px;*/
 }
@@ -155,4 +155,34 @@
   background-color:#d889a6;
   border:1px solid #b65d7e;
   opacity:0.8;
+}
+.fact {
+  color: #6b7279;
+  line-height:120%;
+  font-size:16px;
+}
+.yes {
+}
+.yes::after {
+  content: " ✔️";
+  font-size:11px;
+}
+.no {
+  text-decoration:line-through;;
+}
+.no::after {
+  content: " ✖️";
+  font-size:11px;
+}
+.skip {
+  font-size:10px;
+  color:#a09c9c;
+  margin-left:4px;
+  margin-right:4px;
+  position:relative;
+  top:8px;
+  cursor:pointer;
+}
+.skip:hover {
+  color:steelblue;
 }

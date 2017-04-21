@@ -6,8 +6,6 @@ map.attr('width', width).attr('height', height);
 var dayWidth = 600;
 var scale = d3.scale.linear();
 scale.range([0, dayWidth]).domain([0, 1]);
-var dayel = d3.select('#map').append('svg');
-dayel.attr('width', dayWidth).attr('height', 300);
 
 var s = spacetime();
 
