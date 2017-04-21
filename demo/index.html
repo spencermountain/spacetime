@@ -22,7 +22,6 @@
     but this library, it's really small ✨
   </div>
   <div id="today" style="text-align:center;" v-cloak>
-
     <div id="leftBox" style="display:inline-block; width:150px; font-size:15px; text-align:left;" class="nice">
       <div>
         {{s.format('day')}}
@@ -35,7 +34,7 @@
 
     <div id="graph" class="nice" style="postion:relative; text-align:left; display:inline-block; height:90px; margin-top:60px; width:600px;">
       <div id="nowThing"  v-bind:style="{ left:(scale(s.progress().day)-100)+'px' }" style="position:relative; display:inline-block; font-size:22px; text-align:center; max-width:200px; min-width:200px;">
-        {{s.timezone().name}}
+        {{timezone}}
         <div>
           {{s.time()}}
         </div>
@@ -55,17 +54,26 @@
         <div style="position:absolute; left:73%;">6pm</div>
         <div style="position:absolute; left:86%;">10pm</div>
       </div>
-      <span id="yearline" style="position:relative; height:3px;"  v-for="m,i in months">
-        <span v-bind:style="{backgroundColor:m, left:50*i+'px'}" style="position:absolute; width:50px; top:0px; height:3px; "></span>
-      </span>
+      <div id="yearline" style="position:relative; top:15px; height:3px;" >
+        <span  v-for="m,i in months">
+          <span v-bind:style="{backgroundColor:m, left:50*i+'px'}" style="position:absolute; width:50px; top:0px; height:3px; opacity:0.6;"></span>
+        </span>
+        <div class="month" style="left:0px;">january</div>
+        <div class="month" style="left:100px;">march</div>
+        <div class="month" style="left:200px;">may</div>
+        <div class="month" style="left:300px;">july</div>
+        <div class="month" style="left:400px;">september</div>
+        <div class="month" style="left:500px;">november</div>
+        <div id="nowYear"  v-bind:style="{ left:(scale(s.progress().year)-7)+'px' }" class="nowYear">&nbsp;</div>
+       </div>
      </div>
 
      <div id="rightBox" style="display:inline-block;">
-       <span style="margin-left:30px;">DST: {{s.inDST() ? 'on' : 'off'}}</span>
+       <span style="margin-left:30px;">DST: {{s.isDST() ? 'on' : 'off'}}</span>
        <span style="margin-left:30px;">leapYear: {{s.leapYear() ? 'yes' : 'no'}}</span>
      </div>
 
-    <div class="table" >
+    <div class="table" style="margin-top:40px;">
 
       <span class="tr nice control" v-for="c in controls">
         <span class="minus">﹣</span>
@@ -221,6 +229,5 @@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <script src="./codemirror.js"></script>
-<script src="./map.js"></script>
 <script src="./day/index.js"></script>
 <script src="./explain.js"></script>

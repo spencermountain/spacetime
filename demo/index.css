@@ -131,3 +131,28 @@
   position:relative;
   /*top:-15px;*/
 }
+
+.month{
+  position:absolute;
+  text-align:left;
+  /*font-family:'times';*/
+  top:5px;
+  /*color:silver;*/
+  /*font-size:11px;*/
+  color:lightgrey;
+  font-weight:400;
+  font-family: 'Bitter', serif;
+  font-size:9px;
+}
+.nowYear {
+  display:block;
+  position:absolute;
+  top:-7px;
+  width:15px;
+  text-align:center;
+  height:15px;
+  border-radius:3px;
+  background-color:#d889a6;
+  border:1px solid #b65d7e;
+  opacity:0.8;
+}

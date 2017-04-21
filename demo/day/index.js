@@ -15,15 +15,16 @@ window.day = new Vue({
   el: '#today',
   data: {
     s: s,
+    hi: 'world',
     timezone: s.timezone().name,
     scale: scale,
-    progress: 50,
+    time: s.format('time-12h'),
     tzData: [],
     months: [
       '#844448',
       '#95A572',
       '#B698BC',
-      '#534B52',
+      '#f5f1c5',
       '#C9AFAF',
       '#839A9E',
       '#C7DCE0',
@@ -31,6 +32,7 @@ window.day = new Vue({
       '#DDEDD0',
       '#BA7171',
       '#818687',
+      '#7abbc3',
     ],
     controls: [
       {
@@ -53,6 +55,7 @@ window.day = new Vue({
   methods: {
 
     changeTZ: function(tz) {
+      s.goto(tz);
       this.timezone = tz;
     },
 
@@ -71,7 +74,8 @@ window.day = new Vue({
         .enter().append('path')
         .attr('d', path)
         .on('click', (d) => {
-          this.timezone = d.id;
+          console.log(d.id);
+          this.changeTZ(d.id);
           this.drawMap();
         })
         .attr('fill', (d) => {
@@ -95,7 +99,6 @@ window.day = new Vue({
 
   },
   created() {
-    console.log('hi');
     d3.json('./lib/timezones.json', (error, timezones) => {
       this.tzData = timezones;
       this.drawMap();
