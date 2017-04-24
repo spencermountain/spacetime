@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v0.0.14
+/* @smallwins/spacetime v0.0.15
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -1298,7 +1298,7 @@ module.exports={
 },{}],3:[function(_dereq_,module,exports){
 module.exports={
   "name": "@smallwins/spacetime",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache 2.0",
@@ -1762,12 +1762,12 @@ var methods = {
   //pretty-printing
   log: function log() {
     console.log('');
-    console.log(_format(this).nice.short);
+    console.log(_format(this, 'nice-short'));
     return this;
   },
   logYear: function logYear() {
     console.log('');
-    console.log(_format(this).date.short + ' ' + this.year());
+    console.log(_format(this, 'full-short'));
     return this;
   }
 };
@@ -1987,13 +1987,13 @@ var fmt = {
     return '\'' + ('' + s.year()).substr(2, 4);
   },
   'numeric-us': function numericUs(s) {
-    return fns.zeroPad(s.month()) + '/' + fns.zeroPad(s.date()) + '/' + s.year(); //mm/dd/yyyy
+    return fns.zeroPad(s.month() + 1) + '/' + fns.zeroPad(s.date()) + '/' + s.year(); //mm/dd/yyyy
   },
   'numeric-uk': function numericUk(s) {
-    return fns.zeroPad(s.date()) + '/' + fns.zeroPad(s.month()) + '/' + s.year(); //dd/mm/yyyy
+    return fns.zeroPad(s.date()) + '/' + fns.zeroPad(s.month() + 1) + '/' + s.year(); //dd/mm/yyyy
   },
   'numeric-cn': function numericCn(s) {
-    return s.year() + '/' + fns.zeroPad(s.month()) + '/' + fns.zeroPad(s.date()); //yyyy/mm/dd
+    return s.year() + '/' + fns.zeroPad(s.month() + 1) + '/' + fns.zeroPad(s.date()); //yyyy/mm/dd
   },
   'iso': function iso(s) {
     var month = fns.zeroPad(s.month() + 1); //1-based months

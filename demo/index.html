@@ -6,6 +6,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="lib/codemirror.css">
   <link rel="stylesheet" href="lib/mytheme.css">
+  <meta id="myViewport" name="viewport" content="width = 900">
 </head>
 <body>
   <a class="topright" href="https://github.com/smallwins/spacetime">
@@ -223,11 +224,11 @@
 
     <!-- docs/api -->
       <div class="nice big" style="margin:20px;">API:</div>
-      <div style="width:70%; margin-left:15%; height:40px;position:relative;">
+      <div style="width:80%; margin-left:15%; height:40px;position:relative;">
         <div v-if="doc.title">
-          <b style="color:grey; font-size:20px;">{{doc.title}}:</b>
+          <b style="color:grey; font-size:25px;">{{doc.title}}():</b>
           <span style="color:grey; margin:10px;">{{doc.doc}}</span>
-          <span style="color:steelblue; margin:10px; position:relative; right:0px;">returns: <b>{{doc.out}}</b></span>
+          <span style="color:steelblue; margin:10px; position:relative; right:0px; white-space: nowrap;">returns: <b>{{doc.out}}</b></span>
         </div>
       </div>
       <div class="table">

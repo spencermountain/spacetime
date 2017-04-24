@@ -62,10 +62,10 @@ things it does:
 * **get/set** in remote timezones (like in [moment-timezone](http://momentjs.com))
 * **Daylight-Savings-Time** and **leap-year** support + lookup
 * comparison of remote dates
-* 33k, <b>IE9+</b>
+* 35k, <b>IE9+</b>
 
 ## API
-<h3 align="center"> 
+<h3 align="center">
   <a href="https://github.com/smallwins/spacetime/wiki">Some Gotchas</a>
   <span>&nbsp; | &nbsp;</span>
   <a href="https://github.com/smallwins/spacetime/wiki/Formatting">Date formatting</a>

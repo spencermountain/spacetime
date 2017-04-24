@@ -151,23 +151,23 @@ module.exports = {
       out: 'Object'
     },
     leapYear: {
-      doc: '',
+      doc: 'is the current year a leap year?',
       out: 'Boolean'
     },
     inDST: {
-      doc: '',
+      doc: 'is daylight-savings-time activated right now, for this timezone?',
       out: 'Boolean'
     },
     hasDST: {
-      doc: '',
+      doc: 'does this timezone ever use daylight-savings',
       out: 'Boolean'
     },
     offset: {
-      doc: '',
+      doc: 'the current, DST-aware time-difference from UTC, in hours',
       out: 'Number'
     },
     isAsleep: {
-      doc: '',
+      doc: 'checks if the current time is between 10pm and 8am',
       out: 'Boolean'
     }
 
