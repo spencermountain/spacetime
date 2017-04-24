@@ -1,5 +1,4 @@
 <div align="center">
-<img src="https://secure.static.tumblr.com/7653f7f83998032c1e64715e772ea3a9/hssca6q/nupn5y48d/tumblr_static_tumblr_static_8ctif1c8h20wsk8ck4404oc4k_640.gif"/>
   <h3>
    🌠 think about it this way,
   </h3>
@@ -63,9 +62,16 @@ things it does:
 * **get/set** in remote timezones (like in [moment-timezone](http://momentjs.com))
 * **Daylight-Savings-Time** and **leap-year** support + lookup
 * comparison of remote dates
-* 30k, <b>IE9+</b>
+* 33k, <b>IE9+</b>
 
 ## API
+<h3 align="center"> 
+  <a href="https://github.com/smallwins/spacetime/wiki">Some Gotchas</a>
+  <span>&nbsp; | &nbsp;</span>
+  <a href="https://github.com/smallwins/spacetime/wiki/Formatting">Date formatting</a>
+  <span>&nbsp; | &nbsp;</span>
+  <a href="https://github.com/smallwins/spacetime/wiki/Input">Input formats</a>
+</h3>
 ```js
 var spacetime=require('spacetime')
 
@@ -138,15 +144,6 @@ s.progress().month = 0.23 //(we're a quarter-way through the month)
 s.progress().day = 0.48   //almost noon!
 s.progress().hour = 0.99  //8:59 and 59seconds
 ```
-
-<h3 align="center"> 
-  <a href="https://github.com/smallwins/spacetime/wiki">Some Gotchas</a>
-  <span>&nbsp; | &nbsp;</span>
-  <a href="https://github.com/smallwins/spacetime/wiki/Formatting">Date formatting</a>
-  <span>&nbsp; | &nbsp;</span>
-  <a href="https://github.com/smallwins/spacetime/wiki/Input">Input formats</a>
-</h3>
-
 
 made by [Smallwins](https://smallwins.today/)
 Apache-2
