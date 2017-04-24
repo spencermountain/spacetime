@@ -16,7 +16,7 @@
 
 # More information
 ## [Date formatting in Spacetime](https://github.com/smallwins/spacetime/wiki/Formatting)
-## [Date input methods](https://github.com/smallwins/spacetime/wiki/Input)
+## [Date inputs](https://github.com/smallwins/spacetime/wiki/Input)
 ## [More information, consideration, and caveats](https://github.com/smallwins/spacetime/wiki)
 
 
