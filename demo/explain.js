@@ -3,6 +3,18 @@ new Vue({
   data: {
     epoch: Date.now(),
     offset: new Date().getTimezoneOffset(),
+    doc: {},
+    docs: {
+      main: {},
+      getters: {},
+      utils: {},
+    },
   },
-  methods: {}
+  methods: {},
+  created: function() {
+    d3.json('./lib/docs.json', (error, docs) => {
+      console.log(docs);
+      this.docs = docs;
+    });
+  }
 });

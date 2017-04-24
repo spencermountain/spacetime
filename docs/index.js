@@ -1,63 +1,37 @@
 module.exports = {
-  utils: {
-    //misc
+  main: {
     goto: {
       doc: 'move to a new timezone, but at this same moment. Accepts a IANA code.',
-      out: 'self'
-    },
-    set: {
-      doc: 'change to a new date. ',
-      out: 'self'
-    },
-    d: {
-      doc: 'return a javascript date object for this time',
-      out: 'self'
-    },
-    isValid: {
-      doc: 'does this time exist on the gregorian/javascript calendar?',
       out: 'self'
     },
     clone: {
       doc: 'make a copy of this object, with no references to the original',
       out: 'self'
     },
-    log: {
-      doc: 'pretty-print the date to the console, for nicer debugging',
-      out: 'self'
-    },
-
-    //get
     timezone: {
       doc: 'return a bunch of meta-data about your current timezone',
-      out: 'Object'
-    },
-    progress: {
-      doc: 'Between 0-1, how far the moment lands between the start and end of the day/week/month/year.',
       out: 'Object'
     },
     format: {
       doc: 'output nicely-formatted strings',
       out: 'String/Object'
     },
-    leapYear: {
+    //set
+    startOf: {
       doc: '',
-      out: 'Boolean'
+      out: 'self'
     },
-    inDST: {
+    endOf: {
       doc: '',
-      out: 'Boolean'
+      out: 'self'
     },
-    hasDST: {
+    add: {
       doc: '',
-      out: 'Boolean'
+      out: 'self'
     },
-    offset: {
+    subtract: {
       doc: '',
-      out: 'Number'
-    },
-    isAsleep: {
-      doc: '',
-      out: 'Boolean'
+      out: 'self'
     },
     //comparison
     isAfter: {
@@ -80,25 +54,8 @@ module.exports = {
       doc: '',
       out: 'Number'
     },
-
-    //set
-    startOf: {
-      doc: '',
-      out: 'self'
-    },
-    endOf: {
-      doc: '',
-      out: 'self'
-    },
-    add: {
-      doc: '',
-      out: 'self'
-    },
-    subtract: {
-      doc: '',
-      out: 'self'
-    },
   },
+
   //getter/setters
   getters: {
     millisecond: {
@@ -173,5 +130,52 @@ module.exports = {
       doc: '',
       out: 'self/String'
     },
+  },
+
+  utils: {
+    set: {
+      doc: 'change to a new date. ',
+      out: 'self'
+    },
+    d: {
+      doc: 'return a javascript date object for this time',
+      out: 'self'
+    },
+    isValid: {
+      doc: 'does this time exist on the gregorian/javascript calendar?',
+      out: 'self'
+    },
+    log: {
+      doc: 'pretty-print the date to the console, for nicer debugging',
+      out: 'self'
+    },
+    //get
+    progress: {
+      doc: 'Between 0-1, how far the moment lands between the start and end of the day/week/month/year.',
+      out: 'Object'
+    },
+    leapYear: {
+      doc: '',
+      out: 'Boolean'
+    },
+    inDST: {
+      doc: '',
+      out: 'Boolean'
+    },
+    hasDST: {
+      doc: '',
+      out: 'Boolean'
+    },
+    offset: {
+      doc: '',
+      out: 'Number'
+    },
+    isAsleep: {
+      doc: '',
+      out: 'Boolean'
+    }
+
   }
 };
+
+// console.log(JSON.stringify(module.exports, null, 2));

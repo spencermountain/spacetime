@@ -179,9 +179,9 @@
       </div>
       <div class="codemirror" id="doc"></div>
     </div>
-       <div class="nice explain" style="margin-top:25px; margin-left:25px;">
-        that's not too bad.
-      </div>
+    <div class="nice explain" style="margin-top:25px; margin-left:25px;">
+      that's not too bad.
+    </div>
     <div class="nice explain" style="margin-left:10%;">
       <p>
         but hold up -
@@ -221,6 +221,42 @@
       </div>
     </div>
 
+    <!-- docs/api -->
+      <div class="nice big" style="margin:20px;">API:</div>
+      <div style="width:70%; margin-left:15%; height:40px;position:relative;">
+        <div v-if="doc.title">
+          <b style="color:grey; font-size:20px;">{{doc.title}}:</b>
+          <span style="color:grey; margin:10px;">{{doc.doc}}</span>
+          <span style="color:steelblue; margin:10px; position:relative; right:0px;">returns: <b>{{doc.out}}</b></span>
+        </div>
+      </div>
+      <div class="table">
+        <div class="tr">
+          <div class="subheading"> main:</div>
+          <div style="text-align:left; margin-left:30%;">
+            <div class="method" v-for="k in Object.keys(docs.main)" v-on:click="doc=docs.main[k]; doc.title=k">
+              {{k}}()
+            </div>
+          </div>
+        </div>
+        <div class="tr">
+          <div class="subheading">getters/setters</div>
+          <div style="text-align:left; margin-left:30%;">
+            <div class="method" v-for="k in Object.keys(docs.getters)" v-on:click="doc=docs.getters[k]; doc.title=k">
+              {{k}}()
+            </div>
+          </div>
+        </div>
+        <div class="tr">
+          <div class="subheading"> utils:</div>
+          <div style="text-align:left; margin-left:30%;">
+            <div class="method" v-for="k in Object.keys(docs.utils)" v-on:click="doc=docs.utils[k]; doc.title=k">
+              {{k}}()
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
   <p></p>
