@@ -18,40 +18,40 @@ module.exports = {
     },
     //set
     startOf: {
-      doc: '',
+      doc: 'move to the first millisecond of the day, week, month, year, etc.',
       out: 'self'
     },
     endOf: {
-      doc: '',
+      doc: 'move to the last millisecond of the day, week, month, year, etc.',
       out: 'self'
     },
     add: {
-      doc: '',
+      doc: 'increment the time by a number and unit - like an hour, minute, day, or year',
       out: 'self'
     },
     subtract: {
-      doc: '',
+      doc: 'decrease the time by a number and unit - like an hour, minute, day, or year',
       out: 'self'
     },
     //comparison
     isAfter: {
-      doc: '',
+      doc: 'pass-in a spacetime object or date input and see if it takes-place after your spacetime date/time',
       out: 'Boolean'
     },
     isBefore: {
-      doc: '',
+      doc: 'pass-in a spacetime object or date input and see if it takes-place before your spacetime date/time',
       out: 'Boolean'
     },
     isEqual: {
-      doc: '',
+      doc: 'is this date on the exact same millisecond as another',
       out: 'Boolean'
     },
     isSame: {
-      doc: '',
+      doc: ' detect if two date/times are the same day, week, or year, etc',
       out: 'Boolean'
     },
     diff: {
-      doc: '',
+      doc: 'given a date amd a unit, count how many of them you\'d need to make the dates equal',
       out: 'Number'
     },
   },
@@ -59,75 +59,71 @@ module.exports = {
   //getter/setters
   getters: {
     millisecond: {
-      doc: '',
+      doc: 'set or return the current number of milliseconds (0-999)',
       out: 'self/Number'
     },
     second: {
-      doc: '',
+      doc: 'set or return the current number of seconds (0-59)',
       out: 'self/Number'
     },
     minute: {
-      doc: '',
+      doc: 'set or return the current number of minutes (0-59)',
       out: 'self/Number'
     },
     hour: {
-      doc: '',
+      doc: 'set or return the current hour, in 24 time (0-23). also accepts/parses \'3pm\'',
       out: 'self/Number'
     },
     date: {
-      doc: '',
+      doc: 'set or return the day-number of the month (1- max31)',
       out: 'self/Number'
     },
     month: {
-      doc: '',
+      doc: 'set or return the zero-based month-number (0-11). Also accepts \'June\', or \'oct\'.',
       out: 'self/Number'
     },
     year: {
-      doc: '',
+      doc: 'set or return the 4-digit year as an integer',
       out: 'self/Number'
     },
     dayOfYear: {
-      doc: '',
+      doc: 'set or return the day of the year (1-366). Jan 1st is 1, Dec 31st is 366.',
       out: 'self/Number'
     },
     time: {
-      doc: '',
+      doc: 'set or return a formatted, 12-hour time, like \'11:30pm\'',
       out: 'self/Number'
     },
     week: {
-      doc: '',
+      doc: 'set or return the week-number of the year (1-52).',
       out: 'self/Number'
     },
     quarter: {
-      doc: '',
+      doc: 'set or return the fiscal-quarter (1-4)',
       out: 'self/Number'
     },
     season: {
-      doc: '',
+      doc: 'set or return the name of the season, spring/summer/fall/autumn/winter',
       out: 'self/String'
     },
     hourFloat: {
-      doc: '',
+      doc: 'set or return the hour + minute in decimal form, so \'3:30am\' is 3.5',
       out: 'self/Number'
     },
     day: {
-      doc: '',
+      doc: 'set or return the day of the week as an integer, starting on sunday (day-0). Also accepts names like \'wednesday\', or \'thurs\'',
       out: 'self/Number'
     },
     ampm: {
-      doc: '',
+      doc: 'set or return whether the time is am or pm',
       out: 'self/String'
     },
     dayTime: {
-      doc: '',
-      out: 'self/String'
-    },
-    dayName: {
-      doc: '',
+      doc: 'set or return the general time-of-day, like \'afternoon\'',
       out: 'self/String'
     },
     monthName: {
-      doc: '',
+      doc: 'set or return the current month as a string, like \'april\'',
       out: 'self/String'
     },
   },

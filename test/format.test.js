@@ -16,5 +16,9 @@ test('to-from utc-format', t => {
     t.equal(str, out, 'equal - ' + str);
   });
 
+  var str = '2016-01-01T09:00:00:122Z';
+  var s = spacetime(str, 'Canada/Eastern');
+  t.equal(s.format('iso'), str, 'input matches output');
+
   t.end();
 });

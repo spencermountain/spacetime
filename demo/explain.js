@@ -13,7 +13,6 @@ new Vue({
   methods: {},
   created: function() {
     d3.json('./lib/docs.json', (error, docs) => {
-      console.log(docs);
       this.docs = docs;
     });
   }
