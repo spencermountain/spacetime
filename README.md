@@ -72,6 +72,7 @@ things it does:
   <span>&nbsp; | &nbsp;</span>
   <a href="https://github.com/smallwins/spacetime/wiki/Input">Input formats</a>
 </h3>
+
 ```js
 var spacetime=require('spacetime')
 
