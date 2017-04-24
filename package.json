@@ -1,5 +1,5 @@
 {
-  "name": "@smallwins/spacetime",
+  "name": "spacetime",
   "version": "0.0.15",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
