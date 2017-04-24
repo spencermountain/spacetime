@@ -1,11 +1,11 @@
 # Spacetime 🌌🕟
 ## A lightweight way to manipulate, traverse, compare, and format dates and times across planet Earth
-- *Get/set* dates and times in remote timezones
-- Global support for *Daylight Savings Time*, *leap year*, and *hemispheres*
+- **Get/set** dates and times in remote timezones
+- Global support for **Daylight Savings Time**, **leap year**, and **hemispheres**
 - Orient by quarter, season, and week
 - Remote date comparison
-- Written in *ES2015 JS*, published as *ES5*, tested for Node and the browser
-- *Weighs in at just 35KB*
+- Written in **ES2015 JS**, published as **ES5**, tested for Node and the browser
+- **Weighs in at just 35KB**
 - Well tested, Apache2 licensed
 - Made by your friendly friends at [Begin](https://begin.com)
 
