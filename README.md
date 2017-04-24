@@ -15,13 +15,14 @@
 
 
 # More information
-## [Date formatting in Spacetime](https://github.com/smallwins/spacetime/wiki/Formatting)
-## [Date inputs](https://github.com/smallwins/spacetime/wiki/Input)
-## [More information, consideration, and caveats](https://github.com/smallwins/spacetime/wiki)
+### [Date formatting in Spacetime](https://github.com/smallwins/spacetime/wiki/Formatting)
+### [Date inputs](https://github.com/smallwins/spacetime/wiki/Input)
+### [More information, consideration, and caveats](https://github.com/smallwins/spacetime/wiki)
 
 
 # Testing
 In Node:
+
 `npm test`
 
 
@@ -29,26 +30,20 @@ In Node:
 ```javascript
 var spacetime=require('spacetime')
 
-//couple helpers
+// Some helpers
 s = spacetime.now()
 s = spacetime.today() //this morning
 s = spacetime.tomorrow() //tomorrow morning
 
-
-//date inputs
+// Date inputs
 s = spacetime(1489520157) //epoch
 s = spacetime([2017, 5, 2]) //yyyy, m, d  (zero-based months, 1-based days)
 s = spacetime('July 2, 2017 5:01:00')//iso-thing
 
-//remotely-understood date
+// Remotely understood date
 s = spacetime(1489520157, 'Canada/Pacific')
 
-//misc fns
-s.goto('Australia/Brisbane')  //roll-into a new timezone, at the same moment
-s.clone()   // make a copy
-s.isValid() // sept 32nd -> false
-
-//get/set methods
+// Get/set methods
 s.date() //14
 s.year() //2017
 s.season() //spring
@@ -58,43 +53,49 @@ s.day('monday') //change to (this weeks) monday
 s.month('march') //change to (this year's) march 1st
 s.quarter(2) //change to april 1st
 
-//add/subtract methods
+// Add/subtract methods
 s.add(1, 'week')
 s.add(3, 'quarters')
 s.subtract(2, 'months').add(1,'day')
 
-//timezone meta-data
+// Timezone metadata
 s.timezone().name //'Canada/Eastern' (either inferred or explicit)
 s.timezone().hemisphere //north
 s.timezone().current.offset //-240 (in minutes)
 s.timezone().current.isDst //true
 
-//comparisons
+// Comparisons
 let d = spacetime([2017, 5, 2])
-//gt/lt/equals
+
+// gt/lt/equals
 s.isAfter(d) //true
 s.isEqual(d) //false
 s.isBefore(d) //false
 
-//comparison-by-unit
+// Comparison by unit
 s.isSame(d, 'year') //true
 s.isSame(d, 'date') //false
 s.diff(d, 'day') // 5
 s.diff(d, 'month') // 0
 
-//formatting
+// Date + time ormatting
 s.format('time') //  '5:01am'
 s.format('numeric-uk') //  02/03/2017
 s.format('month') // 'April'
 s.format('month-short') // 'Apr'
 
-//calendar-sensitive movement
+// Calendar-sensitive movement
 s.startOf('day')   // 12:01am
 s.startOf('month') // 12:01am, april 1st
 s.endOf('quarter') // 11:59:59pm, june 30th
 
-//percentage-based information
+// Percentage-based information
 s.progress().month = 0.23 //(we're a quarter-way through the month)
 s.progress().day = 0.48   //almost noon!
 s.progress().hour = 0.99  //8:59 and 59seconds
+
+// Misc functions
+s.goto('Australia/Brisbane')  //roll-into a new timezone, at the same moment
+s.clone()   // make a copy
+s.isValid() // sept 32nd -> false
 ```
