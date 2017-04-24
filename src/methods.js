@@ -62,12 +62,12 @@ const methods = {
   //pretty-printing
   log: function() {
     console.log('');
-    console.log(format(this).nice.short);
+    console.log(format(this, 'nice-short'));
     return this;
   },
   logYear: function() {
     console.log('');
-    console.log(format(this).date.short + ' ' + this.year());
+    console.log(format(this, 'full-short'));
     return this;
   }
 };

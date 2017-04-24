@@ -15,19 +15,8 @@ const spacetime = require('./src');
 // s.log();
 
 
-let s = spacetime('March 1 2020', 'America/New_York');
-// let s = spacetime('March 1 2020', 'Africa/Abidjan');
-// s.dayTime('noon');
-s.time('12:01pm');
-// console.log(s.time());
-console.log(s.dayTime());
+//make a new date in a remote timezone:
 
-// s.goto('America/Los_Angeles');
-//Mar 1st, 1:20pm
-
-// s.subtract(1, 'days');
-//Feb 29th, 1:20pm (leap-year)
-// s.hour12('2am');
-// console.log(s.hour12());
-// console.log(s.hour12());
-// console.log(s.time());
+spacetime({
+  month: 'june',
+}).log(); //February 1st, 2016
