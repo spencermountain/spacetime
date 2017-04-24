@@ -1,79 +1,32 @@
-<div align="center">
-  <h3>
-   🌠 think about it this way,
-  </h3>
-  a <b>unix epoch</b> is like a <b>heart-beat</b> of the <b>entire universe</b>💫
-  <div>
-    <i>(you can get it <a href="http://www.convert-unix-time.com">online</a> or with <b>Date.now()</b>)</i>
-  </div>
-</div>
+# Spacetime 🌌🕟
+## A lightweight way to manipulate, traverse, compare, and format dates and times across planet Earth
+- *Get/set* dates and times in remote timezones
+- Global support for *Daylight Savings Time*, *leap year*, and *hemispheres*
+- Orient by quarter, season, and week
+- Remote date comparison
+- Written in *ES2015 JS*, published as *ES5*, tested for Node and the browser
+- *Weighs in at just 35KB*
+- Well tested, Apache2 licensed
+- Made by your friendly friends at [Begin](https://begin.com)
 
-<i>but look:</i>
-```js
-d = new Date(epoch)
-d.getHours()
-//hmmm
-```
-you computer <i>automatically</i> applies <b>the bias of your computer</b> when interpreting the date.
 
-<div align="left">
-  It can't do anything else.
-</div>
+# Install
+`npm install spacetime --save`
 
-<div align="center">
-  <h4>i mean, try to hack another timezone 😅</h4>
-</div>
-by pushing around the milliseconds:
 
-```js
-let here = new Date()
-let offset= 5 * 60 * 1000 // allons-y à Paris!
-paris = new Date(here.getTime() + offset)
-paris.getHours() // ohfuuuuuu
-```
-you may be surprised when you call `.getDate()`, or `.setDate()`, or anything really.
+# More information
+## [Date formatting in Spacetime](https://github.com/smallwins/spacetime/wiki/Formatting)
+## [Date input methods](https://github.com/smallwins/spacetime/wiki/Input)
+## [More information, consideration, and caveats](https://github.com/smallwins/spacetime/wiki)
 
-<b>i know right, computers.</b>
-<div align="center">
-  <img src="https://cloud.githubusercontent.com/assets/399657/23921748/277df1d8-08d6-11e7-8b64-d92be8750b4c.png"/>
-</div>
 
-<div align="center">
-  <h3>this is a wrapper of the js Date object</h3>
-</div>
+# Testing
+In Node:
+`npm test`
 
-Internally, it can **emulate** another timezone locally. So when you query it for calendar information, it's right:
 
-```js
-let s=spacetime('March 1 2020', 'America/New_York')
-s.time('4:20pm')
-
-s.goto('America/Los_Angeles')
-//Mar 1st, 1:20pm
-s.hour(4)
-//Mar 1st, 4:20pm
-
-s.subtract(1, 'day')
-//Feb 29th, 4:20pm (leap-year!)
-```
-
-things it does:
-
-* **get/set** in remote timezones (like in [moment-timezone](http://momentjs.com))
-* **Daylight-Savings-Time** and **leap-year** support + lookup
-* comparison of remote dates
-* 35k, <b>IE9+</b>
-
-## API
-<h3 align="center">
-  <a href="https://github.com/smallwins/spacetime/wiki">Some Gotchas</a>
-  <span>&nbsp; | &nbsp;</span>
-  <a href="https://github.com/smallwins/spacetime/wiki/Formatting">Date formatting</a>
-  <span>&nbsp; | &nbsp;</span>
-  <a href="https://github.com/smallwins/spacetime/wiki/Input">Input formats</a>
-</h3>
-
-```js
+# API
+```javascript
 var spacetime=require('spacetime')
 
 //couple helpers
@@ -145,6 +98,3 @@ s.progress().month = 0.23 //(we're a quarter-way through the month)
 s.progress().day = 0.48   //almost noon!
 s.progress().hour = 0.99  //8:59 and 59seconds
 ```
-
-made by [Smallwins](https://smallwins.today/)
-Apache-2
