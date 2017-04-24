@@ -17,6 +17,6 @@ const spacetime = require('./src');
 
 //make a new date in a remote timezone:
 
-spacetime({
-  month: 'june',
-}).log(); //February 1st, 2016
+var s = spacetime('2016/01/01');
+console.log(s.month()); // 0
+console.log(s.format('iso-short'));

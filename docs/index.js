@@ -2,99 +2,176 @@ module.exports = {
   utils: {
     //misc
     goto: {
-      doc: 'move to a new timezone, but at this same moment. Accepts a IANA code.'
+      doc: 'move to a new timezone, but at this same moment. Accepts a IANA code.',
+      out: 'self'
     },
     set: {
-      doc: 'change to a new date. '
+      doc: 'change to a new date. ',
+      out: 'self'
     },
     d: {
-      doc: 'return a javascript date object for this time'
+      doc: 'return a javascript date object for this time',
+      out: 'self'
     },
     isValid: {
-      doc: 'does this time exist on the gregorian/javascript calendar?'
+      doc: 'does this time exist on the gregorian/javascript calendar?',
+      out: 'self'
     },
     clone: {
-      doc: 'make a copy of this object, with no references to the original'
+      doc: 'make a copy of this object, with no references to the original',
+      out: 'self'
     },
     log: {
-      doc: 'pretty-print the date to the console, for nicer debugging'
+      doc: 'pretty-print the date to the console, for nicer debugging',
+      out: 'self'
     },
 
     //get
     timezone: {
-      doc: 'return a bunch of meta-data about your current timezone'
+      doc: 'return a bunch of meta-data about your current timezone',
+      out: 'Object'
     },
     progress: {
-      doc: 'Between 0-1, how far the moment lands between the start and end of the day/week/month/year.'
+      doc: 'Between 0-1, how far the moment lands between the start and end of the day/week/month/year.',
+      out: 'Object'
     },
     format: {
-      doc: 'output nicely-formatted strings'
+      doc: 'output nicely-formatted strings',
+      out: 'String/Object'
     },
     leapYear: {
-      doc: ''
+      doc: '',
+      out: 'Boolean'
     },
     inDST: {
-      doc: ''
+      doc: '',
+      out: 'Boolean'
     },
     hasDST: {
-      doc: ''
+      doc: '',
+      out: 'Boolean'
     },
     offset: {
-      doc: ''
+      doc: '',
+      out: 'Number'
     },
     isAsleep: {
-      doc: ''
+      doc: '',
+      out: 'Boolean'
     },
     //comparison
     isAfter: {
-      doc: ''
+      doc: '',
+      out: 'Boolean'
     },
     isBefore: {
-      doc: ''
+      doc: '',
+      out: 'Boolean'
     },
     isEqual: {
-      doc: ''
+      doc: '',
+      out: 'Boolean'
     },
     isSame: {
-      doc: ''
+      doc: '',
+      out: 'Boolean'
     },
     diff: {
-      doc: ''
+      doc: '',
+      out: 'Number'
     },
 
     //set
     startOf: {
-      doc: ''
+      doc: '',
+      out: 'self'
     },
     endOf: {
-      doc: ''
+      doc: '',
+      out: 'self'
     },
     add: {
-      doc: ''
+      doc: '',
+      out: 'self'
     },
     subtract: {
-      doc: ''
+      doc: '',
+      out: 'self'
     },
   },
   //getter/setters
   getters: {
-    millisecond: {},
-    second: {},
-    minute: {},
-    hour: {},
-    date: {},
-    month: {},
-    year: {},
-    dayOfYear: {},
-    time: {},
-    week: {},
-    quarter: {},
-    season: {},
-    hourFloat: {},
-    day: {},
-    ampm: {},
-    dayTime: {},
-    dayName: {},
-    monthName: {},
+    millisecond: {
+      doc: '',
+      out: 'self/Number'
+    },
+    second: {
+      doc: '',
+      out: 'self/Number'
+    },
+    minute: {
+      doc: '',
+      out: 'self/Number'
+    },
+    hour: {
+      doc: '',
+      out: 'self/Number'
+    },
+    date: {
+      doc: '',
+      out: 'self/Number'
+    },
+    month: {
+      doc: '',
+      out: 'self/Number'
+    },
+    year: {
+      doc: '',
+      out: 'self/Number'
+    },
+    dayOfYear: {
+      doc: '',
+      out: 'self/Number'
+    },
+    time: {
+      doc: '',
+      out: 'self/Number'
+    },
+    week: {
+      doc: '',
+      out: 'self/Number'
+    },
+    quarter: {
+      doc: '',
+      out: 'self/Number'
+    },
+    season: {
+      doc: '',
+      out: 'self/String'
+    },
+    hourFloat: {
+      doc: '',
+      out: 'self/Number'
+    },
+    day: {
+      doc: '',
+      out: 'self/Number'
+    },
+    ampm: {
+      doc: '',
+      out: 'self/String'
+    },
+    dayTime: {
+      doc: '',
+      out: 'self/String'
+    },
+    dayName: {
+      doc: '',
+      out: 'self/String'
+    },
+    monthName: {
+      doc: '',
+      out: 'self/String'
+    },
   }
 };

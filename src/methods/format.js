@@ -35,13 +35,13 @@ const fmt = {
     return '\'' + ('' + s.year()).substr(2, 4);
   },
   'numeric-us': (s) => {
-    return `${fns.zeroPad(s.month())}/${fns.zeroPad(s.date())}/${s.year()}`; //mm/dd/yyyy
+    return `${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}/${s.year()}`; //mm/dd/yyyy
   },
   'numeric-uk': (s) => {
-    return `${fns.zeroPad(s.date())}/${fns.zeroPad(s.month())}/${s.year()}`; //dd/mm/yyyy
+    return `${fns.zeroPad(s.date())}/${fns.zeroPad(s.month() + 1)}/${s.year()}`; //dd/mm/yyyy
   },
   'numeric-cn': (s) => {
-    return `${s.year()}/${fns.zeroPad(s.month())}/${fns.zeroPad(s.date())}`; //yyyy/mm/dd
+    return `${s.year()}/${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`; //yyyy/mm/dd
   },
   'iso': (s) => {
     let month = fns.zeroPad(s.month() + 1); //1-based months
