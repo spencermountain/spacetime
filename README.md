@@ -139,5 +139,11 @@ s.progress().day = 0.48   //almost noon!
 s.progress().hour = 0.99  //8:59 and 59seconds
 ```
 
+<div align="center"> 
+  <a href="https://github.com/smallwins/spacetime/wiki">Some Gotchas</a>&nsbp;|&nsbp;
+  <a href="https://github.com/smallwins/spacetime/wiki/Formatting">Date formatting</a>&nsbp;|&nsbp;
+  <a href="https://github.com/smallwins/spacetime/wiki/Input">Input formats</a>
+</div>
+
 made by [Smallwins](https://smallwins.today/)
 Apache-2
