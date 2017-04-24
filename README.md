@@ -142,7 +142,7 @@ s.progress().hour = 0.99  //8:59 and 59seconds
 <h3 align="center"> 
   <a href="https://github.com/smallwins/spacetime/wiki">Some Gotchas</a>
   <span>&nbsp; | &nbsp;</span>
-  <a href="https://github.com/smallwins/spacetime/wiki/Formatting">Date formatting</a>&nsbp;|&nsbp;
+  <a href="https://github.com/smallwins/spacetime/wiki/Formatting">Date formatting</a>
   <span>&nbsp; | &nbsp;</span>
   <a href="https://github.com/smallwins/spacetime/wiki/Input">Input formats</a>
 </h3>
