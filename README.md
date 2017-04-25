@@ -2,9 +2,7 @@
   <img width="800px" src=https://cloud.githubusercontent.com/assets/200964/25362769/e553c17a-290a-11e7-938d-ef2f12ec4c4c.jpg>
 </p>
 
-<!--
 [ ![Codeship Status for smallwins/spacetime](https://app.codeship.com/projects/6e9dace0-f88b-0134-515a-7e4075ae1ca2/status?branch=master)](https://app.codeship.com/projects/211003)
--->
 
 # Spacetime 🌌🕟
 ### A lightweight way to manipulate, traverse, compare, and format dates and times across planet Earth
