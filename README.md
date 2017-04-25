@@ -13,7 +13,7 @@
 - Orient by quarter, season, month, and week
 - Remote date comparison
 - Written in **ES2015 JS**, published as **ES5**, tested for Node and the browser
-- **Weighs in at just 35KB**
+- **Weighs in at just 35KB** _(which is 12KB gzipped…)_
 - Well tested, Apache2 licensed
 - Made by your friendly friends at [Begin](https://begin.com)
 
