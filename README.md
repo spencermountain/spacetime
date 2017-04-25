@@ -5,10 +5,10 @@
 [ ![Codeship Status for smallwins/spacetime](https://app.codeship.com/projects/6e9dace0-f88b-0134-515a-7e4075ae1ca2/status?branch=master)](https://app.codeship.com/projects/211003)
 
 # Spacetime 🌌🕟
-## A lightweight way to manipulate, traverse, compare, and format dates and times across planet Earth
+### A lightweight way to manipulate, traverse, compare, and format dates and times across planet Earth
 - **Get/set** dates and times in remote timezones
 - Global support for **Daylight Savings Time**, **leap year**, and **hemispheres**
-- Orient by quarter, season, and week
+- Orient by quarter, season, month, and week
 - Remote date comparison
 - Written in **ES2015 JS**, published as **ES5**, tested for Node and the browser
 - **Weighs in at just 35KB**
@@ -20,8 +20,7 @@
 `npm install spacetime --save`
 
 
-
-# Testing
+# Testing 
 In Node:
 
 `npm test`
