@@ -1301,7 +1301,7 @@ module.exports={
   "version": "0.0.15",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "scripts": {
     "build": "node ./scripts/build.js",
     "demo": "node ./scripts/demo.js",
