@@ -20,16 +20,17 @@
 `npm install spacetime --save`
 
 
-# More information
-### [Date formatting in Spacetime](https://github.com/smallwins/spacetime/wiki/Formatting)
-### [Date inputs](https://github.com/smallwins/spacetime/wiki/Input)
-### [More information, consideration, and caveats](https://github.com/smallwins/spacetime/wiki)
-
 
 # Testing
 In Node:
 
 `npm test`
+
+
+# More information
+### [Date formatting in Spacetime](https://github.com/smallwins/spacetime/wiki/Formatting)
+### [Date inputs](https://github.com/smallwins/spacetime/wiki/Input)
+### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
 
 
 # API
