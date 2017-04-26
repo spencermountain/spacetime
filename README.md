@@ -84,7 +84,7 @@ s.isSame(d, 'date') // False
 s.diff(d, 'day') // 5
 s.diff(d, 'month') // 0
 
-// Date + time ormatting
+// Date + time formatting
 s.format('time') // '5:01am'
 s.format('numeric-uk') // 02/03/2017
 s.format('month') // 'April'
