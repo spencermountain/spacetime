@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",

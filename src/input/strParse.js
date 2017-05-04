@@ -18,9 +18,9 @@ const parseHour = function(s, str) {
 };
 
 const strFmt = [
-  //iso-this 1998-05-30T22:00:00:000Z
+  //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
   {
-    reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9:]+)Z$/,
+    reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9:-]+)Z?$/,
     parse: (s, arr) => {
       let month = parseInt(arr[2], 10) - 1;
       walkTo(s, {
