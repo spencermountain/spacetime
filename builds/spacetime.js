@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v1.0.5
+/* @smallwins/spacetime v1.0.7
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -1298,7 +1298,7 @@ module.exports={
 },{}],3:[function(_dereq_,module,exports){
 module.exports={
   "name": "spacetime",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",
@@ -1333,7 +1333,6 @@ module.exports={
     "uglify-js": "2.7.0"
   }
 }
-
 },{}],4:[function(_dereq_,module,exports){
 'use strict';
 
@@ -1601,6 +1600,7 @@ var parseInput = function parseInput(s, input) {
     }
   }
   s.epoch = null;
+  s.valid = false;
   return;
 };
 module.exports = parseInput;
@@ -1629,7 +1629,7 @@ var parseHour = function parseHour(s, str) {
 var strFmt = [
 //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
 {
-  reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9:-]+)Z?$/,
+  reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9:-\\.]+)(Z|[0-9\-\+]+)?$/,
   parse: function parse(s, arr) {
     var month = parseInt(arr[2], 10) - 1;
     walkTo(s, {
@@ -1744,7 +1744,7 @@ var methods = {
     return _diff(this, d, unit);
   },
   isValid: function isValid() {
-    return !isNaN(this.d.getTime());
+    return this.valid && !isNaN(this.d.getTime());
   },
   //travel to this timezone
   goto: function goto(tz) {
@@ -1968,23 +1968,23 @@ var fmt = {
   'date-ordinal': function dateOrdinal(s) {
     return fns.ordinal(s.date());
   },
-  'month': function month(s) {
+  month: function month(s) {
     return fns.titleCase(months.long[s.month()]);
   },
   'month-short': function monthShort(s) {
     return fns.titleCase(months.short[s.month()]);
   },
-  'time': function time(s) {
+  time: function time(s) {
     return s.h12() + ':' + fns.zeroPad(s.minute()) + s.ampm(); //3:45pm
   },
   'time-24h': function time24h(s) {
     return s.hour() + ':' + fns.zeroPad(s.minute()); //13:45
   },
-  'year': function year(s) {
+  year: function year(s) {
     return '' + s.year();
   },
   'year-short': function yearShort(s) {
-    return '\'' + ('' + s.year()).substr(2, 4);
+    return "'" + ('' + s.year()).substr(2, 4);
   },
   'numeric-us': function numericUs(s) {
     return fns.zeroPad(s.month() + 1) + '/' + fns.zeroPad(s.date()) + '/' + s.year(); //mm/dd/yyyy
@@ -1995,7 +1995,7 @@ var fmt = {
   'numeric-cn': function numericCn(s) {
     return s.year() + '/' + fns.zeroPad(s.month() + 1) + '/' + fns.zeroPad(s.date()); //yyyy/mm/dd
   },
-  'iso': function iso(s) {
+  iso: function iso(s) {
     var month = fns.zeroPad(s.month() + 1); //1-based months
     var date = fns.zeroPad(s.date());
     var hour = fns.zeroPad(s.h24());
@@ -2061,6 +2061,10 @@ fmt['big-endian'] = fmt['numeric-cn'];
 
 //
 var format = function format(s, type) {
+  //don't print anything if it's invalid
+  if (s.isValid() !== true) {
+    return '';
+  }
   if (fmt && fmt[type]) {
     return fmt[type](s);
   }
@@ -2785,6 +2789,8 @@ var walkTo = function walkTo(s, wants) {
     }
     //make-sure it's valid
     if (!units[k].valid(n)) {
+      s.valid = false;
+      s.epoch = null;
       console.warn('invalid ' + k + ': ' + n);
       return;
     }
@@ -2939,6 +2945,8 @@ var methods = _dereq_('./methods');
 var SpaceTime = function SpaceTime(input, tz) {
   //the shift for the given timezone
   this.tz = tz || guessTz();
+  //don't output anything if it's invalid
+  this.valid = true;
   //every computer is somewhere- get this computer's built-in offset
   this.bias = new Date().getTimezoneOffset() || 0;
   //add getter/setters
