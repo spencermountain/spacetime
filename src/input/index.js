@@ -12,16 +12,8 @@ const fns = require('../fns');
 
 //support [2016, 03, 01] format
 const handleArray = function(s, arr) {
-  let order = [
-    'year',
-    'month',
-    'date',
-    'hour',
-    'minute',
-    'second',
-    'millisecond',
-  ];
-  for(let i = 0; i < arr.length; i++) {
+  let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
+  for (let i = 0; i < arr.length; i++) {
     let num = arr[i] || 0;
     s[order[i]](num);
   }
@@ -30,7 +22,7 @@ const handleArray = function(s, arr) {
 //support {year:2016, month:3} format
 const handleObject = function(s, obj) {
   let keys = Object.keys(obj);
-  for(let i = 0; i < keys.length; i++) {
+  for (let i = 0; i < keys.length; i++) {
     let unit = keys[i];
     if (s[unit] !== undefined) {
       let num = obj[unit] || 0;
@@ -75,7 +67,7 @@ const parseInput = (s, input) => {
     return;
   }
 
-  for(let i = 0; i < strFmt.length; i++) {
+  for (let i = 0; i < strFmt.length; i++) {
     let m = input.match(strFmt[i].reg);
     if (m) {
       strFmt[i].parse(s, m);
@@ -83,6 +75,7 @@ const parseInput = (s, input) => {
     }
   }
   s.epoch = null;
+  s.valid = false;
   return;
 };
 module.exports = parseInput;

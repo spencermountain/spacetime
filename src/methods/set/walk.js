@@ -4,7 +4,7 @@ const ms = require('../../data/milliseconds');
 //find the desired date by a increment/check while loop
 const units = {
   year: {
-    valid: (n) => n > 0 && n < 4000,
+    valid: n => n > 0 && n < 4000,
     walkTo: (s, n) => {
       while (s.year() < n) {
         s.epoch += ms.year;
@@ -15,7 +15,7 @@ const units = {
     }
   },
   month: {
-    valid: (n) => n >= 0 && n <= 11,
+    valid: n => n >= 0 && n <= 11,
     walkTo: (s, n) => {
       while (s.month() < n) {
         s.epoch += ms.day;
@@ -26,7 +26,7 @@ const units = {
     }
   },
   date: {
-    valid: (n) => n > 0 && n <= 31,
+    valid: n => n > 0 && n <= 31,
     walkTo: (s, n) => {
       while (s.date() < n) {
         s.epoch += ms.day;
@@ -37,7 +37,7 @@ const units = {
     }
   },
   hour: {
-    valid: (n) => n >= 0 && n < 24,
+    valid: n => n >= 0 && n < 24,
     walkTo: (s, n) => {
       while (s.hour() < n) {
         s.epoch += ms.hour;
@@ -48,7 +48,7 @@ const units = {
     }
   },
   minute: {
-    valid: (n) => n >= 0 && n < 60,
+    valid: n => n >= 0 && n < 60,
     walkTo: (s, n) => {
       while (s.minute() < n) {
         s.epoch += ms.minute;
@@ -59,7 +59,7 @@ const units = {
     }
   },
   second: {
-    valid: (n) => n >= 0 && n < 60,
+    valid: n => n >= 0 && n < 60,
     walkTo: (s, n) => {
       while (s.second() < n) {
         s.epoch += ms.second;
@@ -70,7 +70,7 @@ const units = {
     }
   },
   millisecond: {
-    valid: (n) => n >= 0 && n < 1000,
+    valid: n => n >= 0 && n < 1000,
     walkTo: (s, n) => {
       //do this one directly
       s.milliseconds(n);
@@ -81,7 +81,7 @@ const units = {
 const walkTo = (s, wants) => {
   let keys = Object.keys(units);
   let old = s.clone();
-  for(let i = 0; i < keys.length; i++) {
+  for (let i = 0; i < keys.length; i++) {
     let k = keys[i];
     let n = wants[k];
     if (n === undefined) {
@@ -92,6 +92,8 @@ const walkTo = (s, wants) => {
     }
     //make-sure it's valid
     if (!units[k].valid(n)) {
+      s.valid = false;
+      s.epoch = null;
       console.warn('invalid ' + k + ': ' + n);
       return;
     }

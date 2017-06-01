@@ -20,13 +20,13 @@ const parseHour = function(s, str) {
 const strFmt = [
   //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
   {
-    reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9:-]+)Z?$/,
+    reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9:-\\.]+)(Z|[0-9\-\+]+)?$/,
     parse: (s, arr) => {
       let month = parseInt(arr[2], 10) - 1;
       walkTo(s, {
         year: arr[1],
         month: month,
-        date: arr[3],
+        date: arr[3]
       });
       parseHour(s, arr[4]);
     }
@@ -39,7 +39,7 @@ const strFmt = [
       walkTo(s, {
         year: arr[1],
         month: month,
-        date: arr[3],
+        date: arr[3]
       });
     }
   },
@@ -51,7 +51,7 @@ const strFmt = [
       walkTo(s, {
         year: arr[3],
         month: month,
-        date: arr[2],
+        date: arr[2]
       });
     }
   },
@@ -64,7 +64,7 @@ const strFmt = [
       walkTo(s, {
         year: arr[3],
         month: month,
-        date: arr[2],
+        date: arr[2]
       });
       if (arr[4]) {
         parseHour(s, arr[4]);
@@ -79,10 +79,10 @@ const strFmt = [
       walkTo(s, {
         year: arr[3],
         month: month,
-        date: arr[1],
+        date: arr[1]
       });
     }
-  },
+  }
 ];
 
 module.exports = strFmt;

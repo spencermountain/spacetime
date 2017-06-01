@@ -8,6 +8,8 @@ const methods = require('./methods');
 const SpaceTime = function(input, tz) {
   //the shift for the given timezone
   this.tz = tz || guessTz();
+  //don't output anything if it's invalid
+  this.valid = true;
   //every computer is somewhere- get this computer's built-in offset
   this.bias = new Date().getTimezoneOffset() || 0;
   //add getter/setters
@@ -18,7 +20,7 @@ const SpaceTime = function(input, tz) {
       //movement in milliseconds
       let shift = meta.current.epochShift;
       //remove this computer's offset
-      shift = shift + (this.bias * 60 * 1000);
+      shift = shift + this.bias * 60 * 1000;
       let epoch = this.epoch + shift;
       let d = new Date(epoch);
       return d;
@@ -29,7 +31,7 @@ const SpaceTime = function(input, tz) {
 };
 
 //(add instance methods to prototype)
-Object.keys(methods).forEach((k) => {
+Object.keys(methods).forEach(k => {
   SpaceTime.prototype[k] = methods[k];
 });
 SpaceTime.prototype.clone = function() {

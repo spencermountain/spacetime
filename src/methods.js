@@ -36,7 +36,7 @@ const methods = {
   },
   leapYear: function() {
     let year = this.year();
-    return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
+    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
   },
   progress: function() {
     return progress(this);
@@ -45,7 +45,7 @@ const methods = {
     return diff(this, d, unit);
   },
   isValid: function() {
-    return !isNaN(this.d.getTime());
+    return this.valid && !isNaN(this.d.getTime());
   },
   //travel to this timezone
   goto: function(tz) {
@@ -54,7 +54,8 @@ const methods = {
   },
   isAsleep: function() {
     let hour = this.hour();
-    if (hour < 8 || hour > 22) { //10pm -> 8am
+    if (hour < 8 || hour > 22) {
+      //10pm -> 8am
       return true;
     }
     return false;
