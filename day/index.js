@@ -76,6 +76,12 @@ window.day = new Vue({
 
 
     changeTZ: function(tz) {
+      // there are some "timezone" like: "America/Indiana/Indianapolis"
+      // and we can not find such "timezone" in zonefile
+      //
+      // but "America/Indiana" is available, so just trim the last section
+      // it's a wild guess but works.
+      tz = tz.split('/').slice(0, 2).join('/');
       s.goto(tz);
       this.timezone = tz;
     },
