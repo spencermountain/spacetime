@@ -2,37 +2,44 @@
 
 //easy comparison between dates
 const print = {
-  millisecond: (s) => {
+  millisecond: s => {
     return s.epoch;
   },
-  second: (s) => {
-    return [s.year(), s.month(), s.date(), s.hour(), s.minute(), s.second()].join('-');
+  second: s => {
+    return [
+      s.year(),
+      s.month(),
+      s.date(),
+      s.hour(),
+      s.minute(),
+      s.second(),
+    ].join('-');
   },
-  minute: (s) => {
+  minute: s => {
     return [s.year(), s.month(), s.date(), s.hour(), s.minute()].join('-');
   },
-  hour: (s) => {
+  hour: s => {
     return [s.year(), s.month(), s.date(), s.hour()].join('-');
   },
-  day: (s) => {
+  day: s => {
     return [s.year(), s.month(), s.date()].join('-');
   },
-  week: (s) => {
+  week: s => {
     return [s.year(), s.week()].join('-');
   },
-  month: (s) => {
+  month: s => {
     return [s.year(), s.month()].join('-');
   },
-  quarter: (s) => {
+  quarter: s => {
     return [s.year(), s.quarter()].join('-');
   },
-  year: (s) => {
+  year: s => {
     return s.year();
-  }
+  },
 };
 print.date = print.day;
 
-const addMethods = (SpaceTime) => {
+const addMethods = SpaceTime => {
   SpaceTime.prototype.isSame = function(b, unit) {
     let a = this;
     if (typeof b === 'string' || typeof b === 'number') {

@@ -50,8 +50,10 @@ const fetchZone = function(tz) {
     tz: tz,
     o: iana[tz],
   };
-  let lines = exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n');
-  lines.filter(str => str).forEach((str) => {
+  let lines = exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`)
+    .toString()
+    .split('\n');
+  lines.filter(str => str).forEach(str => {
     let o = parseLine(str);
     if (o.season) {
       zone[o.season] = o.date;
@@ -61,7 +63,7 @@ const fetchZone = function(tz) {
   let obj = {
     tz: tz,
     o: iana[tz],
-    h: zone.h
+    h: zone.h,
   };
   if (zone.spring && zone.fall) {
     if (zone.h === 'n') {
@@ -84,7 +86,7 @@ const fetchZone = function(tz) {
 const prefixCompress = function(obj) {
   let result = {};
   let keys = Object.keys(obj);
-  keys.forEach((k) => {
+  keys.forEach(k => {
     let name = k.split('/');
     result[name[0]] = result[name[0]] || {};
     result[name[0]][name[1]] = result[name[0]][name[1]] || {};
@@ -104,7 +106,7 @@ const doAll = () => {
     let o = fetchZone(tz, year);
     h[o.tz] = {
       o: o.o,
-      h: o.h
+      h: o.h,
     };
     if (o.dst) {
       h[o.tz].dst = o.dst;

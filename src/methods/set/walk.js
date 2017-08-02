@@ -12,7 +12,7 @@ const units = {
       while (s.year() > n) {
         s.epoch -= ms.year;
       }
-    }
+    },
   },
   month: {
     valid: n => n >= 0 && n <= 11,
@@ -23,7 +23,7 @@ const units = {
       while (s.month() > n) {
         s.epoch -= ms.day;
       }
-    }
+    },
   },
   date: {
     valid: n => n > 0 && n <= 31,
@@ -34,7 +34,7 @@ const units = {
       while (s.date() > n) {
         s.epoch -= ms.day;
       }
-    }
+    },
   },
   hour: {
     valid: n => n >= 0 && n < 24,
@@ -45,7 +45,7 @@ const units = {
       while (s.hour() > n) {
         s.epoch -= ms.hour;
       }
-    }
+    },
   },
   minute: {
     valid: n => n >= 0 && n < 60,
@@ -56,7 +56,7 @@ const units = {
       while (s.minute() > n) {
         s.epoch -= ms.minute;
       }
-    }
+    },
   },
   second: {
     valid: n => n >= 0 && n < 60,
@@ -67,15 +67,15 @@ const units = {
       while (s.second() > n) {
         s.epoch -= ms.second;
       }
-    }
+    },
   },
   millisecond: {
     valid: n => n >= 0 && n < 1000,
     walkTo: (s, n) => {
       //do this one directly
       s.milliseconds(n);
-    }
-  }
+    },
+  },
 };
 
 const walkTo = (s, wants) => {

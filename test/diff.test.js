@@ -2,26 +2,10 @@
 const test = require('tape');
 const spacetime = require('../src');
 
-const numbers = [
-  1,
-  2,
-  5,
-  7,
-  15,
-  30,
-  40,
-  100,
-  110,
-];
-const units = [
-  'day',
-  'week',
-  'month',
-  'year',
-];
+const numbers = [1, 2, 5, 7, 15, 30, 40, 100, 110];
+const units = ['day', 'week', 'month', 'year'];
 
-
-test('simple-diff', (t) => {
+test('simple-diff', t => {
   let a = spacetime('March 26, 1999 20:42:00', 'Canada/Eastern');
   let b = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
   t.equal(a.diff(b, 'day'), 2, '2-days');
@@ -31,10 +15,10 @@ test('simple-diff', (t) => {
   t.end();
 });
 
-test('all-diff', (t) => {
+test('all-diff', t => {
   let a = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
-  units.forEach((unit) => {
-    numbers.forEach((num) => {
+  units.forEach(unit => {
+    numbers.forEach(num => {
       let b = a.clone().add(num, unit);
       t.equal(a.diff(b, unit), num, num + '-' + unit);
     });

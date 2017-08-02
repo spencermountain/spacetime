@@ -17,14 +17,14 @@ const months = [
   'december',
 ];
 const allMonths = function(s) {
-  return months.map((m) => {
+  return months.map(m => {
     s.month(m);
     let meta = s.timezone();
     return meta.current.isDst;
   });
 };
 
-test('dst-by-date', (t) => {
+test('dst-by-date', t => {
   //this may be too hard to do.
   let s = spacetime('March 11, 2017 20:42:00', 'Canada/Eastern');
   let dst = s.timezone().current.isDst;
@@ -36,12 +36,64 @@ test('dst-by-date', (t) => {
   t.end();
 });
 
-test('dst-by-month', (t) => {
+test('dst-by-month', t => {
   ////        jan   feb    mar    apr   may   jun   july   aug   sept  oct   nov   dec
-  let est = [false, false, false, true, true, true, true, true, true, true, true, false];
-  let pst = [false, false, false, true, true, true, true, true, true, true, true, false];
-  let aus = [true, true, true, false, false, false, false, false, false, true, true, true]; //april 2, oct 1
-  let tai = [false, false, false, false, false, false, false, false, false, false, false, false]; //no dst
+  let est = [
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+  ];
+  let pst = [
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+  ];
+  let aus = [
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+  ]; //april 2, oct 1
+  let tai = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]; //no dst
   let s = spacetime('January 1, 2016 20:42:00', 'Canada/Eastern');
   t.deepEqual(allMonths(s), est, 'est');
 
@@ -56,7 +108,7 @@ test('dst-by-month', (t) => {
   t.end();
 });
 
-test('sneaky-dst', (t) => {
+test('sneaky-dst', t => {
   let s = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
   s.hour(0);
   //move date over a dst change
@@ -65,7 +117,7 @@ test('sneaky-dst', (t) => {
   t.end();
 });
 
-test('has-dst', (t) => {
+test('has-dst', t => {
   let s = spacetime('March 28, 1999 20:42:00', 'Africa/Algiers');
   t.equal(s.hasDST(), false, 'never has dst');
   t.equal(s.inDST(), false, 'not in dst');

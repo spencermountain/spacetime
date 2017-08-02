@@ -3,7 +3,7 @@ const test = require('tape');
 const spacetime = require('../src');
 
 //
-test('subtract', (t) => {
+test('subtract', t => {
   let s = spacetime('January 1, 2016 1:20:05', 'Canada/Eastern');
   //initial state
   t.equal(s.date(), 1, '.date()');
@@ -37,7 +37,7 @@ test('subtract', (t) => {
   t.end();
 });
 
-test('subtract-rollover', (t) => {
+test('subtract-rollover', t => {
   let s = spacetime('January 1, 2010 1:20:05', 'Canada/Pacific');
 
   let tmp = s.clone();

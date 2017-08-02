@@ -5,11 +5,17 @@
 const fallbackTZ = 'Canada/Pacific'; //eeeek!
 
 const guessTz = () => {
-  if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
+  if (
+    typeof Intl === 'undefined' ||
+    typeof Intl.DateTimeFormat === 'undefined'
+  ) {
     return fallbackTZ;
   }
   let format = Intl.DateTimeFormat();
-  if (typeof format === 'undefined' || typeof format.resolvedOptions === 'undefined') {
+  if (
+    typeof format === 'undefined' ||
+    typeof format.resolvedOptions === 'undefined'
+  ) {
     return fallbackTZ;
   }
   let timezone = format.resolvedOptions().timeZone;

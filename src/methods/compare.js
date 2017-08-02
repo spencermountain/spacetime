@@ -1,8 +1,7 @@
 'use strict';
 const fns = require('../fns');
 
-const addMethods = (SpaceTime) => {
-
+const addMethods = SpaceTime => {
   const methods = {
     isAfter: function(d) {
       let epoch = fns.getEpoch(d);
@@ -28,7 +27,7 @@ const addMethods = (SpaceTime) => {
   };
 
   //hook them into proto
-  Object.keys(methods).forEach((k) => {
+  Object.keys(methods).forEach(k => {
     SpaceTime.prototype[k] = methods[k];
   });
 };

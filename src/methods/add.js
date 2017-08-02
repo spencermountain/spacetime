@@ -33,7 +33,8 @@ const rollMonth = function(want, old) {
     let years = parseInt(want.month / 12, 10);
     want.year = old.year() + years;
     want.month = want.month % 12;
-  } else if (want.month < 0) { //decrement year
+  } else if (want.month < 0) {
+    //decrement year
     let years = Math.floor(Math.abs(want.month) / 13, 10);
     years = Math.abs(years) + 1;
     want.year = old.year() - years;
@@ -47,8 +48,7 @@ const rollMonth = function(want, old) {
   return want;
 };
 
-const addMethods = (SpaceTime) => {
-
+const addMethods = SpaceTime => {
   SpaceTime.prototype.add = function(num, unit) {
     let old = this.clone();
     unit = fns.normalize(unit);
@@ -65,7 +65,7 @@ const addMethods = (SpaceTime) => {
     //now ensure our milliseconds/etc are in-line
     let want = {};
     if (keep[unit]) {
-      keep[unit].forEach((u) => {
+      keep[unit].forEach(u => {
         want[u] = old[u]();
       });
     }
@@ -96,7 +96,6 @@ const addMethods = (SpaceTime) => {
     this.add(num * -1, unit);
     return this;
   };
-
 };
 
 module.exports = addMethods;

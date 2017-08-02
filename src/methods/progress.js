@@ -12,7 +12,7 @@ const progress = function(s) {
     'minute',
   ];
   let obj = {};
-  units.forEach((k) => {
+  units.forEach(k => {
     let start = s.clone().startOf(k);
     let end = s.clone().endOf(k);
     let duration = end.epoch - start.epoch;

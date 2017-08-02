@@ -35,9 +35,9 @@ let timezones = [
   'Pacific/Yap',
 ];
 
-test('epochs dont move on goto', (t) => {
+test('epochs dont move on goto', t => {
   let a = spacetime('January 13 2018', 'Pacific/Fiji');
-  timezones.forEach((tz) => {
+  timezones.forEach(tz => {
     let b = a.clone();
     b.goto(tz);
     t.ok(a.isEqual(b), tz + ' stable epoch');
@@ -45,8 +45,8 @@ test('epochs dont move on goto', (t) => {
   t.end();
 });
 
-test('is-always-input-date', (t) => {
-  timezones.forEach((tz) => {
+test('is-always-input-date', t => {
+  timezones.forEach(tz => {
     let a = spacetime([2030, 3, 2], tz);
     t.equal(a.monthName(), 'april', tz + ' is april');
     t.equal(a.date(), 2, tz + ' 2nd');
@@ -73,8 +73,8 @@ test('is-always-input-date', (t) => {
   t.end();
 });
 
-test('all-timezones-move', (t) => {
-  timezones.forEach((tz) => {
+test('all-timezones-move', t => {
+  timezones.forEach(tz => {
     let d = spacetime('January 13 2018', tz);
     t.equal(d.dayName(), 'saturday', tz + ' saturday');
     d.date(12);
@@ -89,8 +89,8 @@ test('all-timezones-move', (t) => {
   t.end();
 });
 
-test('all-timezones-have-leap-years', (t) => {
-  timezones.forEach((tz) => {
+test('all-timezones-have-leap-years', t => {
+  timezones.forEach(tz => {
     let d = spacetime('February 28 2020', tz);
     d.time('11:30pm');
     d.add(1, 'hour');

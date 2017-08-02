@@ -1,13 +1,5 @@
 module.exports = {
-  short: [
-    'sun',
-    'mon',
-    'tues',
-    'wed',
-    'thurs',
-    'fri',
-    'sat',
-  ],
+  short: ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat'],
   long: [
     'sunday',
     'monday',
@@ -16,5 +8,5 @@ module.exports = {
     'thursday',
     'friday',
     'saturday',
-  ]
+  ],
 };

@@ -59,7 +59,7 @@ const fmt = {
   },
   'iso-utc': s => {
     return new Date(s.epoch).toISOString(); //2017-03-08T19:45:28.367Z
-  }
+  },
 };
 fmt['nice'] = s => {
   let month = fmt.month(s);

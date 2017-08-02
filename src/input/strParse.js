@@ -4,7 +4,9 @@ const months = require('../data/months');
 
 const parseHour = function(s, str) {
   str = str.replace(/^\s+/, ''); //trim
-  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?:?([0-9]{1,4})?/);
+  let arr = str.match(
+    /([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?:?([0-9]{1,4})?/
+  );
   if (arr) {
     s.hour(arr[1]);
     s.minute(arr[2]);
@@ -26,10 +28,10 @@ const strFmt = [
       walkTo(s, {
         year: arr[1],
         month: month,
-        date: arr[3]
+        date: arr[3],
       });
       parseHour(s, arr[4]);
-    }
+    },
   },
   //iso "2015-03-25" or "2015/03/25" //0-based-months!
   {
@@ -39,9 +41,9 @@ const strFmt = [
       walkTo(s, {
         year: arr[1],
         month: month,
-        date: arr[3]
+        date: arr[3],
       });
-    }
+    },
   },
   //short - uk "03/25/2015"  //0-based-months!
   {
@@ -51,9 +53,9 @@ const strFmt = [
       walkTo(s, {
         year: arr[3],
         month: month,
-        date: arr[2]
+        date: arr[2],
       });
-    }
+    },
   },
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
@@ -64,12 +66,12 @@ const strFmt = [
       walkTo(s, {
         year: arr[3],
         month: month,
-        date: arr[2]
+        date: arr[2],
       });
       if (arr[4]) {
         parseHour(s, arr[4]);
       }
-    }
+    },
   },
   //Long "25 Mar 2015"
   {
@@ -79,10 +81,10 @@ const strFmt = [
       walkTo(s, {
         year: arr[3],
         month: month,
-        date: arr[1]
+        date: arr[1],
       });
-    }
-  }
+    },
+  },
 ];
 
 module.exports = strFmt;

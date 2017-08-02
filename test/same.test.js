@@ -2,7 +2,7 @@
 const test = require('tape');
 const spacetime = require('../src');
 
-test('isSame', (t) => {
+test('isSame', t => {
   let a = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
   let b = a.clone();
   t.equal(a.isSame(b, 'hour'), true, 'same-hour');
