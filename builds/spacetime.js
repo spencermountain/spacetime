@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v1.0.7
+/* @smallwins/spacetime v1.1.0
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -1298,24 +1298,24 @@ module.exports={
 },{}],3:[function(_dereq_,module,exports){
 module.exports={
   "name": "spacetime",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",
   "scripts": {
+    "precommit": "lint-staged",
     "build": "node ./scripts/build.js",
     "demo": "node ./scripts/demo.js",
     "watch": "node ./scripts/watch.js",
     "test": "./node_modules/tape/bin/tape ./test/**/*.test.js | ./node_modules/tap-spec/bin/cmd.js",
+    "lint": "eslint .",
     "coverage": "node ./scripts/coverage.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/smallwins/spacetime.git"
   },
-  "files": [
-    "builds/"
-  ],
+  "files": ["builds/"],
   "dependencies": {},
   "devDependencies": {
     "babel-preset-es2015": "6.9.0",
@@ -1324,8 +1324,12 @@ module.exports={
     "browserify": "13.0.1",
     "derequire": "^2.0.3",
     "eslint": "^3.1.1",
+    "eslint-plugin-prettier": "^2.1.2",
     "gaze": "^1.1.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.2",
     "nyc": "^8.4.0",
+    "prettier": "^1.5.3",
     "shelljs": "^0.7.2",
     "tap-spec": "4.1.1",
     "tape": "4.6.0",
@@ -1333,6 +1337,7 @@ module.exports={
     "uglify-js": "2.7.0"
   }
 }
+
 },{}],4:[function(_dereq_,module,exports){
 'use strict';
 
@@ -1349,12 +1354,12 @@ var o = {
 };
 o.second = 1000;
 o.minute = 60000;
-o.hour = 3.6e+6; // dst is supported post-hoc
-o.day = 8.64e+7;
-o.date = 8.64e+7;
-o.month = 8.64e+7 * 29.5; //(average)
-o.week = 6.048e+8;
-o.year = 3.154e+10; // leap-years are supported post-hoc
+o.hour = 3.6e6; // dst is supported post-hoc
+o.day = 8.64e7;
+o.date = 8.64e7;
+o.month = 8.64e7 * 29.5; //(average)
+o.week = 6.048e8;
+o.year = 3.154e10; // leap-years are supported post-hoc
 //add plurals
 Object.keys(o).forEach(function (k) {
   o[k + 's'] = o[k];
@@ -1384,7 +1389,7 @@ var shortMonth = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept'
 var longMonth = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 var obj = {
-  'sep': 8
+  sep: 8
 };
 for (var i = 0; i < shortMonth.length; i++) {
   obj[shortMonth[i]] = i;
@@ -1827,7 +1832,6 @@ var rollMonth = function rollMonth(want, old) {
 };
 
 var addMethods = function addMethods(SpaceTime) {
-
   SpaceTime.prototype.add = function (num, unit) {
     var old = this.clone();
     unit = fns.normalize(unit);
@@ -1885,7 +1889,6 @@ module.exports = addMethods;
 var fns = _dereq_('../fns');
 
 var addMethods = function addMethods(SpaceTime) {
-
   var methods = {
     isAfter: function isAfter(d) {
       var epoch = fns.getEpoch(d);
@@ -1907,6 +1910,17 @@ var addMethods = function addMethods(SpaceTime) {
         return null;
       }
       return this.epoch === epoch;
+    },
+    isBetween: function isBetween(start, end) {
+      var startEpoch = fns.getEpoch(start);
+      if (startEpoch === null) {
+        return null;
+      }
+      var endEpoch = fns.getEpoch(end);
+      if (endEpoch === null) {
+        return null;
+      }
+      return startEpoch < this.epoch && this.epoch < endEpoch;
     }
   };
 
@@ -2222,7 +2236,6 @@ module.exports = {
     }
     return 'winter';
   }
-
 };
 
 },{"../../data/quarters":8,"../../data/seasons":9,"../set/set":25}],21:[function(_dereq_,module,exports){
@@ -2254,7 +2267,6 @@ var set = _dereq_('../set/set');
 
 //the most basic get/set methods
 var methods = {
-
   millisecond: function millisecond(num) {
     if (num !== undefined) {
       this.epoch = set.milliseconds(this, num);
@@ -2408,7 +2420,6 @@ var walkTo = _dereq_('../set/walk');
 
 //non-destructive getters/setters with fancy moves to do
 module.exports = {
-
   //like 'wednesday' (hard!)
   day: function day(input) {
     if (input === undefined) {
@@ -2562,7 +2573,6 @@ var confirm = function confirm(s, tmp, unit) {
 };
 
 module.exports = {
-
   milliseconds: function milliseconds(s, n) {
     n = validate(n);
     var current = s.millisecond();
@@ -2676,7 +2686,6 @@ module.exports = {
     confirm(s, old, 'hour');
     return s.epoch;
   }
-
 };
 
 },{"../../data/milliseconds":5,"../../data/monthLength":6,"../../data/months":7,"./walk":26}],26:[function(_dereq_,module,exports){
@@ -3037,7 +3046,7 @@ var parseDst = function parseDst(dst) {
 var timezone = function timezone(s) {
   var tz = s.tz;
   if (!zones[tz]) {
-    console.warn('Warn: could not find given or local timezone - \'' + tz + '\'');
+    console.warn("Warn: could not find given or local timezone - '" + tz + "'");
     return {
       current: {
         epochShift: 0
