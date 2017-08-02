@@ -43,11 +43,7 @@ test('goto-from-algiers (no-dst-places)', t => {
   t.equal(s.format('nice-day'), 'Tuesday March 14th, 10:48pm', 'init-date');
   //this shouldn't change things
   s.goto('Africa/Algiers');
-  t.equal(
-    s.format('nice-day'),
-    'Tuesday March 14th, 10:48pm',
-    'unchanged-date'
-  );
+  t.equal(s.format('nice-day'), 'Tuesday March 14th, 10:48pm', 'unchanged-date');
   //same offset!
   s.goto('Africa/Brazzaville');
   t.equal(s.format('nice-day'), 'Tuesday March 14th, 10:48pm', 'same-offset');
@@ -56,46 +52,22 @@ test('goto-from-algiers (no-dst-places)', t => {
   t.equal(s.format('nice-day'), 'Tuesday March 14th, 9:48pm', 'one-hour-left');
   //one to the right...
   s.goto('Africa/Cairo');
-  t.equal(
-    s.format('nice-day'),
-    'Tuesday March 14th, 11:48pm',
-    'one-hour-right'
-  );
+  t.equal(s.format('nice-day'), 'Tuesday March 14th, 11:48pm', 'one-hour-right');
   //two to the right...
   s.goto('Asia/Baghdad');
-  t.equal(
-    s.format('nice-day'),
-    'Wednesday March 15th, 12:48am',
-    'two-hours-right-(tomorrow)'
-  );
+  t.equal(s.format('nice-day'), 'Wednesday March 15th, 12:48am', 'two-hours-right-(tomorrow)');
   //three to the right
   s.goto('Asia/Dubai');
-  t.equal(
-    s.format('nice-day'),
-    'Wednesday March 15th, 1:48am',
-    'three-hours-right-(tomorrow)'
-  );
+  t.equal(s.format('nice-day'), 'Wednesday March 15th, 1:48am', 'three-hours-right-(tomorrow)');
   //three and a half to the right...
   s.goto('Asia/Kabul');
-  t.equal(
-    s.format('nice-day'),
-    'Wednesday March 15th, 2:18am',
-    'three-and-a-half-to-the-right-(tomorrow)'
-  );
+  t.equal(s.format('nice-day'), 'Wednesday March 15th, 2:18am', 'three-and-a-half-to-the-right-(tomorrow)');
   //back to yesterday..
   s.goto('Africa/Dakar');
-  t.equal(
-    s.format('nice-day'),
-    'Tuesday March 14th, 9:48pm',
-    'back-to-one-hour-left'
-  );
+  t.equal(s.format('nice-day'), 'Tuesday March 14th, 9:48pm', 'back-to-one-hour-left');
   //back to original
   s.goto('Africa/Algiers');
-  t.equal(
-    s.format('nice-day'),
-    'Tuesday March 14th, 10:48pm',
-    'back-to-init-date'
-  );
+  t.equal(s.format('nice-day'), 'Tuesday March 14th, 10:48pm', 'back-to-init-date');
 
   t.end();
 });
@@ -162,11 +134,7 @@ test('move-to-not-dst', t => {
   t.equal(s.timezone().current.isDst, false, 'uruguay-is-never-dst');
   t.equal(s.timezone().current.offset, -180, 'uruguay-is-always -3hrs');
   s.goto('America/Moncton');
-  t.equal(
-    s.format('nice-day'),
-    'Saturday December 31st, 11:01pm',
-    'init-Moncton'
-  );
+  t.equal(s.format('nice-day'), 'Saturday December 31st, 11:01pm', 'init-Moncton');
   t.equal(s.timezone().current.isDst, false, 'Moncton-is-not-dst');
   t.equal(s.timezone().current.offset, -240, 'Moncton-is -4hrs');
   t.end();

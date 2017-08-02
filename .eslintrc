@@ -1,7 +1,5 @@
 {
-  "plugins": [
-    "prettier"
-  ],
+  "plugins": [],
   "env": {
     "es6": true
   },
@@ -9,13 +7,6 @@
     "modules": true
   },
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true,
-        "trailingComma": "es5"
-      }
-    ],
     "no-cond-assign": 2,
     "no-var": 0,
     "prefer-const": 0,

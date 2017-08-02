@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",
@@ -17,9 +17,7 @@
     "type": "git",
     "url": "https://github.com/smallwins/spacetime.git"
   },
-  "files": [
-    "builds/"
-  ],
+  "files": ["builds/"],
   "dependencies": {},
   "devDependencies": {
     "babel-preset-es2015": "6.9.0",
