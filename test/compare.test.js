@@ -18,6 +18,12 @@ test('compare', (t) => {
   t.equal(original.isEqual(d), false, 'now-not-equal');
   t.equal(original.isAfter(d), true, 'now-is-after');
   t.equal(original.isBefore(d), false, 'now-not-before');
+  
+  let start = original.clone();
+  let end = original.clone();
+  start.subtract(1, 'milliseconds');
+  end.add(1, 'milliseconds');
+  t.equal(original.isBetween(start, end), true, 'originally-is-between');
 
   t.end();
 });

@@ -25,6 +25,17 @@ const addMethods = (SpaceTime) => {
       }
       return this.epoch === epoch;
     },
+    isBetween: function(start, end) {
+      let startEpoch = fns.getEpoch(start);
+      if (startEpoch === null) {
+        return null;
+      }
+      let endEpoch = fns.getEpoch(end);
+      if (endEpoch === null) {
+        return null;
+      }
+      return (startEpoch < this.epoch) && (this.epoch < endEpoch);
+    }
   };
 
   //hook them into proto
