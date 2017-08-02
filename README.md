@@ -72,11 +72,16 @@ s.timezone().current.isDst // True
 
 // Comparisons
 let d = spacetime([2017, 5, 2])
+let start = s.clone()
+let end = s.clone()
+start.subtract(1, 'milliseconds')
+end.add(1, 'milliseconds')
 
 // gt/lt/equals
 s.isAfter(d) // True
 s.isEqual(d) // False
 s.isBefore(d) // False
+s.isBetween(start, end) // True
 
 // Comparison by unit
 s.isSame(d, 'year') // True
