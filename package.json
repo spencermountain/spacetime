@@ -5,10 +5,12 @@
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",
   "scripts": {
+    "precommit": "lint-staged",
     "build": "node ./scripts/build.js",
     "demo": "node ./scripts/demo.js",
     "watch": "node ./scripts/watch.js",
     "test": "./node_modules/tape/bin/tape ./test/**/*.test.js | ./node_modules/tap-spec/bin/cmd.js",
+    "lint": "eslint .",
     "coverage": "node ./scripts/coverage.js"
   },
   "repository": {
@@ -26,8 +28,12 @@
     "browserify": "13.0.1",
     "derequire": "^2.0.3",
     "eslint": "^3.1.1",
+    "eslint-plugin-prettier": "^2.1.2",
     "gaze": "^1.1.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.2",
     "nyc": "^8.4.0",
+    "prettier": "^1.5.3",
     "shelljs": "^0.7.2",
     "tap-spec": "4.1.1",
     "tape": "4.6.0",
