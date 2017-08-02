@@ -3,7 +3,6 @@ const set = require('../set/set');
 
 //the most basic get/set methods
 let methods = {
-
   millisecond: function(num) {
     if (num !== undefined) {
       this.epoch = set.milliseconds(this, num);
@@ -103,13 +102,16 @@ let methods = {
     if (h < 6) {
       return 'night';
     }
-    if (h < 12) { //until noon
+    if (h < 12) {
+      //until noon
       return 'morning';
     }
-    if (h < 17) { //until 5pm
+    if (h < 17) {
+      //until 5pm
       return 'afternoon';
     }
-    if (h < 22) { //until 10pm
+    if (h < 22) {
+      //until 10pm
       return 'evening';
     }
     return 'night';
@@ -123,7 +125,7 @@ let methods = {
     let sum = 0;
     let month = this.d.getMonth();
     let tmp;
-    for(let i = 0; i < month; i++) {
+    for (let i = 0; i < month; i++) {
       tmp = new Date();
       tmp.setMonth(i);
       tmp.setDate(1);
@@ -131,7 +133,7 @@ let methods = {
       sum += tmp.getDate();
     }
     return sum + this.d.getDate();
-  }
+  },
 };
 //aliases
 methods.milliseconds = methods.millisecond;

@@ -2,7 +2,7 @@
 const test = require('tape');
 const spacetime = require('../src');
 
-test('implicit goto', (t) => {
+test('implicit goto', t => {
   let a = spacetime('March 14, 2017 22:48:00', 'Africa/Algiers');
   let b = spacetime('March 14, 2017 22:48:00', 'Canada/Pacific');
 
@@ -11,7 +11,7 @@ test('implicit goto', (t) => {
   t.end();
 });
 
-test('goto-from-est', (t) => {
+test('goto-from-est', t => {
   let s = spacetime('February 22, 2017 15:42:00', 'Canada/Eastern');
   t.equal(s.date(), 22, 'est-date');
   t.equal(s.monthName(), 'february', 'est-month');
@@ -37,14 +37,17 @@ test('goto-from-est', (t) => {
   t.end();
 });
 
-
-test('goto-from-algiers (no-dst-places)', (t) => {
+test('goto-from-algiers (no-dst-places)', t => {
   //march 14th in algiers (+60)
   let s = spacetime('March 14, 2017 22:48:00', 'Africa/Algiers');
   t.equal(s.format('nice-day'), 'Tuesday March 14th, 10:48pm', 'init-date');
   //this shouldn't change things
   s.goto('Africa/Algiers');
-  t.equal(s.format('nice-day'), 'Tuesday March 14th, 10:48pm', 'unchanged-date');
+  t.equal(
+    s.format('nice-day'),
+    'Tuesday March 14th, 10:48pm',
+    'unchanged-date'
+  );
   //same offset!
   s.goto('Africa/Brazzaville');
   t.equal(s.format('nice-day'), 'Tuesday March 14th, 10:48pm', 'same-offset');
@@ -53,27 +56,51 @@ test('goto-from-algiers (no-dst-places)', (t) => {
   t.equal(s.format('nice-day'), 'Tuesday March 14th, 9:48pm', 'one-hour-left');
   //one to the right...
   s.goto('Africa/Cairo');
-  t.equal(s.format('nice-day'), 'Tuesday March 14th, 11:48pm', 'one-hour-right');
+  t.equal(
+    s.format('nice-day'),
+    'Tuesday March 14th, 11:48pm',
+    'one-hour-right'
+  );
   //two to the right...
   s.goto('Asia/Baghdad');
-  t.equal(s.format('nice-day'), 'Wednesday March 15th, 12:48am', 'two-hours-right-(tomorrow)');
+  t.equal(
+    s.format('nice-day'),
+    'Wednesday March 15th, 12:48am',
+    'two-hours-right-(tomorrow)'
+  );
   //three to the right
   s.goto('Asia/Dubai');
-  t.equal(s.format('nice-day'), 'Wednesday March 15th, 1:48am', 'three-hours-right-(tomorrow)');
+  t.equal(
+    s.format('nice-day'),
+    'Wednesday March 15th, 1:48am',
+    'three-hours-right-(tomorrow)'
+  );
   //three and a half to the right...
   s.goto('Asia/Kabul');
-  t.equal(s.format('nice-day'), 'Wednesday March 15th, 2:18am', 'three-and-a-half-to-the-right-(tomorrow)');
+  t.equal(
+    s.format('nice-day'),
+    'Wednesday March 15th, 2:18am',
+    'three-and-a-half-to-the-right-(tomorrow)'
+  );
   //back to yesterday..
   s.goto('Africa/Dakar');
-  t.equal(s.format('nice-day'), 'Tuesday March 14th, 9:48pm', 'back-to-one-hour-left');
+  t.equal(
+    s.format('nice-day'),
+    'Tuesday March 14th, 9:48pm',
+    'back-to-one-hour-left'
+  );
   //back to original
   s.goto('Africa/Algiers');
-  t.equal(s.format('nice-day'), 'Tuesday March 14th, 10:48pm', 'back-to-init-date');
+  t.equal(
+    s.format('nice-day'),
+    'Tuesday March 14th, 10:48pm',
+    'back-to-init-date'
+  );
 
   t.end();
 });
 
-test('move-from-dst', (t) => {
+test('move-from-dst', t => {
   //dst in Paris (+2h)
   let s = spacetime('March 27, 2017 22:48:00', 'Europe/Paris');
   t.equal(s.format('nice-day'), 'Monday March 27th, 10:48pm', 'init-paris');
@@ -94,7 +121,7 @@ test('move-from-dst', (t) => {
   t.end();
 });
 
-test('move-from-not-dst', (t) => {
+test('move-from-not-dst', t => {
   //not-dst in Paris (+1h)
   let s = spacetime('March 17, 2017 22:48:00', 'Europe/Paris');
   t.equal(s.format('nice-day'), 'Friday March 17th, 10:48pm', 'init-paris');
@@ -115,7 +142,7 @@ test('move-from-not-dst', (t) => {
   t.end();
 });
 
-test('move-to-dst', (t) => {
+test('move-to-dst', t => {
   //move from never-dst (uruguay) to a dst (moncton)
   let s = spacetime('August 1, 2017 00:01:05', 'America/Montevideo');
   t.equal(s.format('nice-day'), 'Tuesday August 1st, 12:01am', 'init-uruguay');
@@ -128,14 +155,18 @@ test('move-to-dst', (t) => {
   t.end();
 });
 
-test('move-to-not-dst', (t) => {
+test('move-to-not-dst', t => {
   //now move from never-dst (uruguay) to a not-dst (moncton)
   let s = spacetime('January 1, 2017 00:01:05', 'America/Montevideo');
   t.equal(s.format('nice-day'), 'Sunday January 1st, 12:01am', 'init-uruguay');
   t.equal(s.timezone().current.isDst, false, 'uruguay-is-never-dst');
   t.equal(s.timezone().current.offset, -180, 'uruguay-is-always -3hrs');
   s.goto('America/Moncton');
-  t.equal(s.format('nice-day'), 'Saturday December 31st, 11:01pm', 'init-Moncton');
+  t.equal(
+    s.format('nice-day'),
+    'Saturday December 31st, 11:01pm',
+    'init-Moncton'
+  );
   t.equal(s.timezone().current.isDst, false, 'Moncton-is-not-dst');
   t.equal(s.timezone().current.offset, -240, 'Moncton-is -4hrs');
   t.end();

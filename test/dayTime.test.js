@@ -2,23 +2,17 @@
 const test = require('tape');
 const spacetime = require('../src');
 
-test('daytime-consistent', (t) => {
+test('daytime-consistent', t => {
   let s = spacetime.now();
-  let times = [
-    'morning',
-    'afternoon',
-    'evening',
-    'night',
-  ];
-  times.forEach((daytime) => {
+  let times = ['morning', 'afternoon', 'evening', 'night'];
+  times.forEach(daytime => {
     s.dayTime(daytime);
     t.equal(s.dayTime(), daytime, daytime + ' is ' + daytime);
   });
   t.end();
-
 });
 
-test('daytime-sanity-test', (t) => {
+test('daytime-sanity-test', t => {
   let s = spacetime.now();
   let time = '2am';
   s.time(time);
@@ -79,7 +73,7 @@ test('daytime-sanity-test', (t) => {
   t.end();
 });
 
-test('asleep-test', (t) => {
+test('asleep-test', t => {
   let s = spacetime.now();
   s.dayTime('night');
   t.equal(s.isAsleep(), true, 'sleeping at night');

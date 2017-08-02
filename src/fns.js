@@ -1,7 +1,9 @@
 'use strict';
 
 exports.isDate = function(d) {
-  return Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf());
+  return (
+    Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
+  );
 };
 exports.isArray = function(input) {
   return Object.prototype.toString.call(input) === '[object Array]';
@@ -14,7 +16,9 @@ exports.zeroPad = function(str, len) {
   len = len || 2;
   let pad = '0';
   str = str + '';
-  return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str;
+  return str.length >= len
+    ? str
+    : new Array(len - str.length + 1).join(pad) + str;
 };
 
 exports.titleCase = function(str) {
@@ -39,7 +43,7 @@ exports.ordinal = function(i) {
   return i + 'th';
 };
 
-exports.normalize = (str) => {
+exports.normalize = str => {
   str = str.toLowerCase();
   str = str.replace(/s$/, '');
   if (str === 'day') {

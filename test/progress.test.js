@@ -2,7 +2,7 @@
 const test = require('tape');
 const spacetime = require('../src');
 
-test('progress', (t) => {
+test('progress', t => {
   let d = spacetime('December 31, 1999 23:59:58', 'Canada/Eastern');
   let obj = d.progress();
   t.ok(obj.year > 0.95, 'almost-done-year');

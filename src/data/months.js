@@ -30,17 +30,17 @@ const longMonth = [
 ];
 
 let obj = {
-  'sep': 8
+  sep: 8,
 };
-for(let i = 0; i < shortMonth.length; i++) {
+for (let i = 0; i < shortMonth.length; i++) {
   obj[shortMonth[i]] = i;
 }
-for(let i = 0; i < longMonth.length; i++) {
+for (let i = 0; i < longMonth.length; i++) {
   obj[longMonth[i]] = i;
 }
 
 module.exports = {
   short: shortMonth,
   long: longMonth,
-  mapping: obj
+  mapping: obj,
 };

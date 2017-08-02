@@ -24,7 +24,7 @@ const SpaceTime = function(input, tz) {
       let epoch = this.epoch + shift;
       let d = new Date(epoch);
       return d;
-    }
+    },
   });
   //parse the various formats
   handleInput(this, input);

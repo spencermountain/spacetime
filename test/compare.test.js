@@ -2,7 +2,7 @@
 const test = require('tape');
 const spacetime = require('../src');
 
-test('compare', (t) => {
+test('compare', t => {
   let original = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
   let d = original.clone();
   t.equal(original.isEqual(d), true, 'originally-equal');
@@ -28,7 +28,7 @@ test('compare', (t) => {
   t.end();
 });
 
-test('goto is still equal', (t) => {
+test('goto is still equal', t => {
   let original = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
   let d = original.goto('Canada/Pacific');
   t.equal(original.isEqual(d), true, 'originally-equal');

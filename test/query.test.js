@@ -2,7 +2,7 @@
 const test = require('tape');
 const spacetime = require('../src');
 
-test('get', (t) => {
+test('get', t => {
   let s = spacetime('February 22, 2017 15:30:00', 'Canada/Eastern');
   t.equal(s.date(), 22, '.date()');
   t.equal(s.year(), 2017, '.year()');
@@ -17,7 +17,7 @@ test('get', (t) => {
   t.end();
 });
 
-test('get-quarters', (t) => {
+test('get-quarters', t => {
   let s = spacetime('January 22, 2017 15:42:00', 'Canada/Eastern');
   t.equal(s.quarter(), 1, '.quarter()');
 
@@ -35,7 +35,7 @@ test('get-quarters', (t) => {
   t.end();
 });
 
-test('get-weeks', (t) => {
+test('get-weeks', t => {
   let s = spacetime('January 1, 2015 2:00:00', 'Canada/Eastern');
   t.equal(s.week(), 1, '.weeks()1');
 
@@ -48,7 +48,7 @@ test('get-weeks', (t) => {
   t.end();
 });
 
-test('day-of-year', (t) => {
+test('day-of-year', t => {
   let s = spacetime('January 5, 2017 2:00:00', 'Canada/Eastern');
   t.equal(s.ampm(), 'am', '.date()');
   t.equal(s.date(), 5, '.date()');

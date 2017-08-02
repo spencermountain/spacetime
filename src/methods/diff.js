@@ -19,7 +19,8 @@ const diff = (a, b, unit) => {
   unit = fns.normalize(unit);
   if (a.isBefore(b)) {
     return climb(a, b, unit);
-  } else { //reverse it
+  } else {
+    //reverse it
     return climb(b, a, unit) * -1;
   }
 };

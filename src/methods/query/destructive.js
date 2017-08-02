@@ -51,7 +51,7 @@ module.exports = {
     if (tmp.epoch > thisOne) {
       return 1;
     }
-    for(let i = 0; i < 52; i++) {
+    for (let i = 0; i < 52; i++) {
       if (tmp.epoch > thisOne) {
         return i;
       }
@@ -76,7 +76,7 @@ module.exports = {
       }
     }
     let month = this.d.getMonth();
-    for(let i = 1; i < quarters.length; i++) {
+    for (let i = 1; i < quarters.length; i++) {
       if (month < quarters[i][0]) {
         return i - 1;
       }
@@ -87,7 +87,7 @@ module.exports = {
   //'3:30' is 3.5
   hourFloat: function(num) {
     if (num !== undefined) {
-      let minute = (num % 1);
+      let minute = num % 1;
       minute = minute * 60;
       let hour = parseInt(num, 10);
       this.epoch = set.hours(this, hour);
@@ -101,10 +101,9 @@ module.exports = {
     return hour + minute;
   },
 
-
   season: function(input) {
     if (input !== undefined) {
-      for(let i = 0; i < seasons.length; i++) {
+      for (let i = 0; i < seasons.length; i++) {
         if (input === seasons[i][0]) {
           this.month(seasons[i][1]);
           this.date(1);
@@ -115,12 +114,11 @@ module.exports = {
       return this;
     }
     let month = this.d.getMonth();
-    for(let i = 0; i < seasons.length - 1; i++) {
+    for (let i = 0; i < seasons.length - 1; i++) {
       if (month >= seasons[i][1] && month < seasons[i + 1][1]) {
         return seasons[i][0];
       }
     }
     return 'winter';
-  }
-
+  },
 };

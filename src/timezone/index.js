@@ -2,12 +2,12 @@
 const zones = require('../../data');
 const isDst = require('./isDst');
 
-const parseDst = (dst) => {
+const parseDst = dst => {
   if (!dst) {
     return {};
   }
-  let arr = dst.split(' -> ').map((s) => {
-    let tmp = s.split('/').map((n) => parseInt(n, 10));
+  let arr = dst.split(' -> ').map(s => {
+    let tmp = s.split('/').map(n => parseInt(n, 10));
     return {
       month: tmp[0],
       date: tmp[1],
@@ -21,14 +21,14 @@ const parseDst = (dst) => {
 };
 
 //get metadata about this timezone
-const timezone = (s) => {
+const timezone = s => {
   let tz = s.tz;
   if (!zones[tz]) {
-    console.warn('Warn: could not find given or local timezone - \'' + tz + '\'');
+    console.warn("Warn: could not find given or local timezone - '" + tz + "'");
     return {
       current: {
-        epochShift: 0
-      }
+        epochShift: 0,
+      },
     };
   }
   let meta = {
@@ -54,7 +54,7 @@ const timezone = (s) => {
   //both offsets (in mins)
   meta.offsets = {
     base: zones[tz].o + meta.dst.change,
-    dst: zones[tz].o
+    dst: zones[tz].o,
   };
 
   if (isDst(s, meta.dst)) {

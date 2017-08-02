@@ -3,15 +3,15 @@ const normal = require('./normal');
 const destructive = require('./destructive');
 const tricky = require('./tricky');
 
-const addMethods = (Space) => {
+const addMethods = Space => {
   //hook the methods into prototype
-  Object.keys(normal).forEach((k) => {
+  Object.keys(normal).forEach(k => {
     Space.prototype[k] = normal[k];
   });
-  Object.keys(destructive).forEach((k) => {
+  Object.keys(destructive).forEach(k => {
     Space.prototype[k] = destructive[k];
   });
-  Object.keys(tricky).forEach((k) => {
+  Object.keys(tricky).forEach(k => {
     Space.prototype[k] = tricky[k];
   });
 };

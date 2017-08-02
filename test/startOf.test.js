@@ -2,7 +2,7 @@
 const test = require('tape');
 const spacetime = require('../src');
 
-test('start of month', (t) => {
+test('start of month', t => {
   let d = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
   d.startOf('month');
 
@@ -19,7 +19,7 @@ test('start of month', (t) => {
   t.end();
 });
 
-test('start of winter', (t) => {
+test('start of winter', t => {
   let d = spacetime('January 28, 2017 20:42:00', 'Canada/Pacific');
   d.startOf('season');
 
@@ -38,7 +38,7 @@ test('start of winter', (t) => {
   t.end();
 });
 
-test('end of day', (t) => {
+test('end of day', t => {
   let d = spacetime('March 28, 1999 20:42:00', 'Africa/Algiers');
   d.endOf('month');
 
@@ -61,16 +61,9 @@ test('end of day', (t) => {
   t.end();
 });
 
-test('start-end are idempodent', (t) => {
-  let units = [
-    'day',
-    'week',
-    'month',
-    'quarter',
-    'season',
-    'year',
-  ];
-  units.forEach((unit) => {
+test('start-end are idempodent', t => {
+  let units = ['day', 'week', 'month', 'quarter', 'season', 'year'];
+  units.forEach(unit => {
     let s = spacetime('December 31, 1999 23:59:58', 'Africa/Algiers');
     let a = s.clone().endOf(unit);
     let b = a.clone().endOf(unit);

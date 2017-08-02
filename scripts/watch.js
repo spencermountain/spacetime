@@ -4,7 +4,7 @@ var chalk = require('chalk');
 var options = {
   interval: 1,
   ignoreDotFiles: true,
-  wait: 2
+  wait: 2,
 };
 
 var banner = function() {
@@ -23,7 +23,7 @@ var banner = function() {
     lollypop: chalk.red('🍭 '),
     dress: chalk.red('👗 '),
     happy: chalk.green('😊 '),
-    trumpet: chalk.yellow('🎺 ')
+    trumpet: chalk.yellow('🎺 '),
   };
   var keys = Object.keys(emojis);
   var r = parseInt(Math.random() * keys.length - 1, 10);

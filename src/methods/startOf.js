@@ -4,14 +4,14 @@ const quarters = require('../data/quarters');
 const walkTo = require('./set/walk');
 
 const units = {
-  minute: (s) => {
+  minute: s => {
     walkTo(s, {
       second: 0,
       millisecond: 0,
     });
     return s;
   },
-  hour: (s) => {
+  hour: s => {
     walkTo(s, {
       minute: 0,
       second: 0,
@@ -19,7 +19,7 @@ const units = {
     });
     return s;
   },
-  day: (s) => {
+  day: s => {
     walkTo(s, {
       hour: 0,
       minute: 0,
@@ -28,7 +28,7 @@ const units = {
     });
     return s;
   },
-  week: (s) => {
+  week: s => {
     let original = s.clone();
     s.day(1); //monday
     if (s.isAfter(original)) {
@@ -42,7 +42,7 @@ const units = {
     });
     return s;
   },
-  month: (s) => {
+  month: s => {
     walkTo(s, {
       date: 1,
       hour: 0,
@@ -52,7 +52,7 @@ const units = {
     });
     return s;
   },
-  quarter: (s) => {
+  quarter: s => {
     let q = s.quarter();
     if (quarters[q]) {
       walkTo(s, {
@@ -66,9 +66,9 @@ const units = {
     }
     return s;
   },
-  season: (s) => {
+  season: s => {
     let current = s.season();
-    for(let i = 0; i < seasons.length; i++) {
+    for (let i = 0; i < seasons.length; i++) {
       if (seasons[i][0] === current) {
         //winter goes between years
         let year = s.year();
@@ -89,7 +89,7 @@ const units = {
     }
     return s;
   },
-  year: (s) => {
+  year: s => {
     walkTo(s, {
       month: 0,
       date: 1,
@@ -122,5 +122,5 @@ const endOf = (s, unit) => {
 };
 module.exports = {
   startOf: startOf,
-  endOf: endOf
+  endOf: endOf,
 };

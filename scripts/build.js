@@ -11,7 +11,7 @@ var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
 //first, run linter
 var child = exec(eslint + ' -c .eslintrc --color ./src/**', {
-  async: true
+  async: true,
 });
 child.stdout.on('error', function() {
   //(exit if linter finds errors)

@@ -2,7 +2,7 @@
 const test = require('tape');
 const spacetime = require('../src');
 
-test('add', (t) => {
+test('add', t => {
   let s = spacetime('January 1, 2017 1:20:05', 'Canada/Eastern');
   //initial state
   t.equal(s.date(), 1, '.date()');
@@ -52,7 +52,7 @@ test('add', (t) => {
   t.end();
 });
 
-test('hour-regression', (t) => {
+test('hour-regression', t => {
   let s = spacetime('January 1, 2017 13:20:00', 'Canada/Pacific');
   t.equal(s.hour(), 13, 'init.hour()');
   t.equal(s.minute(), 20, 'init.minute()');
@@ -63,7 +63,7 @@ test('hour-regression', (t) => {
   t.end();
 });
 
-test('year-tricky', (t) => {
+test('year-tricky', t => {
   let s = spacetime(1451667600000, 'Canada/Eastern'); //jan 1 2016 (leap year)
   t.equal(s.year(), 2016, 'year1');
 

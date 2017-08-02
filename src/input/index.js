@@ -12,7 +12,15 @@ const fns = require('../fns');
 
 //support [2016, 03, 01] format
 const handleArray = function(s, arr) {
-  let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
+  let order = [
+    'year',
+    'month',
+    'date',
+    'hour',
+    'minute',
+    'second',
+    'millisecond',
+  ];
   for (let i = 0; i < arr.length; i++) {
     let num = arr[i] || 0;
     s[order[i]](num);

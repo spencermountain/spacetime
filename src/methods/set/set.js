@@ -14,13 +14,21 @@ const validate = function(n) {
   return n;
 };
 
-const order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
+const order = [
+  'year',
+  'month',
+  'date',
+  'hour',
+  'minute',
+  'second',
+  'millisecond',
+];
 
 //reduce hostile micro-changes when moving dates by millisecond
 const confirm = function(s, tmp, unit) {
   let n = order.indexOf(unit);
   let arr = order.slice(n, order.length);
-  for(let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     let want = tmp[arr[i]]();
     s[arr[i]](want);
   }
@@ -28,7 +36,6 @@ const confirm = function(s, tmp, unit) {
 };
 
 module.exports = {
-
   milliseconds: (s, n) => {
     n = validate(n);
     let current = s.millisecond();
@@ -82,10 +89,12 @@ module.exports = {
     }
     //make the hour into proper 24h time
     if (h24 === false) {
-      if (m[3] === 'am' && hour === 12) { //12am is midnight
+      if (m[3] === 'am' && hour === 12) {
+        //12am is midnight
         hour = 0;
       }
-      if (m[3] === 'pm' && hour < 12) { //12pm is noon
+      if (m[3] === 'pm' && hour < 12) {
+        //12pm is noon
         hour += 12;
       }
     }
@@ -99,7 +108,7 @@ module.exports = {
   date: (s, n) => {
     n = validate(n);
     walkTo(s, {
-      date: n
+      date: n,
     });
     return s.epoch;
   },
@@ -118,7 +127,7 @@ module.exports = {
     }
     walkTo(s, {
       month: n,
-      date: date
+      date: date,
     });
     return s.epoch;
   },
@@ -126,7 +135,7 @@ module.exports = {
   year: (s, n) => {
     n = validate(n);
     walkTo(s, {
-      year: n
+      year: n,
     });
     return s.epoch;
   },
@@ -139,6 +148,5 @@ module.exports = {
     s.epoch += shift;
     confirm(s, old, 'hour');
     return s.epoch;
-  }
-
+  },
 };

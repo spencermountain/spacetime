@@ -5,7 +5,6 @@ const walkTo = require('../set/walk');
 
 //non-destructive getters/setters with fancy moves to do
 module.exports = {
-
   //like 'wednesday' (hard!)
   day: function(input) {
     if (input === undefined) {
@@ -34,7 +33,6 @@ module.exports = {
     this.epoch = s.epoch;
     return s;
   },
-
 
   ampm: function(input) {
     let which = 'am';
