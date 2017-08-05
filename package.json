@@ -11,13 +11,16 @@
     "watch": "node ./scripts/watch.js",
     "test": "./node_modules/tape/bin/tape ./test/**/*.test.js | ./node_modules/tap-spec/bin/cmd.js",
     "lint": "eslint .",
+    "size": "size-limit",
     "coverage": "node ./scripts/coverage.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/smallwins/spacetime.git"
   },
-  "files": ["builds/"],
+  "files": [
+    "builds/"
+  ],
   "dependencies": {},
   "devDependencies": {
     "babel-preset-es2015": "6.9.0",
@@ -33,9 +36,16 @@
     "nyc": "^8.4.0",
     "prettier": "^1.5.3",
     "shelljs": "^0.7.2",
+    "size-limit": "^0.8.0",
     "tap-spec": "4.1.1",
     "tape": "4.6.0",
     "timekeeper": "^1.0.0",
     "uglify-js": "2.7.0"
-  }
+  },
+  "size-limit": [
+    {
+      "path": "builds/spacetime.js",
+      "limit": "11 KB"
+    }
+  ]
 }
