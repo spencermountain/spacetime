@@ -5,7 +5,7 @@ const months = require('../data/months');
 const parseHour = function(s, str) {
   str = str.replace(/^\s+/, ''); //trim
   let arr = str.match(
-    /([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?:?([0-9]{1,4})?/
+    /([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/
   );
   if (arr) {
     s.hour(arr[1]);
