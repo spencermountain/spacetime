@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v1.1.0
+/* @smallwins/spacetime v1.2.0
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -1298,7 +1298,7 @@ module.exports={
 },{}],3:[function(_dereq_,module,exports){
 module.exports={
   "name": "spacetime",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",
@@ -1309,6 +1309,7 @@ module.exports={
     "watch": "node ./scripts/watch.js",
     "test": "./node_modules/tape/bin/tape ./test/**/*.test.js | ./node_modules/tap-spec/bin/cmd.js",
     "lint": "eslint .",
+    "size": "./node_modules/.bin/size-limit",
     "coverage": "node ./scripts/coverage.js"
   },
   "repository": {
@@ -1331,11 +1332,18 @@ module.exports={
     "nyc": "^8.4.0",
     "prettier": "^1.5.3",
     "shelljs": "^0.7.2",
+    "size-limit": "^0.8.0",
     "tap-spec": "4.1.1",
     "tape": "4.6.0",
     "timekeeper": "^1.0.0",
     "uglify-js": "2.7.0"
-  }
+  },
+  "size-limit": [
+    {
+      "path": "builds/spacetime.js",
+      "limit": "12 KB"
+    }
+  ]
 }
 
 },{}],4:[function(_dereq_,module,exports){
@@ -1618,7 +1626,7 @@ var months = _dereq_('../data/months');
 
 var parseHour = function parseHour(s, str) {
   str = str.replace(/^\s+/, ''); //trim
-  var arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?:?([0-9]{1,4})?/);
+  var arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/);
   if (arr) {
     s.hour(arr[1]);
     s.minute(arr[2]);
