@@ -2,8 +2,10 @@
 const spacetime = require('./src');
 // const spacetime = require('./builds/spacetime');
 
-// let s = spacetime(null, 'Australia/Canberra');
-// console.log(s.season());
+let s = spacetime('june 6 2017', 'Canada/Eastern');
+console.log(s.season());
+// s.goto('America/Argentina');
+s.goto('Australia/Canberra');
+console.log(s.season());
 
-// console.log(spacetime.whereIts('9am'));
-console.log(spacetime.whereIts('9:55am', '10am'));
+console.log(s.timezone().hemisphere);

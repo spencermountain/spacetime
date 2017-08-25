@@ -4,3 +4,4 @@
 * adds isBetween() method
 ## v1.2.0
 * adds `spacetime.whereIts()` method
+* actually implement 😓 season by hemisphere

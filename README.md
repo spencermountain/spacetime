@@ -106,10 +106,8 @@ s.progress().day = 0.48   // Almost noon
 s.progress().hour = 0.99  // 59 minutes and 59 seconds
 
 //find timezones by current time
-s.whereIts('9am')
-//['America/Atikokan','America/Bogota' ...]
-s.whereIts('8:30pm','9:30pm')
-//['America/Winnipeg', 'America/Yellowknife'... ]
+spacetime.whereIts('9am') //(within an hour)
+spacetime.whereIts('8:30pm','9:30pm') // ['America/Winnipeg', 'America/Yellowknife'... ]
 
 // Misc functions
 s.goto('Australia/Brisbane') // Roll into a new timezone, at the same moment

@@ -7,7 +7,7 @@ const units = {
   minute: s => {
     walkTo(s, {
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
   },
@@ -15,7 +15,7 @@ const units = {
     walkTo(s, {
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
   },
@@ -24,7 +24,7 @@ const units = {
       hour: 0,
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
   },
@@ -38,7 +38,7 @@ const units = {
       hour: 0,
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
   },
@@ -48,7 +48,7 @@ const units = {
       hour: 0,
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
   },
@@ -61,7 +61,7 @@ const units = {
         hour: 0,
         minute: 0,
         second: 0,
-        millisecond: 0,
+        millisecond: 0
       });
     }
     return s;
@@ -82,7 +82,7 @@ const units = {
           hour: 0,
           minute: 0,
           second: 0,
-          millisecond: 0,
+          millisecond: 0
         });
         return s;
       }
@@ -96,10 +96,10 @@ const units = {
       hour: 0,
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
-  },
+  }
 };
 units.date = units.day;
 
@@ -122,5 +122,5 @@ const endOf = (s, unit) => {
 };
 module.exports = {
   startOf: startOf,
-  endOf: endOf,
+  endOf: endOf
 };
