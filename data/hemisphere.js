@@ -10,6 +10,7 @@ module.exports = {
     'America/Montevideo': true,
     'America/Cordoba': true,
     'America/Stanley': true,
+    'America/Santiago': true,
     'Brazil/Acre': true,
 
     'Africa/Luanda': true,

@@ -23,6 +23,8 @@ const unpack = obj => {
       if (southern[cont] === true || hemispheres.south[tz]) {
         all[tz].h = all[tz].h || 's';
       }
+      //assume north, unless it says otherwise (sorry!)
+      all[tz].h = all[tz].h || 'n';
     });
   });
   //alias this one
