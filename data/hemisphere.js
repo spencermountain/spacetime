@@ -23,6 +23,7 @@ module.exports = {
     'Africa/Kinshasa': true,
     'Africa/Johannesburg': true,
     'Africa/Lubumbashi': true,
+    'Africa/Harare': true,
 
     'Asia/Dili': true,
     'Asia/Makassar': true,
@@ -34,6 +35,8 @@ module.exports = {
     'Pacific/Chatham': true,
     'Pacific/Easter': true,
 
-    'Indian/Reunion': true
+    'Indian/Reunion': true,
+    'Indian/Antananarivo': true,
+    'Indian/Kerguelen': true
   }
 };
