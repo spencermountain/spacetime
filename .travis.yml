@@ -1,8 +1,9 @@
 language: node_js
 cache: yarn
+notifications:
+  email: false
 node_js:
   - stable
-  - "6"
   - "4"
 script:
   - npm run test

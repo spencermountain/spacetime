@@ -20,7 +20,7 @@
 `npm install spacetime --save`
 
 
-# Testing 
+# Testing
 In Node:
 
 `npm test`
@@ -105,10 +105,17 @@ s.progress().month = 0.23 // We're a quarter way through the month
 s.progress().day = 0.48   // Almost noon
 s.progress().hour = 0.99  // 59 minutes and 59 seconds
 
+//find timezones by current time
+s.whereIts('9am')
+//['America/Atikokan','America/Bogota' ...]
+s.whereIts('8:30pm','9:30pm')
+//['America/Winnipeg', 'America/Yellowknife'... ]
+
 // Misc functions
 s.goto('Australia/Brisbane') // Roll into a new timezone, at the same moment
 s.clone() // Make a copy
 s.isValid() // Sept 32nd → false
+
 ```
 
 Image courtesy [NASA](https://www.nasa.gov) 💕🚀🌌

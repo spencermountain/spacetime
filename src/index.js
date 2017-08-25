@@ -1,5 +1,6 @@
 'use strict';
 const Spacetime = require('./spacetime');
+const whereIts = require('./findTz').whereIts;
 const pkg = require('../package.json');
 
 const main = function(input, tz) {
@@ -22,7 +23,8 @@ main.yesterday = function(tz) {
   let s = new Spacetime(new Date().getTime(), tz);
   return s.subtract(1, 'day').startOf('day');
 };
-
+//find tz by time
+main.whereIts = whereIts;
 //this is handy
 main.version = pkg.version;
 
