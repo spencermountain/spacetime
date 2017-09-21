@@ -1307,7 +1307,7 @@ module.exports={
     "build": "node ./scripts/build.js",
     "demo": "node ./scripts/demo.js",
     "watch": "node ./scripts/watch.js",
-    "test": "./node_modules/tape/bin/tape ./test/**/*.test.js | ./node_modules/tap-spec/bin/cmd.js",
+    "test": "tape ./test/**/*.test.js | tap-spec",
     "lint": "eslint .",
     "coverage": "node ./scripts/coverage.js"
   },
@@ -1341,9 +1341,20 @@ module.exports={
 },{}],4:[function(_dereq_,module,exports){
 'use strict';
 
+var shortDays = ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat'];
+var longDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+
 module.exports = {
-  short: ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat'],
-  long: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+  short: function short() {
+    return shortDays;
+  },
+  long: function long() {
+    return longDays;
+  },
+  set: function set(i18n) {
+    shortDays = i18n.short;
+    longDays = i18n.long;
+  }
 };
 
 },{}],5:[function(_dereq_,module,exports){
@@ -1385,23 +1396,34 @@ module.exports = [31, //January - 31 days
 },{}],7:[function(_dereq_,module,exports){
 'use strict';
 
-var shortMonth = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'];
-var longMonth = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+var shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'];
+var longMonths = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
-var obj = {
-  sep: 8
-};
-for (var i = 0; i < shortMonth.length; i++) {
-  obj[shortMonth[i]] = i;
-}
-for (var _i = 0; _i < longMonth.length; _i++) {
-  obj[longMonth[_i]] = _i;
+function buildMapping() {
+  var obj = {};
+  for (var i = 0; i < shortMonths.length; i++) {
+    obj[shortMonths[i]] = i;
+  }
+  for (var _i = 0; _i < longMonths.length; _i++) {
+    obj[longMonths[_i]] = _i;
+  }
+  mapping = obj;
 }
 
 module.exports = {
-  short: shortMonth,
-  long: longMonth,
-  mapping: obj
+  short: function short() {
+    return shortMonths;
+  },
+  long: function long() {
+    return longMonths;
+  },
+  mapping: function mapping() {
+    return buildMapping();
+  },
+  set: function set(i18n) {
+    shortMonths = i18n.short;
+    longMonths = i18n.long;
+  }
 };
 
 },{}],8:[function(_dereq_,module,exports){
@@ -1526,7 +1548,7 @@ main.version = pkg.version;
 
 module.exports = main;
 
-},{"../package.json":3,"./spacetime":28}],12:[function(_dereq_,module,exports){
+},{"../package.json":3,"./spacetime":29}],12:[function(_dereq_,module,exports){
 'use strict';
 
 var strFmt = _dereq_('./strParse');
@@ -1700,7 +1722,7 @@ var strFmt = [
 
 module.exports = strFmt;
 
-},{"../data/months":7,"../methods/set/walk":26}],14:[function(_dereq_,module,exports){
+},{"../data/months":7,"../methods/set/walk":27}],14:[function(_dereq_,module,exports){
 'use strict';
 
 var _format = _dereq_('./methods/format');
@@ -1779,7 +1801,7 @@ var methods = {
 methods.inDST = methods.isDST;
 module.exports = methods;
 
-},{"./input":12,"./methods/diff":17,"./methods/format":18,"./methods/progress":19,"./methods/startOf":27,"./timezone/index":30}],15:[function(_dereq_,module,exports){
+},{"./input":12,"./methods/diff":17,"./methods/format":18,"./methods/progress":20,"./methods/startOf":28,"./timezone/index":31}],15:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('./set/walk');
@@ -1883,7 +1905,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{"../data/milliseconds":5,"../data/monthLength":6,"../fns":10,"./set/walk":26}],16:[function(_dereq_,module,exports){
+},{"../data/milliseconds":5,"../data/monthLength":6,"../fns":10,"./set/walk":27}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns');
@@ -1971,10 +1993,10 @@ var days = _dereq_('../data/days');
 
 var fmt = {
   day: function day(s) {
-    return fns.titleCase(days.long[s.day()]);
+    return fns.titleCase(days.long()[s.day()]);
   },
   'day-short': function dayShort(s) {
-    return fns.titleCase(days.short[s.day()]);
+    return fns.titleCase(days.short()[s.day()]);
   },
   date: function date(s) {
     return '' + s.date();
@@ -1983,10 +2005,10 @@ var fmt = {
     return fns.ordinal(s.date());
   },
   month: function month(s) {
-    return fns.titleCase(months.long[s.month()]);
+    return fns.titleCase(months.long()[s.month()]);
   },
   'month-short': function monthShort(s) {
-    return fns.titleCase(months.short[s.month()]);
+    return fns.titleCase(months.short()[s.month()]);
   },
   time: function time(s) {
     return s.h12() + ':' + fns.zeroPad(s.minute()) + s.ampm(); //3:45pm
@@ -2094,6 +2116,32 @@ module.exports = format;
 
 },{"../data/days":4,"../data/months":7,"../fns":10}],19:[function(_dereq_,module,exports){
 'use strict';
+
+var fns = _dereq_('../fns');
+var days = _dereq_('../data/days');
+var months = _dereq_('../data/months');
+
+var addMethods = function addMethods(SpaceTime) {
+  var methods = {
+    i18n: function i18n(data) {
+      if (!fns.isObject(data) || !fns.isObject(data.days) || !fns.isObject(data.months) || !fns.isArray(data.days.short) || !fns.isArray(data.days.long) || !fns.isArray(data.months.short) || !fns.isArray(data.months.long)) {
+        throw new Error('Invalid i18n payload passed.');
+      }
+      days.set(data.days);
+      months.set(data.months);
+    }
+  };
+
+  //hook them into proto
+  Object.keys(methods).forEach(function (k) {
+    SpaceTime.prototype[k] = methods[k];
+  });
+};
+
+module.exports = addMethods;
+
+},{"../data/days":4,"../data/months":7,"../fns":10}],20:[function(_dereq_,module,exports){
+'use strict';
 //how far it is along, from 0-1
 
 var progress = function progress(s) {
@@ -2111,7 +2159,7 @@ var progress = function progress(s) {
 
 module.exports = progress;
 
-},{}],20:[function(_dereq_,module,exports){
+},{}],21:[function(_dereq_,module,exports){
 'use strict';
 
 var quarters = _dereq_('../../data/quarters');
@@ -2238,7 +2286,7 @@ module.exports = {
   }
 };
 
-},{"../../data/quarters":8,"../../data/seasons":9,"../set/set":25}],21:[function(_dereq_,module,exports){
+},{"../../data/quarters":8,"../../data/seasons":9,"../set/set":26}],22:[function(_dereq_,module,exports){
 'use strict';
 
 var normal = _dereq_('./normal');
@@ -2260,7 +2308,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"./destructive":20,"./normal":22,"./tricky":23}],22:[function(_dereq_,module,exports){
+},{"./destructive":21,"./normal":23,"./tricky":24}],23:[function(_dereq_,module,exports){
 'use strict';
 
 var set = _dereq_('../set/set');
@@ -2411,7 +2459,7 @@ methods.days = methods.day;
 
 module.exports = methods;
 
-},{"../set/set":25}],23:[function(_dereq_,module,exports){
+},{"../set/set":26}],24:[function(_dereq_,module,exports){
 'use strict';
 
 var days = _dereq_('../../data/days');
@@ -2430,9 +2478,9 @@ module.exports = {
     // accept 'wednesday'
     if (typeof input === 'string') {
       input = input.toLowerCase();
-      want = days.short.indexOf(input);
+      want = days.short().indexOf(input);
       if (want === -1) {
-        want = days.long.indexOf(input);
+        want = days.long().indexOf(input);
       }
     }
     //move approx
@@ -2472,7 +2520,7 @@ module.exports = {
   //these are helpful name-wrappers
   dayName: function dayName(input) {
     if (input === undefined) {
-      return days.long[this.day()];
+      return days.long()[this.day()];
     }
     this.day(input);
     return this;
@@ -2480,14 +2528,14 @@ module.exports = {
 
   monthName: function monthName(input) {
     if (input === undefined) {
-      return months.long[this.month()];
+      return months().long[this.month()];
     }
     this.month(input);
     return this;
   }
 };
 
-},{"../../data/days":4,"../../data/months":7,"../set/walk":26}],24:[function(_dereq_,module,exports){
+},{"../../data/days":4,"../../data/months":7,"../set/walk":27}],25:[function(_dereq_,module,exports){
 'use strict';
 
 //easy comparison between dates
@@ -2541,7 +2589,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{}],25:[function(_dereq_,module,exports){
+},{}],26:[function(_dereq_,module,exports){
 'use strict';
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
@@ -2653,7 +2701,7 @@ module.exports = {
   //this one's tricky
   month: function month(s, n) {
     if (typeof n === 'string') {
-      n = months.mapping[n.toLowerCase()];
+      n = months.mapping()[n.toLowerCase()];
     }
     n = validate(n);
     var date = s.date();
@@ -2688,7 +2736,7 @@ module.exports = {
   }
 };
 
-},{"../../data/milliseconds":5,"../../data/monthLength":6,"../../data/months":7,"./walk":26}],26:[function(_dereq_,module,exports){
+},{"../../data/milliseconds":5,"../../data/monthLength":6,"../../data/months":7,"./walk":27}],27:[function(_dereq_,module,exports){
 'use strict';
 
 var ms = _dereq_('../../data/milliseconds');
@@ -2813,7 +2861,7 @@ var walkTo = function walkTo(s, wants) {
 };
 module.exports = walkTo;
 
-},{"../../data/milliseconds":5}],27:[function(_dereq_,module,exports){
+},{"../../data/milliseconds":5}],28:[function(_dereq_,module,exports){
 'use strict';
 
 var seasons = _dereq_('../data/seasons');
@@ -2942,7 +2990,7 @@ module.exports = {
   endOf: endOf
 };
 
-},{"../data/quarters":8,"../data/seasons":9,"./set/walk":26}],28:[function(_dereq_,module,exports){
+},{"../data/quarters":8,"../data/seasons":9,"./set/walk":27}],29:[function(_dereq_,module,exports){
 'use strict';
 
 var guessTz = _dereq_('./timezone/guessTz');
@@ -2989,10 +3037,11 @@ _dereq_('./methods/query')(SpaceTime);
 _dereq_('./methods/add')(SpaceTime);
 _dereq_('./methods/same')(SpaceTime);
 _dereq_('./methods/compare')(SpaceTime);
+_dereq_('./methods/i18n')(SpaceTime);
 
 module.exports = SpaceTime;
 
-},{"./input":12,"./methods":14,"./methods/add":15,"./methods/compare":16,"./methods/query":21,"./methods/same":24,"./timezone/guessTz":29,"./timezone/index":30}],29:[function(_dereq_,module,exports){
+},{"./input":12,"./methods":14,"./methods/add":15,"./methods/compare":16,"./methods/i18n":19,"./methods/query":22,"./methods/same":25,"./timezone/guessTz":30,"./timezone/index":31}],30:[function(_dereq_,module,exports){
 'use strict';
 //find the implicit iana code for this machine.
 //safely query the Intl object
@@ -3016,7 +3065,7 @@ var guessTz = function guessTz() {
 };
 module.exports = guessTz;
 
-},{}],30:[function(_dereq_,module,exports){
+},{}],31:[function(_dereq_,module,exports){
 'use strict';
 
 var zones = _dereq_('../../data');
@@ -3095,7 +3144,7 @@ var timezone = function timezone(s) {
 };
 module.exports = timezone;
 
-},{"../../data":1,"./isDst":31}],31:[function(_dereq_,module,exports){
+},{"../../data":1,"./isDst":32}],32:[function(_dereq_,module,exports){
 'use strict';
 
 var zeroPad = _dereq_('../fns').zeroPad;

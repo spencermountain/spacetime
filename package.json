@@ -9,7 +9,7 @@
     "build": "node ./scripts/build.js",
     "demo": "node ./scripts/demo.js",
     "watch": "node ./scripts/watch.js",
-    "test": "./node_modules/tape/bin/tape ./test/**/*.test.js | ./node_modules/tap-spec/bin/cmd.js",
+    "test": "tape ./test/**/*.test.js | tap-spec",
     "lint": "eslint .",
     "coverage": "node ./scripts/coverage.js"
   },

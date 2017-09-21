@@ -14,15 +14,7 @@ const validate = function(n) {
   return n;
 };
 
-const order = [
-  'year',
-  'month',
-  'date',
-  'hour',
-  'minute',
-  'second',
-  'millisecond',
-];
+const order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
 
 //reduce hostile micro-changes when moving dates by millisecond
 const confirm = function(s, tmp, unit) {
@@ -116,7 +108,7 @@ module.exports = {
   //this one's tricky
   month: (s, n) => {
     if (typeof n === 'string') {
-      n = months.mapping[n.toLowerCase()];
+      n = months.mapping()[n.toLowerCase()];
     }
     n = validate(n);
     let date = s.date();

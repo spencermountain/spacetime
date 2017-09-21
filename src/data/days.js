@@ -1,12 +1,12 @@
+'use strict';
+let shortDays = ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat'];
+let longDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+
 module.exports = {
-  short: ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat'],
-  long: [
-    'sunday',
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'friday',
-    'saturday',
-  ],
+  short: () => shortDays,
+  long: () => longDays,
+  set: i18n => {
+    shortDays = i18n.short;
+    longDays = i18n.long;
+  },
 };
