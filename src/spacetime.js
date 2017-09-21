@@ -43,5 +43,6 @@ require('./methods/query')(SpaceTime);
 require('./methods/add')(SpaceTime);
 require('./methods/same')(SpaceTime);
 require('./methods/compare')(SpaceTime);
+require('./methods/i18n')(SpaceTime);
 
 module.exports = SpaceTime;

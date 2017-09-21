@@ -5,10 +5,10 @@ const days = require('../data/days');
 
 const fmt = {
   day: s => {
-    return fns.titleCase(days.long[s.day()]);
+    return fns.titleCase(days.long()[s.day()]);
   },
   'day-short': s => {
-    return fns.titleCase(days.short[s.day()]);
+    return fns.titleCase(days.short()[s.day()]);
   },
   date: s => {
     return '' + s.date();
@@ -17,10 +17,10 @@ const fmt = {
     return fns.ordinal(s.date());
   },
   month: s => {
-    return fns.titleCase(months.long[s.month()]);
+    return fns.titleCase(months.long()[s.month()]);
   },
   'month-short': s => {
-    return fns.titleCase(months.short[s.month()]);
+    return fns.titleCase(months.short()[s.month()]);
   },
   time: s => {
     return `${s.h12()}:${fns.zeroPad(s.minute())}${s.ampm()}`; //3:45pm

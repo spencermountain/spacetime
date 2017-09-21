@@ -1,11 +1,12 @@
 require('shelljs/global');
 config.silent = true;
 var fs = require('fs');
+var path = require('path');
 //use paths, so libs don't need a -g
-var browserify = './node_modules/.bin/browserify';
-var derequire = './node_modules/derequire/bin/cmd.js';
-var uglify = './node_modules/uglify-js/bin/uglifyjs';
-var eslint = './node_modules/eslint/bin/eslint.js';
+var browserify = path.join('node_modules', '.bin', 'browserify');
+var derequire = path.join('node_modules', '.bin', 'derequire');
+var uglify = path.join('node_modules', '.bin', 'uglifyjs');
+var eslint = path.join('node_modules', '.bin', 'eslint');
 
 var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 

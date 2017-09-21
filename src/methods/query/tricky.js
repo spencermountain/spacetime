@@ -15,9 +15,9 @@ module.exports = {
     // accept 'wednesday'
     if (typeof input === 'string') {
       input = input.toLowerCase();
-      want = days.short.indexOf(input);
+      want = days.short().indexOf(input);
       if (want === -1) {
-        want = days.long.indexOf(input);
+        want = days.long().indexOf(input);
       }
     }
     //move approx
@@ -57,7 +57,7 @@ module.exports = {
   //these are helpful name-wrappers
   dayName: function(input) {
     if (input === undefined) {
-      return days.long[this.day()];
+      return days.long()[this.day()];
     }
     this.day(input);
     return this;
@@ -65,7 +65,7 @@ module.exports = {
 
   monthName: function(input) {
     if (input === undefined) {
-      return months.long[this.month()];
+      return months().long[this.month()];
     }
     this.month(input);
     return this;
