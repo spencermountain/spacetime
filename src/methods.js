@@ -70,7 +70,7 @@ const methods = {
     console.log('');
     console.log(format(this, 'full-short'));
     return this;
-  },
+  }
 };
 methods.inDST = methods.isDST;
 module.exports = methods;

@@ -7,7 +7,7 @@ const units = {
   minute: s => {
     walkTo(s, {
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
   },
@@ -15,7 +15,7 @@ const units = {
     walkTo(s, {
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
   },
@@ -24,7 +24,7 @@ const units = {
       hour: 0,
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
   },
@@ -38,7 +38,7 @@ const units = {
       hour: 0,
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
   },
@@ -48,7 +48,7 @@ const units = {
       hour: 0,
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
   },
@@ -61,15 +61,19 @@ const units = {
         hour: 0,
         minute: 0,
         second: 0,
-        millisecond: 0,
+        millisecond: 0
       });
     }
     return s;
   },
   season: s => {
     let current = s.season();
-    for (let i = 0; i < seasons.length; i++) {
-      if (seasons[i][0] === current) {
+    let hem = 'north';
+    if (s.timezone().hemisphere === 'South') {
+      hem = 'south';
+    }
+    for (let i = 0; i < seasons[hem].length; i++) {
+      if (seasons[hem][i][0] === current) {
         //winter goes between years
         let year = s.year();
         if (current === 'winter' && s.month() < 3) {
@@ -77,12 +81,12 @@ const units = {
         }
         walkTo(s, {
           year: year,
-          month: seasons[i][1],
-          date: seasons[i][2],
+          month: seasons[hem][i][1],
+          date: seasons[hem][i][2],
           hour: 0,
           minute: 0,
           second: 0,
-          millisecond: 0,
+          millisecond: 0
         });
         return s;
       }
@@ -96,16 +100,20 @@ const units = {
       hour: 0,
       minute: 0,
       second: 0,
-      millisecond: 0,
+      millisecond: 0
     });
     return s;
-  },
+  }
 };
 units.date = units.day;
 
 const startOf = (s, unit) => {
   if (units[unit]) {
     return units[unit](s);
+  }
+  if (unit === 'summer' || unit === 'winter') {
+    s.season(unit);
+    return units.season(s);
   }
   return s;
 };
@@ -122,5 +130,5 @@ const endOf = (s, unit) => {
 };
 module.exports = {
   startOf: startOf,
-  endOf: endOf,
+  endOf: endOf
 };

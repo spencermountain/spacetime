@@ -95,3 +95,16 @@ test('inputs-in-comparisons', t => {
   t.ok(s.isBefore(future), 'compare with spacetimeObj');
   t.end();
 });
+
+test('iso-string-input', t => {
+  let s = spacetime('2017-08-06T09:00:00.000Z');
+  t.ok(s.isValid(), 'obj input is valid');
+  t.equal(s.millisecond(), 0, 'iso-string-millisecond');
+  t.equal(s.second(), 0, 'iso-string-second');
+  t.equal(s.minute(), 0, 'iso-string-minute');
+  t.equal(s.hour(), 9, 'iso-string-hour');
+  t.equal(s.date(), 6, 'iso-string-date');
+  t.equal(s.month(), 7, 'iso-string-month');
+  t.equal(s.year(), 2017, 'iso-string-year');
+  t.end();
+});

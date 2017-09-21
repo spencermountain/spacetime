@@ -102,10 +102,14 @@ module.exports = {
   },
 
   season: function(input) {
+    let hem = 'north';
+    if (this.timezone().hemisphere === 'South') {
+      hem = 'south';
+    }
     if (input !== undefined) {
-      for (let i = 0; i < seasons.length; i++) {
-        if (input === seasons[i][0]) {
-          this.month(seasons[i][1]);
+      for (let i = 0; i < seasons[hem].length; i++) {
+        if (input === seasons[hem][i][0]) {
+          this.month(seasons[hem][i][1]);
           this.date(1);
           this.hour(0);
           clearMinutes(this);
@@ -114,11 +118,11 @@ module.exports = {
       return this;
     }
     let month = this.d.getMonth();
-    for (let i = 0; i < seasons.length - 1; i++) {
-      if (month >= seasons[i][1] && month < seasons[i + 1][1]) {
-        return seasons[i][0];
+    for (let i = 0; i < seasons[hem].length - 1; i++) {
+      if (month >= seasons[hem][i][1] && month < seasons[hem][i + 1][1]) {
+        return seasons[hem][i][0];
       }
     }
     return 'winter';
-  },
+  }
 };
