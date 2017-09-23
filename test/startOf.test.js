@@ -19,6 +19,17 @@ test('start of month', t => {
   t.end();
 });
 
+test('start of quarterHour', t => {
+  let d = spacetime('March 28, 1999 8:42:12', 'Canada/Eastern');
+  d.startOf('quarterHour');
+  t.equal(d.time(), '8:30am', 'quarterHour-start');
+
+  d = spacetime('March 28, 1999 20:00:12', 'Canada/Pacific');
+  d.startOf('quarterHour');
+  t.equal(d.time(), '8:00pm', 'quarterHour-start2');
+  t.end();
+});
+
 test('start of winter', t => {
   let d = spacetime('January 28, 2017 20:42:00', 'Canada/Pacific');
   d.startOf('season');

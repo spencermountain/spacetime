@@ -11,6 +11,23 @@ const units = {
     });
     return s;
   },
+  quarterHour: s => {
+    let minute = s.minutes();
+    if (minute >= 45) {
+      s.minutes(45);
+    } else if (minute >= 30) {
+      s.minutes(30);
+    } else if (minute >= 15) {
+      s.minutes(15);
+    } else {
+      s.minutes(0);
+    }
+    walkTo(s, {
+      second: 0,
+      millisecond: 0
+    });
+    return s;
+  },
   hour: s => {
     walkTo(s, {
       minute: 0,

@@ -1546,7 +1546,7 @@ exports.whereIts = function (a, b) {
   return tzs;
 };
 
-},{"../data":2,"./spacetime":30}],12:[function(_dereq_,module,exports){
+},{"../data":2,"./spacetime":32}],12:[function(_dereq_,module,exports){
 'use strict';
 
 exports.isDate = function (d) {
@@ -1646,8 +1646,7 @@ main.version = pkg.version;
 
 module.exports = main;
 
-},{"../package.json":3,"./spacetime":29}],12:[function(_dereq_,module,exports){
-
+},{"../package.json":4,"./findTz":11,"./spacetime":32}],14:[function(_dereq_,module,exports){
 'use strict';
 
 var strFmt = _dereq_('./strParse');
@@ -1821,11 +1820,12 @@ var strFmt = [
 
 module.exports = strFmt;
 
-},{"../data/months":7,"../methods/set/walk":27}],14:[function(_dereq_,module,exports){
+},{"../data/months":8,"../methods/set/walk":30}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var _format = _dereq_('./methods/format');
 var _progress = _dereq_('./methods/progress');
+var _nearest = _dereq_('./methods/nearest');
 var _diff = _dereq_('./methods/diff');
 var ends = _dereq_('./methods/startOf');
 var _timezone = _dereq_('./timezone/index');
@@ -1866,6 +1866,9 @@ var methods = {
   progress: function progress() {
     return _progress(this);
   },
+  nearest: function nearest(unit) {
+    return _nearest(this, unit);
+  },
   diff: function diff(d, unit) {
     return _diff(this, d, unit);
   },
@@ -1898,10 +1901,10 @@ var methods = {
   }
 };
 methods.inDST = methods.isDST;
+methods.round = methods.nearest;
 module.exports = methods;
 
-},{"./input":12,"./methods/diff":17,"./methods/format":18,"./methods/progress":20,"./methods/startOf":28,"./timezone/index":31}],15:[function(_dereq_,module,exports){
-
+},{"./input":14,"./methods/diff":19,"./methods/format":20,"./methods/nearest":22,"./methods/progress":23,"./methods/startOf":31,"./timezone/index":34}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('./set/walk');
@@ -2005,8 +2008,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{"../data/milliseconds":5,"../data/monthLength":6,"../fns":10,"./set/walk":27}],16:[function(_dereq_,module,exports){
-
+},{"../data/milliseconds":6,"../data/monthLength":7,"../fns":12,"./set/walk":30}],18:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns');
@@ -2241,12 +2243,32 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{"../data/days":4,"../data/months":7,"../fns":10}],20:[function(_dereq_,module,exports){
+},{"../data/days":5,"../data/months":8,"../fns":12}],22:[function(_dereq_,module,exports){
+"use strict";
+
+//round to either current, or +1 of this unit
+var nearest = function nearest(s, unit) {
+  unit = unit.toLowerCase();
+  unit = unit.replace(/s$/, ''); //singular form...
+  var prog = s.progress();
+  if (prog[unit] !== undefined) {
+    if (prog[unit] > 0.5) {
+      s.add(1, unit);
+    }
+    s.startOf(unit);
+  } else {
+    console.warn("no known unit '" + unit + "'");
+  }
+  return s;
+};
+module.exports = nearest;
+
+},{}],23:[function(_dereq_,module,exports){
 'use strict';
 //how far it is along, from 0-1
 
 var progress = function progress(s) {
-  var units = ['year', 'season', 'quarter', 'month', 'week', 'day', 'hour', 'minute'];
+  var units = ['year', 'season', 'quarter', 'month', 'week', 'day', 'quarterHour', 'hour', 'minute'];
   var obj = {};
   units.forEach(function (k) {
     var start = s.clone().startOf(k);
@@ -2260,8 +2282,7 @@ var progress = function progress(s) {
 
 module.exports = progress;
 
-},{}],21:[function(_dereq_,module,exports){
-
+},{}],24:[function(_dereq_,module,exports){
 'use strict';
 
 var quarters = _dereq_('../../data/quarters');
@@ -2392,8 +2413,7 @@ module.exports = {
   }
 };
 
-},{"../../data/quarters":8,"../../data/seasons":9,"../set/set":26}],22:[function(_dereq_,module,exports){
-
+},{"../../data/quarters":9,"../../data/seasons":10,"../set/set":29}],25:[function(_dereq_,module,exports){
 'use strict';
 
 var normal = _dereq_('./normal');
@@ -2415,8 +2435,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"./destructive":21,"./normal":23,"./tricky":24}],23:[function(_dereq_,module,exports){
-
+},{"./destructive":24,"./normal":26,"./tricky":27}],26:[function(_dereq_,module,exports){
 'use strict';
 
 var set = _dereq_('../set/set');
@@ -2567,8 +2586,7 @@ methods.days = methods.day;
 
 module.exports = methods;
 
-},{"../set/set":26}],24:[function(_dereq_,module,exports){
-
+},{"../set/set":29}],27:[function(_dereq_,module,exports){
 'use strict';
 
 var days = _dereq_('../../data/days');
@@ -2644,8 +2662,7 @@ module.exports = {
   }
 };
 
-},{"../../data/days":4,"../../data/months":7,"../set/walk":27}],25:[function(_dereq_,module,exports){
-
+},{"../../data/days":5,"../../data/months":8,"../set/walk":30}],28:[function(_dereq_,module,exports){
 'use strict';
 
 //easy comparison between dates
@@ -2699,8 +2716,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{}],26:[function(_dereq_,module,exports){
-
+},{}],29:[function(_dereq_,module,exports){
 'use strict';
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
@@ -2847,8 +2863,7 @@ module.exports = {
   }
 };
 
-},{"../../data/milliseconds":5,"../../data/monthLength":6,"../../data/months":7,"./walk":27}],27:[function(_dereq_,module,exports){
-
+},{"../../data/milliseconds":6,"../../data/monthLength":7,"../../data/months":8,"./walk":30}],30:[function(_dereq_,module,exports){
 'use strict';
 
 var ms = _dereq_('../../data/milliseconds');
@@ -2973,8 +2988,7 @@ var walkTo = function walkTo(s, wants) {
 };
 module.exports = walkTo;
 
-},{"../../data/milliseconds":5}],28:[function(_dereq_,module,exports){
-
+},{"../../data/milliseconds":6}],31:[function(_dereq_,module,exports){
 'use strict';
 
 var seasons = _dereq_('../data/seasons');
@@ -2983,6 +2997,23 @@ var walkTo = _dereq_('./set/walk');
 
 var units = {
   minute: function minute(s) {
+    walkTo(s, {
+      second: 0,
+      millisecond: 0
+    });
+    return s;
+  },
+  quarterHour: function quarterHour(s) {
+    var minute = s.minutes();
+    if (minute >= 45) {
+      s.minutes(45);
+    } else if (minute >= 30) {
+      s.minutes(30);
+    } else if (minute >= 15) {
+      s.minutes(15);
+    } else {
+      s.minutes(0);
+    }
     walkTo(s, {
       second: 0,
       millisecond: 0
@@ -3111,8 +3142,7 @@ module.exports = {
   endOf: endOf
 };
 
-},{"../data/quarters":8,"../data/seasons":9,"./set/walk":27}],29:[function(_dereq_,module,exports){
-
+},{"../data/quarters":9,"../data/seasons":10,"./set/walk":30}],32:[function(_dereq_,module,exports){
 'use strict';
 
 var guessTz = _dereq_('./timezone/guessTz');
@@ -3163,8 +3193,7 @@ _dereq_('./methods/i18n')(SpaceTime);
 
 module.exports = SpaceTime;
 
-},{"./input":12,"./methods":14,"./methods/add":15,"./methods/compare":16,"./methods/i18n":19,"./methods/query":22,"./methods/same":25,"./timezone/guessTz":30,"./timezone/index":31}],30:[function(_dereq_,module,exports){
-
+},{"./input":14,"./methods":16,"./methods/add":17,"./methods/compare":18,"./methods/i18n":21,"./methods/query":25,"./methods/same":28,"./timezone/guessTz":33,"./timezone/index":34}],33:[function(_dereq_,module,exports){
 'use strict';
 //find the implicit iana code for this machine.
 //safely query the Intl object
@@ -3188,8 +3217,7 @@ var guessTz = function guessTz() {
 };
 module.exports = guessTz;
 
-},{}],31:[function(_dereq_,module,exports){
-
+},{}],34:[function(_dereq_,module,exports){
 'use strict';
 
 var zones = _dereq_('../../data');
@@ -3268,8 +3296,7 @@ var timezone = function timezone(s) {
 };
 module.exports = timezone;
 
-},{"../../data":1,"./isDst":32}],32:[function(_dereq_,module,exports){
-
+},{"../../data":2,"./isDst":35}],35:[function(_dereq_,module,exports){
 'use strict';
 
 var zeroPad = _dereq_('../fns').zeroPad;

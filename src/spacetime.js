@@ -1,48 +1,48 @@
-'use strict';
-const guessTz = require('./timezone/guessTz');
-const timezone = require('./timezone/index');
-const handleInput = require('./input');
-const methods = require('./methods');
+'use strict'
+const guessTz = require('./timezone/guessTz')
+const timezone = require('./timezone/index')
+const handleInput = require('./input')
+const methods = require('./methods')
 
 //fake timezone-support, for fakers (es5 class)
 const SpaceTime = function(input, tz) {
   //the shift for the given timezone
-  this.tz = tz || guessTz();
+  this.tz = tz || guessTz()
   //don't output anything if it's invalid
-  this.valid = true;
+  this.valid = true
   //every computer is somewhere- get this computer's built-in offset
-  this.bias = new Date().getTimezoneOffset() || 0;
+  this.bias = new Date().getTimezoneOffset() || 0
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object
     get: function() {
-      let meta = timezone(this) || {};
+      let meta = timezone(this) || {}
       //movement in milliseconds
-      let shift = meta.current.epochShift;
+      let shift = meta.current.epochShift
       //remove this computer's offset
-      shift = shift + this.bias * 60 * 1000;
-      let epoch = this.epoch + shift;
-      let d = new Date(epoch);
-      return d;
-    },
-  });
+      shift = shift + this.bias * 60 * 1000
+      let epoch = this.epoch + shift
+      let d = new Date(epoch)
+      return d
+    }
+  })
   //parse the various formats
-  handleInput(this, input);
-};
+  handleInput(this, input)
+}
 
 //(add instance methods to prototype)
 Object.keys(methods).forEach(k => {
-  SpaceTime.prototype[k] = methods[k];
-});
+  SpaceTime.prototype[k] = methods[k]
+})
 SpaceTime.prototype.clone = function() {
-  return new SpaceTime(this.epoch, this.tz);
-};
+  return new SpaceTime(this.epoch, this.tz)
+}
 
 //append more methods
-require('./methods/query')(SpaceTime);
-require('./methods/add')(SpaceTime);
-require('./methods/same')(SpaceTime);
-require('./methods/compare')(SpaceTime);
-require('./methods/i18n')(SpaceTime);
+require('./methods/query')(SpaceTime)
+require('./methods/add')(SpaceTime)
+require('./methods/same')(SpaceTime)
+require('./methods/compare')(SpaceTime)
+require('./methods/i18n')(SpaceTime)
 
-module.exports = SpaceTime;
+module.exports = SpaceTime

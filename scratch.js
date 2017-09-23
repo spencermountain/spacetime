@@ -10,7 +10,10 @@ const spacetime = require('./src');
 //
 // console.log(s.timezone().hemisphere);
 
-let s = spacetime('December 31, 1999 23:59:58', 'Africa/Algiers');
-console.log(s.season());
-s.startOf('summer');
-console.log(s.season());
+let s = spacetime(null, 'Canada/Eastern');
+s.time('3:59');
+s.log();
+s.startOf('quarterHour');
+// console.log(s.progress());
+s.log();
+// s.nearest('quarterHour').log();

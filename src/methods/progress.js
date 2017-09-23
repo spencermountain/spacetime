@@ -1,16 +1,7 @@
 'use strict';
 //how far it is along, from 0-1
 const progress = function(s) {
-  const units = [
-    'year',
-    'season',
-    'quarter',
-    'month',
-    'week',
-    'day',
-    'hour',
-    'minute',
-  ];
+  const units = ['year', 'season', 'quarter', 'month', 'week', 'day', 'quarterHour', 'hour', 'minute'];
   let obj = {};
   units.forEach(k => {
     let start = s.clone().startOf(k);
