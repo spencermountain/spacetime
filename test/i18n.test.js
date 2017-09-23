@@ -2,6 +2,30 @@
 const test = require('tape');
 const spacetime = require('../src');
 
+const defaultWords = {
+  days: {
+    short: ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat'],
+    long: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+  },
+  months: {
+    short: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+    long: [
+      'january',
+      'february',
+      'march',
+      'april',
+      'may',
+      'june',
+      'july',
+      'august',
+      'september',
+      'october',
+      'november',
+      'december'
+    ]
+  }
+};
+
 test('i18n', t => {
   let a = spacetime([2000, 0, 1]);
 
@@ -13,7 +37,7 @@ test('i18n', t => {
   a.i18n({
     days: {
       short: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-      long: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+      long: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
     },
     months: {
       short: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
@@ -29,15 +53,18 @@ test('i18n', t => {
         'septiembre',
         'octubre',
         'noviembre',
-        'diciembre',
-      ],
-    },
+        'diciembre'
+      ]
+    }
   });
 
   t.equal(a.format('day-short'), 'Sáb', 'es: day-short');
   t.equal(a.format('day'), 'Sábado', 'es: day');
   t.equal(a.format('month-short'), 'Ene', 'es: month-short');
   t.equal(a.format('month'), 'Enero', 'es: month');
+
+  //reset them, for the other tests
+  a.i18n(defaultWords);
 
   t.end();
 });

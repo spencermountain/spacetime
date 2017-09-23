@@ -49,6 +49,11 @@ test('add', t => {
   t.equal(s.date(), 1, 'moveyear-.date()');
   // t.equal(s.monthName(), 'april', 'moveyear.month()');
   t.equal(s.year(), 2019, 'moveyear.years()');
+
+  s.add(1, 'quarterHour');
+  t.equal(s.minute(), 35, 'movequarterHour');
+  s.add(1, 'quarterHour');
+  t.equal(s.minute(), 50, 'movequarterHour#2');
   t.end();
 });
 
