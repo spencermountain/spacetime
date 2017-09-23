@@ -1,19 +1,6 @@
 'use strict';
 
-let shortMonths = [
-  'jan',
-  'feb',
-  'mar',
-  'apr',
-  'may',
-  'jun',
-  'jul',
-  'aug',
-  'sept',
-  'oct',
-  'nov',
-  'dec',
-];
+let shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'];
 let longMonths = [
   'january',
   'february',
@@ -26,7 +13,7 @@ let longMonths = [
   'september',
   'october',
   'november',
-  'december',
+  'december'
 ];
 
 function buildMapping() {
@@ -37,7 +24,7 @@ function buildMapping() {
   for (let i = 0; i < longMonths.length; i++) {
     obj[longMonths[i]] = i;
   }
-  mapping = obj;
+  return obj;
 }
 
 module.exports = {
@@ -47,5 +34,5 @@ module.exports = {
   set: i18n => {
     shortMonths = i18n.short;
     longMonths = i18n.long;
-  },
+  }
 };

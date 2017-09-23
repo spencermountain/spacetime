@@ -10,10 +10,15 @@ const spacetime = require('./src');
 //
 // console.log(s.timezone().hemisphere);
 
-let s = spacetime(null, 'Canada/Eastern');
-s.time('3:59');
+// let s = spacetime(null, 'Canada/Eastern');
+// s.time('3:55');
+// s.log();
+// s.startOf('quarterHour');
+// // s.add(1, 'quarterHour');
+// // console.log(s.progress());
+// s.log();
+// // s.nearest('quarterHour').log();
+
+let s = spacetime('January 1, 2017 1:20:05');
 s.log();
-s.startOf('quarterHour');
-// console.log(s.progress());
-s.log();
-// s.nearest('quarterHour').log();
+console.log(s.monthName());

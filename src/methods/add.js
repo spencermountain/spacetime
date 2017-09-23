@@ -8,12 +8,13 @@ const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month'];
 let keep = {
   second: order.slice(0, 1),
   minute: order.slice(0, 2),
+  quarterhour: order.slice(0, 2),
   hour: order.slice(0, 3),
   date: order.slice(0, 4),
   month: order.slice(0, 4),
   quarter: order.slice(0, 4),
   season: order.slice(0, 4),
-  year: order,
+  year: order
 };
 keep.week = keep.date;
 keep.season = keep.date;
@@ -23,7 +24,7 @@ const keepDate = {
   month: true,
   quarter: true,
   season: true,
-  year: true,
+  year: true
 };
 //month is the only thing we 'model/compute'
 //- because ms-shifting can be off by enough
@@ -61,6 +62,8 @@ const addMethods = SpaceTime => {
       this.epoch += ms.month * (num * 4);
     } else if (unit === 'season') {
       this.epoch += ms.month * (num * 4);
+    } else if (unit === 'quarterhour') {
+      this.epoch += ms.minute * 15;
     }
     //now ensure our milliseconds/etc are in-line
     let want = {};

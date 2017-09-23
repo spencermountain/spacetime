@@ -28,7 +28,7 @@ module.exports = {
     walkTo(s, {
       hour: original.hour(),
       minute: original.minute(),
-      second: original.second(),
+      second: original.second()
     });
     this.epoch = s.epoch;
     return s;
@@ -65,9 +65,9 @@ module.exports = {
 
   monthName: function(input) {
     if (input === undefined) {
-      return months().long[this.month()];
+      return months.long()[this.month()];
     }
     this.month(input);
     return this;
-  },
+  }
 };
