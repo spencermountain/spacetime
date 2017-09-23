@@ -1458,7 +1458,7 @@ function buildMapping() {
   for (var _i = 0; _i < longMonths.length; _i++) {
     obj[longMonths[_i]] = _i;
   }
-  mapping = obj;
+  return obj;
 }
 
 module.exports = {
@@ -1716,7 +1716,6 @@ var parseInput = function parseInput(s, input) {
   if (typeof input !== 'string') {
     return;
   }
-
   for (var i = 0; i < strFmt.length; i++) {
     var m = input.match(strFmt[i].reg);
     if (m) {
@@ -1794,7 +1793,7 @@ var strFmt = [
 {
   reg: /^([a-z]+) ([0-9]{1,2}),? ([0-9]{4})( ([0-9:]+))?$/i,
   parse: function parse(s, arr) {
-    var month = months.mapping[arr[1].toLowerCase()];
+    var month = months.mapping()[arr[1].toLowerCase()];
     walkTo(s, {
       year: arr[3],
       month: month,
@@ -1809,7 +1808,7 @@ var strFmt = [
 {
   reg: /^([0-9]{1,2}) ([a-z]+),? ([0-9]{4})$/i,
   parse: function parse(s, arr) {
-    var month = months.mapping[arr[2].toLowerCase()];
+    var month = months.mapping()[arr[2].toLowerCase()];
     walkTo(s, {
       year: arr[3],
       month: month,
@@ -1916,6 +1915,7 @@ var order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month'];
 var keep = {
   second: order.slice(0, 1),
   minute: order.slice(0, 2),
+  quarterhour: order.slice(0, 2),
   hour: order.slice(0, 3),
   date: order.slice(0, 4),
   month: order.slice(0, 4),
@@ -1969,6 +1969,8 @@ var addMethods = function addMethods(SpaceTime) {
       this.epoch += ms.month * (num * 4);
     } else if (unit === 'season') {
       this.epoch += ms.month * (num * 4);
+    } else if (unit === 'quarterhour') {
+      this.epoch += ms.minute * 15;
     }
     //now ensure our milliseconds/etc are in-line
     var want = {};
@@ -2655,7 +2657,7 @@ module.exports = {
 
   monthName: function monthName(input) {
     if (input === undefined) {
-      return months().long[this.month()];
+      return months.long()[this.month()];
     }
     this.month(input);
     return this;
