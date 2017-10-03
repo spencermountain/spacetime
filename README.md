@@ -69,6 +69,9 @@ s.progress().month = 0.23 // We're a quarter way through the month
 s.progress().day = 0.48   // Almost noon
 s.progress().hour = 0.99  // 59 minutes and 59 seconds
 
+s.nearest('hour')//round up/down to the hour
+s.nearest('quarter-hour')//5:15, 5:30, 5:45..
+
 // Add/subtract methods
 s.add(1, 'week')
 s.add(3, 'quarters')
@@ -128,6 +131,19 @@ s.format('time') // '5:01am'
 s.format('numeric-uk') // 02/03/2017
 s.format('month') // 'April'
 s.format('month-short') // 'Apr'
+
+//Custom language
+a.i18n({
+  days: {
+    long: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+    short: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb']
+  },
+  months: {
+    long: [...],
+    short: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+  }
+});
+a.format('day') //'Sábado'
 ```
 
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
