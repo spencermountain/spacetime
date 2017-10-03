@@ -1,5 +1,7 @@
-<p align="center">
-  <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
+<div align="center">
+  <div>
+    <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
+  </div>
 
   <a href="https://npmjs.org/package/spacetime">
     <img src="https://img.shields.io/npm/v/spacetime.svg?style=flat-square" />
@@ -10,15 +12,14 @@
   </a>
 
   <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
-    <img src="https://api.codacy.com/project/badge/grade/02bb9cd9afa74d5787b9d28095b1230e" />
+    <img src="https://api.codacy.com/project/badge/Coverage/02bb9cd9afa74d5787b9d28095b1230e" />
   </a>
 
   <a href="https://app.codeship.com/projects/211003">
     <img src="https://app.codeship.com/projects/6e9dace0-f88b-0134-515a-7e4075ae1ca2/status?branch=master" />
   </a>
-</p>
+</div>
 
-# Spacetime 🌌🕟
 ### A simple way to manipulate, compare, and format dates and times across the Earth
 - **Get/set** dates and times in remote timezones
 - Global support for **Daylight Savings Time**, **leap years + seconds**, and **hemispheres**
@@ -26,9 +27,8 @@
 - Remote date comparison
 - Written in **ES2015 JS**, published as **ES5**, tested for Node and the browser
 - **Weighs in at just 35KB** _(12KB compressed)_
-- Well tested, Apache 2.0 licensed
+- Heavily tested, Apache 2.0 licensed
 - Made by your friends at [Begin](https://begin.com)
-
 
 # Install
 `npm install spacetime --save`
@@ -37,7 +37,7 @@
 var spacetime=require('spacetime')
 ```
 
-### Input
+### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)
 ```js
 s = spacetime(1489520157) // Epoch
 s = spacetime([2017, 5, 2]) // yyyy, m, d (zero-based months, 1-based days)
@@ -53,7 +53,7 @@ s = spacetime.today() // This morning
 s = spacetime.tomorrow() // Tomorrow morning
 ```
 
-### Get/Set methods
+### Get & Set Dates
 ```js
 s.date() // 14
 s.year() // 2017
@@ -84,7 +84,7 @@ s.clone() // Make a copy
 s.isValid() // Sept 32nd → false
 ```
 
-### Comparison
+### Comparison of Dates
 ```js
 let d = spacetime([2017, 5, 2])
 let start = s.clone()
@@ -121,7 +121,7 @@ s.timezone().current.offset // -240 (in minutes)
 s.timezone().current.isDst // True
 ```
 
-###Formatting
+### [Date Formatting](https://github.com/smallwins/spacetime/wiki/Formatting)
 ```js
 // Date + time formatting
 s.format('time') // '5:01am'
@@ -130,12 +130,9 @@ s.format('month') // 'April'
 s.format('month-short') // 'Apr'
 ```
 
-# More information
-### [Date formatting in Spacetime](https://github.com/smallwins/spacetime/wiki/Formatting)
-### [Date inputs](https://github.com/smallwins/spacetime/wiki/Input)
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
 
-<a href="https://twitter.com/begin">
+<a align="center" href="https://twitter.com/begin">
   <img width="50" src="https://user-images.githubusercontent.com/399657/31141177-9f339dc8-a844-11e7-8330-0cee2dc12128.jpg"/>
 </a>
 

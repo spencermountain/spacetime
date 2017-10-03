@@ -1,7 +1,7 @@
 require('shelljs/global');
 var watch = require('watch');
-var tape = './node_modules/tape/bin/tape';
-var tapSpec = './node_modules/tap-spec/bin/cmd.js --color';
+// var tape = './node_modules/tape/bin/tape';
+// var tapSpec = './node_modules/tap-spec/bin/cmd.js --color';
 
 var options = {
   interval: 1,
