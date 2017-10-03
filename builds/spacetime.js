@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v1.3.1
+/* @smallwins/spacetime v1.3.3
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -1340,7 +1340,7 @@ module.exports={
 },{}],4:[function(_dereq_,module,exports){
 module.exports={
   "name": "spacetime",
-  "version": "1.3.1",
+  "version": "1.3.3",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",
@@ -1359,7 +1359,9 @@ module.exports={
     "type": "git",
     "url": "https://github.com/smallwins/spacetime.git"
   },
-  "files": ["builds/"],
+  "files": [
+    "builds/"
+  ],
   "dependencies": {},
   "devDependencies": {
     "babel-preset-es2015": "6.9.0",
@@ -1370,13 +1372,11 @@ module.exports={
     "eslint": "^3.1.1",
     "eslint-plugin-prettier": "^2.1.2",
     "gaze": "^1.1.1",
-    "husky": "^0.14.3",
-    "lint-staged": "^4.0.2",
     "nyc": "^8.4.0",
     "prettier": "^1.5.3",
     "shelljs": "^0.7.2",
     "size-limit": "^0.8.0",
-    "tap-spec": "4.1.1",
+    "tap-spec": "^4.1.1",
     "tape": "4.6.0",
     "timekeeper": "^1.0.0",
     "uglify-js": "2.7.0"
@@ -1985,10 +1985,14 @@ var addMethods = function addMethods(SpaceTime) {
       //month is the one unit we 'model' directly
       want = rollMonth(want, old);
     }
-    //ensure year has changed (leap-years)
-    if (unit === 'year' && this.year() === old.year()) {
-      this.epoch += ms.week;
-    }
+    //support 25-hour day-changes on dst-changes
+    else if (unit === 'date' && num !== 0 && old.isSame(this, 'day')) {
+        want.date = old.date() + num;
+      }
+      //ensure year has changed (leap-years)
+      else if (unit === 'year' && this.year() === old.year()) {
+          this.epoch += ms.week;
+        }
     //keep current date, unless the month doesn't have it.
     if (keepDate[unit]) {
       var max = monthLength[want.month];
