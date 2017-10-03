@@ -78,8 +78,12 @@ const addMethods = SpaceTime => {
       //month is the one unit we 'model' directly
       want = rollMonth(want, old);
     }
+    //support 25-hour day-changes on dst-changes
+    else if (unit === 'date' && num !== 0 && old.isSame(this, 'day')) {
+      want.date = old.date() + num;
+    }
     //ensure year has changed (leap-years)
-    if (unit === 'year' && this.year() === old.year()) {
+    else if (unit === 'year' && this.year() === old.year()) {
       this.epoch += ms.week;
     }
     //keep current date, unless the month doesn't have it.

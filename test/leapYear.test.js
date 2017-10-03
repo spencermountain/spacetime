@@ -51,6 +51,16 @@ test('leapyear-in-add', t => {
   t.end();
 });
 
+test('add-1-day-adds-25-hours', t => {
+  let d = spacetime(1509858000000, 'Canada/Eastern')
+  t.equal(d.date(), 5, 'is 5th');
+  d.add(1, 'date')
+  t.equal(d.date(), 6, 'now 6th');
+  d.add(1, 'date')
+  t.equal(d.date(), 7, 'now 7th');
+  t.end();
+});
+
 test('feb-29th-exists', t => {
   let leaps = [2004, 2008, 2012, 2016, 2020, 2024];
   leaps.forEach(y => {

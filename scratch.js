@@ -19,6 +19,6 @@ const spacetime = require('./src');
 // s.log();
 // // s.nearest('quarterHour').log();
 
-let s = spacetime('January 1, 2017 1:20:05');
-s.log();
-console.log(s.monthName());
+let today = spacetime(null, 'Canada/Eastern').startOf('day')
+today.add(1, 'date')
+console.log(today.format('date-short'))
