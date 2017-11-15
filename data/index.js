@@ -3,7 +3,12 @@ const zonefile = require('./zonefile.2017.json');
 const hemispheres = require('./hemisphere');
 
 //assumed hemisphere, based on continent
-const southern = { Australia: true, Chile: true, Brazil: true, Antarctica: true };
+const southern = {
+  Australia: true,
+  Chile: true,
+  Brazil: true,
+  Antarctica: true
+};
 
 //compress timezone data by continent
 const unpack = obj => {
@@ -20,11 +25,11 @@ const unpack = obj => {
         };
       }
       all[tz].tz = tz;
-      if (southern[cont] === true || hemispheres.south[tz]) {
-        all[tz].h = all[tz].h || 's';
-      }
       //assume north, unless it says otherwise (sorry!)
       all[tz].h = all[tz].h || 'n';
+      if (southern[cont] === true || hemispheres.south[tz]) {
+        all[tz].h = 's';
+      }
     });
   });
   //alias this one
