@@ -20,7 +20,7 @@ child.stdout.on('error', function() {
 });
 
 //final build locations
-var banner = '/* @smallwins/spacetime v' + pkg.version + '\n  \n*/\n';
+var banner = '/* spacetime v' + pkg.version + '\n  \n*/\n';
 var uncompressed = './builds/spacetime.js';
 var compressed = './builds/spacetime.min.js';
 
