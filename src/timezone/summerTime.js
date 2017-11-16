@@ -25,7 +25,6 @@ const shouldChange = (s, m) => {
   current = toString(current);
   //eg. is it after ~november?
   let start = toString(m.change.start);
-  // console.log(d.getDate() + ' ' + d.getHours())
   if (current >= start) {
     //eg. is it before ~march~ too?
     let end = toString(m.change.back);
