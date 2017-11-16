@@ -33,3 +33,16 @@ test('toronto/Santiago -2hrs in january', t => {
   t.notEqual(a.format('nice'), b.format('nice'), 'not same-calendar-time')
   t.end();
 });
+
+test('argentina has no dst - always 3', t => {
+  //so both are -3 in the january
+  var jan1 = spacetime('January 21, 2017 20:42:00', 'America/Santiago')
+  var jan2 = jan1.clone().goto('America/Cordoba')
+  t.equal(jan1.epoch, jan2.epoch, 'same-time')
+  //but then, in may, santiago is -4 and argentina is still -3
+  var jul1 = spacetime('May 21, 2017 20:42:00', 'America/Santiago')
+  var jul2 = jul1.clone().goto('America/Cordoba')
+  t.equal(20, jul1.hour(), 'not-same-time')
+  t.equal(21, jul2.hour(), 'not-same-time')
+  t.end();
+});

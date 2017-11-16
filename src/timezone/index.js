@@ -70,26 +70,8 @@ const timezone = s => {
       offset: meta.offset
     }
   }
-  meta.current.epochShift = meta.current.offset * 60 * 1000
-  //
-  // //both offsets (in mins)
-  // meta.offsets = {
-  //   base: zones[tz].o + meta.dst.change,
-  //   dst: zones[tz].o,
-  // };
-  //
-  // if (isDst(s, meta.dst)) {
-  //   meta.current = {
-  //     isDst: true,
-  //     offset: meta.offsets.dst,
-  //   };
-  // } else {
-  //   meta.current = {
-  //     isDst: false,
-  //     offset: meta.offsets.base,
-  //   };
-  // }
-  // meta.current.epochShift = meta.current.offset * 60 * 1000;
+  meta.current.epochShift = meta.current.offset * 60 * 60 * 1000
+
   return meta;
 };
 module.exports = timezone;
