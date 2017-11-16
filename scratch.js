@@ -7,8 +7,6 @@ const spacetime = require('./src');
 // s.log()
 // console.log(s.timezone())
 
-//all should be march 13th
-spacetime('2016/03/13').log()
-spacetime('03/13/2016').log()
-spacetime('2016/13/03').log()
-spacetime('13/03/2016').log()
+let s = spacetime();
+console.log(s.epoch)
+console.log(s.format('h:mm a'))

@@ -1,7 +1,8 @@
 'use strict';
-const fns = require('../fns');
-const months = require('../data/months');
-const days = require('../data/days');
+const fns = require('../../fns');
+const months = require('../../data/months');
+const days = require('../../data/days');
+const unixFmt = require('./unixFmt');
 
 const fmt = {
   day: s => {
@@ -108,13 +109,16 @@ fmt['little-endian'] = fmt['numeric-uk'];
 fmt['big-endian'] = fmt['numeric-cn'];
 
 //
-const format = (s, type) => {
+const format = (s, str) => {
   //don't print anything if it's invalid
   if (s.isValid() !== true) {
     return '';
   }
-  if (fmt && fmt[type]) {
-    return fmt[type](s);
+  if (fmt && fmt[str]) {
+    return fmt[str](s);
+  }
+  if (typeof str === 'string') {
+    return unixFmt(str, s)
   }
   //start building format object
   let all = Object.keys(fmt).reduce((h, k) => {

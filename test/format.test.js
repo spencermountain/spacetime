@@ -26,3 +26,23 @@ test('to-from utc-format', t => {
 
   t.end();
 });
+
+
+test('unix-formatting', t => {
+  let epoch = 1510850065194
+  let s = spacetime(epoch, 'Canada/Eastern')
+  let arr = [
+    ['h:mm a', '11:34 am'],
+  // ['', ''],
+  // ['', ''],
+  // ['', ''],
+  // ['', ''],
+  // ['', ''],
+  // ['', ''],
+  // ['', ''],
+  ]
+  arr.forEach((a) => {
+    t.equal(s.format(a[0]), a[1], a[0])
+  })
+  t.end();
+});
