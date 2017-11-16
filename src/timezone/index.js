@@ -1,6 +1,5 @@
 'use strict';
 const zones = require('../../data');
-// const isDst = require('./isDst');
 const shouldChange = require('./shouldChange')
 
 
@@ -61,12 +60,12 @@ const timezone = s => {
   //figure-out the current offset
   if (shouldChange(s, meta) === true) {
     meta.current = {
-      isDst: meta.hemisphere === 'North',
+      isDST: meta.hasDst === true && meta.hemisphere === 'North',
       offset: meta.change.offset,
     }
   } else {
     meta.current = {
-      isDst: meta.hemisphere === 'South',
+      isDST: meta.hasDst === true && meta.hemisphere === 'South',
       offset: meta.offset
     }
   }

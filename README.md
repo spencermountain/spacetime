@@ -119,9 +119,10 @@ spacetime.whereIts('9am') //(within this hour)
 
 // Timezone metadata
 s.timezone().name // 'Canada/Eastern' (either inferred or explicit)
-s.timezone().hemisphere // North
+s.hemisphere() // North
 s.timezone().current.offset // -240 (in minutes)
-s.timezone().current.isDst // True
+s.hasDST() // True
+s.isDST() // True
 ```
 
 ### [Date Formatting](https://github.com/smallwins/spacetime/wiki/Formatting)

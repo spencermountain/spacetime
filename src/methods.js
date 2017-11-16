@@ -17,7 +17,7 @@ const methods = {
     return timezone(this)
   },
   isDST: function() {
-    return timezone(this).current.isDst
+    return timezone(this).current.isDST
   },
   hasDST: function() {
     return timezone(this).hasDst

@@ -43,7 +43,7 @@ class Year extends React.Component {
       let tmp = s.clone();
       tmp.month(m);
       let meta = tmp.timezone();
-      if (meta.current.isDst) {
+      if (meta.current.isDST) {
         return <rect key={i} x={month * i} y={18} width={month} height={2} fill={'orange'} opacity={0.8}/>;
       }
     });

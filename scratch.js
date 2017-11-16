@@ -5,7 +5,7 @@ const spacetime = require('./src');
 
 //june
 let june = 1401660600207 //june 1, 6:10pm
-// let jan = 1515368004641 //january 7th, 6:30pm
+let jan = 1515368004641 //january 7th, 6:30pm
 //
 // var a = spacetime(june, 'America/Toronto')
 // console.log('june', a.timezone().current)
@@ -19,8 +19,8 @@ let june = 1401660600207 //june 1, 6:10pm
 // var b2 = spacetime(jan, 'America/Santiago')
 // console.log('january', b2.timezone().current)
 
-var jul1 = spacetime(june, 'America/Santiago')
-var jul2 = spacetime(june, 'America/Cordoba')
+var jul1 = spacetime(jan, 'America/Santiago')
+var jul2 = spacetime(jan, 'America/Cordoba')
 
 jul1.log()
 console.log(jul1.timezone())

@@ -20,18 +20,18 @@ const allMonths = function(s) {
   return months.map(m => {
     s.month(m);
     let meta = s.timezone();
-    return meta.current.isDst;
+    return meta.current.isDST;
   });
 };
 
 test('dst-by-date', t => {
   //this may be too hard to do.
   let s = spacetime('March 11, 2017 20:42:00', 'Canada/Eastern');
-  let dst = s.timezone().current.isDst;
+  let dst = s.timezone().current.isDST;
   t.equal(dst, false, 'march-11 not dst');
 
   s = spacetime('March 12, 2017 20:42:00', 'Canada/Eastern');
-  dst = s.timezone().current.isDst;
+  dst = s.timezone().current.isDST;
   t.equal(dst, true, 'march-12 is dst');
   t.end();
 });
