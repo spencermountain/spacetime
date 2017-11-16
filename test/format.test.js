@@ -31,15 +31,14 @@ test('to-from utc-format', t => {
 test('unix-formatting', t => {
   let epoch = 1510850065194
   let s = spacetime(epoch, 'Canada/Eastern')
+  //examples from http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
   let arr = [
-    ['h:mm a', '11:34 am'],
+    ['h:mm a', '11:34 AM'],
     ['LL', 'Nov'],
-    [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.Nov.16 AD at 12:42:44 America/Toronto'],
+    [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.Nov.16 AD at 11:34:25 Canada/Eastern'],
     [`EEE, MMM d, ''yy`, 'Thu, November 16, \'17'],
-    [`hh 'o''clock' a`, '12 oclock PM'],
-  // ['', ''],
-  // ['', ''],
-  // ['', ''],
+    [`hh 'o''clock' a`, '11 oclock AM'],
+    ['yyyyy.MMMM.dd GGG hh:mm aaa', '02017.November.16 AD 11:34 AM'],
   ]
   arr.forEach((a) => {
     t.equal(s.format(a[0]), a[1], a[0])

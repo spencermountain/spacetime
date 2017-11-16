@@ -3,12 +3,10 @@
 
 //time-symbols we support
 const mapping = {
-  G: (s) => { //era
-    if (s.year < 0) {
-      return 'BC'
-    }
-    return 'AD'
-  },
+  G: (s) => s.era(),
+  GG: (s) => s.era(),
+  GGG: (s) => s.era(),
+  GGGG: (s) => s.era() === 'AD' ? 'Anno Domini' : 'Before Christ',
   //year
   y: (s) => s.year(),
   yy: (s) => { //last two chars
@@ -62,6 +60,9 @@ const mapping = {
 
   //am/pm
   a: (s) => s.ampm().toUpperCase(),
+  aa: (s) => s.ampm().toUpperCase(),
+  aaa: (s) => s.ampm().toUpperCase(),
+  aaaa: (s) => s.ampm().toUpperCase(),
   //hour
   h: (s) => s.h12(),
   hh: (s) => s.h12(),

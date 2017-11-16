@@ -134,9 +134,11 @@ let methods = {
     }
     return sum + this.d.getDate();
   },
+  //bc/ad years
   era: function(str) {
     if (str !== undefined) {
       str = str.toLowerCase()
+      //TODO: there is no year-0AD i think. may have off-by-1 error here
       let year = this.d.getFullYear()
       //make '1992' into 1992bc..
       if (str === 'bc' && year > 0) {

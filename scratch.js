@@ -17,8 +17,3 @@ const spacetime = require('./src');
 let s = spacetime();
 // console.log(s.format(`LL`))
 console.log(s.format(`yyyyy.MMMM.dd GGG hh:mm aaa`))
-
-console.log(s.era())
-console.log(s.era('bc'))
-console.log(s.year())
-console.log(s.era())
