@@ -1,5 +1,5 @@
 'use strict';
-let shortDays = ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat'];
+let shortDays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 let longDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
 module.exports = {

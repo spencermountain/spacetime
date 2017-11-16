@@ -14,3 +14,9 @@
 
 ## v1.3.2
 * fix for inf-loop regression on DST-switch
+
+## v2.0.0
+* fix major [southern-hemisphere issue](https://github.com/smallwins/spacetime/issues/27)
+* re-structure `d.timezone()` response
+* add `.hemisphere()` method
+* use proper short-day forms
