@@ -16,6 +16,7 @@ const mapping = {
   },
   yyy: (s) => s.year(),
   yyyy: (s) => s.year(),
+  yyyyy: (s) => '0' + s.year(),
   // u: (s) => {},//extended non-gregorian years
 
   //quarter
@@ -28,6 +29,7 @@ const mapping = {
   M: (s) => s.month(),
   MM: (s) => s.format('month-short'),
   MMM: (s) => s.format('month'),
+  MMMM: (s) => s.format('month'),
 
   //week
   w: (s) => s.week(),
@@ -59,7 +61,7 @@ const mapping = {
   eeeee: (s) => s.format('day')[0],
 
   //am/pm
-  a: (s) => s.ampm(),
+  a: (s) => s.ampm().toUpperCase(),
   //hour
   h: (s) => s.h12(),
   hh: (s) => s.h12(),
@@ -95,7 +97,7 @@ const addAlias = function(char, to, n) {
   }
 }
 addAlias('q', 'Q', 4)
-addAlias('m', 'L', 4)
+addAlias('L', 'M', 4)
 addAlias('Y', 'y', 4)
 addAlias('c', 'e', 4)
 addAlias('k', 'H', 2)
@@ -106,10 +108,22 @@ addAlias('V', 'Z', 4)
 
 const unixFmt = function(str, s) {
   let chars = str.split('')
-  //combine consecutive chars
+  //combine consecutive chars, like 'yyyy' as one.
   let arr = [chars[0]]
+  let quoteOn = false
   for (let i = 1; i < chars.length; i += 1) {
-    if (chars[i] === arr[arr.length - 1]) {
+    //support quoted substrings
+    if (chars[i] === `'`) {
+      quoteOn = !quoteOn
+      //support '', meaning one tick
+      if (quoteOn === true && chars[i + 1] && chars[i + 1] === "'") {
+        quoteOff = false
+      } else {
+        continue
+      }
+    }
+    //merge it with the last one
+    if (quoteOn === true || chars[i] === arr[arr.length - 1][0]) {
       arr[arr.length - 1] += chars[i]
     } else {
       arr.push(chars[i])

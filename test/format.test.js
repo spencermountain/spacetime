@@ -33,10 +33,10 @@ test('unix-formatting', t => {
   let s = spacetime(epoch, 'Canada/Eastern')
   let arr = [
     ['h:mm a', '11:34 am'],
-  // ['', ''],
-  // ['', ''],
-  // ['', ''],
-  // ['', ''],
+    ['LL', 'Nov'],
+    [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.Nov.16 AD at 12:42:44 America/Toronto'],
+    [`EEE, MMM d, ''yy`, 'Thu, November 16, \'17'],
+    [`hh 'o''clock' a`, '12 oclock PM'],
   // ['', ''],
   // ['', ''],
   // ['', ''],

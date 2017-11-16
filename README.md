@@ -63,6 +63,7 @@ s.date(15) // Change to the 15th
 s.day('monday') // Change to (this week's) monday
 s.month('march') // Change to (this year's) March 1st
 s.quarter(2) // Change to April 1st
+s.era() // 'BC'/'AD'
 
 // Percentage-based information
 s.progress().month = 0.23 // We're a quarter way through the month
