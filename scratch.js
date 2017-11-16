@@ -5,36 +5,16 @@ const spacetime = require('./src');
 
 //june
 let june = 1401660600207 //june 1, 6:10pm
+let jan = 1515368004641 //january 7th, 6:30pm
+
 var a = spacetime(june, 'America/Toronto')
+console.log('june', a.timezone().current)
+var a2 = spacetime(jan, 'America/Toronto')
+console.log('january', a2.timezone().current)
+
+console.log('\n')
+
 var b = spacetime(june, 'America/Santiago')
-var c = spacetime(june, 'America/Lima')
-console.log(a.timezone())
-console.log(b.timezone())
-console.log(c.timezone())
-// a.log()
-// b.log()
-
-// let jan = 1515368004641 //january 7th, 6:30pm
-// var a2 = spacetime(jan, 'America/Toronto')
-// var b2 = spacetime(jan, 'America/Santiago')
-// a2.log()
-// b2.log()
-//
-//
-// //december
-// a = spacetime('2014-02-19T12:00:00Z', 'UTC')
-// b = a.clone().goto('America/Sao_Paulo');
-// console.log(a.hour() - b.hour() + ' hours ' + a.monthName())
-
-
-// console.log('\n-moment-')
-// var am = moment("2014-06-01T12:00:00Z", 'UTC').format('ha z')
-// var bm = moment("2014-06-01T12:00:00Z", 'America/Sao_Paulo').format('ha z')
-
-// var me = spacetime('2014-06-01T04:30:00Z', 'Europe/London')
-// var them = moment("2014-06-01", "Europe/London").hour('4').minute('30')
-// console.log(me.format('time') + ' ' + me.timezone().name)
-// console.log(them.format('h:mma'))
-
-// spacetime(null, 'America/Sao_Paulo').log()
-// spacetime(null, 'Europe/London').log()
+console.log('june', b.timezone().current)
+var b2 = spacetime(jan, 'America/Santiago')
+console.log('january', b2.timezone().current)

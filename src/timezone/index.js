@@ -1,6 +1,8 @@
 'use strict';
 const zones = require('../../data');
-const isDst = require('./isDst');
+// const isDst = require('./isDst');
+const shouldChange = require('./shouldChange')
+
 
 const parseDst = dst => {
   if (!dst) {
@@ -32,8 +34,9 @@ const timezone = s => {
     name: tz,
     hasDst: Boolean(zones[tz].dst),
     hemisphere: zones[tz].h === 's' ? 'South' : 'North', //assume north, unless told
+    offset: zones[tz].o / 60,
     change: {},
-    offset: zones[tz].o / 60
+    current: {}
   };
   let dates = parseDst(zones[tz].dst);
   if (zones[tz].dst) {
@@ -55,28 +58,19 @@ const timezone = s => {
     }
   }
 
-  //include hemisphere (for seasons, DST)
-  // meta.hemisphere = null;
-  // if (zones[tz].h === 'n') {
-  //   meta.hemisphere = 'North';
-  // } else if (zones[tz].h === 's') {
-  //   meta.hemisphere = 'South';
-  // }
-  // // console.log(meta.dst)
-  //
-  // //calculate dst change direction + amount
-  // meta.dst.change = 0;
-  // if (meta.dst.start && meta.dst.end) {
-  //   meta.dst.change = -60; //'spring ahead'
-  //   // if (meta.hemisphere === 'South') {
-  //   // meta.dst.change = 60 // 🙃
-  //   // }
-  //   //the only exception to this rule is 'lord howe'
-  //   if (meta.name === 'Australia/Lord_Howe') {
-  //     meta.dst.change = -30;
-  //   }
-  // }
-  //
+  //figure-out the current offset
+  if (shouldChange(s, meta) === true) {
+    meta.current = {
+      isDst: meta.hemisphere === 'North',
+      offset: meta.change.offset,
+    }
+  } else {
+    meta.current = {
+      isDst: meta.hemisphere === 'South',
+      offset: meta.offset
+    }
+  }
+  meta.current.epochShift = meta.current.offset * 60 * 1000
   //
   // //both offsets (in mins)
   // meta.offsets = {
