@@ -1,8 +1,8 @@
 'use strict'
 const zeroPad = require('../fns').zeroPad;
 
-const toString = function(o) {
-  return [zeroPad(o.month), zeroPad(o.date), zeroPad(o.hour)].join('-');
+const toString = function(d) {
+  return zeroPad((d.getMonth() + 1)) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours())
 };
 
 // a timezone will begin with a specific offset in january
@@ -17,18 +17,11 @@ const shouldChange = (s, m) => {
   // let diff = (m.offset * 60) + s.bias
   // let approx = s.epoch + (diff * 60 * 60 * 1000)
   let d = new Date(s.epoch);
-  let current = {
-    month: d.getMonth(),
-    date: d.getDate(),
-    hour: d.getHours(),
-  };
-  current = toString(current);
+  let current = toString(d);
   //eg. is it after ~november?
-  let start = toString(m.change.start);
-  if (current >= start) {
+  if (current >= m.change.start) {
     //eg. is it before ~march~ too?
-    let end = toString(m.change.back);
-    if (current < end) {
+    if (current < m.change.back) {
       return true
     }
   }
