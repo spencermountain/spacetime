@@ -17,13 +17,16 @@ const methods = {
     return timezone(this)
   },
   isDST: function() {
-    return timezone(this).current.isDst
+    return timezone(this).current.isDST
   },
   hasDST: function() {
-    return timezone(this).dst.change !== 0
+    return timezone(this).hasDst
   },
   offset: function() {
     return timezone(this).current.offset / 60
+  },
+  hemisphere: function() {
+    return timezone(this).hemisphere
   },
 
   format: function(fmt) {

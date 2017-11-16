@@ -10,7 +10,7 @@ config.silent = true;
 //i'm assuming theres no copyright on these things
 
 //change this to generate a new one
-const year = 2017;
+const year = 2018;
 
 const parseLine = function(str) {
   let meta = {};

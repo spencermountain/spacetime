@@ -1,4 +1,4 @@
-/* @smallwins/spacetime v1.3.3
+/* spacetime v2.0.0
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -54,7 +54,12 @@ var zonefile = _dereq_('./zonefile.2017.json');
 var hemispheres = _dereq_('./hemisphere');
 
 //assumed hemisphere, based on continent
-var southern = { Australia: true, Chile: true, Brazil: true, Antarctica: true };
+var southern = {
+  Australia: true,
+  Chile: true,
+  Brazil: true,
+  Antarctica: true
+};
 
 //compress timezone data by continent
 var unpack = function unpack(obj) {
@@ -71,11 +76,11 @@ var unpack = function unpack(obj) {
         };
       }
       all[tz].tz = tz;
-      if (southern[cont] === true || hemispheres.south[tz]) {
-        all[tz].h = all[tz].h || 's';
-      }
       //assume north, unless it says otherwise (sorry!)
       all[tz].h = all[tz].h || 'n';
+      if (southern[cont] === true || hemispheres.south[tz]) {
+        all[tz].h = 's';
+      }
     });
   });
   //alias this one
@@ -1340,7 +1345,7 @@ module.exports={
 },{}],4:[function(_dereq_,module,exports){
 module.exports={
   "name": "spacetime",
-  "version": "1.3.3",
+  "version": "2.0.0",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",
@@ -1392,7 +1397,7 @@ module.exports={
 },{}],5:[function(_dereq_,module,exports){
 'use strict';
 
-var shortDays = ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat'];
+var shortDays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 var longDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
 module.exports = {
@@ -1840,13 +1845,16 @@ var methods = {
     return _timezone(this);
   },
   isDST: function isDST() {
-    return _timezone(this).current.isDst;
+    return _timezone(this).current.isDST;
   },
   hasDST: function hasDST() {
-    return _timezone(this).dst.change !== 0;
+    return _timezone(this).hasDst;
   },
   offset: function offset() {
     return _timezone(this).current.offset / 60;
+  },
+  hemisphere: function hemisphere() {
+    return _timezone(this).hemisphere;
   },
 
   format: function format(fmt) {
@@ -2250,9 +2258,9 @@ var addMethods = function addMethods(SpaceTime) {
 module.exports = addMethods;
 
 },{"../data/days":5,"../data/months":8,"../fns":12}],22:[function(_dereq_,module,exports){
-"use strict";
-
+'use strict';
 //round to either current, or +1 of this unit
+
 var nearest = function nearest(s, unit) {
   unit = unit.toLowerCase();
   unit = unit.replace(/s$/, ''); //singular form...
@@ -3227,7 +3235,7 @@ module.exports = guessTz;
 'use strict';
 
 var zones = _dereq_('../../data');
-var isDst = _dereq_('./isDst');
+var shouldChange = _dereq_('./shouldChange');
 
 var parseDst = function parseDst(dst) {
   if (!dst) {
@@ -3243,10 +3251,7 @@ var parseDst = function parseDst(dst) {
       hour: tmp[2]
     };
   });
-  return {
-    start: arr[0],
-    end: arr[1]
-  };
+  return arr;
 };
 
 //get metadata about this timezone
@@ -3261,48 +3266,52 @@ var timezone = function timezone(s) {
     };
   }
   var meta = {
-    name: tz
+    name: tz,
+    hasDst: Boolean(zones[tz].dst),
+    hemisphere: zones[tz].h === 's' ? 'South' : 'North', //assume north, unless told
+    offset: zones[tz].o / 60,
+    change: {},
+    current: {}
   };
-  meta.dst = parseDst(zones[tz].dst);
-  meta.dst.change = 0;
-  if (meta.dst.start && meta.dst.end) {
-    meta.dst.change = -60;
-    //the only exception to this rule is 'lord howe'
-    if (meta.name === 'Australia/Lord_Howe') {
-      meta.dst.change = -30;
+  var dates = parseDst(zones[tz].dst);
+  if (zones[tz].dst) {
+    //in winter, northern hemisphere is in DST
+    if (zones[tz].h === 'n') {
+      meta.offset -= 1;
+      meta.change = {
+        start: dates[0],
+        back: dates[1],
+        offset: meta.offset + 1
+      };
+    } else {
+      meta.hemisphere = 'South';
+      meta.change = {
+        start: dates[1],
+        back: dates[0],
+        offset: meta.offset - 1
+      };
     }
   }
-  //include hemisphere (for seasons)
-  meta.hemisphere = null;
-  if (zones[tz].h === 'n') {
-    meta.hemisphere = 'North';
-  } else if (zones[tz].h === 's') {
-    meta.hemisphere = 'South';
-  }
 
-  //both offsets (in mins)
-  meta.offsets = {
-    base: zones[tz].o + meta.dst.change,
-    dst: zones[tz].o
-  };
-
-  if (isDst(s, meta.dst)) {
+  //figure-out the current offset
+  if (shouldChange(s, meta) === true) {
     meta.current = {
-      isDst: true,
-      offset: meta.offsets.dst
+      isDST: meta.hasDst === true && meta.hemisphere === 'North',
+      offset: meta.change.offset
     };
   } else {
     meta.current = {
-      isDst: false,
-      offset: meta.offsets.base
+      isDST: meta.hasDst === true && meta.hemisphere === 'South',
+      offset: meta.offset
     };
   }
-  meta.current.epochShift = meta.current.offset * 60 * 1000;
+  meta.current.epochShift = meta.current.offset * 60 * 60 * 1000;
+
   return meta;
 };
 module.exports = timezone;
 
-},{"../../data":2,"./isDst":35}],35:[function(_dereq_,module,exports){
+},{"../../data":2,"./shouldChange":35}],35:[function(_dereq_,module,exports){
 'use strict';
 
 var zeroPad = _dereq_('../fns').zeroPad;
@@ -3311,38 +3320,37 @@ var toString = function toString(o) {
   return [zeroPad(o.month), zeroPad(o.date), zeroPad(o.hour)].join('-');
 };
 
-//is this time between dst.start and dst.end?
-var isDst = function isDst(s, dst) {
-  if (!dst.start || !dst.end) {
+// a timezone will begin with a specific offset in january
+// then some will switch to something else between november-march
+var shouldChange = function shouldChange(s, m) {
+  if (m.hasDst !== true || !m.change.start || !m.change.back) {
     return false;
   }
-  var d = new Date(s.epoch); //this has a order-of-operations issue
+  //note: this has a order-of-operations issue
+  //we can't get the date, without knowing the timezone, and vice-versa
+  //it's possible that we can miss a dst-change by a few hours.
+  // let diff = (m.offset * 60) + s.bias
+  // let approx = s.epoch + (diff * 60 * 60 * 1000)
+  var d = new Date(s.epoch);
   var current = {
     month: d.getMonth(),
     date: d.getDate(),
     hour: d.getHours()
   };
   current = toString(current);
-  var start = toString(dst.start);
-  var end = toString(dst.end);
-  //in dst, in summer (easy)
-  if (start < end) {
-    if (current > start && current < end) {
-      return true;
-    }
-    return false;
-  } else {
-    //in dst, over new-years (trickier)
-    if (current > start) {
-      return true;
-    }
+  //eg. is it after ~november?
+  var start = toString(m.change.start);
+  // console.log(d.getDate() + ' ' + d.getHours())
+  if (current >= start) {
+    //eg. is it before ~march~ too?
+    var end = toString(m.change.back);
     if (current < end) {
       return true;
     }
   }
   return false;
 };
-module.exports = isDst;
+module.exports = shouldChange;
 
 },{"../fns":12}]},{},[13])(13)
 });

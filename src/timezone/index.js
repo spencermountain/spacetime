@@ -1,6 +1,7 @@
 'use strict';
 const zones = require('../../data');
-const isDst = require('./isDst');
+const shouldChange = require('./shouldChange')
+
 
 const parseDst = dst => {
   if (!dst) {
@@ -14,10 +15,7 @@ const parseDst = dst => {
       hour: tmp[2],
     };
   });
-  return {
-    start: arr[0],
-    end: arr[1],
-  };
+  return arr
 };
 
 //get metadata about this timezone
@@ -33,42 +31,46 @@ const timezone = s => {
   }
   let meta = {
     name: tz,
+    hasDst: Boolean(zones[tz].dst),
+    hemisphere: zones[tz].h === 's' ? 'South' : 'North', //assume north, unless told
+    offset: zones[tz].o / 60,
+    change: {},
+    current: {}
   };
-  meta.dst = parseDst(zones[tz].dst);
-  meta.dst.change = 0;
-  if (meta.dst.start && meta.dst.end) {
-    meta.dst.change = -60;
-    //the only exception to this rule is 'lord howe'
-    if (meta.name === 'Australia/Lord_Howe') {
-      meta.dst.change = -30;
+  let dates = parseDst(zones[tz].dst);
+  if (zones[tz].dst) {
+    //in winter, northern hemisphere is in DST
+    if (zones[tz].h === 'n') {
+      meta.offset -= 1
+      meta.change = {
+        start: dates[0],
+        back: dates[1],
+        offset: meta.offset + 1
+      }
+    } else {
+      meta.hemisphere = 'South'
+      meta.change = {
+        start: dates[1],
+        back: dates[0],
+        offset: meta.offset - 1
+      }
     }
   }
-  //include hemisphere (for seasons)
-  meta.hemisphere = null;
-  if (zones[tz].h === 'n') {
-    meta.hemisphere = 'North';
-  } else if (zones[tz].h === 's') {
-    meta.hemisphere = 'South';
-  }
 
-  //both offsets (in mins)
-  meta.offsets = {
-    base: zones[tz].o + meta.dst.change,
-    dst: zones[tz].o,
-  };
-
-  if (isDst(s, meta.dst)) {
+  //figure-out the current offset
+  if (shouldChange(s, meta) === true) {
     meta.current = {
-      isDst: true,
-      offset: meta.offsets.dst,
-    };
+      isDST: meta.hasDst === true && meta.hemisphere === 'North',
+      offset: meta.change.offset,
+    }
   } else {
     meta.current = {
-      isDst: false,
-      offset: meta.offsets.base,
-    };
+      isDST: meta.hasDst === true && meta.hemisphere === 'South',
+      offset: meta.offset
+    }
   }
-  meta.current.epochShift = meta.current.offset * 60 * 1000;
+  meta.current.epochShift = meta.current.offset * 60 * 60 * 1000
+
   return meta;
 };
 module.exports = timezone;

@@ -154,7 +154,7 @@ class App extends React.Component {
     arr.push(
       <div key={'dst'}>
           <span style={css.key}>{'dst: '}</span>
-          <span style={css.value}>{'' + obj.current.isDst}</span>
+          <span style={css.value}>{'' + obj.current.isDST}</span>
         </div>
     );
     arr.unshift(

@@ -4,7 +4,7 @@ const spacetime = require('../src');
 
 const defaultWords = {
   days: {
-    short: ['sun', 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat'],
+    short: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
     long: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
   },
   months: {
