@@ -134,7 +134,11 @@ s.format('numeric-uk') // 02/03/2017
 s.format('month') // 'April'
 s.format('month-short') // 'Apr'
 
-//Custom language
+//also (mostly) supports weird unix-formatting, for more complex templating
+s.format('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
+```
+####Custom language
+```js
 a.i18n({
   days: {
     long: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
