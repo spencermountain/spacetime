@@ -1,3 +1,4 @@
+'use strict'
 const Spacetime = require('./spacetime');
 const timezones = require('../data');
 

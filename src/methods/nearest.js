@@ -1,3 +1,4 @@
+'use strict'
 //round to either current, or +1 of this unit
 const nearest = function(s, unit) {
   unit = unit.toLowerCase();

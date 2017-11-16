@@ -2258,9 +2258,9 @@ var addMethods = function addMethods(SpaceTime) {
 module.exports = addMethods;
 
 },{"../data/days":5,"../data/months":8,"../fns":12}],22:[function(_dereq_,module,exports){
-"use strict";
-
+'use strict';
 //round to either current, or +1 of this unit
+
 var nearest = function nearest(s, unit) {
   unit = unit.toLowerCase();
   unit = unit.replace(/s$/, ''); //singular form...
