@@ -1,3 +1,4 @@
+'use strict'
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
