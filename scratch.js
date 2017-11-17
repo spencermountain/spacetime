@@ -19,9 +19,6 @@ const spacetime = require('./src');
 // console.log('\n')
 // console.log(d1.hour())
 
-for (let i = 0; i < 15; i++) {
-  var s = spacetime({
-    year: 2014 + i
-  }).endOf('year');
-  console.log(2014 + i, s.dayOfYear());
-}
+// var s = spacetime(1509358800000, 'Europe/Madrid');
+// s.log()
+spacetime('2012-10-28 00:00:00+01:00').goto('Europe/London')
