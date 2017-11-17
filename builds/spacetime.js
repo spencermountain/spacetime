@@ -1,4 +1,4 @@
-/* spacetime v2.1.0
+/* spacetime v2.1.1
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -376,7 +376,7 @@ module.exports={
       "n"
     ],
     "Caracas": [
-      -4.5,
+      -4,
       "n"
     ],
     "Catamarca": [
@@ -1019,6 +1019,10 @@ module.exports={
       "n"
     ],
     "Bangkok": [
+      7,
+      "n"
+    ],
+    "Barnaul":[
       7,
       "n"
     ],
@@ -2117,7 +2121,7 @@ module.exports={
       "n"
     ],
     "Easter": [
-      -5,
+      -6,
       "s",
       "05/13:21->08/12:23"
     ],
@@ -2277,7 +2281,7 @@ module.exports={
 },{}],3:[function(_dereq_,module,exports){
 module.exports={
   "name": "spacetime",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",
@@ -2322,7 +2326,7 @@ module.exports={
   "size-limit": [
     {
       "path": "builds/spacetime.min.js",
-      "limit": "12 KB"
+      "limit": "14 KB"
     }
   ]
 }
@@ -3784,11 +3788,13 @@ var methods = {
     var sum = 0;
     var month = this.d.getMonth();
     var tmp = void 0;
-    for (var i = 0; i < month; i++) {
+    //count the num days in each month
+    for (var i = 1; i <= month; i++) {
       tmp = new Date();
+      tmp.setYear(this.d.getFullYear()); //the year matters, because leap-years
       tmp.setMonth(i);
       tmp.setDate(1);
-      tmp.setHours(-2);
+      tmp.setHours(-2); //the last day of the month
       sum += tmp.getDate();
     }
     return sum + this.d.getDate();
@@ -4397,17 +4403,17 @@ var SpaceTime = function SpaceTime(input, tz) {
   this.tz = tz || guessTz();
   //don't output anything if it's invalid
   this.valid = true;
-  //every computer is somewhere- get this computer's built-in offset
-  this.bias = new Date().getTimezoneOffset() || 0;
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object
     get: function get() {
       var meta = timezone(this) || {};
-      //movement in milliseconds
-      var shift = meta.current.epochShift;
+      //every computer is somewhere- get this computer's built-in offset
+      var bias = new Date(this.epoch).getTimezoneOffset() || 0;
+      //movement
+      var shift = bias + meta.current.offset * 60; //in minutes
+      shift = shift * 60 * 1000; //in ms
       //remove this computer's offset
-      shift = shift + this.bias * 60 * 1000;
       var epoch = this.epoch + shift;
       var d = new Date(epoch);
       return d;
@@ -4523,7 +4529,8 @@ var timezone = function timezone(s) {
     m.current.offset = winter;
     m.current.isDST = m.hemisphere === 'South'; //dst 'on' in summer in south
   }
-  m.current.epochShift = m.current.offset * 60 * 60 * 1000;
+  // let minutes = m.current.offset * 60
+  // m.current.epochShift = minutes * 60 * 1000
 
   return m;
 };
@@ -4547,8 +4554,6 @@ var shouldChange = function shouldChange(s, m) {
   //note: this has a order-of-operations issue
   //we can't get the date, without knowing the timezone, and vice-versa
   //it's possible that we can miss a dst-change by a few hours.
-  // let diff = (m.offset * 60) + s.bias
-  // let approx = s.epoch + (diff * 60 * 60 * 1000)
   var d = new Date(s.epoch);
   var current = toString(d);
   //eg. is it after ~november?
