@@ -1,6 +1,6 @@
 'use strict';
 const test = require('tape');
-const spacetime = require('../src');
+const spacetime = require('./lib');
 
 test('inputs', t => {
   let a = spacetime([2015, 2, 25]);
@@ -106,5 +106,19 @@ test('iso-string-input', t => {
   t.equal(s.date(), 6, 'iso-string-date');
   t.equal(s.month(), 7, 'iso-string-month');
   t.equal(s.year(), 2017, 'iso-string-year');
+  t.end();
+});
+
+test('funny-numeric-forms', t => {
+  let a = spacetime('2016/03/13')
+
+  let b = spacetime('03/13/2016')
+  t.equal(a.format('numeric'), b.format('numeric'), 'mm/dd/yyyy')
+
+  b = spacetime('2016/13/03')
+  t.equal(a.format('numeric'), b.format('numeric'), 'yyyy/dd/mm')
+
+  b = spacetime('13/03/2016')
+  t.equal(a.format('numeric'), b.format('numeric'), 'dd/mm/yyyy')
   t.end();
 });

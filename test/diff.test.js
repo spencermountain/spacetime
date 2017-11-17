@@ -1,6 +1,6 @@
 'use strict';
 const test = require('tape');
-const spacetime = require('../src');
+const spacetime = require('./lib');
 
 const numbers = [1, 2, 5, 7, 15, 30, 40, 100, 110];
 const units = ['day', 'week', 'month', 'year'];

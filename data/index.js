@@ -1,6 +1,5 @@
 'use strict';
 const zonefile = require('./zonefile.2017.json');
-const hemispheres = require('./hemisphere');
 
 //assumed hemisphere, based on continent
 const southern = {
@@ -18,21 +17,26 @@ const unpack = obj => {
     let cities = Object.keys(obj[cont]);
     cities.forEach(city => {
       let tz = cont + '/' + city;
-      all[tz] = obj[cont][city];
-      if (typeof all[tz] === 'number') {
-        all[tz] = {
-          o: all[tz]
-        };
+      let arr = obj[cont][city];
+
+      all[tz] = {
+        o: arr[0],
+        h: arr[1],
       }
-      all[tz].tz = tz;
+      if (arr[2]) {
+        all[tz].dst = arr[2]
+      }
       //assume north, unless it says otherwise (sorry!)
-      all[tz].h = all[tz].h || 'n';
-      if (southern[cont] === true || hemispheres.south[tz]) {
+      if (southern[cont] === true) {
         all[tz].h = 's';
       }
     });
   });
-  //alias this one
+  //add this rando
+  all['Etc/UTC'] = {
+    o: 0,
+    h: "n"
+  }
   all.UTC = all['Etc/UTC'];
   return all;
 };

@@ -20,3 +20,7 @@
 * re-structure `d.timezone()` response
 * add `.hemisphere()` method
 * use proper short-day forms
+## v2.1.0
+* support unix/unicode time-formating basic-level
+* add `.era()` get/set method
+* found 6 or 7 wrong offsets

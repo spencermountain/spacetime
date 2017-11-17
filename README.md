@@ -63,6 +63,7 @@ s.date(15) // Change to the 15th
 s.day('monday') // Change to (this week's) monday
 s.month('march') // Change to (this year's) March 1st
 s.quarter(2) // Change to April 1st
+s.era() // 'BC'/'AD'
 
 // Percentage-based information
 s.progress().month = 0.23 // We're a quarter way through the month
@@ -133,7 +134,11 @@ s.format('numeric-uk') // 02/03/2017
 s.format('month') // 'April'
 s.format('month-short') // 'Apr'
 
-//Custom language
+//also (mostly) supports weird unix-formatting, for more complex templating
+s.format('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
+```
+####Custom language
+```js
 a.i18n({
   days: {
     long: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],

@@ -1,6 +1,6 @@
 'use strict';
 const test = require('tape');
-const spacetime = require('../src');
+const spacetime = require('./lib');
 
 test('non-destructive', t => {
   let s = spacetime([2017, 5, 25]);

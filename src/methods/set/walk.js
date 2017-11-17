@@ -4,7 +4,7 @@ const ms = require('../../data/milliseconds');
 //find the desired date by a increment/check while loop
 const units = {
   year: {
-    valid: n => n > 0 && n < 4000,
+    valid: n => n > -4000 && n < 4000,
     walkTo: (s, n) => {
       while (s.year() < n) {
         s.epoch += ms.year;

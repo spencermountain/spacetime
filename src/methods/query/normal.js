@@ -134,6 +134,27 @@ let methods = {
     }
     return sum + this.d.getDate();
   },
+  //bc/ad years
+  era: function(str) {
+    if (str !== undefined) {
+      str = str.toLowerCase()
+      //TODO: there is no year-0AD i think. may have off-by-1 error here
+      let year = this.d.getFullYear()
+      //make '1992' into 1992bc..
+      if (str === 'bc' && year > 0) {
+        this.epoch = set.year(this, year * -1);
+      }
+      //make '1992bc' into '1992'
+      if (str === 'ad' && year < 0) {
+        this.epoch = set.year(this, year * -1);
+      }
+      return this;
+    }
+    if (this.d.getFullYear() < 0) {
+      return 'BC'
+    }
+    return 'AD'
+  },
 };
 //aliases
 methods.milliseconds = methods.millisecond;

@@ -1,6 +1,6 @@
 'use strict';
 var test = require('tape');
-var spacetime = require('../src');
+var spacetime = require('./lib');
 
 test('to-from utc-format', t => {
   [
@@ -24,5 +24,24 @@ test('to-from utc-format', t => {
   var s = spacetime(str, 'Canada/Eastern');
   t.equal(s.format('iso'), str, 'input matches output');
 
+  t.end();
+});
+
+
+test('unix-formatting', t => {
+  let epoch = 1510850065194
+  let s = spacetime(epoch, 'Canada/Eastern')
+  //examples from http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
+  let arr = [
+    ['h:mm a', '11:34 AM'],
+    ['LL', 'Nov'],
+    [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.Nov.16 AD at 11:34:25 Canada/Eastern'],
+    [`EEE, MMM d, ''yy`, 'Thu, November 16, \'17'],
+    [`hh 'o''clock' a`, '11 oclock AM'],
+    ['yyyyy.MMMM.dd GGG hh:mm aaa', '02017.November.16 AD 11:34 AM'],
+  ]
+  arr.forEach((a) => {
+    t.equal(s.format(a[0]), a[1], a[0])
+  })
   t.end();
 });

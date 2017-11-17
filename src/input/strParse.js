@@ -36,10 +36,15 @@ const strFmt = [
     reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2})$/,
     parse: (s, arr) => {
       let month = parseInt(arr[2], 10) - 1;
+      let date = parseInt(arr[3], 10)
+      if (month >= 12) { //support yyyy/dd/mm (weird, but ok)
+        date = parseInt(arr[2], 10)
+        month = parseInt(arr[3], 10) - 1
+      }
       walkTo(s, {
         year: arr[1],
         month: month,
-        date: arr[3]
+        date: date
       });
     }
   },
@@ -48,10 +53,15 @@ const strFmt = [
     reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]([0-9]{4})$/,
     parse: (s, arr) => {
       let month = parseInt(arr[1], 10) - 1;
+      let date = parseInt(arr[2], 10)
+      if (month >= 12) { //support yyyy/dd/mm (weird, but ok)
+        month = parseInt(arr[2], 10) - 1;
+        date = parseInt(arr[1], 10)
+      }
       walkTo(s, {
         year: arr[3],
         month: month,
-        date: arr[2]
+        date: date
       });
     }
   },
