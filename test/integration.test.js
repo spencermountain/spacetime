@@ -1,6 +1,6 @@
 'use strict';
 const test = require('tape');
-const spacetime = require('../src');
+const spacetime = require('./lib');
 //ST  = winter.   november -> march
 //DST = summer.   march    -> november
 
@@ -18,7 +18,7 @@ test('ST → ST', function(t) {
     let str = d1.format('nice');
     let isDST = d1.timezone().current.isDST;
     t.equal(str, 'December 5th, 5:00am', 'init-time');
-    t.equal(isDST, false, 'init-dst-off');
+    t.equal(isDST, false, 'init-dst-off ' + tz);
     //move it to a new time in ST
     d1.add(3, 'days');
     str = d1.format('nice');
@@ -36,7 +36,7 @@ test('ST → DST', function(t) {
     let str = d1.format('nice');
     let isDST = d1.timezone().current.isDST;
     t.equal(str, 'December 5th, 10:00am', 'init-time');
-    t.equal(isDST, false, 'init-dst-off');
+    t.equal(isDST, false, 'init-dst-off ' + tz);
     //move it to a new time in DST - April 5th
     d1.add(4, 'months');
     str = d1.format('nice');
@@ -54,7 +54,7 @@ test('DST → DST', function(t) {
     let str = d1.format('nice');
     let isDST = d1.timezone().current.isDST;
     t.equal(str, 'June 5th, 3:00pm', 'init-time');
-    t.equal(isDST, true, 'init-dst-on');
+    t.equal(isDST, true, 'init-dst-on ' + tz);
     //move it to a new time in DST - July 5th
     d1.add(1, 'months');
     str = d1.format('nice');
@@ -72,7 +72,7 @@ test('DST → ST', function(t) {
     let str = d1.format('nice');
     let isDST = d1.timezone().current.isDST;
     t.equal(str, 'June 5th, 8:00pm', 'init-time');
-    t.equal(isDST, true, 'init-dst-on');
+    t.equal(isDST, true, 'init-dst-on ' + tz);
     //move it to a new time in ST - December 5th
     d1.add(6, 'months');
     str = d1.format('nice');

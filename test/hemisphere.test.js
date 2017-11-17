@@ -1,6 +1,6 @@
 'use strict';
 const test = require('tape');
-const spacetime = require('../src');
+const spacetime = require('./lib');
 
 let june = 1401660600207 //june 1, 6:10pm
 let jan = 1515368004641 //january 7th, 6:30pm

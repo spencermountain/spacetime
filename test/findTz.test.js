@@ -1,6 +1,6 @@
 'use strict';
 const test = require('tape');
-const spacetime = require('../src');
+const spacetime = require('./lib');
 
 test('whereits', t => {
   let tzs = spacetime.whereIts('9am');

@@ -4,23 +4,17 @@ const spacetime = require('./src');
 // const spacetime = require('./builds/spacetime');
 // const zones = require('./data')
 // console.log(zones)
-// let s = spacetime('01/01/2017', 'Canada/Eastern');
-// console.log('winter-', s.timezone().current.offset)
-// s = spacetime('16/07/2017', 'Canada/Eastern');
-// console.log('summer- ', s.timezone().current.offset)
-//
+
+
+//23:55 eastern (11pm)
+//03:55 utc
+//23:55 belem
+let epoch = 1520999750000
+let d1 = spacetime(epoch, 'America/Toronto');
+console.log(d1.timezone())
+// let d = new Date(epoch)
+// console.log('eastern: ', d.toLocaleTimeString())
+// console.log('utc: ', d.toUTCString())
+
 console.log('\n')
-let s = spacetime('01/01/2017', 'America/Santiago');
-console.log('winter-', s.timezone().current.offset)
-s = spacetime('16/07/2017', 'America/Santiago');
-console.log('summer- ', s.timezone().current.offset)
-
-// let s = spacetime('01/01/2017', 'Pacific/Auckland');
-// console.log('winter-', s.timezone().current.offset)
-// s = spacetime('16/07/2017', 'Pacific/Auckland');
-// console.log('summer- ', s.timezone().current.offset)
-
-// let d1 = spacetime([2010, 5, 5, 15, 0], 'Canada/Eastern');
-// console.log(d1.timezone())
-// d1 = spacetime([2010, 5, 5, 15, 0], 'America/Santiago');
-// console.log(d1.timezone())
+console.log(d1.hour())

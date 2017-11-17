@@ -99,8 +99,10 @@ fmt['full-short'] = s => {
 fmt['ordinal'] = fmt['date-ordinal'];
 fmt['date-short'] = fmt.date;
 fmt['time-12h'] = fmt.time;
+fmt['time-12'] = fmt.time;
 fmt['time-h12'] = fmt['time-12h'];
 fmt['time-h24'] = fmt['time-24h'];
+fmt['time-24'] = fmt['time-24h'];
 fmt['numeric'] = fmt['numeric-us']; //sorry!
 fmt['mdy'] = fmt['numeric-us'];
 fmt['dmy'] = fmt['numeric-uk'];

@@ -1,6 +1,6 @@
 'use strict';
 const test = require('tape');
-const spacetime = require('../src');
+const spacetime = require('./lib');
 
 test('clone', t => {
   let a = spacetime('March 18, 1999 23:42:00', 'Canada/Eastern');

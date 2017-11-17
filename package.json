@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",
@@ -9,7 +9,8 @@
     "build": "node ./scripts/build.js",
     "demo": "node ./scripts/demo.js",
     "watch": "node ./scripts/watch.js",
-    "test": "tape ./test/**/*.test.js | tap-dot",
+    "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dot",
+    "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dot",
     "lint": "eslint .",
     "size": "./node_modules/.bin/size-limit",
     "prepublish": "./node_modules/.bin/size-limit",

@@ -1,6 +1,6 @@
 'use strict';
 const test = require('tape');
-const spacetime = require('../src');
+const spacetime = require('./lib');
 
 test('random november time', t => {
   let epoch = 1510799750000 //november 15th 9:35pm 2017 EST
@@ -17,7 +17,6 @@ test('random november time', t => {
     ['Asia/Manila', 'Thu 10:35am'],
     ['Asia/Singapore', 'Thu 10:35am'],
     ['Asia/Baghdad', 'Thu 5:35am'],
-    ['Canada/Eastern', 'Wed 10:35pm'],
     ['Australia/Melbourne', 'Thu 1:35pm'],
     ['Asia/Karachi', 'Thu 7:35am'],
     ['America/Toronto', 'Wed 9:35pm'],
@@ -27,7 +26,7 @@ test('random november time', t => {
     ['Europe/Paris', 'Thu 3:35am'],
     ['America/Winnipeg', 'Wed 8:35pm'],
     ['America/Edmonton', 'Wed 7:35pm'],
-    ['Africa/Khartoum', 'Thu 4:35am']
+    ['Africa/Khartoum', 'Thu 5:35am']
   ]
   arr.forEach((a) => {
     let s = spacetime(epoch, a[0])
@@ -38,7 +37,7 @@ test('random november time', t => {
 });
 
 
-//copied from https://www.epochconverter.com/timezones?q=1520999750000
+// copied from https://www.epochconverter.com/timezones?q=1520999750000
 // test('random march time', t => {
 //   let epoch = 1520999750000 //March 13, 2018 11:55pm
 //   const arr = [
@@ -61,7 +60,11 @@ test('random november time', t => {
 //   ]
 //   arr.forEach((a) => {
 //     let s = spacetime(epoch, a[0])
-//     let have = `${s.format('month-short')} ${s.date()} ${s.year()} ${s.format('time-24h')}:${s.seconds()}`
+//     let hour = s.hour()
+//     if (hour <= 9) {
+//       hour = '0' + hour
+//     }
+//     let have = `${s.format('month-short')} ${s.date()} ${s.year()} ${hour}:${s.minute()}:${s.seconds()}`
 //     t.equal(a[1], have, a[0])
 //   })
 //   t.end();

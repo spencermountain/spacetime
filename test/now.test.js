@@ -1,6 +1,6 @@
 'use strict';
 const test = require('tape');
-const spacetime = require('../src');
+const spacetime = require('./lib');
 const tk = require('timekeeper');
 
 test('now-is-now', t => {

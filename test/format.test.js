@@ -1,6 +1,6 @@
 'use strict';
 var test = require('tape');
-var spacetime = require('../src');
+var spacetime = require('./lib');
 
 test('to-from utc-format', t => {
   [

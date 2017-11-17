@@ -1,6 +1,6 @@
 'use strict';
 const test = require('tape');
-const spacetime = require('../src');
+const spacetime = require('./lib');
 
 test('implicit goto', t => {
   let a = spacetime('March 14, 2017 22:48:00', 'Africa/Algiers');

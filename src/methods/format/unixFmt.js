@@ -118,7 +118,7 @@ const unixFmt = function(str, s) {
       quoteOn = !quoteOn
       //support '', meaning one tick
       if (quoteOn === true && chars[i + 1] && chars[i + 1] === "'") {
-        quoteOff = false
+        quoteOn = true
       } else {
         continue
       }
