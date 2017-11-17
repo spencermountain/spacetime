@@ -10,17 +10,17 @@ const SpaceTime = function(input, tz) {
   this.tz = tz || guessTz()
   //don't output anything if it's invalid
   this.valid = true
-  //every computer is somewhere- get this computer's built-in offset
-  this.bias = new Date().getTimezoneOffset() || 0
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object
     get: function() {
       let meta = timezone(this) || {}
-      //movement in milliseconds
-      let shift = meta.current.epochShift
+      //every computer is somewhere- get this computer's built-in offset
+      let bias = new Date(this.epoch).getTimezoneOffset() || 0
+      //movement
+      let shift = bias + (meta.current.offset * 60) //in minutes
+      shift = shift * 60 * 1000 //in ms
       //remove this computer's offset
-      shift = shift + this.bias * 60 * 1000
       let epoch = this.epoch + shift
       let d = new Date(epoch)
       return d

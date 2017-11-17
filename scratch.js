@@ -6,19 +6,28 @@ const spacetime = require('./src');
 // console.log(zones)
 
 
-//23:55 eastern (11pm)
-//03:55 utc
-//23:55 belem
-// let epoch = 1520999750000
-// let d1 = spacetime(epoch, 'America/Toronto');
-// console.log(d1.timezone())
-// // let d = new Date(epoch)
-// // console.log('eastern: ', d.toLocaleTimeString())
-// // console.log('utc: ', d.toUTCString())
-//
-// console.log('\n')
-// console.log(d1.hour())
-
-// var s = spacetime(1509358800000, 'Europe/Madrid');
+//correct one
+// let jan = 1580299750000
+// var s = spacetime(jan, 'Africa/Abidjan')
 // s.log()
-spacetime('2012-10-28 00:00:00+01:00').goto('Europe/London')
+// //incorrect one
+// let july = 1500299750000
+// var s = spacetime(july, 'Africa/Abidjan')
+// s.log()
+
+
+let s = spacetime('January 1, 2017 1:20:05', 'Canada/Eastern');
+console.log(s.hour())
+s.log()
+// var s = spacetime(1509358800000, 'Europe/Madrid');//want 11:20
+//WE WANT 6:20!!!
+// const epoch = 1509358800000
+// var s = spacetime(epoch, 'Canada/Eastern'); //want 6:20
+// s.log()
+// console.log(s.d.toLocaleTimeString())
+// console.log(s.timezone())
+// console.log(s.epoch === epoch)
+
+// === proper bias ==
+// 300  (5hrs)
+// new Date().getTimezoneOffset()

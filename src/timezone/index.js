@@ -59,7 +59,8 @@ const timezone = s => {
     m.current.offset = winter
     m.current.isDST = m.hemisphere === 'South' //dst 'on' in summer in south
   }
-  m.current.epochShift = m.current.offset * 60 * 60 * 1000
+  // let minutes = m.current.offset * 60
+  // m.current.epochShift = minutes * 60 * 1000
 
   return m;
 };

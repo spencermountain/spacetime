@@ -14,8 +14,6 @@ const shouldChange = (s, m) => {
   //note: this has a order-of-operations issue
   //we can't get the date, without knowing the timezone, and vice-versa
   //it's possible that we can miss a dst-change by a few hours.
-  // let diff = (m.offset * 60) + s.bias
-  // let approx = s.epoch + (diff * 60 * 60 * 1000)
   let d = new Date(s.epoch);
   let current = toString(d);
   //eg. is it after ~november?
