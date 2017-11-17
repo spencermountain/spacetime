@@ -102,3 +102,31 @@ test('feb-29th-doesnt-exist', t => {
   });
   t.end();
 });
+
+test('length of year', t => {
+  let right = {
+    '2014': 365,
+    '2015': 365,
+    '2016': 366,
+    '2017': 365,
+    '2018': 365,
+    '2019': 365,
+    '2020': 366,
+    '2021': 365,
+    '2022': 365,
+    '2023': 365,
+    '2024': 366,
+    '2025': 365,
+    '2026': 365,
+    '2027': 365,
+    '2028': 366
+  }
+  for (let i = 0; i < 15; i++) {
+    let year = 2014 + i
+    var s = spacetime({
+      year: year
+    }).endOf('year');
+    t.equal(right[year], s.dayOfYear(), 'year ' + year);
+  }
+  t.end();
+});

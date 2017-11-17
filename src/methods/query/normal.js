@@ -122,14 +122,16 @@ let methods = {
       return this;
     }
     //days since newyears - jan 1st is 1, jan 2nd is 2...
-    let sum = 0;
+    let sum = 0
     let month = this.d.getMonth();
     let tmp;
-    for (let i = 0; i < month; i++) {
+    //count the num days in each month
+    for (let i = 1; i <= month; i++) {
       tmp = new Date();
+      tmp.setYear(this.d.getFullYear()) //the year matters, because leap-years
       tmp.setMonth(i);
       tmp.setDate(1);
-      tmp.setHours(-2);
+      tmp.setHours(-2); //the last day of the month
       sum += tmp.getDate();
     }
     return sum + this.d.getDate();
