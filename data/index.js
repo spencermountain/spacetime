@@ -1,6 +1,5 @@
 'use strict';
 const zonefile = require('./zonefile.2017.json');
-const hemispheres = require('./hemisphere');
 
 //assumed hemisphere, based on continent
 const southern = {
@@ -28,8 +27,7 @@ const unpack = obj => {
         all[tz].dst = arr[2]
       }
       //assume north, unless it says otherwise (sorry!)
-      all[tz].h = all[tz].h || 'n';
-      if (southern[cont] === true || hemispheres.south[tz]) {
+      if (southern[cont] === true) {
         all[tz].h = 's';
       }
     });
