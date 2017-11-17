@@ -76,6 +76,13 @@ test('random july time', t => {
   let epoch = 1500299750000
   const arr = [
     ['Africa/Abidjan', 'Jul 17 1:55pm'],
+    ['America/Belem', 'Jul 17 10:55am'],
+    ['America/Belize', 'Jul 17 7:55am'],
+    ['America/Detroit', 'Jul 17 9:55am'],
+    ['Australia/Currie', 'Jul 17 11:55pm'],
+    ['Europe/Zagreb', 'Jul 17 3:55pm'],
+    ['America/Caracas', 'Jul 17 9:55am'],
+    ['Asia/Karachi', 'Jul 17 6:55pm'],
   ]
   arr.forEach((a) => {
     let s = spacetime(epoch, a[0])
@@ -94,6 +101,13 @@ test('random january time', t => {
   let epoch = 1580299750000
   const arr = [
     ['Africa/Abidjan', 'Jan 29 12:09pm'],
+    ['America/Inuvik', 'Jan 29 5:09am'],
+    ['America/Lima', 'Jan 29 7:09am'],
+    ['Asia/Almaty', 'Jan 29 6:09pm'],
+    ['Asia/Barnaul', 'Jan 29 7:09pm'],
+    ['Asia/Urumqi', 'Jan 29 6:09pm'],
+    ['Asia/Tbilisi', 'Jan 29 4:09pm'],
+    ['Pacific/Pohnpei', 'Jan 29 11:09pm'],
   ]
   arr.forEach((a) => {
     let s = spacetime(epoch, a[0])
