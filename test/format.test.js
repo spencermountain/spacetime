@@ -45,3 +45,19 @@ test('unix-formatting', t => {
   })
   t.end();
 });
+
+test('unix-fmt-padding', t => {
+  let d = spacetime({
+    year: 2017,
+    month: 'january',
+    day: 5,
+    hour: 4,
+    minute: 2
+  })
+  let str = d.format("ww DDD MM d, hh:mm a")
+  t.equal('04 027 Jan 27, 04:02 AM', str, 'string is 0-padded')
+
+  str = d.format("w D MM d, h:m a")
+  t.equal('4 27 Jan 27, 4:2 AM', str, 'string is not-0-padded')
+  t.end();
+});

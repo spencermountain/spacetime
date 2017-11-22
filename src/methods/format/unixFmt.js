@@ -1,4 +1,5 @@
 'use strict'
+const pad = require('../../fns').zeroPad
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
@@ -32,17 +33,17 @@ const mapping = {
 
   //week
   w: (s) => s.week(),
-  ww: (s) => s.week(),
+  ww: (s) => pad(s.week()),
   //week of month
   // W: (s) => s.week(),
 
   //date of month
   d: (s) => s.date(),
-  dd: (s) => s.date(),
+  dd: (s) => pad(s.date()),
   //date of year
   D: (s) => s.dayOfYear(),
-  DD: (s) => s.dayOfYear(),
-  DDD: (s) => s.dayOfYear(),
+  DD: (s) => pad(s.dayOfYear()),
+  DDD: (s) => pad(s.dayOfYear(), 3),
 
   // F: (s) => {},//date of week in month
   // g: (s) => {},//modified julian day
@@ -64,17 +65,18 @@ const mapping = {
   aa: (s) => s.ampm().toUpperCase(),
   aaa: (s) => s.ampm().toUpperCase(),
   aaaa: (s) => s.ampm().toUpperCase(),
+
   //hour
   h: (s) => s.h12(),
-  hh: (s) => s.h12(),
+  hh: (s) => pad(s.h12()),
   H: (s) => s.hour(),
-  HH: (s) => s.hour(),
+  HH: (s) => pad(s.hour()),
   // j: (s) => {},//weird hour format
 
   m: (s) => s.minute(),
-  mm: (s) => s.minute(),
+  mm: (s) => pad(s.minute()),
   s: (s) => s.second(),
-  ss: (s) => s.second(),
+  ss: (s) => pad(s.second()),
   //milliseconds in the day
   A: (s) => s.epoch - s.startOf('day').epoch,
   //timezone

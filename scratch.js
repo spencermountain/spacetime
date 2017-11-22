@@ -6,13 +6,11 @@ const spacetime = require('./src');
 // console.log(zones)
 
 
-//incorrect one
-let obj = {}
-for (let i = 0; i < 15; i++) {
-  var s = spacetime({
-    year: 2014 + i
-  }).endOf('year');
-  console.log(2014 + i, s.dayOfYear());
-}
-
-console.log(obj)
+let d = spacetime({
+  year: 2017,
+  month: 'january',
+  day: 5,
+  hour: 4,
+  minute: 2
+})
+console.log(d.format("w D MM d, h:m a"))

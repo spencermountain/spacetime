@@ -1,4 +1,4 @@
-/* spacetime v2.1.1
+/* spacetime v2.1.2
   
 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -2281,7 +2281,7 @@ module.exports={
 },{}],3:[function(_dereq_,module,exports){
 module.exports={
   "name": "spacetime",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "represent dates in remote timezones",
   "main": "./builds/spacetime.js",
   "license": "Apache-2.0",
@@ -3189,6 +3189,7 @@ module.exports = format;
 },{"../../data/days":4,"../../data/months":7,"../../fns":11,"./unixFmt":20}],20:[function(_dereq_,module,exports){
 'use strict';
 
+var pad = _dereq_('../../fns').zeroPad;
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
@@ -3258,7 +3259,7 @@ var mapping = {
     return s.week();
   },
   ww: function ww(s) {
-    return s.week();
+    return pad(s.week());
   },
   //week of month
   // W: (s) => s.week(),
@@ -3268,17 +3269,17 @@ var mapping = {
     return s.date();
   },
   dd: function dd(s) {
-    return s.date();
+    return pad(s.date());
   },
   //date of year
   D: function D(s) {
     return s.dayOfYear();
   },
   DD: function DD(s) {
-    return s.dayOfYear();
+    return pad(s.dayOfYear());
   },
   DDD: function DDD(s) {
-    return s.dayOfYear();
+    return pad(s.dayOfYear(), 3);
   },
 
   // F: (s) => {},//date of week in month
@@ -3329,18 +3330,19 @@ var mapping = {
   aaaa: function aaaa(s) {
     return s.ampm().toUpperCase();
   },
+
   //hour
   h: function h(s) {
     return s.h12();
   },
   hh: function hh(s) {
-    return s.h12();
+    return pad(s.h12());
   },
   H: function H(s) {
     return s.hour();
   },
   HH: function HH(s) {
-    return s.hour();
+    return pad(s.hour());
   },
   // j: (s) => {},//weird hour format
 
@@ -3348,13 +3350,13 @@ var mapping = {
     return s.minute();
   },
   mm: function mm(s) {
-    return s.minute();
+    return pad(s.minute());
   },
   s: function s(_s) {
     return _s.second();
   },
   ss: function ss(s) {
-    return s.second();
+    return pad(s.second());
   },
   //milliseconds in the day
   A: function A(s) {
@@ -3441,7 +3443,7 @@ var unixFmt = function unixFmt(str, s) {
 };
 module.exports = unixFmt;
 
-},{}],21:[function(_dereq_,module,exports){
+},{"../../fns":11}],21:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns');
