@@ -50,7 +50,7 @@ test('unix-fmt-padding', t => {
   let d = spacetime({
     year: 2017,
     month: 'january',
-    day: 5,
+    day: 26,
     hour: 4,
     minute: 2
   })
