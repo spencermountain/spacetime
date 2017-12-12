@@ -114,14 +114,14 @@ s.diff(d, 'month') // 0
 // Roll into a new timezone, at the same moment
 s.goto('Australia/Brisbane')
 
-//list timezones by their current time
+//list timezones by their \ time
 spacetime.whereIts('8:30pm','9:30pm') // ['America/Winnipeg', 'America/Yellowknife'... ]
 spacetime.whereIts('9am') //(within this hour)
 
 // Timezone metadata
 s.timezone().name // 'Canada/Eastern' (either inferred or explicit)
 s.hemisphere() // North
-s.timezone().current.offset // -240 (in minutes)
+s.timezone().current.offset // -4 (in hours)
 s.hasDST() // True
 s.isDST() // True
 ```
