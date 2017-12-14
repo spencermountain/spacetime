@@ -59,7 +59,7 @@ ImmutableSpacetime.tomorrow = function tomorrow(tz) {
 }
 
 ImmutableSpacetime.yesterday = function yesterday(tz) {
-  let s = clobber(new Spacetime(new Date().getTime(), tz));
+  let s = new Spacetime(new Date().getTime(), tz);
   let instance = clobber(s.subtract(1, 'day').startOf('day'));
   instance.clone = x=> {
     let s1 = new Spacetime(new Date().getTime(), tz);

@@ -21,20 +21,23 @@
 </div>
 
 ### A simple way to manipulate, compare, and format dates and times across the Earth
+
 - **Get/set** dates and times in remote timezones
+- Optin immutability
 - Global support for **Daylight Savings Time**, **leap years + seconds**, and **hemispheres**
 - Orient by quarter, season, month, and week
 - Remote date comparison
-- Written in **ES2015 JS**, published as **ES5**, tested for Node and the browser
-- **Weighs in at just 35KB** _(12KB compressed)_
-- Heavily tested, Apache 2.0 licensed
+- Tested for Node and the browser
+- **Weighs in at just 42KB** _(12KB compressed)_
+- Apache 2.0 licensed
 - Made by your friends at [Begin](https://begin.com)
 
 # Install
+
 `npm install spacetime --save`
 
 ```js
-var spacetime=require('spacetime')
+const spacetime = require('spacetime')
 ```
 
 ### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)
@@ -88,7 +91,20 @@ s.clone() // Make a copy
 s.isValid() // Sept 32nd → false
 ```
 
+### Opt Into Immutability
+
+Methods `add`, `subtract`, `hour`, `date`, `day`, `month`, `quarter`, and `goto` return new instance of `Spacetime` leaving original date instance unmutated.
+
+```javascript
+const SpaceTime = require('spacetime/immutable')
+const day0 = new Spactime([2018, 0, 1])
+
+s.add(3, 'days').format('nice') // logs January 4th 
+s.format('nice') // January 1st
+```
+
 ### Comparison between Dates
+
 ```js
 let d = spacetime([2017, 5, 2])
 let start = s.clone()
@@ -109,7 +125,7 @@ s.diff(d, 'day') // 5
 s.diff(d, 'month') // 0
 ```
 
-### Timezone info
+### Timezones
 ```js
 // Roll into a new timezone, at the same moment
 s.goto('Australia/Brisbane')
@@ -137,7 +153,8 @@ s.format('month-short') // 'Apr'
 //also (mostly) supports weird unix-formatting, for more complex templating
 s.format('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
 ```
-####Custom language
+### Custom language
+
 ```js
 a.i18n({
   days: {
@@ -153,6 +170,7 @@ a.format('day') //'Sábado'
 ```
 
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
+
 <div align="center">
   <a href="https://twitter.com/begin">
     <img width="50" src="https://user-images.githubusercontent.com/399657/31141177-9f339dc8-a844-11e7-8330-0cee2dc12128.jpg"/>

@@ -2,6 +2,7 @@
 .jshintrc
 .env
 immutable.js
+spacetime.js
 node_modules/
 .nyc_output
 npm-debug.log

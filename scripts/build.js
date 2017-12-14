@@ -22,12 +22,12 @@ child.stdout.on('error', function() {
 //final build locations
 var banner = '/* spacetime v' + pkg.version + '\n  \n*/\n';
 var uncompressed = './builds/spacetime.js';
-var compressed = './builds/spacetime.min.js';
+var compressed = './spacetime.js';
 var immutable = './immutable.js'
 var immutableTmp = './immutable.tmp.js'
 
 //cleanup. remove old builds
-exec('rm -rf ./builds && && rm immutable.js && mkdir builds');
+exec('rm -rf ./builds && rm immutable.js && mkdir builds');
 
 //add a header, before our sourcecode
 echo(banner).to(uncompressed);
@@ -56,7 +56,7 @@ cmd = uglify + ' ' + immutableTmp + ' --mangle --compress ';
 cmd += ' >> ' + immutable;
 exec(cmd); // --source-map ' + compressed + '.map'
 
-exec('rm immutable.tmp.js')
+exec('rm -rf ./builds && rm immutable.tmp.js')
 
 //print filesizes
 var stats = fs.statSync(compressed);

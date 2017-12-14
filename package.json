@@ -2,7 +2,7 @@
   "name": "spacetime",
   "version": "2.1.2",
   "description": "represent dates in remote timezones",
-  "main": "./builds/spacetime.js",
+  "main": "./spacetime.js",
   "license": "Apache-2.0",
   "scripts": {
     "precommit": "lint-staged",
