@@ -28,6 +28,7 @@
 - Orient by quarter, season, month, and week
 - Remote date comparison
 - Tested for Node and the browser
+- _Zero Dependencies_ (perfect for the Browser or Lambda)
 - **Weighs in at just 42KB** _(12KB compressed)_
 - Apache 2.0 licensed
 - Made by your friends at [Begin](https://begin.com)
@@ -93,15 +94,16 @@ s.isValid() // Sept 32nd → false
 
 ### Opt Into Immutability
 
-Methods `add`, `subtract`, `hour`, `date`, `day`, `month`, `quarter`, and `goto` return new instance of `Spacetime` leaving original date instance unmutated.
+Make `add`, `subtract`, `hour`, `date`, `day`, `month`, `quarter`, and `goto` methods all return a new instance of `Spacetime` leaving original date instance unmutated.
 
 ```javascript
-const SpaceTime = require('spacetime/immutable')
-const day0 = new Spactime([2018, 0, 1])
+// coolest ctor name ever
+const ImmutableSpacetime = require('spacetime/immutable')
+const day0 = new ImmutableSpacetime([2018, 0, 1])
 
 day0.format('nice') // January 1st
 day0.add(3, 'days').format('nice') // January 4th 
-day0.format('nice') // January 1st
+day0.format('nice') // January 1st!
 ```
 
 ### Comparison between Dates
