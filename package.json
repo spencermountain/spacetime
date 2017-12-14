@@ -45,7 +45,7 @@
   },
   "size-limit": [
     {
-      "path": "builds/spacetime.min.js",
+      "path": "./spacetime.js",
       "limit": "14 KB"
     }
   ]
