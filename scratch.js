@@ -1,16 +1,6 @@
-'use strict';
-const spacetime = require('./src');
-// const moment = require('moment-timezone')
-// const spacetime = require('./builds/spacetime');
-// const zones = require('./data')
-// console.log(zones)
+const ist = require('./immutable')
 
-
-let d = spacetime({
-  year: 2017,
-  month: 'january',
-  day: 5,
-  hour: 4,
-  minute: 2
-})
-console.log(d.format("w D MM d, h:m a"))
+let day0 = ist.now()
+console.log(day0.format('nice'))
+console.log(day0.add(2, 'days').format('nice'))
+console.log(day0.subtract(1, 'days').format('nice'))
