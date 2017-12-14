@@ -5,16 +5,14 @@ function clobber(instance) {
   let clobbers = ['add', 'subtract', 'hour', 'date', 'day', 'month', 'quarter', 'goto']
   // walk thee clobbers and clobber with immutablilitieeeees
   clobbers.forEach(prop=> {
-    var copy = instance.clone()
     Object.defineProperty(instance, prop, {
       enumerable: false,
       value(...args) {
+        var copy = instance.clone()
         return copy[prop].apply(copy, args)
       }
     })
   })
-  // this instance is unchanging
-  instance.clone = null
   return instance
 }
 
