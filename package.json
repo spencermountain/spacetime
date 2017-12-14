@@ -22,7 +22,8 @@
     "url": "https://github.com/smallwins/spacetime.git"
   },
   "files": [
-    "builds/"
+    "spacetime.js",
+    "immutable.js"
   ],
   "dependencies": {},
   "devDependencies": {
