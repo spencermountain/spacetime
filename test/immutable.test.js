@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: "off" */
 'use strict';
 const test = require('tape');
 const spacetime = require('../immutable');

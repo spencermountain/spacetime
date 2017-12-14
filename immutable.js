@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: "off" */
 const Spacetime = require('.');
 const whereIts = require('./src/findTz').whereIts;
 const pkg = require('./package.json');
