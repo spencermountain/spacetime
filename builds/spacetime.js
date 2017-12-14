@@ -2291,6 +2291,7 @@ module.exports={
     "demo": "node ./scripts/demo.js",
     "watch": "node ./scripts/watch.js",
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dot",
+    "t": "TESTENV=dev tape ./test/**/immutable.test.js",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dot",
     "lint": "eslint .",
     "size": "./node_modules/.bin/size-limit",
@@ -2695,7 +2696,7 @@ var parseHour = function parseHour(s, str) {
 var strFmt = [
 //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
 {
-  reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9:-\\.]+)(Z|[0-9\-\+]+)?$/,
+  reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9:-\\.]+)(Z|[0-9\-\+:]+)?$/,
   parse: function parse(s, arr) {
     var month = parseInt(arr[2], 10) - 1;
     walkTo(s, {

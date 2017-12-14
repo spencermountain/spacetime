@@ -1,3 +1,4 @@
+'use strict';
 /* eslint no-unused-vars: "off" */
 const Spacetime = require('./spacetime');
 const whereIts = require('./findTz').whereIts;
@@ -35,28 +36,35 @@ function ImmutableSpacetime(...args) {
   return instance
 }
 
-ImmutableSpacetime.now = function now() {
-  var instance = clobber(Spacetime.now())
-  instance.clone = x=> clobber(Spacetime.now())
+ImmutableSpacetime.now = function now(tz) {
+  var instance = clobber(new Spacetime(new Date().getTime(), tz))
+  instance.clone = x=> clobber(new Spacetime(new Date().getTime(), tz))
   return instance
 }
 
-ImmutableSpacetime.today = function today() {
-  var instance = clobber(Spacetime.today())
-  instance.clone = x=> clobber(Spacetime.today())
+ImmutableSpacetime.today = function today(tz) {
+  var instance = clobber(new Date().getTime(), tz)
+  instance.clone = x=> clobber(new Date().getTime(), tz)
   return instance
 }
 
-ImmutableSpacetime.tomorrow = function tomorrow() {
-  var instance = clobber(Spacetime.tomorrow())
-  instance.clone = x=> clobber(Spacetime.tomorrow())
+ImmutableSpacetime.tomorrow = function tomorrow(tz) {
+  let s0 = new Spacetime(new Date().getTime(), tz);
+  var instance = clobber(s0.add(1, 'day').startOf('day'))
+  instance.clone = x=> {
+    let s1 = new Spacetime(new Date().getTime(), tz);
+    return clobber(s1.add(1, 'day').startOf('day'))
+  }
   return instance
 }
 
 ImmutableSpacetime.yesterday = function yesterday(tz) {
   let s = clobber(new Spacetime(new Date().getTime(), tz));
   let instance = clobber(s.subtract(1, 'day').startOf('day'));
-  instance.clone = x=> clobber(s.subtract(1, 'day').startOf('day'));
+  instance.clone = x=> {
+    let s1 = new Spacetime(new Date().getTime(), tz);
+    return clobber(s1.subtract(1, 'day').startOf('day'));
+  }
   return instance;
 };
 
