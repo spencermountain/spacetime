@@ -4,6 +4,15 @@ const spacetime = require('../immutable');
 const day0 = spacetime.now();
 const today = day0.format('nice');
 
+test('clone still works', t=> {
+  t.plan(2)
+  var day1 = day0.clone()
+  console.log(day0.format('nice'))
+  t.ok(day0.format('nice') === day1.format('nice'), 'eq')
+  console.log(day1.add(3, 'days').format('nice'))
+  t.ok(day0.format('nice') === day1.format('nice'), 'eq')
+})
+
 test('.add does not mutate', t => {
   t.plan(1);
   let tmrw = day0.add(1, 'day').format('nice');
