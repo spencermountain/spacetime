@@ -1,7 +1,7 @@
 var Spacetime = require('.')
 
 function clobber(instance) {
-  // these methods return values
+  // these methods return instances with mutated values now
   let clobbers = ['add', 'subtract', 'hour', 'date', 'day', 'month', 'quarter', 'goto']
   // walk thee clobbers and clobber with immutablilitieeeees
   clobbers.forEach(prop=> {
