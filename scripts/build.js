@@ -23,9 +23,10 @@ child.stdout.on('error', function() {
 var banner = '/* spacetime v' + pkg.version + '\n  \n*/\n';
 var uncompressed = './builds/spacetime.js';
 var compressed = './builds/spacetime.min.js';
+var immutable = './immutable.js'
 
 //cleanup. remove old builds
-exec('rm -rf ./builds && mkdir builds');
+exec('rm -rf ./builds && && rm ./immutable.js && mkdir builds');
 
 //add a header, before our sourcecode
 echo(banner).to(uncompressed);
@@ -38,9 +39,20 @@ cmd += ' | ' + derequire;
 cmd += ' >> ' + uncompressed;
 exec(cmd);
 
+//add immutable build
+cmd = browserify + ' ./src/immutable.js --standalone spacetime';
+cmd += ' -t [ babelify --presets [ es2015 stage-2 ] ]';
+cmd += ' | ' + derequire;
+cmd += ' >> ' + immutable;
+exec(cmd);
+
 //uglify
 cmd = uglify + ' ' + uncompressed + ' --mangle --compress ';
 cmd += ' >> ' + compressed;
+exec(cmd); // --source-map ' + compressed + '.map'
+
+cmd = uglify + ' ' + immutable + ' --mangle --compress ';
+cmd += ' >> ' + immutable;
 exec(cmd); // --source-map ' + compressed + '.map'
 
 //print filesizes

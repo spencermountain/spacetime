@@ -1,7 +1,7 @@
 /* eslint no-unused-vars: "off" */
-const Spacetime = require('.');
-const whereIts = require('./src/findTz').whereIts;
-const pkg = require('./package.json');
+const Spacetime = require('./spacetime');
+const whereIts = require('./findTz').whereIts;
+const pkg = require('../package.json');
 
 function clobber(instance) {
   // these methods return instances with mutated values now
