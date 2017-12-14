@@ -99,8 +99,9 @@ Methods `add`, `subtract`, `hour`, `date`, `day`, `month`, `quarter`, and `goto`
 const SpaceTime = require('spacetime/immutable')
 const day0 = new Spactime([2018, 0, 1])
 
-s.add(3, 'days').format('nice') // logs January 4th 
-s.format('nice') // January 1st
+day0.format('nice') // January 1st
+day0.add(3, 'days').format('nice') // January 4th 
+day0.format('nice') // January 1st
 ```
 
 ### Comparison between Dates
