@@ -1,10 +1,9 @@
-'use strict';
-const days = require('../../data/days');
-const months = require('../../data/months');
-const walkTo = require('../set/walk');
+import days from '../../data/days'
+import months from '../../data/months'
+import walkTo from '../set/walk'
 
 //non-destructive getters/setters with fancy moves to do
-module.exports = {
+export default {
   //like 'wednesday' (hard!)
   day: function(input) {
     if (input === undefined) {

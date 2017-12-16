@@ -1,11 +1,15 @@
-'use strict'
-const guessTz = require('./timezone/guessTz')
-const timezone = require('./timezone/index')
-const handleInput = require('./input')
-const methods = require('./methods')
+import guessTz from './timezone/guessTz'
+import timezone from './timezone'
+import handleInput from './input'
+import methods from './methods'
+import * as query from './methods/query'
+import * as add from './methods/add'
+import * as same from './methods/same'
+import * as compare from './methods/compare'
+import * as i18n from './methods/i18n'
 
 //fake timezone-support, for fakers (es5 class)
-const SpaceTime = function(input, tz) {
+function SpaceTime (input, tz) {
   //the shift for the given timezone
   this.tz = tz || guessTz()
   //don't output anything if it's invalid
@@ -34,15 +38,16 @@ const SpaceTime = function(input, tz) {
 Object.keys(methods).forEach(k => {
   SpaceTime.prototype[k] = methods[k]
 })
+
 SpaceTime.prototype.clone = function() {
   return new SpaceTime(this.epoch, this.tz)
 }
 
 //append more methods
-require('./methods/query')(SpaceTime)
-require('./methods/add')(SpaceTime)
-require('./methods/same')(SpaceTime)
-require('./methods/compare')(SpaceTime)
-require('./methods/i18n')(SpaceTime)
+query.addMethods(SpaceTime)
+add.addMethods(SpaceTime)
+same.addMethods(SpaceTime)
+compare.addMethods(SpaceTime)
+i18n.addMethods(SpaceTime)
 
-module.exports = SpaceTime
+export default SpaceTime

@@ -1,18 +1,16 @@
-'use strict';
-
-exports.isDate = function(d) {
-  return (
-    Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
-  );
+export function isDate(d) {
+  return Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
 };
-exports.isArray = function(input) {
+
+export function isArray(input) {
   return Object.prototype.toString.call(input) === '[object Array]';
 };
-exports.isObject = function(input) {
+
+export function isObject(input) {
   return Object.prototype.toString.call(input) === '[object Object]';
 };
 
-exports.zeroPad = function(str, len) {
+export function zeroPad(str, len) {
   len = len || 2;
   let pad = '0';
   str = str + '';
@@ -21,14 +19,14 @@ exports.zeroPad = function(str, len) {
     : new Array(len - str.length + 1).join(pad) + str;
 };
 
-exports.titleCase = function(str) {
+export function titleCase(str) {
   if (!str) {
     return '';
   }
   return str[0].toUpperCase() + str.substr(1).toLowerCase();
 };
 
-exports.ordinal = function(i) {
+export function ordinal(i) {
   let j = i % 10;
   let k = i % 100;
   if (j === 1 && k !== 11) {
@@ -43,7 +41,7 @@ exports.ordinal = function(i) {
   return i + 'th';
 };
 
-exports.normalize = str => {
+export function normalize(str) {
   str = str.toLowerCase();
   str = str.replace(/s$/, '');
   if (str === 'day') {
@@ -52,7 +50,7 @@ exports.normalize = str => {
   return str;
 };
 
-exports.getEpoch = function(tmp) {
+export function getEpoch(tmp) {
   //support epoch
   if (typeof tmp === 'number') {
     return tmp;

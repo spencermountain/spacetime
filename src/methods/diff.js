@@ -1,8 +1,7 @@
-'use strict';
-const fns = require('../fns');
+import fns from '../fns'
 
 //increment until dates are the same
-const climb = function(a, b, unit) {
+function climb(a, b, unit) {
   let i = 0;
   a = a.clone();
   while (a.isBefore(b)) {
@@ -15,7 +14,7 @@ const climb = function(a, b, unit) {
   return i;
 };
 
-const diff = (a, b, unit) => {
+export default function diff (a, b, unit)  {
   unit = fns.normalize(unit);
   if (a.isBefore(b)) {
     return climb(a, b, unit);
@@ -24,4 +23,3 @@ const diff = (a, b, unit) => {
     return climb(b, a, unit) * -1;
   }
 };
-module.exports = diff;

@@ -1,65 +1,64 @@
-'use strict'
-const format = require('./methods/format')
-const progress = require('./methods/progress')
-const nearest = require('./methods/nearest')
-const diff = require('./methods/diff')
-const ends = require('./methods/startOf')
-const timezone = require('./timezone/index')
-const handleInput = require('./input')
+import format from './methods/format'
+import progress from './methods/progress'
+import nearest from './methods/nearest'
+import diff from './methods/diff'
+import ends from './methods/startOf'
+import timezone from './timezone/index'
+import handleInput from './input'
 
 //the spacetime instance methods (also, the API)
 const methods = {
-  set: function(input) {
+  set (input) {
     handleInput(this, input)
     return this
   },
-  timezone: function() {
+  timezone () {
     return timezone(this)
   },
-  isDST: function() {
+  isDST () {
     return timezone(this).current.isDST
   },
-  hasDST: function() {
+  hasDST () {
     return timezone(this).hasDst
   },
-  offset: function() {
+  offset () {
     return timezone(this).current.offset / 60
   },
-  hemisphere: function() {
+  hemisphere () {
     return timezone(this).hemisphere
   },
 
-  format: function(fmt) {
+  format (fmt) {
     return format(this, fmt)
   },
-  startOf: function(unit) {
+  startOf (unit) {
     return ends.startOf(this, unit)
   },
-  endOf: function(unit) {
+  endOf (unit) {
     return ends.endOf(this, unit)
   },
-  leapYear: function() {
+  leapYear () {
     let year = this.year()
     return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
   },
-  progress: function() {
+  progress () {
     return progress(this)
   },
-  nearest: function(unit) {
+  nearest (unit) {
     return nearest(this, unit)
   },
-  diff: function(d, unit) {
+  diff (d, unit) {
     return diff(this, d, unit)
   },
-  isValid: function() {
+  isValid () {
     return this.valid && !isNaN(this.d.getTime())
   },
   //travel to this timezone
-  goto: function(tz) {
+  goto (tz) {
     this.tz = tz //science!
     return this
   },
-  isAsleep: function() {
+  isAsleep () {
     let hour = this.hour()
     if (hour < 8 || hour > 22) {
       //10pm -> 8am
@@ -68,17 +67,20 @@ const methods = {
     return false
   },
   //pretty-printing
-  log: function() {
+  log () {
     console.log('')
     console.log(format(this, 'nice-short'))
     return this
   },
-  logYear: function() {
+  logYear () {
     console.log('')
     console.log(format(this, 'full-short'))
     return this
   }
 }
+
+//aliases
 methods.inDST = methods.isDST
 methods.round = methods.nearest
-module.exports = methods
+
+export default methods

@@ -1,5 +1,4 @@
-'use strict'
-const pad = require('../../fns').zeroPad
+import {zeroPad as pad} from '../../fns'
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
@@ -110,7 +109,7 @@ addAlias('S', 's', 2)
 addAlias('v', 'z', 4)
 addAlias('V', 'Z', 4)
 
-const unixFmt = function(str, s) {
+export default function unixFmt(str, s) {
   let chars = str.split('')
   //combine consecutive chars, like 'yyyy' as one.
   let arr = [chars[0]]
@@ -142,4 +141,3 @@ const unixFmt = function(str, s) {
     return txt;
   }, '');
 }
-module.exports = unixFmt

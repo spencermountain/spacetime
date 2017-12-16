@@ -1,5 +1,3 @@
-'use strict';
-
 let shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'];
 let longMonths = [
   'january',
@@ -27,7 +25,7 @@ function buildMapping() {
   return obj;
 }
 
-module.exports = {
+export default {
   short: () => shortMonths,
   long: () => longMonths,
   mapping: () => buildMapping(),

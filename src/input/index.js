@@ -33,7 +33,7 @@ const handleObject = function(s, obj) {
 };
 
 //find the epoch from different input styles
-const parseInput = (s, input) => {
+export default function parseInput (s, input) {
   if (typeof input === 'number') {
     s.epoch = input;
     return;
@@ -77,4 +77,3 @@ const parseInput = (s, input) => {
   s.valid = false;
   return;
 };
-module.exports = parseInput;

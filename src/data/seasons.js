@@ -3,7 +3,7 @@
 // Summer - from June 1 to August 31;
 // Fall (autumn) - from September 1 to November 30; and,
 // Winter - from December 1 to February 28 (February 29 in a leap year).
-module.exports = {
+export default {
   north: [
     ['spring', 2, 1], //spring march 1
     ['summer', 5, 1], //june 1

@@ -35,14 +35,14 @@ echo(banner).to(compressed);
 
 //browserify + derequire
 var cmd = browserify + ' ./src/index.js --standalone spacetime';
-cmd += ' -t [ babelify --presets [ es2015 stage-2 ] ]';
+cmd += ' -t [ babelify --presets [ es2015 stage-2 ] --plugins [add-module-exports] ]';
 cmd += ' | ' + derequire;
 cmd += ' >> ' + uncompressed;
 exec(cmd);
 
 //add immutable build
 cmd = browserify + ' ./src/immutable.js --standalone spacetime';
-cmd += ' -t [ babelify --presets [ es2015 stage-2 ] ]';
+cmd += ' -t [ babelify --presets [ es2015 stage-2 ] --plugins [add-module-exports] ]';
 cmd += ' | ' + derequire;
 cmd += ' >> ' + immutableTmp;
 exec(cmd);

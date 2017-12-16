@@ -1,7 +1,6 @@
-'use strict';
-const fns = require('../fns');
+import fns from '../fns'
 
-const addMethods = SpaceTime => {
+export function addMethods(SpaceTime) {
   const methods = {
     isAfter: function(d) {
       let epoch = fns.getEpoch(d);
@@ -42,5 +41,3 @@ const addMethods = SpaceTime => {
     SpaceTime.prototype[k] = methods[k];
   });
 };
-
-module.exports = addMethods;

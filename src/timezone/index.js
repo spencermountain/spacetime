@@ -1,6 +1,5 @@
-'use strict';
-const zones = require('../../data');
-const summerTime = require('./summerTime')
+import zones from '../../data'
+import summerTime from './summerTime'
 
 const parseDst = dst => {
   if (!dst) {
@@ -10,7 +9,7 @@ const parseDst = dst => {
 };
 
 //get metadata about this timezone
-const timezone = s => {
+export default function timezone(s) {
   let tz = s.tz;
   if (!zones[tz]) {
     console.warn("Warn: could not find given or local timezone - '" + tz + "'");
@@ -64,4 +63,3 @@ const timezone = s => {
 
   return m;
 };
-module.exports = timezone;

@@ -1,7 +1,6 @@
-'use strict';
-const seasons = require('../data/seasons');
-const quarters = require('../data/quarters');
-const walkTo = require('./set/walk');
+import seasons from '../data/seasons'
+import quarters from '../data/quarters'
+import walkTo from './set/walk'
 
 const units = {
   minute: s => {
@@ -122,9 +121,10 @@ const units = {
     return s;
   }
 };
+
 units.date = units.day;
 
-const startOf = (s, unit) => {
+export function startOf (s, unit) {
   if (units[unit]) {
     return units[unit](s);
   }
@@ -136,7 +136,7 @@ const startOf = (s, unit) => {
 };
 
 //piggy-backs off startOf
-const endOf = (s, unit) => {
+export function endOf(s, unit) {
   if (units[unit]) {
     s = units[unit](s);
     s.add(1, unit);
@@ -144,8 +144,4 @@ const endOf = (s, unit) => {
     return s;
   }
   return s;
-};
-module.exports = {
-  startOf: startOf,
-  endOf: endOf
 };

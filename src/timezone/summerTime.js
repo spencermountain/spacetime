@@ -1,13 +1,12 @@
-'use strict'
-const zeroPad = require('../fns').zeroPad;
+import {zeroPad} from '../fns'
 
-const toString = function(d) {
+function toString(d) {
   return zeroPad((d.getMonth() + 1)) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours())
 };
 
 // a timezone will begin with a specific offset in january
 // then some will switch to something else between november-march
-const shouldChange = (s, m) => {
+export default function shouldChange(s, m) {
   if (m.hasDst !== true || !m.change.start || !m.change.back) {
     return false
   }
@@ -25,4 +24,3 @@ const shouldChange = (s, m) => {
   }
   return false
 }
-module.exports = shouldChange

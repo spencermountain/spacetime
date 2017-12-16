@@ -1,8 +1,7 @@
-'use strict';
-const walkTo = require('./set/walk');
-const ms = require('../data/milliseconds');
-const monthLength = require('../data/monthLength');
-const fns = require('../fns');
+import walkTo from './set/walk'
+import ms from '../data/milliseconds'
+import monthLength from '../data/monthLength'
+import fns from '../fns'
 
 const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month'];
 let keep = {
@@ -28,7 +27,7 @@ const keepDate = {
 };
 //month is the only thing we 'model/compute'
 //- because ms-shifting can be off by enough
-const rollMonth = function(want, old) {
+function rollMonth(want, old) {
   //increment year
   if (want.month > 0) {
     let years = parseInt(want.month / 12, 10);
@@ -49,7 +48,7 @@ const rollMonth = function(want, old) {
   return want;
 };
 
-const addMethods = SpaceTime => {
+export function addMethods(SpaceTime) {
   SpaceTime.prototype.add = function(num, unit) {
     let old = this.clone();
     unit = fns.normalize(unit);
@@ -104,5 +103,3 @@ const addMethods = SpaceTime => {
     return this;
   };
 };
-
-module.exports = addMethods;

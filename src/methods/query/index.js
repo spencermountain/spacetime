@@ -1,9 +1,8 @@
-'use strict';
-const normal = require('./normal');
-const destructive = require('./destructive');
-const tricky = require('./tricky');
+import normal from './normal'
+import destructive from './destructive'
+import tricky from './tricky'
 
-const addMethods = Space => {
+export function addMethods(Space) {
   //hook the methods into prototype
   Object.keys(normal).forEach(k => {
     Space.prototype[k] = normal[k];
@@ -15,5 +14,3 @@ const addMethods = Space => {
     Space.prototype[k] = tricky[k];
   });
 };
-
-module.exports = addMethods;

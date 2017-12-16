@@ -1,5 +1,4 @@
-'use strict';
-const set = require('../set/set');
+import set from '../set/set'
 
 //the most basic get/set methods
 let methods = {
@@ -168,4 +167,4 @@ methods.h12 = methods.hour12;
 methods.h24 = methods.hour24;
 methods.days = methods.day;
 
-module.exports = methods;
+export default methods

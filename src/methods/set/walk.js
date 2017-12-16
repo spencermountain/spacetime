@@ -1,5 +1,4 @@
-'use strict';
-const ms = require('../../data/milliseconds');
+import ms from '../../data/milliseconds'
 
 //find the desired date by a increment/check while loop
 const units = {
@@ -78,7 +77,7 @@ const units = {
   },
 };
 
-const walkTo = (s, wants) => {
+export default function walkTo(s, wants)  {
   let keys = Object.keys(units);
   let old = s.clone();
   for (let i = 0; i < keys.length; i++) {
@@ -105,4 +104,3 @@ const walkTo = (s, wants) => {
   }
   return;
 };
-module.exports = walkTo;

@@ -1,10 +1,9 @@
-'use strict';
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
-const ms = require('../../data/milliseconds');
-const months = require('../../data/months');
-const monthLength = require('../../data/monthLength');
-const walkTo = require('./walk');
+import ms from '../../data/milliseconds'
+import months from '../../data/months'
+import monthLength from '../../data/monthLength'
+import walkTo from './walk'
 
 const validate = function(n) {
   //handle number as a string
@@ -27,22 +26,22 @@ const confirm = function(s, tmp, unit) {
   return s;
 };
 
-module.exports = {
-  milliseconds: (s, n) => {
+export default {
+  milliseconds(s, n) {
     n = validate(n);
     let current = s.millisecond();
     let diff = current - n; //milliseconds to shift by
     return s.epoch - diff;
   },
 
-  seconds: (s, n) => {
+  seconds(s, n) {
     n = validate(n);
     let diff = s.second() - n;
     let shift = diff * ms.second;
     return s.epoch - shift;
   },
 
-  minutes: (s, n) => {
+  minutes(s, n) {
     n = validate(n);
     let old = s.clone();
     let diff = s.minute() - n;
@@ -52,7 +51,7 @@ module.exports = {
     return s.epoch;
   },
 
-  hours: (s, n) => {
+  hours(s, n) {
     n = validate(n);
     let old = s.clone();
     let diff = s.hour() - n;
@@ -63,7 +62,7 @@ module.exports = {
   },
 
   //support setting time by '4:25pm' - this isn't very-well developed..
-  time: (s, str) => {
+  time(s, str) {
     let m = str.match(/([0-9]{1,2}):([0-9]{1,2})(am|pm)?/);
     if (!m) {
       //fallback to support just '2am'
@@ -97,7 +96,7 @@ module.exports = {
     return s.epoch;
   },
 
-  date: (s, n) => {
+  date(s, n) {
     n = validate(n);
     walkTo(s, {
       date: n,
@@ -106,7 +105,7 @@ module.exports = {
   },
 
   //this one's tricky
-  month: (s, n) => {
+  month(s, n) {
     if (typeof n === 'string') {
       n = months.mapping()[n.toLowerCase()];
     }
@@ -124,7 +123,7 @@ module.exports = {
     return s.epoch;
   },
 
-  year: (s, n) => {
+  year(s, n) {
     n = validate(n);
     walkTo(s, {
       year: n,
@@ -132,7 +131,7 @@ module.exports = {
     return s.epoch;
   },
 
-  dayOfYear: (s, n) => {
+  dayOfYear(s, n) {
     n = validate(n);
     let old = s.clone();
     let diff = n - s.dayOfYear();

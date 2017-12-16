@@ -1,5 +1,3 @@
-'use strict';
-
 //easy comparison between dates
 const print = {
   millisecond: s => {
@@ -39,7 +37,7 @@ const print = {
 };
 print.date = print.day;
 
-const addMethods = SpaceTime => {
+export function addMethods(SpaceTime) {
   SpaceTime.prototype.isSame = function(b, unit) {
     let a = this;
     if (typeof b === 'string' || typeof b === 'number') {
@@ -54,5 +52,3 @@ const addMethods = SpaceTime => {
     return null;
   };
 };
-
-module.exports = addMethods;

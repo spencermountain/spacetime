@@ -1,8 +1,7 @@
-'use strict';
-const fns = require('../../fns');
-const months = require('../../data/months');
-const days = require('../../data/days');
-const unixFmt = require('./unixFmt');
+import fns from '../../fns'
+import months from '../../data/months'
+import days from '../../data/days'
+import unixFmt from './unixFmt'
 
 const fmt = {
   day: s => {
@@ -111,7 +110,7 @@ fmt['little-endian'] = fmt['numeric-uk'];
 fmt['big-endian'] = fmt['numeric-cn'];
 
 //
-const format = (s, str) => {
+export default function format(s, str) {
   //don't print anything if it's invalid
   if (s.isValid() !== true) {
     return '';
@@ -130,4 +129,3 @@ const format = (s, str) => {
 
   return all;
 };
-module.exports = format;

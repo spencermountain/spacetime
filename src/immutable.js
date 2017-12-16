@@ -1,9 +1,9 @@
-'use strict';
 /* eslint no-unused-vars: "off" */
-const Spacetime = require('./spacetime');
-const whereIts = require('./findTz').whereIts;
-const pkg = require('../package.json');
+import Spacetime from './spacetime'
+import {whereIts} from './findTz'
+import pkg from '../package.json'
 
+// helper function that makes destructive methods to operate on clones
 function clobber(instance) {
   // these methods return instances with mutated values now
   let clobbers = [
@@ -36,6 +36,13 @@ function ImmutableSpacetime(...args) {
   return instance
 }
 
+//find tz by time
+ImmutableSpacetime.whereIts = whereIts;
+
+//this is handy
+ImmutableSpacetime.version = pkg.version;
+
+// additional constructors below
 ImmutableSpacetime.now = function now(tz) {
   var instance = clobber(new Spacetime(new Date().getTime(), tz))
   instance.clone = x=> clobber(new Spacetime(new Date().getTime(), tz))
@@ -68,11 +75,5 @@ ImmutableSpacetime.yesterday = function yesterday(tz) {
   return instance;
 };
 
-//find tz by time
-ImmutableSpacetime.whereIts = whereIts;
-
-//this is handy
-ImmutableSpacetime.version = pkg.version;
-
 // coolest sounding exports ever
-module.exports = ImmutableSpacetime
+export default ImmutableSpacetime

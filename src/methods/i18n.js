@@ -1,9 +1,8 @@
-'use strict';
-const fns = require('../fns');
-const days = require('../data/days');
-const months = require('../data/months');
+import fns from '../fns'
+import days from '../data/days'
+import months from '../data/months'
 
-const addMethods = SpaceTime => {
+export function addMethods(SpaceTime) {
   const methods = {
     i18n: function(data) {
       if (
@@ -27,5 +26,3 @@ const addMethods = SpaceTime => {
     SpaceTime.prototype[k] = methods[k];
   });
 };
-
-module.exports = addMethods;

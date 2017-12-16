@@ -1,8 +1,7 @@
-'use strict'
-const Spacetime = require('./spacetime');
-const timezones = require('../data');
+import Spacetime from './spacetime'
+import timezones from '../data'
 
-exports.whereIts = function(a, b) {
+export function whereIts(a, b) {
   let start = new Spacetime(null);
   let end = new Spacetime(null);
   start.time(a);

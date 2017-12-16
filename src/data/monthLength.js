@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   31, //January - 31 days
   28, //February - 28 days in a common year and 29 days in leap years
   31, //March - 31 days
