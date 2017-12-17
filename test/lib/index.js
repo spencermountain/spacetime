@@ -4,6 +4,7 @@ if (typeof process !== undefined && typeof module !== undefined) {
     console.log('== production build test 🚀 ==');
     module.exports = require('../../');
   } else {
-    module.exports = require('../../src');
+    module.exports = require('../../');
+    //module.exports = require('../../src');
   }
 }
