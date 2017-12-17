@@ -1,4 +1,5 @@
-import {zeroPad as pad} from '../../fns'
+import fns from '../../fns'
+const pad = fns.zeroPad
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 

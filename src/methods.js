@@ -2,7 +2,7 @@ import format from './methods/format'
 import progress from './methods/progress'
 import nearest from './methods/nearest'
 import diff from './methods/diff'
-import ends from './methods/startOf'
+import {startOf, endOf} from './methods/startOf'
 import timezone from './timezone/index'
 import handleInput from './input'
 
@@ -32,10 +32,10 @@ const methods = {
     return format(this, fmt)
   },
   startOf (unit) {
-    return ends.startOf(this, unit)
+    return startOf(this, unit)
   },
   endOf (unit) {
-    return ends.endOf(this, unit)
+    return endOf(this, unit)
   },
   leapYear () {
     let year = this.year()

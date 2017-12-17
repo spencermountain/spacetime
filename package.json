@@ -3,16 +3,17 @@
   "version": "2.2.0",
   "description": "represent dates in remote timezones",
   "main": "./spacetime.js",
+  "module":"./src/immutable.js",
   "license": "Apache-2.0",
   "scripts": {
     "precommit": "lint-staged",
-    "build": "node ./scripts/build.js",
+    "build": "webpack",
     "demo": "node ./scripts/demo.js",
     "watch": "node ./scripts/watch.js",
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dot",
     "t": "TESTENV=dev tape ./test/**/immutable.test.js",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dot",
-    "repl": "babel-node",
+    "start": "node -r @std/esm",
     "lint": "eslint .",
     "size": "./node_modules/.bin/size-limit",
     "prepublishOnly": "./node_modules/.bin/size-limit",
@@ -28,7 +29,9 @@
   ],
   "dependencies": {},
   "devDependencies": {
+    "@std/esm": "^0.18.0",
     "babel-cli": "^6.26.0",
+    "babel-minify-webpack-plugin": "^0.2.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-preset-es2015": "6.9.0",
@@ -46,7 +49,8 @@
     "tap-dot": "^1.0.5",
     "tape": "4.6.0",
     "timekeeper": "^1.0.0",
-    "uglify-js": "2.7.0"
+    "uglify-js": "2.7.0",
+    "webpack": "^3.10.0"
   },
   "size-limit": [
     {

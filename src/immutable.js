@@ -30,7 +30,7 @@ function clobber(instance) {
 }
 
 // a new factory; this one with terrible powers!
-function ImmutableSpacetime(...args) {
+export default function ImmutableSpacetime(...args) {
   var instance = clobber(new Spacetime(...args))
   instance.clone = x=> clobber(new Spacetime(...args))
   return instance
@@ -74,6 +74,3 @@ ImmutableSpacetime.yesterday = function yesterday(tz) {
   }
   return instance;
 };
-
-// coolest sounding exports ever
-export default ImmutableSpacetime

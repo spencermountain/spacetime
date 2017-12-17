@@ -9,7 +9,7 @@ import * as compare from './methods/compare'
 import * as i18n from './methods/i18n'
 
 //fake timezone-support, for fakers (es5 class)
-function SpaceTime (input, tz) {
+export default function SpaceTime (input, tz) {
   //the shift for the given timezone
   this.tz = tz || guessTz()
   //don't output anything if it's invalid
@@ -49,5 +49,3 @@ add.addMethods(SpaceTime)
 same.addMethods(SpaceTime)
 compare.addMethods(SpaceTime)
 i18n.addMethods(SpaceTime)
-
-export default SpaceTime

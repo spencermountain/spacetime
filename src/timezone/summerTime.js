@@ -1,4 +1,5 @@
-import {zeroPad} from '../fns'
+import fns from '../fns'
+const {zeroPad} = fns
 
 function toString(d) {
   return zeroPad((d.getMonth() + 1)) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours())
