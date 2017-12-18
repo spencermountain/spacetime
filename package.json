@@ -6,9 +6,10 @@
   "module": "./es.js",
   "license": "Apache-2.0",
   "scripts": {
-    "esm": "rollup -c && uglifyjs -o es.js --compress -- esm.js && rm esm.js",
+    "esm": "rollup -c rollup.config.es.js && uglifyjs -o es.js --compress -- esm.js && rm esm.js",
+    "cjs": "rollup -c rollup.config.cjs.js && uglifyjs -o spacetime.js --compress -- spacetime.raw.js && rm spacetime.raw.js",
     "precommit": "lint-staged",
-    "build": "NODE_ENV=production webpack && npm run esm",
+    "build": "npm run cjs && npm run esm",
     "demo": "node ./scripts/demo.js",
     "watch": "node ./scripts/watch.js",
     "test": "tape ./test/**/*.test.js | tap-dot",
@@ -28,8 +29,6 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-minify-webpack-plugin": "^0.2.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
@@ -47,9 +46,7 @@
     "tap-dot": "^1.0.5",
     "tape": "4.6.0",
     "timekeeper": "^1.0.0",
-    "uglify-es": "^3.2.2",
-    "uglify-js": "2.7.0",
-    "webpack": "^3.10.0"
+    "uglify-es": "^3.2.2"
   },
   "size-limit": [
     {

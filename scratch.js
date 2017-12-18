@@ -1,2 +1,2 @@
 require('babel-register')
-console.log(require('./esm.min.js'))
+console.log(require('./es.js'))
