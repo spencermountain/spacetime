@@ -1,7 +1,7 @@
 .DS_Store
 .jshintrc
 .env
-immutable.js
+es.js
 spacetime.js
 node_modules/
 .nyc_output
