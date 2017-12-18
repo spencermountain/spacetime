@@ -1,7 +1,8 @@
+//require("babel-register")
 /* eslint no-unused-vars: "off" */
 'use strict';
 const test = require('tape');
-const spacetime = require('../immutable');
+const spacetime = require('../').ImmutableSpacetime;
 const day0 = spacetime.now();
 const today = day0.format('nice');
 

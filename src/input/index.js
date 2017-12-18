@@ -1,6 +1,5 @@
-'use strict';
-const strFmt = require('./strParse');
-const fns = require('../fns');
+import strFmt from './strParse'
+import {isDate, isArray, isObject} from '../fns'
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
 //=========================================
@@ -44,17 +43,17 @@ export default function parseInput (s, input) {
     return; //k, we're good.
   }
   //support input of Date() object
-  if (fns.isDate(input) === true) {
+  if (isDate(input) === true) {
     s.epoch = input.getTime();
     return;
   }
   //support [2016, 03, 01] format
-  if (fns.isArray(input) === true) {
+  if (isArray(input) === true) {
     handleArray(s, input);
     return;
   }
   //support {year:2016, month:3} format
-  if (fns.isObject(input) === true) {
+  if (isObject(input) === true) {
     //support spacetime object as input
     if (input.epoch) {
       s.epoch = input.epoch;

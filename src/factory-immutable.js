@@ -1,7 +1,6 @@
 /* eslint no-unused-vars: "off" */
 import Spacetime from './spacetime'
 import {whereIts} from './findTz'
-import pkg from '../package.json'
 
 // helper function that makes destructive methods to operate on clones
 function clobber(instance) {
@@ -38,9 +37,6 @@ export default function ImmutableSpacetime(...args) {
 
 //find tz by time
 ImmutableSpacetime.whereIts = whereIts;
-
-//this is handy
-ImmutableSpacetime.version = pkg.version;
 
 // additional constructors below
 ImmutableSpacetime.now = function now(tz) {
