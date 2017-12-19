@@ -5,7 +5,7 @@ import walkTo from '../set/walk'
 //non-destructive getters/setters with fancy moves to do
 export default {
   //like 'wednesday' (hard!)
-  day: function(input) {
+  day(input) {
     if (input === undefined) {
       return this.d.getDay();
     }
@@ -33,7 +33,7 @@ export default {
     return s;
   },
 
-  ampm: function(input) {
+  ampm(input) {
     let which = 'am';
     let hour = this.hour();
     if (hour >= 12) {
@@ -54,7 +54,7 @@ export default {
   },
 
   //these are helpful name-wrappers
-  dayName: function(input) {
+  dayName(input) {
     if (input === undefined) {
       return days.long()[this.day()];
     }
@@ -62,7 +62,7 @@ export default {
     return this;
   },
 
-  monthName: function(input) {
+  monthName(input) {
     if (input === undefined) {
       return months.long()[this.month()];
     }

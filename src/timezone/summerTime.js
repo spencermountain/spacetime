@@ -1,4 +1,4 @@
-import {zeroPad} from '../fns'
+import {zeroPad} from '../helpers'
 
 function toString(d) {
   return zeroPad((d.getMonth() + 1)) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours())

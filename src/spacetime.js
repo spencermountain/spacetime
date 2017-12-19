@@ -1,7 +1,7 @@
 import guessTz from './timezone/guessTz'
 import timezone from './timezone'
 import handleInput from './input'
-import methods from './methods'
+import * as base from './methods/base'
 import * as query from './methods/query'
 import * as add from './methods/add'
 import * as same from './methods/same'
@@ -9,7 +9,7 @@ import * as compare from './methods/compare'
 import * as i18n from './methods/i18n'
 
 //fake timezone-support, for fakers (es5 class)
-export default function SpaceTime (input, tz) {
+function SpaceTime(input, tz) {
   //the shift for the given timezone
   this.tz = tz || guessTz()
   //don't output anything if it's invalid
@@ -34,18 +34,16 @@ export default function SpaceTime (input, tz) {
   handleInput(this, input)
 }
 
-//(add instance methods to prototype)
-Object.keys(methods).forEach(k => {
-  SpaceTime.prototype[k] = methods[k]
-})
-
-SpaceTime.prototype.clone = function() {
+SpaceTime.prototype.clone = function clone() {
   return new SpaceTime(this.epoch, this.tz)
 }
 
 //append more methods
+base.addMethods(SpaceTime)
 query.addMethods(SpaceTime)
 add.addMethods(SpaceTime)
 same.addMethods(SpaceTime)
 compare.addMethods(SpaceTime)
 i18n.addMethods(SpaceTime)
+
+export default SpaceTime

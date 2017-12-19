@@ -1,6 +1,6 @@
 /* eslint no-unused-vars: "off" */
 import Spacetime from './spacetime'
-import {whereIts} from './findTz'
+import {whereIts} from './timezone/findTz'
 
 // helper function that makes destructive methods to operate on clones
 function clobber(instance) {

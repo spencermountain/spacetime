@@ -1,32 +1,32 @@
-import fns from '../../fns'
+import {ordinal, titleCase, zeroPad} from '../../helpers'
 import months from '../../data/months'
 import days from '../../data/days'
 import unixFmt from './unixFmt'
 
 const fmt = {
   day: s => {
-    return fns.titleCase(days.long()[s.day()]);
+    return titleCase(days.long()[s.day()]);
   },
   'day-short': s => {
-    return fns.titleCase(days.short()[s.day()]);
+    return titleCase(days.short()[s.day()]);
   },
   date: s => {
     return '' + s.date();
   },
   'date-ordinal': s => {
-    return fns.ordinal(s.date());
+    return ordinal(s.date());
   },
   month: s => {
-    return fns.titleCase(months.long()[s.month()]);
+    return titleCase(months.long()[s.month()]);
   },
   'month-short': s => {
-    return fns.titleCase(months.short()[s.month()]);
+    return titleCase(months.short()[s.month()]);
   },
   time: s => {
-    return `${s.h12()}:${fns.zeroPad(s.minute())}${s.ampm()}`; //3:45pm
+    return `${s.h12()}:${zeroPad(s.minute())}${s.ampm()}`; //3:45pm
   },
   'time-24h': s => {
-    return `${s.hour()}:${fns.zeroPad(s.minute())}`; //13:45
+    return `${s.hour()}:${zeroPad(s.minute())}`; //13:45
   },
   year: s => {
     return '' + s.year();
@@ -35,26 +35,26 @@ const fmt = {
     return "'" + ('' + s.year()).substr(2, 4);
   },
   'numeric-us': s => {
-    return `${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}/${s.year()}`; //mm/dd/yyyy
+    return `${zeroPad(s.month() + 1)}/${zeroPad(s.date())}/${s.year()}`; //mm/dd/yyyy
   },
   'numeric-uk': s => {
-    return `${fns.zeroPad(s.date())}/${fns.zeroPad(s.month() + 1)}/${s.year()}`; //dd/mm/yyyy
+    return `${zeroPad(s.date())}/${zeroPad(s.month() + 1)}/${s.year()}`; //dd/mm/yyyy
   },
   'numeric-cn': s => {
-    return `${s.year()}/${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`; //yyyy/mm/dd
+    return `${s.year()}/${zeroPad(s.month() + 1)}/${zeroPad(s.date())}`; //yyyy/mm/dd
   },
   iso: s => {
-    let month = fns.zeroPad(s.month() + 1); //1-based months
-    let date = fns.zeroPad(s.date());
-    let hour = fns.zeroPad(s.h24());
-    let minute = fns.zeroPad(s.minute());
-    let second = fns.zeroPad(s.second());
-    let ms = fns.zeroPad(s.millisecond(), 3);
+    let month = zeroPad(s.month() + 1); //1-based months
+    let date = zeroPad(s.date());
+    let hour = zeroPad(s.h24());
+    let minute = zeroPad(s.minute());
+    let second = zeroPad(s.second());
+    let ms = zeroPad(s.millisecond(), 3);
     return `${s.year()}-${month}-${date}T${hour}:${minute}:${second}:${ms}Z`; //2017-03-08T19:45:28.367Z
   },
   'iso-short': s => {
-    let month = fns.zeroPad(s.month() + 1); //1-based months
-    let date = fns.zeroPad(s.date());
+    let month = zeroPad(s.month() + 1); //1-based months
+    let date = zeroPad(s.date());
     return `${s.year()}-${month}-${date}`; //2017-02-15
   },
   'iso-utc': s => {

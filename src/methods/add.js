@@ -1,7 +1,7 @@
 import walkTo from './set/walk'
 import ms from '../data/milliseconds'
 import monthLength from '../data/monthLength'
-import fns from '../fns'
+import {normalize} from '../helpers'
 
 const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month'];
 let keep = {
@@ -51,7 +51,7 @@ function rollMonth(want, old) {
 export function addMethods(SpaceTime) {
   SpaceTime.prototype.add = function(num, unit) {
     let old = this.clone();
-    unit = fns.normalize(unit);
+    unit = normalize(unit);
     //move forward by the estimated milliseconds (rough)
     if (ms[unit]) {
       this.epoch += ms[unit] * num;

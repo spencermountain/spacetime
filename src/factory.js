@@ -1,5 +1,5 @@
 import Spacetime from './spacetime'
-import {whereIts} from './findTz'
+import {whereIts} from './timezone/findTz'
 
 // primary constructor factory
 const main = (input, tz)=> new Spacetime(input, tz)
@@ -26,6 +26,5 @@ main.yesterday = function(tz) {
   let s = new Spacetime(new Date().getTime(), tz);
   return s.subtract(1, 'day').startOf('day');
 };
-
 
 export default main

@@ -1,34 +1,34 @@
-import fns from '../fns'
+import {getEpoch} from '../helpers'
 
 export function addMethods(SpaceTime) {
   const methods = {
     isAfter: function(d) {
-      let epoch = fns.getEpoch(d);
+      let epoch = getEpoch(d);
       if (epoch === null) {
         return null;
       }
       return this.epoch > epoch;
     },
     isBefore: function(d) {
-      let epoch = fns.getEpoch(d);
+      let epoch = getEpoch(d);
       if (epoch === null) {
         return null;
       }
       return this.epoch < epoch;
     },
     isEqual: function(d) {
-      let epoch = fns.getEpoch(d);
+      let epoch = getEpoch(d);
       if (epoch === null) {
         return null;
       }
       return this.epoch === epoch;
     },
     isBetween: function(start, end) {
-      let startEpoch = fns.getEpoch(start);
+      let startEpoch = getEpoch(start);
       if (startEpoch === null) {
         return null;
       }
-      let endEpoch = fns.getEpoch(end);
+      let endEpoch = getEpoch(end);
       if (endEpoch === null) {
         return null;
       }

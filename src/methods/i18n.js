@@ -1,4 +1,4 @@
-import fns from '../fns'
+import {isObject, isArray} from '../helpers'
 import days from '../data/days'
 import months from '../data/months'
 
@@ -6,13 +6,13 @@ export function addMethods(SpaceTime) {
   const methods = {
     i18n: function(data) {
       if (
-        !fns.isObject(data) ||
-        !fns.isObject(data.days) ||
-        !fns.isObject(data.months) ||
-        !fns.isArray(data.days.short) ||
-        !fns.isArray(data.days.long) ||
-        !fns.isArray(data.months.short) ||
-        !fns.isArray(data.months.long)
+        !isObject(data) ||
+        !isObject(data.days) ||
+        !isObject(data.months) ||
+        !isArray(data.days.short) ||
+        !isArray(data.days.long) ||
+        !isArray(data.months.short) ||
+        !isArray(data.months.long)
       ) {
         throw new Error('Invalid i18n payload passed.');
       }

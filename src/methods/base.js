@@ -1,10 +1,10 @@
-import format from './methods/format'
-import progress from './methods/progress'
-import nearest from './methods/nearest'
-import diff from './methods/diff'
-import {startOf, endOf} from './methods/startOf'
-import timezone from './timezone/index'
-import handleInput from './input'
+import format from './format'
+import progress from './progress'
+import nearest from './nearest'
+import diff from './diff'
+import {startOf, endOf} from './startOf'
+import timezone from '../timezone/index'
+import handleInput from '../input'
 
 //the spacetime instance methods (also, the API)
 const methods = {
@@ -83,4 +83,9 @@ const methods = {
 methods.inDST = methods.isDST
 methods.round = methods.nearest
 
-export default methods
+export function addMethods(SpaceTime) {
+  //(add instance methods to prototype)
+  Object.keys(methods).forEach(k => {
+    SpaceTime.prototype[k] = methods[k]
+  })
+}

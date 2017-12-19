@@ -1,4 +1,4 @@
-import fns from '../fns'
+import {normalize} from '../helpers'
 
 //increment until dates are the same
 function climb(a, b, unit) {
@@ -15,7 +15,7 @@ function climb(a, b, unit) {
 };
 
 export default function diff (a, b, unit)  {
-  unit = fns.normalize(unit);
+  unit = normalize(unit);
   if (a.isBefore(b)) {
     return climb(a, b, unit);
   } else {

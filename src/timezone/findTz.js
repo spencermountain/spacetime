@@ -1,5 +1,5 @@
-import Spacetime from './spacetime'
-import timezones from '../data'
+import Spacetime from '../spacetime'
+import timezones from '../../data'
 
 export function whereIts(a, b) {
   let start = new Spacetime(null);

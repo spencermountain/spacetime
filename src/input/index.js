@@ -1,5 +1,5 @@
 import strFmt from './strParse'
-import {isDate, isArray, isObject} from '../fns'
+import {isDate, isArray, isObject} from '../helpers'
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
 //=========================================
