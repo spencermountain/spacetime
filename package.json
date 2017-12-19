@@ -23,6 +23,7 @@
     "url": "https://github.com/smallwins/spacetime.git"
   },
   "files": [
+    "es.js",
     "spacetime.js"
   ],
   "dependencies": {},
@@ -38,6 +39,7 @@
     "nyc": "^8.4.0",
     "prettier": "^1.5.3",
     "rollup": "^0.52.2",
+    "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-resolve": "^3.0.0",
