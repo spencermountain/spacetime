@@ -59,7 +59,6 @@ const strFmt = [
   {
     reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9.:]+)(Z|[0-9\-\+:]+)?$/,
     parse: (s, arr) => {
-      console.log(arr)
       let month = parseInt(arr[2], 10) - 1;
       parseOffset(s, arr[5]);
       walkTo(s, {

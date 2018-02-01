@@ -1,5 +1,12 @@
 const spacetime = require('./src/index')
 
-const timestamp = '2017-04-02T08:s00:00-10:00'
-const s = spacetime(timestamp)
-s.debug()
+const s = spacetime(1517509494000, 'UTC')
+
+// let s = spacetime([1970, 1, 1], 'UTC')
+// console.log(new Date(s.epoch * 1000))
+//
+// s = spacetime([2054, 10, 1], 'UTC')
+// console.log(new Date(s.epoch / 1000))
+
+// new handy warning in spacetime@3.0
+// Fun fact: we're only subject-to these 'off-by-thousand' date errors between Sept 2001 and Jan 2057.
