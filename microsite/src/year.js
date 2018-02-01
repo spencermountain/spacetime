@@ -1,10 +1,5 @@
-'use strict';
 import React from 'react';
-import styler from 'react-styling/flat';
-import ReactDOM from 'react-dom';
-import spacetime from '../../builds/spacetime';
 import { scaleLinear } from 'd3-scale';
-import Radium from 'radium';
 
 const months = [
   'january',
@@ -21,15 +16,9 @@ const months = [
   'december',
 ];
 
-const style = styler`
-container
-  position:relative
-  `;
-
 class Year extends React.Component {
   constructor(props) {
     super();
-    this.css = style;
     this.state = {};
     this.width = props.width || 600;
     this.scale = scaleLinear().domain([0, 12]).range([0, this.width]);
@@ -46,6 +35,7 @@ class Year extends React.Component {
       if (meta.current.isDST) {
         return <rect key={i} x={month * i} y={18} width={month} height={2} fill={'orange'} opacity={0.8}/>;
       }
+      return null
     });
     let now = s.progress().year;
     let nowX = now * this.width;
