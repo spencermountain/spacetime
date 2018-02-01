@@ -1,11 +1,24 @@
-'use strict';
 import React from 'react';
 import Year from './year';
 import styler from 'react-styling/flat';
 import ReactDOM from 'react-dom';
-import spacetime from '../../builds/spacetime';
+import spacetime from '../../src/';
 import { scaleLinear } from 'd3-scale';
-import Radium from 'radium';
+window.spacetime = spacetime
+
+function doit() {
+  console.time('test')
+  for (let i = 0; i < 10000; i += 1) {
+    let r = parseInt(Math.random() * 5, 10)
+    let s = spacetime([1980 + r, r, 20 + r], 'UTC')
+    s.format('date')
+  }
+  console.timeEnd('test')
+}
+
+setInterval(() => {
+  doit()
+}, 8000)
 
 const months = [
   'january',
@@ -122,7 +135,7 @@ class App extends React.Component {
     let {state, css} = this;
     let s = state.s;
     const methods = [
-      'timeOfDay',
+      'time',
       'dayName',
       'dayOfYear',
       'week',
@@ -131,6 +144,7 @@ class App extends React.Component {
       'leapYear',
     ];
     let arr = methods.map((str, i) => {
+      console.log(str)
       return (
         <div key={i}>
           <span style={css.key}>{str + ': '}</span>

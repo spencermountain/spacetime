@@ -1,5 +1,5 @@
 'use strict';
-const zones = require('../../data');
+// const zones = require('../../data');
 const summerTime = require('./summerTime')
 
 const parseDst = dst => {
@@ -12,6 +12,7 @@ const parseDst = dst => {
 //get metadata about this timezone
 const timezone = s => {
   let tz = s.tz;
+  let zones = s.timezones
   if (!zones[tz]) {
     console.warn("Warn: could not find given or local timezone - '" + tz + "'");
     return {

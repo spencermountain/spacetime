@@ -24,3 +24,9 @@
 * support unix/unicode time-formating basic-level
 * add `.era()` get/set method
 * found 6 or 7 wrong offsets
+
+## v3.0.0
+* fallback to UTC, instead of PST if no `Intl` is present
+* support passing-in offsets as ISO_8601 date-strings
+* add epoch-seconds warning msg
+* allow getting/setting new timezones

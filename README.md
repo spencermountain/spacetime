@@ -51,6 +51,10 @@ s = spacetime('July 2, 2017 5:01:00') // ISO
 s = spacetime(1489520157, 'Canada/Pacific')
 s = spacetime('2019/05/15', 'Canada/Pacific')
 
+// or set the offset right in the date-string (ISO-8601)
+s = spacetime('2017-04-03T08:00:00-0700')
+// 'Etc/GMT-7'
+
 // Some helpers
 s = spacetime.now()
 s = spacetime.today() // This morning
@@ -102,7 +106,7 @@ const ImmutableSpacetime = require('spacetime/immutable')
 const day0 = new ImmutableSpacetime([2018, 0, 1])
 
 day0.format('nice') // January 1st
-day0.add(3, 'days').format('nice') // January 4th 
+day0.add(3, 'days').format('nice') // January 4th
 day0.format('nice') // January 1st!
 ```
 

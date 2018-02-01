@@ -10,6 +10,13 @@ const fns = require('../fns');
 // Full Date	"Wednesday March 25 2015"
 //=========================================
 
+//-- also -
+// if the given epoch is really small, they've probably given seconds and not milliseconds
+// anything below this number is likely (but not necessarily) a mistaken input.
+// this may seem like an arbitrary number, but it's 'within jan 1970'
+// this is only really ambiguous until 2054 or so
+const minimumEpoch = 2500000000
+
 //support [2016, 03, 01] format
 const handleArray = function(s, arr) {
   let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
@@ -34,8 +41,13 @@ const handleObject = function(s, obj) {
 
 //find the epoch from different input styles
 const parseInput = (s, input) => {
+  //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
     s.epoch = input;
+    if (input > 0 && input < minimumEpoch) {
+      console.warn('  - Warning: You are setting the date to January 1970.')
+      console.warn('       -   did input seconds instead of milliseconds?')
+    }
     return;
   }
   //set tmp time
@@ -73,6 +85,7 @@ const parseInput = (s, input) => {
       return;
     }
   }
+  console.warn('Warning: couldn\'t parse date-string: \'' + input + '\'')
   s.epoch = null;
   s.valid = false;
   return;
