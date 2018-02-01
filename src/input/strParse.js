@@ -1,7 +1,8 @@
 'use strict';
 const walkTo = require('../methods/set/walk');
 const months = require('../data/months');
-const zones = require('../../data');
+// const zones = require('../../data');
+
 const parseHour = function(s, str) {
   str = str.replace(/^\s+/, ''); //trim
   let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/);
@@ -46,7 +47,9 @@ const parseOffset = function(s, offset) {
   if (num >= 0) {
     num = '+' + num
   }
+
   let tz = 'Etc/GMT' + num
+  let zones = s.timezones
   if (zones[tz]) {
     // console.log('changing timezone to: ' + tz)
     s.tz = tz

@@ -1,6 +1,14 @@
 const spacetime = require('./src/index')
 
 const s = spacetime(1517509494000, 'UTC')
+s.timezones = {
+  'UTC/fun': {
+    o: 9,
+    h: 'n'
+  }
+}
+s.goto('UTC/fun')
+s.debug()
 
 // let s = spacetime([1970, 1, 1], 'UTC')
 // console.log(new Date(s.epoch * 1000))

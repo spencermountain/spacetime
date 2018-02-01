@@ -3,6 +3,7 @@ const guessTz = require('./timezone/guessTz')
 const timezone = require('./timezone/index')
 const handleInput = require('./input')
 const methods = require('./methods')
+let zones = require('../data')
 
 //fake timezone-support, for fakers (es5 class)
 const SpaceTime = function(input, tz) {
@@ -24,6 +25,16 @@ const SpaceTime = function(input, tz) {
       let epoch = this.epoch + shift
       let d = new Date(epoch)
       return d
+    }
+  })
+  //add this data on the object, to allow adding new timezones
+  Object.defineProperty(this, 'timezones', {
+    get: function() {
+      return zones
+    },
+    set: function(obj) {
+      zones = obj
+      return obj
     }
   })
   //parse the various formats
