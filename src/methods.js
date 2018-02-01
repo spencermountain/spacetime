@@ -77,7 +77,14 @@ const methods = {
     console.log('')
     console.log(format(this, 'full-short'))
     return this
-  }
+  },
+  debug: function() {
+    let tz = this.timezone()
+    let date = this.format('MM') + ' ' + this.format('date-ordinal') + ' ' + this.year()
+    date += '\n     - ' + this.format('time')
+    console.log('\n\n', date + '\n     - ' + tz.name + ' (' + tz.current.offset + ')')
+    return this
+  },
 }
 methods.inDST = methods.isDST
 methods.round = methods.nearest

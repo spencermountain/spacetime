@@ -1,6 +1,5 @@
-const ist = require('./immutable')
+const spacetime = require('./src/index')
 
-let day0 = ist.now()
-console.log(day0.format('nice'))
-console.log(day0.add(2, 'days').format('nice'))
-console.log(day0.subtract(1, 'days').format('nice'))
+const timestamp = '2017-04-03T08:00:00-0700'
+const s = spacetime(timestamp)
+s.debug()
