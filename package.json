@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "represent dates in remote timezones",
   "main": "./spacetime.js",
   "license": "Apache-2.0",
@@ -14,7 +14,6 @@
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dot",
     "lint": "eslint .",
     "size": "./node_modules/.bin/size-limit",
-    "prepublishOnly": "./node_modules/.bin/size-limit",
     "coverage": "node ./scripts/coverage.js"
   },
   "repository": {
