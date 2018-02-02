@@ -17,7 +17,7 @@ const parseHour = function(s, str) {
     }
   }
 };
-const parseOffset = function(s, offset) {
+const parseOffset = function(s, offset, givenTz) {
   if (!offset) {
     return s
   }
@@ -52,6 +52,12 @@ const parseOffset = function(s, offset) {
   let zones = s.timezones
   if (zones[tz]) {
     // console.log('changing timezone to: ' + tz)
+    //log a warning if we're over-writing a given timezone
+    if (givenTz && givenTz !== tz) {
+      console.warn('  - Setting timezone to: \'' + tz + '\'')
+      console.warn('     from ISO string \'' + offset + '\'')
+      console.warn('     overwriting given timezone: \'' + givenTz + '\'\n')
+    }
     s.tz = tz
   }
   return s
@@ -61,9 +67,9 @@ const strFmt = [
   //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
   {
     reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9.:]+)(Z|[0-9\-\+:]+)?$/,
-    parse: (s, arr) => {
+    parse: (s, arr, givenTz) => {
       let month = parseInt(arr[2], 10) - 1;
-      parseOffset(s, arr[5]);
+      parseOffset(s, arr[5], givenTz);
       walkTo(s, {
         year: arr[1],
         month: month,
