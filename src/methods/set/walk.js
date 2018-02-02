@@ -31,9 +31,9 @@ const units = {
       if (current === n) {
         return
       }
-      //try to get it as close as we can
+      //try to get it as close as we can..
       let diff = (n - current)
-      s.epoch += ms.day * diff
+      s.epoch += ms.day * (diff * 28)
       //incriment by day
       while (s.d.getMonth() < n) {
         s.epoch += ms.day;
