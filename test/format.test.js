@@ -34,11 +34,23 @@ test('unix-formatting', t => {
   //examples from http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
   let arr = [
     ['h:mm a', '11:34 AM'],
-    ['LL', 'Nov'],
-    [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.Nov.16 AD at 11:34:25 Canada/Eastern'],
-    [`EEE, MMM d, ''yy`, 'Thu, November 16, \'17'],
+    ['LLL', 'Nov'],
+    [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.11.16 AD at 11:34:25 Canada/Eastern'],
+    [`EEE, MMM d, ''yy`, 'Thu, Nov 16, \'17'],
     [`hh 'o''clock' a`, '11 oclock AM'],
     ['yyyyy.MMMM.dd GGG hh:mm aaa', '02017.November.16 AD 11:34 AM'],
+  ]
+  arr.forEach((a) => {
+    t.equal(s.format(a[0]), a[1], a[0])
+  })
+
+  //test another date
+  s = spacetime([2018, 'February', 20], 'Canada/Eastern')
+  arr = [
+    ['M', '2'],
+    ['MM', '02'],
+    ['MMM', 'Feb'],
+    ['MMMM', 'February']
   ]
   arr.forEach((a) => {
     t.equal(s.format(a[0]), a[1], a[0])

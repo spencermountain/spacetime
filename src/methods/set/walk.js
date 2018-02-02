@@ -1,73 +1,63 @@
 'use strict';
 const ms = require('../../data/milliseconds');
 
+//basically, step-forward/backward until js Date object says we're there.
+const walk = function(s, n, fn, unit) {
+  let current = s.d[fn]()
+  if (current === n) {
+    return
+  }
+  //try to get it as close as we can
+  let diff = (n - current)
+  s.epoch += ms[unit] * diff
+
+  while (s.d[fn]() < n) {
+    s.epoch += ms[unit];
+  }
+  while (s.d[fn]() > n) {
+    s.epoch -= ms[unit];
+  }
+}
 //find the desired date by a increment/check while loop
 const units = {
   year: {
     valid: n => n > -4000 && n < 4000,
-    walkTo: (s, n) => {
-      while (s.year() < n) {
-        s.epoch += ms.year;
-      }
-      while (s.year() > n) {
-        s.epoch -= ms.year;
-      }
-    },
+    walkTo: (s, n) => walk(s, n, 'getFullYear', 'year')
   },
   month: {
     valid: n => n >= 0 && n <= 11,
     walkTo: (s, n) => {
-      while (s.month() < n) {
+      let current = s.d.getMonth()
+      if (current === n) {
+        return
+      }
+      //try to get it as close as we can..
+      let diff = (n - current)
+      s.epoch += ms.day * (diff * 28)
+      //incriment by day
+      while (s.d.getMonth() < n) {
         s.epoch += ms.day;
       }
-      while (s.month() > n) {
+      while (s.d.getMonth() > n) {
         s.epoch -= ms.day;
       }
     },
   },
   date: {
     valid: n => n > 0 && n <= 31,
-    walkTo: (s, n) => {
-      while (s.date() < n) {
-        s.epoch += ms.day;
-      }
-      while (s.date() > n) {
-        s.epoch -= ms.day;
-      }
-    },
+    walkTo: (s, n) => walk(s, n, 'getDate', 'day')
   },
   hour: {
     valid: n => n >= 0 && n < 24,
-    walkTo: (s, n) => {
-      while (s.hour() < n) {
-        s.epoch += ms.hour;
-      }
-      while (s.hour() > n) {
-        s.epoch -= ms.hour;
-      }
-    },
+    walkTo: (s, n) => walk(s, n, 'getHours', 'hour')
   },
   minute: {
     valid: n => n >= 0 && n < 60,
-    walkTo: (s, n) => {
-      while (s.minute() < n) {
-        s.epoch += ms.minute;
-      }
-      while (s.minute() > n) {
-        s.epoch -= ms.minute;
-      }
-    },
+    walkTo: (s, n) => walk(s, n, 'getMinutes', 'minute')
   },
   second: {
     valid: n => n >= 0 && n < 60,
-    walkTo: (s, n) => {
-      while (s.second() < n) {
-        s.epoch += ms.second;
-      }
-      while (s.second() > n) {
-        s.epoch -= ms.second;
-      }
-    },
+    walkTo: (s, n) => walk(s, n, 'getSeconds', 'second')
   },
   millisecond: {
     valid: n => n >= 0 && n < 1000,

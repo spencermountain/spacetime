@@ -40,7 +40,7 @@ const handleObject = function(s, obj) {
 };
 
 //find the epoch from different input styles
-const parseInput = (s, input) => {
+const parseInput = (s, input, givenTz) => {
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
     s.epoch = input;
@@ -81,7 +81,7 @@ const parseInput = (s, input) => {
   for (let i = 0; i < strFmt.length; i++) {
     let m = input.match(strFmt[i].reg);
     if (m) {
-      strFmt[i].parse(s, m);
+      strFmt[i].parse(s, m, givenTz);
       return;
     }
   }

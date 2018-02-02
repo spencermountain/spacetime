@@ -38,7 +38,7 @@ const SpaceTime = function(input, tz) {
     }
   })
   //parse the various formats
-  handleInput(this, input)
+  handleInput(this, input, tz)
 }
 
 //(add instance methods to prototype)
