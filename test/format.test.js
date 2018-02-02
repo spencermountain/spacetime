@@ -43,6 +43,18 @@ test('unix-formatting', t => {
   arr.forEach((a) => {
     t.equal(s.format(a[0]), a[1], a[0])
   })
+
+  //test another date
+  s = spacetime([2018, 'February', 20], 'Canada/Eastern')
+  arr = [
+    ['M', '2'],
+    ['MM', '02'],
+    ['MMM', 'Feb'],
+    ['MMMM', 'February']
+  ]
+  arr.forEach((a) => {
+    t.equal(s.format(a[0]), a[1], a[0])
+  })
   t.end();
 });
 

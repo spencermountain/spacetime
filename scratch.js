@@ -8,10 +8,8 @@ const spacetime = require('./src/index')
 // console.log(s.format('MMMM'))
 
 
-const s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern')
-
-
-
+let s = spacetime([2018, 'February', 20], 'Canada/Eastern')
+s.log()
 
 // let s = spacetime([1970, 1, 1], 'UTC')
 // console.log(new Date(s.epoch * 1000))
