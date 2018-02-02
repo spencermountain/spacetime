@@ -53,10 +53,13 @@ const parseOffset = function(s, offset, givenTz) {
   if (zones[tz]) {
     // console.log('changing timezone to: ' + tz)
     //log a warning if we're over-writing a given timezone
-    if (givenTz && givenTz !== tz) {
-      console.warn('  - Setting timezone to: \'' + tz + '\'')
-      console.warn('     from ISO string \'' + offset + '\'')
-      console.warn('     overwriting given timezone: \'' + givenTz + '\'\n')
+    if (givenTz && zones[givenTz] && zones[givenTz].o !== zones[tz].o) {
+      //don't log during our tests, either..
+      if (typeof process !== 'undefined' && process.env && !process.env.TESTENV) {
+        console.warn('  - Setting timezone to: \'' + tz + '\'')
+        console.warn('     from ISO string \'' + offset + '\'')
+        console.warn('     overwriting given timezone: \'' + givenTz + '\'\n')
+      }
     }
     s.tz = tz
   }

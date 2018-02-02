@@ -1,14 +1,14 @@
 const spacetime = require('./src/index')
 
-const s = spacetime(null, 'Canada/Eastern')
+// const s = spacetime(null, 'Canada/Eastern')
+//
+// console.log(s.format('M'))
+// console.log(s.format('MM'))
+// console.log(s.format('MMM'))
+// console.log(s.format('MMMM'))
 
-console.log(s.format('M'))
-console.log(s.format('MM'))
-console.log(s.format('MMM'))
-console.log(s.format('MMMM'))
 
-
-
+const s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern')
 
 
 

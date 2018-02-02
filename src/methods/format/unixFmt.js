@@ -26,9 +26,9 @@ const mapping = {
   QQQQ: (s) => s.quarter(),
 
   //month
-  M: (s) => s.month(),
-  MM: (s) => s.format('month-short'),
-  MMM: (s) => s.format('month'),
+  M: (s) => s.month() + 1,
+  MM: (s) => pad(s.month() + 1),
+  MMM: (s) => s.format('month-short'),
   MMMM: (s) => s.format('month'),
 
   //week
