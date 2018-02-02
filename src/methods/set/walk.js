@@ -1,13 +1,13 @@
 'use strict';
 const ms = require('../../data/milliseconds');
 
+//basically, step-forward/backward until js Date object says we're there.
 const walk = function(s, n, fn, unit) {
   let current = s.d[fn]()
   if (current === n) {
     return
   }
   //try to get it as close as we can
-  // console.log(n, current, unit)
   let diff = (n - current)
   s.epoch += ms[unit] * diff
 

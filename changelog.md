@@ -30,3 +30,5 @@
 * support passing-in offsets as ISO_8601 date-strings
 * add epoch-seconds warning msg
 * allow getting/setting new timezones
+### v3.1.0
+* dramatic speedup by optimizing walkTo method
