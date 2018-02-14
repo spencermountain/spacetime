@@ -1,6 +1,7 @@
 'use strict';
 const test = require('tape');
 const spacetime = require('./lib');
+const useOldTz = require('./lib/useOldTz');
 
 const months = [
   'january',
@@ -27,6 +28,7 @@ const allMonths = function(s) {
 test('dst-by-date', t => {
   //this may be too hard to do.
   let s = spacetime('March 11, 2017 10:42:00', 'Canada/Eastern');
+  s = useOldTz(s)
   let dst = s.timezone().current.isDST;
   t.equal(dst, false, 'march-11 not dst');
 

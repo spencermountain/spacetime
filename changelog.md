@@ -32,3 +32,5 @@
 * allow getting/setting new timezones
 ### v3.1.0
 * dramatic speedup by optimizing walkTo method
+### v3.2.0
+* update zonefile to 2018 dst dates
