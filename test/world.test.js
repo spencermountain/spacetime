@@ -1,6 +1,7 @@
 'use strict';
 const test = require('tape');
 const spacetime = require('./lib');
+const useOldTz = require('./lib/useOldTz');
 
 let timezones = [
   'Africa/Accra',
@@ -76,6 +77,7 @@ test('is-always-input-date', t => {
 test('all-timezones-move', t => {
   timezones.forEach(tz => {
     let d = spacetime('January 13 2018', tz);
+    d = useOldTz(d)
     t.equal(d.dayName(), 'saturday', tz + ' saturday');
     d.date(12);
     t.equal(d.dayName(), 'friday', tz + ' friday');
