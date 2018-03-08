@@ -161,7 +161,7 @@ s.format('month-short') // 'Apr'
 s.format('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
 ```
 ### Options
-#### ambiguity
+#### Ambiguity warnings
 javascript dates use millisecond-epochs, instead of second-epochs, like some other languages.
 This is a common bug, and by default spacetime warns if you set an epoch within January 1970.
 to disable:
@@ -181,7 +181,7 @@ let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
 s.log()
 ```
 
-#### Custom language
+#### Custom languages
 
 ```js
 a.i18n({
