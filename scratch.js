@@ -1,6 +1,8 @@
 const spacetime = require('./src/index')
 
-let s = spacetime([1990, 2, 2], 'UTC')
+let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
+  silent: true
+})
 s.log()
 
 

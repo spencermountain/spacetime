@@ -40,11 +40,12 @@ const handleObject = function(s, obj) {
 };
 
 //find the epoch from different input styles
-const parseInput = (s, input, givenTz) => {
+const parseInput = (s, input, givenTz, options) => {
+  options = options || {}
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
     s.epoch = input;
-    if (input > 0 && input < minimumEpoch) {
+    if (input > 0 && input < minimumEpoch && !options.silent) {
       console.warn('  - Warning: You are setting the date to January 1970.')
       console.warn('       -   did input seconds instead of milliseconds?')
     }
@@ -81,7 +82,7 @@ const parseInput = (s, input, givenTz) => {
   for (let i = 0; i < strFmt.length; i++) {
     let m = input.match(strFmt[i].reg);
     if (m) {
-      strFmt[i].parse(s, m, givenTz);
+      strFmt[i].parse(s, m, givenTz, options);
       return;
     }
   }

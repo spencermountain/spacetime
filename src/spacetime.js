@@ -6,7 +6,8 @@ const methods = require('./methods')
 let zones = require('../data')
 
 //fake timezone-support, for fakers (es5 class)
-const SpaceTime = function(input, tz) {
+const SpaceTime = function(input, tz, options) {
+  options = options || {}
   //the shift for the given timezone
   this.tz = tz || guessTz()
   //don't output anything if it's invalid
@@ -38,7 +39,7 @@ const SpaceTime = function(input, tz) {
     }
   })
   //parse the various formats
-  handleInput(this, input, tz)
+  handleInput(this, input, tz, options)
 }
 
 //(add instance methods to prototype)
