@@ -161,7 +161,7 @@ s.format('month-short') // 'Apr'
 s.format('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
 ```
 ### Options
-#### Ambiguity warnings
+#### Ambiguity warnings:
 javascript dates use millisecond-epochs, instead of second-epochs, like some other languages.
 This is a common bug, and by default spacetime warns if you set an epoch within January 1970.
 to disable:
@@ -169,7 +169,7 @@ to disable:
 let s = spacetime(123456, 'UTC', {
   silent: true
 })
-s.log() //Jan 1st, 12:02am
+s.log() // "Jan 1st, 12:02am"
 ```
 
 There is another situation where you may see a `console.warn` - if you give it a timezone, but then set a ISO-date string with a different offset, like `2017-04-03T08:00:00-0700` (-7hrs UTC offset).
@@ -178,10 +178,10 @@ It sets the timezone to UTC-7, but also gives a warning.
 let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
   silent: true
 })
-s.log()
+s.timezone().name // "Etc/GMT-7"
 ```
 
-#### Custom languages
+#### Custom languages:
 
 ```js
 a.i18n({
