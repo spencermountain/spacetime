@@ -34,3 +34,6 @@
 * dramatic speedup by optimizing walkTo method
 ### v3.2.0
 * update zonefile to 2018 dst dates
+
+### v4 - small change
+* `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`
