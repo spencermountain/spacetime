@@ -1,9 +1,9 @@
 const spacetime = require('./src/index')
 
-let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
-  silent: true
-})
-s.log()
+// let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
+//   silent: true
+// })
+// s.log()
 
 
 // let s = spacetime([1970, 1, 1], 'UTC')
@@ -21,3 +21,6 @@ s.log()
 //   let s = spacetime([1980 + r, r, 20 + r], 'UTC')
 // }
 // console.timeEnd('test')
+
+
+console.log(spacetime.now().hour(8).add(3000, 'seconds').format('iso'));
