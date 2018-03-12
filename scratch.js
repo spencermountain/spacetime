@@ -1,6 +1,4 @@
 const spacetime = require('./src/index')
 
-let s = spacetime([2017, 5, 2]).subtract(23, 'days')
-s.log()
-
+let s = spacetime([2017, 3, 28]).subtract(23, 'days')
 console.log(s.since())

@@ -145,7 +145,14 @@ s.since(d) // (an empty param does 'since now')
     rounded: '10 months ago',
     qualified: '10 months ago',
     precise: '10 months, 1 day ago'
-  }
+  }*/
+```
+it's sometimes confusing how `.diff()` and `.since()` understand things
+```
+spacetime('January 1 2017').diff('December 30 2016', 'year')
+// returns 1
+spacetime('January 1 2017').since('December 31 2016').diff
+// returns {years:0, months:0, days:1}
 ```
 
 ### Timezones
