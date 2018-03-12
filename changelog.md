@@ -43,3 +43,4 @@
 * isAwake() method
 * alias for .plus() .minus() methods
 * `.diff()` without a unit does a couple units together
+* update zonefile to proper dst-flip time

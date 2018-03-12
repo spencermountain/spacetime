@@ -29,7 +29,7 @@
 - Remote date comparison
 - Tested for Node and the browser
 - _Zero Dependencies_ (perfect for the Browser or Lambda)
-- **Weighs in at just 42KB** _(12KB compressed)_
+- **Weighs in at just 45KB** _(13KB compressed)_
 - Apache 2.0 licensed
 - Made by your friends at [Begin](https://begin.com)
 
