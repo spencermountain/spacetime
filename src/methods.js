@@ -3,6 +3,7 @@ const format = require('./methods/format')
 const progress = require('./methods/progress')
 const nearest = require('./methods/nearest')
 const diff = require('./methods/diff')
+const from = require('./methods/from')
 const ends = require('./methods/startOf')
 const timezone = require('./timezone/index')
 const handleInput = require('./input')
@@ -50,6 +51,12 @@ const methods = {
   },
   diff: function(d, unit) {
     return diff(this, d, unit)
+  },
+  from: function (d) {
+    return from(this, d)
+  },
+  fromNow: function () {
+    return from(this, this.clone().set())
   },
   isValid: function() {
     return this.valid && !isNaN(this.d.getTime())
