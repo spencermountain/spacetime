@@ -131,24 +131,27 @@ s.isSame(d, 'date') // False
 s.diff(d, 'day') // 5
 s.diff(d, 'month') // 0
 
-//human-readable diff
-s.since(d) // (an empty param does 'since now')
+//make a human-readable diff
+let before = spacetime([2018, 3, 28])
+let now = spacetime([2017, 3, 28]) //one year later
+now.since(before)
 /* {
     diff: {
       years: 0,
-       months: -10,
-       days: -1,
-       hours: -23,
-       minutes: 0,
-       seconds: 0
-     },
-    rounded: '10 months ago',
-    qualified: '10 months ago',
-    precise: '10 months, 1 day ago'
-  }*/
+      months: 11,
+      days: 30,
+      hours: 23,
+      minutes: 59,
+      seconds: 59
+    },
+    rounded: 'in 12 months',
+    qualified: 'in almost 12 months',
+    precise: 'in 11 months, 30 days'
+  }
+*/
 ```
-it's sometimes confusing how `.diff()` and `.since()` understand things
-```
+it's sometimes confusing how `.diff()` and `.since()` understand things:
+```js
 spacetime('January 1 2017').diff('December 30 2016', 'year')
 // returns 1
 spacetime('January 1 2017').since('December 31 2016').diff

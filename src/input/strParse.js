@@ -18,7 +18,7 @@ const parseHour = function(s, str) {
   }
 };
 
-const parseOffset = function(s, offset, givenTz, options) {
+const parseOffset = function(s, offset, givenTz) {
   if (!offset) {
     return s
   }
@@ -54,7 +54,7 @@ const parseOffset = function(s, offset, givenTz, options) {
   if (zones[tz]) {
     // console.log('changing timezone to: ' + tz)
     //log a warning if we're over-writing a given timezone
-    if (givenTz && zones[givenTz] && zones[givenTz].o !== zones[tz].o && !options.silent) {
+    if (givenTz && zones[givenTz] && zones[givenTz].o !== zones[tz].o && s.silent === false) {
       //don't log during our tests, either..
       if (typeof process !== 'undefined' && process.env && !process.env.TESTENV) {
         console.warn('  - Setting timezone to: \'' + tz + '\'')

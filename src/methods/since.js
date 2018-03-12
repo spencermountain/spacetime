@@ -1,6 +1,9 @@
 'use strict'
 const ms = require('../data/milliseconds');
+const fns = require('../fns');
 
+const diffUnits = ['years', 'months', 'days', 'hours', 'minutes', 'seconds'];
+//our conceptual 'break-points' for each unit
 const qualifiers = {
   months: {
     almost: 10,
@@ -24,8 +27,6 @@ const qualifiers = {
   }
 }
 
-const diffUnits = ['years', 'months', 'days', 'hours', 'minutes', 'seconds'];
-
 function getDiff(a, b) {
   const floor = Math.floor
   const isBefore = a.isBefore(b);
@@ -33,7 +34,9 @@ function getDiff(a, b) {
   const later = isBefore ? b : a;
 
   let totalMonths = later.month() - earlier.month() + (later.year() - earlier.year()) * 12;
-  if (earlier.clone().add(totalMonths, 'months').isAfter(later)) --totalMonths;
+  if (earlier.clone().add(totalMonths, 'months').isAfter(later)) {
+    totalMonths -= 1;
+  }
   const milliseconds = +later.d - +(earlier.clone().add(totalMonths, 'months').d);
   const diff = {};
   diff.years = floor(totalMonths / 12);
@@ -42,11 +45,9 @@ function getDiff(a, b) {
   diff.hours = floor(milliseconds % ms.day / ms.hour);
   diff.minutes = floor(milliseconds % ms.day % ms.hour / ms.minute);
   diff.seconds = floor(milliseconds % ms.day % ms.hour % ms.minute / ms.second);
-
   if (isBefore) {
     diffUnits.forEach(u => diff[u] *= -1);
   }
-
   return diff;
 }
 
@@ -58,31 +59,32 @@ function pluralize(value, unit) {
   return value + ' ' + unit;
 }
 
-const from = (start, end) => {
-  const {abs} = Math;
+const from = function(start, end) {
+  //turn end into a spacetime object
+  if (!end || fns.isObject(end) === false) {
+    end = start.clone().set(end)
+  }
   const isStartBeforeEnd = start.isBefore(end);
   const diff = getDiff(start, end);
-  const isSame = diffUnits.every(u => !diff[u]);
-
+  const isNow = diffUnits.every(u => !diff[u]);
+  if (isNow === true) {
+    return {
+      diff: diff,
+      rounded: 'now',
+      qualified: 'now',
+      precise: 'now'
+    };
+  }
   let rounded;
   let qualified;
   let precise;
   let englishValues = [];
 
-  if (isSame) {
-    rounded = qualified = precise = 'now';
-    return {
-      diff,
-      rounded,
-      qualified,
-      precise
-    };
-  }
-
   diffUnits.forEach((unit, i, units) => {
-    const value = abs(diff[unit]);
-    if (value === 0) return;
-
+    const value = Math.abs(diff[unit]);
+    if (value === 0) {
+      return;
+    }
     const englishValue = pluralize(value, unit);
     englishValues.push(englishValue);
 
@@ -91,7 +93,7 @@ const from = (start, end) => {
 
       if (i > 4) return;
       const nextUnit = units[i + 1];
-      const nextValue = abs(diff[nextUnit]);
+      const nextValue = Math.abs(diff[nextUnit]);
       const {almost, over} = qualifiers[nextUnit];
 
       if (nextValue > almost) {
