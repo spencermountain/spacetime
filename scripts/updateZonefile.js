@@ -3,7 +3,7 @@ config.silent = true;
 const data = require('../data')
 const fs = require('fs')
 const year = 2018
-const zonefile = require(`../data/zonefile.${year - 1}.json`)
+const zonefile = require(`../data/zonefile.${year}.json`)
 // /usr/share/zoneinfo only stores changes, and will use the most-recent change
 // see /usr/share/zoneinfo/Africa/Algiers - has changes scheduled for 2038
 
