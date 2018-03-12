@@ -130,6 +130,22 @@ s.isSame(d, 'year') // True
 s.isSame(d, 'date') // False
 s.diff(d, 'day') // 5
 s.diff(d, 'month') // 0
+
+//human-readable diff
+s.since(d) // (an empty param does 'since now')
+/* {
+    diff: {
+      years: 0,
+       months: -10,
+       days: -1,
+       hours: -23,
+       minutes: 0,
+       seconds: 0
+     },
+    rounded: '10 months ago',
+    qualified: '10 months ago',
+    precise: '10 months, 1 day ago'
+  }
 ```
 
 ### Timezones

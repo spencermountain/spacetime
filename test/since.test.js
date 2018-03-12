@@ -2,11 +2,11 @@
 const test = require('tape');
 const spacetime = require('./lib');
 
-test('from', t => {
+test('since()', t => {
   const a = spacetime('November 11, 1999 11:11:11', 'Canada/Eastern');
   const b = spacetime('December 12, 2000 12:12:12', 'Canada/Eastern');
 
-  t.deepEqual(a.from(b), {
+  t.deepEqual(a.since(b), {
     diff: {
       years: -1,
       months: -1,
@@ -20,7 +20,7 @@ test('from', t => {
     precise: '1 year, 1 month ago'
   }, 'simple-ago')
 
-  t.deepEqual(b.from(a), {
+  t.deepEqual(b.since(a), {
     diff: {
       years: 1,
       months: 1,
@@ -34,7 +34,7 @@ test('from', t => {
     precise: 'in 1 year, 1 month'
   }, 'simple-in')
 
-  t.deepEqual(a.from(a), {
+  t.deepEqual(a.since(a), {
     diff: {
       years: 0,
       months: 0,
@@ -53,7 +53,7 @@ test('from', t => {
   const yearAndASecond = a.clone().add(1, 'year').add(1, 'second')
   const twoSeconds = a.clone().add(2, 'seconds')
 
-  t.deepEqual(a.from(almostTwoYears), {
+  t.deepEqual(a.since(almostTwoYears), {
     diff: {
       years: -1,
       months: -11,
@@ -67,7 +67,7 @@ test('from', t => {
     precise: '1 year, 11 months ago'
   }, 'almost')
 
-  t.deepEqual(a.from(overTwoMonths), {
+  t.deepEqual(a.since(overTwoMonths), {
     diff: {
       years: -0,
       months: -2,
@@ -81,7 +81,7 @@ test('from', t => {
     precise: '2 months, 11 days ago'
   }, 'over')
 
-  t.deepEqual(a.from(yearAndASecond), {
+  t.deepEqual(a.since(yearAndASecond), {
     diff: {
       years: -1,
       months: -0,
@@ -95,7 +95,7 @@ test('from', t => {
     precise: '1 year, 1 second ago'
   }, 'precise')
 
-  t.deepEqual(a.from(twoSeconds), {
+  t.deepEqual(a.since(twoSeconds), {
     diff: {
       years: -0,
       months: -0,
@@ -108,6 +108,28 @@ test('from', t => {
     qualified: '2 seconds ago',
     precise: '2 seconds ago'
   }, 'seconds')
+
+  t.end();
+});
+
+test('since now', t => {
+  const past = spacetime.now()
+    .subtract(23, 'months')
+    .subtract(23, 'seconds')
+
+  t.deepEqual(past.since(), {
+    diff: {
+      years: -1,
+      months: -11,
+      days: -0,
+      hours: -0,
+      minutes: -0,
+      seconds: -23
+    },
+    rounded: '2 years ago',
+    qualified: 'almost 2 years ago',
+    precise: '1 year, 11 months ago'
+  }, 'years-ago')
 
   t.end();
 });
