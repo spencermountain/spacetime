@@ -66,3 +66,11 @@ exports.getEpoch = function(tmp) {
   }
   return null;
 };
+
+//make sure this input is a spacetime obj
+exports.beADate = function(d, s) {
+  if (exports.isObject(d) === false) {
+    return s.clone().set(d)
+  }
+  return d
+}

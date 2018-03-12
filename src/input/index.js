@@ -75,9 +75,13 @@ const parseInput = (s, input, givenTz) => {
     handleObject(s, input);
     return;
   }
+  //input as a string..
   if (typeof input !== 'string') {
     return;
   }
+  //little cleanup..
+  input = input.trim().replace(/ +/g, ' ')
+  //try each parser, use the first good result
   for (let i = 0; i < strFmt.length; i++) {
     let m = input.match(strFmt[i].reg);
     if (m) {

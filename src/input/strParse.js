@@ -119,7 +119,7 @@ const strFmt = [
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {
-    reg: /^([a-z]+) ([0-9]{1,2}),? ([0-9]{4})( ([0-9:]+))?$/i,
+    reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),? ([0-9]{4})( ([0-9:]+))?$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[1].toLowerCase()];
       walkTo(s, {
@@ -134,7 +134,7 @@ const strFmt = [
   },
   //Long "25 Mar 2015"
   {
-    reg: /^([0-9]{1,2}) ([a-z]+),? ([0-9]{4})$/i,
+    reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),? ([0-9]{4})$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[2].toLowerCase()];
       walkTo(s, {

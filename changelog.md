@@ -39,3 +39,4 @@
 * `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`
 * adds `.since()` method to calculate a human-readable diff
 * support string/number input to `.diff()`
+* support ordinal inputs, like `June 5th 2018`

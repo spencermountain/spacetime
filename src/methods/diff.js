@@ -16,9 +16,7 @@ const climb = function(a, b, unit) {
 };
 
 const diff = (a, b, unit) => {
-  if (!b || fns.isObject(b) === false) {
-    b = a.clone().set(b)
-  }
+  b = fns.beADate(b)
   unit = fns.normalize(unit);
   if (a.isBefore(b)) {
     return climb(a, b, unit);

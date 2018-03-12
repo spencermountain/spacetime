@@ -23,7 +23,7 @@
 ### A simple way to manipulate, compare, and format dates and times across the Earth
 
 - **Get/set** dates and times in remote timezones
-- Optin immutability
+- Opt-in immutability
 - Global support for **Daylight Savings Time**, **leap years + seconds**, and **hemispheres**
 - Orient by quarter, season, month, and week
 - Remote date comparison

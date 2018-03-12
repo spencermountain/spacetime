@@ -60,10 +60,7 @@ function pluralize(value, unit) {
 }
 
 const from = function(start, end) {
-  //turn end into a spacetime object
-  if (!end || fns.isObject(end) === false) {
-    end = start.clone().set(end)
-  }
+  end = fns.beADate(end)
   const isStartBeforeEnd = start.isBefore(end);
   const diff = getDiff(start, end);
   const isNow = diffUnits.every(u => !diff[u]);

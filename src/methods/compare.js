@@ -4,6 +4,7 @@ const fns = require('../fns');
 const addMethods = SpaceTime => {
   const methods = {
     isAfter: function(d) {
+      d = fns.beADate(d, this)
       let epoch = fns.getEpoch(d);
       if (epoch === null) {
         return null;
@@ -11,6 +12,7 @@ const addMethods = SpaceTime => {
       return this.epoch > epoch;
     },
     isBefore: function(d) {
+      d = fns.beADate(d, this)
       let epoch = fns.getEpoch(d);
       if (epoch === null) {
         return null;
@@ -18,6 +20,7 @@ const addMethods = SpaceTime => {
       return this.epoch < epoch;
     },
     isEqual: function(d) {
+      d = fns.beADate(d, this)
       let epoch = fns.getEpoch(d);
       if (epoch === null) {
         return null;
@@ -25,6 +28,8 @@ const addMethods = SpaceTime => {
       return this.epoch === epoch;
     },
     isBetween: function(start, end) {
+      start = fns.beADate(start, this)
+      end = fns.beADate(end, this)
       let startEpoch = fns.getEpoch(start);
       if (startEpoch === null) {
         return null;
