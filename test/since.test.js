@@ -6,20 +6,6 @@ test('since()', t => {
   const a = spacetime('November 11, 1999 11:11:11', 'Canada/Eastern');
   const b = spacetime('December 12, 2000 12:12:12', 'Canada/Eastern');
 
-  t.deepEqual(a.since(b), {
-    diff: {
-      years: -1,
-      months: -1,
-      days: -1,
-      hours: -1,
-      minutes: -1,
-      seconds: -1
-    },
-    rounded: '1 year ago',
-    qualified: '1 year ago',
-    precise: '1 year, 1 month ago'
-  }, 'simple-ago')
-
   t.deepEqual(b.since(a), {
     diff: {
       years: 1,
@@ -28,6 +14,20 @@ test('since()', t => {
       hours: 1,
       minutes: 1,
       seconds: 1
+    },
+    rounded: '1 year ago',
+    qualified: '1 year ago',
+    precise: '1 year, 1 month ago'
+  }, 'simple-ago')
+
+  t.deepEqual(a.since(b), {
+    diff: {
+      years: -1,
+      months: -1,
+      days: -1,
+      hours: -1,
+      minutes: -1,
+      seconds: -1
     },
     rounded: 'in 1 year',
     qualified: 'in 1 year',
@@ -62,9 +62,9 @@ test('since()', t => {
       minutes: -0,
       seconds: -0
     },
-    rounded: '2 years ago',
-    qualified: 'almost 2 years ago',
-    precise: '1 year, 11 months ago'
+    rounded: 'in 2 years',
+    qualified: 'in almost 2 years',
+    precise: 'in 1 year, 11 months'
   }, 'almost')
 
   t.deepEqual(a.since(overTwoMonths), {
@@ -76,9 +76,9 @@ test('since()', t => {
       minutes: -0,
       seconds: -0
     },
-    rounded: '2 months ago',
-    qualified: 'over 2 months ago',
-    precise: '2 months, 11 days ago'
+    rounded: 'in 2 months',
+    qualified: 'in over 2 months',
+    precise: 'in 2 months, 11 days'
   }, 'over')
 
   t.deepEqual(a.since(yearAndASecond), {
@@ -90,9 +90,9 @@ test('since()', t => {
       minutes: -0,
       seconds: -1
     },
-    rounded: '1 year ago',
-    qualified: '1 year ago',
-    precise: '1 year, 1 second ago'
+    rounded: 'in 1 year',
+    qualified: 'in 1 year',
+    precise: 'in 1 year, 1 second'
   }, 'precise')
 
   t.deepEqual(a.since(twoSeconds), {
@@ -104,9 +104,9 @@ test('since()', t => {
       minutes: -0,
       seconds: -2
     },
-    rounded: '2 seconds ago',
-    qualified: '2 seconds ago',
-    precise: '2 seconds ago'
+    rounded: 'in 2 seconds',
+    qualified: 'in 2 seconds',
+    precise: 'in 2 seconds'
   }, 'seconds')
 
   t.end();
@@ -126,9 +126,9 @@ test('since now', t => {
       minutes: -0,
       seconds: -23
     },
-    rounded: '2 years ago',
-    qualified: 'almost 2 years ago',
-    precise: '1 year, 11 months ago'
+    rounded: 'in 2 years',
+    qualified: 'in almost 2 years',
+    precise: 'in 1 year, 11 months'
   }, 'years-ago')
 
   t.end();

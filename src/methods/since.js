@@ -61,7 +61,6 @@ function pluralize(value, unit) {
 
 const from = function(start, end) {
   end = fns.beADate(end, start)
-  const isStartBeforeEnd = start.isBefore(end);
   const diff = getDiff(start, end);
   const isNow = diffUnits.every(u => !diff[u]);
   if (isNow === true) {
@@ -103,7 +102,7 @@ const from = function(start, end) {
 
   precise = englishValues.splice(0, 2).join(', ');
 
-  if (isStartBeforeEnd) {
+  if (start.isAfter(end) === true) {
     rounded += ' ago';
     qualified += ' ago';
     precise += ' ago';
