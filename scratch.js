@@ -1,4 +1,4 @@
 const spacetime = require('./src/index')
 
-let obj = spacetime('April 12th 2018', 'Canada/Eastern').since('April 10th 2018')
+let obj = spacetime('April 12th 2008', 'Canada/Eastern').from('March 12 2018')
 console.log(obj)

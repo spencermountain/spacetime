@@ -169,3 +169,11 @@ test('supports soft inputs', t => {
 
   t.end();
 });
+
+
+test('from + fromNow aliases', t => {
+  let obj = spacetime('April 12th 2008', 'Canada/Eastern').from('March 12 2018')
+  t.equal(obj.qualified, 'almost 10 years ago', 'qualified')
+  t.equal(obj.precise, '9 years, 11 months ago', 'precise')
+  t.end();
+});

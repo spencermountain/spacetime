@@ -46,7 +46,7 @@
   "size-limit": [
     {
       "path": "./spacetime.js",
-      "limit": "14 KB"
+      "limit": "16 KB"
     }
   ]
 }
