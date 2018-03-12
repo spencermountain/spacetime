@@ -1,6 +1,6 @@
 'use strict';
 
-//easy comparison between dates
+//make a string, for easy comparison between dates
 const print = {
   millisecond: s => {
     return s.epoch;
@@ -40,6 +40,7 @@ const print = {
 print.date = print.day;
 
 const addMethods = SpaceTime => {
+
   SpaceTime.prototype.isSame = function(b, unit) {
     let a = this;
     if (typeof b === 'string' || typeof b === 'number') {
@@ -52,7 +53,8 @@ const addMethods = SpaceTime => {
       return print[unit](a) === print[unit](b);
     }
     return null;
-  };
+  }
+
 };
 
 module.exports = addMethods;

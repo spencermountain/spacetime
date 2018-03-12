@@ -4,6 +4,28 @@ const months = require('../../data/months');
 const days = require('../../data/days');
 const unixFmt = require('./unixFmt');
 
+// "+01:00", "+0100", or simply "+01"
+const isoOffset = function(s) {
+  let offset = s.timezone().current.offset
+  let minute = '00'
+  if (offset % 1 === 0.5) { //fraction of the hour
+    minute = '30'
+  }
+  if (offset >= 0) {
+    offset = '+' + fns.zeroPad(offset, 2)
+  } else {
+    offset *= -1
+    offset = fns.zeroPad(offset, 2) //handle negative sign
+    offset = '-' + offset
+  }
+  offset = offset + ':' + minute
+  //this is a little cleaner?
+  if (offset === "+00:00") {
+    offset = 'Z'
+  }
+  return offset
+}
+
 const fmt = {
   day: s => {
     return fns.titleCase(days.long()[s.day()]);
@@ -44,6 +66,8 @@ const fmt = {
   'numeric-cn': s => {
     return `${s.year()}/${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`; //yyyy/mm/dd
   },
+
+  // ... https://en.wikipedia.org/wiki/ISO_8601 ;(((
   iso: s => {
     let month = fns.zeroPad(s.month() + 1); //1-based months
     let date = fns.zeroPad(s.date());
@@ -51,7 +75,8 @@ const fmt = {
     let minute = fns.zeroPad(s.minute());
     let second = fns.zeroPad(s.second());
     let ms = fns.zeroPad(s.millisecond(), 3);
-    return `${s.year()}-${month}-${date}T${hour}:${minute}:${second}:${ms}Z`; //2017-03-08T19:45:28.367Z
+    let offset = isoOffset(s)
+    return `${s.year()}-${month}-${date}T${hour}:${minute}:${second}.${ms}${offset}`; //2018-03-09T08:50:00.000-05:00
   },
   'iso-short': s => {
     let month = fns.zeroPad(s.month() + 1); //1-based months

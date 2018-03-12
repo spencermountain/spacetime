@@ -34,3 +34,15 @@
 * dramatic speedup by optimizing walkTo method
 ### v3.2.0
 * update zonefile to 2018 dst dates
+
+### v4.0.0
+* `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`
+* adds `.since()` method to calculate a human-readable diff
+* support string/number input to `.diff()`
+* support ordinal inputs, like `June 5th 2018`
+* isAwake() method
+* alias for .plus() .minus() methods
+* `.diff()` without a unit does a couple units together
+* update zonefile to proper dst-flip time
+## v4.0.1
+* support `.from()` and `.fromNow()` methods

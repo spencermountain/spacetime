@@ -23,13 +23,13 @@
 ### A simple way to manipulate, compare, and format dates and times across the Earth
 
 - **Get/set** dates and times in remote timezones
-- Optin immutability
+- Opt-in immutability
 - Global support for **Daylight Savings Time**, **leap years + seconds**, and **hemispheres**
 - Orient by quarter, season, month, and week
 - Remote date comparison
 - Tested for Node and the browser
 - _Zero Dependencies_ (perfect for the Browser or Lambda)
-- **Weighs in at just 42KB** _(12KB compressed)_
+- **Weighs in at just 45KB** _(13KB compressed)_
 - Apache 2.0 licensed
 - Made by your friends at [Begin](https://begin.com)
 
@@ -94,6 +94,7 @@ s.endOf('quarter') // 11:59:59pm, June 30th
 //utilities:
 s.clone() // Make a copy
 s.isValid() // Sept 32nd → false
+s.isAwake() // it's between 8am → 10pm
 ```
 
 ### Opt Into Immutability
@@ -130,6 +131,32 @@ s.isSame(d, 'year') // True
 s.isSame(d, 'date') // False
 s.diff(d, 'day') // 5
 s.diff(d, 'month') // 0
+
+//make a human-readable diff
+let before = spacetime([2018, 3, 28])
+let now = spacetime([2017, 3, 28]) //one year later
+now.since(before)
+/* {
+    diff: {
+      years: 0,
+      months: 11,
+      days: 30,
+      hours: 23,
+      minutes: 59,
+      seconds: 59
+    },
+    rounded: 'in 12 months',
+    qualified: 'in almost 12 months',
+    precise: 'in 11 months, 30 days'
+  }
+*/
+```
+it's sometimes confusing how `.diff()` and `.since()` understand things:
+```js
+spacetime('January 1 2017').diff('December 30 2016', 'year')
+// returns 1
+spacetime('January 1 2017').since('December 31 2016').diff
+// returns {years:0, months:0, days:1}
 ```
 
 ### Timezones

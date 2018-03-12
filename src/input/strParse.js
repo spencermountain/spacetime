@@ -18,7 +18,7 @@ const parseHour = function(s, str) {
   }
 };
 
-const parseOffset = function(s, offset, givenTz, options) {
+const parseOffset = function(s, offset, givenTz) {
   if (!offset) {
     return s
   }
@@ -54,7 +54,7 @@ const parseOffset = function(s, offset, givenTz, options) {
   if (zones[tz]) {
     // console.log('changing timezone to: ' + tz)
     //log a warning if we're over-writing a given timezone
-    if (givenTz && zones[givenTz] && zones[givenTz].o !== zones[tz].o && !options.silent) {
+    if (givenTz && zones[givenTz] && zones[givenTz].o !== zones[tz].o && s.silent === false) {
       //don't log during our tests, either..
       if (typeof process !== 'undefined' && process.env && !process.env.TESTENV) {
         console.warn('  - Setting timezone to: \'' + tz + '\'')
@@ -119,7 +119,7 @@ const strFmt = [
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {
-    reg: /^([a-z]+) ([0-9]{1,2}),? ([0-9]{4})( ([0-9:]+))?$/i,
+    reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),? ([0-9]{4})( ([0-9:]+))?$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[1].toLowerCase()];
       walkTo(s, {
@@ -134,7 +134,7 @@ const strFmt = [
   },
   //Long "25 Mar 2015"
   {
-    reg: /^([0-9]{1,2}) ([a-z]+),? ([0-9]{4})$/i,
+    reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),? ([0-9]{4})$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[2].toLowerCase()];
       walkTo(s, {

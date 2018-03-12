@@ -1,5 +1,5 @@
 'use strict';
-const zonefile = require('./zonefile.2017.json');
+const zonefile = require('./zonefile.2018.json');
 
 //assumed hemisphere, based on continent
 const southern = {

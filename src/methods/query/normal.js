@@ -157,6 +157,16 @@ let methods = {
     }
     return 'AD'
   },
+
+  //alias of 'since' but opposite - like moment.js
+  from: function(d) {
+    d = this.clone().set(d)
+    return d.since(this)
+  },
+  fromNow: function() {
+    let d = this.clone().set(Date.now())
+    return d.since(this)
+  }
 };
 //aliases
 methods.milliseconds = methods.millisecond;

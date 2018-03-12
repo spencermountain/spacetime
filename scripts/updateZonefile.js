@@ -3,7 +3,7 @@ config.silent = true;
 const data = require('../data')
 const fs = require('fs')
 const year = 2018
-const zonefile = require(`../data/zonefile.${year - 1}.json`)
+const zonefile = require(`../data/zonefile.${year}.json`)
 // /usr/share/zoneinfo only stores changes, and will use the most-recent change
 // see /usr/share/zoneinfo/Africa/Algiers - has changes scheduled for 2038
 
@@ -34,17 +34,24 @@ const parseLine = (line) => {
   let arr = line.split(/ +/)
   let hour = arr[11].replace(/:[0-9:]+/, '')
   let min = arr[11].replace(/[0-9]{1,2}:([0-9]+):/, '$1')
-  // hour = parseInt(hour, 10)
+  let dst = arr[arr.length - 1] === 'isdst=1'
+  hour = parseInt(hour, 10)
+  if (min === '0000' && dst === true) {
+    hour -= 1
+  } else if (min === '0000' && dst === false) {
+    hour += 1
+  }
   let obj = {
     month: zeroPad(months[arr[9].toLowerCase()]),
     date: zeroPad(parseInt(arr[10], 10)),
-    hour: zeroPad(parseInt(hour, 10)),
+    hour: zeroPad(hour),
     min: min,
-    dst: arr[arr.length - 1] === 'isdst=1'
+    dst: dst
   }
   if (obj.hour > 24 || obj.day > 31 || obj.month > 12) {
     console.error('oops', obj)
   }
+
   return obj
 }
 
@@ -89,7 +96,7 @@ const doAll = function() {
   fs.writeFileSync('./zonefile.' + year + '.json', JSON.stringify(zonefile, null, 2))
 }
 doAll()
-// console.log(parseTz('America/Edmonton'))
+// console.log(parseTz('America/Los_Angeles'))
 // console.log(parseTz('Africa/Algiers'))
 // console.log(parseTz('America/Godthab'))
 // console.log(zonefile['America/Godthab'].dst)

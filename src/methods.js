@@ -3,7 +3,7 @@ const format = require('./methods/format')
 const progress = require('./methods/progress')
 const nearest = require('./methods/nearest')
 const diff = require('./methods/diff')
-const from = require('./methods/from')
+const since = require('./methods/since')
 const ends = require('./methods/startOf')
 const timezone = require('./timezone/index')
 const handleInput = require('./input')
@@ -29,7 +29,6 @@ const methods = {
   hemisphere: function() {
     return timezone(this).hemisphere
   },
-
   format: function(fmt) {
     return format(this, fmt)
   },
@@ -52,11 +51,11 @@ const methods = {
   diff: function(d, unit) {
     return diff(this, d, unit)
   },
-  from: function (d) {
-    return from(this, d)
-  },
-  fromNow: function () {
-    return from(this, this.clone().set())
+  since: function(d) {
+    if (!d) {
+      d = this.clone().set()
+    }
+    return since(this, d)
   },
   isValid: function() {
     return this.valid && !isNaN(this.d.getTime())
@@ -66,13 +65,16 @@ const methods = {
     this.tz = tz //science!
     return this
   },
-  isAsleep: function() {
+  isAwake: function() {
     let hour = this.hour()
+    //10pm -> 8am
     if (hour < 8 || hour > 22) {
-      //10pm -> 8am
-      return true
+      return false
     }
-    return false
+    return true
+  },
+  isAsleep: function() {
+    return !this.isAwake()
   },
   //pretty-printing
   log: function() {

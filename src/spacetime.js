@@ -12,6 +12,8 @@ const SpaceTime = function(input, tz, options) {
   this.tz = tz || guessTz()
   //don't output anything if it's invalid
   this.valid = true
+  //whether to output warnings to console
+  this.silent = options.silent || false
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object
