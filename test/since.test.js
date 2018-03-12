@@ -112,7 +112,7 @@ test('since()', t => {
   t.end();
 });
 
-test('since now', t => {
+test('since now - default', t => {
   const past = spacetime.now()
     .subtract(23, 'months')
     .subtract(23, 'seconds')
@@ -143,5 +143,29 @@ test('supports soft inputs', t => {
 
   obj = spacetime('christmas').diff('new years')
   t.equal(obj.days, 6, '6 days between christmas and new years')
+
+  obj = spacetime('April 12th 2018').since('April 10th 2018')
+  t.equal(obj.rounded, '2 days ago', 'rounded')
+  t.equal(obj.qualified, '2 days ago', 'qualified')
+  t.equal(obj.precise, '2 days ago', 'precise')
+  let diff = obj.diff
+  t.equal(diff.years, 0, '0 years')
+  t.equal(diff.months, 0, '0 months')
+  t.equal(diff.days, 2, '2 days')
+  t.equal(diff.hours, 0, '0 hours')
+  t.equal(diff.seconds, 0, '0 seconds')
+
+  //opposite since logic
+  obj = spacetime('April 8th 2018').since('April 10th 2018')
+  t.equal(obj.rounded, 'in 2 days', 'rounded')
+  t.equal(obj.qualified, 'in 2 days', 'qualified')
+  t.equal(obj.precise, 'in 2 days', 'precise')
+  diff = obj.diff
+  t.equal(diff.years, 0, '0 years')
+  t.equal(diff.months, 0, '0 months')
+  t.equal(diff.days, -2, '2 days')
+  t.equal(diff.hours, 0, '0 hours')
+  t.equal(diff.seconds, 0, '0 seconds')
+
   t.end();
 });

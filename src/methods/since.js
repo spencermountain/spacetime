@@ -1,8 +1,7 @@
 'use strict'
-const ms = require('../data/milliseconds');
 const fns = require('../fns');
+//by spencermountain + Shaun Grady
 
-const diffUnits = ['years', 'months', 'days', 'hours', 'minutes', 'seconds'];
 //our conceptual 'break-points' for each unit
 const qualifiers = {
   months: {
@@ -27,26 +26,40 @@ const qualifiers = {
   }
 }
 
+//get number of hours/minutes... between the two dates
 function getDiff(a, b) {
-  const floor = Math.floor
   const isBefore = a.isBefore(b);
-  const earlier = isBefore ? a : b;
   const later = isBefore ? b : a;
-
-  let totalMonths = later.month() - earlier.month() + (later.year() - earlier.year()) * 12;
-  if (earlier.clone().add(totalMonths, 'months').isAfter(later)) {
-    totalMonths -= 1;
-  }
-  const milliseconds = +later.d - +(earlier.clone().add(totalMonths, 'months').d);
-  const diff = {};
-  diff.years = floor(totalMonths / 12);
-  diff.months = totalMonths % 12;
-  diff.days = floor(milliseconds / ms.day);
-  diff.hours = floor(milliseconds % ms.day / ms.hour);
-  diff.minutes = floor(milliseconds % ms.day % ms.hour / ms.minute);
-  diff.seconds = floor(milliseconds % ms.day % ms.hour % ms.minute / ms.second);
+  let earlier = isBefore ? a : b;
+  earlier = earlier.clone()
+  const diff = {
+    years: 0,
+    months: 0,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  };
+  Object.keys(diff).forEach((unit) => {
+    if (earlier.isSame(later, unit)) {
+      return
+    }
+    let max = earlier.diff(later, unit)
+    earlier.add(max, unit)
+    //did we go one too far?
+    if (earlier.epoch > later.epoch + 10) { //(fudge this calc by 10 milliseconds)
+      earlier.subtract(1, unit)
+      max -= 1
+    }
+    diff[unit] = max
+  })
+  //reverse it
   if (isBefore) {
-    diffUnits.forEach(u => diff[u] *= -1);
+    Object.keys(diff).forEach(u => {
+      if (diff[u] !== 0) {
+        diff[u] *= -1
+      }
+    });
   }
   return diff;
 }
@@ -59,10 +72,11 @@ function pluralize(value, unit) {
   return value + ' ' + unit;
 }
 
-const from = function(start, end) {
+//create the human-readable diff between the two dates
+const since = function(start, end) {
   end = fns.beADate(end, start)
   const diff = getDiff(start, end);
-  const isNow = diffUnits.every(u => !diff[u]);
+  const isNow = Object.keys(diff).every(u => !diff[u]);
   if (isNow === true) {
     return {
       diff: diff,
@@ -76,32 +90,32 @@ const from = function(start, end) {
   let precise;
   let englishValues = [];
 
-  diffUnits.forEach((unit, i, units) => {
+  //go through each value and create its text-representation
+  Object.keys(diff).forEach((unit, i, units) => {
     const value = Math.abs(diff[unit]);
     if (value === 0) {
       return;
     }
     const englishValue = pluralize(value, unit);
     englishValues.push(englishValue);
-
     if (!rounded) {
       rounded = qualified = englishValue;
-
-      if (i > 4) return;
+      if (i > 4) {
+        return;
+      }
+      //is it a 'almost' something, etc?
       const nextUnit = units[i + 1];
       const nextValue = Math.abs(diff[nextUnit]);
-      const {almost, over} = qualifiers[nextUnit];
-
-      if (nextValue > almost) {
+      if (nextValue > qualifiers[nextUnit].almost) {
         rounded = pluralize(value + 1, unit);
         qualified = 'almost ' + rounded;
-      } else if (nextValue > over)
+      } else if (nextValue > qualifiers[nextUnit].over)
         qualified = 'over ' + englishValue;
     }
   });
-
+  //make them into a string
   precise = englishValues.splice(0, 2).join(', ');
-
+  //handle before/after logic
   if (start.isAfter(end) === true) {
     rounded += ' ago';
     qualified += ' ago';
@@ -111,13 +125,12 @@ const from = function(start, end) {
     qualified = 'in ' + qualified;
     precise = 'in ' + precise;
   }
-
   return {
-    diff,
-    rounded,
-    qualified,
-    precise
+    diff: diff,
+    rounded: rounded,
+    qualified: qualified,
+    precise: precise
   };
 }
 
-module.exports = from;
+module.exports = since;
