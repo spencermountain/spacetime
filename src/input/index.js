@@ -1,6 +1,7 @@
 'use strict';
 const strFmt = require('./strParse');
 const fns = require('../fns');
+const namedDates = require('./named-dates')
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
 //=========================================
@@ -81,7 +82,12 @@ const parseInput = (s, input, givenTz) => {
   }
   //little cleanup..
   input = input.trim().replace(/ +/g, ' ')
-  //try each parser, use the first good result
+  //try some known-words, like 'now'
+  if (namedDates.hasOwnProperty(input) === true) {
+    s = namedDates[input](s)
+    return
+  }
+  //try each text-parse template, use the first good result
   for (let i = 0; i < strFmt.length; i++) {
     let m = input.match(strFmt[i].reg);
     if (m) {

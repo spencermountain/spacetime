@@ -29,7 +29,6 @@ const methods = {
   hemisphere: function() {
     return timezone(this).hemisphere
   },
-
   format: function(fmt) {
     return format(this, fmt)
   },
@@ -66,13 +65,16 @@ const methods = {
     this.tz = tz //science!
     return this
   },
-  isAsleep: function() {
+  isAwake: function() {
     let hour = this.hour()
+    //10pm -> 8am
     if (hour < 8 || hour > 22) {
-      //10pm -> 8am
-      return true
+      return false
     }
-    return false
+    return true
+  },
+  isAsleep: function() {
+    return !this.isAwake()
   },
   //pretty-printing
   log: function() {

@@ -94,6 +94,7 @@ s.endOf('quarter') // 11:59:59pm, June 30th
 //utilities:
 s.clone() // Make a copy
 s.isValid() // Sept 32nd → false
+s.isAwake() // it's between 8am → 10pm
 ```
 
 ### Opt Into Immutability

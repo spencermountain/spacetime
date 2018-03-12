@@ -103,6 +103,9 @@ const addMethods = SpaceTime => {
     this.add(num * -1, unit);
     return this;
   };
+  //add aliases
+  SpaceTime.prototype.minus = SpaceTime.prototype.subtract
+  SpaceTime.prototype.plus = SpaceTime.prototype.add
 };
 
 module.exports = addMethods;
