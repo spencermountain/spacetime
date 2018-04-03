@@ -1,6 +1,8 @@
 'use strict';
 const walkTo = require('../methods/set/walk');
 const months = require('../data/months');
+const parseOffset = require('./parseOffset')
+const hasDate = require('./hasDate')
 // const zones = require('../../data');
 
 const parseHour = function(s, str) {
@@ -18,54 +20,6 @@ const parseHour = function(s, str) {
   }
 };
 
-const parseOffset = function(s, offset, givenTz) {
-  if (!offset) {
-    return s
-  }
-  //this is a fancy-move
-  if (offset === 'Z') {
-    offset = '+0000'
-  }
-  //support "+01:00"
-  if (/:00/.test(offset) === true) {
-    offset = offset.replace(/:00/, '')
-  }
-  //support "+01:30"
-  if (/:00/.test(offset) === true) {
-    offset = offset.replace(/:00/, '.5')
-  }
-  let num = parseInt(offset, 10)
-  //divide by 100 or 10 - , "+0100", "+01"
-  if (Math.abs(num) > 100) {
-    num = num / 100
-  }
-  // console.log(offset, num)
-  let current = s.timezone().current.offset
-  if (current === num) { //we cool..
-    return s
-  }
-  //okay, try to match it to a utc timezone
-  if (num >= 0) {
-    num = '+' + num
-  }
-
-  let tz = 'Etc/GMT' + num
-  let zones = s.timezones
-  if (zones[tz]) {
-    // console.log('changing timezone to: ' + tz)
-    //log a warning if we're over-writing a given timezone
-    if (givenTz && zones[givenTz] && zones[givenTz].o !== zones[tz].o && s.silent === false) {
-      //don't log during our tests, either..
-      if (typeof process !== 'undefined' && process.env && !process.env.TESTENV) {
-        console.warn('  - Setting timezone to: \'' + tz + '\'')
-        console.warn('     from ISO string \'' + offset + '\'')
-        console.warn('     overwriting given timezone: \'' + givenTz + '\'\n')
-      }
-    }
-    s.tz = tz
-  }
-  return s
-}
 
 const strFmt = [
   //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
@@ -86,17 +40,20 @@ const strFmt = [
   {
     reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2})$/,
     parse: (s, arr) => {
-      let month = parseInt(arr[2], 10) - 1;
-      let date = parseInt(arr[3], 10)
-      if (month >= 12) { //support yyyy/dd/mm (weird, but ok)
-        date = parseInt(arr[2], 10)
-        month = parseInt(arr[3], 10) - 1
-      }
-      walkTo(s, {
+      let obj = {
         year: arr[1],
-        month: month,
-        date: date
-      });
+        month: parseInt(arr[2], 10) - 1,
+        date: parseInt(arr[3], 10)
+      }
+      if (obj.month >= 12) { //support yyyy/dd/mm (weird, but ok)
+        obj.date = parseInt(arr[2], 10)
+        obj.month = parseInt(arr[3], 10) - 1
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      walkTo(s, obj);
     }
   },
   //short - uk "03/25/2015"  //0-based-months!

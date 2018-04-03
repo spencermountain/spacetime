@@ -122,3 +122,10 @@ test('funny-numeric-forms', t => {
   t.equal(a.format('numeric'), b.format('numeric'), 'dd/mm/yyyy')
   t.end();
 });
+
+
+test('invalid inputs', t => {
+  let s = spacetime('2018-02-31');
+  t.equal(s.isValid(), false, 'february-days #1');
+  t.end();
+});

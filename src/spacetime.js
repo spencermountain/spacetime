@@ -10,8 +10,6 @@ const SpaceTime = function(input, tz, options) {
   options = options || {}
   //the shift for the given timezone
   this.tz = tz || guessTz()
-  //don't output anything if it's invalid
-  this.valid = true
   //whether to output warnings to console
   this.silent = options.silent || false
   //add getter/setters

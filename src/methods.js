@@ -58,7 +58,11 @@ const methods = {
     return since(this, d)
   },
   isValid: function() {
-    return this.valid && !isNaN(this.d.getTime())
+    //null/undefined epochs
+    if (!this.epoch && this.epoch !== 0) {
+      return false
+    }
+    return !isNaN(this.d.getTime())
   },
   //travel to this timezone
   goto: function(tz) {

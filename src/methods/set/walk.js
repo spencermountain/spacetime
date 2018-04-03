@@ -82,7 +82,6 @@ const walkTo = (s, wants) => {
     }
     //make-sure it's valid
     if (!units[k].valid(n)) {
-      s.valid = false;
       s.epoch = null;
       console.warn('invalid ' + k + ': ' + n);
       return;

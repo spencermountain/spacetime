@@ -1,4 +1,4 @@
 const spacetime = require('./src/index')
 
-let obj = spacetime('April 12th 2008', 'Canada/Eastern').from('March 12 2018')
-console.log(obj)
+spacetime('2018-02-31').log()
+// console.log(spacetime('2018-02-31').isValid())
