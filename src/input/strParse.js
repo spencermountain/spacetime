@@ -110,11 +110,16 @@ const strFmt = [
     reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),? ([0-9]{4})$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[2].toLowerCase()];
-      walkTo(s, {
-        year: arr[3],
+      let obj = {
+        year: parseInt(arr[3], 10),
         month: month,
-        date: arr[1]
-      });
+        date: fns.toCardinal(arr[1])
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      walkTo(s, obj);
     }
   }
 ];

@@ -148,5 +148,14 @@ test('invalid inputs', t => {
   t.equal(spacetime('Feb 29 2001').isValid(), false, 'long format #1');
   t.equal(spacetime('Feb 29 2000').isValid(), true, 'long format #2');
   t.equal(spacetime('Feb 29 2003').isValid(), false, 'long format #3');
+
+  t.equal(spacetime('29th Feb 2001').isValid(), false, 'long format #4');
+  t.equal(spacetime('29th Feb 2000').isValid(), true, 'long format #5');
+  t.equal(spacetime('29th February 2003').isValid(), false, 'long format #6');
+
+  var s = spacetime('-2 February 2003', 'UTC', {
+    silent: true
+  })
+  t.equal(s.isValid(), false, 'negative numbers invalid too');
   t.end();
 });
