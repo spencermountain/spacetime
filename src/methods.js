@@ -7,6 +7,7 @@ const since = require('./methods/since')
 const ends = require('./methods/startOf')
 const timezone = require('./timezone/index')
 const handleInput = require('./input')
+const fns = require('./fns')
 
 //the spacetime instance methods (also, the API)
 const methods = {
@@ -40,7 +41,7 @@ const methods = {
   },
   leapYear: function() {
     let year = this.year()
-    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+    return fns.isLeapYear(year)
   },
   progress: function() {
     return progress(this)

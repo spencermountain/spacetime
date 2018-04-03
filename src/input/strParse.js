@@ -3,6 +3,7 @@ const walkTo = require('../methods/set/walk');
 const months = require('../data/months');
 const parseOffset = require('./parseOffset')
 const hasDate = require('./hasDate')
+const fns = require('../fns')
 // const zones = require('../../data');
 
 const parseHour = function(s, str) {
@@ -27,12 +28,17 @@ const strFmt = [
     reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9.:]+)(Z|[0-9\-\+:]+)?$/,
     parse: (s, arr, givenTz, options) => {
       let month = parseInt(arr[2], 10) - 1;
-      parseOffset(s, arr[5], givenTz, options);
-      walkTo(s, {
+      let obj = {
         year: arr[1],
         month: month,
         date: arr[3]
-      });
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      parseOffset(s, arr[5], givenTz, options);
+      walkTo(s, obj);
       parseHour(s, arr[4]);
     }
   },
@@ -66,11 +72,16 @@ const strFmt = [
         month = parseInt(arr[2], 10) - 1;
         date = parseInt(arr[1], 10)
       }
-      walkTo(s, {
+      let obj = {
         year: arr[3],
         month: month,
         date: date
-      });
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      walkTo(s, obj);
     }
   },
   //Long "Mar 25 2015"
@@ -79,11 +90,16 @@ const strFmt = [
     reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),? ([0-9]{4})( ([0-9:]+))?$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[1].toLowerCase()];
-      walkTo(s, {
-        year: arr[3],
+      let obj = {
+        year: parseInt(arr[3], 10),
         month: month,
-        date: arr[2]
-      });
+        date: fns.toCardinal(arr[2] || '')
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      walkTo(s, obj);
       if (arr[4]) {
         parseHour(s, arr[4]);
       }

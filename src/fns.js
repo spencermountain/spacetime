@@ -1,5 +1,10 @@
 'use strict';
 
+//git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
+exports.isLeapYear = function(year) {
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+}
+// unsurprisingly-nasty `typeof date` call
 exports.isDate = function(d) {
   return (
     Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
@@ -42,6 +47,13 @@ exports.ordinal = function(i) {
   }
   return i + 'th';
 };
+
+//strip 'st' off '1st'..
+exports.toCardinal = function(str) {
+  str = String(str)
+  str = str.replace(/([0-9])(st|nd|rd|th)$/i, '$1')
+  return parseInt(str, 10)
+}
 
 exports.normalize = str => {
   str = str.toLowerCase();

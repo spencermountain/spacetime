@@ -3,7 +3,7 @@
 //these methods wrap around them.
 const ms = require('../../data/milliseconds');
 const months = require('../../data/months');
-const monthLength = require('../../data/monthLength');
+const monthLength = require('../../data/monthLengths');
 const walkTo = require('./walk');
 
 const validate = function(n) {
