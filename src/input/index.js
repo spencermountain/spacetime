@@ -99,7 +99,6 @@ const parseInput = (s, input, givenTz) => {
     console.warn('Warning: couldn\'t parse date-string: \'' + input + '\'')
   }
   s.epoch = null;
-  s.valid = false;
   return;
 };
 module.exports = parseInput;

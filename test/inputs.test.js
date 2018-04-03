@@ -122,3 +122,40 @@ test('funny-numeric-forms', t => {
   t.equal(a.format('numeric'), b.format('numeric'), 'dd/mm/yyyy')
   t.end();
 });
+
+
+test('invalid inputs', t => {
+  t.equal(spacetime('2012-07-32').isValid(), false, 'day 32');
+  t.equal(spacetime('2012-07-22').isValid(), true, 'day 22');
+
+  t.equal(spacetime('2018-02-31').isValid(), false, 'february-days #1');
+  t.equal(spacetime('2018-02-30').isValid(), false, 'february-days #2');
+  t.equal(spacetime('2018-02-29').isValid(), false, 'non-leap year 2018');
+  t.equal(spacetime('2017-02-29').isValid(), false, 'non-leap year 2017');
+  t.equal(spacetime('2016-02-29').isValid(), true, 'leap year 2016');
+  t.equal(spacetime('2015-02-29').isValid(), false, 'non-leap year 2015');
+  t.equal(spacetime('2014-02-29').isValid(), false, 'non-leap year 2014');
+
+  t.equal(spacetime('2018/02/30').isValid(), false, 'february-days format #2');
+  t.equal(spacetime('2017-04-32T08:00:00-0700').isValid(), false, 'iso format #1');
+  t.equal(spacetime('2017-02-29T08:00:00-0700').isValid(), false, 'iso format #2');
+  t.equal(spacetime('2016-02-29T08:00:00-0700').isValid(), true, 'iso format #3');
+
+  t.equal(spacetime('02/28/2015').isValid(), true, 'british format #1');
+  t.equal(spacetime('02/29/2015').isValid(), false, 'british format #2');
+  t.equal(spacetime('02/29/2016').isValid(), true, 'british format #3');
+
+  t.equal(spacetime('Feb 29 2001').isValid(), false, 'long format #1');
+  t.equal(spacetime('Feb 29 2000').isValid(), true, 'long format #2');
+  t.equal(spacetime('Feb 29 2003').isValid(), false, 'long format #3');
+
+  t.equal(spacetime('29th Feb 2001').isValid(), false, 'long format #4');
+  t.equal(spacetime('29th Feb 2000').isValid(), true, 'long format #5');
+  t.equal(spacetime('29th February 2003').isValid(), false, 'long format #6');
+
+  var s = spacetime('-2 February 2003', 'UTC', {
+    silent: true
+  })
+  t.equal(s.isValid(), false, 'negative numbers invalid too');
+  t.end();
+});

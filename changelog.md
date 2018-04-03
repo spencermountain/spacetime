@@ -46,3 +46,6 @@
 * update zonefile to proper dst-flip time
 ## v4.0.1
 * support `.from()` and `.fromNow()` methods
+## v4.1.0
+* fix 'February 30th' regression
+* remove denormalized `.valid` boolean on Spacetime class

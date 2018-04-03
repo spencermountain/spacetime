@@ -1,7 +1,7 @@
 'use strict';
 const walkTo = require('./set/walk');
 const ms = require('../data/milliseconds');
-const monthLength = require('../data/monthLength');
+const monthLength = require('../data/monthLengths');
 const fns = require('../fns');
 
 const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month'];

@@ -1,6 +1,9 @@
 'use strict';
 const walkTo = require('../methods/set/walk');
 const months = require('../data/months');
+const parseOffset = require('./parseOffset')
+const hasDate = require('./hasDate')
+const fns = require('../fns')
 // const zones = require('../../data');
 
 const parseHour = function(s, str) {
@@ -18,54 +21,6 @@ const parseHour = function(s, str) {
   }
 };
 
-const parseOffset = function(s, offset, givenTz) {
-  if (!offset) {
-    return s
-  }
-  //this is a fancy-move
-  if (offset === 'Z') {
-    offset = '+0000'
-  }
-  //support "+01:00"
-  if (/:00/.test(offset) === true) {
-    offset = offset.replace(/:00/, '')
-  }
-  //support "+01:30"
-  if (/:00/.test(offset) === true) {
-    offset = offset.replace(/:00/, '.5')
-  }
-  let num = parseInt(offset, 10)
-  //divide by 100 or 10 - , "+0100", "+01"
-  if (Math.abs(num) > 100) {
-    num = num / 100
-  }
-  // console.log(offset, num)
-  let current = s.timezone().current.offset
-  if (current === num) { //we cool..
-    return s
-  }
-  //okay, try to match it to a utc timezone
-  if (num >= 0) {
-    num = '+' + num
-  }
-
-  let tz = 'Etc/GMT' + num
-  let zones = s.timezones
-  if (zones[tz]) {
-    // console.log('changing timezone to: ' + tz)
-    //log a warning if we're over-writing a given timezone
-    if (givenTz && zones[givenTz] && zones[givenTz].o !== zones[tz].o && s.silent === false) {
-      //don't log during our tests, either..
-      if (typeof process !== 'undefined' && process.env && !process.env.TESTENV) {
-        console.warn('  - Setting timezone to: \'' + tz + '\'')
-        console.warn('     from ISO string \'' + offset + '\'')
-        console.warn('     overwriting given timezone: \'' + givenTz + '\'\n')
-      }
-    }
-    s.tz = tz
-  }
-  return s
-}
 
 const strFmt = [
   //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
@@ -73,12 +28,17 @@ const strFmt = [
     reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})T([0-9.:]+)(Z|[0-9\-\+:]+)?$/,
     parse: (s, arr, givenTz, options) => {
       let month = parseInt(arr[2], 10) - 1;
-      parseOffset(s, arr[5], givenTz, options);
-      walkTo(s, {
+      let obj = {
         year: arr[1],
         month: month,
         date: arr[3]
-      });
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      parseOffset(s, arr[5], givenTz, options);
+      walkTo(s, obj);
       parseHour(s, arr[4]);
     }
   },
@@ -86,17 +46,20 @@ const strFmt = [
   {
     reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2})$/,
     parse: (s, arr) => {
-      let month = parseInt(arr[2], 10) - 1;
-      let date = parseInt(arr[3], 10)
-      if (month >= 12) { //support yyyy/dd/mm (weird, but ok)
-        date = parseInt(arr[2], 10)
-        month = parseInt(arr[3], 10) - 1
-      }
-      walkTo(s, {
+      let obj = {
         year: arr[1],
-        month: month,
-        date: date
-      });
+        month: parseInt(arr[2], 10) - 1,
+        date: parseInt(arr[3], 10)
+      }
+      if (obj.month >= 12) { //support yyyy/dd/mm (weird, but ok)
+        obj.date = parseInt(arr[2], 10)
+        obj.month = parseInt(arr[3], 10) - 1
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      walkTo(s, obj);
     }
   },
   //short - uk "03/25/2015"  //0-based-months!
@@ -109,11 +72,16 @@ const strFmt = [
         month = parseInt(arr[2], 10) - 1;
         date = parseInt(arr[1], 10)
       }
-      walkTo(s, {
+      let obj = {
         year: arr[3],
         month: month,
         date: date
-      });
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      walkTo(s, obj);
     }
   },
   //Long "Mar 25 2015"
@@ -122,11 +90,16 @@ const strFmt = [
     reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),? ([0-9]{4})( ([0-9:]+))?$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[1].toLowerCase()];
-      walkTo(s, {
-        year: arr[3],
+      let obj = {
+        year: parseInt(arr[3], 10),
         month: month,
-        date: arr[2]
-      });
+        date: fns.toCardinal(arr[2] || '')
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      walkTo(s, obj);
       if (arr[4]) {
         parseHour(s, arr[4]);
       }
@@ -137,11 +110,16 @@ const strFmt = [
     reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),? ([0-9]{4})$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[2].toLowerCase()];
-      walkTo(s, {
-        year: arr[3],
+      let obj = {
+        year: parseInt(arr[3], 10),
         month: month,
-        date: arr[1]
-      });
+        date: fns.toCardinal(arr[1])
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      walkTo(s, obj);
     }
   }
 ];
