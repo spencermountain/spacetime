@@ -7,14 +7,11 @@ const climb = function(a, b, unit) {
   let i = 0;
   a = a.clone();
   while (a.isBefore(b)) {
-    let init = a.epoch
+    //do proper, expensive increment to catch all-the-tricks
     a.add(1, unit);
-    //protect against inf-loop
-    if (init === a.epoch) {
-      return i
-    }
     i += 1;
   }
+  //oops, we went too-far..
   if (!a.isSame(b, unit)) {
     i -= 1;
   }

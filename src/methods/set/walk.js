@@ -10,12 +10,14 @@ const walk = function(s, n, fn, unit) {
   //try to get it as close as we can
   let diff = (n - current)
   s.epoch += ms[unit] * diff
-
+  //repair it if we've gone too far or something
+  //(go by half-steps, just in case)
+  const halfStep = ms[unit] / 2
   while (s.d[fn]() < n) {
-    s.epoch += ms[unit];
+    s.epoch += halfStep
   }
   while (s.d[fn]() > n) {
-    s.epoch -= ms[unit];
+    s.epoch -= halfStep;
   }
 }
 //find the desired date by a increment/check while loop
@@ -95,3 +97,17 @@ const walkTo = (s, wants) => {
   return;
 };
 module.exports = walkTo;
+
+// const spacetime = require('../../spacetime')
+// let s = new spacetime(1509778800000, 'Canada/Pacific')
+// let want = {
+//   millisecond: 0,
+//   second: 0,
+//   minute: 0,
+//   hour: 0,
+//   date: 4
+// }
+// s.log()
+// units['date'].walkTo(s, 4);
+// walkTo(s, want)
+// s.log()
