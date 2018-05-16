@@ -9,7 +9,7 @@ const safeIntl = function() {
   if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
     return null;
   }
-  let format = Intl.DateTimeFormat('zh-CN', {timeZone:'Asia/Shanghai'});
+  let format = Intl.DateTimeFormat();
   if (typeof format === 'undefined' || typeof format.resolvedOptions === 'undefined') {
     return null;
   }
