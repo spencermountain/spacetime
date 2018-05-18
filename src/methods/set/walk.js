@@ -47,7 +47,30 @@ const units = {
   },
   date: {
     valid: n => n > 0 && n <= 31,
-    walkTo: (s, n) => walk(s, n, 'getDate', 'day')
+    walkTo: (s, n) => {
+      let original = s.epoch
+      let startMonth = s.d.getMonth()
+      let current = s.d.getDate()
+      if (current === n) {
+        return
+      }
+      //try to get it as close as we can
+      let diff = n - current
+      s.epoch += ms.day * diff
+      //oops, did we change months? revert it.
+      if (startMonth !== s.d.getMonth()) {
+        s.epoch = original
+      }
+      //repair it if we've gone too far or something
+      //(go by half-steps, just in case)
+      const halfStep = ms.day / 2
+      while (s.d.getDate() < n) {
+        s.epoch += halfStep
+      }
+      while (s.d.getDate() > n) {
+        s.epoch -= halfStep;
+      }
+    }
   },
   hour: {
     valid: n => n >= 0 && n < 24,
@@ -89,6 +112,9 @@ const walkTo = (s, wants) => {
       return;
     }
     units[k].walkTo(s, n);
+  // console.log(k, n)
+  // s.log()
+  // console.log('\n')
   }
   //if we've gone over a dst-change or something..
   if (wants.hour === undefined && s.hour() !== old.hour()) {

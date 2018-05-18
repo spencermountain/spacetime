@@ -27,6 +27,7 @@ const strFmt = [
   {
     reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9\-\+:]+)?$/,
     parse: (s, arr, givenTz, options) => {
+
       let month = parseInt(arr[2], 10) - 1;
       let obj = {
         year: arr[1],
