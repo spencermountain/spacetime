@@ -14,16 +14,15 @@
   <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
     <img src="https://api.codacy.com/project/badge/Coverage/02bb9cd9afa74d5787b9d28095b1230e" />
   </a>
-  <div>javascript-only timezone support</div>
+  <div>timezones using javascript-only</div>
 </div>
 
 - handle dates/times in remote timezones
 - Global support for **Daylight Savings Time**, **leap years/seconds**, and **hemispheres**
 - Orient by quarter, season, month, week..
-- _Zero Dependencies_
+- _Zero Dependencies_ - no **Intl** API
 - **Weighs in at just 45KB** _(13KB compressed)_
 
-### Client-side
 ```html
 <script src="https://unpkg.com/spacetime"></script>
 <script>
@@ -37,7 +36,6 @@
 </script>
 ```
 
-### Server-side
 `npm install spacetime --save`
 ```js
 const spacetime = require('spacetime')
@@ -50,6 +48,7 @@ d.dayName()
 //'Wednesday'
 ```
 
+## API
 ### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)
 ```js
 s = spacetime(1489520157) // Epoch
