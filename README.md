@@ -14,15 +14,15 @@
   <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
     <img src="https://api.codacy.com/project/badge/Coverage/02bb9cd9afa74d5787b9d28095b1230e" />
   </a>
-  <div>figure-out the time, all-over the world</div>
+  <div>figure-out time, all-over the world</div>
 </div>
 
-- handle dates/times in remote timezones
-- Global support for **Daylight Savings Time**, **leap years/seconds**, and **hemispheres**
+- handle dates in remote timezones
+- heavily-support **Daylight Savings**, **leap years/seconds**, and **hemisphere**
+- [Moment](https://momentjs.com/)-like 💘 API
 - Orient by quarter, season, month, week..
 - _Zero Dependencies_ - no [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) API
-- [Moment](https://momentjs.com/)-like 💘 API
-- **Weighs only 45KB**
+- **weighs just 45KB**
 
 ```html
 <script src="https://unpkg.com/spacetime"></script>
