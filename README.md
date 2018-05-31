@@ -20,14 +20,13 @@
 - handle dates/times in remote timezones
 - Global support for **Daylight Savings Time**, **leap years/seconds**, and **hemispheres**
 - Orient by quarter, season, month, week..
-- _Zero Dependencies_ - no **Intl** API
-- Moment-like💘 API
-- **Weighs in at just 45KB** _(13KB compressed)_
+- _Zero Dependencies_ - no [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) API
+- [Moment](https://momentjs.com/)-like 💘 API
+- **Weighs only 45KB** _(13KB compressed)_
 
 ```html
 <script src="https://unpkg.com/spacetime"></script>
 <script>
-  // make a date in New York
   var d = spacetime('March 1 2012', 'America/New_York')
   //set the time
   d.time('4:20pm')
@@ -40,17 +39,16 @@
 `npm install spacetime --save`
 ```js
 const spacetime = require('spacetime')
-
 let d = spacetime.now('Europe/Paris')
-d.isAsleep()
-//true
-
 d.dayName()
 //'Wednesday'
+d.isAsleep()
+//true
 ```
 
 <a href="https://beta.observablehq.com/@spencermountain/spacetime">
-  <img src="https://user-images.githubusercontent.com/399657/40795002-bb308274-64ce-11e8-80c2-8bfac0240b06.gif" />
+  <div>see for yourself:</div>
+  <img style="width=500px;" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
 </a>
 
 
