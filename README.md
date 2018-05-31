@@ -14,15 +14,14 @@
   <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
     <img src="https://api.codacy.com/project/badge/Coverage/02bb9cd9afa74d5787b9d28095b1230e" />
   </a>
+  <div>javascript-only timezone support</div>
 </div>
 
-### javascript-only timezone-support
-- handle dates and times in remote timezones
+- handle dates/times in remote timezones
 - Global support for **Daylight Savings Time**, **leap years/seconds**, and **hemispheres**
-- Orient by quarter, season, month, and week
+- Orient by quarter, season, month, week..
 - _Zero Dependencies_
 - **Weighs in at just 45KB** _(13KB compressed)_
-- Opt-in immutability
 
 ### Client-side
 ```html
