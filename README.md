@@ -46,10 +46,12 @@ d.isAsleep()
 //true
 ```
 
-[See for yourself!](https://beta.observablehq.com/@spencermountain/spacetime)
-
-![](https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif | width=200)
-
+<a href="https://beta.observablehq.com/@spencermountain/spacetime">
+  See for yourself:
+</a>
+<div align="center">
+  <img width="400" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
+</div>
 
 
 ## API
