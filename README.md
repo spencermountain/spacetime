@@ -14,32 +14,44 @@
   <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
     <img src="https://api.codacy.com/project/badge/Coverage/02bb9cd9afa74d5787b9d28095b1230e" />
   </a>
-
-  <a href="https://app.codeship.com/projects/211003">
-    <img src="https://app.codeship.com/projects/6e9dace0-f88b-0134-515a-7e4075ae1ca2/status?branch=master" />
-  </a>
+  <div>figure-out time, all-over the world</div>
 </div>
 
-### A simple way to manipulate, compare, and format dates and times across the Earth
+- handle dates in remote timezones
+- heavily-support **daylight savings**, **leap years** (and seconds!), and **hemisphere-logic**
+- [Moment](https://momentjs.com/)-like 💘 API
+- Orient by quarter, season, month, week..
+- _Zero Dependencies_ - no [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+- **weighs just 45KB**.
 
-- **Get/set** dates and times in remote timezones
-- Opt-in immutability
-- Global support for **Daylight Savings Time**, **leap years + seconds**, and **hemispheres**
-- Orient by quarter, season, month, and week
-- Remote date comparison
-- Tested for Node and the browser
-- _Zero Dependencies_ (perfect for the Browser or Lambda)
-- **Weighs in at just 45KB** _(13KB compressed)_
-- Apache 2.0 licensed
-- Made by your friends at [Begin](https://begin.com)
+```html
+<script src="https://unpkg.com/spacetime"></script>
+<script>
+  var d = spacetime('March 1 2012', 'America/New_York')
+  //set the time
+  d.time('4:20pm')
 
-# Install
+  d.goto('America/Los_Angeles')
+  d.time()//'1:20pm'
+</script>
+```
 
-`npm install spacetime --save`
-
+`npm install spacetime`
 ```js
 const spacetime = require('spacetime')
+let d = spacetime.now('Europe/Paris')
+d.dayName()
+//'Wednesday'
+d.isAsleep()
+//true
 ```
+
+<div align="center">
+  <a href="https://beta.observablehq.com/@spencermountain/spacetime">
+    Try for yourself:
+  </a>
+  <img width="550" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
+</div>
 
 ### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)
 ```js
@@ -187,7 +199,7 @@ s.format('month-short') // 'Apr'
 //also (mostly) supports weird unix-formatting, for more complex templating
 s.format('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
 ```
-### Options
+## Options
 #### Ambiguity warnings:
 javascript dates use millisecond-epochs, instead of second-epochs, like some other languages.
 This is a common bug, and by default spacetime warns if you set an epoch within January 1970.
@@ -228,10 +240,11 @@ a.format('day') //'Sábado'
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
 
 <div align="center">
-  <a href="https://twitter.com/begin">
+  <div>Made with caution + great-patience,</div>
+  <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a>, and <a href="https://twitter.com/begin">SmallWins</a></div>
+  <a href="https://begin.com">
     <img width="50" src="https://user-images.githubusercontent.com/399657/31141177-9f339dc8-a844-11e7-8330-0cee2dc12128.jpg"/>
   </a>
-  <div>
-    MIT
-  </div>
 </div>
+
+Apache 2.0
