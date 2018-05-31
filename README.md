@@ -14,31 +14,41 @@
   <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
     <img src="https://api.codacy.com/project/badge/Coverage/02bb9cd9afa74d5787b9d28095b1230e" />
   </a>
-
-  <a href="https://app.codeship.com/projects/211003">
-    <img src="https://app.codeship.com/projects/6e9dace0-f88b-0134-515a-7e4075ae1ca2/status?branch=master" />
-  </a>
 </div>
 
-### A simple way to manipulate, compare, and format dates and times across the Earth
-
-- **Get/set** dates and times in remote timezones
-- Opt-in immutability
-- Global support for **Daylight Savings Time**, **leap years + seconds**, and **hemispheres**
+### javascript-only timezone-support
+- handle dates and times in remote timezones
+- Global support for **Daylight Savings Time**, **leap years/seconds**, and **hemispheres**
 - Orient by quarter, season, month, and week
-- Remote date comparison
-- Tested for Node and the browser
-- _Zero Dependencies_ (perfect for the Browser or Lambda)
+- _Zero Dependencies_
 - **Weighs in at just 45KB** _(13KB compressed)_
-- Apache 2.0 licensed
-- Made by your friends at [Begin](https://begin.com)
+- Opt-in immutability
 
-# Install
+### Client-side
+```html
+<script src="https://unpkg.com/spacetime"></script>
+<script>
+  // make a date in New York
+  var d = spacetime('March 1 2012', 'America/New_York')
+  //set the time
+  d.time('4:20pm')
 
+  d.goto('America/Los_Angeles')
+  d.time()//'1:20pm'
+</script>
+```
+
+### Server-side
 `npm install spacetime --save`
-
 ```js
 const spacetime = require('spacetime')
+
+let d = spacetime.now('Europe/Paris')
+d.isAsleep()
+//true
+
+d.dayName()
+//'Wednesday'
 ```
 
 ### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)
@@ -235,3 +245,6 @@ a.format('day') //'Sábado'
     MIT
   </div>
 </div>
+
+
+**Apache 2.0**
