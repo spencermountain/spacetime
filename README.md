@@ -18,11 +18,11 @@
 </div>
 
 - handle dates in remote timezones
-- heavily-support **Daylight Savings**, **leap years/seconds**, and **hemisphere**
+- heavily-support **daylight savings**, **leap years** (and seconds!), and **hemisphere-logic**
 - [Moment](https://momentjs.com/)-like 💘 API
 - Orient by quarter, season, month, week..
-- _Zero Dependencies_ - no [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) API
-- **weighs just 45KB**
+- _Zero Dependencies_ - no [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+- **weighs just 45KB**.
 
 ```html
 <script src="https://unpkg.com/spacetime"></script>
@@ -36,7 +36,7 @@
 </script>
 ```
 
-`npm install spacetime --save`
+`npm install spacetime`
 ```js
 const spacetime = require('spacetime')
 let d = spacetime.now('Europe/Paris')
@@ -46,15 +46,13 @@ d.isAsleep()
 //true
 ```
 
-<a href="https://beta.observablehq.com/@spencermountain/spacetime">
-  See for yourself:
-</a>
 <div align="center">
+  <a href="https://beta.observablehq.com/@spencermountain/spacetime">
+    Try for yourself:
+  </a>
   <img width="500" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
 </div>
 
-
-## API
 ### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)
 ```js
 s = spacetime(1489520157) // Epoch
@@ -201,7 +199,7 @@ s.format('month-short') // 'Apr'
 //also (mostly) supports weird unix-formatting, for more complex templating
 s.format('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
 ```
-### Options
+## Options
 #### Ambiguity warnings:
 javascript dates use millisecond-epochs, instead of second-epochs, like some other languages.
 This is a common bug, and by default spacetime warns if you set an epoch within January 1970.
@@ -242,10 +240,11 @@ a.format('day') //'Sábado'
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
 
 <div align="center">
-  Made tentatively and with caution by <a href="https://spencermountain.github.io/">Spencer Kelly</a>, and <a href="https://twitter.com/begin">SmallWins</a>
-  <a href="https://twitter.com/begin">
+  <div>Made tentatively and with great-patience,</div>
+  <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a>, and <a href="https://twitter.com/begin">SmallWins</a></div>
+  <a href="https://begin.com">
     <img width="50" src="https://user-images.githubusercontent.com/399657/31141177-9f339dc8-a844-11e7-8330-0cee2dc12128.jpg"/>
   </a>
 </div>
 
-**Apache 2.0**
+Apache 2.0
