@@ -49,3 +49,7 @@
 ## v4.1.0
 * fix 'February 30th' regression
 * remove denormalized `.valid` boolean on Spacetime class
+## v4.2.0
+* fix dayOfYear regression on 31st days
+* support space in ISO-186 format
+* update deps, use babel-env

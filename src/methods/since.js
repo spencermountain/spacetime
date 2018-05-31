@@ -34,6 +34,7 @@ function getDiff(a, b) {
   earlier = earlier.clone()
   const diff = {
     years: 0,
+
     months: 0,
     days: 0,
     hours: 0,

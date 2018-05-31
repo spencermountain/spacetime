@@ -1,4 +1,10 @@
 const spacetime = require('./src/index')
 
-spacetime('Feb 29 2001').log()
-// console.log(spacetime('Feb 29 2001').isValid())
+let before = spacetime('may 31 2018')
+let after = spacetime('june 30 2018')
+before.log()
+after.log()
+
+// before.add(30, 'days').log()
+
+console.log(before.diff(after, 'months'))

@@ -7,9 +7,11 @@ const climb = function(a, b, unit) {
   let i = 0;
   a = a.clone();
   while (a.isBefore(b)) {
+    //do proper, expensive increment to catch all-the-tricks
     a.add(1, unit);
     i += 1;
   }
+  //oops, we went too-far..
   if (!a.isSame(b, unit)) {
     i -= 1;
   }

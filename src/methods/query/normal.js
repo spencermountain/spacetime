@@ -128,9 +128,11 @@ let methods = {
     //count the num days in each month
     for (let i = 1; i <= month; i++) {
       tmp = new Date();
+      tmp.setDate(1)
       tmp.setYear(this.d.getFullYear()) //the year matters, because leap-years
+      tmp.setHours(1)
+      tmp.setMinutes(1)
       tmp.setMonth(i);
-      tmp.setDate(1);
       tmp.setHours(-2); //the last day of the month
       sum += tmp.getDate();
     }
