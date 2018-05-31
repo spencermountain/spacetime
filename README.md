@@ -48,8 +48,10 @@ d.isAsleep()
 
 <a href="https://beta.observablehq.com/@spencermountain/spacetime">
   <div>see for yourself:</div>
-  <img style="width=500px;" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
-</a>
+  </a>
+<div align="center">
+  <img style="width:400px;" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
+</div>
 
 
 ## API
