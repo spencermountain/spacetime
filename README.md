@@ -47,7 +47,8 @@ d.isAsleep()
 ```
 
 [See for yourself!](https://beta.observablehq.com/@spencermountain/spacetime)
-![timezones](https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif | width=200)
+
+![](https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif | width=200)
 
 
 
