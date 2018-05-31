@@ -116,21 +116,11 @@ test('since now - default', t => {
   const past = spacetime.now()
     .subtract(23, 'months')
     .subtract(23, 'seconds')
-
-  t.deepEqual(past.since(), {
-    diff: {
-      years: -1,
-      months: -11,
-      days: -0,
-      hours: -0,
-      minutes: -0,
-      seconds: -23
-    },
-    rounded: 'in 2 years',
-    qualified: 'in almost 2 years',
-    precise: 'in 1 year, 11 months'
-  }, 'years-ago')
-
+  const since = past.since()
+  t.equal(since.diff.years, -1, '1 year back')
+  t.equal(since.diff.months, -11, '11 months back')
+  t.equal(since.diff.seconds, -23, '23 seconds back')
+  t.equal(since.precise, 'in 1 year, 11 months', 'precise is good')
   t.end();
 });
 
