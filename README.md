@@ -49,6 +49,9 @@ d.dayName()
 //'Wednesday'
 ```
 
+<a href="https://beta.observablehq.com/@spencermountain/spacetime><img src="https://user-images.githubusercontent.com/399657/40795002-bb308274-64ce-11e8-80c2-8bfac0240b06.gif"/></a>
+
+
 ## API
 ### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)
 ```js
