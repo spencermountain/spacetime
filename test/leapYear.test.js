@@ -126,7 +126,7 @@ test('length of year', t => {
     var s = spacetime({
       year: year
     }).endOf('year');
-    t.equal(right[year], s.dayOfYear(), 'year ' + year);
+    t.equal(s.dayOfYear(), right[year], 'year ' + year);
   }
   t.end();
 });
