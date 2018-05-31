@@ -14,7 +14,7 @@
   <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
     <img src="https://api.codacy.com/project/badge/Coverage/02bb9cd9afa74d5787b9d28095b1230e" />
   </a>
-  <div>timezones with javascript-only</div>
+  <div>figure-out the time, all-over the world</div>
 </div>
 
 - handle dates/times in remote timezones
@@ -22,7 +22,7 @@
 - Orient by quarter, season, month, week..
 - _Zero Dependencies_ - no [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) API
 - [Moment](https://momentjs.com/)-like 💘 API
-- **Weighs only 45KB** _(13KB compressed)_
+- **Weighs only 45KB**
 
 ```html
 <script src="https://unpkg.com/spacetime"></script>
@@ -50,7 +50,7 @@ d.isAsleep()
   See for yourself:
 </a>
 <div align="center">
-  <img width="400" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
+  <img width="500" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
 </div>
 
 
@@ -242,13 +242,10 @@ a.format('day') //'Sábado'
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
 
 <div align="center">
+  Made tentatively and with caution by <a href="https://spencermountain.github.io/">Spencer Kelly</a>, and <a href="https://twitter.com/begin">SmallWins</a>
   <a href="https://twitter.com/begin">
     <img width="50" src="https://user-images.githubusercontent.com/399657/31141177-9f339dc8-a844-11e7-8330-0cee2dc12128.jpg"/>
   </a>
-  <div>
-    MIT
-  </div>
 </div>
-
 
 **Apache 2.0**
