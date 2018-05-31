@@ -50,7 +50,7 @@ d.isAsleep()
   <a href="https://beta.observablehq.com/@spencermountain/spacetime">
     Try for yourself:
   </a>
-  <img width="500" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
+  <img width="550" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
 </div>
 
 ### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)
@@ -240,7 +240,7 @@ a.format('day') //'Sábado'
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
 
 <div align="center">
-  <div>Made tentatively and with great-patience,</div>
+  <div>Made with caution + great-patience,</div>
   <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a>, and <a href="https://twitter.com/begin">SmallWins</a></div>
   <a href="https://begin.com">
     <img width="50" src="https://user-images.githubusercontent.com/399657/31141177-9f339dc8-a844-11e7-8330-0cee2dc12128.jpg"/>
