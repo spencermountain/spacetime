@@ -2,14 +2,20 @@
 const ms = require('../../data/milliseconds');
 
 //basically, step-forward/backward until js Date object says we're there.
-const walk = function(s, n, fn, unit) {
+const walk = function(s, n, fn, unit, previous) {
   let current = s.d[fn]()
   if (current === n) {
-    return
+    return //already there
   }
+  let startUnit = previous === null ? null : s.d[previous]()
+  let original = s.epoch
   //try to get it as close as we can
   let diff = (n - current)
   s.epoch += ms[unit] * diff
+  //oops, did we change previous unit? revert it.
+  if (previous !== null && startUnit !== s.d[previous]()) {
+    s.epoch = original
+  }
   //repair it if we've gone too far or something
   //(go by half-steps, just in case)
   const halfStep = ms[unit] / 2
@@ -24,18 +30,24 @@ const walk = function(s, n, fn, unit) {
 const units = {
   year: {
     valid: n => n > -4000 && n < 4000,
-    walkTo: (s, n) => walk(s, n, 'getFullYear', 'year')
+    walkTo: (s, n) => walk(s, n, 'getFullYear', 'year', null)
   },
   month: {
     valid: n => n >= 0 && n <= 11,
     walkTo: (s, n) => {
       let current = s.d.getMonth()
+      let original = s.epoch
+      let startUnit = s.d.getYear()
       if (current === n) {
         return
       }
       //try to get it as close as we can..
-      let diff = (n - current)
-      s.epoch += ms.day * (diff * 28)
+      let diff = n - current
+      s.epoch += ms.day * (diff * 28) //special case
+      //oops, did we change the year? revert it.
+      if (startUnit !== s.d.getYear()) {
+        s.epoch = original
+      }
       //incriment by day
       while (s.d.getMonth() < n) {
         s.epoch += ms.day;
@@ -47,42 +59,19 @@ const units = {
   },
   date: {
     valid: n => n > 0 && n <= 31,
-    walkTo: (s, n) => {
-      let original = s.epoch
-      let startMonth = s.d.getMonth()
-      let current = s.d.getDate()
-      if (current === n) {
-        return
-      }
-      //try to get it as close as we can
-      let diff = n - current
-      s.epoch += ms.day * diff
-      //oops, did we change months? revert it.
-      if (startMonth !== s.d.getMonth()) {
-        s.epoch = original
-      }
-      //repair it if we've gone too far or something
-      //(go by half-steps, just in case)
-      const halfStep = ms.day / 2
-      while (s.d.getDate() < n) {
-        s.epoch += halfStep
-      }
-      while (s.d.getDate() > n) {
-        s.epoch -= halfStep;
-      }
-    }
+    walkTo: (s, n) => walk(s, n, 'getDate', 'day', 'getMonth')
   },
   hour: {
     valid: n => n >= 0 && n < 24,
-    walkTo: (s, n) => walk(s, n, 'getHours', 'hour')
+    walkTo: (s, n) => walk(s, n, 'getHours', 'hours', 'getDate')
   },
   minute: {
     valid: n => n >= 0 && n < 60,
-    walkTo: (s, n) => walk(s, n, 'getMinutes', 'minute')
+    walkTo: (s, n) => walk(s, n, 'getMinutes', 'minute', 'getHours')
   },
   second: {
     valid: n => n >= 0 && n < 60,
-    walkTo: (s, n) => walk(s, n, 'getSeconds', 'second')
+    walkTo: (s, n) => walk(s, n, 'getSeconds', 'second', 'getMinutes')
   },
   millisecond: {
     valid: n => n >= 0 && n < 1000,
@@ -112,9 +101,6 @@ const walkTo = (s, wants) => {
       return;
     }
     units[k].walkTo(s, n);
-  // console.log(k, n)
-  // s.log()
-  // console.log('\n')
   }
   //if we've gone over a dst-change or something..
   if (wants.hour === undefined && s.hour() !== old.hour()) {
