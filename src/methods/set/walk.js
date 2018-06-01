@@ -12,10 +12,6 @@ const walk = function(s, n, fn, unit, previous) {
   //try to get it as close as we can
   let diff = (n - current)
   s.epoch += ms[unit] * diff
-  //oops, did we change previous unit? revert it.
-  if (previous !== null && startUnit !== s.d[previous]()) {
-    s.epoch = original
-  }
   //repair it if we've gone too far or something
   //(go by half-steps, just in case)
   const halfStep = ms[unit] / 2
@@ -24,6 +20,10 @@ const walk = function(s, n, fn, unit, previous) {
   }
   while (s.d[fn]() > n) {
     s.epoch -= halfStep;
+  }
+  //oops, did we change previous unit? revert it.
+  if (previous !== null && startUnit !== s.d[previous]()) {
+    s.epoch = original
   }
 }
 //find the desired date by a increment/check while loop
@@ -63,7 +63,7 @@ const units = {
   },
   hour: {
     valid: n => n >= 0 && n < 24,
-    walkTo: (s, n) => walk(s, n, 'getHours', 'hours', 'getDate')
+    walkTo: (s, n) => walk(s, n, 'getHours', 'hour', 'getDate')
   },
   minute: {
     valid: n => n >= 0 && n < 60,
