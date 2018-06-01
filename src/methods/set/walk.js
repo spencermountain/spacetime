@@ -101,10 +101,10 @@ const walkTo = (s, wants) => {
       return;
     }
     units[k].walkTo(s, n);
-  }
   //if we've gone over a dst-change or something..
-  if (wants.hour === undefined && s.hour() !== old.hour()) {
-    s.hour(old.hour());
+  // if (wants.hour === undefined && s.hour() !== old.hour()) {
+  //   s.hour(old.hour());
+  // }
   }
   return;
 };
