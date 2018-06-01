@@ -27,10 +27,10 @@
   "dependencies": {},
   "devDependencies": {
     "amble": "0.0.6",
-    "babel-preset-env": "1.7.0",
+    "babel-preset-env": "1.6.1",
     "tap-dancer": "0.0.3",
-    "babelify": "7.3.0",
-    "browserify": "13.0.1",
+    "babelify": "8.0.0",
+    "browserify": "16.2.2",
     "derequire": "2.0.6",
     "eslint": "4.19.1",
     "nyc": "12.0.1",
