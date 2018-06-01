@@ -27,6 +27,7 @@
   "dependencies": {},
   "devDependencies": {
     "amble": "0.0.6",
+    "babel-cli": "6.26.0",
     "babel-preset-env": "1.6.1",
     "tap-dancer": "0.0.3",
     "babelify": "8.0.0",
