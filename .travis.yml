@@ -3,8 +3,7 @@ cache: yarn
 notifications:
   email: false
 node_js:
-  - stable
-  - "6"
+  - "8"
 script:
   - npm run build
   - npm run test
