@@ -11,9 +11,14 @@ const parseDst = dst => {
 
 //get metadata about this timezone
 const timezone = s => {
-  let tz = s.tz;
+  let tz = s.tz || ''
   let zones = s.timezones
-  if (!zones[tz]) {
+  let split = tz.split('/')
+  //support long timezones like 'America/Argentina/Rio_Gallegos'
+  if (zones.hasOwnProperty(tz) === false && split.length > 2) {
+    tz = split[0] + '/' + split[1]
+  }
+  if (zones.hasOwnProperty(tz) === false) {
     console.warn("Warn: could not find given or local timezone - '" + tz + "'");
     return {
       current: {
@@ -27,7 +32,7 @@ const timezone = s => {
     hasDst: Boolean(zones[tz].dst),
     hemisphere: zones[tz].h === 's' ? 'South' : 'North', //assume north, unless told
     change: {},
-    current: {}
+    current: {},
   };
   if (m.hasDst === true) {
     let arr = parseDst(zones[tz].dst)
@@ -53,7 +58,7 @@ const timezone = s => {
   if (m.hasDst === false) {
     m.current.offset = summer
     m.current.isDST = false
-  } else if (summerTime(s, m) === true) {
+  } else if (summerTime(s, m, summer) === true) {
     m.current.offset = summer
     m.current.isDST = m.hemisphere === 'North' //dst 'on' in winter in north
   } else { //use 'winter' january-time

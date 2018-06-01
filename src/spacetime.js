@@ -47,7 +47,9 @@ Object.keys(methods).forEach(k => {
   SpaceTime.prototype[k] = methods[k]
 })
 SpaceTime.prototype.clone = function() {
-  return new SpaceTime(this.epoch, this.tz, {silent:this.silent})
+  return new SpaceTime(this.epoch, this.tz, {
+    silent: this.silent
+  })
 }
 
 //append more methods
