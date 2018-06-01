@@ -27,7 +27,6 @@ const strFmt = [
   {
     reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9\-\+:]+)?$/,
     parse: (s, arr, givenTz, options) => {
-
       let month = parseInt(arr[2], 10) - 1;
       let obj = {
         year: arr[1],
@@ -91,7 +90,6 @@ const strFmt = [
     reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),? ([0-9]{4})( ([0-9:]+))?$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[1].toLowerCase()];
-
       let obj = {
         year: parseInt(arr[3], 10),
         month: month,

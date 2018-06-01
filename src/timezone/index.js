@@ -27,7 +27,7 @@ const timezone = s => {
     hasDst: Boolean(zones[tz].dst),
     hemisphere: zones[tz].h === 's' ? 'South' : 'North', //assume north, unless told
     change: {},
-    current: {}
+    current: {},
   };
   if (m.hasDst === true) {
     let arr = parseDst(zones[tz].dst)
@@ -53,7 +53,7 @@ const timezone = s => {
   if (m.hasDst === false) {
     m.current.offset = summer
     m.current.isDST = false
-  } else if (summerTime(s, m) === true) {
+  } else if (summerTime(s, m, summer) === true) {
     m.current.offset = summer
     m.current.isDST = m.hemisphere === 'North' //dst 'on' in winter in north
   } else { //use 'winter' january-time
