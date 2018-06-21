@@ -1,4 +1,15 @@
 const spacetime = require('./src/index')
 
-let s = spacetime('March 28, 1999');
-s.log()
+spacetime.extend({
+  isHappyHour: function() {
+    return this.hour() === 16
+  }
+})
+
+let s = spacetime.now('Australia/Adelaide')
+s.isHappyHour()
+//false
+
+s.time('4:30pm')
+s.isHappyHour()
+//true

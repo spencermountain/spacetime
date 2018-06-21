@@ -53,3 +53,5 @@
 * fix dayOfYear regression on 31st days
 * support space in ISO-186 format
 * update deps, use babel-env
+### v4.2.2
+* adds `.extend()` method for authoring plugins

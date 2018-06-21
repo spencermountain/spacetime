@@ -220,6 +220,24 @@ let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
 s.timezone().name // "Etc/GMT-7"
 ```
 
+#### Extending/Plugins:
+you can throw any methods onto the Spacetime class you want, with `spacetime.extend()`:
+```js
+spacetime.extend({
+  isHappyHour: function() {
+    return this.hour() === 16
+  }
+})
+
+let s = spacetime.now('Australia/Adelaide')
+s.isHappyHour()
+//false
+
+s.time('4:30pm')
+s.isHappyHour()
+//true
+```
+
 #### Custom languages:
 
 ```js
