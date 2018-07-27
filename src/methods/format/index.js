@@ -11,10 +11,12 @@ const isoOffset = function(s) {
   if (offset % 1 === 0.5) { //fraction of the hour
     minute = '30'
   }
-  if (offset >= 0) {
+  //offset numbers are opposite in ISO-186 format!
+  //"2018-07-09T12:59:00.908-07:00" means +7 hours from UTC!
+  if (offset <= 0) {
+    offset *= -1
     offset = '+' + fns.zeroPad(offset, 2)
   } else {
-    offset *= -1
     offset = fns.zeroPad(offset, 2) //handle negative sign
     offset = '-' + offset
   }
