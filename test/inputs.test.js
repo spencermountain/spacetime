@@ -159,3 +159,12 @@ test('invalid inputs', t => {
   t.equal(s.isValid(), false, 'negative numbers invalid too');
   t.end();
 });
+
+
+test('inplicit-years', t => {
+  var year = new Date().getFullYear()
+  t.equal(spacetime('April 3rd').format('numeric'), spacetime('April 3rd ' + year).format('numeric'))
+  t.equal(spacetime('3rd June').format('numeric'), spacetime('3rd June ' + year).format('numeric'))
+  t.equal(spacetime('03/28').format('numeric'), spacetime('03/28/' + year).format('numeric'))
+  t.end();
+});

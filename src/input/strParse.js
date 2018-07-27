@@ -64,7 +64,7 @@ const strFmt = [
   },
   //short - uk "03/25/2015"  //0-based-months!
   {
-    reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]([0-9]{4})$/,
+    reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/,
     parse: (s, arr) => {
       let month = parseInt(arr[1], 10) - 1;
       let date = parseInt(arr[2], 10)
@@ -72,8 +72,9 @@ const strFmt = [
         month = parseInt(arr[2], 10) - 1;
         date = parseInt(arr[1], 10)
       }
+      let year = arr[3] || new Date().getFullYear()
       let obj = {
-        year: arr[3],
+        year: year,
         month: month,
         date: date
       }
@@ -87,11 +88,14 @@ const strFmt = [
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {
-    reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),? ([0-9]{4})( ([0-9:]+))?$/i,
+    reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+))?$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[1].toLowerCase()];
+      let year = arr[3] || ''
+      year = parseInt(year.trim(), 10)
+      year = year || new Date().getFullYear()
       let obj = {
-        year: parseInt(arr[3], 10),
+        year: year,
         month: month,
         date: fns.toCardinal(arr[2] || '')
       }
@@ -107,11 +111,14 @@ const strFmt = [
   },
   //Long "25 Mar 2015"
   {
-    reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),? ([0-9]{4})$/i,
+    reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[2].toLowerCase()];
+      let year = arr[3] || ''
+      year = parseInt(year.trim(), 10)
+      year = year || new Date().getFullYear()
       let obj = {
-        year: parseInt(arr[3], 10),
+        year: year,
         month: month,
         date: fns.toCardinal(arr[1])
       }
