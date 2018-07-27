@@ -48,9 +48,14 @@ d.isAsleep()
 
 <div align="center">
   <a href="https://beta.observablehq.com/@spencermountain/spacetime">
-    Try for yourself:
+    Demo:
   </a>
-  <img width="550" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
+  <div>
+    <img width="550" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
+  </div>
+  <div>
+    <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a> • <a href="https://github.com/spencermountain/spacetime-geo">spacetime-daylight</a>
+  </div>
 </div>
 
 ### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)

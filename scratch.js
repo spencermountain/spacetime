@@ -1,15 +1,13 @@
 const spacetime = require('./src/index')
 
-spacetime.extend({
-  isHappyHour: function() {
-    return this.hour() === 16
-  }
-})
+var minus = spacetime('2018-07-09T12:59:00-07:00');
+console.log(minus.format('iso'));
+//
+// console.log('------------');
+//
+var plus = spacetime('2018-07-09T12:59:00+07:00');
+console.log(plus.format('iso'));
 
-let s = spacetime.now('Australia/Adelaide')
-s.isHappyHour()
-//false
-
-s.time('4:30pm')
-s.isHappyHour()
-//true
+// var minus = spacetime.now('Etc/GMT-7');
+// minus.log()
+// console.log(minus.timezone())

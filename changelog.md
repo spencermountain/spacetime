@@ -55,3 +55,8 @@
 * update deps, use babel-env
 ### v4.2.2
 * adds `.extend()` method for authoring plugins
+### v4.3.0
+* assume current year with input `spacetime('July 5th')`
+* do larger `.diff()` operations (gt 1yr) in fast-mode
+* support BC formatting of input and in `s.format('year')`
+* bug fix for iso-format hour-offsets (#58)
