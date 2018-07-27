@@ -10,12 +10,14 @@ const spacetime = require('./src/index')
 
 // console.log(spacetime('April 3rd \'19').format('nice'))
 // console.log(spacetime('1899').format('full'))
-// console.log(spacetime('200 BC').format('full'))
+let s = spacetime('2,000 BC')
+console.log(s.format('full'))
+console.log(s.format('year'))
 
-// let s = spacetime('200 BC')s
-let now = spacetime.now()
-let then = spacetime.now().minus(30, 'days')
-
-console.time('hi')
-console.log(now.diff(then))
-console.timeEnd('hi')
+// let s = spacetime('June 12 2001')
+// let now = spacetime.now()
+// let then = spacetime.now().minus(30, 'days')
+//
+// console.time('hi')
+// console.log(s.diff(now))
+// console.timeEnd('hi')

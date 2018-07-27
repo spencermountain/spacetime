@@ -25,7 +25,7 @@ const parseYear = function(str) {
   str = str || ''
   //support '18 -> 2018
   // str = str.replace(/^'([0-9]{2})/, '20$1')
-  str = str.replace('([0-9]+) ?b\.?c\.?$', '-$1')
+  // str = str.replace('([0-9]+) ?b\.?c\.?$', '-$1')
   let year = parseInt(str.trim(), 10)
   year = year || new Date().getFullYear()
   return year
@@ -152,11 +152,14 @@ const strFmt = [
     }
   },
   { // '200bc'
-    reg: /^[0-9]+ ?b\.?c\.?$/i,
+    reg: /^[0-9,]+ ?b\.?c\.?$/i,
     parse: (s, arr) => {
       let str = arr[0] || ''
-      str = str.replace(/^([0-9]+) ?b\.?c\.?$/i, '-$1')
-      let year = parseYear(str)
+      //make negative-year
+      str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1')
+      //remove commas
+      str = str.replace(/,/g, '')
+      let year = parseInt(str.trim(), 10)
       let d = new Date()
       let obj = {
         year: year,

@@ -1,5 +1,7 @@
 'use strict';
 const fns = require('../fns');
+
+//init this function up here
 let doAll = () => {
 }
 //increment until dates are the same
@@ -32,14 +34,28 @@ const diff = function(a, b, unit) {
   }
 }
 
-doAll = function(a, b) {
-  return {
-    years: diff(a, b, 'year'),
-    months: diff(a, b, 'month'),
-    weeks: diff(a, b, 'week'),
-    days: diff(a, b, 'day'),
-    hours: diff(a, b, 'hour'),
-    minutes: diff(a, b, 'minute'),
+const diffQuick = function(a, b) {
+  let ms = b.epoch - a.epoch
+  let obj = {
+    milliseconds: ms,
+    seconds: parseInt(ms / 1000, 10),
   }
+  obj.minutes = parseInt(obj.seconds / 60, 10)
+  obj.hours = parseInt(obj.minutes / 60, 10)
+  return obj
+}
+
+doAll = function(a, b) {
+  //do ms, seconds, minutes in a faster way
+  let all = diffQuick(a, b)
+  all.years = diff(a, b, 'year')
+  all.months = diff(a, b, 'month')
+  all.weeks = diff(a, b, 'week')
+  all.days = diff(a, b, 'day')
+  //only slow-compute hours if it's a small diff
+  if (all.years === 0) {
+    all.hours = diff(a, b, 'hour')
+  }
+  return all
 }
 module.exports = diff;

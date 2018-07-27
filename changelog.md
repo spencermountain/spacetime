@@ -57,3 +57,5 @@
 * adds `.extend()` method for authoring plugins
 ### v4.3.0
 * assume current year with input `spacetime('July 5th')`
+* do larger `.diff()` operations (gt 1yr) in fast-mode
+* support BC formatting of input and in `s.format('year')`

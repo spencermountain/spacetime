@@ -58,6 +58,21 @@ test('unix-formatting', t => {
   t.end();
 });
 
+test('bc-year-formatting', t => {
+  let s = spacetime('2,000 BC')
+  t.equal(s.format('year'), '2000 BC', '2000bc')
+  t.equal(s.year(), -2000, '-2000')
+
+  s = spacetime('July 27th, 2018')
+  s.minus(2020, 'years')
+  t.equal(s.year(), -1, '-1')
+  t.equal(s.format('year'), '1 BC', '1bc')
+  t.equal(s.monthName(), 'july', 'still july')
+  t.equal(s.date(), 27, 'still july 27')
+
+  t.end();
+});
+
 /* FIXME failing test
 test('unix-fmt-padding', t => {
   let d = spacetime({

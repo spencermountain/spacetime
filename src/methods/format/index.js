@@ -52,7 +52,12 @@ const fmt = {
     return `${s.hour()}:${fns.zeroPad(s.minute())}`; //13:45
   },
   year: s => {
-    return '' + s.year();
+    let year = s.year()
+    if (year < 0) {
+      year = Math.abs(year)
+      return year + ' BC'
+    }
+    return '' + year;
   },
   'year-short': s => {
     return "'" + ('' + s.year()).substr(2, 4);

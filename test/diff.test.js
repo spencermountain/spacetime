@@ -25,3 +25,31 @@ test('all-diff', t => {
   });
   t.end();
 });
+
+test('diff-small', t => {
+  let a = spacetime('July 27 2018')
+  let b = a.clone().minus(20, 'seconds')
+  let obj = b.diff(a)
+  t.equal(obj.milliseconds, 20000, 'ms')
+  t.equal(obj.seconds, 20, 's')
+  t.equal(obj.hours, 0, 'hour')
+  t.equal(obj.days, 0, 'day')
+  t.equal(obj.weeks, 0, 'weeks')
+  t.equal(obj.months, 0, 'months')
+  t.equal(obj.years, 0, 'years')
+  t.end();
+});
+
+test('diff-big', t => {
+  let a = spacetime('July 27 2018')
+  let b = a.clone().minus(20, 'years')
+  let obj = b.diff(a)
+  t.equal(obj.milliseconds, 631152000000, 'ms')
+  t.equal(obj.seconds, 631152000, 's')
+  t.equal(obj.hours, 175320, 'hour')
+  t.equal(obj.days, 7305, 'day')
+  t.equal(obj.weeks, 1043, 'weeks')
+  t.equal(obj.months, 240, 'months')
+  t.equal(obj.years, 20, 'years')
+  t.end();
+});
