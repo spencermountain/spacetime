@@ -21,6 +21,15 @@ const parseHour = function(s, str) {
   }
 };
 
+const parseYear = function(str) {
+  str = str || ''
+  //support '18 -> 2018
+  // str = str.replace(/^'([0-9]{2})/, '20$1')
+  str = str.replace('([0-9]+) ?b\.?c\.?$', '-$1')
+  let year = parseInt(str.trim(), 10)
+  year = year || new Date().getFullYear()
+  return year
+}
 
 const strFmt = [
   //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
@@ -91,9 +100,7 @@ const strFmt = [
     reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+))?$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[1].toLowerCase()];
-      let year = arr[3] || ''
-      year = parseInt(year.trim(), 10)
-      year = year || new Date().getFullYear()
+      let year = parseYear(arr[3])
       let obj = {
         year: year,
         month: month,
@@ -114,13 +121,47 @@ const strFmt = [
     reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?$/i,
     parse: (s, arr) => {
       let month = months.mapping()[arr[2].toLowerCase()];
-      let year = arr[3] || ''
-      year = parseInt(year.trim(), 10)
-      year = year || new Date().getFullYear()
+      let year = parseYear(arr[3])
       let obj = {
         year: year,
         month: month,
         date: fns.toCardinal(arr[1])
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      walkTo(s, obj);
+    }
+  },
+  { // '1992'
+    reg: /^[0-9]{4}$/i,
+    parse: (s, arr) => {
+      let year = parseYear(arr[0])
+      let d = new Date()
+      let obj = {
+        year: year,
+        month: d.getMonth(),
+        date: d.getDate()
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return
+      }
+      walkTo(s, obj);
+    }
+  },
+  { // '200bc'
+    reg: /^[0-9]+ ?b\.?c\.?$/i,
+    parse: (s, arr) => {
+      let str = arr[0] || ''
+      str = str.replace(/^([0-9]+) ?b\.?c\.?$/i, '-$1')
+      let year = parseYear(str)
+      let d = new Date()
+      let obj = {
+        year: year,
+        month: d.getMonth(),
+        date: d.getDate()
       }
       if (hasDate(obj) === false) {
         s.epoch = null
