@@ -60,3 +60,5 @@
 * do larger `.diff()` operations (gt 1yr) in fast-mode
 * support BC formatting of input and in `s.format('year')`
 * bug fix for iso-format hour-offsets (#58)
+### v4.4.0
+* **big** - swap interpretation of ISO date offsets `-0500 → +5 offset` [#61](https://github.com/spencermountain/spacetime/issues/61)

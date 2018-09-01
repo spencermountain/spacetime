@@ -88,6 +88,12 @@ test('iso-in = iso-out', t => {
 
   t.end();
 });
+
+test('iso-with-fraction-offset', t => {
+  let s=spacetime('June 8th 1918','Asia/Calcutta').time('1:00pm')
+  t.equal(s.format('iso'),'1918-06-08T13:00:00.000+05:30','correct offset')
+  t.end();
+});
 /* FIXME failing test
 test('unix-fmt-padding', t => {
   let d = spacetime({

@@ -27,6 +27,11 @@ const parseOffset = function(s, offset, givenTz) {
     return s
   }
   //okay, try to match it to a utc timezone
+
+  //this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_()_/¯
+  //https://askubuntu.com/questions/519550/why-is-the-8-timezone-called-gmt-8-in-the-filesystem
+  num*=-1
+
   if (num >= 0) {
     num = '+' + num
   }
@@ -34,6 +39,7 @@ const parseOffset = function(s, offset, givenTz) {
   let tz = 'Etc/GMT' + num
   let zones = s.timezones
   if (zones[tz]) {
+
     // console.log('changing timezone to: ' + tz)
     //log a warning if we're over-writing a given timezone
     if (givenTz && zones[givenTz] && zones[givenTz].o !== zones[tz].o && s.silent === false) {
