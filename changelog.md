@@ -63,4 +63,5 @@
 ### v4.4.0
 * **big** - swap interpretation of ISO date offsets `-0500 → +5 offset` [#61](https://github.com/spencermountain/spacetime/issues/61)
 ### v4.5.0
-* change a few TZ offsets in eastern-Russia
+* update a few TZ offsets in eastern-Russia
+* updates to 2019 Palestinian dst dates

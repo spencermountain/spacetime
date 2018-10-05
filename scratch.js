@@ -10,8 +10,8 @@ const spacetime = require('./src/index')
 // console.log('2018-09-01T13:47:16-04:00')
 
 
-const day = spacetime('2018-09-23')
-console.log(day.format('time') + '\n')
+// const day = spacetime('2018-09-23')
+// console.log(day.format('time') + '\n')
 
 // day.time('06:00')
 // console.log(day.format('iso'))
@@ -20,4 +20,4 @@ console.log(day.format('time') + '\n')
 
 //bug
 // console.log(spacetime.now('Asia/Choibalsan').time())
-// console.log(spacetime.now('Asia/Ulaanbaatar').time())
+console.log(spacetime.now('Asia/Ulaanbaatar').time())
