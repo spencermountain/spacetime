@@ -1,4 +1,5 @@
 const spacetime = require('./src/index')
+// const spacetime = require('./immutable')
 
 // var minus = spacetime('2018-07-09T12:59:00-07:00');
 // console.log(minus.format('iso'));
@@ -18,13 +19,11 @@ const spacetime = require('./src/index')
 // console.log(day.format('time'))
 
 
-let a = spacetime('2018-10-21').goto('America/Adak').add(1, 'week')
-let b = spacetime('2018-10-22').goto('America/Adak').add(1, 'week')
-console.log(a.format('iso'))
-console.log(b.format('iso'))
-console.log(a.diff(b, 'day'))
+let day = spacetime.now()
+console.log(day.time('6:00pm').time())
 
-// bug (from mexico city)
-// let s = spacetime([2017, 5, 25]);
-// s.quarter('q2')
-// console.log(s.format('nice'))
+console.log('\n---\n')
+
+const spacetime2 = require('./src/immutable')
+const day2 = spacetime2.now()
+console.log(day2.time('6:00pm').time())
