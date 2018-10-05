@@ -11,6 +11,7 @@
     "demo": "node ./scripts/demo.js",
     "watch": "amble ./scratch.js",
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
+    "test-spec": "TESTENV=dev tape ./test/**/*.test.js | tap-spec",
     "t": "TESTENV=dev tape ./test/**/immutable.test.js",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer",
     "lint": "eslint .",
@@ -25,7 +26,9 @@
     "spacetime.js",
     "immutable.js"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "tap-spec": "^5.0.0"
+  },
   "devDependencies": {
     "amble": "0.0.6",
     "babel-cli": "6.26.0",

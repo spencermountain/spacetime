@@ -1,3 +1,4 @@
+'use strict';
 const dates = {
   now: (s) => {
     s.epoch = Date.now();

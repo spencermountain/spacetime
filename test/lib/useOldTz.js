@@ -1,4 +1,4 @@
-
+'use strict'
 //use the old dst changes, from 2017, when we made the tests
 const changeTz = function(s) {
   let timezones = s.timezones

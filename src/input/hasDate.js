@@ -1,3 +1,4 @@
+'use strict';
 const monthLengths = require('../data/monthLengths')
 const isLeapYear = require('../fns').isLeapYear
 

@@ -34,9 +34,9 @@ function clobber(instance) {
   clobbers.forEach(prop => {
     Object.defineProperty(instance, prop, {
       enumerable: false,
-      value(...args) {
+      value() {
         var copy = instance.clone()
-        return copy[prop].apply(copy, args)
+        return copy[prop].apply(copy, arguments)
       }
     })
   })
@@ -44,9 +44,9 @@ function clobber(instance) {
 }
 
 // a new factory; this one with terrible powers!
-function ImmutableSpacetime(...args) {
-  var instance = clobber(new Spacetime(...args))
-  instance.clone = x => clobber(new Spacetime(...args))
+function ImmutableSpacetime(a, b, c) {
+  var instance = clobber(new Spacetime(a, b, c))
+  instance.clone = x => clobber(new Spacetime(a, b, c))
   return instance
 }
 
