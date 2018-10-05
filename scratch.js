@@ -20,12 +20,9 @@ const spacetime = require('./src/index')
 
 let a = spacetime('2018-10-21').goto('America/Adak').add(1, 'week')
 let b = spacetime('2018-10-22').goto('America/Adak').add(1, 'week')
-// console.log(a.format('iso'))
-// console.log(b.format('iso'))
-console.time('diff')
-console.log(a.diff(b, 'second'))
-console.timeEnd('diff')
-console.log('--')
+console.log(a.format('iso'))
+console.log(b.format('iso'))
+console.log(a.diff(b, 'day'))
 
 // bug (from mexico city)
 // let s = spacetime([2017, 5, 25]);
