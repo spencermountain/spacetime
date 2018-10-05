@@ -1,5 +1,6 @@
 'use strict';
 const set = require('../set/set');
+const walkTo = require('../set/walk');
 
 //the most basic get/set methods
 let methods = {
@@ -28,6 +29,11 @@ let methods = {
     let d = this.d;
     if (num !== undefined) {
       this.epoch = set.hours(this, num);
+
+      walkTo(this, {
+        hour: num
+      });
+
       return this;
     }
     return d.getHours();

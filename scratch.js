@@ -21,4 +21,8 @@ const spacetime = require('./src/index')
 //bug
 // console.log(spacetime.now('Asia/Choibalsan').time())
 // console.log(spacetime.now('Asia/Ulaanbaatar').time())
-console.log(spacetime.now('Pacific/Chatham').time())
+
+// bug
+let s = spacetime([2022, 8, 24], 'Pacific/Midway');
+s.hour(1)
+console.log(s.time())
