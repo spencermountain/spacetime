@@ -61,7 +61,7 @@ const parseTz = (tz) => {
     .split('\n');
   lines = lines.filter((l) => l)
   if (lines.length !== 0 && lines.length !== 4) {
-    console.error('weird: ' + lines.length + ' lines ' + tz)
+    console.error('weird: ' + lines.length + ' lines for ' + tz)
     return null
   }
   if (!lines.length) {
@@ -82,7 +82,7 @@ const doAll = function() {
   let keys = Object.keys(data)
   keys.forEach((k) => {
     let dst = parseTz(k)
-    if (dst) {
+    if (dst && dst !== data[k].dst) {
       console.log('\n----change ' + k + '----')
       console.log('to: ' + dst)
       console.log('was ' + data[k].dst)
