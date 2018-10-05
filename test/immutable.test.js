@@ -73,46 +73,44 @@ test('time setting works', t => {
 
 test('smoke-test all mutable methods', t => {
   let arr = [
+    ['add', 3, 'days'],
+    ['ampm', 'am'],
+    ['date', 12],
+    ['day', 'thursday'],
+    ['dayName', 'monday'],
+    ['dayOfYear', 23],
+    ['dayTime', 'evening'],
+    ['era', 'bc'],
+    ['hour', 4],
+    ['hour12', '9am'],
+    ['hourFloat', 2],
+    ['millisecond', 234],
+    ['minute', 3],
+    ['month', 1],
+    ['monthName', 'july'],
+    ['quarter', 2],
+    ['season', 'summer'],
+    ['second', 23],
+    ['subtract', 12, 'hours'],
     ['time', '4:24pm'],
     ['week', 4],
-    ['quarter', 2],
-    ['hourFloat', 2],
-    ['season', 'summer'],
-    ['millisecond', 234],
-    ['second', 23],
-    ['minute', 3],
-    ['hour', 4],
-    ['hour12', 6],
-    ['date', 12],
-    ['month', 2],
     ['year', 1982],
-    ['dayTime', 'evening'],
-    ['dayOfYear', 23],
-    ['era', 'ad'],
-    ['day', 'thursday'],
-    ['ampm', 'pm'],
-    ['dayName', 'monday'],
-    ['monthName', 'july'],
-    ['add', 3, 'days'],
-    ['subtract', 12, 'hours'],
   // ['from',],
   // ['fromNow',],
   // ['i18n',],
   ]
-  const basicallyEqual = function(a, b) {
-    if (a.isSame(b, 'hour') === true) {
-      return true
-    }
-    // console.log(a.format('nice'), b.format('nice'))
-    return false
-  }
+  const epoch = 1552114800001
   arr.forEach((a) => {
-    let mut = OrigSpace(1552114800001)
+    let mut = OrigSpace(epoch)
     let immut = spacetime(1552114800001)
     let fn = a[0]
     let one = mut[fn](a[1], a[2])
     let two = immut[fn](a[1], a[2])
-    t.ok(basicallyEqual(one, two), fn + ' equal')
+    t.ok(one.isSame(two, 'hour'), fn + ' - equal')
+    //make-sure original didn't change
+    t.equal(immut.epoch, epoch, fn + ' - immutable didnt change')
+    t.notEqual(immut.epoch, two.epoch, fn + ' - immutable result changed')
+    t.notEqual(mut.epoch, epoch, fn + ' - mutable changed')
   })
   t.end()
 });
