@@ -22,6 +22,7 @@ function clobber(instance) {
     'ampm',
     'dayName',
     'monthName',
+    'hourFloat',
   ]
   // walk thee clobbers and clobber with immutablilitieeeees
   clobbers.forEach(prop => {
