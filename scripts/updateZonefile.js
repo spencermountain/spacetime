@@ -7,6 +7,9 @@ const zonefile = require(`../data/zonefile.${year}.json`)
 // /usr/share/zoneinfo only stores changes, and will use the most-recent change
 // see /usr/share/zoneinfo/Africa/Algiers - has changes scheduled for 2038
 
+// ubuntu/osx seem to have slightly different dst-change times in their zonefiles.
+// (we're using the mac ones)
+
 const months = {
   'jan': 1,
   'feb': 2,
