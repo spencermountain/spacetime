@@ -9,6 +9,15 @@ const spacetime = require('./src/index')
 // console.log(spacetime.now().goto('America/New_York').format('iso'))
 // console.log('2018-09-01T13:47:16-04:00')
 
-var s = spacetime('2018-07-09T12:59:00.362Z');
-console.log(s.timezone())
-console.log(s.format('iso'))
+
+const day = spacetime('2018-09-23')
+console.log(day.format('time') + '\n')
+
+// day.time('06:00')
+// console.log(day.format('iso'))
+// console.log(day.format('time'))
+
+
+//bug
+// console.log(spacetime.now('Asia/Choibalsan').time())
+// console.log(spacetime.now('Asia/Ulaanbaatar').time())

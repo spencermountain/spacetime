@@ -26,7 +26,7 @@ test('random november time', t => {
     ['Europe/Paris', 'Thu 3:35am'],
     ['America/Winnipeg', 'Wed 8:35pm'],
     ['America/Edmonton', 'Wed 7:35pm'],
-    ['Africa/Khartoum', 'Thu 5:35am']
+    ['Africa/Khartoum', 'Thu 4:35am']
   ]
   arr.forEach((a) => {
     let s = spacetime(epoch, a[0])
