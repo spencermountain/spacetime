@@ -69,9 +69,9 @@ test('time setting works', t => {
   t.end()
 });
 
-test('time setting works', t => {
-  let r = spacetime(1552124200401)
-  let r2 = spacetime(1552145200401)
+
+
+test('smoke-test all mutable methods', t => {
   let arr = [
     ['time', '4:24pm'],
     ['week', 4],
@@ -95,19 +95,11 @@ test('time setting works', t => {
     ['monthName', 'july'],
     ['add', 3, 'days'],
     ['subtract', 12, 'hours'],
-    ['isSame', r, 'day'],
-    ['isAfter', r, 'day'],
-    ['isBefore', r, 'day'],
-    ['isEqual', r, 'day'],
-    ['isBetween', r, r2],
   // ['from',],
   // ['fromNow',],
   // ['i18n',],
   ]
   const basicallyEqual = function(a, b) {
-    if (typeof a === 'boolean' || typeof a === 'number') {
-      return a === b
-    }
     if (a.isSame(b, 'hour') === true) {
       return true
     }
@@ -124,3 +116,24 @@ test('time setting works', t => {
   })
   t.end()
 });
+
+test('boolean methods identical', t => {
+  let r = spacetime(1552124200401)
+  let r2 = spacetime(1552145200401)
+  let arr = [
+    ['isSame', r, 'day'],
+    ['isAfter', r, 'day'],
+    ['isBefore', r, 'day'],
+    ['isEqual', r, 'day'],
+    ['isBetween', r, r2],
+  ]
+  arr.forEach((a) => {
+    let mut = OrigSpace(1552114800001)
+    let immut = spacetime(1552114800001)
+    let fn = a[0]
+    let one = mut[fn](a[1], a[2])
+    let two = immut[fn](a[1], a[2])
+    t.equal(one, two, fn + ' equal')
+  })
+  t.end()
+})
