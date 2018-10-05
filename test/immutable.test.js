@@ -101,8 +101,8 @@ test('smoke-test all mutable methods', t => {
   ]
   const epoch = 1552114800001
   arr.forEach((a) => {
-    let mut = OrigSpace(epoch)
-    let immut = spacetime(1552114800001)
+    let mut = OrigSpace(epoch, 'Canada/Pacific')
+    let immut = spacetime(1552114800001, 'Canada/Pacific')
     let fn = a[0]
     let one = mut[fn](a[1], a[2])
     let two = immut[fn](a[1], a[2])
