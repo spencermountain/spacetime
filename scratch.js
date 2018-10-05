@@ -18,11 +18,16 @@ const spacetime = require('./src/index')
 // console.log(day.format('time'))
 
 
-//bug
-// console.log(spacetime.now('Asia/Choibalsan').time())
-// console.log(spacetime.now('Asia/Ulaanbaatar').time())
+let a = spacetime('2018-10-21').goto('America/Adak').add(1, 'week')
+let b = spacetime('2018-10-22').goto('America/Adak').add(1, 'week')
+// console.log(a.format('iso'))
+// console.log(b.format('iso'))
+console.time('diff')
+console.log(a.diff(b, 'second'))
+console.timeEnd('diff')
+console.log('--')
 
-// bug
-let s = spacetime([2022, 8, 24], 'Pacific/Midway');
-s.hour(1)
-console.log(s.time())
+// bug (from mexico city)
+// let s = spacetime([2017, 5, 25]);
+// s.quarter('q2')
+// console.log(s.format('nice'))

@@ -11,6 +11,7 @@ test('non-destructive', t => {
 
   //but this method 0's-out things:
   s.quarter('q2');
+  console.log(s.format('nice'))
   t.equal(s.date(), 1, 'moved-date');
   t.equal(s.seconds(), 0, 'now-not-5-seconds');
   t.end();

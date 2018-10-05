@@ -136,3 +136,10 @@ test('set-date-fancy', t => {
   t.equal(s.date(), 15, '.date-after');
   t.end();
 });
+
+test('add-a-week-bug', t => {
+  let a = spacetime('2018-10-21').goto('America/Adak').add(1, 'week')
+  let b = spacetime('2018-10-22').goto('America/Adak').add(1, 'week')
+  t.notEqual(a.format('iso'), b.format('iso'), 'two days are not the same')
+  t.end();
+});
