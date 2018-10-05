@@ -20,20 +20,6 @@ const climb = function(a, b, unit) {
   return i;
 };
 
-const diff = function(a, b, unit) {
-  b = fns.beADate(b, a)
-  if (!unit) {
-    return doAll(a, b)
-  }
-  unit = fns.normalize(unit);
-  if (a.isBefore(b)) {
-    return climb(a, b, unit);
-  } else {
-    //reverse it
-    return climb(b, a, unit) * -1;
-  }
-}
-
 const diffQuick = function(a, b) {
   let ms = b.epoch - a.epoch
   let obj = {
@@ -43,6 +29,30 @@ const diffQuick = function(a, b) {
   obj.minutes = parseInt(obj.seconds / 60, 10)
   obj.hours = parseInt(obj.minutes / 60, 10)
   return obj
+}
+
+const diff = function(a, b, unit) {
+  //remove trailing s
+  b = fns.beADate(b, a)
+  if (!unit) {
+    return doAll(a, b)
+  }
+  //make sure it's plural-form
+  unit = fns.normalize(unit);
+  if (/s$/.test(unit) !== true) {
+    unit += 's'
+  }
+  //do quick-form for these small-ones
+  if (unit === 'milliseconds' || unit === 'seconds' || unit === 'minutes') {
+    return diffQuick(a, b)[unit]
+  }
+  //otherwise, do full-version
+  if (a.isBefore(b)) {
+    return climb(a, b, unit);
+  } else {
+    //reverse it
+    return climb(b, a, unit) * -1;
+  }
 }
 
 doAll = function(a, b) {
