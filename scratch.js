@@ -20,4 +20,5 @@ const spacetime = require('./src/index')
 
 //bug
 // console.log(spacetime.now('Asia/Choibalsan').time())
-console.log(spacetime.now('Asia/Ulaanbaatar').time())
+// console.log(spacetime.now('Asia/Ulaanbaatar').time())
+console.log(spacetime.now('Pacific/Chatham').time())

@@ -7,8 +7,10 @@ const zonefile = require(`../data/zonefile.${year}.json`)
 // /usr/share/zoneinfo only stores changes, and will use the most-recent change
 // see /usr/share/zoneinfo/Africa/Algiers - has changes scheduled for 2038
 
-// ubuntu/osx seem to have slightly different dst-change times in their zonefiles.
+// linux/osx seem to have slightly different dst-change times in their zonefiles.
 // (we're using the mac ones)
+// but linux seems to have offset numbers in their zonefiles
+// so use it, if it's there.
 
 const months = {
   'jan': 1,
@@ -44,9 +46,12 @@ const parseLine = (line) => {
   } else if (min === '0000' && dst === false) {
     hour += 1
   }
+  //this only appears on unix zonefiles..
   let offset = arr[arr.length - 1].replace(/gmtoff=/, '')
-  offset = parseInt(offset, 10) || 0
-  offset = offset / 60 / 60
+  offset = parseInt(offset, 10) || null
+  if (offset !== null) {
+    offset = offset / 60 / 60
+  }
   let obj = {
     month: zeroPad(months[arr[9].toLowerCase()]),
     date: zeroPad(parseInt(arr[10], 10)),
@@ -95,7 +100,7 @@ const doAll = function() {
     let obj = parseTz(k)
     if (obj) {
       //compare offsets
-      if (obj.offset !== data[k].o) {
+      if (obj.offset !== null && obj.offset !== data[k].o) {
         console.log('\n----offset change ' + k + '----')
         console.log('to: ' + obj.offset)
         console.log('from: ' + data[k].o)
