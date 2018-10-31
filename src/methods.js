@@ -100,6 +100,7 @@ const methods = {
     return this
   },
 }
+// aliases
 methods.inDST = methods.isDST
 methods.round = methods.nearest
 module.exports = methods

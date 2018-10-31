@@ -8,6 +8,8 @@ let zones = require('../data')
 //fake timezone-support, for fakers (es5 class)
 const SpaceTime = function(input, tz, options) {
   options = options || {}
+  //the holy moment
+  this.epoch = new Date().getTime()
   //the shift for the given timezone
   this.tz = tz || guessTz()
   //whether to output warnings to console
@@ -46,6 +48,8 @@ const SpaceTime = function(input, tz, options) {
 Object.keys(methods).forEach(k => {
   SpaceTime.prototype[k] = methods[k]
 })
+
+// ¯\_(ツ)_/¯
 SpaceTime.prototype.clone = function() {
   return new SpaceTime(this.epoch, this.tz, {
     silent: this.silent
