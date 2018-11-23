@@ -49,7 +49,7 @@ const units = {
     let original = s.clone();
     s = s.day(1); //monday
     if (s.isAfter(original)) {
-      s.subtract(1, 'week');
+      s = s.subtract(1, 'week');
     }
     walkTo(s, {
       hour: 0,
