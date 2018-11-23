@@ -46,10 +46,10 @@ function getDiff(a, b) {
       return
     }
     let max = earlier.diff(later, unit)
-    earlier = earlier.add(max, unit)
+    earlier.add(max, unit)
     //did we go one too far?
     if (earlier.epoch > later.epoch + 10) { //(fudge this calc by 10 milliseconds)
-      earlier = earlier.subtract(1, unit)
+      earlier.subtract(1, unit)
       max -= 1
     }
     diff[unit] = max

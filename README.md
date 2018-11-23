@@ -3,14 +3,16 @@
     <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
   </div>
 
+  <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
+    <img src="https://api.codacy.com/project/badge/grade/02bb9cd9afa74d5787b9d28095b1230e" />
+  </a>
+
   <a href="https://npmjs.org/package/spacetime">
     <img src="https://img.shields.io/npm/v/spacetime.svg?style=flat-square" />
   </a>
-  <a href="https://codecov.io/gh/spencermountain/spacetime">
-    <img src="https://codecov.io/gh/spencermountain/spacetime/branch/master/graph/badge.svg" />
-  </a>
-  <a href="https://unpkg.com/spacetime/spacetime.js">
-    <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/spacetime.js" />
+
+  <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
+    <img src="https://api.codacy.com/project/badge/Coverage/02bb9cd9afa74d5787b9d28095b1230e" />
   </a>
   <div>figure-out time, all-over the world</div>
 </div>
@@ -27,9 +29,9 @@
 <script>
   var d = spacetime('March 1 2012', 'America/New_York')
   //set the time
-  d = d.time('4:20pm')
+  d.time('4:20pm')
 
-  d = d.goto('America/Los_Angeles')
+  d.goto('America/Los_Angeles')
   d.time()//'1:20pm'
 </script>
 ```
@@ -81,11 +83,11 @@ s = spacetime.tomorrow() // Tomorrow morning
 s.date() // 14
 s.year() // 2017
 s.season() // Spring
-s = s.hour(5) // Change to 5am
-s = s.date(15) // Change to the 15th
-s = s.day('monday') // Change to (this week's) monday
-s = s.month('march') // Change to (this year's) March 1st
-s = s.quarter(2) // Change to April 1st
+s.hour(5) // Change to 5am
+s.date(15) // Change to the 15th
+s.day('monday') // Change to (this week's) monday
+s.month('march') // Change to (this year's) March 1st
+s.quarter(2) // Change to April 1st
 s.era() // 'BC'/'AD'
 
 // Percentage-based information
@@ -93,18 +95,18 @@ s.progress().month = 0.23 // We're a quarter way through the month
 s.progress().day = 0.48   // Almost noon
 s.progress().hour = 0.99  // 59 minutes and 59 seconds
 
-s = s.nearest('hour')//round up/down to the hour
-s = s.nearest('quarter-hour')//5:15, 5:30, 5:45..
+s.nearest('hour')//round up/down to the hour
+s.nearest('quarter-hour')//5:15, 5:30, 5:45..
 
 // Add/subtract methods
-s = s.add(1, 'week')
-s = s.add(3, 'quarters')
-s = s.subtract(2, 'months').add(1,'day')
+s.add(1, 'week')
+s.add(3, 'quarters')
+s.subtract(2, 'months').add(1,'day')
 
 // start-of/end-of
-s = s.startOf('day') // 12:00am
-s = s.startOf('month') // 12:00am, April 1st
-s = s.endOf('quarter') // 11:59:59pm, June 30th
+s.startOf('day') // 12:00am
+s.startOf('month') // 12:00am, April 1st
+s.endOf('quarter') // 11:59:59pm, June 30th
 
 //utilities:
 s.clone() // Make a copy
@@ -112,12 +114,28 @@ s.isValid() // Sept 32nd → false
 s.isAwake() // it's between 8am → 10pm
 ```
 
+### Opt Into Immutability
+
+Make `add`, `subtract`, `hour`, `date`, `day`, `month`, `quarter`, and `goto` methods all return a new instance of `Spacetime` leaving original date instance unmutated.
+
+```javascript
+// coolest ctor name ever
+const ImmutableSpacetime = require('spacetime/immutable')
+const day0 = new ImmutableSpacetime([2018, 0, 1])
+
+day0.format('nice') // January 1st
+day0.add(3, 'days').format('nice') // January 4th
+day0.format('nice') // January 1st!
+```
+
 ### Comparison between Dates
 
 ```js
-let s = spacetime([2017, 5, 2])
-let start = s.subtract(1, 'milliseconds')
-let end = s.add(1, 'milliseconds')
+let d = spacetime([2017, 5, 2])
+let start = s.clone()
+let end = s.clone()
+start.subtract(1, 'milliseconds')
+end.add(1, 'milliseconds')
 
 // gt/lt/equals
 s.isAfter(d) // True
@@ -161,7 +179,7 @@ spacetime('January 1 2017').since('December 31 2016').diff
 ### Timezones
 ```js
 // Roll into a new timezone, at the same moment
-s = s.goto('Australia/Brisbane')
+s.goto('Australia/Brisbane')
 
 //list timezones by their \ time
 spacetime.whereIts('8:30pm','9:30pm') // ['America/Winnipeg', 'America/Yellowknife'... ]
@@ -220,7 +238,7 @@ let s = spacetime.now('Australia/Adelaide')
 s.isHappyHour()
 //false
 
-s = s.time('4:30pm')
+s.time('4:30pm')
 s.isHappyHour()
 //true
 ```

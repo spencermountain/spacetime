@@ -34,19 +34,19 @@ const left = [
 
 test('test-date-line-at-180deg', t => {
   let s = spacetime([2018, 2, 5, 0, 0, 0, 0], 'Europe/London');
-  s = s.startOf('day');
+  s.startOf('day');
   t.equal(s.time(), '12:00am', 'the first millisecond of the day');
   t.equal(s.timezone().current.offset, 0, 'start at 0 offset');
   //everything to the right is today
   right.forEach(timezone => {
     let d = s.clone();
-    d = d.goto(timezone);
+    d.goto(timezone);
     t.equal(d.date(), 5, timezone + ' is today');
   });
   //everything to the left is yesterday
   left.forEach(timezone => {
     let d = s.clone();
-    d = d.goto(timezone);
+    d.goto(timezone);
     t.equal(d.date(), 4, timezone + ' is yesterday');
   });
   t.end();
@@ -54,19 +54,19 @@ test('test-date-line-at-180deg', t => {
 
 test('test-date-line-at-0deg', t => {
   let s = spacetime([2018, 2, 5, 0, 0, 0, 0], 'Europe/London');
-  s = s.endOf('day');
+  s.endOf('day');
   t.equal(s.time(), '11:59pm', 'the last millisecond of the day');
   t.equal(s.timezone().current.offset, 0, 'start at 0 offset');
   //everything to the right is tomorrow
   right.forEach(timezone => {
     let d = s.clone();
-    d = d.goto(timezone);
+    d.goto(timezone);
     t.equal(d.date(), 6, timezone + ' is tomorrow');
   });
   //everything to the left is today
   left.forEach(timezone => {
     let d = s.clone();
-    d = d.goto(timezone);
+    d.goto(timezone);
     t.equal(d.date(), 5, timezone + ' is today');
   });
   t.end();

@@ -6,9 +6,9 @@ const nearest = function(s, unit) {
   let prog = s.progress();
   if (prog[unit] !== undefined) {
     if (prog[unit] > 0.5) {
-      s = s.add(1, unit);
+      s.add(1, unit);
     }
-    s = s.startOf(unit);
+    s.startOf(unit);
   } else {
     console.warn("no known unit '" + unit + "'");
   }

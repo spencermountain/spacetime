@@ -46,7 +46,7 @@ test('arr-input', t => {
   t.equal(s.date(), 28, 'arr-date');
   t.equal(s.monthName(), 'march', 'arr-month');
 
-  s = s.set([2017, 1, 2]);
+  s.set([2017, 1, 2]);
   t.equal(s.year(), 2017, 'set-arr-year');
   t.equal(s.date(), 2, 'set-arr-date');
   t.equal(s.month(), 1, 'set-arr-month');

@@ -90,10 +90,10 @@ module.exports = {
         hour += 12;
       }
     }
-    s = s.hour(hour);
-    s = s.minute(minute);
-    s = s.second(0);
-    s = s.millisecond(0);
+    s.hour(hour);
+    s.minute(minute);
+    s.second(0);
+    s.millisecond(0);
     return s.epoch;
   },
 

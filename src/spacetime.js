@@ -41,8 +41,7 @@ const SpaceTime = function(input, tz, options) {
     }
   })
   //parse the various formats
-  let tmp = handleInput(this, input, tz, options)
-  this.epoch = tmp.epoch
+  handleInput(this, input, tz, options)
 }
 
 //(add instance methods to prototype)

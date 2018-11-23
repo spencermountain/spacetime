@@ -21,16 +21,16 @@ test('get-quarters', t => {
   let s = spacetime('January 22, 2017 15:42:00', 'Canada/Eastern');
   t.equal(s.quarter(), 1, '.quarter()');
 
-  s = s.month(1);
+  s.month(1);
   t.equal(s.quarter(), 1, '.quarter()');
 
-  s = s.month('march');
+  s.month('march');
   t.equal(s.quarter(), 1, '.quarter()');
 
-  s = s.month(3);
+  s.month(3);
   t.equal(s.quarter(), 2, '.quarter()');
 
-  s = s.month('december');
+  s.month('december');
   t.equal(s.quarter(), 4, '.quarter()');
   t.end();
 });
@@ -39,11 +39,11 @@ test('get-weeks', t => {
   let s = spacetime('January 1, 2015 2:00:00', 'Canada/Eastern');
   t.equal(s.week(), 1, '.weeks()1');
 
-  s = s.month(1);
+  s.month(1);
   t.equal(s.week(), 4, '.weeks()2');
 
-  s = s.month('december');
-  s = s.date(29);
+  s.month('december');
+  s.date(29);
   t.equal(s.week(), 52, '.weeks()3');
   t.end();
 });

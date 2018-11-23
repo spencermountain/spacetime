@@ -64,7 +64,7 @@ test('bc-year-formatting', t => {
   t.equal(s.year(), -2000, '-2000')
 
   s = spacetime('July 27th, 2018')
-  s = s.minus(2020, 'years')
+  s.minus(2020, 'years')
   t.equal(s.year(), -1, '-1')
   t.equal(s.format('year'), '1 BC', '1bc')
   t.equal(s.monthName(), 'july', 'still july')
@@ -90,8 +90,8 @@ test('iso-in = iso-out', t => {
 });
 
 test('iso-with-fraction-offset', t => {
-  let s = spacetime('June 8th 1918', 'Asia/Calcutta').time('1:00pm')
-  t.equal(s.format('iso'), '1918-06-08T13:00:00.000+05:30', 'correct offset')
+  let s=spacetime('June 8th 1918','Asia/Calcutta').time('1:00pm')
+  t.equal(s.format('iso'),'1918-06-08T13:00:00.000+05:30','correct offset')
   t.end();
 });
 /* FIXME failing test

@@ -12,31 +12,31 @@ test('add', t => {
   t.equal(s.minute(), 20, '.minute()');
   t.equal(s.dayName(), 'sunday', '.day()');
 
-  s = s.add(1, 'hour');
+  s.add(1, 'hour');
   t.equal(s.hour(), 2, 'movehour-.hour()');
   t.equal(s.minute(), 20, 'movehour-.minute()');
   t.equal(s.date(), 1, 'movehour-.date()');
   t.equal(s.month(), 0, 'movehour-.month()');
   t.equal(s.year(), 2017, 'movehour-.year()');
 
-  s = s.add(1, 'month');
+  s.add(1, 'month');
   t.equal(s.date(), 1, 'movemonth.date()');
   t.equal(s.monthName(), 'february', 'movemonth.month()');
   t.equal(s.year(), 2017, 'movemonth.year()');
 
-  s = s.add(2, 'days');
+  s.add(2, 'days');
   t.equal(s.date(), 3, 'moveday-.date()');
   t.equal(s.monthName(), 'february', 'moveday-.month()');
   t.equal(s.year(), 2017, 'moveday-.year()');
   t.equal(s.dayName(), 'friday', 'moveday-.day()');
 
-  s = s.add(1, 'week');
+  s.add(1, 'week');
   t.equal(s.date(), 10, 'moveweek-.date()');
   t.equal(s.monthName(), 'february', 'moveweek-.month()');
   t.equal(s.year(), 2017, 'moveweek-.year()');
   t.equal(s.dayName(), 'friday', 'moveweek-.day()');
 
-  s = s.add(1, 'year');
+  s.add(1, 'year');
   t.equal(s.date(), 10, 'moveyear.date()');
   t.equal(s.monthName(), 'february', 'moveyear.month()');
   t.equal(s.year(), 2018, 'moveyear.year()');
@@ -45,15 +45,14 @@ test('add', t => {
   // s.add(1, 'quarter');
   // t.equal(s.date(), 1, 'movequarter.date()');
   // t.equal(s.monthName(), 'april', 'movequarter.date()');
-  s = s.add(2, 'years');
+  s.add(2, 'years');
   t.equal(s.date(), 1, 'moveyear-.date()');
   // t.equal(s.monthName(), 'april', 'moveyear.month()');
   t.equal(s.year(), 2019, 'moveyear.years()');
 
-  s = s.add(1, 'quarterHour');
+  s.add(1, 'quarterHour');
   t.equal(s.minute(), 35, 'movequarterHour');
-
-  s = s.add(1, 'quarterHour');
+  s.add(1, 'quarterHour');
   t.equal(s.minute(), 50, 'movequarterHour#2');
   t.end();
 });
@@ -63,7 +62,7 @@ test('hour-regression', t => {
   t.equal(s.hour(), 13, 'init.hour()');
   t.equal(s.minute(), 20, 'init.minute()');
 
-  s = s.add(1, 'hour');
+  s.add(1, 'hour');
   t.equal(s.hour(), 14, '.hour()');
   t.equal(s.minute(), 20, '.minute()');
   t.end();

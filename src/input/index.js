@@ -23,7 +23,7 @@ const handleArray = function(s, arr) {
   let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
   for (let i = 0; i < arr.length; i++) {
     let num = arr[i] || 0;
-    s = s[order[i]](num);
+    s[order[i]](num);
   }
   return s;
 };
@@ -34,7 +34,7 @@ const handleObject = function(s, obj) {
     let unit = keys[i];
     if (s[unit] !== undefined) {
       let num = obj[unit] || 0;
-      s = s[unit](num);
+      s[unit](num);
     }
   }
   return s;
@@ -49,56 +49,56 @@ const parseInput = (s, input, givenTz) => {
       console.warn('  - Warning: You are setting the date to January 1970.')
       console.warn('       -   did input seconds instead of milliseconds?')
     }
-    return s
+    return;
   }
   //set tmp time
   s.epoch = Date.now();
   if (input === null || input === undefined) {
-    return s //k, we're good.
+    return; //k, we're good.
   }
   //support input of Date() object
   if (fns.isDate(input) === true) {
     s.epoch = input.getTime();
-    return s
+    return;
   }
   //support [2016, 03, 01] format
   if (fns.isArray(input) === true) {
-    s = handleArray(s, input);
-    return s
+    handleArray(s, input);
+    return;
   }
   //support {year:2016, month:3} format
   if (fns.isObject(input) === true) {
     //support spacetime object as input
     if (input.epoch) {
       s.epoch = input.epoch;
-      return s;
+      return;
     }
-    s = handleObject(s, input);
-    return s
+    handleObject(s, input);
+    return;
   }
   //input as a string..
   if (typeof input !== 'string') {
-    return s
+    return;
   }
   //little cleanup..
   input = input.trim().replace(/ +/g, ' ')
   //try some known-words, like 'now'
   if (namedDates.hasOwnProperty(input) === true) {
     s = namedDates[input](s)
-    return s
+    return
   }
   //try each text-parse template, use the first good result
   for (let i = 0; i < strFmt.length; i++) {
     let m = input.match(strFmt[i].reg);
     if (m) {
-      s = strFmt[i].parse(s, m, givenTz);
-      return s
+      strFmt[i].parse(s, m, givenTz);
+      return;
     }
   }
   if (s.silent === false) {
     console.warn('Warning: couldn\'t parse date-string: \'' + input + '\'')
   }
   s.epoch = null;
-  return s
+  return;
 };
 module.exports = parseInput;

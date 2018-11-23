@@ -77,8 +77,7 @@ const units = {
     valid: n => n >= 0 && n < 1000,
     walkTo: (s, n) => {
       //do this one directly
-      let tmp = s.milliseconds(n);
-      s.epoch = tmp.epoch
+      s.milliseconds(n);
     },
   },
 };
@@ -101,9 +100,7 @@ const walkTo = (s, wants) => {
       console.warn('invalid ' + k + ': ' + n);
       return;
     }
-    // console.log(k, n)
     units[k].walkTo(s, n);
-  // console.log(s.milliseconds())
   //if we've gone over a dst-change or something..
   // if (wants.hour === undefined && s.hour() !== old.hour()) {
   //   s.hour(old.hour());

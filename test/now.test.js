@@ -46,7 +46,7 @@ test('epoch-input', t => {
   tk.travel(time);
 
   let moved = spacetime.now('Etc/GMT'); //4:20
-  moved = moved.goto('Canada/Eastern');
+  moved.goto('Canada/Eastern');
 
   let epoch = spacetime(gmt420, 'Canada/Eastern');
   t.equal(

@@ -5,12 +5,12 @@ const Spacetime = require('./spacetime');
 exports.whereIts = function(a, b) {
   let start = new Spacetime(null);
   let end = new Spacetime(null);
-  start = start.time(a);
+  start.time(a);
   //if b is undefined, use as 'within one hour'
   if (b) {
-    end = end.time(b);
+    end.time(b);
   } else {
-    end = start.add(59, 'minutes');
+    end = start.clone().add(59, 'minutes');
   }
 
   let startHour = start.hour();

@@ -12,9 +12,8 @@ const fns = require('./fns')
 //the spacetime instance methods (also, the API)
 const methods = {
   set: function(input) {
-    let s = this.clone()
-    s = handleInput(s, input)
-    return s
+    handleInput(this, input)
+    return this
   },
   timezone: function() {
     return timezone(this)
@@ -26,7 +25,7 @@ const methods = {
     return timezone(this).hasDst
   },
   offset: function() {
-    return timezone(this).current.offset * 60
+    return timezone(this).current.offset / 60
   },
   hemisphere: function() {
     return timezone(this).hemisphere
@@ -68,9 +67,8 @@ const methods = {
   },
   //travel to this timezone
   goto: function(tz) {
-    let s = this.clone()
-    s.tz = tz //science!
-    return s
+    this.tz = tz //science!
+    return this
   },
   isAwake: function() {
     let hour = this.hour()

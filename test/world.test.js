@@ -40,7 +40,7 @@ test('epochs dont move on goto', t => {
   let a = spacetime('January 13 2018', 'Pacific/Fiji');
   timezones.forEach(tz => {
     let b = a.clone();
-    b = b.goto(tz);
+    b.goto(tz);
     t.ok(a.isEqual(b), tz + ' stable epoch');
   });
   t.end();
@@ -79,13 +79,13 @@ test('all-timezones-move', t => {
     let d = spacetime('January 13 2018', tz);
     d = useOldTz(d)
     t.equal(d.dayName(), 'saturday', tz + ' saturday');
-    d = d.date(12);
+    d.date(12);
     t.equal(d.dayName(), 'friday', tz + ' friday');
-    d = d.day('saturday');
+    d.day('saturday');
     t.equal(d.dayName(), 'saturday', tz + ' set-saturday');
-    d = d.startOf('week');
+    d.startOf('week');
     t.equal(d.dayName(), 'monday', tz + ' monday');
-    d = d.endOf('week');
+    d.endOf('week');
     t.equal(d.dayName(), 'sunday', tz + ' sunday');
   });
   t.end();
@@ -94,8 +94,8 @@ test('all-timezones-move', t => {
 test('all-timezones-have-leap-years', t => {
   timezones.forEach(tz => {
     let d = spacetime('February 28 2020', tz);
-    d = d.time('11:30pm');
-    d = d.add(1, 'hour');
+    d.time('11:30pm');
+    d.add(1, 'hour');
     t.equal(d.format('nice-short'), 'Feb 29th, 12:30am', 'leap year in ' + tz);
   });
   t.end();

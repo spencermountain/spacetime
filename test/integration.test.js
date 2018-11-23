@@ -20,7 +20,7 @@ test('ST → ST', function(t) {
     t.equal(str, 'December 5th, 5:00am', 'init-time');
     t.equal(isDST, false, 'init-dst-off ' + tz);
     //move it to a new time in ST
-    d1 = d1.add(3, 'days');
+    d1.add(3, 'days');
     str = d1.format('nice');
     isDST = d1.timezone().current.isDST;
     t.equal(str, 'December 8th, 5:00am', 'new-date');
@@ -38,7 +38,7 @@ test('ST → DST', function(t) {
     t.equal(str, 'December 5th, 10:00am', 'init-time');
     t.equal(isDST, false, 'init-dst-off ' + tz);
     //move it to a new time in DST - April 5th
-    d1 = d1.add(4, 'months');
+    d1.add(4, 'months');
     str = d1.format('nice');
     isDST = d1.timezone().current.isDST;
     t.equal(str, 'April 5th, 10:00am', 'new-date');
@@ -56,7 +56,7 @@ test('DST → DST', function(t) {
     t.equal(str, 'June 5th, 3:00pm', 'init-time');
     t.equal(isDST, true, 'init-dst-on ' + tz);
     //move it to a new time in DST - July 5th
-    d1 = d1.add(1, 'months');
+    d1.add(1, 'months');
     str = d1.format('nice');
     isDST = d1.timezone().current.isDST;
     t.equal(str, 'July 5th, 3:00pm', 'new-date');
@@ -74,7 +74,7 @@ test('DST → ST', function(t) {
     t.equal(str, 'June 5th, 8:00pm', 'init-time');
     t.equal(isDST, true, 'init-dst-on ' + tz);
     //move it to a new time in ST - December 5th
-    d1 = d1.add(6, 'months');
+    d1.add(6, 'months');
     str = d1.format('nice');
     isDST = d1.timezone().current.isDST;
     t.equal(str, 'December 5th, 8:00pm', 'new-date');

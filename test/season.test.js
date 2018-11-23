@@ -16,11 +16,11 @@ test('season-by-hemisphere', t => {
   //june
   let s = spacetime('june 6 2017', 'Canada/Eastern');
   south.forEach(tz => {
-    s = s.goto(tz);
+    s.goto(tz);
     t.equal(s.season(), 'winter', tz + ' june-winter');
   });
   north.forEach(tz => {
-    s = s.goto(tz);
+    s.goto(tz);
     t.equal(s.season(), 'summer', tz + ' june-summer');
   });
   t.end();

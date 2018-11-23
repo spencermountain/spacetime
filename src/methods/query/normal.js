@@ -6,46 +6,41 @@ const walkTo = require('../set/walk');
 let methods = {
   millisecond: function(num) {
     if (num !== undefined) {
-      let s = this.clone()
-      s.epoch = set.milliseconds(s, num);
-      return s;
+      this.epoch = set.milliseconds(this, num);
+      return this;
     }
     return this.d.getMilliseconds();
   },
   second: function(num) {
     if (num !== undefined) {
-      let s = this.clone()
-      s.epoch = set.seconds(s, num);
-      return s;
+      this.epoch = set.seconds(this, num);
+      return this;
     }
     return this.d.getSeconds();
   },
   minute: function(num) {
     if (num !== undefined) {
-      let s = this.clone()
-      s.epoch = set.minutes(s, num);
-      return s;
+      this.epoch = set.minutes(this, num);
+      return this;
     }
     return this.d.getMinutes();
   },
   hour: function(num) {
     let d = this.d;
     if (num !== undefined) {
-      let s = this.clone()
-      s.epoch = set.hours(s, num);
+      this.epoch = set.hours(this, num);
 
-      walkTo(s, {
+      walkTo(this, {
         hour: num
       });
 
-      return s;
+      return this;
     }
     return d.getHours();
   },
   hour12: function(str) {
     let d = this.d;
     if (str !== undefined) {
-      let s = this.clone()
       str = '' + str;
       let m = str.match(/^([0-9]+)(am|pm)$/);
       if (m) {
@@ -53,9 +48,9 @@ let methods = {
         if (m[2] === 'pm') {
           hour += 12;
         }
-        s.epoch = set.hours(s, hour);
+        this.epoch = set.hours(this, hour);
       }
-      return s;
+      return this;
     }
     //get the hour
     let hour12 = d.getHours();
@@ -70,25 +65,22 @@ let methods = {
 
   date: function(num) {
     if (num !== undefined) {
-      let s = this.clone()
-      s.epoch = set.date(s, num);
-      return s;
+      this.epoch = set.date(this, num);
+      return this;
     }
     return this.d.getDate();
   },
   month: function(input) {
     if (input !== undefined) {
-      let s = this.clone()
-      s.epoch = set.month(s, input);
-      return s;
+      this.epoch = set.month(this, input);
+      return this;
     }
     return this.d.getMonth();
   },
   year: function(num) {
     if (num !== undefined) {
-      let s = this.clone()
-      s.epoch = set.year(s, num);
-      return s;
+      this.epoch = set.year(this, num);
+      return this;
     }
     return this.d.getFullYear();
   },
@@ -105,13 +97,12 @@ let methods = {
         night: '11:00pm',
         midnight: '23:59pm',
       };
-      let s = this.clone()
       str = str || '';
       str = str.toLowerCase();
-      if (times.hasOwnProperty(str) === true) {
-        s = s.time(times[str]);
+      if (times[str]) {
+        this.time(times[str]);
       }
-      return s;
+      return this;
     }
     let h = this.hour();
     if (h < 6) {
@@ -133,9 +124,8 @@ let methods = {
   },
   dayOfYear: function(num) {
     if (num !== undefined) {
-      let s = this.clone()
-      s.epoch = set.dayOfYear(s, num);
-      return s;
+      this.epoch = set.dayOfYear(this, num);
+      return this;
     }
     //days since newyears - jan 1st is 1, jan 2nd is 2...
     let sum = 0
@@ -157,19 +147,18 @@ let methods = {
   //bc/ad years
   era: function(str) {
     if (str !== undefined) {
-      let s = this.clone()
       str = str.toLowerCase()
       //TODO: there is no year-0AD i think. may have off-by-1 error here
-      let year = s.d.getFullYear()
+      let year = this.d.getFullYear()
       //make '1992' into 1992bc..
       if (str === 'bc' && year > 0) {
-        s.epoch = set.year(s, year * -1);
+        this.epoch = set.year(this, year * -1);
       }
       //make '1992bc' into '1992'
       if (str === 'ad' && year < 0) {
-        s.epoch = set.year(s, year * -1);
+        this.epoch = set.year(this, year * -1);
       }
-      return s;
+      return this;
     }
     if (this.d.getFullYear() < 0) {
       return 'BC'

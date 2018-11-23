@@ -10,7 +10,7 @@ const climb = function(a, b, unit) {
   a = a.clone();
   while (a.isBefore(b)) {
     //do proper, expensive increment to catch all-the-tricks
-    a = a.add(1, unit);
+    a.add(1, unit);
     i += 1;
   }
   //oops, we went too-far..

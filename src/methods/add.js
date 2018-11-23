@@ -51,20 +51,19 @@ const rollMonth = function(want, old) {
 
 const addMethods = SpaceTime => {
   SpaceTime.prototype.add = function(num, unit) {
-    let s = this.clone()
-    let old = this.clone()
+    let old = this.clone();
     unit = fns.normalize(unit);
     //move forward by the estimated milliseconds (rough)
     if (ms[unit]) {
-      s.epoch += ms[unit] * num;
+      this.epoch += ms[unit] * num;
     } else if (unit === 'week') {
-      s.epoch += ms.day * (num * 7);
+      this.epoch += ms.day * (num * 7);
     } else if (unit === 'quarter' || unit === 'season') {
-      s.epoch += ms.month * (num * 4);
+      this.epoch += ms.month * (num * 4);
     } else if (unit === 'season') {
-      s.epoch += ms.month * (num * 4);
+      this.epoch += ms.month * (num * 4);
     } else if (unit === 'quarterhour') {
-      s.epoch += ms.minute * 15;
+      this.epoch += ms.minute * 15;
     }
     //now ensure our milliseconds/etc are in-line
     let want = {};
@@ -80,12 +79,12 @@ const addMethods = SpaceTime => {
       want = rollMonth(want, old);
     }
     //support 25-hour day-changes on dst-changes
-    else if (unit === 'date' && num !== 0 && old.isSame(s, 'day')) {
+    else if (unit === 'date' && num !== 0 && old.isSame(this, 'day')) {
       want.date = old.date() + num;
     }
     //ensure year has changed (leap-years)
-    else if (unit === 'year' && s.year() === old.year()) {
-      s.epoch += ms.week;
+    else if (unit === 'year' && this.year() === old.year()) {
+      this.epoch += ms.week;
     }
     //keep current date, unless the month doesn't have it.
     if (keepDate[unit]) {
@@ -95,14 +94,14 @@ const addMethods = SpaceTime => {
         want.date = max;
       }
     }
-    walkTo(s, want);
-    return s;
+    walkTo(this, want);
+    return this;
   };
 
   //subtract is only add *-1
   SpaceTime.prototype.subtract = function(num, unit) {
-    let s = this.clone()
-    return s.add(num * -1, unit);
+    this.add(num * -1, unit);
+    return this;
   };
   //add aliases
   SpaceTime.prototype.minus = SpaceTime.prototype.subtract

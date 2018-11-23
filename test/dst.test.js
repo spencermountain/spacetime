@@ -19,7 +19,7 @@ const months = [
 ];
 const allMonths = function(s) {
   return months.map(m => {
-    s = s.month(m);
+    s.month(m);
     let meta = s.timezone();
     return meta.current.isDST;
   });
@@ -113,9 +113,9 @@ test('dst-by-month', t => {
 
 test('sneaky-dst', t => {
   let s = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
-  s = s.hour(0);
+  s.hour(0);
   //move date over a dst change
-  s = s.date(2);
+  s.date(2);
   t.equal(s.date(), 2, 'sneaky-apply-dst');
   t.end();
 });
@@ -128,7 +128,7 @@ test('has-dst', t => {
   s = spacetime('March 11, 2017 20:42:00', 'Canada/Eastern');
   t.equal(s.hasDST(), true, 'sometimes has dst');
   t.equal(s.inDST(), false, 'not in dst though');
-  s = s.add(3, 'weeks');
+  s.add(3, 'weeks');
   //now its in dst
   t.equal(s.inDST(), true, 'in dst now');
   t.end();

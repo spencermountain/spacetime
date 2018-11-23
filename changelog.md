@@ -66,9 +66,3 @@
 * update a few TZ offsets in mostly eastern-Russia
 * updates to 2019 Palestinian dst dates
 * fixes for missing immutable setter methods
-
-# v5.0.0 🚨  -breaking
-* 🚨 all methods now immutable by default.🚨
- - - existing code will now need to be `s = s.add(1,'day')`
- - - - (instead of `s.add(1,'day')`)
-* uppercase month and day names in `.dayName()`, etc.

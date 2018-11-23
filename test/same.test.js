@@ -12,25 +12,25 @@ test('isSame', t => {
   t.equal(a.isSame(b, 'quarter'), true, 'same-quarter');
   t.equal(a.isSame(b, 'year'), true, 'same-year');
 
-  b = b.add(2, 'hours');
+  b.add(2, 'hours');
   t.equal(a.isSame(b, 'hour'), false, 'same-hour');
   t.equal(a.isSame(b, 'day'), true, 'same-day');
   t.equal(a.isSame(b, 'month'), true, 'same-month');
   t.equal(a.isSame(b, 'year'), true, 'same-year');
 
-  b = b.subtract(2, 'days');
+  b.subtract(2, 'days');
   t.equal(a.isSame(b, 'hour'), false, 'same-hour');
   t.equal(a.isSame(b, 'day'), false, 'same-day');
   t.equal(a.isSame(b, 'month'), true, 'same-month');
   t.equal(a.isSame(b, 'year'), true, 'same-year');
 
-  b = b.subtract(30, 'days');
+  b.subtract(30, 'days');
   t.equal(a.isSame(b, 'hour'), false, 'same-hour');
   t.equal(a.isSame(b, 'day'), false, 'same-day');
   t.equal(a.isSame(b, 'month'), false, 'same-month');
   t.equal(a.isSame(b, 'year'), true, 'same-year');
 
-  b = b.year(2020);
+  b.year(2020);
   t.equal(a.isSame(b, 'hour'), false, 'same-hour');
   t.equal(a.isSame(b, 'day'), false, 'same-day');
   t.equal(a.isSame(b, 'month'), false, 'same-month');

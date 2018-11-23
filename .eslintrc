@@ -3,6 +3,9 @@
   "env": {
     "es6": true
   },
+  "ecmaFeatures": {
+    "modules": true
+  },
   "rules": {
     "no-cond-assign": 2,
     "no-var": 0,

@@ -6,7 +6,7 @@ const pkg = require('../package.json');
 function clobber(instance) {
   // these methods return instances with mutated values now
   let clobbers = [
-    // 'add',
+    'add',
     'ampm',
     'date',
     'day',

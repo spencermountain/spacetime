@@ -6,4 +6,3 @@ node_modules/
 npm-debug.log
 viz/
 coverage/
-coverage.lcov
