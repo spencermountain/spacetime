@@ -10,15 +10,16 @@ const parseHour = function(s, str) {
   str = str.replace(/^\s+/, ''); //trim
   let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/);
   if (arr) {
-    s.hour(arr[1]);
-    s.minute(arr[2]);
+    s = s.hour(arr[1]);
+    s = s.minute(arr[2]);
     if (arr[3]) {
-      s.seconds(arr[3]);
+      s = s.seconds(arr[3]);
     }
     if (arr[4]) {
-      s.millisecond(arr[4]);
+      s = s.millisecond(arr[4]);
     }
   }
+  return s
 };
 
 const parseYear = function(str) {
@@ -44,11 +45,12 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       parseOffset(s, arr[5], givenTz, options);
       walkTo(s, obj);
-      parseHour(s, arr[4]);
+      s = parseHour(s, arr[4]);
+      return s
     }
   },
   //iso "2015-03-25" or "2015/03/25" //0-based-months!
@@ -66,9 +68,10 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
+      return s
     }
   },
   //short - uk "03/25/2015"  //0-based-months!
@@ -89,9 +92,10 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
+      return s
     }
   },
   //Long "Mar 25 2015"
@@ -108,12 +112,13 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
       if (arr[4]) {
-        parseHour(s, arr[4]);
+        s = parseHour(s, arr[4]);
       }
+      return s
     }
   },
   //Long "25 Mar 2015"
@@ -129,9 +134,10 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
+      return s
     }
   },
   { // '1992'
@@ -146,9 +152,10 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
+      return s
     }
   },
   { // '200bc'
@@ -168,9 +175,10 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
+      return s
     }
   }
 ];
