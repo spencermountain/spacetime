@@ -110,7 +110,7 @@ addAlias('S', 's', 2)
 addAlias('v', 'z', 4)
 addAlias('V', 'Z', 4)
 
-const unixFmt = function(str, s) {
+const unixFmt = function(s, str) {
   let chars = str.split('')
   //combine consecutive chars, like 'yyyy' as one.
   let arr = [chars[0]]

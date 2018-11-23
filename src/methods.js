@@ -1,5 +1,6 @@
 'use strict'
 const format = require('./methods/format')
+const unixFmt = require('./methods/format/unixFmt')
 const progress = require('./methods/progress')
 const nearest = require('./methods/nearest')
 const diff = require('./methods/diff')
@@ -33,6 +34,9 @@ const methods = {
   },
   format: function(fmt) {
     return format(this, fmt)
+  },
+  unixFmt: function(fmt) {
+    return unixFmt(this, fmt)
   },
   startOf: function(unit) {
     return ends.startOf(this, unit)

@@ -17,7 +17,7 @@
 
 - handle dates in remote timezones
 - heavily-support **daylight savings**, **leap years** (and seconds!), and **hemisphere-logic**
-- [Moment](https://momentjs.com/)-like 💘 API
+- [Moment](https://momentjs.com/)-like 💘 API (but immutable)
 - Orient by quarter, season, month, week..
 - _Zero Dependencies_ - no [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
 - **weighs just 45KB**.
@@ -183,8 +183,8 @@ s.format('numeric-uk') // 02/03/2017
 s.format('month') // 'April'
 s.format('month-short') // 'Apr'
 
-//also (mostly) supports weird unix-formatting, for more complex templating
-s.format('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
+//also supports unix-formatting, for more complex templating
+s.unixFmt('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
 ```
 ## Options
 #### Ambiguity warnings:

@@ -2,7 +2,6 @@
 const fns = require('../../fns');
 const months = require('../../data/months');
 const days = require('../../data/days');
-const unixFmt = require('./unixFmt');
 
 // "+01:00", "+0100", or simply "+01"
 const isoOffset = function(s) {
@@ -10,7 +9,7 @@ const isoOffset = function(s) {
   let minute = '00'
   if (offset % 1 === 0.5) { //fraction of the hour
     minute = '30'
-    offset=Math.floor(offset)
+    offset = Math.floor(offset)
   }
   if (offset < 0) {
     //handle negative sign
@@ -153,7 +152,7 @@ const format = (s, str) => {
     return fmt[str](s);
   }
   if (typeof str === 'string') {
-    return unixFmt(str, s)
+    return fmt['iso-short'](s);
   }
   //start building format object
   let all = Object.keys(fmt).reduce((h, k) => {

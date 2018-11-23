@@ -41,7 +41,7 @@ test('unix-formatting', t => {
     ['yyyyy.MMMM.dd GGG hh:mm aaa', '02017.November.16 AD 11:34 AM'],
   ]
   arr.forEach((a) => {
-    t.equal(s.format(a[0]), a[1], a[0])
+    t.equal(s.unixFmt(a[0]), a[1], a[0])
   })
 
   //test another date
@@ -53,7 +53,7 @@ test('unix-formatting', t => {
     ['MMMM', 'February']
   ]
   arr.forEach((a) => {
-    t.equal(s.format(a[0]), a[1], a[0])
+    t.equal(s.unixFmt(a[0]), a[1], a[0])
   })
   t.end();
 });
