@@ -14,13 +14,13 @@ const units = {
   quarterHour: s => {
     let minute = s.minutes();
     if (minute >= 45) {
-      s.minutes(45);
+      s = s.minutes(45);
     } else if (minute >= 30) {
-      s.minutes(30);
+      s = s.minutes(30);
     } else if (minute >= 15) {
-      s.minutes(15);
+      s = s.minutes(15);
     } else {
-      s.minutes(0);
+      s = s.minutes(0);
     }
     walkTo(s, {
       second: 0,
@@ -47,9 +47,9 @@ const units = {
   },
   week: s => {
     let original = s.clone();
-    s.day(1); //monday
+    s = s.day(1); //monday
     if (s.isAfter(original)) {
-      s.subtract(1, 'week');
+      s = s.subtract(1, 'week');
     }
     walkTo(s, {
       hour: 0,
@@ -124,23 +124,25 @@ const units = {
 };
 units.date = units.day;
 
-const startOf = (s, unit) => {
+const startOf = (a, unit) => {
+  let s = a.clone()
   if (units[unit]) {
     return units[unit](s);
   }
   if (unit === 'summer' || unit === 'winter') {
-    s.season(unit);
+    s = s.season(unit);
     return units.season(s);
   }
   return s;
 };
 
 //piggy-backs off startOf
-const endOf = (s, unit) => {
+const endOf = (a, unit) => {
+  let s = a.clone()
   if (units[unit]) {
     s = units[unit](s);
-    s.add(1, unit);
-    s.subtract(1, 'milliseconds');
+    s = s.add(1, unit);
+    s = s.subtract(1, 'milliseconds');
     return s;
   }
   return s;

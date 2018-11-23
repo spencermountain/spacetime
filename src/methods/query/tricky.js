@@ -30,7 +30,6 @@ module.exports = {
       minute: original.minute(),
       second: original.second()
     });
-    this.epoch = s.epoch;
     return s;
   },
 
@@ -43,15 +42,16 @@ module.exports = {
     if (input === undefined) {
       return which;
     }
+    let s = this.clone()
     if (input === which) {
-      return this;
+      return s;
     }
-    if (input === 'am') {
-      this.subtract(12, 'hours');
+    if (s === 'am') {
+      s = s.subtract(12, 'hours');
     } else {
-      this.add(12, 'hours');
+      s = s.add(12, 'hours');
     }
-    return this;
+    return s;
   },
 
   //these are helpful name-wrappers
@@ -59,15 +59,17 @@ module.exports = {
     if (input === undefined) {
       return days.long()[this.day()];
     }
-    this.day(input);
-    return this;
+    let s = this.clone()
+    s = s.day(input);
+    return s;
   },
 
   monthName: function(input) {
     if (input === undefined) {
       return months.long()[this.month()];
     }
-    this.month(input);
-    return this;
+    let s = this.clone()
+    s = s.month(input);
+    return s
   }
 };
