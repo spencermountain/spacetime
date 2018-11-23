@@ -1,21 +1,16 @@
 {
   "name": "spacetime",
   "version": "4.5.1",
-  "description": "represent dates in remote timezones",
-  "main": "./spacetime.js",
+  "description": "figure-out dates across timezones",
+  "main": "./src/index.js",
   "license": "Apache-2.0",
   "scripts": {
-    "precommit": "lint-staged",
     "build": "node ./scripts/build.js",
     "build:tz": "node ./scripts/updateZonefile.js",
-    "demo": "node ./scripts/demo.js",
     "watch": "amble ./scratch.js",
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
     "test-spec": "TESTENV=dev tape ./test/**/*.test.js | tap-spec",
-    "t": "TESTENV=dev tape ./test/**/immutable.test.js",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer",
-    "lint": "eslint .",
-    "size": "./node_modules/.bin/size-limit",
     "coverage": "node ./scripts/coverage.js"
   },
   "repository": {
@@ -23,30 +18,23 @@
     "url": "https://github.com/smallwins/spacetime.git"
   },
   "files": [
-    "spacetime.js",
-    "immutable.js"
+    "./builds/spacetime.js",
+    "./builds/spacetime.min.js"
   ],
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "7.1.6",
     "amble": "0.0.6",
-    "babel-cli": "6.26.0",
-    "babel-preset-env": "1.7.0",
-    "babelify": "8.0.0",
+    "babelify": "10.0.0",
     "browserify": "16.2.3",
-    "derequire": "2.0.6",
-    "eslint": "5.6.1",
-    "nyc": "^13.1.0",
+    "derequire": "^2.0.6",
+    "nyc": "13.1.0",
     "shelljs": "0.8.2",
     "tap-dancer": "0.1.2",
-    "tap-spec": "^5.0.0",
+    "tap-spec": "5.0.0",
     "tape": "4.9.1",
     "timekeeper": "2.1.2",
     "uglify-js": "3.4.9"
-  },
-  "size-limit": [
-    {
-      "path": "./spacetime.js",
-      "limit": "16 KB"
-    }
-  ]
+  }
 }
