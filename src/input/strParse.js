@@ -45,11 +45,12 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       parseOffset(s, arr[5], givenTz, options);
       walkTo(s, obj);
       s = parseHour(s, arr[4]);
+      return s
     }
   },
   //iso "2015-03-25" or "2015/03/25" //0-based-months!
@@ -67,9 +68,10 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
+      return s
     }
   },
   //short - uk "03/25/2015"  //0-based-months!
@@ -90,9 +92,10 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
+      return s
     }
   },
   //Long "Mar 25 2015"
@@ -109,12 +112,13 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
       if (arr[4]) {
         s = parseHour(s, arr[4]);
       }
+      return s
     }
   },
   //Long "25 Mar 2015"
@@ -130,9 +134,10 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
+      return s
     }
   },
   { // '1992'
@@ -147,9 +152,10 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
+      return s
     }
   },
   { // '200bc'
@@ -169,9 +175,10 @@ const strFmt = [
       }
       if (hasDate(obj) === false) {
         s.epoch = null
-        return
+        return s
       }
       walkTo(s, obj);
+      return s
     }
   }
 ];

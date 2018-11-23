@@ -14,7 +14,7 @@ test('progress', t => {
   t.ok(obj.hour > 0.95, 'almost-done-hour');
   t.ok(obj.minute > 0.95, 'almost-done-minute');
 
-  d.startOf('year');
+  d = d.startOf('year');
   obj = d.progress();
   t.ok(obj.year <= 0.1, 'just-starting-year');
   t.ok(obj.month <= 0.1, 'just-starting-month');

@@ -14,13 +14,13 @@ const units = {
   quarterHour: s => {
     let minute = s.minutes();
     if (minute >= 45) {
-      s.minutes(45);
+      s = s.minutes(45);
     } else if (minute >= 30) {
-      s.minutes(30);
+      s = s.minutes(30);
     } else if (minute >= 15) {
-      s.minutes(15);
+      s = s.minutes(15);
     } else {
-      s.minutes(0);
+      s = s.minutes(0);
     }
     walkTo(s, {
       second: 0,
@@ -47,7 +47,7 @@ const units = {
   },
   week: s => {
     let original = s.clone();
-    s.day(1); //monday
+    s = s.day(1); //monday
     if (s.isAfter(original)) {
       s.subtract(1, 'week');
     }

@@ -1,6 +1,8 @@
 const spacetime = require('./src/index')
 
-let s = spacetime([2018, 2, 5, 0, 0, 0, 0], 'Europe/London');
-console.log(s.format('iso'))
-s = s.endOf('day');
-console.log(s.format('iso'))
+const a = spacetime('November 11, 1999 11:11:11', 'Canada/Eastern');
+const b = spacetime('December 12, 2000 12:12:12', 'Canada/Eastern');
+
+console.log('start')
+console.log(b.since(a))
+console.log('end')

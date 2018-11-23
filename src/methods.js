@@ -12,8 +12,9 @@ const fns = require('./fns')
 //the spacetime instance methods (also, the API)
 const methods = {
   set: function(input) {
-    handleInput(this, input)
-    return this
+    let s = this.clone()
+    s = handleInput(s, input)
+    return s
   },
   timezone: function() {
     return timezone(this)
