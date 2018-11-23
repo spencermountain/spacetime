@@ -124,23 +124,25 @@ const units = {
 };
 units.date = units.day;
 
-const startOf = (s, unit) => {
+const startOf = (a, unit) => {
+  let s = a.clone()
   if (units[unit]) {
     return units[unit](s);
   }
   if (unit === 'summer' || unit === 'winter') {
-    s.season(unit);
+    s = s.season(unit);
     return units.season(s);
   }
   return s;
 };
 
 //piggy-backs off startOf
-const endOf = (s, unit) => {
+const endOf = (a, unit) => {
+  let s = a.clone()
   if (units[unit]) {
     s = units[unit](s);
-    s.add(1, unit);
-    s.subtract(1, 'milliseconds');
+    s = s.add(1, unit);
+    s = s.subtract(1, 'milliseconds');
     return s;
   }
   return s;

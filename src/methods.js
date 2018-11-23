@@ -67,8 +67,9 @@ const methods = {
   },
   //travel to this timezone
   goto: function(tz) {
-    this.tz = tz //science!
-    return this
+    let s = this.clone()
+    s.tz = tz //science!
+    return s
   },
   isAwake: function() {
     let hour = this.hour()

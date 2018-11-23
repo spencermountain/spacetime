@@ -51,57 +51,57 @@ const rollMonth = function(want, old) {
 
 const addMethods = SpaceTime => {
   SpaceTime.prototype.add = function(num, unit) {
-    let old = this.clone();
+    let s = this.clone()
     unit = fns.normalize(unit);
     //move forward by the estimated milliseconds (rough)
     if (ms[unit]) {
-      this.epoch += ms[unit] * num;
+      s.epoch += ms[unit] * num;
     } else if (unit === 'week') {
-      this.epoch += ms.day * (num * 7);
+      s.epoch += ms.day * (num * 7);
     } else if (unit === 'quarter' || unit === 'season') {
-      this.epoch += ms.month * (num * 4);
+      s.epoch += ms.month * (num * 4);
     } else if (unit === 'season') {
-      this.epoch += ms.month * (num * 4);
+      s.epoch += ms.month * (num * 4);
     } else if (unit === 'quarterhour') {
-      this.epoch += ms.minute * 15;
+      s.epoch += ms.minute * 15;
     }
     //now ensure our milliseconds/etc are in-line
     let want = {};
     if (keep[unit]) {
       keep[unit].forEach(u => {
-        want[u] = old[u]();
+        want[u] = this[u]();
       });
     }
     //ensure month/year has ticked-over
     if (unit === 'month') {
-      want.month = old.month() + num;
+      want.month = this.month() + num;
       //month is the one unit we 'model' directly
-      want = rollMonth(want, old);
+      want = rollMonth(want, this);
     }
     //support 25-hour day-changes on dst-changes
-    else if (unit === 'date' && num !== 0 && old.isSame(this, 'day')) {
-      want.date = old.date() + num;
+    else if (unit === 'date' && num !== 0 && this.isSame(this, 'day')) {
+      want.date = this.date() + num;
     }
     //ensure year has changed (leap-years)
-    else if (unit === 'year' && this.year() === old.year()) {
-      this.epoch += ms.week;
+    else if (unit === 'year' && this.year() === this.year()) {
+      s.epoch += ms.week;
     }
     //keep current date, unless the month doesn't have it.
     if (keepDate[unit]) {
       let max = monthLength[want.month];
-      want.date = old.date();
+      want.date = this.date();
       if (want.date > max) {
         want.date = max;
       }
     }
-    walkTo(this, want);
-    return this;
+    walkTo(s, want);
+    return s;
   };
 
   //subtract is only add *-1
   SpaceTime.prototype.subtract = function(num, unit) {
-    this.add(num * -1, unit);
-    return this;
+    let s = this.clone()
+    return s.add(num * -1, unit);
   };
   //add aliases
   SpaceTime.prototype.minus = SpaceTime.prototype.subtract

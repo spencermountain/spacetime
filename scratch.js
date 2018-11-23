@@ -1,5 +1,6 @@
 const spacetime = require('./src/index')
 
-var s = spacetime('January 5th 2018');
-s.add(2, 'months')
-console.log(s.format('nice'));
+let s = spacetime([2018, 2, 5, 0, 0, 0, 0], 'Europe/London');
+console.log(s.format('iso'))
+s = s.endOf('day');
+console.log(s.format('iso'))
