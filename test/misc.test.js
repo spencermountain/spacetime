@@ -33,3 +33,25 @@ test('named-dates', t => {
   t.equal(christmas.isBefore(newYears), true, 'christmas-is-before-new-years')
   t.end();
 });
+
+test('nearest', t => {
+  let s = spacetime('Nov 2')
+  s = s.nearest('month')
+  t.equal(s.monthName(), 'november', 'nov')
+  t.equal(s.date(), 1, 'nov 1')
+
+  s = spacetime('Nov 23')
+  s = s.nearest('month')
+  t.equal(s.monthName(), 'december', 'dec')
+  t.equal(s.date(), 1, 'dec 1')
+  t.end();
+});
+
+test('offset', t => {
+  let s = spacetime('Nov 2', 'America/New_York')
+  t.equal(s.offset(), -240, '-240 offset')
+
+  s = spacetime('march 2', 'America/New_York')
+  t.equal(s.offset(), -300, '-240 offset')
+  t.end();
+});

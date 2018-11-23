@@ -2,17 +2,15 @@
   <div>
     <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
   </div>
-
-  <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
-    <img src="https://api.codacy.com/project/badge/grade/02bb9cd9afa74d5787b9d28095b1230e" />
-  </a>
-
+  
   <a href="https://npmjs.org/package/spacetime">
     <img src="https://img.shields.io/npm/v/spacetime.svg?style=flat-square" />
   </a>
-
-  <a href="https://www.codacy.com/app/spencerkelly86/spacetime">
-    <img src="https://api.codacy.com/project/badge/Coverage/02bb9cd9afa74d5787b9d28095b1230e" />
+  <a href="https://codecov.io/gh/spencermountain/spacetime">
+    <img src="https://codecov.io/gh/spencermountain/spacetime/branch/master/graph/badge.svg" />
+  </a>
+  <a href="https://unpkg.com/spacetime/spacetime.js">
+    <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/spacetime.js" />
   </a>
   <div>figure-out time, all-over the world</div>
 </div>

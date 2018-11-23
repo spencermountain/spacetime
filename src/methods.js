@@ -26,7 +26,7 @@ const methods = {
     return timezone(this).hasDst
   },
   offset: function() {
-    return timezone(this).current.offset / 60
+    return timezone(this).current.offset * 60
   },
   hemisphere: function() {
     return timezone(this).hemisphere
