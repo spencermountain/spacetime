@@ -1,8 +1,7 @@
 /* eslint no-unused-vars: "off" */
 'use strict';
 const test = require('tape');
-const spacetime = require('../src/immutable');
-const OrigSpace = require('./lib'); //mutable version
+const spacetime = require('./lib');
 const day0 = spacetime.now();
 const today = day0.format('nice');
 
@@ -69,67 +68,61 @@ test('time setting works', t => {
   t.end()
 });
 
-// test('smoke-test all mutable methods', t => {
-//   let arr = [
-//     ['add', 3, 'days'],
-//     ['ampm', 'am'],
-//     ['date', 12],
-//     ['day', 'thursday'],
-//     ['dayName', 'monday'],
-//     ['dayOfYear', 23],
-//     ['dayTime', 'evening'],
-//     ['era', 'bc'],
-//     ['hour', 4],
-//     ['hour12', '9am'],
-//     ['hourFloat', 2],
-//     ['millisecond', 234],
-//     ['minute', 3],
-//     ['month', 1],
-//     ['monthName', 'july'],
-//     ['quarter', 2],
-//     ['season', 'summer'],
-//     ['second', 23],
-//     ['subtract', 12, 'hours'],
-//     ['time', '4:24pm'],
-//     ['week', 4],
-//     ['year', 1982],
-//   // ['from',],
-//   // ['fromNow',],
-//   // ['i18n',],
-//   ]
-//   const epoch = 1552114800001
-//   arr.forEach((a) => {
-//     let mut = OrigSpace(epoch, 'Canada/Pacific')
-//     let immut = spacetime(1552114800001, 'Canada/Pacific')
-//     let fn = a[0]
-//     let one = mut[fn](a[1], a[2])
-//     let two = immut[fn](a[1], a[2])
-//     t.ok(one.isSame(two, 'hour'), fn + ' - equal')
-//     //make-sure original didn't change
-//     t.equal(immut.epoch, epoch, fn + ' - immutable didnt change')
-//     t.notEqual(immut.epoch, two.epoch, fn + ' - immutable result changed')
-//     t.notEqual(mut.epoch, epoch, fn + ' - mutable changed')
-//   })
-//   t.end()
-// });
+test('smoke-test all mutable methods', t => {
+  let arr = [
+    ['add', 3, 'days'],
+    ['ampm', 'am'],
+    ['date', 12],
+    ['day', 'thursday'],
+    ['dayName', 'monday'],
+    ['dayOfYear', 23],
+    ['dayTime', 'evening'],
+    ['era', 'bc'],
+    ['hour', 4],
+    ['hour12', '9am'],
+    ['hourFloat', 2],
+    ['millisecond', 234],
+    ['minute', 3],
+    ['month', 1],
+    ['monthName', 'july'],
+    ['quarter', 2],
+    ['season', 'summer'],
+    ['second', 23],
+    ['subtract', 12, 'hours'],
+    ['time', '4:24pm'],
+    ['week', 4],
+    ['year', 1982],
+  // ['from',],
+  // ['fromNow',],
+  // ['i18n',],
+  ]
+  const epoch = 1552114800001
+  arr.forEach((a) => {
+    let immut = spacetime(1552114800001, 'Canada/Pacific')
+    let fn = a[0]
+    let s = immut[fn](a[1], a[2])
+    //make-sure original didn't change
+    t.equal(immut.epoch, epoch, fn + ' - immutable didnt change')
+    t.notEqual(immut.epoch, s.epoch, fn + ' - immutable result changed')
+  })
+  t.end()
+});
 
 test('boolean methods identical', t => {
   let r = spacetime(1552124200401)
   let r2 = spacetime(1552145200401)
   let arr = [
-    ['isSame', r, 'day'],
-    ['isAfter', r, 'day'],
-    ['isBefore', r, 'day'],
-    ['isEqual', r, 'day'],
-    ['isBetween', r, r2],
+    ['isSame', r, 'day', true],
+    ['isAfter', r, 'day', false],
+    ['isBefore', r, 'day', true],
+    ['isEqual', r, 'day', false],
+    ['isBetween', r, r2, false],
   ]
   arr.forEach((a) => {
-    let mut = OrigSpace(1552114800001)
     let immut = spacetime(1552114800001)
     let fn = a[0]
-    let one = mut[fn](a[1], a[2])
-    let two = immut[fn](a[1], a[2])
-    t.equal(one, two, fn + ' equal')
+    let one = immut[fn](a[1], a[2])
+    t.equal(one, a[3], fn + ' equal')
   })
   t.end()
 })
