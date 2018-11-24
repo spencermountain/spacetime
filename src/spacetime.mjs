@@ -1,9 +1,9 @@
 'use strict'
-const guessTz = require('./timezone/guessTz')
-const timezone = require('./timezone/index')
-const handleInput = require('./input')
-const methods = require('./methods')
-let zones = require('../data')
+import guessTz from './timezone/guessTz'
+import timezone from './timezone/index'
+import handleInput from './input'
+import methods from './methods'
+import zones from '../data'
 
 //fake timezone-support, for fakers (es5 class)
 const SpaceTime = function(input, tz, options) {
@@ -58,10 +58,15 @@ SpaceTime.prototype.clone = function() {
 }
 
 //append more methods
-require('./methods/query')(SpaceTime)
-require('./methods/add')(SpaceTime)
-require('./methods/same')(SpaceTime)
-require('./methods/compare')(SpaceTime)
-require('./methods/i18n')(SpaceTime)
+import query from './methods/query'
+query(SpaceTime)
+import add from './methods/add'
+add(SpaceTime)
+import same from './methods/same'
+same(SpaceTime)
+import compare from './methods/compare'
+compare(SpaceTime)
+import i18n from './methods/i18n'
+i18n(SpaceTime)
 
-module.exports = SpaceTime
+export default SpaceTime

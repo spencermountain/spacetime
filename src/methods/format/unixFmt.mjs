@@ -1,5 +1,5 @@
 'use strict'
-const pad = require('../../fns').zeroPad
+import { zeroPad } from '../../fns'
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
@@ -27,23 +27,23 @@ const mapping = {
 
   //month
   M: (s) => s.month() + 1,
-  MM: (s) => pad(s.month() + 1),
+  MM: (s) => zeroPad(s.month() + 1),
   MMM: (s) => s.format('month-short'),
   MMMM: (s) => s.format('month'),
 
   //week
   w: (s) => s.week(),
-  ww: (s) => pad(s.week()),
+  ww: (s) => zeroPad(s.week()),
   //week of month
   // W: (s) => s.week(),
 
   //date of month
   d: (s) => s.date(),
-  dd: (s) => pad(s.date()),
+  dd: (s) => zeroPad(s.date()),
   //date of year
   D: (s) => s.dayOfYear(),
-  DD: (s) => pad(s.dayOfYear()),
-  DDD: (s) => pad(s.dayOfYear(), 3),
+  DD: (s) => zeroPad(s.dayOfYear()),
+  DDD: (s) => zeroPad(s.dayOfYear(), 3),
 
   // F: (s) => {},//date of week in month
   // g: (s) => {},//modified julian day
@@ -68,15 +68,15 @@ const mapping = {
 
   //hour
   h: (s) => s.h12(),
-  hh: (s) => pad(s.h12()),
+  hh: (s) => zeroPad(s.h12()),
   H: (s) => s.hour(),
-  HH: (s) => pad(s.hour()),
+  HH: (s) => zeroPad(s.hour()),
   // j: (s) => {},//weird hour format
 
   m: (s) => s.minute(),
-  mm: (s) => pad(s.minute()),
+  mm: (s) => zeroPad(s.minute()),
   s: (s) => s.second(),
-  ss: (s) => pad(s.second()),
+  ss: (s) => zeroPad(s.second()),
   //milliseconds in the day
   A: (s) => s.epoch - s.startOf('day').epoch,
   //timezone
@@ -142,4 +142,4 @@ const unixFmt = function(s, str) {
     return txt;
   }, '');
 }
-module.exports = unixFmt
+export default unixFmt

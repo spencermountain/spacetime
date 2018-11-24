@@ -1,6 +1,6 @@
 'use strict';
-const set = require('../set/set');
-const walkTo = require('../set/walk');
+import set from '../set/set'
+import walkTo from '../set/walk'
 
 //the most basic get/set methods
 let methods = {
@@ -197,4 +197,4 @@ methods.h12 = methods.hour12;
 methods.h24 = methods.hour24;
 methods.days = methods.day;
 
-module.exports = methods;
+export default methods;

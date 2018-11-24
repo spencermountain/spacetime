@@ -1,5 +1,5 @@
 'use strict';
-const fns = require('../fns');
+import { beADate, normalize } from '../fns'
 
 //init this function up here
 let doAll = () => {
@@ -33,12 +33,12 @@ const diffQuick = function(a, b) {
 
 const diff = function(a, b, unit) {
   //remove trailing s
-  b = fns.beADate(b, a)
+  b = beADate(b, a)
   if (!unit) {
     return doAll(a, b)
   }
   //make sure it's plural-form
-  unit = fns.normalize(unit);
+  unit = normalize(unit);
   if (/s$/.test(unit) !== true) {
     unit += 's'
   }
@@ -68,4 +68,4 @@ doAll = function(a, b) {
   }
   return all
 }
-module.exports = diff;
+export default diff;

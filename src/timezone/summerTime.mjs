@@ -1,5 +1,5 @@
 'use strict'
-const zeroPad = require('../fns').zeroPad;
+import { zeroPad } from '../fns'
 
 const toString = function(d) {
   return zeroPad((d.getMonth() + 1)) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours())
@@ -30,4 +30,4 @@ const shouldChange = (s, m, defaultOffset) => {
   }
   return false
 }
-module.exports = shouldChange
+export default shouldChange

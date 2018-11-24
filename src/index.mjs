@@ -1,7 +1,7 @@
 'use strict';
-const Spacetime = require('./spacetime');
-const whereIts = require('./findTz').whereIts;
-const pkg = require('../package.json');
+import Spacetime from './spacetime'
+import { whereIts } from './findTz';
+import pkg from '../package.json'
 
 const main = function(input, tz, options) {
   return new Spacetime(input, tz, options);
@@ -36,4 +36,4 @@ main.version = pkg.version;
 
 //aliases:
 main.plugin = main.extend
-module.exports = main;
+export default main;

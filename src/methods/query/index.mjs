@@ -1,7 +1,7 @@
 'use strict';
-const normal = require('./normal');
-const destructive = require('./destructive');
-const tricky = require('./tricky');
+import normal from './normal'
+import destructive from './destructive'
+import tricky from './tricky'
 
 const addMethods = Space => {
   //hook the methods into prototype
@@ -16,4 +16,4 @@ const addMethods = Space => {
   });
 };
 
-module.exports = addMethods;
+export default addMethods;

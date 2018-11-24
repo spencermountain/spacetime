@@ -1,7 +1,7 @@
 'use strict';
-const quarters = require('../../data/quarters');
-const seasons = require('../../data/seasons');
-const set = require('../set/set');
+import quarters from '../../data/quarters'
+import seasons from '../../data/seasons'
+import set from '../set/set'
 //destructive setters change the seconds, milliseconds, etc
 //- and not just the unit they're setting
 
@@ -12,7 +12,7 @@ const clearMinutes = function(s) {
   return s
 };
 
-module.exports = {
+const methods = {
   //some ambiguity here with 12/24h
   time: function(str) {
     if (str !== undefined) {
@@ -132,3 +132,4 @@ module.exports = {
     return 'winter';
   }
 };
+export default methods

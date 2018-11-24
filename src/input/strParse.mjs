@@ -1,10 +1,10 @@
 'use strict';
-const walkTo = require('../methods/set/walk');
-const months = require('../data/months');
-const parseOffset = require('./parseOffset')
-const hasDate = require('./hasDate')
-const fns = require('../fns')
-// const zones = require('../../data');
+import walkTo from '../methods/set/walk'
+import months from '../data/months'
+import parseOffset from './parseOffset'
+import hasDate from './hasDate'
+import { toCardinal } from '../fns'
+// import zones from '../../data'
 
 const parseHour = function(s, str) {
   str = str.replace(/^\s+/, ''); //trim
@@ -108,7 +108,7 @@ const strFmt = [
       let obj = {
         year: year,
         month: month,
-        date: fns.toCardinal(arr[2] || '')
+        date: toCardinal(arr[2] || '')
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -130,7 +130,7 @@ const strFmt = [
       let obj = {
         year: year,
         month: month,
-        date: fns.toCardinal(arr[1])
+        date: toCardinal(arr[1])
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -183,4 +183,4 @@ const strFmt = [
   }
 ];
 
-module.exports = strFmt;
+export default strFmt;

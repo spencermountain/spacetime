@@ -1,7 +1,7 @@
 'use strict';
-const seasons = require('../data/seasons');
-const quarters = require('../data/quarters');
-const walkTo = require('./set/walk');
+import seasons from '../data/seasons'
+import quarters from '../data/quarters'
+import walkTo from './set/walk'
 
 const units = {
   minute: s => {
@@ -147,7 +147,4 @@ const endOf = (a, unit) => {
   }
   return s;
 };
-module.exports = {
-  startOf: startOf,
-  endOf: endOf
-};
+export { startOf, endOf };

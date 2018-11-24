@@ -1,10 +1,10 @@
 'use strict';
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
-const ms = require('../../data/milliseconds');
-const months = require('../../data/months');
-const monthLength = require('../../data/monthLengths');
-const walkTo = require('./walk');
+import ms from '../../data/milliseconds'
+import months from '../../data/months'
+import monthLength from '../../data/monthLengths'
+import walkTo from './walk'
 
 const validate = function(n) {
   //handle number as a string
@@ -27,7 +27,7 @@ const confirm = function(s, tmp, unit) {
   return s;
 };
 
-module.exports = {
+const methods = {
   milliseconds: (s, n) => {
     n = validate(n);
     let current = s.millisecond();
@@ -142,3 +142,4 @@ module.exports = {
     return s.epoch;
   },
 };
+export default methods

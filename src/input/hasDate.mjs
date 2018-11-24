@@ -1,6 +1,6 @@
 'use strict';
-const monthLengths = require('../data/monthLengths')
-const isLeapYear = require('../fns').isLeapYear
+import monthLengths from '../data/monthLengths'
+import { isLeapYear } from '../fns'
 
 //given a month, return whether day number exists in it
 const hasDate = function(obj) {
@@ -24,4 +24,4 @@ const hasDate = function(obj) {
   }
   return false
 }
-module.exports = hasDate
+export default hasDate

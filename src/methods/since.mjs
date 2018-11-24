@@ -1,5 +1,5 @@
 'use strict'
-const fns = require('../fns');
+import { beADate } from '../fns'
 //by spencermountain + Shaun Grady
 
 //our conceptual 'break-points' for each unit
@@ -75,7 +75,7 @@ function pluralize(value, unit) {
 
 //create the human-readable diff between the two dates
 const since = function(start, end) {
-  end = fns.beADate(end, start)
+  end = beADate(end, start)
   const diff = getDiff(start, end);
   const isNow = Object.keys(diff).every(u => !diff[u]);
   if (isNow === true) {
@@ -134,4 +134,4 @@ const since = function(start, end) {
   };
 }
 
-module.exports = since;
+export default since;

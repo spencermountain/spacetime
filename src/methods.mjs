@@ -1,14 +1,14 @@
 'use strict'
-const format = require('./methods/format')
-const unixFmt = require('./methods/format/unixFmt')
-const progress = require('./methods/progress')
-const nearest = require('./methods/nearest')
-const diff = require('./methods/diff')
-const since = require('./methods/since')
-const ends = require('./methods/startOf')
-const timezone = require('./timezone/index')
-const handleInput = require('./input')
-const fns = require('./fns')
+import format from './methods/format'
+import unixFmt from './methods/format/unixFmt'
+import progress from './methods/progress'
+import nearest from './methods/nearest'
+import diff from './methods/diff'
+import since from './methods/since'
+import { startOf, endOf } from './methods/startOf'
+import timezone from './timezone/index'
+import handleInput from './input'
+import { isLeapYear } from './fns'
 
 //the spacetime instance methods (also, the API)
 const methods = {
@@ -39,14 +39,14 @@ const methods = {
     return unixFmt(this, fmt)
   },
   startOf: function(unit) {
-    return ends.startOf(this, unit)
+    return startOf(this, unit)
   },
   endOf: function(unit) {
-    return ends.endOf(this, unit)
+    return endOf(this, unit)
   },
   leapYear: function() {
     let year = this.year()
-    return fns.isLeapYear(year)
+    return isLeapYear(year)
   },
   progress: function() {
     return progress(this)
@@ -109,4 +109,4 @@ const methods = {
 // aliases
 methods.inDST = methods.isDST
 methods.round = methods.nearest
-module.exports = methods
+export default methods

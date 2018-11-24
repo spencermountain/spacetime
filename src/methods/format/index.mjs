@@ -1,7 +1,7 @@
 'use strict';
-const fns = require('../../fns');
-const months = require('../../data/months');
-const days = require('../../data/days');
+import { titleCase, ordinal, zeroPad } from '../../fns'
+import months from '../../data/months'
+import days from '../../data/days'
 
 // "+01:00", "+0100", or simply "+01"
 const isoOffset = function(s) {
@@ -14,10 +14,10 @@ const isoOffset = function(s) {
   if (offset < 0) {
     //handle negative sign
     offset *= -1
-    offset = fns.zeroPad(offset, 2)
+    offset = zeroPad(offset, 2)
     offset = '-' + offset
   } else {
-    offset = fns.zeroPad(offset, 2)
+    offset = zeroPad(offset, 2)
     offset = '+' + offset
   }
   offset = offset + ':' + minute
@@ -30,28 +30,28 @@ const isoOffset = function(s) {
 
 const fmt = {
   day: s => {
-    return fns.titleCase(days.long()[s.day()]);
+    return titleCase(days.long()[s.day()]);
   },
   'day-short': s => {
-    return fns.titleCase(days.short()[s.day()]);
+    return titleCase(days.short()[s.day()]);
   },
   date: s => {
     return '' + s.date();
   },
   'date-ordinal': s => {
-    return fns.ordinal(s.date());
+    return ordinal(s.date());
   },
   month: s => {
-    return fns.titleCase(months.long()[s.month()]);
+    return titleCase(months.long()[s.month()]);
   },
   'month-short': s => {
-    return fns.titleCase(months.short()[s.month()]);
+    return titleCase(months.short()[s.month()]);
   },
   time: s => {
-    return `${s.h12()}:${fns.zeroPad(s.minute())}${s.ampm()}`; //3:45pm
+    return `${s.h12()}:${zeroPad(s.minute())}${s.ampm()}`; //3:45pm
   },
   'time-24h': s => {
-    return `${s.hour()}:${fns.zeroPad(s.minute())}`; //13:45
+    return `${s.hour()}:${zeroPad(s.minute())}`; //13:45
   },
   year: s => {
     let year = s.year()
@@ -65,29 +65,29 @@ const fmt = {
     return "'" + ('' + s.year()).substr(2, 4);
   },
   'numeric-us': s => {
-    return `${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}/${s.year()}`; //mm/dd/yyyy
+    return `${zeroPad(s.month() + 1)}/${zeroPad(s.date())}/${s.year()}`; //mm/dd/yyyy
   },
   'numeric-uk': s => {
-    return `${fns.zeroPad(s.date())}/${fns.zeroPad(s.month() + 1)}/${s.year()}`; //dd/mm/yyyy
+    return `${zeroPad(s.date())}/${zeroPad(s.month() + 1)}/${s.year()}`; //dd/mm/yyyy
   },
   'numeric-cn': s => {
-    return `${s.year()}/${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`; //yyyy/mm/dd
+    return `${s.year()}/${zeroPad(s.month() + 1)}/${zeroPad(s.date())}`; //yyyy/mm/dd
   },
 
   // ... https://en.wikipedia.org/wiki/ISO_8601 ;(((
   iso: s => {
-    let month = fns.zeroPad(s.month() + 1); //1-based months
-    let date = fns.zeroPad(s.date());
-    let hour = fns.zeroPad(s.h24());
-    let minute = fns.zeroPad(s.minute());
-    let second = fns.zeroPad(s.second());
-    let ms = fns.zeroPad(s.millisecond(), 3);
+    let month = zeroPad(s.month() + 1); //1-based months
+    let date = zeroPad(s.date());
+    let hour = zeroPad(s.h24());
+    let minute = zeroPad(s.minute());
+    let second = zeroPad(s.second());
+    let ms = zeroPad(s.millisecond(), 3);
     let offset = isoOffset(s)
     return `${s.year()}-${month}-${date}T${hour}:${minute}:${second}.${ms}${offset}`; //2018-03-09T08:50:00.000-05:00
   },
   'iso-short': s => {
-    let month = fns.zeroPad(s.month() + 1); //1-based months
-    let date = fns.zeroPad(s.date());
+    let month = zeroPad(s.month() + 1); //1-based months
+    let date = zeroPad(s.date());
     return `${s.year()}-${month}-${date}`; //2017-02-15
   },
   'iso-utc': s => {
@@ -162,4 +162,4 @@ const format = (s, str) => {
 
   return all;
 };
-module.exports = format;
+export default format;

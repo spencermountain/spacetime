@@ -54,4 +54,4 @@ const parseOffset = function(s, offset, givenTz) {
   }
   return s
 }
-module.exports = parseOffset
+export default parseOffset

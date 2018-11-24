@@ -1,7 +1,7 @@
 'use strict';
-const fns = require('../fns');
-const days = require('../data/days');
-const months = require('../data/months');
+import * as fns from '../fns'
+import days from '../data/days'
+import months from '../data/months'
 
 const addMethods = SpaceTime => {
   const methods = {
@@ -28,4 +28,4 @@ const addMethods = SpaceTime => {
   });
 };
 
-module.exports = addMethods;
+export default addMethods;

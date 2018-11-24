@@ -1,8 +1,8 @@
 'use strict';
-const walkTo = require('./set/walk');
-const ms = require('../data/milliseconds');
-const monthLength = require('../data/monthLengths');
-const fns = require('../fns');
+import walkTo from './set/walk'
+import ms from '../data/milliseconds'
+import monthLength from '../data/monthLengths'
+import { normalize } from '../fns'
 
 const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month'];
 let keep = {
@@ -53,7 +53,7 @@ const addMethods = SpaceTime => {
   SpaceTime.prototype.add = function(num, unit) {
     let s = this.clone()
     let old = this.clone()
-    unit = fns.normalize(unit);
+    unit = normalize(unit);
     //move forward by the estimated milliseconds (rough)
     if (ms[unit]) {
       s.epoch += ms[unit] * num;
@@ -109,4 +109,4 @@ const addMethods = SpaceTime => {
   SpaceTime.prototype.plus = SpaceTime.prototype.add
 };
 
-module.exports = addMethods;
+export default addMethods;

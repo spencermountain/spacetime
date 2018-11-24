@@ -1,6 +1,6 @@
 'use strict';
-// const zones = require('../../data');
-const summerTime = require('./summerTime')
+// import zones from '../../data'
+import summerTime from './summerTime'
 
 const parseDst = dst => {
   if (!dst) {
@@ -70,4 +70,4 @@ const timezone = s => {
 
   return m;
 };
-module.exports = timezone;
+export default timezone;

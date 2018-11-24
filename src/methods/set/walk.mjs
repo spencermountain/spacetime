@@ -1,5 +1,5 @@
 'use strict';
-const ms = require('../../data/milliseconds');
+import ms from '../../data/milliseconds'
 
 //basically, step-forward/backward until js Date object says we're there.
 const walk = function(s, n, fn, unit, previous) {
@@ -111,9 +111,9 @@ const walkTo = (s, wants) => {
   }
   return;
 };
-module.exports = walkTo;
+export default walkTo;
 
-// const spacetime = require('../../spacetime')
+// import spacetime from '../../spacetime'
 // let s = new spacetime(1509778800000, 'Canada/Pacific')
 // let want = {
 //   millisecond: 0,

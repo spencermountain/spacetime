@@ -1,23 +1,23 @@
 'use strict';
 
 //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
-exports.isLeapYear = function(year) {
+const isLeapYear = function(year) {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 }
 // unsurprisingly-nasty `typeof date` call
-exports.isDate = function(d) {
+const isDate = function(d) {
   return (
     Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
   );
 };
-exports.isArray = function(input) {
+const isArray = function(input) {
   return Object.prototype.toString.call(input) === '[object Array]';
 };
-exports.isObject = function(input) {
+const isObject = function(input) {
   return Object.prototype.toString.call(input) === '[object Object]';
 };
 
-exports.zeroPad = function(str, len) {
+const zeroPad = function(str, len) {
   len = len || 2;
   let pad = '0';
   str = str + '';
@@ -26,14 +26,14 @@ exports.zeroPad = function(str, len) {
     : new Array(len - str.length + 1).join(pad) + str;
 };
 
-exports.titleCase = function(str) {
+const titleCase = function(str) {
   if (!str) {
     return '';
   }
   return str[0].toUpperCase() + str.substr(1).toLowerCase();
 };
 
-exports.ordinal = function(i) {
+const ordinal = function(i) {
   let j = i % 10;
   let k = i % 100;
   if (j === 1 && k !== 11) {
@@ -49,13 +49,13 @@ exports.ordinal = function(i) {
 };
 
 //strip 'st' off '1st'..
-exports.toCardinal = function(str) {
+const toCardinal = function(str) {
   str = String(str)
   str = str.replace(/([0-9])(st|nd|rd|th)$/i, '$1')
   return parseInt(str, 10)
 }
 
-exports.normalize = str => {
+const normalize = str => {
   str = str.toLowerCase();
   str = str.replace(/s$/, '');
   if (str === 'day') {
@@ -64,13 +64,13 @@ exports.normalize = str => {
   return str;
 };
 
-exports.getEpoch = function(tmp) {
+const getEpoch = function(tmp) {
   //support epoch
   if (typeof tmp === 'number') {
     return tmp;
   }
   //suport date objects
-  if (exports.isDate(tmp)) {
+  if (isDate(tmp)) {
     return tmp.getTime();
   }
   if (tmp.epoch) {
@@ -80,9 +80,10 @@ exports.getEpoch = function(tmp) {
 };
 
 //make sure this input is a spacetime obj
-exports.beADate = function(d, s) {
-  if (exports.isObject(d) === false) {
+const beADate = function(d, s) {
+  if (isObject(d) === false) {
     return s.clone().set(d)
   }
   return d
 }
+export { isLeapYear, isDate, isArray, isObject, zeroPad, titleCase, ordinal, toCardinal, getEpoch, normalize, beADate }

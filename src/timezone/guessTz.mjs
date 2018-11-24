@@ -1,3 +1,4 @@
+/* global Intl */
 'use strict';
 //find the implicit iana code for this machine.
 //safely query the Intl object
@@ -27,4 +28,4 @@ const guessTz = () => {
   }
   return timezone
 };
-module.exports = guessTz;
+export default guessTz;
