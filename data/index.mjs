@@ -1,5 +1,5 @@
 'use strict';
-const zonefile = require('./zonefile.json');
+import zonefile from './zonefile.json'
 
 //assumed hemisphere, based on continent
 const southern = {
@@ -43,4 +43,4 @@ const unpack = obj => {
 
 const data = unpack(zonefile);
 // console.log(data);
-module.exports = data;
+export default data;

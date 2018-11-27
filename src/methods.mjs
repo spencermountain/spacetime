@@ -1,5 +1,5 @@
 'use strict'
-import format from './methods/format'
+import format from './methods/format/index'
 import unixFmt from './methods/format/unixFmt'
 import progress from './methods/progress'
 import nearest from './methods/nearest'
@@ -7,7 +7,7 @@ import diff from './methods/diff'
 import since from './methods/since'
 import { startOf, endOf } from './methods/startOf'
 import timezone from './timezone/index'
-import handleInput from './input'
+import handleInput from './input/index'
 import { isLeapYear } from './fns'
 
 //the spacetime instance methods (also, the API)

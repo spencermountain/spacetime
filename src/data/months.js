@@ -27,7 +27,7 @@ function buildMapping() {
   return obj;
 }
 
-module.exports = {
+export default {
   short: () => shortMonths,
   long: () => longMonths,
   mapping: () => buildMapping(),

@@ -57,4 +57,4 @@ const addMethods = SpaceTime => {
 
 };
 
-module.exports = addMethods;
+export default addMethods;

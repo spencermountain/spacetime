@@ -14,4 +14,4 @@ const nearest = function(s, unit) {
   }
   return s;
 };
-module.exports = nearest;
+export default nearest;

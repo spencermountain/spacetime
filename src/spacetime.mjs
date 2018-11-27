@@ -1,9 +1,10 @@
 'use strict'
 import guessTz from './timezone/guessTz'
 import timezone from './timezone/index'
-import handleInput from './input'
+import handleInput from './input/index'
 import methods from './methods'
-import zones from '../data'
+import zones from '../data/index'
+let zonefile = Object.assign({}, zones)
 
 //fake timezone-support, for fakers (es5 class)
 const SpaceTime = function(input, tz, options) {
@@ -33,10 +34,10 @@ const SpaceTime = function(input, tz, options) {
   //add this data on the object, to allow adding new timezones
   Object.defineProperty(this, 'timezones', {
     get: function() {
-      return zones
+      return zonefile
     },
     set: function(obj) {
-      zones = obj
+      zonefile = obj
       return obj
     }
   })
@@ -58,7 +59,7 @@ SpaceTime.prototype.clone = function() {
 }
 
 //append more methods
-import query from './methods/query'
+import query from './methods/query/index'
 query(SpaceTime)
 import add from './methods/add'
 add(SpaceTime)

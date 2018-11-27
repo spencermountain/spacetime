@@ -14,4 +14,4 @@ o.year = 3.154e10; // leap-years are supported post-hoc
 Object.keys(o).forEach(k => {
   o[k + 's'] = o[k];
 });
-module.exports = o;
+export default o;

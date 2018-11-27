@@ -8,7 +8,7 @@
     "build": "node ./scripts/build.js",
     "build:tz": "node ./scripts/updateZonefile.js",
     "watch": "node --experimental-modules scratch.mjs",
-    "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
+    "test": "TESTENV=dev tape ./test/**/*.test.js --experimental-modules | tap-dancer",
     "test-spec": "TESTENV=dev tape ./test/**/*.test.js | tap-spec",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer",
     "coverage": "node ./scripts/coverage.js"
@@ -21,7 +21,9 @@
     "./builds/spacetime.js",
     "./builds/spacetime.min.js"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "rollup-plugin-json": "^3.1.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "7.1.6",

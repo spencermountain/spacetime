@@ -13,4 +13,4 @@ const progress = function(s) {
   return obj;
 };
 
-module.exports = progress;
+export default progress;
