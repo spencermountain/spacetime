@@ -3,12 +3,10 @@ const fns = require('../../fns');
 const months = require('../../data/months');
 const days = require('../../data/days');
 const isoOffset = require('./_offset');
-const shortDay = days.short()
-const shortMonth = months.short()
 
 const format = {
   day: (s) => s.dayName(),
-  'day-short': (s) => shortDay[s.day()],
+  'day-short': (s) => days.short()[s.day()],
   'day-number': (s) => s.day(),
   'day-ordinal': (s) => fns.ordinal(s.day()),
   'day-pad': (s) => fns.zeroPad(s.day()),
@@ -18,7 +16,7 @@ const format = {
   'date-pad': s => fns.zeroPad(s.date()),
 
   month: (s) => s.monthName(),
-  'month-short': (s) => shortMonth[s.month()],
+  'month-short': (s) => months.short()[s.month()],
   'month-number': (s) => s.month(),
   'month-ordinal': (s) => fns.ordinal(s.month()),
   'month-pad': (s) => fns.zeroPad(s.month()),
@@ -82,23 +80,31 @@ const format = {
   },
 
   //i made these up
-  'nice': s => `${shortMonth[s.month()]} ${fns.ordinal(s.date())}, ${s.time()}`,
-  'nice-year': s => `${shortMonth[s.month()]} ${fns.ordinal(s.date())}, ${s.year()}`,
-  'nice-day': s => `${shortDay[s.day()]} ${fns.titleCase(shortMonth[s.month()])} ${fns.ordinal(s.date())}`,
+  'nice': s => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.time()}`,
+  'nice-year': s => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.year()}`,
+  'nice-day': s => `${days.short()[s.day()]} ${fns.titleCase(months.short()[s.month()])} ${fns.ordinal(s.date())}`,
   'nice-full': s => `${s.dayName()} ${fns.titleCase(s.monthName())} ${fns.ordinal(s.date())}, ${s.time()}`
 
 }
 //aliases
-format['day-name'] = format.day;
-format['month-name'] = format.month;
-format['iso 8601'] = format['iso'];
-format['time-h24'] = format['time-24'];
-format['time-12'] = format['time'];
-format['time-h12'] = format['time'];
-format['tz'] = format['timezone'];
-format['day-num'] = format['day-number'];
-format['month-num'] = format['month-number'];
-format['nice-short'] = format['nice'];
+const aliases = {
+  'day-name': 'day',
+  'month-name': 'month',
+  'iso 8601': 'iso',
+  'time-h24': 'time-24',
+  'time-12': 'time',
+  'time-h12': 'time',
+  'tz': 'timezone',
+  'day-num': 'day-number',
+  'month-num': 'month-number',
+  'nice-short': 'nice',
+  'mdy': 'numeric-us',
+  'dmy': 'numeric-uk',
+  'ymd': 'numeric-cn',
+  'little-endian': 'numeric-uk',
+  'big-endian': 'numeric-cn',
+}
+Object.keys(aliases).forEach((k) => format[k] = format[aliases[k]])
 
 const printFormat = (s, str = '') => {
   //don't print anything if it's an invalid date
