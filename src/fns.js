@@ -30,7 +30,7 @@ exports.titleCase = function(str) {
   if (!str) {
     return '';
   }
-  return str[0].toUpperCase() + str.substr(1).toLowerCase();
+  return str[0].toUpperCase() + str.substr(1)
 };
 
 exports.ordinal = function(i) {

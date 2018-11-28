@@ -182,8 +182,14 @@ s.format('time') // '5:01am'
 s.format('numeric-uk') // 02/03/2017
 s.format('month') // 'April'
 s.format('month-short') // 'Apr'
+s.format('month-pad') // '04'
 
-//also supports unix-formatting, for more complex templating
+//if you want more complex formats, use {}'s
+s.format('{year}-{date-pad}-{month-pad}') // '2018-02-02'
+s.format('{hour} o\'clock') // '2 o'clock'
+s.format('{time}{ampm} sharp') // '2:30pm sharp'
+
+//if you prefer, you can also use unix-formatting
 s.unixFmt('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
 ```
 ## Options

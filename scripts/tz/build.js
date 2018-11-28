@@ -129,7 +129,7 @@ const doAll = () => {
 
   let stuff = JSON.stringify(all, null, 2);
 
-  let src = path.join(__dirname, `../../data/zonefile.${year}.json`);
+  let src = path.join(__dirname, `../../data/zonefile.json`);
   fs.writeFileSync(src, stuff, 'utf8');
   console.log('done!');
 };
