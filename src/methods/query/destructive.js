@@ -75,8 +75,7 @@ module.exports = {
         let month = quarters[num][0];
         s = s.month(month);
         s = s.date(1);
-        s = s.hour(0);
-        s = clearMinutes(s);
+        s = s.startOf('day')
         return s;
       }
     }
@@ -118,8 +117,7 @@ module.exports = {
         if (input === seasons[hem][i][0]) {
           s = s.month(seasons[hem][i][1]);
           s = s.date(1);
-          s = s.hour(0);
-          s = clearMinutes(s);
+          s = s.startOf('day')
         }
       }
       return s;

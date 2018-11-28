@@ -33,11 +33,11 @@ let methods = {
     if (num !== undefined) {
       let s = this.clone()
       s.epoch = set.hours(s, num);
-
       walkTo(s, {
+        month: this.month(),
+        date: this.date(),
         hour: num
       });
-
       return s;
     }
     return d.getHours();
