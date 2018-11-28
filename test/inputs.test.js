@@ -32,10 +32,8 @@ test('null input', t => {
   let a = spacetime(null, 'Canada/Eastern');
   let b = spacetime(Date.now(), 'Canada/Eastern');
   t.ok(a.isValid(), 'null input is valid');
-  a = a.format();
-  b = b.format();
-  t.equal(a.iso.short, b.iso.short, 'dates are the same');
-  t.equal(a.time.h12, b.time.h12, 'times are the same');
+  t.equal(a.format('iso-short'), b.format('iso-short'), 'dates are the same');
+  t.equal(a.format('time'), b.format('time'), 'times are the same');
   t.end();
 });
 

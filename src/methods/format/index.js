@@ -23,12 +23,25 @@ const format = {
   'month-ordinal': (s) => fns.ordinal(s.month()),
   'month-pad': (s) => fns.zeroPad(s.month()),
 
-  year: (s) => s.year(),
-  'year-short': (s) => `'${String(s.year()).substr(2, 4)}`,
-  'year-ordinal': (s) => fns.ordinal(s.year()),
+  year: (s) => {
+    let year = s.year()
+    if (year > 0) {
+      return year
+    }
+    year = Math.abs(year)
+    return year + ' BC'
+  },
+  'year-short': (s) => {
+    let year = s.year()
+    if (year > 0) {
+      return `'${String(s.year()).substr(2, 4)}`
+    }
+    year = Math.abs(year)
+    return year + ' BC'
+  },
 
   time: (s) => s.time(),
-  'time-24': (s) => `${s.hour()}:${fns.zeroPad(s.minute())}`,
+  'time-24': (s) => `${s.hour24()}:${fns.zeroPad(s.minute())}`,
   hour: (s) => s.hour(),
   'hour-24': (s) => s.hour24(),
 
@@ -41,6 +54,8 @@ const format = {
   quarter: (s) => 'Q' + s.quarter(),
   season: (s) => s.season(),
   era: (s) => s.era(),
+  timezone: (s) => s.timezone().name,
+  offset: (s) => isoOffset(s),
 
   numeric: (s) => `${s.year()}/${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`, // yyyy/mm/dd
   'numeric-us': (s) => `${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}/${s.year()}`, // mm/dd/yyyy
@@ -69,15 +84,23 @@ const format = {
   //i made these up
   'nice': s => `${shortMonth[s.month()]} ${fns.ordinal(s.date())}, ${s.time()}`,
   'nice-year': s => `${shortMonth[s.month()]} ${fns.ordinal(s.date())}, ${s.year()}`,
-  'nice-day': s => `${shortDay[s.day()]} ${shortMonth[s.month()]} ${fns.ordinal(s.date())}`,
-  'nice-full': s => `${shortDay[s.day()]} ${shortMonth[s.month()]} ${fns.ordinal(s.date())} ${s.year()}, ${s.time()}`,
+  'nice-day': s => `${shortDay[s.day()]} ${fns.titleCase(shortMonth[s.month()])} ${fns.ordinal(s.date())}`,
+  'nice-full': s => `${s.dayName()} ${fns.titleCase(s.monthName())} ${fns.ordinal(s.date())}, ${s.time()}`
 
 }
 //aliases
-format['day-name'] = format.day
-format['month-name'] = format.month
+format['day-name'] = format.day;
+format['month-name'] = format.month;
+format['iso 8601'] = format['iso'];
+format['time-h24'] = format['time-24'];
+format['time-12'] = format['time'];
+format['time-h12'] = format['time'];
+format['tz'] = format['timezone'];
+format['day-num'] = format['day-number'];
+format['month-num'] = format['month-number'];
+format['nice-short'] = format['nice'];
 
-const printFormat = (s, str) => {
+const printFormat = (s, str = '') => {
   //don't print anything if it's an invalid date
   if (s.isValid() !== true) {
     return '';
@@ -90,6 +113,7 @@ const printFormat = (s, str) => {
     }
     return out
   }
+  //support '{hour}:{minute}' notation
   if (str.indexOf('{') !== -1) {
     let sections = /\{(.+?)\}/g
     str = str.replace(sections, (_, fmt) => {

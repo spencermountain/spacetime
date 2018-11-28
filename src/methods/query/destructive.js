@@ -2,6 +2,7 @@
 const quarters = require('../../data/quarters');
 const seasons = require('../../data/seasons');
 const set = require('../set/set');
+const fns = require('../../fns');
 //destructive setters change the seconds, milliseconds, etc
 //- and not just the unit they're setting
 
@@ -20,7 +21,7 @@ module.exports = {
       s.epoch = set.time(s, str);
       return s;
     }
-    return this.format('time-h12');
+    return `${this.h12()}:${fns.zeroPad(this.minute())}${this.ampm()}`;
   },
 
   //since the start of the year

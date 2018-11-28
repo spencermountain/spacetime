@@ -71,6 +71,7 @@
 * 🚨 all methods now immutable by default.🚨
  - - existing code will now need to be `s = s.add(1,'day')`
  - - - (instead of `s.add(1,'day')`)
-* uppercase month and day names in `.dayName()`, etc.
 * move unix-formating out of `.format()` into `.unixFmt()`
+* support new `{hour} oclock`-style format templates
 * change default `.format()` response to **yyyy-mm-dd**
+* uppercase month and day names in `.dayName()`

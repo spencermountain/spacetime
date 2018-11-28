@@ -96,7 +96,7 @@ test('all-timezones-have-leap-years', t => {
     let d = spacetime('February 28 2020', tz);
     d = d.time('11:30pm');
     d = d.add(1, 'hour');
-    t.equal(d.format('nice-short'), 'Feb 29th, 12:30am', 'leap year in ' + tz);
+    t.equal(d.format('nice'), 'Feb 29th, 12:30am', 'leap year in ' + tz);
   });
   t.end();
 });

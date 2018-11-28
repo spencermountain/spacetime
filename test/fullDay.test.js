@@ -77,7 +77,7 @@ test('never cross the intl dateline moving right', t => {
     //h ocklock on right side of the map
     let rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Fiji');
     let time = h + ':01';
-    t.equal(rightSide.format('time-h24'), time, 'time is ' + time);
+    t.equal(rightSide.format('time-24'), time, 'time is ' + time);
     t.equal(rightSide.date(), 24, 'date is 24th');
     //try move across dateline (to left side of the map)
     let leftSide = rightSide.clone().goto('Pacific/Midway');
@@ -98,7 +98,7 @@ test('never cross the intl dateline moving left', t => {
     //h ocklock on right side of the map
     let rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Midway');
     let time = h + ':01';
-    t.equal(rightSide.format('time-h24'), time, 'time is ' + time);
+    t.equal(rightSide.format('time-24'), time, 'time is ' + time);
     t.equal(rightSide.date(), 24, 'date is 24th');
     //try move across dateline (to left side of the map)
     let leftSide = rightSide.clone().goto('Pacific/Fiji');
