@@ -56,6 +56,7 @@ const north = {
   mddt: 'america/cambridge_bay',
   mdt: 'america/denver', //mountain daylight time
   mst: 'america/creston', //mountain standard time
+  'mountain': 'america/denver',
   mpt: 'america/boise',
   mwt: 'america/phoenix',
   nt: -3.5, //newfoundland time

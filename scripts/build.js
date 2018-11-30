@@ -13,6 +13,9 @@ var banner = '/* spacetime v' + pkg.version + '\n   github.com/spencermountain/s
 var uncompressed = './builds/spacetime.js';
 var compressed = './builds/spacetime.min.js';
 
+//set new version number
+fs.writeFileSync('./_version.js', 'module.exports=\'' + pkg.version + '\'')
+
 //cleanup. remove old builds
 exec('rm -rf ./builds && mkdir builds');
 

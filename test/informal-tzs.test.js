@@ -4,10 +4,10 @@ const spacetime = require('./lib');
 
 test('informal timezones', t => {
   let arr = [
-    ['Toronto', 'Canada/Toronto'],
-    ['toronto', 'Canada/Toronto'],
-    ['toronto time', 'Canada/Toronto'],
-    ['toronto standard time', 'Canada/Toronto'],
+    ['Toronto', 'America/Toronto'],
+    ['toronto', 'America/Toronto'],
+    ['toronto time', 'America/Toronto'],
+    ['toronto standard time', 'America/Toronto'],
     ['eastern daylight', 'Canada/Eastern'],
     ['Jamaica', 'America/Jamaica'],
     ['PST', 'America/Los_Angeles'],

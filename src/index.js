@@ -1,7 +1,7 @@
 'use strict';
 const Spacetime = require('./spacetime');
-const whereIts = require('./findTz').whereIts;
-const pkg = require('../package.json');
+const whereIts = require('./whereIts')
+const version = require('../_version')
 
 const main = function(input, tz, options) {
   return new Spacetime(input, tz, options);
@@ -31,8 +31,7 @@ main.extend = function(obj) {
 }
 //find tz by time
 main.whereIts = whereIts;
-//this is handy
-main.version = pkg.version;
+main.version = version
 
 //aliases:
 main.plugin = main.extend

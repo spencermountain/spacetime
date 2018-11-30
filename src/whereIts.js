@@ -2,7 +2,7 @@
 const Spacetime = require('./spacetime');
 // const timezones = require('../data');
 
-exports.whereIts = function(a, b) {
+const whereIts = function(a, b) {
   let start = new Spacetime(null);
   let end = new Spacetime(null);
   start = start.time(a);
@@ -16,6 +16,9 @@ exports.whereIts = function(a, b) {
   let startHour = start.hour();
   let endHour = end.hour();
   let tzs = Object.keys(start.timezones).filter(tz => {
+    if (tz.indexOf('/') === -1) {
+      return false
+    }
     let m = new Spacetime(null, tz);
     let hour = m.hour();
     //do 'calendar-compare' not real-time-compare
@@ -33,3 +36,4 @@ exports.whereIts = function(a, b) {
   });
   return tzs;
 };
+module.exports = whereIts

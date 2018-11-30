@@ -29,7 +29,10 @@ Object.keys(iana).forEach((k) => {
   all[key] = all[key] || []
   let name = k.replace(/(.*?)\//, function(a, prefix) {
     let index = prefixes.indexOf(prefix)
-    return index + '/'
+    if (index !== -1) {
+      return index + '/'
+    }
+    return a
   })
   all[key].push(name)
 })
@@ -45,6 +48,6 @@ let result = {}
 keys.forEach((k) => {
   result[k] = all[k].join(',')
 })
-console.log(result)
 
-fs.writeFileSync('./data/_build.json', JSON.stringify(result, null, 2))
+// console.log(result)
+fs.writeFileSync('./timezones/_build.json', JSON.stringify(result, null, 2))

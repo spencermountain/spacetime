@@ -4,2534 +4,11 @@
 */
 
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.wtf = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
-'use strict';
+"use strict";
 
-var zonefile = _dereq_('./zonefile.json'); //assumed hemisphere, based on continent
+module.exports = '4.5.1';
 
-
-var southern = {
-  Australia: true,
-  Chile: true,
-  Brazil: true,
-  Antarctica: true
-}; //compress timezone data by continent
-
-var unpack = function unpack(obj) {
-  var all = {};
-  var keys = Object.keys(obj);
-  keys.forEach(function (cont) {
-    var cities = Object.keys(obj[cont]);
-    cities.forEach(function (city) {
-      var tz = cont + '/' + city;
-      var arr = obj[cont][city];
-      all[tz] = {
-        o: arr[0],
-        h: arr[1]
-      };
-
-      if (arr[2]) {
-        all[tz].dst = arr[2];
-      } //assume north, unless it says otherwise (sorry!)
-
-
-      if (southern[cont] === true) {
-        all[tz].h = 's';
-      }
-    });
-  }); //add this rando
-
-  all['Etc/UTC'] = {
-    o: 0,
-    h: "n"
-  };
-  all.UTC = all['Etc/UTC'];
-  return all;
-};
-
-var data = unpack(zonefile); // console.log(data);
-
-module.exports = data;
-
-},{"./zonefile.json":2}],2:[function(_dereq_,module,exports){
-module.exports={
-  "Africa": {
-    "Abidjan": [
-      0,
-      "n"
-    ],
-    "Accra": [
-      0,
-      "n"
-    ],
-    "Addis_Ababa": [
-      3,
-      "n"
-    ],
-    "Algiers": [
-      1,
-      "n"
-    ],
-    "Asmara": [
-      3,
-      "n"
-    ],
-    "Asmera": [
-      3,
-      "n"
-    ],
-    "Bamako": [
-      0,
-      "n"
-    ],
-    "Bangui": [
-      1,
-      "n"
-    ],
-    "Banjul": [
-      0,
-      "n"
-    ],
-    "Bissau": [
-      0,
-      "n"
-    ],
-    "Blantyre": [
-      2,
-      "n"
-    ],
-    "Brazzaville": [
-      1,
-      "n"
-    ],
-    "Bujumbura": [
-      2,
-      "n"
-    ],
-    "Cairo": [
-      2,
-      "n"
-    ],
-    "Casablanca": [
-      1,
-      "n",
-      "07/02:03->10/29:02"
-    ],
-    "Ceuta": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Conakry": [
-      0,
-      "n"
-    ],
-    "Dakar": [
-      0,
-      "n"
-    ],
-    "Dar_es_Salaam": [
-      3,
-      "n"
-    ],
-    "Djibouti": [
-      3,
-      "n"
-    ],
-    "Douala": [
-      1,
-      "n"
-    ],
-    "El_Aaiun": [
-      1,
-      "n",
-      "07/02:03->10/29:02"
-    ],
-    "Freetown": [
-      0,
-      "n"
-    ],
-    "Gaborone": [
-      2,
-      "s"
-    ],
-    "Harare": [
-      2,
-      "s"
-    ],
-    "Johannesburg": [
-      2,
-      "s"
-    ],
-    "Juba": [
-      3,
-      "n"
-    ],
-    "Kampala": [
-      3,
-      "n"
-    ],
-    "Khartoum": [
-      2,
-      "n"
-    ],
-    "Kigali": [
-      2,
-      "n"
-    ],
-    "Kinshasa": [
-      1,
-      "s"
-    ],
-    "Lagos": [
-      1,
-      "n"
-    ],
-    "Libreville": [
-      1,
-      "n"
-    ],
-    "Lome": [
-      0,
-      "n"
-    ],
-    "Luanda": [
-      1,
-      "s"
-    ],
-    "Lubumbashi": [
-      2,
-      "s"
-    ],
-    "Lusaka": [
-      2,
-      "s"
-    ],
-    "Malabo": [
-      1,
-      "n"
-    ],
-    "Maputo": [
-      2,
-      "s"
-    ],
-    "Maseru": [
-      2,
-      "s"
-    ],
-    "Mbabane": [
-      2,
-      "s"
-    ],
-    "Mogadishu": [
-      3,
-      "n"
-    ],
-    "Monrovia": [
-      0,
-      "n"
-    ],
-    "Nairobi": [
-      3,
-      "n"
-    ],
-    "Ndjamena": [
-      1,
-      "n"
-    ],
-    "Niamey": [
-      1,
-      "n"
-    ],
-    "Nouakchott": [
-      0,
-      "n"
-    ],
-    "Ouagadougou": [
-      0,
-      "n"
-    ],
-    "Porto-Novo": [
-      1,
-      "n"
-    ],
-    "Sao_Tome": [
-      0,
-      "n"
-    ],
-    "Timbuktu": [
-      0,
-      "n"
-    ],
-    "Tripoli": [
-      2,
-      "n"
-    ],
-    "Tunis": [
-      1,
-      "n"
-    ],
-    "Windhoek": [
-      1,
-      "s",
-      "04/02:01->09/03:03"
-    ]
-  },
-  "America": {
-    "Adak": [
-      -9,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Anchorage": [
-      -8,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Anguilla": [
-      -4,
-      "n"
-    ],
-    "Antigua": [
-      -4,
-      "n"
-    ],
-    "Araguaina": [
-      -3,
-      "n"
-    ],
-    "Argentina": [
-      -3,
-      "s"
-    ],
-    "Aruba": [
-      -4,
-      "n"
-    ],
-    "Asuncion": [
-      -4,
-      "s",
-      "03/24:24->10/07:00"
-    ],
-    "Atikokan": [
-      -5,
-      "n"
-    ],
-    "Atka": [
-      -9,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Bahia": [
-      -3,
-      "n"
-    ],
-    "Bahia_Banderas": [
-      -5,
-      "n",
-      "04/01:02->10/28:02"
-    ],
-    "Barbados": [
-      -4,
-      "n"
-    ],
-    "Belem": [
-      -3,
-      "n"
-    ],
-    "Belize": [
-      -6,
-      "n"
-    ],
-    "Blanc-Sablon": [
-      -4,
-      "n"
-    ],
-    "Boa_Vista": [
-      -4,
-      "n"
-    ],
-    "Bogota": [
-      -5,
-      "n"
-    ],
-    "Boise": [
-      -6,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Buenos_Aires": [
-      -3,
-      "s"
-    ],
-    "Cambridge_Bay": [
-      -6,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Campo_Grande": [
-      -4,
-      "s",
-      "02/17:24->11/04:00"
-    ],
-    "Cancun": [
-      -5,
-      "n"
-    ],
-    "Caracas": [
-      -4,
-      "n"
-    ],
-    "Catamarca": [
-      -3,
-      "n"
-    ],
-    "Cayenne": [
-      -3,
-      "n"
-    ],
-    "Cayman": [
-      -5,
-      "n"
-    ],
-    "Chicago": [
-      -5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Chihuahua": [
-      -6,
-      "n",
-      "04/01:02->10/28:02"
-    ],
-    "Coral_Harbour": [
-      -5,
-      "n"
-    ],
-    "Cordoba": [
-      -3,
-      "s"
-    ],
-    "Costa_Rica": [
-      -6,
-      "n"
-    ],
-    "Creston": [
-      -7,
-      "n"
-    ],
-    "Cuiaba": [
-      -4,
-      "s",
-      "02/17:24->11/04:00"
-    ],
-    "Curacao": [
-      -4,
-      "n"
-    ],
-    "Danmarkshavn": [
-      0,
-      "n"
-    ],
-    "Dawson": [
-      -7,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Dawson_Creek": [
-      -7,
-      "n"
-    ],
-    "Denver": [
-      -6,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Detroit": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Dominica": [
-      -4,
-      "n"
-    ],
-    "Edmonton": [
-      -6,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Eirunepe": [
-      -5,
-      "n"
-    ],
-    "El_Salvador": [
-      -6,
-      "n"
-    ],
-    "Ensenada": [
-      -7,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Fort_Wayne": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Fortaleza": [
-      -3,
-      "n"
-    ],
-    "Glace_Bay": [
-      -3,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Godthab": [
-      -2,
-      "n",
-      "03/24:22->10/27:23"
-    ],
-    "Goose_Bay": [
-      -3,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Grand_Turk": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Grenada": [
-      -4,
-      "n"
-    ],
-    "Guadeloupe": [
-      -4,
-      "n"
-    ],
-    "Guatemala": [
-      -6,
-      "n"
-    ],
-    "Guayaquil": [
-      -5,
-      "n"
-    ],
-    "Guyana": [
-      -4,
-      "n"
-    ],
-    "Halifax": [
-      -3,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Havana": [
-      -4,
-      "n",
-      "03/11:00->11/04:01"
-    ],
-    "Hermosillo": [
-      -7,
-      "n"
-    ],
-    "Indiana": [
-      -4,
-      "n",
-      "03/12:03->11/05:01"
-    ],
-    "Indianapolis": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Inuvik": [
-      -6,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Iqaluit": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Jamaica": [
-      -5,
-      "n"
-    ],
-    "Jujuy": [
-      -3,
-      "n"
-    ],
-    "Juneau": [
-      -8,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Kentucky": [
-      -4,
-      "n",
-      "03/12:03->11/05:01"
-    ],
-    "Knox_IN": [
-      -5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Kralendijk": [
-      -4,
-      "n"
-    ],
-    "La_Paz": [
-      -4,
-      "s"
-    ],
-    "Lima": [
-      -5,
-      "s"
-    ],
-    "Los_Angeles": [
-      -7,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Louisville": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Lower_Princes": [
-      -4,
-      "n"
-    ],
-    "Maceio": [
-      -3,
-      "n"
-    ],
-    "Managua": [
-      -6,
-      "n"
-    ],
-    "Manaus": [
-      -4,
-      "s"
-    ],
-    "Marigot": [
-      -4,
-      "n"
-    ],
-    "Martinique": [
-      -4,
-      "n"
-    ],
-    "Matamoros": [
-      -5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Mazatlan": [
-      -6,
-      "n",
-      "04/01:02->10/28:02"
-    ],
-    "Mendoza": [
-      -3,
-      "n"
-    ],
-    "Menominee": [
-      -5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Merida": [
-      -5,
-      "n",
-      "04/01:02->10/28:02"
-    ],
-    "Metlakatla": [
-      -8,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Mexico_City": [
-      -5,
-      "n",
-      "04/01:02->10/28:02"
-    ],
-    "Miquelon": [
-      -2,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Moncton": [
-      -3,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Monterrey": [
-      -5,
-      "n",
-      "04/01:02->10/28:02"
-    ],
-    "Montevideo": [
-      -3,
-      "s"
-    ],
-    "Montreal": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Montserrat": [
-      -4,
-      "n"
-    ],
-    "Nassau": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "New_York": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Nipigon": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Nome": [
-      -8,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Noronha": [
-      -2,
-      "n"
-    ],
-    "North_Dakota": [
-      -5,
-      "n",
-      "03/12:03->11/05:01"
-    ],
-    "Ojinaga": [
-      -6,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Panama": [
-      -5,
-      "n"
-    ],
-    "Pangnirtung": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Paramaribo": [
-      -3,
-      "n"
-    ],
-    "Phoenix": [
-      -7,
-      "n"
-    ],
-    "Port-au-Prince": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Port_of_Spain": [
-      -4,
-      "n"
-    ],
-    "Porto_Acre": [
-      -5,
-      "n"
-    ],
-    "Porto_Velho": [
-      -4,
-      "n"
-    ],
-    "Puerto_Rico": [
-      -4,
-      "n"
-    ],
-    "Punta_Arenas":[
-      -3,
-      "s"
-    ],
-    "Rainy_River": [
-      -5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Rankin_Inlet": [
-      -5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Recife": [
-      -3,
-      "n"
-    ],
-    "Regina": [
-      -6,
-      "n"
-    ],
-    "Resolute": [
-      -5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Rio_Branco": [
-      -5,
-      "n"
-    ],
-    "Rosario": [
-      -3,
-      "n"
-    ],
-    "Santa_Isabel": [
-      -7,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Santarem": [
-      -3,
-      "n"
-    ],
-    "Santiago": [
-      -4,
-      "s",
-      "05/12:24->08/12:00"
-    ],
-    "Santo_Domingo": [
-      -4,
-      "n"
-    ],
-    "Sao_Paulo": [
-      -3,
-      "s",
-      "02/17:24->11/04:00"
-    ],
-    "Scoresbysund": [
-      0,
-      "n",
-      "03/25:00->10/28:01"
-    ],
-    "Shiprock": [
-      -6,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Sitka": [
-      -8,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "St_Barthelemy": [
-      -4,
-      "n"
-    ],
-    "St_Johns": [
-      -2.5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "St_Kitts": [
-      -4,
-      "n"
-    ],
-    "St_Lucia": [
-      -4,
-      "n"
-    ],
-    "St_Thomas": [
-      -4,
-      "n"
-    ],
-    "St_Vincent": [
-      -4,
-      "n"
-    ],
-    "Swift_Current": [
-      -6,
-      "n"
-    ],
-    "Tegucigalpa": [
-      -6,
-      "n"
-    ],
-    "Thule": [
-      -3,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Thunder_Bay": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Tijuana": [
-      -7,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Toronto": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Tortola": [
-      -4,
-      "n"
-    ],
-    "Vancouver": [
-      -7,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Virgin": [
-      -4,
-      "n"
-    ],
-    "Whitehorse": [
-      -7,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Winnipeg": [
-      -5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Yakutat": [
-      -8,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Yellowknife": [
-      -6,
-      "n",
-      "03/11:02->11/04:02"
-    ]
-  },
-  "Antarctica": {
-    "Casey": [
-      8,
-      "s"
-    ],
-    "Davis": [
-      7,
-      "s"
-    ],
-    "DumontDUrville": [
-      10,
-      "s"
-    ],
-    "Macquarie": [
-      11,
-      "s"
-    ],
-    "Mawson": [
-      5,
-      "s"
-    ],
-    "McMurdo": [
-      12,
-      "s",
-      "04/01:03->09/30:02"
-    ],
-    "Palmer": [
-      -4,
-      "s",
-      "05/13:23->08/13:01"
-    ],
-    "Rothera": [
-      -3,
-      "s"
-    ],
-    "South_Pole": [
-      12,
-      "s",
-      "04/01:03->09/30:02"
-    ],
-    "Syowa": [
-      3,
-      "s"
-    ],
-    "Troll": [
-      2,
-      "s",
-      "03/25:02->10/28:02"
-    ],
-    "Vostok": [
-      6,
-      "s"
-    ]
-  },
-  "Arctic": {
-    "Longyearbyen": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ]
-  },
-  "Asia": {
-    "Aden": [
-      3,
-      "n"
-    ],
-    "Almaty": [
-      6,
-      "n"
-    ],
-    "Amman": [
-      3,
-      "n",
-      "03/30:00->10/26:01"
-    ],
-    "Anadyr": [
-      12,
-      "n"
-    ],
-    "Aqtau": [
-      5,
-      "n"
-    ],
-    "Aqtobe": [
-      5,
-      "n"
-    ],
-    "Ashgabat": [
-      5,
-      "n"
-    ],
-    "Ashkhabad": [
-      5,
-      "n"
-    ],
-    "Atyrau":[
-      5,
-      "n"
-    ],
-    "Baghdad": [
-      3,
-      "n"
-    ],
-    "Bahrain": [
-      3,
-      "n"
-    ],
-    "Baku": [
-      5,
-      "n"
-    ],
-    "Bangkok": [
-      7,
-      "n"
-    ],
-    "Barnaul": [
-      7,
-      "n"
-    ],
-    "Beirut": [
-      3,
-      "n",
-      "03/25:00->10/27:24"
-    ],
-    "Bishkek": [
-      6,
-      "n"
-    ],
-    "Brunei": [
-      8,
-      "n"
-    ],
-    "Calcutta": [
-      5.5,
-      "n"
-    ],
-    "Chita": [
-      9,
-      "n"
-    ],
-    "Choibalsan": [
-      8,
-      "n"
-    ],
-    "Chongqing": [
-      8,
-      "n"
-    ],
-    "Chungking": [
-      8,
-      "n"
-    ],
-    "Colombo": [
-      5.5,
-      "n"
-    ],
-    "Dacca": [
-      6,
-      "n"
-    ],
-    "Damascus": [
-      3,
-      "n",
-      "03/30:00->10/25:24"
-    ],
-    "Dhaka": [
-      6,
-      "n"
-    ],
-    "Dili": [
-      9,
-      "s"
-    ],
-    "Dubai": [
-      4,
-      "n"
-    ],
-    "Dushanbe": [
-      5,
-      "n"
-    ],
-    "Gaza": [
-      3,
-      "n",
-      "03/24:01->10/27:01"
-    ],
-    "Harbin": [
-      8,
-      "n"
-    ],
-    "Hebron": [
-      3,
-      "n",
-      "03/24:01->10/27:01"
-    ],
-    "Ho_Chi_Minh": [
-      7,
-      "n"
-    ],
-    "Hong_Kong": [
-      8,
-      "n"
-    ],
-    "Hovd": [
-      7,
-      "n"
-    ],
-    "Irkutsk": [
-      8,
-      "n"
-    ],
-    "Istanbul": [
-      3,
-      "n"
-    ],
-    "Jakarta": [
-      7,
-      "s"
-    ],
-    "Jayapura": [
-      9,
-      "n"
-    ],
-    "Jerusalem": [
-      3,
-      "n",
-      "03/23:02->10/28:02"
-    ],
-    "Kabul": [
-      4.5,
-      "n"
-    ],
-    "Kamchatka": [
-      12,
-      "n"
-    ],
-    "Karachi": [
-      5,
-      "n"
-    ],
-    "Kashgar": [
-      6,
-      "n"
-    ],
-    "Kathmandu": [
-      5.75,
-      "n"
-    ],
-    "Katmandu": [
-      5.75,
-      "n"
-    ],
-    "Khandyga": [
-      9,
-      "n"
-    ],
-    "Kolkata": [
-      5.5,
-      "n"
-    ],
-    "Krasnoyarsk": [
-      7,
-      "n"
-    ],
-    "Kuala_Lumpur": [
-      8,
-      "s"
-    ],
-    "Kuching": [
-      8,
-      "n"
-    ],
-    "Kuwait": [
-      3,
-      "n"
-    ],
-    "Macao": [
-      8,
-      "n"
-    ],
-    "Macau": [
-      8,
-      "n"
-    ],
-    "Magadan": [
-      11,
-      "n"
-    ],
-    "Makassar": [
-      8,
-      "s"
-    ],
-    "Manila": [
-      8,
-      "n"
-    ],
-    "Muscat": [
-      4,
-      "n"
-    ],
-    "Nicosia": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Novokuznetsk": [
-      7,
-      "n"
-    ],
-    "Novosibirsk": [
-      7,
-      "n"
-    ],
-    "Omsk": [
-      6,
-      "n"
-    ],
-    "Oral": [
-      5,
-      "n"
-    ],
-    "Phnom_Penh": [
-      7,
-      "n"
-    ],
-    "Pontianak": [
-      7,
-      "n"
-    ],
-    "Pyongyang": [
-      9,
-      "n"
-    ],
-    "Qatar": [
-      3,
-      "n"
-    ],
-    "Qyzylorda": [
-      6,
-      "n"
-    ],
-    "Rangoon": [
-      6.5,
-      "n"
-    ],
-    "Riyadh": [
-      3,
-      "n"
-    ],
-    "Saigon": [
-      7,
-      "n"
-    ],
-    "Sakhalin": [
-      11,
-      "n"
-    ],
-    "Samarkand": [
-      5,
-      "n"
-    ],
-    "Seoul": [
-      9,
-      "n"
-    ],
-    "Shanghai": [
-      8,
-      "n"
-    ],
-    "Singapore": [
-      8,
-      "s"
-    ],
-    "Srednekolymsk": [
-      12,
-      "n"
-    ],
-    "Taipei": [
-      8,
-      "n"
-    ],
-    "Tashkent": [
-      5,
-      "n"
-    ],
-    "Tbilisi": [
-      4,
-      "n"
-    ],
-    "Tehran": [
-      4.5,
-      "n",
-      "03/22:00->09/21:24"
-    ],
-    "Tel_Aviv": [
-      3,
-      "n",
-      "03/23:02->10/28:02"
-    ],
-    "Thimbu": [
-      6,
-      "n"
-    ],
-    "Thimphu": [
-      6,
-      "n"
-    ],
-    "Tokyo": [
-      9,
-      "n"
-    ],
-    "Ujung_Pandang": [
-      8,
-      "n"
-    ],
-    "Ulaanbaatar": [
-      8,
-      "n"
-    ],
-    "Ulan_Bator": [
-      8,
-      "n",
-      "03/25:03->09/29:23"
-    ],
-    "Urumqi": [
-      6,
-      "n"
-    ],
-    "Ust-Nera": [
-      10,
-      "n"
-    ],
-    "Vientiane": [
-      7,
-      "n"
-    ],
-    "Vladivostok": [
-      10,
-      "n"
-    ],
-    "Yakutsk": [
-      10,
-      "n"
-    ],
-    "Yekaterinburg": [
-      5,
-      "n"
-    ],
-    "Yerevan": [
-      4,
-      "n"
-    ]
-  },
-  "Atlantic": {
-    "Azores": [
-      0,
-      "n",
-      "03/25:00->10/28:01"
-    ],
-    "Bermuda": [
-      -3,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Canary": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Cape_Verde": [
-      -1,
-      "n"
-    ],
-    "Faeroe": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Faroe": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Jan_Mayen": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Madeira": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Reykjavik": [
-      0,
-      "n"
-    ],
-    "South_Georgia": [
-      -2,
-      "n"
-    ],
-    "St_Helena": [
-      0,
-      "n"
-    ],
-    "Stanley": [
-      -3,
-      "n"
-    ]
-  },
-  "Australia": {
-    "ACT": [
-      10,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "Adelaide": [
-      9.5,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "Brisbane": [
-      10,
-      "s"
-    ],
-    "Broken_Hill": [
-      9.5,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "Canberra": [
-      10,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "Currie": [
-      10,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "Darwin": [
-      9.5,
-      "s"
-    ],
-    "Eucla": [
-      8.75,
-      "s"
-    ],
-    "Hobart": [
-      10,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "LHI": [
-      10.5,
-      "s",
-      "04/01:01->10/07:02"
-    ],
-    "Lindeman": [
-      10,
-      "s"
-    ],
-    "Lord_Howe": [
-      10.5,
-      "s",
-      "04/01:01->10/07:02"
-    ],
-    "Melbourne": [
-      10,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "NSW": [
-      10,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "North": [
-      9.5,
-      "s"
-    ],
-    "Perth": [
-      8,
-      "s"
-    ],
-    "Queensland": [
-      10,
-      "s"
-    ],
-    "South": [
-      9.5,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "Sydney": [
-      10,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "Tasmania": [
-      10,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "Victoria": [
-      10,
-      "s",
-      "04/01:03->10/07:02"
-    ],
-    "West": [
-      8,
-      "s"
-    ],
-    "Yancowinna": [
-      9.5,
-      "s",
-      "04/01:03->10/07:02"
-    ]
-  },
-  "Brazil": {
-    "Acre": [
-      -5,
-      "s"
-    ],
-    "DeNoronha": [
-      -2,
-      "s"
-    ],
-    "East": [
-      -3,
-      "s",
-      "02/17:24->11/04:00"
-    ],
-    "West": [
-      -4,
-      "s"
-    ]
-  },
-  "Canada": {
-    "Atlantic": [
-      -3,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Central": [
-      -5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "East-Saskatchewan": [
-      -6,
-      "n"
-    ],
-    "Eastern": [
-      -4,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Mountain": [
-      -6,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Newfoundland": [
-      -2.5,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Pacific": [
-      -7,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "Saskatchewan": [
-      -6,
-      "n"
-    ],
-    "Yukon": [
-      -7,
-      "n",
-      "03/11:02->11/04:02"
-    ]
-  },
-  "Chile": {
-    "Continental": [
-      -4,
-      "s",
-      "05/12:24->08/12:00"
-    ],
-    "EasterIsland": [
-      -6,
-      "s",
-      "05/12:22->08/11:22"
-    ]
-  },
-  "Etc": {
-    "GMT": [
-      0,
-      "n"
-    ],
-    "GMT+0": [
-      0,
-      "n"
-    ],
-    "GMT+1": [
-      -1,
-      "n"
-    ],
-    "GMT+10": [
-      -10,
-      "n"
-    ],
-    "GMT+11": [
-      -11,
-      "n"
-    ],
-    "GMT+12": [
-      -12,
-      "n"
-    ],
-    "GMT+2": [
-      -2,
-      "n"
-    ],
-    "GMT+3": [
-      -3,
-      "n"
-    ],
-    "GMT+4": [
-      -4,
-      "n"
-    ],
-    "GMT+5": [
-      -5,
-      "n"
-    ],
-    "GMT+6": [
-      -6,
-      "n"
-    ],
-    "GMT+7": [
-      -7,
-      "n"
-    ],
-    "GMT+8": [
-      -8,
-      "n"
-    ],
-    "GMT+9": [
-      -9,
-      "n"
-    ],
-    "GMT-0": [
-      0,
-      "n"
-    ],
-    "GMT-1": [
-      1,
-      "n"
-    ],
-    "GMT-10": [
-      10,
-      "n"
-    ],
-    "GMT-11": [
-      11,
-      "n"
-    ],
-    "GMT-12": [
-      12,
-      "n"
-    ],
-    "GMT-13": [
-      13,
-      "n"
-    ],
-    "GMT-14": [
-      14,
-      "n"
-    ],
-    "GMT-2": [
-      2,
-      "n"
-    ],
-    "GMT-3": [
-      3,
-      "n"
-    ],
-    "GMT-4": [
-      4,
-      "n"
-    ],
-    "GMT-5": [
-      5,
-      "n"
-    ],
-    "GMT-6": [
-      6,
-      "n"
-    ],
-    "GMT-7": [
-      7,
-      "n"
-    ],
-    "GMT-8": [
-      8,
-      "n"
-    ],
-    "GMT-9": [
-      9,
-      "n"
-    ],
-    "GMT0": [
-      0,
-      "n"
-    ],
-    "Greenwich": [
-      0,
-      "n"
-    ],
-    "UCT": [
-      0,
-      "n"
-    ],
-    "UTC": [
-      0,
-      "n"
-    ],
-    "Universal": [
-      0,
-      "n"
-    ],
-    "Zulu": [
-      0,
-      "n"
-    ]
-  },
-  "Europe": {
-    "Amsterdam": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Andorra": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Astrakhan":[
-      4,
-      "n"
-    ],
-    "Athens": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Belfast": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Belgrade": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Berlin": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Bratislava": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Brussels": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Bucharest": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Budapest": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Busingen": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Chisinau": [
-      3,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Copenhagen": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Dublin": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Gibraltar": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Guernsey": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Helsinki": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Isle_of_Man": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Istanbul": [
-      3,
-      "n"
-    ],
-    "Jersey": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Kaliningrad": [
-      2,
-      "n"
-    ],
-    "Kirov":[
-      3,
-      "n"
-    ],
-    "Kiev": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Lisbon": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Ljubljana": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "London": [
-      1,
-      "n",
-      "03/25:01->10/28:02"
-    ],
-    "Luxembourg": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Madrid": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Malta": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Mariehamn": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Minsk": [
-      3,
-      "n"
-    ],
-    "Monaco": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Moscow": [
-      3,
-      "n"
-    ],
-    "Nicosia": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Oslo": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Paris": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Podgorica": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Prague": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Riga": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Rome": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Samara": [
-      4,
-      "n"
-    ],
-    "Saratov":[
-      4,
-      "n"
-    ],
-    "San_Marino": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Sarajevo": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Simferopol": [
-      3,
-      "n"
-    ],
-    "Skopje": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Sofia": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Stockholm": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Tallinn": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Tirane": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Tiraspol": [
-      3,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Ulyanovsk":[
-      4,
-      "n"
-    ],
-    "Uzhgorod": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Vaduz": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Vatican": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Vienna": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Vilnius": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Volgograd": [
-      3,
-      "n"
-    ],
-    "Warsaw": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Zagreb": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ],
-    "Zaporozhye": [
-      3,
-      "n",
-      "03/25:03->10/28:04"
-    ],
-    "Zurich": [
-      2,
-      "n",
-      "03/25:02->10/28:03"
-    ]
-  },
-  "Indian": {
-    "Antananarivo": [
-      3,
-      "s"
-    ],
-    "Chagos": [
-      6,
-      "n"
-    ],
-    "Christmas": [
-      7,
-      "n"
-    ],
-    "Cocos": [
-      6.5,
-      "n"
-    ],
-    "Comoro": [
-      3,
-      "n"
-    ],
-    "Kerguelen": [
-      5,
-      "s"
-    ],
-    "Mahe": [
-      4,
-      "n"
-    ],
-    "Maldives": [
-      5,
-      "n"
-    ],
-    "Mauritius": [
-      4,
-      "n"
-    ],
-    "Mayotte": [
-      3,
-      "n"
-    ],
-    "Reunion": [
-      4,
-      "s"
-    ]
-  },
-  "Mexico": {
-    "BajaNorte": [
-      -7,
-      "n",
-      "03/11:02->11/04:02"
-    ],
-    "BajaSur": [
-      -6,
-      "n",
-      "04/01:02->10/28:02"
-    ],
-    "General": [
-      -5,
-      "n",
-      "04/01:02->10/28:02"
-    ]
-  },
-  "Pacific": {
-    "Apia": [
-      13,
-      "s",
-      "04/01:04->09/30:03"
-    ],
-    "Auckland": [
-      12,
-      "s",
-      "04/01:03->09/30:02"
-    ],
-    "Chatham": [
-      12.75,
-      "s",
-      "04/07:03->09/29:02"
-    ],
-    "Chuuk": [
-      10,
-      "n"
-    ],
-    "Easter": [
-      -6,
-      "s",
-      "05/12:22->08/11:22"
-    ],
-    "Efate": [
-      11,
-      "n"
-    ],
-    "Enderbury": [
-      13,
-      "n"
-    ],
-    "Fakaofo": [
-      13,
-      "n"
-    ],
-    "Fiji": [
-      12,
-      "s",
-      "01/14:03->11/04:02"
-    ],
-    "Funafuti": [
-      12,
-      "n"
-    ],
-    "Galapagos": [
-      -6,
-      "n"
-    ],
-    "Gambier": [
-      -9,
-      "n"
-    ],
-    "Guadalcanal": [
-      11,
-      "n"
-    ],
-    "Guam": [
-      10,
-      "n"
-    ],
-    "Honolulu": [
-      -10,
-      "n"
-    ],
-    "Johnston": [
-      -10,
-      "n"
-    ],
-    "Kiritimati": [
-      14,
-      "n"
-    ],
-    "Kosrae": [
-      11,
-      "n"
-    ],
-    "Kwajalein": [
-      12,
-      "n"
-    ],
-    "Majuro": [
-      12,
-      "n"
-    ],
-    "Marquesas": [
-      -9.5,
-      "n"
-    ],
-    "Midway": [
-      -11,
-      "n"
-    ],
-    "Nauru": [
-      12,
-      "n"
-    ],
-    "Niue": [
-      -11,
-      "n"
-    ],
-    "Norfolk": [
-      11.5,
-      "n"
-    ],
-    "Noumea": [
-      11,
-      "n"
-    ],
-    "Pago_Pago": [
-      -11,
-      "n"
-    ],
-    "Palau": [
-      9,
-      "n"
-    ],
-    "Pitcairn": [
-      -8,
-      "n"
-    ],
-    "Pohnpei": [
-      11,
-      "n"
-    ],
-    "Ponape": [
-      11,
-      "n"
-    ],
-    "Port_Moresby": [
-      10,
-      "n"
-    ],
-    "Rarotonga": [
-      -10,
-      "n"
-    ],
-    "Saipan": [
-      10,
-      "n"
-    ],
-    "Samoa": [
-      -11,
-      "n"
-    ],
-    "Tahiti": [
-      -10,
-      "n"
-    ],
-    "Tarawa": [
-      12,
-      "n"
-    ],
-    "Tongatapu": [
-      13,
-      "s",
-      "01/15:02->11/05:03"
-    ],
-    "Truk": [
-      10,
-      "n"
-    ],
-    "Wake": [
-      12,
-      "n"
-    ],
-    "Wallis": [
-      12,
-      "n"
-    ],
-    "Yap": [
-      10,
-      "n"
-    ]
-  }
-}
-
-},{}],3:[function(_dereq_,module,exports){
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-},{}],4:[function(_dereq_,module,exports){
-module.exports={
-  "name": "spacetime",
-  "version": "4.5.1",
-  "description": "figure-out dates across timezones",
-  "main": "./src/index.js",
-  "license": "Apache-2.0",
-  "scripts": {
-    "build": "node ./scripts/build.js",
-    "build:tz": "node ./scripts/updateZonefile.js",
-    "watch": "amble ./scratch.js",
-    "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
-    "test-spec": "TESTENV=dev tape ./test/**/*.test.js | tap-spec",
-    "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer",
-    "coverage": "node ./scripts/coverage.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/smallwins/spacetime.git"
-  },
-  "files": [
-    "./builds/spacetime.js",
-    "./builds/spacetime.min.js"
-  ],
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.1.6",
-    "@babel/preset-env": "7.1.6",
-    "amble": "0.0.6",
-    "babelify": "10.0.0",
-    "browserify": "16.2.3",
-    "derequire": "^2.0.6",
-    "nyc": "13.1.0",
-    "shelljs": "0.8.2",
-    "tap-dancer": "0.1.2",
-    "tap-spec": "5.0.0",
-    "tape": "4.9.1",
-    "timekeeper": "2.1.2",
-    "uglify-js": "3.4.9"
-  }
-}
-
-},{}],5:[function(_dereq_,module,exports){
+},{}],2:[function(_dereq_,module,exports){
 'use strict';
 
 var shortDays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
@@ -2549,7 +26,7 @@ module.exports = {
   }
 };
 
-},{}],6:[function(_dereq_,module,exports){
+},{}],3:[function(_dereq_,module,exports){
 'use strict';
 
 var o = {
@@ -2572,7 +49,7 @@ Object.keys(o).forEach(function (k) {
 });
 module.exports = o;
 
-},{}],7:[function(_dereq_,module,exports){
+},{}],4:[function(_dereq_,module,exports){
 "use strict";
 
 var monthLengths = [31, // January - 31 days
@@ -2590,7 +67,7 @@ var monthLengths = [31, // January - 31 days
 ];
 module.exports = monthLengths;
 
-},{}],8:[function(_dereq_,module,exports){
+},{}],5:[function(_dereq_,module,exports){
 'use strict';
 
 var shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'];
@@ -2626,7 +103,7 @@ module.exports = {
   }
 };
 
-},{}],9:[function(_dereq_,module,exports){
+},{}],6:[function(_dereq_,module,exports){
 "use strict";
 
 module.exports = [null, [0, 1], //jan 1
@@ -2634,7 +111,7 @@ module.exports = [null, [0, 1], //jan 1
 [6, 1], //july 1
 [9, 1]];
 
-},{}],10:[function(_dereq_,module,exports){
+},{}],7:[function(_dereq_,module,exports){
 "use strict";
 
 //https://www.timeanddate.com/calendar/aboutseasons.html
@@ -2657,7 +134,7 @@ module.exports = {
   ]
 };
 
-},{}],11:[function(_dereq_,module,exports){
+},{}],8:[function(_dereq_,module,exports){
 'use strict';
 
 var Spacetime = _dereq_('./spacetime'); // const timezones = require('../data');
@@ -2698,7 +175,7 @@ exports.whereIts = function (a, b) {
   return tzs;
 };
 
-},{"./spacetime":38}],12:[function(_dereq_,module,exports){
+},{"./spacetime":35}],9:[function(_dereq_,module,exports){
 'use strict'; //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
 
 exports.isLeapYear = function (year) {
@@ -2797,14 +274,14 @@ exports.beADate = function (d, s) {
   return d;
 };
 
-},{}],13:[function(_dereq_,module,exports){
+},{}],10:[function(_dereq_,module,exports){
 'use strict';
 
 var Spacetime = _dereq_('./spacetime');
 
 var whereIts = _dereq_('./findTz').whereIts;
 
-var pkg = _dereq_('../package.json');
+var version = _dereq_('../_version');
 
 var main = function main(input, tz, options) {
   return new Spacetime(input, tz, options);
@@ -2838,14 +315,13 @@ main.extend = function (obj) {
 }; //find tz by time
 
 
-main.whereIts = whereIts; //this is handy
-
-main.version = pkg.version; //aliases:
+main.whereIts = whereIts;
+main.version = version; //aliases:
 
 main.plugin = main.extend;
 module.exports = main;
 
-},{"../package.json":4,"./findTz":11,"./spacetime":38}],14:[function(_dereq_,module,exports){
+},{"../_version":1,"./findTz":8,"./spacetime":35}],11:[function(_dereq_,module,exports){
 'use strict';
 
 var monthLengths = _dereq_('../data/monthLengths');
@@ -2880,7 +356,7 @@ var hasDate = function hasDate(obj) {
 
 module.exports = hasDate;
 
-},{"../data/monthLengths":7,"../fns":12}],15:[function(_dereq_,module,exports){
+},{"../data/monthLengths":4,"../fns":9}],12:[function(_dereq_,module,exports){
 'use strict';
 
 var strFmt = _dereq_('./strParse');
@@ -3009,7 +485,7 @@ var parseInput = function parseInput(s, input, givenTz) {
 
 module.exports = parseInput;
 
-},{"../fns":12,"./named-dates":16,"./strParse":18}],16:[function(_dereq_,module,exports){
+},{"../fns":9,"./named-dates":13,"./strParse":15}],13:[function(_dereq_,module,exports){
 'use strict';
 
 var dates = {
@@ -3054,8 +530,7 @@ var dates = {
 dates['new years eve'] = dates['new years'];
 module.exports = dates;
 
-},{}],17:[function(_dereq_,module,exports){
-(function (process){
+},{}],14:[function(_dereq_,module,exports){
 'use strict'; //pull-apart ISO offsets, like "+0100"
 
 var parseOffset = function parseOffset(s, offset, givenTz) {
@@ -3101,21 +576,20 @@ var parseOffset = function parseOffset(s, offset, givenTz) {
     num = '+' + num;
   }
 
-  var tz = 'Etc/GMT' + num;
-  var zones = s.timezones;
+  var tz = 'etc/gmt' + num;
+  var zones = s.timezones; // console.log(tz)
 
   if (zones[tz]) {
     // console.log('changing timezone to: ' + tz)
     //log a warning if we're over-writing a given timezone
-    if (givenTz && zones[givenTz] && zones[givenTz].o !== zones[tz].o && s.silent === false) {
-      //don't log during our tests, either..
-      if (typeof process !== 'undefined' && process.env && !process.env.TESTENV) {
-        console.warn('  - Setting timezone to: \'' + tz + '\'');
-        console.warn('     from ISO string \'' + offset + '\'');
-        console.warn('     overwriting given timezone: \'' + givenTz + '\'\n');
-      }
-    }
-
+    // if (givenTz && zones[givenTz] && zones[givenTz].offset !== zones[tz].offset && s.silent === false) {
+    //don't log during our tests, either..
+    // if (typeof process !== 'undefined' && process.env && !process.env.TESTENV) {
+    //   console.warn('  - Setting timezone to: \'' + tz + '\'')
+    //   console.warn('     from ISO string \'' + offset + '\'')
+    //   console.warn('     overwriting given timezone: \'' + givenTz + '\'\n')
+    // }
+    // }
     s.tz = tz;
   }
 
@@ -3124,8 +598,7 @@ var parseOffset = function parseOffset(s, offset, givenTz) {
 
 module.exports = parseOffset;
 
-}).call(this,_dereq_('_process'))
-},{"_process":3}],18:[function(_dereq_,module,exports){
+},{}],15:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('../methods/set/walk');
@@ -3337,7 +810,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
 }];
 module.exports = strFmt;
 
-},{"../data/months":8,"../fns":12,"../methods/set/walk":35,"./hasDate":14,"./parseOffset":17}],19:[function(_dereq_,module,exports){
+},{"../data/months":5,"../fns":9,"../methods/set/walk":32,"./hasDate":11,"./parseOffset":14}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var _format = _dereq_('./methods/format');
@@ -3465,7 +938,7 @@ methods.inDST = methods.isDST;
 methods.round = methods.nearest;
 module.exports = methods;
 
-},{"./fns":12,"./input":15,"./methods/diff":22,"./methods/format":24,"./methods/format/unixFmt":25,"./methods/nearest":27,"./methods/progress":28,"./methods/since":36,"./methods/startOf":37,"./timezone/index":40}],20:[function(_dereq_,module,exports){
+},{"./fns":9,"./input":12,"./methods/diff":19,"./methods/format":21,"./methods/format/unixFmt":22,"./methods/nearest":24,"./methods/progress":25,"./methods/since":33,"./methods/startOf":34,"./timezone/index":39}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('./set/walk');
@@ -3590,7 +1063,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{"../data/milliseconds":6,"../data/monthLengths":7,"../fns":12,"./set/walk":35}],21:[function(_dereq_,module,exports){
+},{"../data/milliseconds":3,"../data/monthLengths":4,"../fns":9,"./set/walk":32}],18:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns');
@@ -3653,7 +1126,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{"../fns":12}],22:[function(_dereq_,module,exports){
+},{"../fns":9}],19:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns'); //init this function up here
@@ -3737,7 +1210,7 @@ doAll = function doAll(a, b) {
 
 module.exports = diff;
 
-},{"../fns":12}],23:[function(_dereq_,module,exports){
+},{"../fns":9}],20:[function(_dereq_,module,exports){
 "use strict";
 
 var fns = _dereq_('../../fns'); // "+01:00", "+0100", or simply "+01"
@@ -3774,7 +1247,7 @@ var isoOffset = function isoOffset(s) {
 
 module.exports = isoOffset;
 
-},{"../../fns":12}],24:[function(_dereq_,module,exports){
+},{"../../fns":9}],21:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../../fns');
@@ -3995,7 +1468,7 @@ var printFormat = function printFormat(s) {
 
 module.exports = printFormat;
 
-},{"../../data/days":5,"../../data/months":8,"../../fns":12,"./_offset":23}],25:[function(_dereq_,module,exports){
+},{"../../data/days":2,"../../data/months":5,"../../fns":9,"./_offset":20}],22:[function(_dereq_,module,exports){
 'use strict';
 
 var pad = _dereq_('../../fns').zeroPad; //parse this insane unix-time-templating thing, from the 19th century
@@ -4249,7 +1722,7 @@ var unixFmt = function unixFmt(s, str) {
 
 module.exports = unixFmt;
 
-},{"../../fns":12}],26:[function(_dereq_,module,exports){
+},{"../../fns":9}],23:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns');
@@ -4277,7 +1750,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{"../data/days":5,"../data/months":8,"../fns":12}],27:[function(_dereq_,module,exports){
+},{"../data/days":2,"../data/months":5,"../fns":9}],24:[function(_dereq_,module,exports){
 'use strict'; //round to either current, or +1 of this unit
 
 var nearest = function nearest(s, unit) {
@@ -4301,7 +1774,7 @@ var nearest = function nearest(s, unit) {
 
 module.exports = nearest;
 
-},{}],28:[function(_dereq_,module,exports){
+},{}],25:[function(_dereq_,module,exports){
 'use strict'; //how far it is along, from 0-1
 
 var progress = function progress(s) {
@@ -4319,7 +1792,7 @@ var progress = function progress(s) {
 
 module.exports = progress;
 
-},{}],29:[function(_dereq_,module,exports){
+},{}],26:[function(_dereq_,module,exports){
 'use strict';
 
 var quarters = _dereq_('../../data/quarters');
@@ -4478,7 +1951,7 @@ module.exports = {
   }
 };
 
-},{"../../data/quarters":9,"../../data/seasons":10,"../../fns":12,"../set/set":34}],30:[function(_dereq_,module,exports){
+},{"../../data/quarters":6,"../../data/seasons":7,"../../fns":9,"../set/set":31}],27:[function(_dereq_,module,exports){
 'use strict';
 
 var normal = _dereq_('./normal');
@@ -4502,7 +1975,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"./destructive":29,"./normal":31,"./tricky":32}],31:[function(_dereq_,module,exports){
+},{"./destructive":26,"./normal":28,"./tricky":29}],28:[function(_dereq_,module,exports){
 'use strict';
 
 var set = _dereq_('../set/set');
@@ -4736,7 +2209,7 @@ methods.h24 = methods.hour24;
 methods.days = methods.day;
 module.exports = methods;
 
-},{"../set/set":34,"../set/walk":35}],32:[function(_dereq_,module,exports){
+},{"../set/set":31,"../set/walk":32}],29:[function(_dereq_,module,exports){
 'use strict';
 
 var days = _dereq_('../../data/days');
@@ -4824,7 +2297,7 @@ module.exports = {
   }
 };
 
-},{"../../data/days":5,"../../data/months":8,"../set/walk":35}],33:[function(_dereq_,module,exports){
+},{"../../data/days":2,"../../data/months":5,"../set/walk":32}],30:[function(_dereq_,module,exports){
 'use strict'; //make a string, for easy comparison between dates
 
 var print = {
@@ -4879,7 +2352,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{}],34:[function(_dereq_,module,exports){
+},{}],31:[function(_dereq_,module,exports){
 'use strict'; // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
 
@@ -5033,7 +2506,7 @@ module.exports = {
   }
 };
 
-},{"../../data/milliseconds":6,"../../data/monthLengths":7,"../../data/months":8,"./walk":35}],35:[function(_dereq_,module,exports){
+},{"../../data/milliseconds":3,"../../data/monthLengths":4,"../../data/months":5,"./walk":32}],32:[function(_dereq_,module,exports){
 'use strict';
 
 var ms = _dereq_('../../data/milliseconds'); //basically, step-forward/backward until js Date object says we're there.
@@ -5203,7 +2676,7 @@ module.exports = walkTo; // const spacetime = require('../../spacetime')
 // walkTo(s, want)
 // s.log()
 
-},{"../../data/milliseconds":6}],36:[function(_dereq_,module,exports){
+},{"../../data/milliseconds":3}],33:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns'); //by spencermountain + Shaun Grady
@@ -5356,7 +2829,7 @@ var since = function since(start, end) {
 
 module.exports = since;
 
-},{"../fns":12}],37:[function(_dereq_,module,exports){
+},{"../fns":9}],34:[function(_dereq_,module,exports){
 'use strict';
 
 var seasons = _dereq_('../data/seasons');
@@ -5531,7 +3004,7 @@ module.exports = {
   endOf: endOf
 };
 
-},{"../data/quarters":9,"../data/seasons":10,"./set/walk":35}],38:[function(_dereq_,module,exports){
+},{"../data/quarters":6,"../data/seasons":7,"./set/walk":32}],35:[function(_dereq_,module,exports){
 'use strict';
 
 var guessTz = _dereq_('./timezone/guessTz');
@@ -5542,7 +3015,7 @@ var handleInput = _dereq_('./input');
 
 var methods = _dereq_('./methods');
 
-var zones = _dereq_('../data'); //fake timezone-support, for fakers (es5 class)
+var timezones = _dereq_('../timezones/unpack'); //fake timezone-support, for fakers (es5 class)
 
 
 var SpaceTime = function SpaceTime(input, tz, options) {
@@ -5574,10 +3047,10 @@ var SpaceTime = function SpaceTime(input, tz, options) {
 
   Object.defineProperty(this, 'timezones', {
     get: function get() {
-      return zones;
+      return timezones;
     },
     set: function set(obj) {
-      zones = obj;
+      timezones = obj;
       return obj;
     }
   }); //parse the various formats
@@ -5610,7 +3083,80 @@ _dereq_('./methods/i18n')(SpaceTime);
 
 module.exports = SpaceTime;
 
-},{"../data":1,"./input":15,"./methods":19,"./methods/add":20,"./methods/compare":21,"./methods/i18n":26,"./methods/query":30,"./methods/same":33,"./timezone/guessTz":39,"./timezone/index":40}],39:[function(_dereq_,module,exports){
+},{"../timezones/unpack":43,"./input":12,"./methods":16,"./methods/add":17,"./methods/compare":18,"./methods/i18n":23,"./methods/query":27,"./methods/same":30,"./timezone/guessTz":38,"./timezone/index":39}],36:[function(_dereq_,module,exports){
+"use strict";
+
+//these are common-enough abbreviations
+var named = [//british
+['gmt', 'bst'], ['gmt', 'ist'], //european
+['wet', 'west'], ['cet', 'cest'], ['eet', 'eest'], ['msk', 'msd'], //americas
+['ast', 'adt'], ['est', 'edt'], ['cst', 'cdt'], ['mst', 'mdt'], ['pst', 'pdt'], ['akst', 'akdt'], //australia
+['aest', 'aedt'], ['acst', 'acdt'], ['awst', 'awdt']]; //
+
+var displayName = function displayName(found, timezones) {
+  for (var i = 0; i < named.length; i += 1) {
+    var name = named[i][0];
+    var hay = timezones[name]; // console.log(hay)
+
+    if (hay.offset === found.offset && hay.hem === found.hem) {
+      //&& hay.dst === found.dst
+      return name.toUpperCase();
+    }
+  }
+
+  return '';
+};
+
+module.exports = displayName;
+
+},{}],37:[function(_dereq_,module,exports){
+"use strict";
+
+var isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i; //try to match these against iana form
+
+var normalize = function normalize(tz) {
+  tz = tz.toLowerCase();
+  tz = tz.replace(/ /g, '_');
+  return tz;
+}; // try our best to reconcile the timzone to this given string
+
+
+var lookupTz = function lookupTz(str, zones) {
+  var tz = str.trim();
+  var split = str.split('/'); //support long timezones like 'America/Argentina/Rio_Gallegos'
+
+  if (split.length > 2 && zones.hasOwnProperty(tz) === false) {
+    tz = split[0] + '/' + split[1];
+  }
+
+  if (zones.hasOwnProperty(tz) === true) {
+    return zones[tz];
+  } //lookup more loosely..
+
+
+  tz = normalize(tz);
+
+  if (zones.hasOwnProperty(tz) === true) {
+    return zones[tz];
+  } //try to parse 'gmt+5'
+
+
+  var m = tz.match(isNum);
+
+  if (m !== null) {
+    var num = Number(m[2]);
+    return {
+      offset: num,
+      h: 'n'
+    };
+  }
+
+  return null;
+};
+
+module.exports = lookupTz;
+
+},{}],38:[function(_dereq_,module,exports){
 'use strict'; //find the implicit iana code for this machine.
 //safely query the Intl object
 //based on - https://bitbucket.org/pellepim/jstimezonedetect/src
@@ -5650,12 +3196,14 @@ var guessTz = function guessTz() {
 
 module.exports = guessTz;
 
-},{}],40:[function(_dereq_,module,exports){
+},{}],39:[function(_dereq_,module,exports){
 'use strict'; // const zones = require('../../data');
 
-var lookupTz = _dereq_('./lookupTz');
+var findTz = _dereq_('./find');
 
 var summerTime = _dereq_('./summerTime');
+
+var displayName = _dereq_('./displayName');
 
 var parseDst = function parseDst(dst) {
   if (!dst) {
@@ -5663,35 +3211,42 @@ var parseDst = function parseDst(dst) {
   }
 
   return dst.split('->');
+};
+
+var titleCase = function titleCase(str) {
+  str = str[0].toUpperCase() + str.substr(1);
+  str = str.replace(/\/gmt/, '/GMT');
+  str = str.replace(/\/([a-z])/i, function (s) {
+    return s.toUpperCase();
+  });
+  return str;
 }; //get metadata about this timezone
 
 
 var timezone = function timezone(s) {
   var zones = s.timezones;
-  var tz = lookupTz(s.tz, zones);
+  var found = findTz(s.tz, zones);
 
-  if (tz === null) {
-    console.warn("Warn: could not find given or local timezone - '" + tz + "'");
+  if (found === null) {
+    console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
     return {
       current: {
         epochShift: 0
       }
     };
-  } //do north-hemisphere version as default (sorry!)
+  }
 
-
-  var m = {
-    name: tz,
-    hasDst: Boolean(zones[tz].dst),
-    hemisphere: zones[tz].h === 's' ? 'South' : 'North',
-    //assume north, unless told
-    change: {},
+  var result = {
+    name: titleCase(s.tz),
+    hasDst: Boolean(found.dst),
+    //do north-hemisphere version as default (sorry!)
+    hemisphere: found.hem === 's' ? 'South' : 'North',
     current: {}
   };
 
-  if (m.hasDst === true) {
-    var arr = parseDst(zones[tz].dst);
-    m.change = {
+  if (result.hasDst) {
+    var arr = parseDst(found.dst);
+    result.change = {
       start: arr[0],
       back: arr[1]
     };
@@ -5699,90 +3254,41 @@ var timezone = function timezone(s) {
   //(these variable names are north-centric)
 
 
-  var summer = zones[tz].o; // (july)
+  var summer = found.offset; // (july)
 
   var winter = summer; // (january) assume it's the same for now
 
-  if (m.hasDst === true) {
-    if (m.hemisphere === 'North') {
+  if (result.hasDst === true) {
+    if (result.hemisphere === 'North') {
       winter = summer - 1;
     } else {
       //southern hemisphere
-      winter = zones[tz].o + 1;
+      winter = found.offset + 1;
     }
   } //find out which offset to use right now
   //use 'summer' time july-time
 
 
-  if (m.hasDst === false) {
-    m.current.offset = summer;
-    m.current.isDST = false;
-  } else if (summerTime(s, m, summer) === true) {
-    m.current.offset = summer;
-    m.current.isDST = m.hemisphere === 'North'; //dst 'on' in winter in north
+  if (result.hasDst === false) {
+    result.current.offset = summer;
+    result.current.isDST = false;
+  } else if (summerTime(s, result, summer) === true) {
+    result.current.offset = summer;
+    result.current.isDST = result.hemisphere === 'North'; //dst 'on' in winter in north
   } else {
     //use 'winter' january-time
-    m.current.offset = winter;
-    m.current.isDST = m.hemisphere === 'South'; //dst 'on' in summer in south
-  } // let minutes = m.current.offset * 60
-  // m.current.epochShift = minutes * 60 * 1000
+    result.current.offset = winter;
+    result.current.isDST = result.hemisphere === 'South'; //dst 'on' in summer in south
+  } //try to find the best name for it..
 
 
-  return m;
+  result.display = displayName(found, zones);
+  return result;
 };
 
 module.exports = timezone;
 
-},{"./lookupTz":41,"./summerTime":42}],41:[function(_dereq_,module,exports){
-"use strict";
-
-//try to match these against iana form
-var normalize = function normalize(tz) {
-  tz = tz.toLowerCase();
-  tz = tz.replace(/ /g, '_');
-  return tz;
-}; // try our best to reconcile the timzone to this given string
-
-
-var lookupTz = function lookupTz(str, zones) {
-  var tz = str.trim();
-  var split = str.split('/'); //support long timezones like 'America/Argentina/Rio_Gallegos'
-
-  if (zones.hasOwnProperty(tz) === false && split.length > 2) {
-    tz = split[0] + '/' + split[1];
-  }
-
-  if (zones.hasOwnProperty(tz) === true) {
-    return tz;
-  } //lookup more loosely..
-
-
-  tz = normalize(tz);
-  var keys = Object.keys(zones);
-
-  for (var i = 0; i < keys.length; i += 1) {
-    //maybe lowercasing it will do it..
-    var name = keys[i].toLowerCase();
-
-    if (name === tz) {
-      return keys[i];
-    } //try the city-name
-
-
-    var last = name.split('/')[1];
-
-    if (tz === last) {
-      return keys[i];
-    }
-  }
-
-  console.log(tz);
-  return null;
-};
-
-module.exports = lookupTz;
-
-},{}],42:[function(_dereq_,module,exports){
+},{"./displayName":36,"./find":37,"./summerTime":40}],40:[function(_dereq_,module,exports){
 'use strict';
 
 var zeroPad = _dereq_('../fns').zeroPad;
@@ -5823,5 +3329,168 @@ var shouldChange = function shouldChange(s, m, defaultOffset) {
 
 module.exports = shouldChange;
 
-},{"../fns":12}]},{},[13])(13)
+},{"../fns":9}],41:[function(_dereq_,module,exports){
+module.exports={
+  "9|s": "2/dili,eit,eastern indonesian,tlt",
+  "9|n": "2/chita,2/jayapura,2/khandyga,2/pyongyang,2/seoul,2/tokyo,11/palau,jdt,jst,kdt,kst,korea,korean,wit,chost,ulast,yakt",
+  "9.5|s|04/01:03->10/07:02": "4/adelaide,4/broken_hill,4/south,4/yancowinna",
+  "9.5|s": "4/darwin,4/north",
+  "9.5|n": "acdt,acst,australian central",
+  "8|s": "-1/casey,2/kuala_lumpur,2/makassar,2/singapore,4/perth,4/west,cit,central indonesian",
+  "8|n|03/25:03->09/29:23": "2/ulan_bator",
+  "8|n": "2/brunei,2/choibalsan,2/chongqing,2/chungking,2/harbin,2/hong_kong,2/irkutsk,2/kuching,2/macao,2/macau,2/manila,2/shanghai,2/taipei,2/ujung_pandang,2/ulaanbaatar,awst,awdt,australian western,irkt,ct,china,hkst,hkt,sgt,bdt,myt,pht,smt,hovst,ulat,chot,wst",
+  "8.75|s": "4/eucla",
+  "8.75|n": "acwst,australian central western,cwst",
+  "7|s": "-1/davis,2/jakarta,wib,cxt,christmas island",
+  "7|n": "2/bangkok,2/barnaul,2/ho_chi_minh,2/hovd,2/krasnoyarsk,2/novokuznetsk,2/novosibirsk,2/phnom_penh,2/pontianak,2/saigon,2/vientiane,9/christmas,ict,indochina,plmt,tha,wita,hovt,krat,davt",
+  "6|s": "-1/vostok",
+  "6|n": "2/almaty,2/bishkek,2/dacca,2/dhaka,2/kashgar,2/omsk,2/qyzylorda,2/thimbu,2/thimphu,2/urumqi,9/chagos,kgt,kyrgyzstan,vost,biot,btt,bhutan,omst",
+  "6.5|n": "2/rangoon,9/cocos,cct",
+  "5|s": "-1/mawson,9/kerguelen",
+  "5|n": "2/aqtau,2/aqtobe,2/ashgabat,2/ashkhabad,2/atyrau,2/baku,2/dushanbe,2/karachi,2/oral,2/samarkand,2/tashkent,2/yekaterinburg,9/maldives,turkmenistan,uzt,uzbekistan,pkst,pkt,tjt,mvt,tft,yekt,orat,mawt",
+  "5.75|n": "2/kathmandu,2/katmandu,npt",
+  "5.5|n": "2/calcutta,2/colombo,2/kolkata,slst,sri lanka,ist,india,mmt",
+  "4|s": "9/reunion,ret",
+  "4|n": "2/dubai,2/muscat,2/tbilisi,2/yerevan,8/astrakhan,8/samara,8/saratov,8/ulyanovsk,9/mahe,9/mauritius,volt,azt,tbmt,get,samt,mut,sct",
+  "4.5|n|03/22:00->09/21:24": "2/tehran",
+  "4.5|n": "2/kabul,aft,afghanistan,irdt,iran daylight,iran",
+  "3|s": "-1/syowa,9/antananarivo",
+  "3|n|03/30:00->10/26:01": "2/amman",
+  "3|n|03/30:00->10/25:24": "2/damascus",
+  "3|n|03/25:03->10/28:04": "2/nicosia,8/athens,8/bucharest,8/helsinki,8/kiev,8/mariehamn,8/nicosia,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye",
+  "3|n|03/25:02->10/28:03": "8/chisinau,8/tiraspol",
+  "3|n|03/25:00->10/27:24": "2/beirut",
+  "3|n|03/24:01->10/27:01": "2/gaza,2/hebron",
+  "3|n|03/23:02->10/28:02": "2/jerusalem,2/tel_aviv",
+  "3|n": "0/addis_ababa,0/asmara,0/asmera,0/dar_es_salaam,0/djibouti,0/juba,0/kampala,0/mogadishu,0/nairobi,2/aden,2/baghdad,2/bahrain,2/istanbul,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,8/volgograd,9/comoro,9/mayotte,eest,fet,further eastern european,imt,lst,tmt,mdst,msd,msk,eat,east african,eastern africa,idt,israel,jmt,iddt,trt,turkey,iot,syot",
+  "3.5|n": "irst,iran standard",
+  "2|s|03/25:02->10/28:02": "-1/troll",
+  "2|s": "0/gaborone,0/harare,0/johannesburg,0/lubumbashi,0/lusaka,0/maputo,0/maseru,0/mbabane,sast,south african",
+  "2|n|03/25:02->10/28:03": "0/ceuta,-1/longyearbyen,3/jan_mayen,8/amsterdam,8/andorra,8/belgrade,8/berlin,8/bratislava,8/brussels,8/budapest,8/busingen,8/copenhagen,8/gibraltar,8/ljubljana,8/luxembourg,8/madrid,8/malta,8/monaco,8/oslo,8/paris,8/podgorica,8/prague,8/rome,8/san_marino,8/sarajevo,8/skopje,8/stockholm,8/tirane,8/vaduz,8/vatican,8/vienna,8/warsaw,8/zagreb,8/zurich",
+  "2|n": "0/blantyre,0/bujumbura,0/cairo,0/khartoum,0/kigali,0/tripoli,8/kaliningrad,amt,bdst,bmt,bst,cest,central european summer,cet,central european,eet,eastern european,cmt,mest,pmt,rmt,set,wemt,wet,west,western european time,kalt,wmt,cat,cast,central africa,haec",
+  "1|s|04/02:01->09/03:03": "0/windhoek",
+  "1|s": "0/kinshasa,0/luanda",
+  "1|n|07/02:03->10/29:02": "0/casablanca,0/el_aaiun",
+  "1|n|03/25:01->10/28:02": "3/canary,3/faeroe,3/faroe,3/madeira,8/belfast,8/dublin,8/guernsey,8/isle_of_man,8/jersey,8/lisbon,8/london",
+  "1|n": "0/algiers,0/bangui,0/brazzaville,0/douala,0/lagos,0/libreville,0/malabo,0/ndjamena,0/niamey,0/porto-novo,0/tunis,ace,british summer,dmt,dft,met,middle european,tse,wast,west african,wester africa,wat,fmt",
+  "14|n": "11/kiritimati,lint",
+  "13|s|04/01:04->09/30:03": "11/apia",
+  "13|s|01/15:02->11/05:03": "11/tongatapu",
+  "13|n": "11/enderbury,11/fakaofo,phot,tkt,tot",
+  "13.75|n": "chadt",
+  "12|s|04/01:03->09/30:02": "-1/mcmurdo,-1/south_pole,11/auckland",
+  "12|s|01/14:03->11/04:02": "11/fiji",
+  "12|s": "fjt,mht",
+  "12|n": "2/anadyr,2/kamchatka,2/srednekolymsk,11/funafuti,11/kwajalein,11/majuro,11/nauru,11/tarawa,11/wake,11/wallis,nzdt,nzmt,nzst,gilt,magt,pett,tvt,wakt",
+  "12.75|s|04/07:03->09/29:02": "11/chatham",
+  "12.75|n": "chast",
+  "11|s": "-1/macquarie,11/bougainville,sbt",
+  "11|n": "2/magadan,2/sakhalin,11/efate,11/guadalcanal,11/kosrae,11/noumea,11/pohnpei,11/ponape,kost,mist,nct,nft,pont,pmmt,sakt,sret,vut",
+  "11.5|n": "11/norfolk",
+  "10|s|04/01:03->10/07:02": "4/act,4/canberra,4/currie,4/hobart,4/melbourne,4/nsw,4/sydney,4/tasmania,4/victoria",
+  "10|s": "-1/dumontdurville,4/brisbane,4/lindeman,4/queensland",
+  "10|n": "2/ust-nera,2/vladivostok,2/yakutsk,11/chuuk,11/guam,11/port_moresby,11/saipan,11/truk,11/yap,aedt,aest,australian eastern,vlat,chst,chut,ddut,gst,pgt",
+  "10.5|s|04/01:01->10/07:02": "4/lhi,4/lord_howe",
+  "10.5|n": "lhst",
+  "0|n|03/25:00->10/28:01": "1/scoresbysund,3/azores",
+  "0|n": "0/abidjan,0/accra,0/bamako,0/banjul,0/bissau,0/conakry,0/dakar,0/freetown,0/lome,0/monrovia,0/nouakchott,0/ouagadougou,0/sao_tome,0/timbuktu,1/danmarkshavn,3/reykjavik,3/st_helena,12/gmt,12/gmt+0,12/gmt-0,12/gmt0,12/greenwich,12/utc,12/universal,12/zulu,gmt,utc,coordinated universal,azost,egst,eastern greenland summer,hmt",
+  "-9|n|03/11:02->11/04:02": "1/adak,1/atka",
+  "-9|n": "11/gambier,nwt,gamt,git",
+  "-9.5|n": "11/marquesas,mart,mit",
+  "-8|n|03/11:02->11/04:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat",
+  "-8|n": "11/pitcairn,ahdt,ahst,akdt,akst,alaska,cist",
+  "-7|n|03/11:02->11/04:02": "1/dawson,1/ensenada,1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,1/whitehorse,6/pacific,6/yukon,10/bajanorte",
+  "-7|n": "1/creston,1/dawson_creek,1/hermosillo,1/phoenix,mst,mwt,pdt,pst,ppt,pwt,ydt,ypt,yddt,ywt,yst",
+  "-6|s|05/12:22->08/11:22": "7/easterisland,11/easter",
+  "-6|s": "emt,east,easter island,galt",
+  "-6|n|04/01:02->10/28:02": "1/chihuahua,1/mazatlan,10/bajasur",
+  "-6|n|03/11:02->11/04:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/ojinaga,1/shiprock,1/yellowknife,6/mountain",
+  "-6|n": "1/belize,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/regina,1/swift_current,1/tegucigalpa,6/east-saskatchewan,6/saskatchewan,11/galapagos,mddt,mdt,mountain,mpt,pddt,sjmt",
+  "-5|s": "1/lima,5/acre,easst,act,pet,peru",
+  "-5|n|04/01:02->10/28:02": "1/bahia_banderas,1/merida,1/mexico_city,1/monterrey,10/general",
+  "-5|n|03/12:03->11/05:01": "1/north_dakota",
+  "-5|n|03/11:02->11/04:02": "1/chicago,1/knox_in,1/matamoros,1/menominee,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,6/central",
+  "-5|n": "1/atikokan,1/bogota,1/cancun,1/cayman,1/coral_harbour,1/eirunepe,1/guayaquil,1/jamaica,1/panama,1/porto_acre,1/rio_branco,cddt,cdt,central daylight,central,cwt,cpt,qmt,cot,colombia",
+  "-4|s|05/13:23->08/13:01": "-1/palmer",
+  "-4|s|05/12:24->08/12:00": "1/santiago,7/continental",
+  "-4|s|03/24:24->10/07:00": "1/asuncion",
+  "-4|s|02/17:24->11/04:00": "1/campo_grande,1/cuiaba",
+  "-4|s": "1/la_paz,1/manaus,5/west,fkt,bot,bolivia,clt,chile,pyt,paraguay",
+  "-4|n|03/12:03->11/05:01": "1/indiana,1/kentucky",
+  "-4|n|03/11:02->11/04:02": "1/detroit,1/fort_wayne,1/grand_turk,1/indianapolis,1/iqaluit,1/louisville,1/montreal,1/nassau,1/new_york,1/nipigon,1/pangnirtung,1/port-au-prince,1/thunder_bay,1/toronto,6/eastern",
+  "-4|n|03/11:00->11/04:01": "1/havana",
+  "-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/porto_velho,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin,awt,addt,apt,bost,cst,eddt,ept,edt,eastern daylight,est,ewt,ect,eastern caribbean,ffmt,kmt,ppmt,sdmt,cost,vet,venezuela,gyt",
+  "-3|s|02/17:24->11/04:00": "1/sao_paulo,5/east",
+  "-3|s": "1/argentina,1/buenos_aires,1/cordoba,1/montevideo,1/punta_arenas,-1/rothera,fkst,amst,art,brt,clst,pmst,rott,pyst,uyt,uruguay",
+  "-3|n|03/11:02->11/04:02": "1/glace_bay,1/goose_bay,1/halifax,1/moncton,1/thule,3/bermuda,6/atlantic",
+  "-3|n": "1/araguaina,1/bahia,1/belem,1/catamarca,1/cayenne,1/fortaleza,1/jujuy,1/maceio,1/mendoza,1/paramaribo,1/recife,1/rosario,1/santarem,3/stanley,ast,adt,gft,srt",
+  "-3.5|n": "nt,nst",
+  "-2|s": "5/denoronha,brst,fnt,pmdt,uyst",
+  "-2|n|03/24:22->10/27:23": "1/godthab",
+  "-2|n|03/11:02->11/04:02": "1/miquelon",
+  "-2|n": "1/noronha,3/south_georgia",
+  "-2.5|n|03/11:02->11/04:02": "1/st_johns,6/newfoundland",
+  "-2.5|n": "nddt,ndt",
+  "-1|n": "3/cape_verde,cvt,azot,egt,eastern greenland",
+  "-12|n": "bit,idlw,international day line west",
+  "-11|n": "11/midway,11/niue,11/pago_pago,11/samoa,nut,sst",
+  "-10|s": "sdt",
+  "-10|n": "11/honolulu,11/johnston,11/rarotonga,11/tahiti,ckt,cook island,hdt,hst,taht"
+}
+},{}],42:[function(_dereq_,module,exports){
+"use strict";
+
+//prefixes for iana names..
+module.exports = ['africa', 'america', 'asia', 'atlantic', 'australia', 'brazil', 'canada', 'chile', 'europe', 'indian', 'mexico', 'pacific', 'etc'];
+
+},{}],43:[function(_dereq_,module,exports){
+"use strict";
+
+var data = _dereq_('./_build.json');
+
+var prefixes = _dereq_('./_prefixes.js');
+
+var all = {};
+Object.keys(data).forEach(function (k) {
+  var split = k.split('|');
+  var obj = {
+    offset: Number(split[0]),
+    hem: split[1]
+  };
+
+  if (split[2]) {
+    obj.dst = split[2];
+  }
+
+  var names = data[k].split(',');
+  names.forEach(function (str) {
+    str = str.replace(/(^[0-9]+)\//, function (before, num) {
+      var city = str.replace(before, '');
+      all[city] = obj;
+      num = Number(num);
+      return prefixes[num] + '/';
+    });
+    all[str] = obj;
+  });
+}); //add etc/gmt+n
+
+for (var i = -12; i < 13; i += 1) {
+  var num = i;
+
+  if (num > 0) {
+    num = '+' + num;
+  }
+
+  var name = 'etc/gmt' + num;
+  all[name] = {
+    offset: i,
+    hem: 'n'
+  };
+} // console.log(all)
+// console.log(Object.keys(all).length)
+
+
+module.exports = all;
+
+},{"./_build.json":41,"./_prefixes.js":42}]},{},[10])(10)
 });

@@ -23,6 +23,19 @@ Object.keys(data).forEach((k) => {
   })
 })
 
-// console.log(Object.keys(all).length)
+//add etc/gmt+n
+for (let i = -12; i < 13; i += 1) {
+  let num = i
+  if (num > 0) {
+    num = '+' + num
+  }
+  let name = 'etc/gmt' + num
+  all[name] = {
+    offset: i * -1, //they're negative!
+    hem: 'n'
+  }
+}
 // console.log(all)
+
+// console.log(Object.keys(all).length)
 module.exports = all
