@@ -1,6 +1,6 @@
 'use strict';
 // const zones = require('../../data');
-const lookupTz = require('./lookupTz')
+const find = require('./find')
 const summerTime = require('./summerTime')
 
 const parseDst = dst => {
@@ -13,7 +13,7 @@ const parseDst = dst => {
 //get metadata about this timezone
 const timezone = s => {
   let zones = s.timezones
-  let tz = lookupTz(s.tz, zones)
+  let tz = find(s.tz, zones)
   if (tz === null) {
     console.warn("Warn: could not find given or local timezone - '" + tz + "'");
     return {
@@ -39,13 +39,13 @@ const timezone = s => {
   }
   //find the offsets for summer/winter times
   //(these variable names are north-centric)
-  let summer = zones[tz].o // (july)
+  let summer = zones[tz].offset // (july)
   let winter = summer // (january) assume it's the same for now
   if (m.hasDst === true) {
     if (m.hemisphere === 'North') {
       winter = summer - 1
     } else { //southern hemisphere
-      winter = zones[tz].o + 1
+      winter = zones[tz].offset + 1
     }
   }
 

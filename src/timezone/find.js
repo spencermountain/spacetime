@@ -11,7 +11,7 @@ const lookupTz = function(str, zones) {
   let tz = str.trim()
   let split = str.split('/')
   //support long timezones like 'America/Argentina/Rio_Gallegos'
-  if (zones.hasOwnProperty(tz) === false && split.length > 2) {
+  if (split.length > 2 && zones.hasOwnProperty(tz) === false) {
     tz = split[0] + '/' + split[1]
   }
   if (zones.hasOwnProperty(tz) === true) {
@@ -19,20 +19,9 @@ const lookupTz = function(str, zones) {
   }
   //lookup more loosely..
   tz = normalize(tz)
-  let keys = Object.keys(zones)
-  for (let i = 0; i < keys.length; i += 1) {
-    //maybe lowercasing it will do it..
-    let name = keys[i].toLowerCase()
-    if (name === tz) {
-      return keys[i]
-    }
-    //try the city-name
-    let last = name.split('/')[1]
-    if (tz === last) {
-      return keys[i]
-    }
+  if (zones.hasOwnProperty(tz) === true) {
+    return tz
   }
-  console.log(tz)
   return null
 }
 module.exports = lookupTz

@@ -1,9 +1,9 @@
-// const spacetime = require('./src/index')
+const spacetime = require('./src/index')
 
-
-
-// let s = spacetime.now('new york')
-// console.log(s.timezone())
+let s = spacetime.now('Jamaica')
+s.log()
+console.log(s.format('iso'))
+console.log(s.timezone())
 
 // s = s.goto('Jamaica') // "America/Jamaica"
 // s = s.goto('Eastern Time') // "America/New_York"

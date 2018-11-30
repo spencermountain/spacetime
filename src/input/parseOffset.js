@@ -42,7 +42,7 @@ const parseOffset = function(s, offset, givenTz) {
 
     // console.log('changing timezone to: ' + tz)
     //log a warning if we're over-writing a given timezone
-    if (givenTz && zones[givenTz] && zones[givenTz].o !== zones[tz].o && s.silent === false) {
+    if (givenTz && zones[givenTz] && zones[givenTz].offset !== zones[tz].offset && s.silent === false) {
       //don't log during our tests, either..
       if (typeof process !== 'undefined' && process.env && !process.env.TESTENV) {
         console.warn('  - Setting timezone to: \'' + tz + '\'')

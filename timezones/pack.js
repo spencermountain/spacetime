@@ -2,8 +2,10 @@
 const fs = require('fs')
 const iana = require('./iana')
 const informal = require('./informal')
+const prefixes = require('./_prefixes.js')
+let all = {}
 
-const addHemisphere = function(all, obj, h) {
+const addHemisphere = function(res, obj, h) {
   Object.keys(obj).forEach((k) => {
     let val = obj[k]
     let key = val + '|' + h
@@ -11,12 +13,12 @@ const addHemisphere = function(all, obj, h) {
       let found = iana[val]
       key = found.offset + '|' + h
     }
-    all[key] = all[key] || []
-    all[key].push(k)
+    res[key] = res[key] || []
+    res[key].push(k)
   })
+  return res
 }
 
-const all = {}
 //pack iana data into a [o|h] object
 Object.keys(iana).forEach((k) => {
   let o = iana[k]
@@ -25,21 +27,24 @@ Object.keys(iana).forEach((k) => {
     key += '|' + o.dst
   }
   all[key] = all[key] || []
-  all[key].push(k.toLowerCase())
+  let name = k.replace(/(.*?)\//, function(a, prefix) {
+    let index = prefixes.indexOf(prefix)
+    return index + '/'
+  })
+  all[key].push(name)
 })
 
 //add-in informal abbreviations
-addHemisphere(all, informal.south, 's')
-addHemisphere(all, informal.north, 'n')
+all = addHemisphere(all, informal.south, 's')
+all = addHemisphere(all, informal.north, 'n')
 
-console.log(all)
 
 let keys = Object.keys(all)
 keys = keys.sort((a, b) => a < b ? 1 : -1)
-// let result = {}
-// keys.forEach((k) => {
-//   result[k] = all[k].join(',')
-// })
-// console.log(result)
+let result = {}
+keys.forEach((k) => {
+  result[k] = all[k].join(',')
+})
+console.log(result)
 
-// fs.writeFileSync('./data/_build.js', JSON.stringify(result, null, 2))
+fs.writeFileSync('./data/_build.json', JSON.stringify(result, null, 2))
