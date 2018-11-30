@@ -1,5 +1,6 @@
 'use strict';
 // const zones = require('../../data');
+const lookupTz = require('./lookupTz')
 const summerTime = require('./summerTime')
 
 const parseDst = dst => {
@@ -11,14 +12,9 @@ const parseDst = dst => {
 
 //get metadata about this timezone
 const timezone = s => {
-  let tz = s.tz || ''
   let zones = s.timezones
-  let split = tz.split('/')
-  //support long timezones like 'America/Argentina/Rio_Gallegos'
-  if (zones.hasOwnProperty(tz) === false && split.length > 2) {
-    tz = split[0] + '/' + split[1]
-  }
-  if (zones.hasOwnProperty(tz) === false) {
+  let tz = lookupTz(s.tz, zones)
+  if (tz === null) {
     console.warn("Warn: could not find given or local timezone - '" + tz + "'");
     return {
       current: {

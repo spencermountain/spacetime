@@ -1,6 +1,6 @@
 //taken from here - thanks davispuh!
 // https://raw.githubusercontent.com/davispuh/TimezoneParser/master/data/abbreviations.yml
-module.exports = {
+const obj = {
   'Australia/Adelaide': ['ACDT', 'ACST'],
   'Europe/Dublin': ['ACE', 'DMT', 'IST', 'TSE'],
   'America/Pangnirtung': ['ADDT'],
@@ -27,11 +27,10 @@ module.exports = {
   'Pacific/Guam': ['ChST', 'GST'],
   'Africa/Nairobi': ['EAT'],
   'America/Iqaluit': ['EDDT'],
-  'America/New_York': ['EDT'],
+  'America/New_York': ['EDT', 'EST'],
   'Europe/Istanbul': ['EEST', 'EET'],
   'Pacific/Easter': ['EMT'],
   'America/Detroit': ['EPT', 'EWT'],
-  'America/Moncton': ['EST'],
   'America/Martinique': ['FFMT'],
   'Atlantic/Madeira': ['FMT'],
   'Pacific/Honolulu': ['HDT', 'HST'],
@@ -82,3 +81,10 @@ module.exports = {
   'America/Dawson': ['YDDT', 'YDT', 'YPT', 'YWT'],
   'America/Whitehorse': ['YST']
 };
+
+Object.keys(obj).forEach((k) => {
+  let arr = obj[k]
+  arr.forEach((a) => {
+    console.log(`${a.toLowerCase()} : '${k}',`)
+  })
+})

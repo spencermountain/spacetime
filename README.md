@@ -13,14 +13,15 @@
     <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/spacetime.js" />
   </a>
   <div>figure-out time, all-over the world</div>
+  <hr/>
 </div>
 
-- handle dates in remote timezones
-- heavily-support **daylight savings**, **leap years** (and seconds!), and **hemisphere-logic**
+- calculate time in remote timezones
+- support **daylight savings**, **leap years** (and seconds!), and **hemisphere-logic**
 - [Moment](https://momentjs.com/)-like 💘 API (but immutable)
 - Orient by quarter, season, month, week..
 - _Zero Dependencies_ - no [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
-- **weighs just 45KB**.
+- **weighs just 49KB**.
 
 ```html
 <script src="https://unpkg.com/spacetime"></script>
@@ -162,7 +163,21 @@ spacetime('January 1 2017').since('December 31 2016').diff
 ```js
 // Roll into a new timezone, at the same moment
 s = s.goto('Australia/Brisbane')
+```
+this is the safest way to declare a timezone, using an [IANA name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
+Spacetime also supports more informal timezone names, like:
+```js
+s = s.goto('Jamaica') // "America/Jamaica"
+s = s.goto('Eastern Time') // "America/New_York"
+s = s.goto('PST') // automatically becomes 'PDT' in the summer
+s = s.goto('-7h') // UTC-7
+s = s.goto('GMT+8') // -8h!
+s = s.goto('bst') //"British summer time" +1 (sorry Bougainville!)
+// (these should be used with some caution)
+```
+
+```js
 //list timezones by their \ time
 spacetime.whereIts('8:30pm','9:30pm') // ['America/Winnipeg', 'America/Yellowknife'... ]
 spacetime.whereIts('9am') //(within this hour)
@@ -173,6 +188,9 @@ s.hemisphere() // North
 s.timezone().current.offset // -4 (in hours)
 s.hasDST() // True
 s.isDST() // True
+
+//list all timezones
+s.timezones
 ```
 
 ### [Date Formatting](https://github.com/smallwins/spacetime/wiki/Formatting)
