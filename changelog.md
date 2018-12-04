@@ -75,3 +75,5 @@
 * support new `{hour} oclock`-style format templates
 * change default `.format()` response to **yyyy-mm-dd**
 * uppercase month and day names in `.dayName()`
+* support city-names, `EST`, `PDT`, etc as input
+* set default `silent: true` to avoid unwanted logging

@@ -44,11 +44,11 @@ const handleObject = function(s, obj) {
 const parseInput = (s, input, givenTz) => {
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
-    s.epoch = input;
     if (input > 0 && input < minimumEpoch && s.silent === false) {
       console.warn('  - Warning: You are setting the date to January 1970.')
       console.warn('       -   did input seconds instead of milliseconds?')
     }
+    s.epoch = input;
     return s
   }
   //set tmp time

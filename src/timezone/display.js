@@ -20,22 +20,29 @@ const greedy = {
 // '3': 'africa/nairobi',
 }
 
+const chooseAbbrev = function(arr, obj) {
+  if (arr[1] && obj.current.isDST === true) {
+    return arr[1].toUpperCase()
+  }
+  if (arr[0]) {
+    return arr[0].toUpperCase()
+  }
+  return null
+}
 //
-const display = function(tz, obj, zones) {
+const display = function(tz, obj) {
   //try a straight-up match
   if (informal.hasOwnProperty(tz)) {
-    let arr = informal[tz]
-    if (obj.current.isDST === true) {
-      return arr[1].toUpperCase()
-    }
-    if (arr[0]) {
-      return arr[0].toUpperCase()
+    let abbr = chooseAbbrev(informal[tz], obj)
+    if (abbr !== null) {
+      return abbr
     }
   }
-  let offset = String(obj.current.offset)
+  let offset = String(obj.default_offset)
   if (greedy.hasOwnProperty(offset)) {
     let useTz = greedy[offset]
-  // console.log(useTz)
+    let arr = informal[useTz] || []
+    return chooseAbbrev(arr, obj) || ''
   }
   return ''
 }

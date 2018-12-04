@@ -13,7 +13,7 @@ const SpaceTime = function(input, tz, options) {
   //the shift for the given timezone
   this.tz = tz || guessTz()
   //whether to output warnings to console
-  this.silent = options.silent || false
+  this.silent = options.silent || true
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object

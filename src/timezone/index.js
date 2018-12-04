@@ -1,7 +1,7 @@
 'use strict';
 // const zones = require('../../data');
 const findTz = require('./find')
-const summerTime = require('./summerTime')
+const inSummerTime = require('./summerTime')
 const display = require('./display')
 
 const parseDst = dst => {
@@ -36,6 +36,7 @@ const timezone = s => {
   let result = {
     name: titleCase(tz),
     hasDst: Boolean(found.dst),
+    default_offset: found.offset,
     //do north-hemisphere version as default (sorry!)
     hemisphere: found.hem === 's' ? 'South' : 'North',
     current: {}
@@ -65,7 +66,7 @@ const timezone = s => {
   if (result.hasDst === false) {
     result.current.offset = summer
     result.current.isDST = false
-  } else if (summerTime(s, result, summer) === true) {
+  } else if (inSummerTime(s, result, summer) === true) {
     result.current.offset = summer
     result.current.isDST = result.hemisphere === 'North' //dst 'on' in winter in north
   } else { //use 'winter' january-time
