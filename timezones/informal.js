@@ -28,7 +28,6 @@ const informal = {
   'america/montevideo': ['uyt', null, 'uruguay'],
   'atlantic/stanley': ['fkst', null, 'falkland island'],
   //brazil
-  'america/rio_branco': ['act'],
   'america/manaus': ['amt'],
   'america/sao_paulo': ['brt', 'brst'],
   'brazil/acre': ['act'],
@@ -71,9 +70,9 @@ const informal = {
 
   //europe
   'europe/london': ['gmt', 'bst', 'british'], //britain is different
-  'europe/lisbon': ['wet', 'west', 'western europe'], //western europe
+  'europe/lisbon': ['wet', 'west', 'west europe'], //western europe
   'europe/berlin': ['cet', 'cest', 'central europe', 'middle european', 'met', 'mest'], //central europe
-  'europe/riga': ['eet', 'eest', 'eastern europe', 'kalt'], //eastern europe
+  'europe/riga': ['eet', 'eest', 'east europe', 'kalt'], //eastern europe
   // -- these are old european ones, before the EU, i think:
   // 'europe/minsk': ['feet', 'feest', 'eastern europe'], //further eastern europe (discontinued)
   // ace: 'europe/dublin',
@@ -125,7 +124,7 @@ const informal = {
   //africa
   'africa/lagos': ['wat', 'wast', 'west africa'], //west african
   'africa/khartoum': ['cat', null, 'central africa'],
-  'africa/nairobi': ['eat', null, 'central africa'],
+  'africa/nairobi': ['eat', null, 'east africa'],
   'atlantic/cape_verde': ['cvt'],
   'indian/mauritius': ['mut'],
   'indian/reunion': ['ret'],
@@ -133,25 +132,25 @@ const informal = {
 
   //atlantic
   'atlantic/azores': ['azot', 'azost', 'hmt'],
-  'america/godthab': ['wgt', 'wgst', 'western greenland'],
-  'america/scoresbysund': ['egt', 'egst', 'eastern greenland'],
+  'america/godthab': ['wgt', 'wgst', 'west greenland'],
+  'america/scoresbysund': ['egt', 'egst', 'east greenland'],
 
   //middle-east
   'europe/istanbul': ['trt', null, 'turkey'],
   'asia/tbilisi': ['get', null, 'georgia'],
-  'asia/yerevan': ['amt', null, 'armenia'],
+  // 'asia/yerevan': ['amt', null, 'armenia'], //(sorry!)
   'asia/baku': ['azt', null, 'azerbaijan'],
-  'asia/jerusalem': ['ist', 'idt', 'israel', 'jmt', 'iddt'],
+  'asia/jerusalem': [null, 'idt', 'israel', 'jmt', 'iddt'], //using ist for india
   'asia/tehran': ['irst', 'irdt', 'iran'],
   'asia/karachi': ['pkt', null, 'pakistan'],
   'asia/kabul': ['aft', null, 'afghanistan'],
   'asia/dushanbe': ['tjt', null, 'tajikistan'],
-  'asia/almaty': ['almt', null, 'tajikistan'],
+  'asia/almaty': ['almt', null, 'alma ata'],
   'asia/dubai': ['gst', null, 'gulf'],
 
   //india
   'asia/kolkata': ['ist', null, 'india', 'slst'],
-  'asia/dhaka': ['bst', null, 'bangladesh'],
+  // 'asia/dhaka': ['bst', null, 'bangladesh'], //(sorry)
   'asia/thimbu': ['btt', null, 'bhutan'],
   'indian/maldives': ['mvt'],
   'asia/kathmandu': ['npt', null, 'nepal'],
@@ -174,8 +173,8 @@ const informal = {
   //australia
   'australia/adelaide': ['acst', 'acdt', 'australian central'], //australian central daylight savings time
   'australia/eucla': ['acwst', null, 'cwst', 'australian central western'], //australian central western standard time (unofficial)
-  'australia/brisbane': ['aest', 'aedt', 'australian eastern'], //australian eastern standard time
-  'australia/perth': ['awst', 'awdt', 'australian western'], //australian western standard time
+  'australia/brisbane': ['aest', 'aedt', 'australian east'], //australian eastern standard time
+  'australia/perth': ['awst', 'awdt', 'australian west'], //australian western standard time
   'australia/auckland': ['nzst', 'nzdt', 'nzmt'],
   'australia/lord_howe': ['lhst', 'lhdt'],
 
@@ -189,12 +188,12 @@ const informal = {
   'pacific/fakaofo': ['tkt'],
   'pacific/rarotonga': ['ckt', null, 'cook islands'],
   'chile/easterisland': ['east', 'easst', 'easter island', 'emt'],
-  'asia/jayapura': ['wit', null, 'eastern indonesia'],
-  'asia/jakarta': ['wib', null, 'western indonesia'],
+  'asia/jayapura': ['wit', null, 'east indonesia'],
+  'asia/jakarta': ['wib', null, 'west indonesia'],
   'asia/makassar': ['wta', null, 'central indonesia'],
   'pacific/galapagos': ['galt'],
   'pacific/fiji': ['fjt', 'fjst'],
-  'asia/dili': ['tlt', null, 'east timor', 'tlt'],
+  'asia/dili': ['tlt', null, 'east timor'],
   'indian/christmas': ['cxt'],
   // sbt: 11, //solomon islands time
   // mht: 12, //marshall islands time
@@ -250,5 +249,18 @@ const informal = {
 // wst: 8, //western standard time
 }
 
+//use each abbreviation as a key
+const lookup = Object.keys(informal).reduce((h, k) => {
+  let arr = informal[k]
+  for (let i = 0; i < 5; i += 1) {
+    if (arr[i]) {
+      h[arr[i]] = k
+    }
+  }
+  return h;
+}, {});
 
-module.exports = informal
+module.exports = {
+  informal: informal,
+  lookup: lookup
+}

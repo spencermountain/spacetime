@@ -18,9 +18,6 @@ Object.keys(data).forEach((k) => {
       return prefixes[num] + '/'
     })
     all[str] = obj
-    //add city name by itself
-    let city = str.split('/')[1]
-    all[city] = str
   })
 })
 
@@ -33,7 +30,7 @@ for (let i = -12; i < 13; i += 1) {
   let name = 'etc/gmt' + num
   all[name] = {
     offset: i * -1, //they're negative!
-    hem: 'n'
+    hem: 'n' //(sorry)
   }
 }
 // console.log(all)

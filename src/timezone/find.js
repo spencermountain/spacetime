@@ -1,11 +1,25 @@
+const tzs = require('../../timezones/unpack')
+const informal = require('../../timezones/informal').lookup
+// console.log(informal)
 // const isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i
-// const isOffset = /(\-?[0-9]+)h(rs)?/
+const isOffset = /(\-?[0-9]+)h(rs)?/
+
+//add all the city names by themselves
+const cities = Object.keys(tzs).reduce((h, k) => {
+  let city = k.split('/')[1]
+  city = city.replace(/_/g, ' ')
+  h[city] = k
+  return h
+}, {})
 
 //try to match these against iana form
 const normalize = function(tz) {
-  tz = tz.toLowerCase()
-  tz = tz.replace(/ (standard )?time/g, '')
-  tz = tz.replace(/ /g, '_')
+  tz = tz.replace(/ time/g, '')
+  tz = tz.replace(/ (standard|daylight|summer)/g, '')
+  tz = tz.replace(/\b(east|west|north|south)ern/g, '$1')
+  tz = tz.replace(/\b(africa|america|australia)n/g, '$1')
+  tz = tz.replace(/\beuropean/g, 'europe')
+  tz = tz.replace(/\islands/g, 'island')
   return tz
 }
 
@@ -17,35 +31,34 @@ const lookupTz = function(str, zones) {
   if (split.length > 2 && zones.hasOwnProperty(tz) === false) {
     tz = split[0] + '/' + split[1]
   }
+  tz = tz.toLowerCase()
   if (zones.hasOwnProperty(tz) === true) {
     return tz
   }
   //lookup more loosely..
   tz = normalize(tz)
   if (zones.hasOwnProperty(tz) === true) {
-    if (typeof zones[tz] === 'string') {
-      return zones[tz]
-    }
     return tz
   }
-  //try to parse 'gmt+5'
-  // let m = tz.match(isNum)
-  // if (m !== null) {
-  //   let num = Number(m[2])
-  //   return {
-  //     offset: num,
-  //     h: 'n'
-  //   }
-  // }
+  //try abbrevations and things
+  if (informal.hasOwnProperty(tz) === true) {
+    return informal[tz]
+  }
+  //try city-names
+  if (cities.hasOwnProperty(tz) === true) {
+    return cities[tz]
+  }
   // //try to parse '-5h'
-  // m = tz.match(isOffset)
-  // if (m !== null) {
-  //   let num = Number(m[1])
-  //   return {
-  //     offset: num,
-  //     h: 'n'
-  //   }
-  // }
+  m = tz.match(isOffset)
+  if (m !== null) {
+    let num = Number(m[1])
+    num = num * -1 //it's opposite!
+    num = (num > 0 ? '+' : '') + num
+    let gmt = 'etc/gmt' + num
+    if (zones.hasOwnProperty(gmt)) {
+      return gmt
+    }
+  }
   return null
 }
 module.exports = lookupTz
