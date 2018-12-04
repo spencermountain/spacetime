@@ -9,7 +9,7 @@ let timezones = require('../zonefile/unpack')
 const SpaceTime = function(input, tz, options) {
   options = options || {}
   //the holy moment
-  this.epoch = new Date().getTime()
+  this.epoch = null
   //the shift for the given timezone
   this.tz = tz || guessTz()
   //whether to output warnings to console
@@ -41,8 +41,10 @@ const SpaceTime = function(input, tz, options) {
     }
   })
   //parse the various formats
-  let tmp = handleInput(this, input, tz, options)
-  this.epoch = tmp.epoch
+  if (input !== undefined || input === null) {
+    let tmp = handleInput(this, input, tz, options)
+    this.epoch = tmp.epoch
+  }
 }
 
 //(add instance methods to prototype)

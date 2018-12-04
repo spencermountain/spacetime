@@ -108,7 +108,7 @@ module.exports = {
 
   season: function(input) {
     let hem = 'north';
-    if (this.timezone().hemisphere === 'South') {
+    if (this.hemisphere() === 'South') {
       hem = 'south';
     }
     if (input !== undefined) {

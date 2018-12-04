@@ -86,7 +86,7 @@ const units = {
   season: s => {
     let current = s.season();
     let hem = 'north';
-    if (s.timezone().hemisphere === 'South') {
+    if (s.hemisphere() === 'South') {
       hem = 'south';
     }
     for (let i = 0; i < seasons[hem].length; i++) {

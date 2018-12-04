@@ -2,7 +2,7 @@
 //find the implicit iana code for this machine.
 //safely query the Intl object
 //based on - https://bitbucket.org/pellepim/jstimezonedetect/src
-const fallbackTZ = 'Asia/Shanghai'; //
+const fallbackTZ = 'asia/shanghai'; //
 
 //this Intl object is not supported often, yet
 const safeIntl = function() {
@@ -25,6 +25,6 @@ const guessTz = () => {
   if (timezone === null) {
     return fallbackTZ
   }
-  return timezone
+  return timezone.toLowerCase()
 };
 module.exports = guessTz;
