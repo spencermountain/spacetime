@@ -1,5 +1,5 @@
-const tzs = require('../../timezones/unpack')
-const informal = require('../../timezones/informal').lookup
+const tzs = require('../../zonefile/unpack')
+const informal = require('../../zonefile/informal').lookup
 // console.log(informal)
 // const isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i
 const isOffset = /(\-?[0-9]+)h(rs)?/

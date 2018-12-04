@@ -2,7 +2,7 @@
 // const zones = require('../../data');
 const findTz = require('./find')
 const summerTime = require('./summerTime')
-const displayName = require('./displayName')
+const display = require('./display')
 
 const parseDst = dst => {
   if (!dst) {
@@ -73,7 +73,7 @@ const timezone = s => {
     result.current.isDST = result.hemisphere === 'South' //dst 'on' in summer in south
   }
   //try to find the best name for it..
-  result.display = displayName(found, zones)
+  result.display = display(tz, result, zones)
   return result
 };
 module.exports = timezone;

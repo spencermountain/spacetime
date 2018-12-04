@@ -3,7 +3,7 @@ const guessTz = require('./timezone/guessTz')
 const timezone = require('./timezone/index')
 const handleInput = require('./input')
 const methods = require('./methods')
-let timezones = require('../timezones/unpack')
+let timezones = require('../zonefile/unpack')
 
 //fake timezone-support, for fakers (es5 class)
 const SpaceTime = function(input, tz, options) {

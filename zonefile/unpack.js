@@ -32,6 +32,11 @@ for (let i = -12; i < 13; i += 1) {
     offset: i * -1, //they're negative!
     hem: 'n' //(sorry)
   }
+  name = 'utc/gmt' + num //this one too, why not.
+  all[name] = {
+    offset: i * -1,
+    hem: 'n'
+  }
 }
 // console.log(all)
 
