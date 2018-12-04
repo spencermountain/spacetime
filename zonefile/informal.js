@@ -171,11 +171,11 @@ const informal = {
   // mmt: 'asia/colombo',
 
   //australia
+  'australia/brisbane': ['aest', 'aedt', 'australian east'], //australian eastern standard time
   'australia/adelaide': ['acst', 'acdt', 'australian central'], //australian central daylight savings time
   'australia/eucla': ['acwst', null, 'cwst', 'australian central western'], //australian central western standard time (unofficial)
-  'australia/brisbane': ['aest', 'aedt', 'australian east'], //australian eastern standard time
   'australia/perth': ['awst', 'awdt', 'australian west'], //australian western standard time
-  'australia/auckland': ['nzst', 'nzdt', 'nzmt'],
+  'pacific/auckland': ['nzst', 'nzdt', 'nzmt'],
   'australia/lord_howe': ['lhst', 'lhdt'],
 
   //pacific
@@ -190,7 +190,7 @@ const informal = {
   'chile/easterisland': ['east', 'easst', 'easter island', 'emt'],
   'asia/jayapura': ['wit', null, 'east indonesia'],
   'asia/jakarta': ['wib', null, 'west indonesia'],
-  'asia/makassar': ['wta', null, 'central indonesia'],
+  'asia/makassar': ['wita', null, 'central indonesia'],
   'pacific/galapagos': ['galt'],
   'pacific/fiji': ['fjt', 'fjst'],
   'asia/dili': ['tlt', null, 'east timor'],

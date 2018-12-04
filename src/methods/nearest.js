@@ -9,7 +9,7 @@ const nearest = function(s, unit) {
       s = s.add(1, unit);
     }
     s = s.startOf(unit);
-  } else {
+  } else if (s.silent === false) {
     console.warn("no known unit '" + unit + "'");
   }
   return s;

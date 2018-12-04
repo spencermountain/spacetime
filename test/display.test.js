@@ -60,7 +60,7 @@ test('display-indirect', function(t) {
   t.end();
 });
 
-test('display-indirect-hemisphere', function(t) {
+test('hemisphere-africa-europe', function(t) {
   var s = spacetime('Dec 4', 'prague')
   t.equal(s.timezone().display, 'CET', 'dec - north');
   s = s.add(6, 'months')
@@ -70,6 +70,19 @@ test('display-indirect-hemisphere', function(t) {
   t.equal(s.timezone().display, 'WAT', 'dec - south');
   s = s.add(6, 'months')
   t.equal(s.timezone().display, 'WAT', 'jul - south');
+  t.end();
+});
+
+test('hemisphere-china', function(t) {
+  var s = spacetime('Dec 4', 'chongqing')
+  t.equal(s.timezone().display, 'CT', 'dec - north');
+  s = s.add(6, 'months')
+  t.equal(s.timezone().display, 'CT', 'jul - north');
+
+  s = spacetime('Dec 4', 'makassar')
+  t.equal(s.timezone().display, 'WITA', 'dec - south');
+  s = s.add(6, 'months')
+  t.equal(s.timezone().display, 'WITA', 'jul - south');
   t.end();
 });
 

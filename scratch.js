@@ -9,7 +9,7 @@ const spacetime = require('./src/index')
 // console.log(a.time())
 // console.log(b.time())
 
-let s = spacetime('Dec 4', 'kinshasa')
+let s = spacetime('July 4', 'jesrsey')
 console.log(s.timezone())
 //s= s.month('august')
 // console.log(s.timezone())

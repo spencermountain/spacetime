@@ -25,7 +25,9 @@ const timezone = s => {
   let zones = s.timezones
   let tz = findTz(s.tz, zones)
   if (tz === null) {
-    console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
+    if (s.silent === false) {
+      console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
+    }
     return {
       current: {
         epochShift: 0,
