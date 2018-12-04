@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node ./scripts/build.js",
     "build:tz": "node ./scripts/updateZonefile.js",
-    "pack": "node ./timezones/pack.js",
+    "pack": "node ./zonefile/pack.js",
     "watch": "amble ./scratch.js",
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
     "test-spec": "TESTENV=dev tape ./test/**/*.test.js | tap-spec",

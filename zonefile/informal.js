@@ -70,6 +70,7 @@ const informal = {
 
   //europe
   'europe/london': ['gmt', 'bst', 'british'], //britain is different
+  'etc/gmt': ['gmt', null, 'greenwich'],
   'europe/lisbon': ['wet', 'west', 'west europe'], //western europe
   'europe/berlin': ['cet', 'cest', 'central europe', 'middle european', 'met', 'mest'], //central europe
   'europe/riga': ['eet', 'eest', 'east europe', 'kalt'], //eastern europe
@@ -83,7 +84,6 @@ const informal = {
   // 'british summer': 1,
   // dmt: 'europe/dublin',
   // dft: 1, //aix-specific equivalent of central european time
-  // gmt: 0, //greenwich mean time
   // cmt: 'europe/copenhagen',
   // // ist: 'europe/dublin',
   // imt: 'europe/sofia',

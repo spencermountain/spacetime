@@ -13,20 +13,63 @@ test('display-test-direct', function(t) {
   s = s.add(6, 'months')
   t.equal(s.timezone().display, 'EAST', 'standard time - south');
 
+  s = spacetime('Dec 4', 'lima')
+  t.equal(s.timezone().display, 'PET', 'standard time - lima');
+  s = s.add(6, 'months')
+  t.equal(s.timezone().display, 'PET', 'summer time - paris');
+
+  s = spacetime('Dec 4', 'bermuda')
+  t.equal(s.timezone().display, 'AST', 'north AST');
+  s = s.add(6, 'months')
+  t.equal(s.timezone().display, 'ADT', 'north ADT');
+
+  s = spacetime('Dec 4', 'america/manaus')
+  t.equal(s.timezone().display, 'AMT', 'south AMT');
+  s = s.add(6, 'months')
+  t.equal(s.timezone().display, 'AMT', 'north AMT');
   t.end();
 });
 
 test('display-indirect', function(t) {
   var s = spacetime('Dec 4', 'toronto')
-  t.equal(s.timezone().display, 'EST', 'standard time - north');
+  t.equal(s.timezone().display, 'EST', 'standard time - toronto');
   s = s.add(6, 'months')
-  t.equal(s.timezone().display, 'EDT', 'daylight time');
+  t.equal(s.timezone().display, 'EDT', 'daylight time - toronto');
 
   s = spacetime('Dec 4', 'vancouver')
-  t.equal(s.timezone().display, 'PST', 'standard time - north');
+  t.equal(s.timezone().display, 'PST', 'standard time - vancouver');
   s = s.add(6, 'months')
-  t.equal(s.timezone().display, 'PDT', 'daylight time');
+  t.equal(s.timezone().display, 'PDT', 'daylight time - vancouver');
 
+  s = spacetime('Dec 4', 'europe/paris')
+  t.equal(s.timezone().display, 'CET', 'standard time - paris');
+  s = s.add(6, 'months')
+  t.equal(s.timezone().display, 'CEST', 'summer time - paris');
+
+  s = spacetime('Dec 4', 'dakar')
+  t.equal(s.timezone().display, 'GMT', 'standard time - dakar');
+  s = s.add(6, 'months')
+  t.equal(s.timezone().display, 'GMT', 'still standard time - dakar');
+
+  //try this false-positive
+  // s = spacetime('Dec 4', 'Punta Arenas')
+  // t.equal(s.timezone().display, 'CLST', 'standard time - chile');
+  // s = s.add(6, 'months')
+  // t.equal(s.timezone().display, 'CLST', 'still standard - chile');
+
+  t.end();
+});
+
+test('display-indirect-hemisphere', function(t) {
+  var s = spacetime('Dec 4', 'prague')
+  t.equal(s.timezone().display, 'CET', 'dec - north');
+  s = s.add(6, 'months')
+  t.equal(s.timezone().display, 'CEST', 'jul - north');
+
+  s = spacetime('Dec 4', 'kinshasa')
+  t.equal(s.timezone().display, 'WAT', 'dec - south');
+  s = s.add(6, 'months')
+  t.equal(s.timezone().display, 'WAT', 'jul - south');
   t.end();
 });
 

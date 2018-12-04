@@ -49,4 +49,4 @@ keys.forEach((k) => {
 })
 
 // console.log(result)
-fs.writeFileSync('./timezones/_build.json', JSON.stringify(result, null, 2))
+fs.writeFileSync('./zonefile/_build.json', JSON.stringify(result, null, 2))

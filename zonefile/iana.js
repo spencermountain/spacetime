@@ -422,7 +422,7 @@ module.exports = {
   },
   "america/fortaleza": {
     offset: -3,
-    hem: "n"
+    hem: "s"
   },
   "america/glace_bay": {
     offset: -3,

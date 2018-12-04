@@ -135,47 +135,6 @@ module.exports = {
 };
 
 },{}],8:[function(_dereq_,module,exports){
-'use strict';
-
-var Spacetime = _dereq_('./spacetime'); // const timezones = require('../data');
-
-
-exports.whereIts = function (a, b) {
-  var start = new Spacetime(null);
-  var end = new Spacetime(null);
-  start = start.time(a); //if b is undefined, use as 'within one hour'
-
-  if (b) {
-    end = end.time(b);
-  } else {
-    end = start.add(59, 'minutes');
-  }
-
-  var startHour = start.hour();
-  var endHour = end.hour();
-  var tzs = Object.keys(start.timezones).filter(function (tz) {
-    var m = new Spacetime(null, tz);
-    var hour = m.hour(); //do 'calendar-compare' not real-time-compare
-
-    if (hour >= startHour && hour <= endHour) {
-      //test minutes too, if applicable
-      if (hour === startHour && m.minute() < start.minute()) {
-        return false;
-      }
-
-      if (hour === endHour && m.minute() > end.minute()) {
-        return false;
-      }
-
-      return true;
-    }
-
-    return false;
-  });
-  return tzs;
-};
-
-},{"./spacetime":35}],9:[function(_dereq_,module,exports){
 'use strict'; //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
 
 exports.isLeapYear = function (year) {
@@ -274,12 +233,12 @@ exports.beADate = function (d, s) {
   return d;
 };
 
-},{}],10:[function(_dereq_,module,exports){
+},{}],9:[function(_dereq_,module,exports){
 'use strict';
 
 var Spacetime = _dereq_('./spacetime');
 
-var whereIts = _dereq_('./findTz').whereIts;
+var whereIts = _dereq_('./whereIts');
 
 var version = _dereq_('../_version');
 
@@ -321,7 +280,7 @@ main.version = version; //aliases:
 main.plugin = main.extend;
 module.exports = main;
 
-},{"../_version":1,"./findTz":8,"./spacetime":35}],11:[function(_dereq_,module,exports){
+},{"../_version":1,"./spacetime":34,"./whereIts":40}],10:[function(_dereq_,module,exports){
 'use strict';
 
 var monthLengths = _dereq_('../data/monthLengths');
@@ -356,7 +315,7 @@ var hasDate = function hasDate(obj) {
 
 module.exports = hasDate;
 
-},{"../data/monthLengths":4,"../fns":9}],12:[function(_dereq_,module,exports){
+},{"../data/monthLengths":4,"../fns":8}],11:[function(_dereq_,module,exports){
 'use strict';
 
 var strFmt = _dereq_('./strParse');
@@ -411,13 +370,12 @@ var handleObject = function handleObject(s, obj) {
 var parseInput = function parseInput(s, input, givenTz) {
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
-    s.epoch = input;
-
     if (input > 0 && input < minimumEpoch && s.silent === false) {
       console.warn('  - Warning: You are setting the date to January 1970.');
       console.warn('       -   did input seconds instead of milliseconds?');
     }
 
+    s.epoch = input;
     return s;
   } //set tmp time
 
@@ -485,7 +443,7 @@ var parseInput = function parseInput(s, input, givenTz) {
 
 module.exports = parseInput;
 
-},{"../fns":9,"./named-dates":13,"./strParse":15}],13:[function(_dereq_,module,exports){
+},{"../fns":8,"./named-dates":12,"./strParse":14}],12:[function(_dereq_,module,exports){
 'use strict';
 
 var dates = {
@@ -530,7 +488,7 @@ var dates = {
 dates['new years eve'] = dates['new years'];
 module.exports = dates;
 
-},{}],14:[function(_dereq_,module,exports){
+},{}],13:[function(_dereq_,module,exports){
 'use strict'; //pull-apart ISO offsets, like "+0100"
 
 var parseOffset = function parseOffset(s, offset, givenTz) {
@@ -598,7 +556,7 @@ var parseOffset = function parseOffset(s, offset, givenTz) {
 
 module.exports = parseOffset;
 
-},{}],15:[function(_dereq_,module,exports){
+},{}],14:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('../methods/set/walk');
@@ -810,7 +768,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
 }];
 module.exports = strFmt;
 
-},{"../data/months":5,"../fns":9,"../methods/set/walk":32,"./hasDate":11,"./parseOffset":14}],16:[function(_dereq_,module,exports){
+},{"../data/months":5,"../fns":8,"../methods/set/walk":31,"./hasDate":10,"./parseOffset":13}],15:[function(_dereq_,module,exports){
 'use strict';
 
 var _format = _dereq_('./methods/format');
@@ -938,7 +896,7 @@ methods.inDST = methods.isDST;
 methods.round = methods.nearest;
 module.exports = methods;
 
-},{"./fns":9,"./input":12,"./methods/diff":19,"./methods/format":21,"./methods/format/unixFmt":22,"./methods/nearest":24,"./methods/progress":25,"./methods/since":33,"./methods/startOf":34,"./timezone/index":39}],17:[function(_dereq_,module,exports){
+},{"./fns":8,"./input":11,"./methods/diff":18,"./methods/format":20,"./methods/format/unixFmt":21,"./methods/nearest":23,"./methods/progress":24,"./methods/since":32,"./methods/startOf":33,"./timezone/index":38}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('./set/walk');
@@ -1063,7 +1021,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{"../data/milliseconds":3,"../data/monthLengths":4,"../fns":9,"./set/walk":32}],18:[function(_dereq_,module,exports){
+},{"../data/milliseconds":3,"../data/monthLengths":4,"../fns":8,"./set/walk":31}],17:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns');
@@ -1126,7 +1084,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{"../fns":9}],19:[function(_dereq_,module,exports){
+},{"../fns":8}],18:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns'); //init this function up here
@@ -1210,7 +1168,7 @@ doAll = function doAll(a, b) {
 
 module.exports = diff;
 
-},{"../fns":9}],20:[function(_dereq_,module,exports){
+},{"../fns":8}],19:[function(_dereq_,module,exports){
 "use strict";
 
 var fns = _dereq_('../../fns'); // "+01:00", "+0100", or simply "+01"
@@ -1247,7 +1205,7 @@ var isoOffset = function isoOffset(s) {
 
 module.exports = isoOffset;
 
-},{"../../fns":9}],21:[function(_dereq_,module,exports){
+},{"../../fns":8}],20:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../../fns');
@@ -1468,7 +1426,7 @@ var printFormat = function printFormat(s) {
 
 module.exports = printFormat;
 
-},{"../../data/days":2,"../../data/months":5,"../../fns":9,"./_offset":20}],22:[function(_dereq_,module,exports){
+},{"../../data/days":2,"../../data/months":5,"../../fns":8,"./_offset":19}],21:[function(_dereq_,module,exports){
 'use strict';
 
 var pad = _dereq_('../../fns').zeroPad; //parse this insane unix-time-templating thing, from the 19th century
@@ -1722,7 +1680,7 @@ var unixFmt = function unixFmt(s, str) {
 
 module.exports = unixFmt;
 
-},{"../../fns":9}],23:[function(_dereq_,module,exports){
+},{"../../fns":8}],22:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns');
@@ -1750,7 +1708,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{"../data/days":2,"../data/months":5,"../fns":9}],24:[function(_dereq_,module,exports){
+},{"../data/days":2,"../data/months":5,"../fns":8}],23:[function(_dereq_,module,exports){
 'use strict'; //round to either current, or +1 of this unit
 
 var nearest = function nearest(s, unit) {
@@ -1774,7 +1732,7 @@ var nearest = function nearest(s, unit) {
 
 module.exports = nearest;
 
-},{}],25:[function(_dereq_,module,exports){
+},{}],24:[function(_dereq_,module,exports){
 'use strict'; //how far it is along, from 0-1
 
 var progress = function progress(s) {
@@ -1792,7 +1750,7 @@ var progress = function progress(s) {
 
 module.exports = progress;
 
-},{}],26:[function(_dereq_,module,exports){
+},{}],25:[function(_dereq_,module,exports){
 'use strict';
 
 var quarters = _dereq_('../../data/quarters');
@@ -1921,7 +1879,7 @@ module.exports = {
   season: function season(input) {
     var hem = 'north';
 
-    if (this.timezone().hemisphere === 'South') {
+    if (this.hemisphere() === 'South') {
       hem = 'south';
     }
 
@@ -1951,7 +1909,7 @@ module.exports = {
   }
 };
 
-},{"../../data/quarters":6,"../../data/seasons":7,"../../fns":9,"../set/set":31}],27:[function(_dereq_,module,exports){
+},{"../../data/quarters":6,"../../data/seasons":7,"../../fns":8,"../set/set":30}],26:[function(_dereq_,module,exports){
 'use strict';
 
 var normal = _dereq_('./normal');
@@ -1975,7 +1933,7 @@ var addMethods = function addMethods(Space) {
 
 module.exports = addMethods;
 
-},{"./destructive":26,"./normal":28,"./tricky":29}],28:[function(_dereq_,module,exports){
+},{"./destructive":25,"./normal":27,"./tricky":28}],27:[function(_dereq_,module,exports){
 'use strict';
 
 var set = _dereq_('../set/set');
@@ -2209,7 +2167,7 @@ methods.h24 = methods.hour24;
 methods.days = methods.day;
 module.exports = methods;
 
-},{"../set/set":31,"../set/walk":32}],29:[function(_dereq_,module,exports){
+},{"../set/set":30,"../set/walk":31}],28:[function(_dereq_,module,exports){
 'use strict';
 
 var days = _dereq_('../../data/days');
@@ -2297,7 +2255,7 @@ module.exports = {
   }
 };
 
-},{"../../data/days":2,"../../data/months":5,"../set/walk":32}],30:[function(_dereq_,module,exports){
+},{"../../data/days":2,"../../data/months":5,"../set/walk":31}],29:[function(_dereq_,module,exports){
 'use strict'; //make a string, for easy comparison between dates
 
 var print = {
@@ -2352,7 +2310,7 @@ var addMethods = function addMethods(SpaceTime) {
 
 module.exports = addMethods;
 
-},{}],31:[function(_dereq_,module,exports){
+},{}],30:[function(_dereq_,module,exports){
 'use strict'; // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
 
@@ -2506,7 +2464,7 @@ module.exports = {
   }
 };
 
-},{"../../data/milliseconds":3,"../../data/monthLengths":4,"../../data/months":5,"./walk":32}],32:[function(_dereq_,module,exports){
+},{"../../data/milliseconds":3,"../../data/monthLengths":4,"../../data/months":5,"./walk":31}],31:[function(_dereq_,module,exports){
 'use strict';
 
 var ms = _dereq_('../../data/milliseconds'); //basically, step-forward/backward until js Date object says we're there.
@@ -2676,7 +2634,7 @@ module.exports = walkTo; // const spacetime = require('../../spacetime')
 // walkTo(s, want)
 // s.log()
 
-},{"../../data/milliseconds":3}],33:[function(_dereq_,module,exports){
+},{"../../data/milliseconds":3}],32:[function(_dereq_,module,exports){
 'use strict';
 
 var fns = _dereq_('../fns'); //by spencermountain + Shaun Grady
@@ -2829,7 +2787,7 @@ var since = function since(start, end) {
 
 module.exports = since;
 
-},{"../fns":9}],34:[function(_dereq_,module,exports){
+},{"../fns":8}],33:[function(_dereq_,module,exports){
 'use strict';
 
 var seasons = _dereq_('../data/seasons');
@@ -2928,7 +2886,7 @@ var units = {
     var current = s.season();
     var hem = 'north';
 
-    if (s.timezone().hemisphere === 'South') {
+    if (s.hemisphere() === 'South') {
       hem = 'south';
     }
 
@@ -3004,7 +2962,7 @@ module.exports = {
   endOf: endOf
 };
 
-},{"../data/quarters":6,"../data/seasons":7,"./set/walk":32}],35:[function(_dereq_,module,exports){
+},{"../data/quarters":6,"../data/seasons":7,"./set/walk":31}],34:[function(_dereq_,module,exports){
 'use strict';
 
 var guessTz = _dereq_('./timezone/guessTz');
@@ -3015,17 +2973,17 @@ var handleInput = _dereq_('./input');
 
 var methods = _dereq_('./methods');
 
-var timezones = _dereq_('../timezones/unpack'); //fake timezone-support, for fakers (es5 class)
+var timezones = _dereq_('../zonefile/unpack'); //fake timezone-support, for fakers (es5 class)
 
 
 var SpaceTime = function SpaceTime(input, tz, options) {
   options = options || {}; //the holy moment
 
-  this.epoch = new Date().getTime(); //the shift for the given timezone
+  this.epoch = null; //the shift for the given timezone
 
   this.tz = tz || guessTz(); //whether to output warnings to console
 
-  this.silent = options.silent || false; //add getter/setters
+  this.silent = options.silent || true; //add getter/setters
 
   Object.defineProperty(this, 'd', {
     //return a js date object
@@ -3055,8 +3013,10 @@ var SpaceTime = function SpaceTime(input, tz, options) {
     }
   }); //parse the various formats
 
-  var tmp = handleInput(this, input, tz, options);
-  this.epoch = tmp.epoch;
+  if (input !== undefined || input === null) {
+    var tmp = handleInput(this, input, tz, options);
+    this.epoch = tmp.epoch;
+  }
 }; //(add instance methods to prototype)
 
 
@@ -3083,40 +3043,92 @@ _dereq_('./methods/i18n')(SpaceTime);
 
 module.exports = SpaceTime;
 
-},{"../timezones/unpack":43,"./input":12,"./methods":16,"./methods/add":17,"./methods/compare":18,"./methods/i18n":23,"./methods/query":27,"./methods/same":30,"./timezone/guessTz":38,"./timezone/index":39}],36:[function(_dereq_,module,exports){
+},{"../zonefile/unpack":44,"./input":11,"./methods":15,"./methods/add":16,"./methods/compare":17,"./methods/i18n":22,"./methods/query":26,"./methods/same":29,"./timezone/guessTz":37,"./timezone/index":38}],35:[function(_dereq_,module,exports){
 "use strict";
 
-//these are common-enough abbreviations
-var named = [//british
-['gmt', 'bst'], ['gmt', 'ist'], //european
-['wet', 'west'], ['cet', 'cest'], ['eet', 'eest'], ['msk', 'msd'], //americas
-['ast', 'adt'], ['est', 'edt'], ['cst', 'cdt'], ['mst', 'mdt'], ['pst', 'pdt'], ['akst', 'akdt'], //australia
-['aest', 'aedt'], ['acst', 'acdt'], ['awst', 'awdt']]; //
+var informal = _dereq_('../../zonefile/informal').informal; //these timezone abbreviations are used aggressively in other places
+//if tz doesn't have an abbreviation, and is in the same offset...
 
-var displayName = function displayName(found, timezones) {
-  for (var i = 0; i < named.length; i += 1) {
-    var name = named[i][0];
-    var hay = timezones[name]; // console.log(hay)
 
-    if (hay.offset === found.offset && hay.hem === found.hem) {
-      //&& hay.dst === found.dst
-      return name.toUpperCase();
+var greedy = {
+  '-8': 'america/anchorage',
+  '-7': 'america/los_angeles',
+  '-6': 'america/denver',
+  '-5': 'america/chicago',
+  '-4': 'america/new_york',
+  '-3': 'america/halifax',
+  // '-3': 'america/sao_paulo',
+  '1': 'europe/lisbon',
+  // 1  europe/london
+  // '1': 'africa/lagos',
+  '2': 'europe/berlin',
+  // '2': 'africa/khartoum',
+  '3': 'europe/moscow' // '3':  'europe/riga',
+  // '3': 'africa/nairobi',
+
+};
+
+var chooseAbbrev = function chooseAbbrev(arr, obj) {
+  if (arr[1] && obj.current.isDST === true) {
+    return arr[1].toUpperCase();
+  }
+
+  if (arr[0]) {
+    return arr[0].toUpperCase();
+  }
+
+  return null;
+}; //
+
+
+var display = function display(tz, obj) {
+  //try a straight-up match
+  if (informal.hasOwnProperty(tz)) {
+    var abbr = chooseAbbrev(informal[tz], obj);
+
+    if (abbr !== null) {
+      return abbr;
     }
+  }
+
+  var offset = String(obj.default_offset);
+
+  if (greedy.hasOwnProperty(offset)) {
+    var useTz = greedy[offset];
+    var arr = informal[useTz] || [];
+    return chooseAbbrev(arr, obj) || '';
   }
 
   return '';
 };
 
-module.exports = displayName;
+module.exports = display;
 
-},{}],37:[function(_dereq_,module,exports){
+},{"../../zonefile/informal":43}],36:[function(_dereq_,module,exports){
 "use strict";
 
-var isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i; //try to match these against iana form
+var tzs = _dereq_('../../zonefile/unpack');
+
+var informal = _dereq_('../../zonefile/informal').lookup; // console.log(informal)
+// const isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i
+
+
+var isOffset = /(\-?[0-9]+)h(rs)?/; //add all the city names by themselves
+
+var cities = Object.keys(tzs).reduce(function (h, k) {
+  var city = k.split('/')[1];
+  city = city.replace(/_/g, ' ');
+  h[city] = k;
+  return h;
+}, {}); //try to match these against iana form
 
 var normalize = function normalize(tz) {
-  tz = tz.toLowerCase();
-  tz = tz.replace(/ /g, '_');
+  tz = tz.replace(/ time/g, '');
+  tz = tz.replace(/ (standard|daylight|summer)/g, '');
+  tz = tz.replace(/\b(east|west|north|south)ern/g, '$1');
+  tz = tz.replace(/\b(africa|america|australia)n/g, '$1');
+  tz = tz.replace(/\beuropean/g, 'europe');
+  tz = tz.replace(/\islands/g, 'island');
   return tz;
 }; // try our best to reconcile the timzone to this given string
 
@@ -3129,26 +3141,42 @@ var lookupTz = function lookupTz(str, zones) {
     tz = split[0] + '/' + split[1];
   }
 
+  tz = tz.toLowerCase();
+
   if (zones.hasOwnProperty(tz) === true) {
-    return zones[tz];
+    return tz;
   } //lookup more loosely..
 
 
   tz = normalize(tz);
 
   if (zones.hasOwnProperty(tz) === true) {
-    return zones[tz];
-  } //try to parse 'gmt+5'
+    return tz;
+  } //try abbrevations and things
 
 
-  var m = tz.match(isNum);
+  if (informal.hasOwnProperty(tz) === true) {
+    return informal[tz];
+  } //try city-names
+
+
+  if (cities.hasOwnProperty(tz) === true) {
+    return cities[tz];
+  } // //try to parse '-5h'
+
+
+  m = tz.match(isOffset);
 
   if (m !== null) {
-    var num = Number(m[2]);
-    return {
-      offset: num,
-      h: 'n'
-    };
+    var num = Number(m[1]);
+    num = num * -1; //it's opposite!
+
+    num = (num > 0 ? '+' : '') + num;
+    var gmt = 'etc/gmt' + num;
+
+    if (zones.hasOwnProperty(gmt)) {
+      return gmt;
+    }
   }
 
   return null;
@@ -3156,12 +3184,12 @@ var lookupTz = function lookupTz(str, zones) {
 
 module.exports = lookupTz;
 
-},{}],38:[function(_dereq_,module,exports){
+},{"../../zonefile/informal":43,"../../zonefile/unpack":44}],37:[function(_dereq_,module,exports){
 'use strict'; //find the implicit iana code for this machine.
 //safely query the Intl object
 //based on - https://bitbucket.org/pellepim/jstimezonedetect/src
 
-var fallbackTZ = 'Asia/Shanghai'; //
+var fallbackTZ = 'asia/shanghai'; //
 //this Intl object is not supported often, yet
 
 var safeIntl = function safeIntl() {
@@ -3191,19 +3219,19 @@ var guessTz = function guessTz() {
     return fallbackTZ;
   }
 
-  return timezone;
+  return timezone.toLowerCase();
 };
 
 module.exports = guessTz;
 
-},{}],39:[function(_dereq_,module,exports){
+},{}],38:[function(_dereq_,module,exports){
 'use strict'; // const zones = require('../../data');
 
 var findTz = _dereq_('./find');
 
-var summerTime = _dereq_('./summerTime');
+var inSummerTime = _dereq_('./summerTime');
 
-var displayName = _dereq_('./displayName');
+var display = _dereq_('./display');
 
 var parseDst = function parseDst(dst) {
   if (!dst) {
@@ -3216,7 +3244,7 @@ var parseDst = function parseDst(dst) {
 var titleCase = function titleCase(str) {
   str = str[0].toUpperCase() + str.substr(1);
   str = str.replace(/\/gmt/, '/GMT');
-  str = str.replace(/\/([a-z])/i, function (s) {
+  str = str.replace(/[\/_]([a-z])/ig, function (s) {
     return s.toUpperCase();
   });
   return str;
@@ -3225,9 +3253,9 @@ var titleCase = function titleCase(str) {
 
 var timezone = function timezone(s) {
   var zones = s.timezones;
-  var found = findTz(s.tz, zones);
+  var tz = findTz(s.tz, zones);
 
-  if (found === null) {
+  if (tz === null) {
     console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
     return {
       current: {
@@ -3236,9 +3264,11 @@ var timezone = function timezone(s) {
     };
   }
 
+  var found = zones[tz];
   var result = {
-    name: titleCase(s.tz),
+    name: titleCase(tz),
     hasDst: Boolean(found.dst),
+    default_offset: found.offset,
     //do north-hemisphere version as default (sorry!)
     hemisphere: found.hem === 's' ? 'South' : 'North',
     current: {}
@@ -3272,7 +3302,7 @@ var timezone = function timezone(s) {
   if (result.hasDst === false) {
     result.current.offset = summer;
     result.current.isDST = false;
-  } else if (summerTime(s, result, summer) === true) {
+  } else if (inSummerTime(s, result, summer) === true) {
     result.current.offset = summer;
     result.current.isDST = result.hemisphere === 'North'; //dst 'on' in winter in north
   } else {
@@ -3282,13 +3312,13 @@ var timezone = function timezone(s) {
   } //try to find the best name for it..
 
 
-  result.display = displayName(found, zones);
+  result.display = display(tz, result, zones);
   return result;
 };
 
 module.exports = timezone;
 
-},{"./displayName":36,"./find":37,"./summerTime":40}],40:[function(_dereq_,module,exports){
+},{"./display":35,"./find":36,"./summerTime":39}],39:[function(_dereq_,module,exports){
 'use strict';
 
 var zeroPad = _dereq_('../fns').zeroPad;
@@ -3329,32 +3359,77 @@ var shouldChange = function shouldChange(s, m, defaultOffset) {
 
 module.exports = shouldChange;
 
-},{"../fns":9}],41:[function(_dereq_,module,exports){
+},{"../fns":8}],40:[function(_dereq_,module,exports){
+'use strict';
+
+var Spacetime = _dereq_('./spacetime'); // const timezones = require('../data');
+
+
+var whereIts = function whereIts(a, b) {
+  var start = new Spacetime(null);
+  var end = new Spacetime(null);
+  start = start.time(a); //if b is undefined, use as 'within one hour'
+
+  if (b) {
+    end = end.time(b);
+  } else {
+    end = start.add(59, 'minutes');
+  }
+
+  var startHour = start.hour();
+  var endHour = end.hour();
+  var tzs = Object.keys(start.timezones).filter(function (tz) {
+    if (tz.indexOf('/') === -1) {
+      return false;
+    }
+
+    var m = new Spacetime(null, tz);
+    var hour = m.hour(); //do 'calendar-compare' not real-time-compare
+
+    if (hour >= startHour && hour <= endHour) {
+      //test minutes too, if applicable
+      if (hour === startHour && m.minute() < start.minute()) {
+        return false;
+      }
+
+      if (hour === endHour && m.minute() > end.minute()) {
+        return false;
+      }
+
+      return true;
+    }
+
+    return false;
+  });
+  return tzs;
+};
+
+module.exports = whereIts;
+
+},{"./spacetime":34}],41:[function(_dereq_,module,exports){
 module.exports={
-  "9|s": "2/dili,eit,eastern indonesian,tlt",
-  "9|n": "2/chita,2/jayapura,2/khandyga,2/pyongyang,2/seoul,2/tokyo,11/palau,jdt,jst,kdt,kst,korea,korean,wit,chost,ulast,yakt",
+  "9|s": "2/dili",
+  "9|n": "2/chita,2/jayapura,2/khandyga,2/pyongyang,2/seoul,2/tokyo,11/palau",
   "9.5|s|04/01:03->10/07:02": "4/adelaide,4/broken_hill,4/south,4/yancowinna",
   "9.5|s": "4/darwin,4/north",
-  "9.5|n": "acdt,acst,australian central",
-  "8|s": "-1/casey,2/kuala_lumpur,2/makassar,2/singapore,4/perth,4/west,cit,central indonesian",
+  "8|s": "12/casey,2/kuala_lumpur,2/makassar,2/singapore,4/perth,4/west",
   "8|n|03/25:03->09/29:23": "2/ulan_bator",
-  "8|n": "2/brunei,2/choibalsan,2/chongqing,2/chungking,2/harbin,2/hong_kong,2/irkutsk,2/kuching,2/macao,2/macau,2/manila,2/shanghai,2/taipei,2/ujung_pandang,2/ulaanbaatar,awst,awdt,australian western,irkt,ct,china,hkst,hkt,sgt,bdt,myt,pht,smt,hovst,ulat,chot,wst",
+  "8|n": "2/brunei,2/choibalsan,2/chongqing,2/chungking,2/harbin,2/hong_kong,2/irkutsk,2/kuching,2/macao,2/macau,2/manila,2/shanghai,2/taipei,2/ujung_pandang,2/ulaanbaatar",
   "8.75|s": "4/eucla",
-  "8.75|n": "acwst,australian central western,cwst",
-  "7|s": "-1/davis,2/jakarta,wib,cxt,christmas island",
-  "7|n": "2/bangkok,2/barnaul,2/ho_chi_minh,2/hovd,2/krasnoyarsk,2/novokuznetsk,2/novosibirsk,2/phnom_penh,2/pontianak,2/saigon,2/vientiane,9/christmas,ict,indochina,plmt,tha,wita,hovt,krat,davt",
-  "6|s": "-1/vostok",
-  "6|n": "2/almaty,2/bishkek,2/dacca,2/dhaka,2/kashgar,2/omsk,2/qyzylorda,2/thimbu,2/thimphu,2/urumqi,9/chagos,kgt,kyrgyzstan,vost,biot,btt,bhutan,omst",
-  "6.5|n": "2/rangoon,9/cocos,cct",
-  "5|s": "-1/mawson,9/kerguelen",
-  "5|n": "2/aqtau,2/aqtobe,2/ashgabat,2/ashkhabad,2/atyrau,2/baku,2/dushanbe,2/karachi,2/oral,2/samarkand,2/tashkent,2/yekaterinburg,9/maldives,turkmenistan,uzt,uzbekistan,pkst,pkt,tjt,mvt,tft,yekt,orat,mawt",
-  "5.75|n": "2/kathmandu,2/katmandu,npt",
-  "5.5|n": "2/calcutta,2/colombo,2/kolkata,slst,sri lanka,ist,india,mmt",
-  "4|s": "9/reunion,ret",
-  "4|n": "2/dubai,2/muscat,2/tbilisi,2/yerevan,8/astrakhan,8/samara,8/saratov,8/ulyanovsk,9/mahe,9/mauritius,volt,azt,tbmt,get,samt,mut,sct",
+  "7|s": "12/davis,2/jakarta",
+  "7|n": "2/bangkok,2/barnaul,2/ho_chi_minh,2/hovd,2/krasnoyarsk,2/novokuznetsk,2/novosibirsk,2/phnom_penh,2/pontianak,2/saigon,2/vientiane,9/christmas",
+  "6|s": "12/vostok",
+  "6|n": "2/almaty,2/bishkek,2/dacca,2/dhaka,2/kashgar,2/omsk,2/qyzylorda,2/thimbu,2/thimphu,2/urumqi,9/chagos",
+  "6.5|n": "2/rangoon,9/cocos",
+  "5|s": "12/mawson,9/kerguelen",
+  "5|n": "2/aqtau,2/aqtobe,2/ashgabat,2/ashkhabad,2/atyrau,2/baku,2/dushanbe,2/karachi,2/oral,2/samarkand,2/tashkent,2/yekaterinburg,9/maldives",
+  "5.75|n": "2/kathmandu,2/katmandu",
+  "5.5|n": "2/calcutta,2/colombo,2/kolkata",
+  "4|s": "9/reunion",
+  "4|n": "2/dubai,2/muscat,2/tbilisi,2/yerevan,8/astrakhan,8/samara,8/saratov,8/ulyanovsk,9/mahe,9/mauritius",
   "4.5|n|03/22:00->09/21:24": "2/tehran",
-  "4.5|n": "2/kabul,aft,afghanistan,irdt,iran daylight,iran",
-  "3|s": "-1/syowa,9/antananarivo",
+  "4.5|n": "2/kabul",
+  "3|s": "12/syowa,9/antananarivo",
   "3|n|03/30:00->10/26:01": "2/amman",
   "3|n|03/30:00->10/25:24": "2/damascus",
   "3|n|03/25:03->10/28:04": "2/nicosia,8/athens,8/bucharest,8/helsinki,8/kiev,8/mariehamn,8/nicosia,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye",
@@ -3362,88 +3437,350 @@ module.exports={
   "3|n|03/25:00->10/27:24": "2/beirut",
   "3|n|03/24:01->10/27:01": "2/gaza,2/hebron",
   "3|n|03/23:02->10/28:02": "2/jerusalem,2/tel_aviv",
-  "3|n": "0/addis_ababa,0/asmara,0/asmera,0/dar_es_salaam,0/djibouti,0/juba,0/kampala,0/mogadishu,0/nairobi,2/aden,2/baghdad,2/bahrain,2/istanbul,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,8/volgograd,9/comoro,9/mayotte,eest,fet,further eastern european,imt,lst,tmt,mdst,msd,msk,eat,east african,eastern africa,idt,israel,jmt,iddt,trt,turkey,iot,syot",
-  "3.5|n": "irst,iran standard",
-  "2|s|03/25:02->10/28:02": "-1/troll",
-  "2|s": "0/gaborone,0/harare,0/johannesburg,0/lubumbashi,0/lusaka,0/maputo,0/maseru,0/mbabane,sast,south african",
-  "2|n|03/25:02->10/28:03": "0/ceuta,-1/longyearbyen,3/jan_mayen,8/amsterdam,8/andorra,8/belgrade,8/berlin,8/bratislava,8/brussels,8/budapest,8/busingen,8/copenhagen,8/gibraltar,8/ljubljana,8/luxembourg,8/madrid,8/malta,8/monaco,8/oslo,8/paris,8/podgorica,8/prague,8/rome,8/san_marino,8/sarajevo,8/skopje,8/stockholm,8/tirane,8/vaduz,8/vatican,8/vienna,8/warsaw,8/zagreb,8/zurich",
-  "2|n": "0/blantyre,0/bujumbura,0/cairo,0/khartoum,0/kigali,0/tripoli,8/kaliningrad,amt,bdst,bmt,bst,cest,central european summer,cet,central european,eet,eastern european,cmt,mest,pmt,rmt,set,wemt,wet,west,western european time,kalt,wmt,cat,cast,central africa,haec",
+  "3|n": "0/addis_ababa,0/asmara,0/asmera,0/dar_es_salaam,0/djibouti,0/juba,0/kampala,0/mogadishu,0/nairobi,2/aden,2/baghdad,2/bahrain,2/istanbul,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,8/volgograd,9/comoro,9/mayotte",
+  "2|s|03/25:02->10/28:02": "12/troll",
+  "2|s": "0/gaborone,0/harare,0/johannesburg,0/lubumbashi,0/lusaka,0/maputo,0/maseru,0/mbabane",
+  "2|n|03/25:02->10/28:03": "0/ceuta,arctic/longyearbyen,3/jan_mayen,8/amsterdam,8/andorra,8/belgrade,8/berlin,8/bratislava,8/brussels,8/budapest,8/busingen,8/copenhagen,8/gibraltar,8/ljubljana,8/luxembourg,8/madrid,8/malta,8/monaco,8/oslo,8/paris,8/podgorica,8/prague,8/rome,8/san_marino,8/sarajevo,8/skopje,8/stockholm,8/tirane,8/vaduz,8/vatican,8/vienna,8/warsaw,8/zagreb,8/zurich",
+  "2|n": "0/blantyre,0/bujumbura,0/cairo,0/khartoum,0/kigali,0/tripoli,8/kaliningrad",
   "1|s|04/02:01->09/03:03": "0/windhoek",
   "1|s": "0/kinshasa,0/luanda",
   "1|n|07/02:03->10/29:02": "0/casablanca,0/el_aaiun",
   "1|n|03/25:01->10/28:02": "3/canary,3/faeroe,3/faroe,3/madeira,8/belfast,8/dublin,8/guernsey,8/isle_of_man,8/jersey,8/lisbon,8/london",
-  "1|n": "0/algiers,0/bangui,0/brazzaville,0/douala,0/lagos,0/libreville,0/malabo,0/ndjamena,0/niamey,0/porto-novo,0/tunis,ace,british summer,dmt,dft,met,middle european,tse,wast,west african,wester africa,wat,fmt",
-  "14|n": "11/kiritimati,lint",
+  "1|n": "0/algiers,0/bangui,0/brazzaville,0/douala,0/lagos,0/libreville,0/malabo,0/ndjamena,0/niamey,0/porto-novo,0/tunis",
+  "14|n": "11/kiritimati",
   "13|s|04/01:04->09/30:03": "11/apia",
   "13|s|01/15:02->11/05:03": "11/tongatapu",
-  "13|n": "11/enderbury,11/fakaofo,phot,tkt,tot",
-  "13.75|n": "chadt",
-  "12|s|04/01:03->09/30:02": "-1/mcmurdo,-1/south_pole,11/auckland",
+  "13|n": "11/enderbury,11/fakaofo",
+  "12|s|04/01:03->09/30:02": "12/mcmurdo,12/south_pole,11/auckland",
   "12|s|01/14:03->11/04:02": "11/fiji",
-  "12|s": "fjt,mht",
-  "12|n": "2/anadyr,2/kamchatka,2/srednekolymsk,11/funafuti,11/kwajalein,11/majuro,11/nauru,11/tarawa,11/wake,11/wallis,nzdt,nzmt,nzst,gilt,magt,pett,tvt,wakt",
+  "12|n": "2/anadyr,2/kamchatka,2/srednekolymsk,11/funafuti,11/kwajalein,11/majuro,11/nauru,11/tarawa,11/wake,11/wallis",
   "12.75|s|04/07:03->09/29:02": "11/chatham",
-  "12.75|n": "chast",
-  "11|s": "-1/macquarie,11/bougainville,sbt",
-  "11|n": "2/magadan,2/sakhalin,11/efate,11/guadalcanal,11/kosrae,11/noumea,11/pohnpei,11/ponape,kost,mist,nct,nft,pont,pmmt,sakt,sret,vut",
+  "11|s": "12/macquarie,11/bougainville",
+  "11|n": "2/magadan,2/sakhalin,11/efate,11/guadalcanal,11/kosrae,11/noumea,11/pohnpei,11/ponape",
   "11.5|n": "11/norfolk",
   "10|s|04/01:03->10/07:02": "4/act,4/canberra,4/currie,4/hobart,4/melbourne,4/nsw,4/sydney,4/tasmania,4/victoria",
-  "10|s": "-1/dumontdurville,4/brisbane,4/lindeman,4/queensland",
-  "10|n": "2/ust-nera,2/vladivostok,2/yakutsk,11/chuuk,11/guam,11/port_moresby,11/saipan,11/truk,11/yap,aedt,aest,australian eastern,vlat,chst,chut,ddut,gst,pgt",
+  "10|s": "12/dumontdurville,4/brisbane,4/lindeman,4/queensland",
+  "10|n": "2/ust-nera,2/vladivostok,2/yakutsk,11/chuuk,11/guam,11/port_moresby,11/saipan,11/truk,11/yap",
   "10.5|s|04/01:01->10/07:02": "4/lhi,4/lord_howe",
-  "10.5|n": "lhst",
   "0|n|03/25:00->10/28:01": "1/scoresbysund,3/azores",
-  "0|n": "0/abidjan,0/accra,0/bamako,0/banjul,0/bissau,0/conakry,0/dakar,0/freetown,0/lome,0/monrovia,0/nouakchott,0/ouagadougou,0/sao_tome,0/timbuktu,1/danmarkshavn,3/reykjavik,3/st_helena,12/gmt,12/gmt+0,12/gmt-0,12/gmt0,12/greenwich,12/utc,12/universal,12/zulu,gmt,utc,coordinated universal,azost,egst,eastern greenland summer,hmt",
+  "0|n": "0/abidjan,0/accra,0/bamako,0/banjul,0/bissau,0/conakry,0/dakar,0/freetown,0/lome,0/monrovia,0/nouakchott,0/ouagadougou,0/sao_tome,0/timbuktu,1/danmarkshavn,3/reykjavik,3/st_helena,13/gmt,13/gmt+0,13/gmt-0,13/gmt0,13/greenwich,13/utc,13/universal,13/zulu",
   "-9|n|03/11:02->11/04:02": "1/adak,1/atka",
-  "-9|n": "11/gambier,nwt,gamt,git",
-  "-9.5|n": "11/marquesas,mart,mit",
+  "-9|n": "11/gambier",
+  "-9.5|n": "11/marquesas",
   "-8|n|03/11:02->11/04:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat",
-  "-8|n": "11/pitcairn,ahdt,ahst,akdt,akst,alaska,cist",
+  "-8|n": "11/pitcairn",
   "-7|n|03/11:02->11/04:02": "1/dawson,1/ensenada,1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,1/whitehorse,6/pacific,6/yukon,10/bajanorte",
-  "-7|n": "1/creston,1/dawson_creek,1/hermosillo,1/phoenix,mst,mwt,pdt,pst,ppt,pwt,ydt,ypt,yddt,ywt,yst",
+  "-7|n": "1/creston,1/dawson_creek,1/hermosillo,1/phoenix",
   "-6|s|05/12:22->08/11:22": "7/easterisland,11/easter",
-  "-6|s": "emt,east,easter island,galt",
   "-6|n|04/01:02->10/28:02": "1/chihuahua,1/mazatlan,10/bajasur",
   "-6|n|03/11:02->11/04:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/ojinaga,1/shiprock,1/yellowknife,6/mountain",
-  "-6|n": "1/belize,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/regina,1/swift_current,1/tegucigalpa,6/east-saskatchewan,6/saskatchewan,11/galapagos,mddt,mdt,mountain,mpt,pddt,sjmt",
-  "-5|s": "1/lima,5/acre,easst,act,pet,peru",
+  "-6|n": "1/belize,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/regina,1/swift_current,1/tegucigalpa,6/east-saskatchewan,6/saskatchewan,11/galapagos",
+  "-5|s": "1/lima,5/acre",
   "-5|n|04/01:02->10/28:02": "1/bahia_banderas,1/merida,1/mexico_city,1/monterrey,10/general",
   "-5|n|03/12:03->11/05:01": "1/north_dakota",
   "-5|n|03/11:02->11/04:02": "1/chicago,1/knox_in,1/matamoros,1/menominee,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,6/central",
-  "-5|n": "1/atikokan,1/bogota,1/cancun,1/cayman,1/coral_harbour,1/eirunepe,1/guayaquil,1/jamaica,1/panama,1/porto_acre,1/rio_branco,cddt,cdt,central daylight,central,cwt,cpt,qmt,cot,colombia",
-  "-4|s|05/13:23->08/13:01": "-1/palmer",
+  "-5|n": "1/atikokan,1/bogota,1/cancun,1/cayman,1/coral_harbour,1/eirunepe,1/guayaquil,1/jamaica,1/panama,1/porto_acre,1/rio_branco",
+  "-4|s|05/13:23->08/13:01": "12/palmer",
   "-4|s|05/12:24->08/12:00": "1/santiago,7/continental",
   "-4|s|03/24:24->10/07:00": "1/asuncion",
   "-4|s|02/17:24->11/04:00": "1/campo_grande,1/cuiaba",
-  "-4|s": "1/la_paz,1/manaus,5/west,fkt,bot,bolivia,clt,chile,pyt,paraguay",
+  "-4|s": "1/la_paz,1/manaus,5/west",
   "-4|n|03/12:03->11/05:01": "1/indiana,1/kentucky",
   "-4|n|03/11:02->11/04:02": "1/detroit,1/fort_wayne,1/grand_turk,1/indianapolis,1/iqaluit,1/louisville,1/montreal,1/nassau,1/new_york,1/nipigon,1/pangnirtung,1/port-au-prince,1/thunder_bay,1/toronto,6/eastern",
   "-4|n|03/11:00->11/04:01": "1/havana",
-  "-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/porto_velho,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin,awt,addt,apt,bost,cst,eddt,ept,edt,eastern daylight,est,ewt,ect,eastern caribbean,ffmt,kmt,ppmt,sdmt,cost,vet,venezuela,gyt",
+  "-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/porto_velho,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin",
   "-3|s|02/17:24->11/04:00": "1/sao_paulo,5/east",
-  "-3|s": "1/argentina,1/buenos_aires,1/cordoba,1/montevideo,1/punta_arenas,-1/rothera,fkst,amst,art,brt,clst,pmst,rott,pyst,uyt,uruguay",
+  "-3|s": "1/argentina,1/buenos_aires,1/cordoba,1/montevideo,1/punta_arenas,12/rothera",
   "-3|n|03/11:02->11/04:02": "1/glace_bay,1/goose_bay,1/halifax,1/moncton,1/thule,3/bermuda,6/atlantic",
-  "-3|n": "1/araguaina,1/bahia,1/belem,1/catamarca,1/cayenne,1/fortaleza,1/jujuy,1/maceio,1/mendoza,1/paramaribo,1/recife,1/rosario,1/santarem,3/stanley,ast,adt,gft,srt",
-  "-3.5|n": "nt,nst",
-  "-2|s": "5/denoronha,brst,fnt,pmdt,uyst",
+  "-3|n": "1/araguaina,1/bahia,1/belem,1/catamarca,1/cayenne,1/fortaleza,1/jujuy,1/maceio,1/mendoza,1/paramaribo,1/recife,1/rosario,1/santarem,3/stanley",
+  "-2|s": "5/denoronha",
   "-2|n|03/24:22->10/27:23": "1/godthab",
   "-2|n|03/11:02->11/04:02": "1/miquelon",
   "-2|n": "1/noronha,3/south_georgia",
   "-2.5|n|03/11:02->11/04:02": "1/st_johns,6/newfoundland",
-  "-2.5|n": "nddt,ndt",
-  "-1|n": "3/cape_verde,cvt,azot,egt,eastern greenland",
-  "-12|n": "bit,idlw,international day line west",
-  "-11|n": "11/midway,11/niue,11/pago_pago,11/samoa,nut,sst",
-  "-10|s": "sdt",
-  "-10|n": "11/honolulu,11/johnston,11/rarotonga,11/tahiti,ckt,cook island,hdt,hst,taht"
+  "-1|n": "3/cape_verde",
+  "-11|n": "11/midway,11/niue,11/pago_pago,11/samoa",
+  "-10|n": "11/honolulu,11/johnston,11/rarotonga,11/tahiti"
 }
 },{}],42:[function(_dereq_,module,exports){
 "use strict";
 
 //prefixes for iana names..
-module.exports = ['africa', 'america', 'asia', 'atlantic', 'australia', 'brazil', 'canada', 'chile', 'europe', 'indian', 'mexico', 'pacific', 'etc'];
+module.exports = ['africa', 'america', 'asia', 'atlantic', 'australia', 'brazil', 'canada', 'chile', 'europe', 'indian', 'mexico', 'pacific', 'antarctica', 'etc'];
 
 },{}],43:[function(_dereq_,module,exports){
+"use strict";
+
+// this is a very rough list of informal and abbreviated timezones
+// i am not an expert, or even half-knowledgeable in this subject.
+// please help.
+// partially from: https://en.wikipedia.org/wiki/list_of_time_zone_abbreviations
+//format:  'best/iana': [standard, daylight, alias...]
+var informal = {
+  //north america
+  'america/halifax': ['ast', 'adt', 'atlantic'],
+  //or 'arabia standard time'
+  'america/new_york': ['est', 'edt', 'eastern'],
+  //or 'Ecuador Time'
+  'america/chicago': ['cst', 'cdt', 'central'],
+  'america/denver': ['mst', 'mdt', 'mountain'],
+  'america/los_angeles': ['pst', 'pdt', 'pacific'],
+  'america/anchorage': ['ahst', 'ahdt', 'akst', 'akdt', 'alaska'],
+  //Alaska Standard Time
+  'america/st_johns': ['nst', 'ndt', 'nt', 'newfoundland', 'nddt'],
+  //south america
+  'america/caracas': ['vet', null, 'venezuela'],
+  'america/bogota': ['cot', null, 'colombia'],
+  'america/cayenne': ['gft', null, 'french guiana'],
+  'america/paramaribo': ['srt', null, 'suriname'],
+  'america/guyana': ['gyt'],
+  'america/buenos_aires': ['art', null, 'argentina'],
+  'america/la_paz': ['bot', null, 'bolivia'],
+  'america/asuncion': ['pyt', 'pyst', 'paraguay'],
+  'america/santiago': ['clt', 'clst', 'chile'],
+  'america/lima': ['pet', null, 'peru'],
+  'america/montevideo': ['uyt', null, 'uruguay'],
+  'atlantic/stanley': ['fkst', null, 'falkland island'],
+  //brazil
+  'america/manaus': ['amt'],
+  'america/sao_paulo': ['brt', 'brst'],
+  'brazil/acre': ['act'],
+  // amst: -3, //amazon summer time (brazil)
+  // fnt: -2, //fernando de noronha time
+  // pmdt: -2, //saint pierre and miquelon daylight time
+  // pmst: -3, //saint pierre and miquelon standard time
+  // rott: -3, //rothera research station time
+  // awt: 'america/blanc-sablon',
+  // addt: 'america/pangnirtung',
+  // apt: 'america/blanc-sablon',
+  // cddt: 'america/rankin_inlet',
+  // cwt: 'america/mexico_city',
+  // cpt: 'america/atikokan',
+  // eddt: 'america/iqaluit',
+  // ept: 'america/detroit',
+  // ewt: 'america/detroit',
+  // ect: 'america/anguilla', //eastern caribbean time (does not recognise dst)
+  // 'eastern caribbean': 'america/anguilla',
+  // ffmt: 'america/martinique',
+  // kmt: 'america/grand_turk',
+  // mddt: 'america/cambridge_bay',
+  // mpt: 'america/boise',
+  // mwt: 'america/phoenix',
+  // nwt: 'america/adak',
+  // // npt: 'america/goose_bay',
+  // pddt: 'america/inuvik',
+  // ppmt: 'america/port-au-prince',
+  // ppt: 'america/dawson_creek',
+  // pwt: 'america/dawson_creek',
+  // qmt: 'america/guayaquil',
+  // sdmt: 'america/santo_domingo',
+  // sjmt: 'america/costa_rica',
+  // ydt: 'america/dawson', //yukon
+  // ypt: 'america/dawson',
+  // yddt: 'america/dawson',
+  // ywt: 'america/dawson',
+  // yst: 'america/whitehorse',
+  //europe
+  'europe/london': ['gmt', 'bst', 'british'],
+  //britain is different
+  'europe/lisbon': ['wet', 'west', 'west europe'],
+  //western europe
+  'europe/berlin': ['cet', 'cest', 'central europe', 'middle european', 'met', 'mest'],
+  //central europe
+  'europe/riga': ['eet', 'eest', 'east europe', 'kalt'],
+  //eastern europe
+  // -- these are old european ones, before the EU, i think:
+  // 'europe/minsk': ['feet', 'feest', 'eastern europe'], //further eastern europe (discontinued)
+  // ace: 'europe/dublin',
+  // amt: 'europe/amsterdam',
+  // bdst: 'europe/gibraltar',
+  // bmt: 'europe/brussels',
+  // bst: 'europe/gibraltar', //british summer time
+  // 'british summer': 1,
+  // dmt: 'europe/dublin',
+  // dft: 1, //aix-specific equivalent of central european time
+  // gmt: 0, //greenwich mean time
+  // cmt: 'europe/copenhagen',
+  // // ist: 'europe/dublin',
+  // imt: 'europe/sofia',
+  // lst: 'europe/riga',
+  // pmt: 'europe/prague',
+  // rmt: 'europe/rome',
+  // set: 'europe/stockholm',
+  // wemt: 'europe/madrid',
+  // tse: 'europe/dublin',
+  // utc: 'etc/utc', //coordinated universal time
+  // 'coordinated universal': 'etc/utc',
+  //russia
+  'europe/moscow': ['msk', null, 'fet', 'mdst', 'msd'],
+  //'further eastern europe'
+  'europe/samara': ['samt'],
+  'asia/yekaterinburg': ['yekt'],
+  'asia/omsk': ['omst'],
+  'asia/krasnoyarsk': ['krat'],
+  'asia/novosibirsk': ['novt'],
+  'asia/irkutsk': ['irkt'],
+  'asia/yakutsk': ['yakt'],
+  'asia/vladivostok': ['vlat'],
+  'asia/magadan': ['magt'],
+  'asia/sakhalin': ['sakt'],
+  'asia/srednekolymsk': ['sret'],
+  'asia/anadyr': ['anat'],
+  'asia/kamchatka': ['pett'],
+  //near-russia
+  'asia/tashkent': ['uzt', 'uzbekistan'],
+  //uzbekistan time
+  'asia/bishkek': ['kgt', 'kyrgyzstan'],
+  //kyrgyzstan time
+  'antarctica/vostok': ['vost'],
+  'asia/hovd': ['hovt'],
+  'asia/ashgabat': ['tmt', null, 'turkmenistan'],
+  // wmt: 'europe/warsaw',
+  // 'europe/volgograd':['volt']
+  //africa
+  'africa/lagos': ['wat', 'wast', 'west africa'],
+  //west african
+  'africa/khartoum': ['cat', null, 'central africa'],
+  'africa/nairobi': ['eat', null, 'east africa'],
+  'atlantic/cape_verde': ['cvt'],
+  'indian/mauritius': ['mut'],
+  'indian/reunion': ['ret'],
+  'africa/johannesburg': ['sast', null, 'south africa'],
+  //atlantic
+  'atlantic/azores': ['azot', 'azost', 'hmt'],
+  'america/godthab': ['wgt', 'wgst', 'west greenland'],
+  'america/scoresbysund': ['egt', 'egst', 'east greenland'],
+  //middle-east
+  'europe/istanbul': ['trt', null, 'turkey'],
+  'asia/tbilisi': ['get', null, 'georgia'],
+  // 'asia/yerevan': ['amt', null, 'armenia'], //(sorry!)
+  'asia/baku': ['azt', null, 'azerbaijan'],
+  'asia/jerusalem': [null, 'idt', 'israel', 'jmt', 'iddt'],
+  //using ist for india
+  'asia/tehran': ['irst', 'irdt', 'iran'],
+  'asia/karachi': ['pkt', null, 'pakistan'],
+  'asia/kabul': ['aft', null, 'afghanistan'],
+  'asia/dushanbe': ['tjt', null, 'tajikistan'],
+  'asia/almaty': ['almt', null, 'alma ata'],
+  'asia/dubai': ['gst', null, 'gulf'],
+  //india
+  'asia/kolkata': ['ist', null, 'india', 'slst'],
+  // 'asia/dhaka': ['bst', null, 'bangladesh'], //(sorry)
+  'asia/thimbu': ['btt', null, 'bhutan'],
+  'indian/maldives': ['mvt'],
+  'asia/kathmandu': ['npt', null, 'nepal'],
+  'indian/cocos': ['cct', null, 'cocos island'],
+  'indian/chagos': ['iot', null, 'indian chagos'],
+  'indian/kerguelen': ['tft', null, 'french southern and antarctic'],
+  // biot: 6, //british indian ocean time
+  // iot: 3, //indian ocean time
+  //asia
+  'asia/shanghai': ['ct', null, 'china', 'hkt'],
+  'asia/ulaanbaatar': ['ulat'],
+  'asia/seoul': ['kst', null, 'korea'],
+  'asia/tokyo': ['jst', null, 'japan'],
+  'asia/phnom_penh': ['ict', null, 'indochina'],
+  'asia/manila': ['pht', null, 'philippines'],
+  'asia/singapore': ['sgt'],
+  // mmt: 'asia/colombo',
+  //australia
+  'australia/adelaide': ['acst', 'acdt', 'australian central'],
+  //australian central daylight savings time
+  'australia/eucla': ['acwst', null, 'cwst', 'australian central western'],
+  //australian central western standard time (unofficial)
+  'australia/brisbane': ['aest', 'aedt', 'australian east'],
+  //australian eastern standard time
+  'australia/perth': ['awst', 'awdt', 'australian west'],
+  //australian western standard time
+  'australia/auckland': ['nzst', 'nzdt', 'nzmt'],
+  'australia/lord_howe': ['lhst', 'lhdt'],
+  //pacific
+  'pacific/guam': ['chst'],
+  'pacific/chatham': ['chast', 'chadt'],
+  'pacific/honolulu': ['hst'],
+  'asia/brunei': ['bnt', null, 'bdt'],
+  'pacific/midway': ['sst', null, 'samoa', 'sdt'],
+  'pacific/niue': ['nut'],
+  'pacific/fakaofo': ['tkt'],
+  'pacific/rarotonga': ['ckt', null, 'cook islands'],
+  'chile/easterisland': ['east', 'easst', 'easter island', 'emt'],
+  'asia/jayapura': ['wit', null, 'east indonesia'],
+  'asia/jakarta': ['wib', null, 'west indonesia'],
+  'asia/makassar': ['wta', null, 'central indonesia'],
+  'pacific/galapagos': ['galt'],
+  'pacific/fiji': ['fjt', 'fjst'],
+  'asia/dili': ['tlt', null, 'east timor'],
+  'indian/christmas': ['cxt'] // sbt: 11, //solomon islands time
+  // mht: 12, //marshall islands time
+  // bit: -12, //baker island time
+  // cist: -8, //clipperton island standard time
+  // chut: 10, //chuuk time
+  // ddut: 10, //dumont durville time
+  // gst: 'pacific/guam',
+  // gamt: -9, //gambier islands time
+  // git: -9, //gambier island time
+  // gilt: 12, //gilbert island time
+  // idlw: -12, //international day line west time zone
+  // 'international day line west': -12,
+  // kost: 11, //kosrae time
+  // lint: 14, //line islands time
+  // magt: 12, //magadan time
+  // mist: 11, //macquarie island station time
+  // nct: 11, //new caledonia time
+  // nft: 11, //norfolk island time
+  // phot: 13, //phoenix island time
+  // pont: 11, //pohnpei standard time
+  // pett: 12, //kamchatka time
+  // mart: -9.5, //marquesas islands time
+  // mit: -9.5, //marquesas islands time
+  // myt: 8, //malaysia time
+  // nut: -11, //niue time
+  // pht: 8, //philippine time
+  // pgt: 10, //papua new guinea time
+  // pmmt: 'pacific/bougainville',
+  // // smt: 'asia/singapore',
+  // sakt: 11, //sakhalin island time
+  // sret: 11, //srednekolymsk time
+  // sst: 'pacific/pago_pago',
+  // taht: -10, //tahiti time
+  // tvt: 12, //tuvalu time
+  // tkt: 13, //tokelau time
+  // tot: 13, //tonga time
+  // vut: 11, //vanuatu time
+  // wakt: 12, //wake island time
+  //i forget (sorry!)
+  // haec: 2, //heure avancée deurope centrale french-language name for cest
+  // syot: 3, //showa station time
+  // yekt: 5, //yekaterinburg time
+  // sct: 4, //seychelles time
+  // orat: 5, //oral time
+  // mawt: 5, //mawson station time
+  // hovt: 7, //khovd standard time
+  // hovst: 8, //khovd summer time
+  // davt: 7, //davis time
+  // chost: 9, //choibalsan summer time
+  // chot: 8, //choibalsan standard time
+  // wst: 8, //western standard time
+  //use each abbreviation as a key
+
+};
+var lookup = Object.keys(informal).reduce(function (h, k) {
+  var arr = informal[k];
+
+  for (var i = 0; i < 5; i += 1) {
+    if (arr[i]) {
+      h[arr[i]] = k;
+    }
+  }
+
+  return h;
+}, {});
+module.exports = {
+  informal: informal,
+  lookup: lookup
+};
+
+},{}],44:[function(_dereq_,module,exports){
 "use strict";
 
 var data = _dereq_('./_build.json');
@@ -3465,8 +3802,6 @@ Object.keys(data).forEach(function (k) {
   var names = data[k].split(',');
   names.forEach(function (str) {
     str = str.replace(/(^[0-9]+)\//, function (before, num) {
-      var city = str.replace(before, '');
-      all[city] = obj;
       num = Number(num);
       return prefixes[num] + '/';
     });
@@ -3483,7 +3818,15 @@ for (var i = -12; i < 13; i += 1) {
 
   var name = 'etc/gmt' + num;
   all[name] = {
-    offset: i,
+    offset: i * -1,
+    //they're negative!
+    hem: 'n' //(sorry)
+
+  };
+  name = 'utc/gmt' + num; //this one too, why not.
+
+  all[name] = {
+    offset: i * -1,
     hem: 'n'
   };
 } // console.log(all)
@@ -3492,5 +3835,5 @@ for (var i = -12; i < 13; i += 1) {
 
 module.exports = all;
 
-},{"./_build.json":41,"./_prefixes.js":42}]},{},[10])(10)
+},{"./_build.json":41,"./_prefixes.js":42}]},{},[9])(9)
 });
