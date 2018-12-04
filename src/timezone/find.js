@@ -1,5 +1,5 @@
-const isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i
-const isOffset = /(\-?[0-9]+)h(rs)?/
+// const isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i
+// const isOffset = /(\-?[0-9]+)h(rs)?/
 
 //try to match these against iana form
 const normalize = function(tz) {
@@ -18,31 +18,34 @@ const lookupTz = function(str, zones) {
     tz = split[0] + '/' + split[1]
   }
   if (zones.hasOwnProperty(tz) === true) {
-    return zones[tz]
+    return tz
   }
   //lookup more loosely..
   tz = normalize(tz)
   if (zones.hasOwnProperty(tz) === true) {
-    return zones[tz]
+    if (typeof zones[tz] === 'string') {
+      return zones[tz]
+    }
+    return tz
   }
   //try to parse 'gmt+5'
-  let m = tz.match(isNum)
-  if (m !== null) {
-    let num = Number(m[2])
-    return {
-      offset: num,
-      h: 'n'
-    }
-  }
-  //try to parse '-5h'
-  m = tz.match(isOffset)
-  if (m !== null) {
-    let num = Number(m[1])
-    return {
-      offset: num,
-      h: 'n'
-    }
-  }
+  // let m = tz.match(isNum)
+  // if (m !== null) {
+  //   let num = Number(m[2])
+  //   return {
+  //     offset: num,
+  //     h: 'n'
+  //   }
+  // }
+  // //try to parse '-5h'
+  // m = tz.match(isOffset)
+  // if (m !== null) {
+  //   let num = Number(m[1])
+  //   return {
+  //     offset: num,
+  //     h: 'n'
+  //   }
+  // }
   return null
 }
 module.exports = lookupTz

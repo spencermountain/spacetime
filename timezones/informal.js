@@ -3,149 +3,130 @@
 // please help.
 // partially from: https://en.wikipedia.org/wiki/list_of_time_zone_abbreviations
 
+//format:  'best/iana': [standard, daylight, alias...]
 const north = {
 
   //australia
-  acdt: 'australia/adelaide', //australian central daylight savings time
-  acst: 'australia/adelaide', //australian central standard time
-  'australian central': 'australia/adelaide',
-  acwst: 'australia/eucla', //australian central western standard time (unofficial)
-  'australian central western': 'australia/eucla',
-  aedt: 'australia/brisbane', //australian eastern daylight savings time
-  aest: 'australia/brisbane', //australian eastern standard time
-  'australian eastern': 'australia/brisbane',
-  awst: 'australia/perth', //australian western standard time
-  awdt: 'australia/perth',
-  'australian western': 'australia/perth',
-  nzdt: 'pacific/auckland',
-  nzmt: 'pacific/auckland',
-  nzst: 'pacific/auckland',
-  cwst: 'australia/eucla', //central western standard time (australia) unofficial
+  'australia/adelaide': ['acst', 'acdt', 'australian central'], //australian central daylight savings time
+  'australia/eucla': ['acwst', null, 'cwst', 'australian central western'], //australian central western standard time (unofficial)
+  'australia/brisbane': ['aest', 'aedt', 'australian eastern'], //australian eastern standard time
+  'australia/perth': ['awst', 'awdt', 'australian western'], //australian western standard time
+  'australia/auckland': ['nzst', 'nzdt', 'nzmt'],
 
+
+
+  //atlantic
+  'america/halifax': ['ast', 'adt', 'atlantic'],
+  //eastern
+  'america/new_york': ['est', 'edt', 'eastern'],
+  //central
+  'america/chicago': ['cst', 'cdt', 'central'],
+  //mountain
+  'america/denver': ['mst', 'mdt', 'mountain'],
+  //pacific
+  'america/los_angeles': ['pst', 'pdt', 'pacific'],
   //alaska
-  ahdt: 'america/anchorage',
-  ahst: 'america/anchorage',
-  akdt: 'america/anchorage',
-  akst: 'america/anchorage',
-  'alaska': 'america/anchorage',
+  'america/anchorage': ['ahst', 'ahdt', 'akst', 'akdt', 'alaska'], //Alaska Standard Time
+  //newfoundland
+  'america/st_johns': ['nst', 'ndt', 'nt', 'newfoundland', 'nddt'],
+  //yukon
+  // 'america/whitehorse':['yst','']
 
-  //north america
-  ast: 'america/halifax', //atlantic standard time
-  awt: 'america/blanc-sablon',
-  addt: 'america/pangnirtung',
-  adt: 'america/halifax',
-  apt: 'america/blanc-sablon',
-  bost: 'america/la_paz',
-  cddt: 'america/rankin_inlet',
-  cdt: 'america/winnipeg', //central daylight time
-  'central daylight': 'america/winnipeg',
-  cst: 'america/thunder_bay', //central standard time
-  'central': 'america/winnipeg',
-  cwt: 'america/mexico_city',
-  cpt: 'america/atikokan',
-  eddt: 'america/iqaluit',
-  ept: 'america/detroit',
-  edt: 'america/new_york', //eastern daylight time
-  'eastern daylight': 'america/new_york',
-  est: 'america/new_york', //eastern standard time
-  ewt: 'america/detroit',
-  ect: 'america/anguilla', //eastern caribbean time (does not recognise dst)
-  'eastern caribbean': 'america/anguilla',
-  ffmt: 'america/martinique',
-  kmt: 'america/grand_turk',
-  mddt: 'america/cambridge_bay',
-  mdt: 'america/denver', //mountain daylight time
-  mst: 'america/creston', //mountain standard time
-  'mountain': 'america/denver',
-  mpt: 'america/boise',
-  mwt: 'america/phoenix',
-  nt: -3.5, //newfoundland time
-  nst: -3.5, //newfoundland standard time
-  nddt: 'america/st_johns',
-  ndt: 'america/st_johns', //newfoundland daylight time
-  nwt: 'america/adak',
-  // npt: 'america/goose_bay',
-  pddt: 'america/inuvik',
-  pdt: 'america/los_angeles', //pacific daylight time
-  pst: 'america/los_angeles', //pacific standard time
-  ppmt: 'america/port-au-prince',
-  ppt: 'america/dawson_creek',
-  pwt: 'america/dawson_creek',
-  qmt: 'america/guayaquil',
-  sdmt: 'america/santo_domingo',
-  sjmt: 'america/costa_rica',
-  ydt: 'america/dawson', //yukon
-  ypt: 'america/dawson',
-  yddt: 'america/dawson',
-  ywt: 'america/dawson',
-  yst: 'america/whitehorse',
+  // awt: 'america/blanc-sablon',
+  // addt: 'america/pangnirtung',
+  // apt: 'america/blanc-sablon',
+  // bost: 'america/la_paz',
+  // cddt: 'america/rankin_inlet',
+  // cwt: 'america/mexico_city',
+  // cpt: 'america/atikokan',
+  // eddt: 'america/iqaluit',
+  // ept: 'america/detroit',
+  // ewt: 'america/detroit',
+  // ect: 'america/anguilla', //eastern caribbean time (does not recognise dst)
+  // 'eastern caribbean': 'america/anguilla',
+  // ffmt: 'america/martinique',
+  // kmt: 'america/grand_turk',
+  // mddt: 'america/cambridge_bay',
+  // mpt: 'america/boise',
+  // mwt: 'america/phoenix',
+  // nwt: 'america/adak',
+  // // npt: 'america/goose_bay',
+  // pddt: 'america/inuvik',
+  // ppmt: 'america/port-au-prince',
+  // ppt: 'america/dawson_creek',
+  // pwt: 'america/dawson_creek',
+  // qmt: 'america/guayaquil',
+  // sdmt: 'america/santo_domingo',
+  // sjmt: 'america/costa_rica',
+  // ydt: 'america/dawson', //yukon
+  // ypt: 'america/dawson',
+  // yddt: 'america/dawson',
+  // ywt: 'america/dawson',
+  // yst: 'america/whitehorse',
 
   //europe
-  ace: 'europe/dublin',
-  amt: 'europe/amsterdam',
-  bdst: 'europe/gibraltar',
-  bmt: 'europe/brussels',
-  bst: 'europe/gibraltar', //british summer time
-  'british summer': 1,
-  dmt: 'europe/dublin',
-  cest: 2, //central european summer time (cf. haec)
-  'central european summer': 2,
-  cet: 'europe/budapest', //central european time
-  'central european': 'europe/budapest',
-  dft: 1, //aix-specific equivalent of central european time
-  eet: 2, //eastern european time
-  eest: 'europe/istanbul', //eastern european standard time
-  'eastern european': 2,
-  fet: 3, //further-eastern european time
-  'further eastern european': 3,
-  gmt: 0, //greenwich mean time
-  cmt: 'europe/copenhagen',
-  // ist: 'europe/dublin',
-  imt: 'europe/sofia',
-  lst: 'europe/riga',
-  mest: 2, //middle european summer time same zone as cest
-  met: 1, //middle european time same zone as cet
-  'middle european': 1,
-  pmt: 'europe/prague',
-  rmt: 'europe/rome',
-  set: 'europe/stockholm',
-  wemt: 'europe/madrid',
-  wet: 'europe/brussels', //western european time
-  west: 'europe/brussels',
-  'western european time': 'europe/brussels',
-  tmt: 'europe/tallinn', //turkmenistan time
-  'turkmenistan': 5,
-  tse: 'europe/dublin',
-  utc: 'etc/utc', //coordinated universal time
-  'coordinated universal': 'etc/utc',
+  'europe/london': ['gmt', 'bst', 'british'], //england
+  'europe/lisbon': ['wet', 'west', 'western europe'], //western europe
+  'europe/berlin': ['cet', 'cest', 'central europe', 'middle european', 'met', 'mest'], //central europe
+  'europe/riga': ['eet', 'eest', 'eastern europe', 'kalt'], //eastern europe
+  // 'europe/minsk': ['feet', 'feest', 'eastern europe'], //further eastern europe (discontinued)
+
+
+
+  //europe
+  // ace: 'europe/dublin',
+  // amt: 'europe/amsterdam',
+  // bdst: 'europe/gibraltar',
+  // bmt: 'europe/brussels',
+  // bst: 'europe/gibraltar', //british summer time
+  // 'british summer': 1,
+  // dmt: 'europe/dublin',
+  // dft: 1, //aix-specific equivalent of central european time
+  // gmt: 0, //greenwich mean time
+  // cmt: 'europe/copenhagen',
+  // // ist: 'europe/dublin',
+  // imt: 'europe/sofia',
+  // lst: 'europe/riga',
+  // pmt: 'europe/prague',
+  // rmt: 'europe/rome',
+  // set: 'europe/stockholm',
+  // wemt: 'europe/madrid',
+  // tmt: 'europe/tallinn', //turkmenistan time
+  // 'turkmenistan': 5,
+  // tse: 'europe/dublin',
+  // utc: 'etc/utc', //coordinated universal time
+  // 'coordinated universal': 'etc/utc',
 
   //russia
-  irkt: 8, //irkutsk time
-  kalt: 2, //kaliningrad time
-  mdst: 'europe/moscow',
-  msd: 'europe/moscow',
-  msk: 'europe/moscow',
-  kgt: 6, //kyrgyzstan time
-  'kyrgyzstan': 6,
-  uzt: 5, //uzbekistan time
-  'uzbekistan': 5,
-  wmt: 'europe/warsaw',
-  vlat: 10, //vladivostok time
-  volt: 4, //volgograd time
-  vost: 6, //vostok station time
+  'europe/moscow': ['msk', null, 'fet', 'mdst', 'msd'], //'further eastern europe'
+  'europe/samara': ['samt'],
+  'asia/yekaterinburg': ['yekt'],
+  'asia/omsk': ['omst'],
+  'asia/krasnoyarsk': ['krat'],
+  'asia/novosibirsk': ['novt'],
+  'asia/irkutsk': ['irkt'],
+  'asia/yakutsk': ['yakt'],
+  'asia/vladivostok': ['vlat'],
+  'asia/magadan': ['magt'],
+  'asia/sakhalin': ['sakt'],
+  'asia/srednekolymsk': ['sret'],
+  'asia/anadyr': ['anat'],
+  'asia/kamchatka': ['pett'],
+
+  //near-russia
+  'asia/tashkent': ['uzt', 'uzbekistan'], //uzbekistan time
+  'asia/bishkek': ['kgt', 'kyrgyzstan'], //kyrgyzstan time
+  'antarctica/vostok': ['vost'],
+
+  // wmt: 'europe/warsaw',
+  // 'europe/volgograd':['volt']
+  // volt: 4, //volgograd time
 
   //africa (northern hemisphere)
-  cat: 'africa/khartoum', //central africa time
-  cast: 'africa/khartoum',
-  'central africa': 'africa/khartoum',
-  cvt: -1, //cape verde time
-  eat: 'africa/nairobi', //eastern africa
-  'east african': 'africa/nairobi',
-  'eastern africa': 'africa/nairobi',
-  wast: 'africa/ndjamena', //west african
-  'west african': 'africa/ndjamena',
-  'wester africa': 'africa/ndjamena',
-  wat: 'africa/ndjamena',
+  'africa/lagos': ['wat', 'wast', 'west africa'], //west african
+  'africa/khartoum': ['cat', null, 'central africa'],
+  'africa/nairobi': ['eat', null, 'central africa'],
+  'atlantic/cape_verde': ['cvt'],
 
   //atlantic
   azost: 0, //azores summer time

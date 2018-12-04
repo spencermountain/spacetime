@@ -14,7 +14,7 @@ const parseDst = dst => {
 const titleCase = function(str) {
   str = str[0].toUpperCase() + str.substr(1)
   str = str.replace(/\/gmt/, '/GMT')
-  str = str.replace(/\/([a-z])/i, (s) => {
+  str = str.replace(/[\/_]([a-z])/ig, (s) => {
     return s.toUpperCase()
   })
   return str
@@ -23,8 +23,8 @@ const titleCase = function(str) {
 //get metadata about this timezone
 const timezone = s => {
   let zones = s.timezones
-  let found = findTz(s.tz, zones)
-  if (found === null) {
+  let tz = findTz(s.tz, zones)
+  if (tz === null) {
     console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
     return {
       current: {
@@ -32,8 +32,9 @@ const timezone = s => {
       },
     };
   }
+  let found = zones[tz]
   let result = {
-    name: titleCase(s.tz),
+    name: titleCase(tz),
     hasDst: Boolean(found.dst),
     //do north-hemisphere version as default (sorry!)
     hemisphere: found.hem === 's' ? 'South' : 'North',

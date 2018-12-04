@@ -12,5 +12,6 @@ module.exports = [
   'indian',
   'mexico',
   'pacific',
+  'antarctica',
   'etc'
 ]

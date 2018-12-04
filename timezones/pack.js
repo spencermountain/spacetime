@@ -1,23 +1,22 @@
 //turn our timezone data into a small-as-possible string
 const fs = require('fs')
 const iana = require('./iana')
-const informal = require('./informal')
 const prefixes = require('./_prefixes.js')
 let all = {}
 
-const addHemisphere = function(res, obj, h) {
-  Object.keys(obj).forEach((k) => {
-    let val = obj[k]
-    let key = val + '|' + h
-    if (typeof val === 'string') {
-      let found = iana[val]
-      key = found.offset + '|' + h
-    }
-    res[key] = res[key] || []
-    res[key].push(k)
-  })
-  return res
-}
+// const addHemisphere = function(res, obj, h) {
+//   Object.keys(obj).forEach((k) => {
+//     let val = obj[k]
+//     let key = val + '|' + h
+//     if (typeof val === 'string') {
+//       let found = iana[val]
+//       key = found.offset + '|' + h
+//     }
+//     res[key] = res[key] || []
+//     res[key].push(k)
+//   })
+//   return res
+// }
 
 //pack iana data into a [o|h] object
 Object.keys(iana).forEach((k) => {
@@ -38,8 +37,8 @@ Object.keys(iana).forEach((k) => {
 })
 
 //add-in informal abbreviations
-all = addHemisphere(all, informal.south, 's')
-all = addHemisphere(all, informal.north, 'n')
+// all = addHemisphere(all, informal.south, 's')
+// all = addHemisphere(all, informal.north, 'n')
 
 
 let keys = Object.keys(all)

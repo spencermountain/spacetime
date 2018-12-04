@@ -14,12 +14,13 @@ Object.keys(data).forEach((k) => {
   let names = data[k].split(',')
   names.forEach((str) => {
     str = str.replace(/(^[0-9]+)\//, (before, num) => {
-      let city = str.replace(before, '')
-      all[city] = obj
       num = Number(num)
       return prefixes[num] + '/'
     })
     all[str] = obj
+    //add city name by itself
+    let city = str.split('/')[1]
+    all[city] = str
   })
 })
 
