@@ -4,30 +4,39 @@
 // partially from: https://en.wikipedia.org/wiki/list_of_time_zone_abbreviations
 
 //format:  'best/iana': [standard, daylight, alias...]
-const north = {
-  //america
-  //atlantic
+const informal = {
+  //north america
   'america/halifax': ['ast', 'adt', 'atlantic'], //or 'arabia standard time'
-  //eastern
   'america/new_york': ['est', 'edt', 'eastern'], //or 'Ecuador Time'
-  //central
   'america/chicago': ['cst', 'cdt', 'central'],
-  //mountain
   'america/denver': ['mst', 'mdt', 'mountain'],
-  //pacific
   'america/los_angeles': ['pst', 'pdt', 'pacific'],
-  //alaska
   'america/anchorage': ['ahst', 'ahdt', 'akst', 'akdt', 'alaska'], //Alaska Standard Time
-  //newfoundland
   'america/st_johns': ['nst', 'ndt', 'nt', 'newfoundland', 'nddt'],
-  //yukon
-  // 'america/whitehorse':['yst','']
-  //south america (northern hemisphere)
+
+  //south america
   'america/caracas': ['vet', null, 'venezuela'],
   'america/bogota': ['cot', null, 'colombia'],
   'america/cayenne': ['gft', null, 'french guiana'],
   'america/paramaribo': ['srt', null, 'suriname'],
   'america/guyana': ['gyt'],
+  'america/buenos_aires': ['art', null, 'argentina'],
+  'america/la_paz': ['bot', null, 'bolivia'],
+  'america/asuncion': ['pyt', 'pyst', 'paraguay'],
+  'america/santiago': ['clt', 'clst', 'chile'],
+  'america/lima': ['pet', null, 'peru'],
+  'america/montevideo': ['uyt', null, 'uruguay'],
+  'atlantic/stanley': ['fkst', null, 'falkland island'],
+  //brazil
+  'america/rio_branco': ['act'],
+  'america/manaus': ['amt'],
+  'america/sao_paulo': ['brt', 'brst'],
+  'brazil/acre': ['act'],
+  // amst: -3, //amazon summer time (brazil)
+  // fnt: -2, //fernando de noronha time
+  // pmdt: -2, //saint pierre and miquelon daylight time
+  // pmst: -3, //saint pierre and miquelon standard time
+  // rott: -3, //rothera research station time
 
   // awt: 'america/blanc-sablon',
   // addt: 'america/pangnirtung',
@@ -65,7 +74,7 @@ const north = {
   'europe/lisbon': ['wet', 'west', 'western europe'], //western europe
   'europe/berlin': ['cet', 'cest', 'central europe', 'middle european', 'met', 'mest'], //central europe
   'europe/riga': ['eet', 'eest', 'eastern europe', 'kalt'], //eastern europe
-  // -- these are old european ones, i think before the EU:
+  // -- these are old european ones, before the EU, i think:
   // 'europe/minsk': ['feet', 'feest', 'eastern europe'], //further eastern europe (discontinued)
   // ace: 'europe/dublin',
   // amt: 'europe/amsterdam',
@@ -113,12 +122,14 @@ const north = {
   // wmt: 'europe/warsaw',
   // 'europe/volgograd':['volt']
 
-  //africa (northern hemisphere)
+  //africa
   'africa/lagos': ['wat', 'wast', 'west africa'], //west african
   'africa/khartoum': ['cat', null, 'central africa'],
   'africa/nairobi': ['eat', null, 'central africa'],
   'atlantic/cape_verde': ['cvt'],
   'indian/mauritius': ['mut'],
+  'indian/reunion': ['ret'],
+  'africa/johannesburg': ['sast', null, 'south africa'],
 
   //atlantic
   'atlantic/azores': ['azot', 'azost', 'hmt'],
@@ -168,7 +179,7 @@ const north = {
   'australia/auckland': ['nzst', 'nzdt', 'nzmt'],
   'australia/lord_howe': ['lhst', 'lhdt'],
 
-  //pacific (northern hemisphere)
+  //pacific
   'pacific/guam': ['chst'],
   'pacific/chatham': ['chast', 'chadt'],
   'pacific/honolulu': ['hst'],
@@ -178,6 +189,15 @@ const north = {
   'pacific/fakaofo': ['tkt'],
   'pacific/rarotonga': ['ckt', null, 'cook islands'],
   'chile/easterisland': ['east', 'easst', 'easter island', 'emt'],
+  'asia/jayapura': ['wit', null, 'eastern indonesia'],
+  'asia/jakarta': ['wib', null, 'western indonesia'],
+  'asia/makassar': ['wta', null, 'central indonesia'],
+  'pacific/galapagos': ['galt'],
+  'pacific/fiji': ['fjt', 'fjst'],
+  'asia/dili': ['tlt', null, 'east timor', 'tlt'],
+  'indian/christmas': ['cxt'],
+  // sbt: 11, //solomon islands time
+  // mht: 12, //marshall islands time
   // bit: -12, //baker island time
   // cist: -8, //clipperton island standard time
   // chut: 10, //chuuk time
@@ -230,43 +250,5 @@ const north = {
 // wst: 8, //western standard time
 }
 
-const south = {
-  //pacific (southern hemisphere)
-  'asia/jayapura': ['wit', null, 'eastern indonesia'],
-  'asia/jakarta': ['wib', null, 'western indonesia'],
-  'asia/makassar': ['wta', null, 'central indonesia'],
-  'atlantic/stanley': ['fkst', null, 'falkland island'],
-  'pacific/galapagos': ['galt'],
-  'pacific/fiji': ['fjt', 'fjst'],
-  'asia/dili': ['tlt', null, 'east timor', 'tlt'],
-  'indian/christmas': ['cxt'],
-  // sbt: 11, //solomon islands time
-  // mht: 12, //marshall islands time
 
-  //africa (southern hemisphere)
-  'indian/reunion': ['ret'],
-  'africa/johannesburg': ['sast', null, 'south africa'],
-
-  //south america
-  'america/buenos_aires': ['art', null, 'argentina'],
-  'america/la_paz': ['bot', null, 'bolivia'],
-  'america/asuncion': ['pyt', 'pyst', 'paraguay'],
-  'america/santiago': ['clt', 'clst', 'chile'],
-  'america/lima': ['pet', null, 'peru'],
-  'america/montevideo': ['uyt', null, 'uruguay'],
-  //brazil
-  'america/rio_branco': ['act'],
-  'america/manaus': ['amt'],
-  'america/sao_paulo': ['brt', 'brst'],
-  'brazil/acre': ['act'],
-// amst: -3, //amazon summer time (brazil)
-// fnt: -2, //fernando de noronha time
-// pmdt: -2, //saint pierre and miquelon daylight time
-// pmst: -3, //saint pierre and miquelon standard time
-// rott: -3, //rothera research station time
-}
-
-module.exports = {
-  north: north,
-  south: south
-}
+module.exports = informal

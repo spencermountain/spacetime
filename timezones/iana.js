@@ -730,7 +730,7 @@ module.exports = {
   },
   "america/rio_branco": {
     offset: -5,
-    hem: "n"
+    hem: "s"
   },
   "america/rosario": {
     offset: -3,
@@ -1076,7 +1076,7 @@ module.exports = {
   },
   "asia/jayapura": {
     offset: 9,
-    hem: "n"
+    hem: "s"
   },
   "asia/jerusalem": {
     offset: 3,
@@ -1360,7 +1360,7 @@ module.exports = {
   },
   "atlantic/stanley": {
     offset: -3,
-    hem: "n"
+    hem: "s"
   },
   "australia/act": {
     offset: 10,
@@ -1853,7 +1853,7 @@ module.exports = {
   },
   "indian/christmas": {
     offset: 7,
-    hem: "n"
+    hem: "s"
   },
   "indian/cocos": {
     offset: 6.5,
