@@ -5,20 +5,11 @@
 
 //format:  'best/iana': [standard, daylight, alias...]
 const north = {
-
-  //australia
-  'australia/adelaide': ['acst', 'acdt', 'australian central'], //australian central daylight savings time
-  'australia/eucla': ['acwst', null, 'cwst', 'australian central western'], //australian central western standard time (unofficial)
-  'australia/brisbane': ['aest', 'aedt', 'australian eastern'], //australian eastern standard time
-  'australia/perth': ['awst', 'awdt', 'australian western'], //australian western standard time
-  'australia/auckland': ['nzst', 'nzdt', 'nzmt'],
-
-
-
+  //america
   //atlantic
-  'america/halifax': ['ast', 'adt', 'atlantic'],
+  'america/halifax': ['ast', 'adt', 'atlantic'], //or 'arabia standard time'
   //eastern
-  'america/new_york': ['est', 'edt', 'eastern'],
+  'america/new_york': ['est', 'edt', 'eastern'], //or 'Ecuador Time'
   //central
   'america/chicago': ['cst', 'cdt', 'central'],
   //mountain
@@ -31,11 +22,16 @@ const north = {
   'america/st_johns': ['nst', 'ndt', 'nt', 'newfoundland', 'nddt'],
   //yukon
   // 'america/whitehorse':['yst','']
+  //south america (northern hemisphere)
+  'america/caracas': ['vet', null, 'venezuela'],
+  'america/bogota': ['cot', null, 'colombia'],
+  'america/cayenne': ['gft', null, 'french guiana'],
+  'america/paramaribo': ['srt', null, 'suriname'],
+  'america/guyana': ['gyt'],
 
   // awt: 'america/blanc-sablon',
   // addt: 'america/pangnirtung',
   // apt: 'america/blanc-sablon',
-  // bost: 'america/la_paz',
   // cddt: 'america/rankin_inlet',
   // cwt: 'america/mexico_city',
   // cpt: 'america/atikokan',
@@ -65,15 +61,12 @@ const north = {
   // yst: 'america/whitehorse',
 
   //europe
-  'europe/london': ['gmt', 'bst', 'british'], //england
+  'europe/london': ['gmt', 'bst', 'british'], //britain is different
   'europe/lisbon': ['wet', 'west', 'western europe'], //western europe
   'europe/berlin': ['cet', 'cest', 'central europe', 'middle european', 'met', 'mest'], //central europe
   'europe/riga': ['eet', 'eest', 'eastern europe', 'kalt'], //eastern europe
+  // -- these are old european ones, i think before the EU:
   // 'europe/minsk': ['feet', 'feest', 'eastern europe'], //further eastern europe (discontinued)
-
-
-
-  //europe
   // ace: 'europe/dublin',
   // amt: 'europe/amsterdam',
   // bdst: 'europe/gibraltar',
@@ -91,8 +84,6 @@ const north = {
   // rmt: 'europe/rome',
   // set: 'europe/stockholm',
   // wemt: 'europe/madrid',
-  // tmt: 'europe/tallinn', //turkmenistan time
-  // 'turkmenistan': 5,
   // tse: 'europe/dublin',
   // utc: 'etc/utc', //coordinated universal time
   // 'coordinated universal': 'etc/utc',
@@ -117,16 +108,16 @@ const north = {
   'asia/tashkent': ['uzt', 'uzbekistan'], //uzbekistan time
   'asia/bishkek': ['kgt', 'kyrgyzstan'], //kyrgyzstan time
   'antarctica/vostok': ['vost'],
+  'asia/hovd': ['hovt'],
+  'asia/ashgabat': ['tmt', null, 'turkmenistan'],
   // wmt: 'europe/warsaw',
   // 'europe/volgograd':['volt']
-  // volt: 4, //volgograd time
 
   //africa (northern hemisphere)
   'africa/lagos': ['wat', 'wast', 'west africa'], //west african
   'africa/khartoum': ['cat', null, 'central africa'],
   'africa/nairobi': ['eat', null, 'central africa'],
   'atlantic/cape_verde': ['cvt'],
-  'indian/reunion': ['ret'],
   'indian/mauritius': ['mut'],
 
   //atlantic
@@ -145,6 +136,7 @@ const north = {
   'asia/kabul': ['aft', null, 'afghanistan'],
   'asia/dushanbe': ['tjt', null, 'tajikistan'],
   'asia/almaty': ['almt', null, 'tajikistan'],
+  'asia/dubai': ['gst', null, 'gulf'],
 
   //india
   'asia/kolkata': ['ist', null, 'india', 'slst'],
@@ -160,150 +152,118 @@ const north = {
 
   //asia
   'asia/shanghai': ['ct', null, 'china', 'hkt'],
-  'asia/hovd': ['hovd'],
   'asia/ulaanbaatar': ['ulat'],
   'asia/seoul': ['kst', null, 'korea'],
   'asia/tokyo': ['jst', null, 'japan'],
   'asia/phnom_penh': ['ict', null, 'indochina'],
   'asia/manila': ['pht', null, 'philippines'],
   'asia/singapore': ['sgt'],
-  'asia/jayapura': ['wit', null, 'eastern indonesia'],
-  'asia/pontianak': ['wib', null, 'western indonesia'],
-  'asia/makassar': ['wta', null, 'central indonesia'],
   // mmt: 'asia/colombo',
 
-  //pacific
-  bit: -12, //baker island time
-  bdt: 8, //brunei time
-  cist: -8, //clipperton island standard time
-  chadt: 13.75, //chatham daylight time
-  chast: 12.75, //chatham standard time
-  chst: 'pacific/guam',
-  ckt: -10, //cook island time
-  'cook island': -10,
-  chut: 10, //chuuk time
-  ddut: 10, //dumont durville time
-  gst: 'pacific/guam',
-  gamt: -9, //gambier islands time
-  git: -9, //gambier island time
-  gilt: 12, //gilbert island time
-  hdt: 'pacific/honolulu',
-  hst: 'pacific/honolulu',
-  idlw: -12, //international day line west time zone
-  'international day line west': -12,
-  kost: 11, //kosrae time
-  lhst: 10.5, //lord howe standard time
-  lint: 14, //line islands time
-  magt: 12, //magadan time
-  mist: 11, //macquarie island station time
-  nct: 11, //new caledonia time
-  nft: 11, //norfolk island time
-  phot: 13, //phoenix island time
-  pont: 11, //pohnpei standard time
-  pett: 12, //kamchatka time
-  mart: -9.5, //marquesas islands time
-  mit: -9.5, //marquesas islands time
-  myt: 8, //malaysia time
-  nut: -11, //niue time
-  pht: 8, //philippine time
-  pgt: 10, //papua new guinea time
-  pmmt: 'pacific/bougainville',
-  smt: 'asia/singapore',
-  sakt: 11, //sakhalin island time
-  sret: 11, //srednekolymsk time
-  sst: 'pacific/pago_pago',
-  taht: -10, //tahiti time
-  tvt: 12, //tuvalu time
-  tkt: 13, //tokelau time
-  tot: 13, //tonga time
-  vut: 11, //vanuatu time
-  wakt: 12, //wake island time
+  //australia
+  'australia/adelaide': ['acst', 'acdt', 'australian central'], //australian central daylight savings time
+  'australia/eucla': ['acwst', null, 'cwst', 'australian central western'], //australian central western standard time (unofficial)
+  'australia/brisbane': ['aest', 'aedt', 'australian eastern'], //australian eastern standard time
+  'australia/perth': ['awst', 'awdt', 'australian western'], //australian western standard time
+  'australia/auckland': ['nzst', 'nzdt', 'nzmt'],
+  'australia/lord_howe': ['lhst', 'lhdt'],
 
-  //i forget (sorry!)
-  haec: 2, //heure avancée deurope centrale french-language name for cest
-  syot: 3, //showa station time
-  yekt: 5, //yekaterinburg time
-  get: 4, //georgia standard time
-  samt: 4, //samara time
-  mut: 4, //mauritius time
-  sct: 4, //seychelles time
-  orat: 5, //oral time
-  mawt: 5, //mawson station time
-  cct: 6.5, //cocos islands time
-  omst: 6, //omsk time
-  hovt: 7, //khovd standard time
-  hovst: 8, //khovd summer time
-  krat: 7, //krasnoyarsk time
-  ulat: 8, //ulaanbaatar standard time
-  davt: 7, //davis time
-  chost: 9, //choibalsan summer time
-  chot: 8, //choibalsan standard time
-  wst: 8, //western standard time
-  ulast: 9, //ulaanbaatar summer time
-  yakt: 9, //yakutsk time
+  //pacific (northern hemisphere)
+  'pacific/guam': ['chst'],
+  'pacific/chatham': ['chast', 'chadt'],
+  'pacific/honolulu': ['hst'],
+  'asia/brunei': ['bnt', null, 'bdt'],
+  'pacific/midway': ['sst', null, 'samoa', 'sdt'],
+  'pacific/niue': ['nut'],
+  'pacific/fakaofo': ['tkt'],
+  'pacific/rarotonga': ['ckt', null, 'cook islands'],
+  'chile/easterisland': ['east', 'easst', 'easter island', 'emt'],
+  // bit: -12, //baker island time
+  // cist: -8, //clipperton island standard time
+  // chut: 10, //chuuk time
+  // ddut: 10, //dumont durville time
+  // gst: 'pacific/guam',
+  // gamt: -9, //gambier islands time
+  // git: -9, //gambier island time
+  // gilt: 12, //gilbert island time
+  // idlw: -12, //international day line west time zone
+  // 'international day line west': -12,
+  // kost: 11, //kosrae time
+  // lint: 14, //line islands time
+  // magt: 12, //magadan time
+  // mist: 11, //macquarie island station time
+  // nct: 11, //new caledonia time
+  // nft: 11, //norfolk island time
+  // phot: 13, //phoenix island time
+  // pont: 11, //pohnpei standard time
+  // pett: 12, //kamchatka time
+  // mart: -9.5, //marquesas islands time
+  // mit: -9.5, //marquesas islands time
+  // myt: 8, //malaysia time
+  // nut: -11, //niue time
+  // pht: 8, //philippine time
+  // pgt: 10, //papua new guinea time
+  // pmmt: 'pacific/bougainville',
+  // // smt: 'asia/singapore',
+  // sakt: 11, //sakhalin island time
+  // sret: 11, //srednekolymsk time
+  // sst: 'pacific/pago_pago',
+  // taht: -10, //tahiti time
+  // tvt: 12, //tuvalu time
+  // tkt: 13, //tokelau time
+  // tot: 13, //tonga time
+  // vut: 11, //vanuatu time
+  // wakt: 12, //wake island time
 
-  //south america (northern hemisphere)
-  cost: -4, //colombia summer time
-  cot: -5, //colombia time
-  'colombia': -5,
-  gft: -3, //french guiana time
-  srt: -3, //suriname time
-  vet: -4, //venezuelan standard time
-  'venezuela': 'america/caracas',
-  gyt: -4, //guyana time
-
+//i forget (sorry!)
+// haec: 2, //heure avancée deurope centrale french-language name for cest
+// syot: 3, //showa station time
+// yekt: 5, //yekaterinburg time
+// sct: 4, //seychelles time
+// orat: 5, //oral time
+// mawt: 5, //mawson station time
+// hovt: 7, //khovd standard time
+// hovst: 8, //khovd summer time
+// davt: 7, //davis time
+// chost: 9, //choibalsan summer time
+// chot: 8, //choibalsan standard time
+// wst: 8, //western standard time
 }
 
 const south = {
   //pacific (southern hemisphere)
-  cit: 8, //central indonesia time
-  'central indonesian': 8,
-  eit: 9, //eastern indonesian time
-  'eastern indonesian': 9,
-  emt: 'pacific/easter',
-  easst: -5, //easter island summer time
-  east: -6, //easter island standard time
-  'easter island': 'pacific/easter',
-  fkst: -3, //falkland islands summer time
-  fkt: -4, //falkland islands time
-  galt: -6, //galápagos time
-  sbt: 11, //solomon islands time
-  fjt: 12, //fiji time
-  tlt: 9, //timor leste time
-  wib: 'asia/jakarta',
-  mht: 12, //marshall islands time
-  sdt: -10, //samoa daylight time
-  cxt: 7, //christmas island time
-  'christmas island': 7,
+  'asia/jayapura': ['wit', null, 'eastern indonesia'],
+  'asia/jakarta': ['wib', null, 'western indonesia'],
+  'asia/makassar': ['wta', null, 'central indonesia'],
+  'atlantic/stanley': ['fkst', null, 'falkland island'],
+  'pacific/galapagos': ['galt'],
+  'pacific/fiji': ['fjt', 'fjst'],
+  'asia/dili': ['tlt', null, 'east timor', 'tlt'],
+  'indian/christmas': ['cxt'],
+  // sbt: 11, //solomon islands time
+  // mht: 12, //marshall islands time
 
   //africa (southern hemisphere)
-  ret: 4, //réunion time
-  sast: 'africa/johannesburg', //south african
-  'south african': 'africa/johannesburg',
+  'indian/reunion': ['ret'],
+  'africa/johannesburg': ['sast', null, 'south africa'],
 
   //south america
-  act: -5, //acre time
-  amst: -3, //amazon summer time (brazil)
-  art: -3, //argentina time
-  bot: -4, //bolivia time
-  'bolivia': -4,
-  brst: -2, //brasília summer time
-  brt: -3, //brasilia time
-  clst: -3, //chile summer time
-  clt: -4, //chile standard time
-  'chile': 'chile/continental',
-  fnt: -2, //fernando de noronha time
-  pmdt: -2, //saint pierre and miquelon daylight time
-  pmst: -3, //saint pierre and miquelon standard time
-  pet: -5, //peru time
-  'peru': -5,
-  rott: -3, //rothera research station time
-  pyst: -3, //paraguay summer time
-  pyt: -4, //paraguay time
-  'paraguay': 'america/asuncion',
-  uyst: -2, //uruguay summer time
-  uyt: -3, //uruguay standard time
-  'uruguay': 'america/montevideo',
+  'america/buenos_aires': ['art', null, 'argentina'],
+  'america/la_paz': ['bot', null, 'bolivia'],
+  'america/asuncion': ['pyt', 'pyst', 'paraguay'],
+  'america/santiago': ['clt', 'clst', 'chile'],
+  'america/lima': ['pet', null, 'peru'],
+  'america/montevideo': ['uyt', null, 'uruguay'],
+  //brazil
+  'america/rio_branco': ['act'],
+  'america/manaus': ['amt'],
+  'america/sao_paulo': ['brt', 'brst'],
+  'brazil/acre': ['act'],
+// amst: -3, //amazon summer time (brazil)
+// fnt: -2, //fernando de noronha time
+// pmdt: -2, //saint pierre and miquelon daylight time
+// pmst: -3, //saint pierre and miquelon standard time
+// rott: -3, //rothera research station time
 }
 
 module.exports = {
