@@ -117,7 +117,6 @@ const north = {
   'asia/tashkent': ['uzt', 'uzbekistan'], //uzbekistan time
   'asia/bishkek': ['kgt', 'kyrgyzstan'], //kyrgyzstan time
   'antarctica/vostok': ['vost'],
-
   // wmt: 'europe/warsaw',
   // 'europe/volgograd':['volt']
   // volt: 4, //volgograd time
@@ -127,70 +126,51 @@ const north = {
   'africa/khartoum': ['cat', null, 'central africa'],
   'africa/nairobi': ['eat', null, 'central africa'],
   'atlantic/cape_verde': ['cvt'],
+  'indian/reunion': ['ret'],
+  'indian/mauritius': ['mut'],
 
   //atlantic
-  azost: 0, //azores summer time
-  azot: -1, //azores standard time
-  egst: 0, //eastern greenland summer time
-  egt: -1, //eastern greenland time
-  'eastern greenland summer': 0,
-  'eastern greenland': -1,
-  fmt: 'atlantic/madeira',
-  hmt: 'atlantic/azores',
+  'atlantic/azores': ['azot', 'azost', 'hmt'],
+  'america/godthab': ['wgt', 'wgst', 'western greenland'],
+  'america/scoresbysund': ['egt', 'egst', 'eastern greenland'],
 
   //middle-east
-  aft: 4.5, //afghanistan time
-  'afghanistan': 4.5,
-  azt: 4, //azerbaijan time
-  idt: 'asia/jerusalem', //israel daylight time
-  // ist: 2, //israel standard time
-  'israel': 'asia/jerusalem',
-  irdt: 4.5, //iran daylight time
-  'iran daylight': 4.5, //iran daylight time
-  irst: 3.5, //iran standard time
-  'iran standard': 3.5,
-  'iran': 'asia/tehran',
-  jmt: 'asia/jerusalem',
-  iddt: 'asia/jerusalem',
-  pkst: 'asia/karachi',
-  pkt: 'asia/karachi',
-  trt: 3, //turkey time
-  turkey: 'europe/istanbul',
-  tjt: 5, //tajikistan time
+  'europe/istanbul': ['trt', null, 'turkey'],
+  'asia/tbilisi': ['get', null, 'georgia'],
+  'asia/yerevan': ['amt', null, 'armenia'],
+  'asia/baku': ['azt', null, 'azerbaijan'],
+  'asia/jerusalem': ['ist', 'idt', 'israel', 'jmt', 'iddt'],
+  'asia/tehran': ['irst', 'irdt', 'iran'],
+  'asia/karachi': ['pkt', null, 'pakistan'],
+  'asia/kabul': ['aft', null, 'afghanistan'],
+  'asia/dushanbe': ['tjt', null, 'tajikistan'],
+  'asia/almaty': ['almt', null, 'tajikistan'],
 
   //india
-  biot: 6, //british indian ocean time
-  ict: 7, //indochina time
-  'indochina': 7,
-  iot: 3, //indian ocean time
-  npt: 5.75, //nepal time
-  mvt: 5, //maldives time
-  slst: 5.5, //sri lanka standard time
-  'sri lanka': 5.5,
-  tft: 5, //indian/kerguelen
-  btt: 6, //bhutan time
-  'bhutan': 6,
-  ist: 5.5, //indian standard time
-  'india': 5.5,
+  'asia/kolkata': ['ist', null, 'india', 'slst'],
+  'asia/dhaka': ['bst', null, 'bangladesh'],
+  'asia/thimbu': ['btt', null, 'bhutan'],
+  'indian/maldives': ['mvt'],
+  'asia/kathmandu': ['npt', null, 'nepal'],
+  'indian/cocos': ['cct', null, 'cocos island'],
+  'indian/chagos': ['iot', null, 'indian chagos'],
+  'indian/kerguelen': ['tft', null, 'french southern and antarctic'],
+  // biot: 6, //british indian ocean time
+  // iot: 3, //indian ocean time
 
   //asia
-  ct: 8, //china time
-  'china': 8,
-  hkst: 'asia/hong_kong',
-  hkt: 'asia/hong_kong',
-  jdt: 'asia/tokyo',
-  jst: 'asia/pyongyang',
-  kdt: 'asia/seoul',
-  kst: 'asia/seoul',
-  'korea': 'asia/seoul',
-  'korean': 'asia/seoul',
-  mmt: 'asia/colombo',
-  sgt: 8, //singapore time
-  plmt: 'asia/ho_chi_minh',
-  tbmt: 'asia/tbilisi',
-  tha: 7, //thailand standard time
-  wit: 'asia/jayapura',
-  wita: 'asia/pontianak',
+  'asia/shanghai': ['ct', null, 'china', 'hkt'],
+  'asia/hovd': ['hovd'],
+  'asia/ulaanbaatar': ['ulat'],
+  'asia/seoul': ['kst', null, 'korea'],
+  'asia/tokyo': ['jst', null, 'japan'],
+  'asia/phnom_penh': ['ict', null, 'indochina'],
+  'asia/manila': ['pht', null, 'philippines'],
+  'asia/singapore': ['sgt'],
+  'asia/jayapura': ['wit', null, 'eastern indonesia'],
+  'asia/pontianak': ['wib', null, 'western indonesia'],
+  'asia/makassar': ['wta', null, 'central indonesia'],
+  // mmt: 'asia/colombo',
 
   //pacific
   bit: -12, //baker island time
