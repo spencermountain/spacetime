@@ -12,7 +12,6 @@ const greedy_north = {
 
   '0': 'etc/gmt',
   '1': 'europe/lisbon',
-  // 0  europe/london
   '2': 'europe/berlin',
   // '3': 'europe/riga',
   // '3': 'europe/moscow',
