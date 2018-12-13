@@ -92,6 +92,12 @@ let methods = {
     }
     return this.d.getFullYear();
   },
+  iso: function(num) {
+    if (num !== undefined) {
+      return this.set(num)
+    }
+    return this.format('iso');
+  },
   dayTime: function(str) {
     if (str !== undefined) {
       const times = {

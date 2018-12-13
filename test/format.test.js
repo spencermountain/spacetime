@@ -94,6 +94,23 @@ test('iso-with-fraction-offset', t => {
   t.equal(s.format('iso'), '1918-06-08T13:00:00.000+05:30', 'correct offset')
   t.end();
 });
+
+test('made-up-syntax', t => {
+  let s = spacetime('June 8th 1918', 'Asia/Calcutta')
+  s = s.time('4:45pm')
+  let arr = [
+    ['month', 'June'],
+    ['{month}', 'June'],
+    ['{month} {hour}:{minute}{ampm}', 'June 4:45pm'],
+    ['{day} the {date-ordinal} of {month}', 'Saturday the 8th of June'],
+  ]
+  arr.forEach((a) => {
+    t.equal(s.format(a[0]), a[1], a[0])
+  })
+  t.end();
+});
+
+
 /* FIXME failing test
 test('unix-fmt-padding', t => {
   let d = spacetime({

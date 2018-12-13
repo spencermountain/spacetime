@@ -5,7 +5,7 @@ const days = require('../../data/days');
 const isoOffset = require('./_offset');
 
 const format = {
-  day: (s) => s.dayName(),
+  day: (s) => fns.titleCase(s.dayName()),
   'day-short': (s) => days.short()[s.day()],
   'day-number': (s) => s.day(),
   'day-ordinal': (s) => fns.ordinal(s.day()),
@@ -15,7 +15,7 @@ const format = {
   'date-ordinal': s => fns.ordinal(s.date()),
   'date-pad': s => fns.zeroPad(s.date()),
 
-  month: (s) => s.monthName(),
+  month: (s) => fns.titleCase(s.monthName()),
   'month-short': (s) => months.short()[s.month()],
   'month-number': (s) => s.month(),
   'month-ordinal': (s) => fns.ordinal(s.month()),
@@ -40,7 +40,7 @@ const format = {
 
   time: (s) => s.time(),
   'time-24': (s) => `${s.hour24()}:${fns.zeroPad(s.minute())}`,
-  hour: (s) => s.hour(),
+  hour: (s) => s.hour12(),
   'hour-24': (s) => s.hour24(),
 
   minute: (s) => s.minute(),
@@ -100,9 +100,9 @@ const aliases = {
   'nice-short': 'nice',
   'mdy': 'numeric-us',
   'dmy': 'numeric-uk',
-  'ymd': 'numeric-cn',
+  'ymd': 'numeric',
   'little-endian': 'numeric-uk',
-  'big-endian': 'numeric-cn',
+  'big-endian': 'numeric',
 }
 Object.keys(aliases).forEach((k) => format[k] = format[aliases[k]])
 
@@ -132,6 +132,6 @@ const printFormat = (s, str = '') => {
     return str
   }
 
-  return ''
+  return s.format('iso-short')
 };
 module.exports = printFormat;
