@@ -1,4 +1,4 @@
-/* spacetime v4.5.1
+/* spacetime v5.0.0
    github.com/spencermountain/spacetime
    MIT
 */
@@ -6,7 +6,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.wtf = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 "use strict";
 
-module.exports = '4.5.1';
+module.exports = '5.0.0';
 
 },{}],2:[function(_dereq_,module,exports){
 'use strict';
@@ -1723,7 +1723,7 @@ var nearest = function nearest(s, unit) {
     }
 
     s = s.startOf(unit);
-  } else {
+  } else if (s.silent === false) {
     console.warn("no known unit '" + unit + "'");
   }
 
@@ -2605,7 +2605,11 @@ var walkTo = function walkTo(s, wants) {
 
     if (!units[k].valid(n)) {
       s.epoch = null;
-      console.warn('invalid ' + k + ': ' + n);
+
+      if (s.silent === false) {
+        console.warn('invalid ' + k + ': ' + n);
+      }
+
       return;
     } // console.log(k, n)
 
@@ -3048,24 +3052,51 @@ module.exports = SpaceTime;
 
 var informal = _dereq_('../../zonefile/informal').informal; //these timezone abbreviations are used aggressively in other places
 //if tz doesn't have an abbreviation, and is in the same offset...
+//these are pretty subjective. i just made them up.
 
 
-var greedy = {
+var greedy_north = {
   '-8': 'america/anchorage',
   '-7': 'america/los_angeles',
   '-6': 'america/denver',
   '-5': 'america/chicago',
   '-4': 'america/new_york',
   '-3': 'america/halifax',
-  // '-3': 'america/sao_paulo',
+  '0': 'etc/gmt',
   '1': 'europe/lisbon',
-  // 1  europe/london
-  // '1': 'africa/lagos',
   '2': 'europe/berlin',
-  // '2': 'africa/khartoum',
-  '3': 'europe/moscow' // '3':  'europe/riga',
-  // '3': 'africa/nairobi',
+  // '3': 'europe/riga',
+  // '3': 'europe/moscow',
+  '8': 'asia/shanghai'
+};
+var greedy_south = {
+  '-3': 'america/sao_paulo',
+  '0': 'etc/gmt',
+  '1': 'africa/lagos',
+  // '2': 'africa/khartoum',//central africa
+  '2': 'africa/johannesburg',
+  //south africa
+  '3': 'africa/nairobi',
+  '10': 'australia/brisbane',
+  '12': 'pacific/auckland'
+};
+var british = {
+  'europe/belfast': true,
+  'europe/dublin': true,
+  'europe/guernsey': true,
+  'europe/jersey': true
+};
 
+var handleSpecial = function handleSpecial(tz, offset) {
+  if (british.hasOwnProperty(tz)) {
+    if (offset === '1') {
+      return 'BST';
+    }
+
+    return 'GMT';
+  }
+
+  return null;
 };
 
 var chooseAbbrev = function chooseAbbrev(arr, obj) {
@@ -3092,11 +3123,20 @@ var display = function display(tz, obj) {
   }
 
   var offset = String(obj.default_offset);
+  var special = handleSpecial(tz, offset);
 
-  if (greedy.hasOwnProperty(offset)) {
-    var useTz = greedy[offset];
-    var arr = informal[useTz] || [];
-    return chooseAbbrev(arr, obj) || '';
+  if (special) {
+    return special;
+  }
+
+  if (obj.hemisphere === 'North' && greedy_north.hasOwnProperty(offset)) {
+    var useTz = greedy_north[offset];
+    return chooseAbbrev(informal[useTz], obj) || '';
+  }
+
+  if (obj.hemisphere === 'South' && greedy_south.hasOwnProperty(offset)) {
+    var _useTz = greedy_south[offset];
+    return chooseAbbrev(informal[_useTz], obj) || '';
   }
 
   return '';
@@ -3256,7 +3296,10 @@ var timezone = function timezone(s) {
   var tz = findTz(s.tz, zones);
 
   if (tz === null) {
-    console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
+    if (s.silent === false) {
+      console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
+    }
+
     return {
       current: {
         epochShift: 0
@@ -3408,16 +3451,16 @@ module.exports = whereIts;
 
 },{"./spacetime":34}],41:[function(_dereq_,module,exports){
 module.exports={
-  "9|s": "2/dili",
-  "9|n": "2/chita,2/jayapura,2/khandyga,2/pyongyang,2/seoul,2/tokyo,11/palau",
+  "9|s": "2/dili,2/jayapura",
+  "9|n": "2/chita,2/khandyga,2/pyongyang,2/seoul,2/tokyo,11/palau",
   "9.5|s|04/01:03->10/07:02": "4/adelaide,4/broken_hill,4/south,4/yancowinna",
   "9.5|s": "4/darwin,4/north",
   "8|s": "12/casey,2/kuala_lumpur,2/makassar,2/singapore,4/perth,4/west",
   "8|n|03/25:03->09/29:23": "2/ulan_bator",
   "8|n": "2/brunei,2/choibalsan,2/chongqing,2/chungking,2/harbin,2/hong_kong,2/irkutsk,2/kuching,2/macao,2/macau,2/manila,2/shanghai,2/taipei,2/ujung_pandang,2/ulaanbaatar",
   "8.75|s": "4/eucla",
-  "7|s": "12/davis,2/jakarta",
-  "7|n": "2/bangkok,2/barnaul,2/ho_chi_minh,2/hovd,2/krasnoyarsk,2/novokuznetsk,2/novosibirsk,2/phnom_penh,2/pontianak,2/saigon,2/vientiane,9/christmas",
+  "7|s": "12/davis,2/jakarta,9/christmas",
+  "7|n": "2/bangkok,2/barnaul,2/ho_chi_minh,2/hovd,2/krasnoyarsk,2/novokuznetsk,2/novosibirsk,2/phnom_penh,2/pontianak,2/saigon,2/vientiane",
   "6|s": "12/vostok",
   "6|n": "2/almaty,2/bishkek,2/dacca,2/dhaka,2/kashgar,2/omsk,2/qyzylorda,2/thimbu,2/thimphu,2/urumqi,9/chagos",
   "6.5|n": "2/rangoon,9/cocos",
@@ -3475,11 +3518,11 @@ module.exports={
   "-6|n|04/01:02->10/28:02": "1/chihuahua,1/mazatlan,10/bajasur",
   "-6|n|03/11:02->11/04:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/ojinaga,1/shiprock,1/yellowknife,6/mountain",
   "-6|n": "1/belize,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/regina,1/swift_current,1/tegucigalpa,6/east-saskatchewan,6/saskatchewan,11/galapagos",
-  "-5|s": "1/lima,5/acre",
+  "-5|s": "1/lima,1/rio_branco,5/acre",
   "-5|n|04/01:02->10/28:02": "1/bahia_banderas,1/merida,1/mexico_city,1/monterrey,10/general",
   "-5|n|03/12:03->11/05:01": "1/north_dakota",
   "-5|n|03/11:02->11/04:02": "1/chicago,1/knox_in,1/matamoros,1/menominee,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,6/central",
-  "-5|n": "1/atikokan,1/bogota,1/cancun,1/cayman,1/coral_harbour,1/eirunepe,1/guayaquil,1/jamaica,1/panama,1/porto_acre,1/rio_branco",
+  "-5|n": "1/atikokan,1/bogota,1/cancun,1/cayman,1/coral_harbour,1/eirunepe,1/guayaquil,1/jamaica,1/panama,1/porto_acre",
   "-4|s|05/13:23->08/13:01": "12/palmer",
   "-4|s|05/12:24->08/12:00": "1/santiago,7/continental",
   "-4|s|03/24:24->10/07:00": "1/asuncion",
@@ -3490,9 +3533,9 @@ module.exports={
   "-4|n|03/11:00->11/04:01": "1/havana",
   "-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/porto_velho,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin",
   "-3|s|02/17:24->11/04:00": "1/sao_paulo,5/east",
-  "-3|s": "1/argentina,1/buenos_aires,1/cordoba,1/montevideo,1/punta_arenas,12/rothera",
+  "-3|s": "1/argentina,1/buenos_aires,1/cordoba,1/fortaleza,1/montevideo,1/punta_arenas,12/rothera,3/stanley",
   "-3|n|03/11:02->11/04:02": "1/glace_bay,1/goose_bay,1/halifax,1/moncton,1/thule,3/bermuda,6/atlantic",
-  "-3|n": "1/araguaina,1/bahia,1/belem,1/catamarca,1/cayenne,1/fortaleza,1/jujuy,1/maceio,1/mendoza,1/paramaribo,1/recife,1/rosario,1/santarem,3/stanley",
+  "-3|n": "1/araguaina,1/bahia,1/belem,1/catamarca,1/cayenne,1/jujuy,1/maceio,1/mendoza,1/paramaribo,1/recife,1/rosario,1/santarem",
   "-2|s": "5/denoronha",
   "-2|n|03/24:22->10/27:23": "1/godthab",
   "-2|n|03/11:02->11/04:02": "1/miquelon",
@@ -3583,6 +3626,7 @@ var informal = {
   //europe
   'europe/london': ['gmt', 'bst', 'british'],
   //britain is different
+  'etc/gmt': ['gmt', null, 'greenwich'],
   'europe/lisbon': ['wet', 'west', 'west europe'],
   //western europe
   'europe/berlin': ['cet', 'cest', 'central europe', 'middle european', 'met', 'mest'],
@@ -3599,7 +3643,6 @@ var informal = {
   // 'british summer': 1,
   // dmt: 'europe/dublin',
   // dft: 1, //aix-specific equivalent of central european time
-  // gmt: 0, //greenwich mean time
   // cmt: 'europe/copenhagen',
   // // ist: 'europe/dublin',
   // imt: 'europe/sofia',
@@ -3684,15 +3727,15 @@ var informal = {
   'asia/singapore': ['sgt'],
   // mmt: 'asia/colombo',
   //australia
+  'australia/brisbane': ['aest', 'aedt', 'australian east'],
+  //australian eastern standard time
   'australia/adelaide': ['acst', 'acdt', 'australian central'],
   //australian central daylight savings time
   'australia/eucla': ['acwst', null, 'cwst', 'australian central western'],
   //australian central western standard time (unofficial)
-  'australia/brisbane': ['aest', 'aedt', 'australian east'],
-  //australian eastern standard time
   'australia/perth': ['awst', 'awdt', 'australian west'],
   //australian western standard time
-  'australia/auckland': ['nzst', 'nzdt', 'nzmt'],
+  'pacific/auckland': ['nzst', 'nzdt', 'nzmt'],
   'australia/lord_howe': ['lhst', 'lhdt'],
   //pacific
   'pacific/guam': ['chst'],
@@ -3706,7 +3749,7 @@ var informal = {
   'chile/easterisland': ['east', 'easst', 'easter island', 'emt'],
   'asia/jayapura': ['wit', null, 'east indonesia'],
   'asia/jakarta': ['wib', null, 'west indonesia'],
-  'asia/makassar': ['wta', null, 'central indonesia'],
+  'asia/makassar': ['wita', null, 'central indonesia'],
   'pacific/galapagos': ['galt'],
   'pacific/fiji': ['fjt', 'fjst'],
   'asia/dili': ['tlt', null, 'east timor'],
