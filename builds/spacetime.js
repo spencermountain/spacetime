@@ -491,7 +491,7 @@ module.exports = dates;
 },{}],13:[function(_dereq_,module,exports){
 'use strict'; //pull-apart ISO offsets, like "+0100"
 
-var parseOffset = function parseOffset(s, offset, givenTz) {
+var parseOffset = function parseOffset(s, offset) {
   if (!offset) {
     return s;
   } //this is a fancy-move
@@ -1218,7 +1218,7 @@ var isoOffset = _dereq_('./_offset');
 
 var format = {
   day: function day(s) {
-    return s.dayName();
+    return fns.titleCase(s.dayName());
   },
   'day-short': function dayShort(s) {
     return days.short()[s.day()];
@@ -1242,7 +1242,7 @@ var format = {
     return fns.zeroPad(s.date());
   },
   month: function month(s) {
-    return s.monthName();
+    return fns.titleCase(s.monthName());
   },
   'month-short': function monthShort(s) {
     return months.short()[s.month()];
@@ -1283,7 +1283,7 @@ var format = {
     return "".concat(s.hour24(), ":").concat(fns.zeroPad(s.minute()));
   },
   hour: function hour(s) {
-    return s.hour();
+    return s.hour12();
   },
   'hour-24': function hour24(s) {
     return s.hour24();
@@ -1379,9 +1379,9 @@ var aliases = {
   'nice-short': 'nice',
   'mdy': 'numeric-us',
   'dmy': 'numeric-uk',
-  'ymd': 'numeric-cn',
+  'ymd': 'numeric',
   'little-endian': 'numeric-uk',
-  'big-endian': 'numeric-cn'
+  'big-endian': 'numeric'
 };
 Object.keys(aliases).forEach(function (k) {
   return format[k] = format[aliases[k]];
@@ -1421,7 +1421,7 @@ var printFormat = function printFormat(s) {
     return str;
   }
 
-  return '';
+  return s.format('iso-short');
 };
 
 module.exports = printFormat;
@@ -2045,6 +2045,13 @@ var methods = {
     }
 
     return this.d.getFullYear();
+  },
+  iso: function iso(num) {
+    if (num !== undefined) {
+      return this.set(num);
+    }
+
+    return this.format('iso');
   },
   dayTime: function dayTime(str) {
     if (str !== undefined) {
