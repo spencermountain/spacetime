@@ -1,8 +1,8 @@
 {
   "name": "spacetime",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "figure-out dates across timezones",
-  "main": "./src/index.js",
+  "main": "./builds/spacetime.js",
   "unpkg": "./builds/spacetime.min.js",
   "license": "Apache-2.0",
   "scripts": {
