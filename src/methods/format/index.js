@@ -6,7 +6,7 @@ const isoOffset = require('./_offset');
 
 const format = {
   day: (s) => fns.titleCase(s.dayName()),
-  'day-short': (s) => days.short()[s.day()],
+  'day-short': (s) => fns.titleCase(days.short()[s.day()]),
   'day-number': (s) => s.day(),
   'day-ordinal': (s) => fns.ordinal(s.day()),
   'day-pad': (s) => fns.zeroPad(s.day()),
@@ -16,7 +16,7 @@ const format = {
   'date-pad': s => fns.zeroPad(s.date()),
 
   month: (s) => fns.titleCase(s.monthName()),
-  'month-short': (s) => months.short()[s.month()],
+  'month-short': (s) => fns.titleCase(months.short()[s.month()]),
   'month-number': (s) => s.month(),
   'month-ordinal': (s) => fns.ordinal(s.month()),
   'month-pad': (s) => fns.zeroPad(s.month()),

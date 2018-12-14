@@ -77,3 +77,5 @@
 * uppercase month and day names in `.dayName()`
 * support city-names, `EST`, `PDT`, etc as input
 * set default `silent: true` to avoid unwanted logging
+### 5.1.0
+* titlecase short-forms of months, days in `.format()`
