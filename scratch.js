@@ -10,8 +10,11 @@ const spacetime = require('./src/index')
 // console.log(b.time())
 
 // let s = spacetime('July 4', 'berlin')
-let s = spacetime('July 4', 'toronto')
-console.log(s.format('month-short'))
+// let s = spacetime('July 4', 'toronto')
+// console.log(s.format('month-short'))
 //s= s.month('august')
 // console.log(s.timezone())
 // console.log(s.format('{nice}'))
+
+//bug
+spacetime('Sep 1 1939').log()

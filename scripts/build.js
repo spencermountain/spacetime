@@ -24,7 +24,7 @@ echo(banner).to(uncompressed);
 echo(banner).to(compressed);
 
 //browserify + derequire
-var cmd = browserify + ' ./src/index.js --standalone wtf';
+var cmd = browserify + ' ./src/index.js --standalone spacetime';
 cmd += ' -t [ babelify --presets [ @babel/preset-env ] ]';
 cmd += ' | ' + derequire;
 cmd += ' >> ' + uncompressed;
