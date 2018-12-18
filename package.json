@@ -1,9 +1,8 @@
 {
   "name": "spacetime",
-  "version": "5.0.5",
+  "version": "5.0.8",
   "description": "figure-out dates across timezones",
   "main": "./builds/spacetime.js",
-  "unpkg": "./builds/spacetime.min.js",
   "license": "Apache-2.0",
   "scripts": {
     "build": "node ./scripts/build.js",
@@ -21,8 +20,7 @@
   },
   "files": [
     "builds",
-    "docs",
-    "src"
+    "docs"
   ],
   "dependencies": {},
   "devDependencies": {

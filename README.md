@@ -9,7 +9,7 @@
   <a href="https://codecov.io/gh/spencermountain/spacetime">
     <img src="https://codecov.io/gh/spencermountain/spacetime/branch/master/graph/badge.svg" />
   </a>
-  <a href="https://unpkg.com/spacetime/spacetime.js">
+  <a href="https://unpkg.com/spacetime/builds/spacetime.min.js">
     <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/spacetime.js" />
   </a>
   <div>figure-out time, all-over the world</div>
@@ -24,7 +24,7 @@
 - **weighs just 49KB**.
 
 ```html
-<script src="https://unpkg.com/spacetime"></script>
+<script src="https://unpkg.com/spacetime/builds/spacetime.min.js"></script>
 <script>
   var d = spacetime('March 1 2012', 'America/New_York')
   //set the time
