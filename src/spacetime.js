@@ -4,6 +4,7 @@ const timezone = require('./timezone/index')
 const handleInput = require('./input')
 const methods = require('./methods')
 let timezones = require('../zonefile/unpack')
+const local = guessTz()
 
 //fake timezone-support, for fakers (es5 class)
 const SpaceTime = function(input, tz, options) {
@@ -11,7 +12,7 @@ const SpaceTime = function(input, tz, options) {
   //the holy moment
   this.epoch = null
   //the shift for the given timezone
-  this.tz = tz || guessTz()
+  this.tz = tz || local
   //whether to output warnings to console
   this.silent = options.silent || true
   //add getter/setters

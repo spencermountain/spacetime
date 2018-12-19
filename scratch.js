@@ -17,4 +17,4 @@ const spacetime = require('./src/index')
 // console.log(s.format('{nice}'))
 
 //bug
-console.log(spacetime('Sep 1 1939').format('iso-short'))
+console.log(spacetime('sep 1919').clone().add(1, 'month').format('iso-short'))

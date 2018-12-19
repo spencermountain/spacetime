@@ -1,5 +1,4 @@
 'use strict';
-
 let shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'];
 let longMonths = [
   'january',
@@ -18,7 +17,7 @@ let longMonths = [
 
 function buildMapping() {
   const obj = {
-    sep: 9 //support this format
+    sep: 8 //support this format
   };
   for (let i = 0; i < shortMonths.length; i++) {
     obj[shortMonths[i]] = i;
