@@ -17,7 +17,9 @@ let longMonths = [
 ];
 
 function buildMapping() {
-  const obj = {};
+  const obj = {
+    sep: 9 //support this format
+  };
   for (let i = 0; i < shortMonths.length; i++) {
     obj[shortMonths[i]] = i;
   }
