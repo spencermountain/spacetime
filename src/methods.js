@@ -7,6 +7,7 @@ const diff = require('./methods/diff')
 const since = require('./methods/since')
 const ends = require('./methods/startOf')
 const timezone = require('./timezone/index')
+const findTz = require('./timezone/find')
 const handleInput = require('./input')
 const fns = require('./fns')
 
@@ -73,7 +74,7 @@ const methods = {
   //travel to this timezone
   goto: function(tz) {
     let s = this.clone()
-    s.tz = tz //science!
+    s.tz = findTz(tz, s.timezones) //science!
     return s
   },
   isAwake: function() {

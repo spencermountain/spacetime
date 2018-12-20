@@ -1,6 +1,6 @@
 'use strict'
-const guessTz = require('./timezone/guessTz')
-const timezone = require('./timezone/index')
+const quickOffset = require('./timezone/quick')
+const findTz = require('./timezone/find')
 const handleInput = require('./input')
 const methods = require('./methods')
 let timezones = require('../zonefile/unpack')
@@ -11,18 +11,18 @@ const SpaceTime = function(input, tz, options) {
   //the holy moment
   this.epoch = null
   //the shift for the given timezone
-  this.tz = tz || guessTz()
+  this.tz = findTz(tz, timezones)
   //whether to output warnings to console
   this.silent = options.silent || true
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object
     get: function() {
-      let meta = timezone(this) || {}
+      let offset = quickOffset(this)
       //every computer is somewhere- get this computer's built-in offset
       let bias = new Date(this.epoch).getTimezoneOffset() || 0
       //movement
-      let shift = bias + (meta.current.offset * 60) //in minutes
+      let shift = bias + (offset * 60) //in minutes
       shift = shift * 60 * 1000 //in ms
       //remove this computer's offset
       let epoch = this.epoch + shift

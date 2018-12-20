@@ -81,6 +81,7 @@ const parseInput = (s, input, givenTz) => {
     return s
   }
   //little cleanup..
+  input = input.replace(/\b(mon|tues|wed|wednes|thu|thurs|fri|sat|satur|sun)(day)?\b/, '')
   input = input.trim().replace(/ +/g, ' ')
   //try some known-words, like 'now'
   if (namedDates.hasOwnProperty(input) === true) {

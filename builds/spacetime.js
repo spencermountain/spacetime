@@ -1,4 +1,4 @@
-/* spacetime v5.0.8
+/* spacetime v5.1.0
    github.com/spencermountain/spacetime
    MIT
 */
@@ -6,7 +6,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 "use strict";
 
-module.exports = '5.0.8';
+module.exports = '5.1.0';
 
 },{}],2:[function(_dereq_,module,exports){
 'use strict';
@@ -36,8 +36,9 @@ o.second = 1000;
 o.minute = 60000;
 o.hour = 3.6e6; // dst is supported post-hoc
 
-o.day = 8.64e7;
-o.date = 8.64e7;
+o.day = 8.64e7; // 
+
+o.date = o.day;
 o.month = 8.64e7 * 29.5; //(average)
 
 o.week = 6.048e8;
@@ -74,7 +75,10 @@ var shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept
 var longMonths = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 function buildMapping() {
-  var obj = {};
+  var obj = {
+    sep: 8 //support this format
+
+  };
 
   for (var i = 0; i < shortMonths.length; i++) {
     obj[shortMonths[i]] = i;
@@ -280,7 +284,7 @@ main.version = version; //aliases:
 main.plugin = main.extend;
 module.exports = main;
 
-},{"../_version":1,"./spacetime":34,"./whereIts":40}],10:[function(_dereq_,module,exports){
+},{"../_version":1,"./spacetime":34,"./whereIts":41}],10:[function(_dereq_,module,exports){
 'use strict';
 
 var monthLengths = _dereq_('../data/monthLengths');
@@ -416,6 +420,7 @@ var parseInput = function parseInput(s, input, givenTz) {
   } //little cleanup..
 
 
+  input = input.replace(/\b(mon|tues|wed|wednes|thu|thurs|fri|sat|satur|sun)(day)?\b/, '');
   input = input.trim().replace(/ +/g, ' '); //try some known-words, like 'now'
 
   if (namedDates.hasOwnProperty(input) === true) {
@@ -561,7 +566,7 @@ module.exports = parseOffset;
 
 var walkTo = _dereq_('../methods/set/walk');
 
-var months = _dereq_('../data/months');
+var months = _dereq_('../data/months').mapping();
 
 var parseOffset = _dereq_('./parseOffset');
 
@@ -679,7 +684,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
 {
   reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+))?$/i,
   parse: function parse(s, arr) {
-    var month = months.mapping()[arr[1].toLowerCase()];
+    var month = months[arr[1].toLowerCase()];
     var year = parseYear(arr[3]);
     var obj = {
       year: year,
@@ -700,11 +705,36 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
 
     return s;
   }
+}, //February 2017 (implied date)
+{
+  reg: /^([a-z]+) ([0-9]{4})$/i,
+  parse: function parse(s, arr) {
+    var month = months[arr[1].toLowerCase()];
+    var year = parseYear(arr[2]);
+    var obj = {
+      year: year,
+      month: month,
+      date: 1
+    };
+
+    if (hasDate(obj) === false) {
+      s.epoch = null;
+      return s;
+    }
+
+    walkTo(s, obj);
+
+    if (arr[4]) {
+      s = parseHour(s, arr[4]);
+    }
+
+    return s;
+  }
 }, //Long "25 Mar 2015"
 {
   reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?$/i,
   parse: function parse(s, arr) {
-    var month = months.mapping()[arr[2].toLowerCase()];
+    var month = months[arr[2].toLowerCase()];
     var year = parseYear(arr[3]);
     var obj = {
       year: year,
@@ -787,6 +817,8 @@ var ends = _dereq_('./methods/startOf');
 
 var _timezone = _dereq_('./timezone/index');
 
+var findTz = _dereq_('./timezone/find');
+
 var handleInput = _dereq_('./input');
 
 var fns = _dereq_('./fns'); //the spacetime instance methods (also, the API)
@@ -856,7 +888,7 @@ var methods = {
   //travel to this timezone
   goto: function goto(tz) {
     var s = this.clone();
-    s.tz = tz; //science!
+    s.tz = findTz(tz, s.timezones); //science!
 
     return s;
   },
@@ -896,7 +928,7 @@ methods.inDST = methods.isDST;
 methods.round = methods.nearest;
 module.exports = methods;
 
-},{"./fns":8,"./input":11,"./methods/diff":18,"./methods/format":20,"./methods/format/unixFmt":21,"./methods/nearest":23,"./methods/progress":24,"./methods/since":32,"./methods/startOf":33,"./timezone/index":38}],16:[function(_dereq_,module,exports){
+},{"./fns":8,"./input":11,"./methods/diff":18,"./methods/format":20,"./methods/format/unixFmt":21,"./methods/nearest":23,"./methods/progress":24,"./methods/since":32,"./methods/startOf":33,"./timezone/find":36,"./timezone/index":38}],16:[function(_dereq_,module,exports){
 'use strict';
 
 var walkTo = _dereq_('./set/walk');
@@ -1330,6 +1362,10 @@ var format = {
     return "".concat(fns.zeroPad(s.date()), "/").concat(fns.zeroPad(s.month() + 1), "/").concat(s.year());
   },
   //dd/mm/yyyy
+  'mm/dd': function mmDd(s) {
+    return "".concat(fns.zeroPad(s.month() + 1), "/").concat(fns.zeroPad(s.date()));
+  },
+  //mm/dd
   // ... https://en.wikipedia.org/wiki/ISO_8601 ;(((
   iso: function iso(s) {
     var month = fns.zeroPad(s.month() + 1); //1-based months
@@ -1380,6 +1416,9 @@ var aliases = {
   'mdy': 'numeric-us',
   'dmy': 'numeric-uk',
   'ymd': 'numeric',
+  'yyyy/mm/dd': 'numeric',
+  'mm/dd/yyyy': 'numeric-us',
+  'dd/mm/yyyy': 'numeric-us',
   'little-endian': 'numeric-uk',
   'big-endian': 'numeric'
 };
@@ -1595,16 +1634,16 @@ var mapping = {
   },
   //timezone
   z: function z(s) {
-    return s.tz;
+    return s.timezone().name;
   },
   zz: function zz(s) {
-    return s.tz;
+    return s.timezone().name;
   },
   zzz: function zzz(s) {
-    return s.tz;
+    return s.timezone().name;
   },
   zzzz: function zzzz(s) {
-    return s.tz;
+    return s.timezone().name;
   },
   Z: function Z(s) {
     return s.timezone().current.offset + '00';
@@ -2478,6 +2517,7 @@ var ms = _dereq_('../../data/milliseconds'); //basically, step-forward/backward 
 
 
 var walk = function walk(s, n, fn, unit, previous) {
+  // console.log(unit, s.d.getDate())
   var current = s.d[fn]();
 
   if (current === n) {
@@ -2488,8 +2528,13 @@ var walk = function walk(s, n, fn, unit, previous) {
   var original = s.epoch; //try to get it as close as we can
 
   var diff = n - current;
-  s.epoch += ms[unit] * diff; //repair it if we've gone too far or something
+  s.epoch += ms[unit] * diff; //edge case, if we are going many days, be a little conservative
+
+  if (unit === 'day' && Math.abs(diff) > 28) {
+    s.epoch += ms.hour;
+  } //repair it if we've gone too far or something
   //(go by half-steps, just in case)
+
 
   var halfStep = ms[unit] / 2;
 
@@ -2503,6 +2548,7 @@ var walk = function walk(s, n, fn, unit, previous) {
 
 
   if (previous !== null && startUnit !== s.d[previous]()) {
+    console.warn('spacetime warning: missed setting ' + unit);
     s.epoch = original;
   }
 }; //find the desired date by a increment/check while loop
@@ -2522,9 +2568,10 @@ var units = {
       return n >= 0 && n <= 11;
     },
     walkTo: function walkTo(s, n) {
-      var current = s.d.getMonth();
+      var d = s.d;
+      var current = d.getMonth();
       var original = s.epoch;
-      var startUnit = s.d.getYear();
+      var startUnit = d.getYear();
 
       if (current === n) {
         return;
@@ -2578,7 +2625,8 @@ var units = {
       return n >= 0 && n < 60;
     },
     walkTo: function walkTo(s, n) {
-      return walk(s, n, 'getSeconds', 'second', 'getMinutes');
+      //do this one directly
+      s.epoch = s.seconds(n).epoch;
     }
   },
   millisecond: {
@@ -2587,8 +2635,7 @@ var units = {
     },
     walkTo: function walkTo(s, n) {
       //do this one directly
-      var tmp = s.milliseconds(n);
-      s.epoch = tmp.epoch;
+      s.epoch = s.milliseconds(n).epoch;
     }
   }
 };
@@ -2621,29 +2668,14 @@ var walkTo = function walkTo(s, wants) {
     } // console.log(k, n)
 
 
-    units[k].walkTo(s, n); // console.log(s.milliseconds())
-    //if we've gone over a dst-change or something..
-    // if (wants.hour === undefined && s.hour() !== old.hour()) {
-    //   s.hour(old.hour());
-    // }
+    units[k].walkTo(s, n); // console.log(s.monthName())
+    // console.log(s.format())
   }
 
   return;
 };
 
-module.exports = walkTo; // const spacetime = require('../../spacetime')
-// let s = new spacetime(1509778800000, 'Canada/Pacific')
-// let want = {
-//   millisecond: 0,
-//   second: 0,
-//   minute: 0,
-//   hour: 0,
-//   date: 4
-// }
-// s.log()
-// units['date'].walkTo(s, 4);
-// walkTo(s, want)
-// s.log()
+module.exports = walkTo;
 
 },{"../../data/milliseconds":3}],32:[function(_dereq_,module,exports){
 'use strict';
@@ -2976,9 +3008,9 @@ module.exports = {
 },{"../data/quarters":6,"../data/seasons":7,"./set/walk":31}],34:[function(_dereq_,module,exports){
 'use strict';
 
-var guessTz = _dereq_('./timezone/guessTz');
+var quickOffset = _dereq_('./timezone/quick');
 
-var timezone = _dereq_('./timezone/index');
+var findTz = _dereq_('./timezone/find');
 
 var handleInput = _dereq_('./input');
 
@@ -2992,18 +3024,18 @@ var SpaceTime = function SpaceTime(input, tz, options) {
 
   this.epoch = null; //the shift for the given timezone
 
-  this.tz = tz || guessTz(); //whether to output warnings to console
+  this.tz = findTz(tz, timezones); //whether to output warnings to console
 
   this.silent = options.silent || true; //add getter/setters
 
   Object.defineProperty(this, 'd', {
     //return a js date object
     get: function get() {
-      var meta = timezone(this) || {}; //every computer is somewhere- get this computer's built-in offset
+      var offset = quickOffset(this); //every computer is somewhere- get this computer's built-in offset
 
       var bias = new Date(this.epoch).getTimezoneOffset() || 0; //movement
 
-      var shift = bias + meta.current.offset * 60; //in minutes
+      var shift = bias + offset * 60; //in minutes
 
       shift = shift * 60 * 1000; //in ms
       //remove this computer's offset
@@ -3054,7 +3086,7 @@ _dereq_('./methods/i18n')(SpaceTime);
 
 module.exports = SpaceTime;
 
-},{"../zonefile/unpack":44,"./input":11,"./methods":15,"./methods/add":16,"./methods/compare":17,"./methods/i18n":22,"./methods/query":26,"./methods/same":29,"./timezone/guessTz":37,"./timezone/index":38}],35:[function(_dereq_,module,exports){
+},{"../zonefile/unpack":45,"./input":11,"./methods":15,"./methods/add":16,"./methods/compare":17,"./methods/i18n":22,"./methods/query":26,"./methods/same":29,"./timezone/find":36,"./timezone/quick":39}],35:[function(_dereq_,module,exports){
 "use strict";
 
 var informal = _dereq_('../../zonefile/informal').informal; //these timezone abbreviations are used aggressively in other places
@@ -3151,14 +3183,17 @@ var display = function display(tz, obj) {
 
 module.exports = display;
 
-},{"../../zonefile/informal":43}],36:[function(_dereq_,module,exports){
-"use strict";
+},{"../../zonefile/informal":44}],36:[function(_dereq_,module,exports){
+'use strict';
 
 var tzs = _dereq_('../../zonefile/unpack');
 
-var informal = _dereq_('../../zonefile/informal').lookup; // console.log(informal)
-// const isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i
+var informal = _dereq_('../../zonefile/informal').lookup;
 
+var guessTz = _dereq_('./guessTz');
+
+var local = guessTz(); // console.log(informal)
+// const isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i
 
 var isOffset = /(\-?[0-9]+)h(rs)?/; //add all the city names by themselves
 
@@ -3181,6 +3216,10 @@ var normalize = function normalize(tz) {
 
 
 var lookupTz = function lookupTz(str, zones) {
+  if (!str) {
+    return local;
+  }
+
   var tz = str.trim();
   var split = str.split('/'); //support long timezones like 'America/Argentina/Rio_Gallegos'
 
@@ -3212,7 +3251,7 @@ var lookupTz = function lookupTz(str, zones) {
   } // //try to parse '-5h'
 
 
-  m = tz.match(isOffset);
+  var m = tz.match(isOffset);
 
   if (m !== null) {
     var num = Number(m[1]);
@@ -3226,12 +3265,13 @@ var lookupTz = function lookupTz(str, zones) {
     }
   }
 
-  return null;
+  console.warn('Cannot find timezone named: \'' + str + '\'');
+  return local;
 };
 
 module.exports = lookupTz;
 
-},{"../../zonefile/informal":43,"../../zonefile/unpack":44}],37:[function(_dereq_,module,exports){
+},{"../../zonefile/informal":44,"../../zonefile/unpack":45,"./guessTz":37}],37:[function(_dereq_,module,exports){
 'use strict'; //find the implicit iana code for this machine.
 //safely query the Intl object
 //based on - https://bitbucket.org/pellepim/jstimezonedetect/src
@@ -3267,7 +3307,8 @@ var guessTz = function guessTz() {
   }
 
   return timezone.toLowerCase();
-};
+}; //do it once per computer
+
 
 module.exports = guessTz;
 
@@ -3300,7 +3341,11 @@ var titleCase = function titleCase(str) {
 
 var timezone = function timezone(s) {
   var zones = s.timezones;
-  var tz = findTz(s.tz, zones);
+  var tz = s.tz;
+
+  if (zones.hasOwnProperty(tz) === false) {
+    tz = findTz(s.tz, zones);
+  }
 
   if (tz === null) {
     if (s.silent === false) {
@@ -3352,7 +3397,7 @@ var timezone = function timezone(s) {
   if (result.hasDst === false) {
     result.current.offset = summer;
     result.current.isDST = false;
-  } else if (inSummerTime(s, result, summer) === true) {
+  } else if (inSummerTime(s.epoch, result.change.start, result.change.back, summer) === true) {
     result.current.offset = summer;
     result.current.isDST = result.hemisphere === 'North'; //dst 'on' in winter in north
   } else {
@@ -3368,7 +3413,43 @@ var timezone = function timezone(s) {
 
 module.exports = timezone;
 
-},{"./display":35,"./find":36,"./summerTime":39}],39:[function(_dereq_,module,exports){
+},{"./display":35,"./find":36,"./summerTime":40}],39:[function(_dereq_,module,exports){
+"use strict";
+
+var isSummer = _dereq_('./summerTime'); //
+
+
+var quickOffset = function quickOffset(s) {
+  var zones = s.timezones;
+  var obj = zones[s.tz];
+
+  if (obj.dst === undefined) {
+    return obj.offset;
+  } //get our two possible offsets
+
+
+  var jul = obj.offset;
+  var dec = obj.offset + 1; // assume it's the same for now
+
+  if (obj.hem === 'n') {
+    dec = jul - 1;
+  }
+
+  var split = obj.dst.split('->');
+  var inSummer = isSummer(s.epoch, split[0], split[1], jul); // console.log(s.epoch, inSummer)
+  // console.log(new Date(s.epoch), inSummer)
+
+  if (inSummer === true) {
+    return jul;
+  } // console.log(jul)
+
+
+  return dec;
+};
+
+module.exports = quickOffset;
+
+},{"./summerTime":40}],40:[function(_dereq_,module,exports){
 'use strict';
 
 var zeroPad = _dereq_('../fns').zeroPad;
@@ -3379,27 +3460,23 @@ var toString = function toString(d) {
 // then some will switch to something else between november-march
 
 
-var shouldChange = function shouldChange(s, m, defaultOffset) {
-  if (m.hasDst !== true || !m.change.start || !m.change.back) {
-    return false;
-  } //note: this has a cray order-of-operations issue
+var shouldChange = function shouldChange(epoch, start, end, defaultOffset) {
+  //note: this has a cray order-of-operations issue
   //we can't get the date, without knowing the timezone, and vice-versa
   //it's possible that we can miss a dst-change by a few hours.
-
-
-  var d = new Date(s.epoch); //(try to mediate this a little?)
+  var d = new Date(epoch); //(try to mediate this a little?)
 
   var bias = d.getTimezoneOffset() || 0;
   var shift = bias + defaultOffset * 60; //in minutes
 
   shift = shift * 60 * 1000; //in ms
 
-  d = new Date(s.epoch + shift);
+  d = new Date(epoch + shift);
   var current = toString(d); //eg. is it after ~november?
 
-  if (current >= m.change.start) {
+  if (current >= start) {
     //eg. is it before ~march~ too?
-    if (current < m.change.back) {
+    if (current < end) {
       return true;
     }
   }
@@ -3409,7 +3486,7 @@ var shouldChange = function shouldChange(s, m, defaultOffset) {
 
 module.exports = shouldChange;
 
-},{"../fns":8}],40:[function(_dereq_,module,exports){
+},{"../fns":8}],41:[function(_dereq_,module,exports){
 'use strict';
 
 var Spacetime = _dereq_('./spacetime'); // const timezones = require('../data');
@@ -3456,7 +3533,7 @@ var whereIts = function whereIts(a, b) {
 
 module.exports = whereIts;
 
-},{"./spacetime":34}],41:[function(_dereq_,module,exports){
+},{"./spacetime":34}],42:[function(_dereq_,module,exports){
 module.exports={
   "9|s": "2/dili,2/jayapura",
   "9|n": "2/chita,2/khandyga,2/pyongyang,2/seoul,2/tokyo,11/palau",
@@ -3552,13 +3629,13 @@ module.exports={
   "-11|n": "11/midway,11/niue,11/pago_pago,11/samoa",
   "-10|n": "11/honolulu,11/johnston,11/rarotonga,11/tahiti"
 }
-},{}],42:[function(_dereq_,module,exports){
+},{}],43:[function(_dereq_,module,exports){
 "use strict";
 
 //prefixes for iana names..
 module.exports = ['africa', 'america', 'asia', 'atlantic', 'australia', 'brazil', 'canada', 'chile', 'europe', 'indian', 'mexico', 'pacific', 'antarctica', 'etc'];
 
-},{}],43:[function(_dereq_,module,exports){
+},{}],44:[function(_dereq_,module,exports){
 "use strict";
 
 // this is a very rough list of informal and abbreviated timezones
@@ -3830,7 +3907,7 @@ module.exports = {
   lookup: lookup
 };
 
-},{}],44:[function(_dereq_,module,exports){
+},{}],45:[function(_dereq_,module,exports){
 "use strict";
 
 var data = _dereq_('./_build.json');
@@ -3885,5 +3962,5 @@ for (var i = -12; i < 13; i += 1) {
 
 module.exports = all;
 
-},{"./_build.json":41,"./_prefixes.js":42}]},{},[9])(9)
+},{"./_build.json":42,"./_prefixes.js":43}]},{},[9])(9)
 });

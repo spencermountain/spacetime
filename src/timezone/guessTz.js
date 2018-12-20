@@ -27,4 +27,5 @@ const guessTz = () => {
   }
   return timezone.toLowerCase()
 };
+//do it once per computer
 module.exports = guessTz;

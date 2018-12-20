@@ -3,6 +3,7 @@ const ms = require('../../data/milliseconds');
 
 //basically, step-forward/backward until js Date object says we're there.
 const walk = function(s, n, fn, unit, previous) {
+  // console.log(unit, s.d.getDate())
   let current = s.d[fn]()
   if (current === n) {
     return //already there
@@ -12,6 +13,11 @@ const walk = function(s, n, fn, unit, previous) {
   //try to get it as close as we can
   let diff = (n - current)
   s.epoch += ms[unit] * diff
+
+  //edge case, if we are going many days, be a little conservative
+  if (unit === 'day' && Math.abs(diff) > 28) {
+    s.epoch += ms.hour
+  }
   //repair it if we've gone too far or something
   //(go by half-steps, just in case)
   const halfStep = ms[unit] / 2
@@ -23,6 +29,7 @@ const walk = function(s, n, fn, unit, previous) {
   }
   //oops, did we change previous unit? revert it.
   if (previous !== null && startUnit !== s.d[previous]()) {
+    console.warn('spacetime warning: missed setting ' + unit)
     s.epoch = original
   }
 }
@@ -35,9 +42,10 @@ const units = {
   month: {
     valid: n => n >= 0 && n <= 11,
     walkTo: (s, n) => {
-      let current = s.d.getMonth()
+      let d = s.d
+      let current = d.getMonth()
       let original = s.epoch
-      let startUnit = s.d.getYear()
+      let startUnit = d.getYear()
       if (current === n) {
         return
       }
@@ -71,14 +79,16 @@ const units = {
   },
   second: {
     valid: n => n >= 0 && n < 60,
-    walkTo: (s, n) => walk(s, n, 'getSeconds', 'second', 'getMinutes')
+    walkTo: (s, n) => {
+      //do this one directly
+      s.epoch = s.seconds(n).epoch
+    }
   },
   millisecond: {
     valid: n => n >= 0 && n < 1000,
     walkTo: (s, n) => {
       //do this one directly
-      let tmp = s.milliseconds(n);
-      s.epoch = tmp.epoch
+      s.epoch = s.milliseconds(n).epoch
     },
   },
 };
@@ -105,26 +115,10 @@ const walkTo = (s, wants) => {
     }
     // console.log(k, n)
     units[k].walkTo(s, n);
-  // console.log(s.milliseconds())
-  //if we've gone over a dst-change or something..
-  // if (wants.hour === undefined && s.hour() !== old.hour()) {
-  //   s.hour(old.hour());
-  // }
+  // console.log(s.monthName())
+  // console.log(s.format())
   }
   return;
 };
-module.exports = walkTo;
 
-// const spacetime = require('../../spacetime')
-// let s = new spacetime(1509778800000, 'Canada/Pacific')
-// let want = {
-//   millisecond: 0,
-//   second: 0,
-//   minute: 0,
-//   hour: 0,
-//   date: 4
-// }
-// s.log()
-// units['date'].walkTo(s, 4);
-// walkTo(s, want)
-// s.log()
+module.exports = walkTo;

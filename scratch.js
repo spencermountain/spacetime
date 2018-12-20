@@ -16,5 +16,11 @@ const spacetime = require('./src/index')
 // console.log(s.timezone())
 // console.log(s.format('{nice}'))
 
-//bug
-spacetime('Sep 1 1939').log()
+let s = spacetime(null, 'lsondon');
+console.log(s)
+// s.silent = false
+console.log(s.format('timezone'))
+// s = s.startOf('day')
+// console.log(s.format())
+
+//'daylight savings' happens in the summer

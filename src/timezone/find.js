@@ -1,5 +1,8 @@
+'use strict'
 const tzs = require('../../zonefile/unpack')
 const informal = require('../../zonefile/informal').lookup
+const guessTz = require('./guessTz')
+const local = guessTz()
 // console.log(informal)
 // const isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i
 const isOffset = /(\-?[0-9]+)h(rs)?/
@@ -25,6 +28,9 @@ const normalize = function(tz) {
 
 // try our best to reconcile the timzone to this given string
 const lookupTz = function(str, zones) {
+  if (!str) {
+    return local
+  }
   let tz = str.trim()
   let split = str.split('/')
   //support long timezones like 'America/Argentina/Rio_Gallegos'
@@ -49,7 +55,7 @@ const lookupTz = function(str, zones) {
     return cities[tz]
   }
   // //try to parse '-5h'
-  m = tz.match(isOffset)
+  let m = tz.match(isOffset)
   if (m !== null) {
     let num = Number(m[1])
     num = num * -1 //it's opposite!
@@ -59,6 +65,7 @@ const lookupTz = function(str, zones) {
       return gmt
     }
   }
-  return null
+  console.warn('Cannot find timezone named: \'' + str + '\'')
+  return local
 }
 module.exports = lookupTz

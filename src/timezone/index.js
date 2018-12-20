@@ -23,7 +23,10 @@ const titleCase = function(str) {
 //get metadata about this timezone
 const timezone = s => {
   let zones = s.timezones
-  let tz = findTz(s.tz, zones)
+  let tz = s.tz
+  if (zones.hasOwnProperty(tz) === false) {
+    tz = findTz(s.tz, zones)
+  }
   if (tz === null) {
     if (s.silent === false) {
       console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
@@ -68,7 +71,7 @@ const timezone = s => {
   if (result.hasDst === false) {
     result.current.offset = summer
     result.current.isDST = false
-  } else if (inSummerTime(s, result, summer) === true) {
+  } else if (inSummerTime(s.epoch, result.change.start, result.change.back, summer) === true) {
     result.current.offset = summer
     result.current.isDST = result.hemisphere === 'North' //dst 'on' in winter in north
   } else { //use 'winter' january-time
