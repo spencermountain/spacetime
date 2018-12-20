@@ -1,3 +1,4 @@
+'use strict'
 const tzs = require('../../zonefile/unpack')
 const informal = require('../../zonefile/informal').lookup
 const guessTz = require('./guessTz')
@@ -54,7 +55,7 @@ const lookupTz = function(str, zones) {
     return cities[tz]
   }
   // //try to parse '-5h'
-  m = tz.match(isOffset)
+  let m = tz.match(isOffset)
   if (m !== null) {
     let num = Number(m[1])
     num = num * -1 //it's opposite!

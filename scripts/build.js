@@ -6,7 +6,7 @@ var fs = require('fs');
 var pkg = require('../package.json')
 var browserify = './node_modules/.bin/browserify';
 var derequire = './node_modules/.bin/derequire';
-var uglify = './node_modules/.bin/uglifyjs';
+var terser = './node_modules/.bin/terser';
 
 //final build locations
 var banner = '/* spacetime v' + pkg.version + '\n   github.com/spencermountain/spacetime\n   MIT\n*/\n';
@@ -31,7 +31,7 @@ cmd += ' >> ' + uncompressed;
 exec(cmd);
 
 //uglify
-cmd = uglify + ' ' + uncompressed + ' --mangle --compress ';
+cmd = terser + ' ' + uncompressed + ' --mangle --compress ';
 cmd += ' >> ' + compressed;
 exec(cmd);
 
