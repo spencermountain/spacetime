@@ -10,7 +10,7 @@
     <img src="https://codecov.io/gh/spencermountain/spacetime/branch/master/graph/badge.svg" />
   </a>
   <a href="https://unpkg.com/spacetime/builds/spacetime.min.js">
-    <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/spacetime.js" />
+    <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/builds/spacetime.min.js" />
   </a>
   <div>figure-out time, all-over the world</div>
   <hr/>
