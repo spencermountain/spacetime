@@ -16,6 +16,11 @@ const spacetime = require('./src/index')
 // console.log(s.timezone())
 // console.log(s.format('{nice}'))
 
-//bug
-spacetime.today()
-// console.log(spacetime('2018/03/28'))
+let s = spacetime(null, 'europe/london');
+// s.silent = false
+console.log(s)
+console.log(s.d)
+// s = s.startOf('day')
+// console.log(s.format())
+
+//'daylight savings' happens in the summer

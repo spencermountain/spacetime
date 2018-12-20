@@ -71,7 +71,7 @@ const timezone = s => {
   if (result.hasDst === false) {
     result.current.offset = summer
     result.current.isDST = false
-  } else if (inSummerTime(s, result, summer) === true) {
+  } else if (inSummerTime(s.epoch, result.change.start, result.change.back, summer) === true) {
     result.current.offset = summer
     result.current.isDST = result.hemisphere === 'North' //dst 'on' in winter in north
   } else { //use 'winter' january-time
