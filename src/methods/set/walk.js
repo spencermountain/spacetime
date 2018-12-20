@@ -42,9 +42,10 @@ const units = {
   month: {
     valid: n => n >= 0 && n <= 11,
     walkTo: (s, n) => {
-      let current = s.d.getMonth()
+      let d = s.d
+      let current = d.getMonth()
       let original = s.epoch
-      let startUnit = s.d.getYear()
+      let startUnit = d.getYear()
       if (current === n) {
         return
       }

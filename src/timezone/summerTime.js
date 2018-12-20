@@ -20,6 +20,7 @@ const shouldChange = (s, m, defaultOffset) => {
   let shift = bias + (defaultOffset * 60) //in minutes
   shift = shift * 60 * 1000 //in ms
   d = new Date(s.epoch + shift);
+
   let current = toString(d);
   //eg. is it after ~november?
   if (current >= m.change.start) {

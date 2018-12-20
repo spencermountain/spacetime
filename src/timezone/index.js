@@ -23,7 +23,10 @@ const titleCase = function(str) {
 //get metadata about this timezone
 const timezone = s => {
   let zones = s.timezones
-  let tz = findTz(s.tz, zones)
+  let tz = s.tz
+  if (zones.hasOwnProperty(tz) === false) {
+    tz = findTz(s.tz, zones)
+  }
   if (tz === null) {
     if (s.silent === false) {
       console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
