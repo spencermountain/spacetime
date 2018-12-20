@@ -71,14 +71,16 @@ const units = {
   },
   second: {
     valid: n => n >= 0 && n < 60,
-    walkTo: (s, n) => walk(s, n, 'getSeconds', 'second', 'getMinutes')
+    walkTo: (s, n) => {
+      //do this one directly
+      s.epoch = s.seconds(n).epoch
+    }
   },
   millisecond: {
     valid: n => n >= 0 && n < 1000,
     walkTo: (s, n) => {
       //do this one directly
-      let tmp = s.milliseconds(n);
-      s.epoch = tmp.epoch
+      s.epoch = s.milliseconds(n).epoch
     },
   },
 };
@@ -105,26 +107,8 @@ const walkTo = (s, wants) => {
     }
     // console.log(k, n)
     units[k].walkTo(s, n);
-  // console.log(s.milliseconds())
-  //if we've gone over a dst-change or something..
-  // if (wants.hour === undefined && s.hour() !== old.hour()) {
-  //   s.hour(old.hour());
-  // }
   }
   return;
 };
-module.exports = walkTo;
 
-// const spacetime = require('../../spacetime')
-// let s = new spacetime(1509778800000, 'Canada/Pacific')
-// let want = {
-//   millisecond: 0,
-//   second: 0,
-//   minute: 0,
-//   hour: 0,
-//   date: 4
-// }
-// s.log()
-// units['date'].walkTo(s, 4);
-// walkTo(s, want)
-// s.log()
+module.exports = walkTo;

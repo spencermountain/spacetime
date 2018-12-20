@@ -58,6 +58,7 @@ const format = {
   numeric: (s) => `${s.year()}/${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`, // yyyy/mm/dd
   'numeric-us': (s) => `${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}/${s.year()}`, // mm/dd/yyyy
   'numeric-uk': (s) => `${fns.zeroPad(s.date())}/${fns.zeroPad(s.month() + 1)}/${s.year()}`, //dd/mm/yyyy
+  'mm/dd': (s) => `${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`, //mm/dd
 
   // ... https://en.wikipedia.org/wiki/ISO_8601 ;(((
   iso: s => {
@@ -101,6 +102,9 @@ const aliases = {
   'mdy': 'numeric-us',
   'dmy': 'numeric-uk',
   'ymd': 'numeric',
+  'yyyy/mm/dd': 'numeric',
+  'mm/dd/yyyy': 'numeric-us',
+  'dd/mm/yyyy': 'numeric-us',
   'little-endian': 'numeric-uk',
   'big-endian': 'numeric',
 }

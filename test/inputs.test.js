@@ -161,7 +161,7 @@ test('invalid inputs', t => {
 
 test('inplicit-years', t => {
   var year = new Date().getFullYear()
-  t.equal(spacetime('April 3rd').format('numeric'), spacetime('April 3rd ' + year).format('numeric'))
+  t.equal(spacetime('sunday April 3rd').format('numeric'), spacetime('April 3rd ' + year).format('numeric'))
   t.equal(spacetime('3rd June').format('numeric'), spacetime('3rd June ' + year).format('numeric'))
   t.equal(spacetime('03/28').format('numeric'), spacetime('03/28/' + year).format('numeric'))
   t.end();
@@ -170,6 +170,9 @@ test('inplicit-years', t => {
 test('inplicit-date', t => {
   t.equal(spacetime('dec 1919').format('iso-short'), '1919-12-01')
   t.equal(spacetime('november 2030').format('iso-short'), '2030-11-01')
+  t.equal(spacetime('thursday november 2030').format('iso-short'), '2030-11-01')
+  t.equal(spacetime('thurs november 2030').format('iso-short'), '2030-11-01')
+  t.equal(spacetime('wed november 2030').format('iso-short'), '2030-11-01')
   t.equal(spacetime('sep 2019').format('iso-short'), '2019-09-01')
   t.equal(spacetime('sept 2019').format('iso-short'), '2019-09-01')
   t.end();

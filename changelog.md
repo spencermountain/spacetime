@@ -14,6 +14,7 @@
 ### 5.2.0
 * support implicit date in `nov 2019`
 * speed optimizations
+* support `tues March 5th 2018` inputs
 
 ### v4.0.0
 * `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`
