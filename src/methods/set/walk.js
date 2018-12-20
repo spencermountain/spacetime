@@ -3,6 +3,7 @@ const ms = require('../../data/milliseconds');
 
 //basically, step-forward/backward until js Date object says we're there.
 const walk = function(s, n, fn, unit, previous) {
+  // console.log(unit, s.d.getDate())
   let current = s.d[fn]()
   if (current === n) {
     return //already there
@@ -12,6 +13,11 @@ const walk = function(s, n, fn, unit, previous) {
   //try to get it as close as we can
   let diff = (n - current)
   s.epoch += ms[unit] * diff
+
+  //edge case, if we are going many days, be a little conservative
+  if (unit === 'day' && Math.abs(diff) > 28) {
+    s.epoch += ms.hour
+  }
   //repair it if we've gone too far or something
   //(go by half-steps, just in case)
   const halfStep = ms[unit] / 2
@@ -23,6 +29,7 @@ const walk = function(s, n, fn, unit, previous) {
   }
   //oops, did we change previous unit? revert it.
   if (previous !== null && startUnit !== s.d[previous]()) {
+    console.warn('spacetime warning: missed setting ' + unit)
     s.epoch = original
   }
 }
@@ -107,6 +114,8 @@ const walkTo = (s, wants) => {
     }
     // console.log(k, n)
     units[k].walkTo(s, n);
+  // console.log(s.monthName())
+  // console.log(s.format())
   }
   return;
 };

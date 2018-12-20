@@ -17,4 +17,4 @@ const spacetime = require('./src/index')
 // console.log(s.format('{nice}'))
 
 //bug
-console.log(spacetime('03/01/2015', 'Europe/Bucharest').format('nice'))
+console.log(spacetime('march 1st 2015', 'Europe/Bucharest').format('nice'))
