@@ -80,10 +80,10 @@ const mapping = {
   //milliseconds in the day
   A: (s) => s.epoch - s.startOf('day').epoch,
   //timezone
-  z: (s) => s.tz,
-  zz: (s) => s.tz,
-  zzz: (s) => s.tz,
-  zzzz: (s) => s.tz,
+  z: (s) => s.timezone().name,
+  zz: (s) => s.timezone().name,
+  zzz: (s) => s.timezone().name,
+  zzzz: (s) => s.timezone().name,
   Z: (s) => s.timezone().current.offset + '00',
   ZZ: (s) => s.timezone().current.offset + '00',
   ZZZ: (s) => s.timezone().current.offset + '00',
