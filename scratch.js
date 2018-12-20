@@ -16,7 +16,8 @@ const spacetime = require('./src/index')
 // console.log(s.timezone())
 // console.log(s.format('{nice}'))
 
-let s = spacetime(null, 'europe/london');
+let s = spacetime(null, 'lsondon');
+console.log(s)
 // s.silent = false
 console.log(s.format('timezone'))
 // s = s.startOf('day')

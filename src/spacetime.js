@@ -1,11 +1,9 @@
 'use strict'
-const guessTz = require('./timezone/guessTz')
 const quickOffset = require('./timezone/quick')
 const findTz = require('./timezone/find')
 const handleInput = require('./input')
 const methods = require('./methods')
 let timezones = require('../zonefile/unpack')
-const local = guessTz()
 
 //fake timezone-support, for fakers (es5 class)
 const SpaceTime = function(input, tz, options) {
@@ -13,11 +11,7 @@ const SpaceTime = function(input, tz, options) {
   //the holy moment
   this.epoch = null
   //the shift for the given timezone
-  if (tz === undefined) {
-    this.tz = local
-  } else {
-    this.tz = findTz(tz, timezones)
-  }
+  this.tz = findTz(tz, timezones)
   //whether to output warnings to console
   this.silent = options.silent || true
   //add getter/setters
