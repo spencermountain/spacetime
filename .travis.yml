@@ -5,5 +5,5 @@ notifications:
 node_js:
   - "6"
 script:
-  - npm run build
   - npm run test-spec
+  - npm run coverage

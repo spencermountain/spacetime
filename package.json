@@ -30,6 +30,7 @@
     "amble": "0.0.7",
     "babelify": "10.0.0",
     "browserify": "16.2.3",
+    "codecov": "3.1.0",
     "derequire": "2.0.6",
     "nyc": "13.1.0",
     "shelljs": "0.8.3",

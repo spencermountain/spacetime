@@ -3184,7 +3184,7 @@ var display = function display(tz, obj) {
 module.exports = display;
 
 },{"../../zonefile/informal":44}],36:[function(_dereq_,module,exports){
-"use strict";
+'use strict';
 
 var tzs = _dereq_('../../zonefile/unpack');
 
@@ -3251,7 +3251,7 @@ var lookupTz = function lookupTz(str, zones) {
   } // //try to parse '-5h'
 
 
-  m = tz.match(isOffset);
+  var m = tz.match(isOffset);
 
   if (m !== null) {
     var num = Number(m[1]);
