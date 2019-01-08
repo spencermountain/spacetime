@@ -268,6 +268,11 @@ a.format('day') //'Sábado'
 
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
 
+### See also:
+* [Luxon](https://moment.github.io/luxon/) - a smaller library from the clever moment people
+* [date-fns](https://date-fns.org/) - an amazing battle-hardened client-side Date utility
+* [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) - some pretty weird, but [mostly-supported](https://caniuse.com/#feat=internationalization) in-browser date utilities
+
 <div align="center">
   <div>Made with caution + great-patience,</div>
   <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a>, and <a href="https://twitter.com/begin">SmallWins</a></div>
@@ -275,5 +280,7 @@ a.format('day') //'Sábado'
     <img width="50" src="https://user-images.githubusercontent.com/399657/31141177-9f339dc8-a844-11e7-8330-0cee2dc12128.jpg"/>
   </a>
 </div>
+
+Thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
 
 Apache 2.0

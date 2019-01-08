@@ -14,9 +14,12 @@ const walk = function(s, n, fn, unit, previous) {
   let diff = (n - current)
   s.epoch += ms[unit] * diff
 
-  //edge case, if we are going many days, be a little conservative
+  //DST edge-case: if we are going many days, be a little conservative
   if (unit === 'day' && Math.abs(diff) > 28) {
-    s.epoch += ms.hour
+    //but don't push it over a month
+    if (n < 28) {
+      s.epoch += ms.hour
+    }
   }
   //repair it if we've gone too far or something
   //(go by half-steps, just in case)
@@ -115,8 +118,7 @@ const walkTo = (s, wants) => {
     }
     // console.log(k, n)
     units[k].walkTo(s, n);
-  // console.log(s.monthName())
-  // console.log(s.format())
+  // console.log(s.format('nice-day'), '\n')
   }
   return;
 };

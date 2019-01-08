@@ -1,26 +1,13 @@
 const spacetime = require('./src/index')
 
-// let a = spacetime('June 5', 'toronto')
-// let b = spacetime('June 5', 'utc/gmt+4')
-//
-// console.log(a.offset() / 60)
-// console.log(b.offset() / 60)
-//
-// console.log(a.time())
-// console.log(b.time())
+//from Jan 8th 10:30am EST
+// let s = spacetime('June 30, 2017 20:01:00', 'Australia/Brisbane');
+// console.log(s.format('nice'))
 
-// let s = spacetime('July 4', 'berlin')
-// let s = spacetime('July 4', 'toronto')
-// console.log(s.format('month-short'))
-//s= s.month('august')
-// console.log(s.timezone())
-// console.log(s.format('{nice}'))
 
-let s = spacetime(null, 'lsondon');
-console.log(s)
-// s.silent = false
-console.log(s.format('timezone'))
-// s = s.startOf('day')
-// console.log(s.format())
-
-//'daylight savings' happens in the summer
+let now = spacetime([2019, 3, 12])
+let c = spacetime('christmas')
+console.log(c.format(''))
+c.year(now.year() - 1)
+let obj = now.since(c).diff
+console.log(obj)
