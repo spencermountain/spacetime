@@ -64,6 +64,15 @@ const methods = {
     }
     return since(this, d)
   },
+  next: function(unit) {
+    let s = this.add(1, unit)
+    return s.startOf(unit)
+  },
+  //the start of the previous year/week/century
+  last: function(unit) {
+    let s = this.subtract(1, unit)
+    return s.startOf(unit)
+  },
   isValid: function() {
     //null/undefined epochs
     if (!this.epoch && this.epoch !== 0) {

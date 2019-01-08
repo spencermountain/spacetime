@@ -48,13 +48,18 @@ test('add', t => {
   s = s.add(2, 'years');
   t.equal(s.date(), 1, 'moveyear-.date()');
   // t.equal(s.monthName(), 'april', 'moveyear.month()');
-  t.equal(s.year(), 2019, 'moveyear.years()');
+  t.equal(s.year(), 2019, 'moveyear.year()');
+
+  s = s.add(1, 'decade')
+  t.equal(s.year(), 2029, 'move-decade.year()');
 
   s = s.add(1, 'quarterHour');
   t.equal(s.minute(), 35, 'movequarterHour');
 
   s = s.add(1, 'quarterHour');
   t.equal(s.minute(), 50, 'movequarterHour#2');
+
+
   t.end();
 });
 

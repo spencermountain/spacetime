@@ -14,7 +14,9 @@ let keep = {
   month: order.slice(0, 4),
   quarter: order.slice(0, 4),
   season: order.slice(0, 4),
-  year: order
+  year: order,
+  decade: order,
+  century: order,
 };
 keep.week = keep.date;
 keep.season = keep.date;
@@ -94,6 +96,12 @@ const addMethods = SpaceTime => {
     //ensure year has changed (leap-years)
     else if (unit === 'year' && s.year() === old.year()) {
       s.epoch += ms.week;
+    }
+    //these are easier
+    else if (unit === 'decade') {
+      want.year = s.year() + 10
+    } else if (unit === 'century') {
+      want.year = s.year() + 100
     }
     //keep current date, unless the month doesn't have it.
     if (keepDate[unit]) {

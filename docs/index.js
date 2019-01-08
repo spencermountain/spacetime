@@ -1,8 +1,7 @@
 module.exports = {
   main: {
     goto: {
-      doc:
-        'move to a new timezone, but at this same moment. Accepts a IANA code.',
+      doc: 'move to a new timezone, but at this same moment. Accepts a IANA code.',
       out: 'self',
     },
     clone: {
@@ -27,24 +26,24 @@ module.exports = {
       out: 'self',
     },
     add: {
-      doc:
-        'increment the time by a number and unit - like an hour, minute, day, or year',
+      doc: 'increment the time by a number and unit - like an hour, minute, day, or year',
       out: 'self',
     },
     subtract: {
-      doc:
-        'decrease the time by a number and unit - like an hour, minute, day, or year',
+      doc: 'decrease the time by a number and unit - like an hour, minute, day, or year',
+      out: 'self',
+    },
+    next: {
+      doc: 'go to the beginning of the next unit',
       out: 'self',
     },
     //comparison
     isAfter: {
-      doc:
-        'pass-in a spacetime object or date input and see if it takes-place after your spacetime date/time',
+      doc: 'pass-in a spacetime object or date input and see if it takes-place after your spacetime date/time',
       out: 'Boolean',
     },
     isBefore: {
-      doc:
-        'pass-in a spacetime object or date input and see if it takes-place before your spacetime date/time',
+      doc: 'pass-in a spacetime object or date input and see if it takes-place before your spacetime date/time',
       out: 'Boolean',
     },
     isEqual: {
@@ -56,8 +55,7 @@ module.exports = {
       out: 'Boolean',
     },
     diff: {
-      doc:
-        "given a date amd a unit, count how many of them you'd need to make the dates equal",
+      doc: "given a date amd a unit, count how many of them you'd need to make the dates equal",
       out: 'Number',
     },
   },
@@ -77,8 +75,7 @@ module.exports = {
       out: 'self/Number',
     },
     hour: {
-      doc:
-        "set or return the current hour, in 24 time (0-23). also accepts/parses '3pm'",
+      doc: "set or return the current hour, in 24 time (0-23). also accepts/parses '3pm'",
       out: 'self/Number',
     },
     date: {
@@ -86,8 +83,7 @@ module.exports = {
       out: 'self/Number',
     },
     month: {
-      doc:
-        "set or return the zero-based month-number (0-11). Also accepts 'June', or 'oct'.",
+      doc: "set or return the zero-based month-number (0-11). Also accepts 'June', or 'oct'.",
       out: 'self/Number',
     },
     year: {
@@ -95,8 +91,7 @@ module.exports = {
       out: 'self/Number',
     },
     dayOfYear: {
-      doc:
-        'set or return the day of the year (1-366). Jan 1st is 1, Dec 31st is 366.',
+      doc: 'set or return the day of the year (1-366). Jan 1st is 1, Dec 31st is 366.',
       out: 'self/Number',
     },
     time: {
@@ -112,18 +107,15 @@ module.exports = {
       out: 'self/Number',
     },
     season: {
-      doc:
-        'set or return the name of the season, spring/summer/fall/autumn/winter',
+      doc: 'set or return the name of the season, spring/summer/fall/autumn/winter',
       out: 'self/String',
     },
     hourFloat: {
-      doc:
-        "set or return the hour + minute in decimal form, so '3:30am' is 3.5",
+      doc: "set or return the hour + minute in decimal form, so '3:30am' is 3.5",
       out: 'self/Number',
     },
     day: {
-      doc:
-        "set or return the day of the week as an integer, starting on sunday (day-0). Also accepts names like 'wednesday', or 'thurs'",
+      doc: "set or return the day of the week as an integer, starting on sunday (day-0). Also accepts names like 'wednesday', or 'thurs'",
       out: 'self/Number',
     },
     ampm: {
@@ -159,8 +151,7 @@ module.exports = {
     },
     //get
     progress: {
-      doc:
-        'Between 0-1, how far the moment lands between the start and end of the day/week/month/year.',
+      doc: 'Between 0-1, how far the moment lands between the start and end of the day/week/month/year.',
       out: 'Object',
     },
     leapYear: {

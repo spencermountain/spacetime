@@ -1,5 +1,9 @@
 const spacetime = require('./src/index')
 
-let d = spacetime('2019-11-04T00:00:00.000', 'Canada/Eastern')
-d = d.add(7, 'days')
-console.log(d.format('nice-day') + '  -- Monday 11?')
+// let d = spacetime('June 8th').next('month')
+// d.log()
+
+let s = spacetime('January 1, 2019 1:20:05')
+s = s.time('4:20pm')
+s = s.add(1, 'decade')
+console.log(s.format('nice-date'))

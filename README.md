@@ -96,9 +96,6 @@ s.progress().month = 0.23 // We're a quarter way through the month
 s.progress().day = 0.48   // Almost noon
 s.progress().hour = 0.99  // 59 minutes and 59 seconds
 
-s = s.nearest('hour')//round up/down to the hour
-s = s.nearest('quarter-hour')//5:15, 5:30, 5:45..
-
 // Add/subtract methods
 s = s.add(1, 'week')
 s = s.add(3, 'quarters')
@@ -108,6 +105,10 @@ s = s.subtract(2, 'months').add(1,'day')
 s = s.startOf('day') // 12:00am
 s = s.startOf('month') // 12:00am, April 1st
 s = s.endOf('quarter') // 11:59:59pm, June 30th
+
+s = s.nearest('hour')//round up/down to the hour
+s = s.nearest('quarter-hour')//5:15, 5:30, 5:45..
+s = s.next('month') //start-of the next month
 
 //utilities:
 s.clone() // Make a copy
