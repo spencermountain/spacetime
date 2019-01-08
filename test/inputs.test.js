@@ -61,6 +61,22 @@ test('obj-input', t => {
   t.equal(s.date(), 28, 'obj-date');
   t.equal(s.year(), 2020, 'obj-year');
   t.equal(s.monthName(), 'march', 'obj-month');
+
+  //ignore null and undefined values
+  let a = spacetime({
+    month: '12',
+    day: '25',
+    hour: '6',
+    minute: '24',
+    ampm: null
+  })
+  let b = spacetime({
+    month: '12',
+    day: '25',
+    hour: '6',
+    minute: '24'
+  })
+  t.equal(a.format('nice'), b.format('nice'), 'ampm null')
   t.end();
 });
 

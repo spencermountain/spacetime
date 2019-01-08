@@ -5,9 +5,11 @@ const spacetime = require('./src/index')
 // console.log(s.format('nice'))
 
 
-let now = spacetime([2019, 3, 12])
-let c = spacetime('christmas')
-console.log(c.format(''))
-c.year(now.year() - 1)
-let obj = now.since(c).diff
-console.log(obj)
+let s = spacetime({
+  month: '12',
+  day: '25',
+  hour: '6',
+  minute: '24',
+  ampm: null
+})
+console.log(s.format('nice'))
