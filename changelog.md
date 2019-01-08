@@ -17,6 +17,7 @@
 ### 5.2.0
 * `next()` and `last()` methods
 * support for century and decades
+* full-api tests and docs
 
 ### v4.0.0
 * `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`

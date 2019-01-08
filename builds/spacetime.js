@@ -1,4 +1,4 @@
-/* spacetime v5.1.1
+/* spacetime v5.2.0
    github.com/spencermountain/spacetime
    MIT
 */
@@ -6,7 +6,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 "use strict";
 
-module.exports = '5.1.1';
+module.exports = '5.2.0';
 
 },{}],2:[function(_dereq_,module,exports){
 'use strict';
@@ -201,6 +201,8 @@ exports.toCardinal = function (str) {
 
 exports.normalize = function (str) {
   str = str.toLowerCase();
+  str = str.replace(/ies$/, 'y'); //'centuries'
+
   str = str.replace(/s$/, '');
 
   if (str === 'day') {
@@ -884,6 +886,15 @@ var methods = {
 
     return _since(this, d);
   },
+  next: function next(unit) {
+    var s = this.add(1, unit);
+    return s.startOf(unit);
+  },
+  //the start of the previous year/week/century
+  last: function last(unit) {
+    var s = this.subtract(1, unit);
+    return s.startOf(unit);
+  },
   isValid: function isValid() {
     //null/undefined epochs
     if (!this.epoch && this.epoch !== 0) {
@@ -956,7 +967,9 @@ var keep = {
   month: order.slice(0, 4),
   quarter: order.slice(0, 4),
   season: order.slice(0, 4),
-  year: order
+  year: order,
+  decade: order,
+  century: order
 };
 keep.week = keep.date;
 keep.season = keep.date;
@@ -996,6 +1009,11 @@ var rollMonth = function rollMonth(want, old) {
 var addMethods = function addMethods(SpaceTime) {
   SpaceTime.prototype.add = function (num, unit) {
     var s = this.clone();
+
+    if (!unit) {
+      return s; //don't bother
+    }
+
     var old = this.clone();
     unit = fns.normalize(unit); //move forward by the estimated milliseconds (rough)
 
@@ -1039,7 +1057,12 @@ var addMethods = function addMethods(SpaceTime) {
       } //ensure year has changed (leap-years)
       else if (unit === 'year' && s.year() === old.year()) {
           s.epoch += ms.week;
-        } //keep current date, unless the month doesn't have it.
+        } //these are easier
+        else if (unit === 'decade') {
+            want.year = s.year() + 10;
+          } else if (unit === 'century') {
+            want.year = s.year() + 100;
+          } //keep current date, unless the month doesn't have it.
 
 
     if (keepDate[unit]) {
@@ -2355,6 +2378,10 @@ var addMethods = function addMethods(SpaceTime) {
   SpaceTime.prototype.isSame = function (b, unit) {
     var a = this;
 
+    if (!unit) {
+      return null;
+    }
+
     if (typeof b === 'string' || typeof b === 'number') {
       b = new SpaceTime(b, this.timezone.name);
     } //support 'seconds' aswell as 'second'
@@ -2533,7 +2560,6 @@ var ms = _dereq_('../../data/milliseconds'); //basically, step-forward/backward 
 
 
 var walk = function walk(s, n, fn, unit, previous) {
-  // console.log(unit, s.d.getDate())
   var current = s.d[fn]();
 
   if (current === n) {
@@ -2687,7 +2713,7 @@ var walkTo = function walkTo(s, wants) {
     } // console.log(k, n)
 
 
-    units[k].walkTo(s, n); // console.log(s.format('nice-day'), '\n')
+    units[k].walkTo(s, n);
   }
 
   return;
@@ -2985,6 +3011,20 @@ var units = {
       millisecond: 0
     });
     return s;
+  },
+  decade: function decade(s) {
+    s = s.startOf('year');
+    var year = s.year();
+    var decade = parseInt(year / 10, 10) * 10;
+    s = s.year(decade);
+    return s;
+  },
+  century: function century(s) {
+    s = s.startOf('year');
+    var year = s.year();
+    var decade = parseInt(year / 100, 10) * 100;
+    s = s.year(decade);
+    return s;
   }
 };
 units.date = units.day;
@@ -3210,9 +3250,7 @@ var informal = _dereq_('../../zonefile/informal').lookup;
 
 var guessTz = _dereq_('./guessTz');
 
-var local = guessTz(); // console.log(informal)
-// const isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i
-
+var local = guessTz();
 var isOffset = /(\-?[0-9]+)h(rs)?/; //add all the city names by themselves
 
 var cities = Object.keys(tzs).reduce(function (h, k) {
@@ -3454,13 +3492,11 @@ var quickOffset = function quickOffset(s) {
   }
 
   var split = obj.dst.split('->');
-  var inSummer = isSummer(s.epoch, split[0], split[1], jul); // console.log(s.epoch, inSummer)
-  // console.log(new Date(s.epoch), inSummer)
+  var inSummer = isSummer(s.epoch, split[0], split[1], jul);
 
   if (inSummer === true) {
     return jul;
-  } // console.log(jul)
-
+  }
 
   return dec;
 };

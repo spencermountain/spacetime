@@ -50,7 +50,8 @@ d.isAsleep()
     <a href="https://beta.observablehq.com/@spencermountain/spacetime">
       Demo
     </a>
-    • <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
+    &nbsp; &nbsp; • &nbsp; &nbsp; 
+    <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
       Full API
     </a>
   </h3>
