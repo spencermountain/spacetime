@@ -84,6 +84,7 @@
   font-size:15px;
 }
 .control {
+  white-space: nowrap;
   color:grey;
   font-size:15px;
 }
