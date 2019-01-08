@@ -56,7 +56,7 @@ d.isAsleep()
     </a>
   </h3>
   <div>
-    <img width="550" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
+    <img width="550" src="https://user-images.githubusercontent.com/399657/50862221-1d904a00-1369-11e9-891c-5f4e9fbb9ec0.gif" />
   </div>
   <div>
     <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
