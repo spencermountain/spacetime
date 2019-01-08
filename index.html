@@ -77,7 +77,7 @@
 
     <div class="table" style="margin-top:40px; text-align:center;">
 
-      <span class="tr nice control" v-for="c in controls">
+      <span class="tr nice control" v-for="c in controls" style="flex-wrap:wrap;">
         <div style="position:relative; text-align:center;">
           <span class="minus" v-on:click="s.subtract(1, c.title)">﹣</span>
           <span style="display:inline-block; width:40px; min-width:40px; max-width:40px;">{{c.render()}}</span>
@@ -150,7 +150,7 @@
        <div class="nice explain">
         it is currently <span class="epoch">{{epoch}}</span> everywhere (even in Australia).
       </div>
-      <div class="table">
+      <div class="table" style="flex-wrap: nowrap;">
         <span class="tr nice">
           <b>[Fake-Paris]</b><br/>
           time
