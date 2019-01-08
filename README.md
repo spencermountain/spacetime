@@ -12,7 +12,6 @@
   <a href="https://unpkg.com/spacetime/builds/spacetime.min.js">
     <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/builds/spacetime.min.js" />
   </a>
-  <div>figure-out time, all-over the world</div>
   <hr/>
 </div>
 
@@ -20,18 +19,19 @@
 - support **daylight savings**, **leap years**, and **hemispheres**
 - [Moment-like](https://beta.observablehq.com/@spencermountain/spacetime-api) 💘 API (but immutable!)
 - Orient time by quarter, season, month, week..
-- _Zero Dependencies_ - no [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+- _Zero Dependencies_ - (no [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl))
 - **only 50KB**.
 
 ```html
-<script src="https://unpkg.com/spacetime/builds/spacetime.min.js"></script>
+<script src="https://unpkg.com/spacetime"></script>
 <script>
   var d = spacetime('March 1 2012', 'America/New_York')
   //set the time
   d = d.time('4:20pm')
 
   d = d.goto('America/Los_Angeles')
-  d.time()//'1:20pm'
+  d.time()
+  //'1:20pm'
 </script>
 ```
 
@@ -65,7 +65,7 @@ d.isAsleep()
   </div>
 </div>
 
-### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)
+### [Date Inputs:](https://github.com/smallwins/spacetime/wiki/Input)
 ```js
 //epoch
 s = spacetime(1489520157)
@@ -88,7 +88,7 @@ s = spacetime.today() // This morning
 s = spacetime.tomorrow() // Tomorrow morning
 ```
 
-### Get & Set date info
+### Get & Set dates:
 ```js
 s.date() // 14
 s.year() // 2017
@@ -126,7 +126,7 @@ s.isValid() // Sept 32nd → false
 s.isAwake() // it's between 8am → 10pm
 ```
 
-### Comparison between Dates
+### Comparisons:
 
 ```js
 let s = spacetime([2017, 5, 2])
@@ -172,7 +172,7 @@ spacetime('January 1 2017').since('December 31 2016').diff
 // returns {years:0, months:0, days:1}
 ```
 
-### Timezones
+### Timezones:
 ```js
 // Roll into a new timezone, at the same moment
 s = s.goto('Australia/Brisbane')
@@ -206,7 +206,7 @@ s.isDST() // True
 s.timezones
 ```
 
-### [Date Formatting](https://github.com/smallwins/spacetime/wiki/Formatting)
+### [Date Formatting](https://github.com/smallwins/spacetime/wiki/Formatting):
 ```js
 // Date + time formatting
 s.format('time') // '5:01am'
