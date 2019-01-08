@@ -7,7 +7,7 @@ var dayWidth = 600;
 var scale = d3.scale.linear();
 scale.range([0, dayWidth]).domain([0, 1]);
 
-var s = spacetime();
+var s = spacetime.now();
 
 window.day = new Vue({
   el: '#today',
@@ -18,27 +18,9 @@ window.day = new Vue({
     scale: scale,
     time: s.format('time-12h'),
     tzData: [],
-    months: [
-      '#844448',
-      '#95A572',
-      '#B698BC',
-      '#f5f1c5',
-      '#C9AFAF',
-      '#839A9E',
-      '#C7DCE0',
-      '#989ABC',
-      '#DDEDD0',
-      '#BA7171',
-      '#818687',
-      '#7abbc3',
+    months: ['#6accb2', '#705E5C', '#cc8a66', '#cc7066', '#7f9c6c', '#6699cc', '#303b50', '#335799', '#e6d7b3', '#914045', '#C4ABAB', '#838B91',
     ],
     controls: [
-      {
-        title: 'minute',
-        render: function() {
-          return s.hour12() + ':' + s.minute();
-        }
-      },
       {
         title: 'hour',
         render: function() {
@@ -46,9 +28,15 @@ window.day = new Vue({
         }
       },
       {
+        title: 'minute',
+        render: function() {
+          return s.format('minute');
+        }
+      },
+      {
         title: 'day',
         render: function() {
-          return s.format('ordinal');
+          return s.format('date-ordinal');
         }
       },
       {
@@ -82,7 +70,7 @@ window.day = new Vue({
       // but "America/Indiana" is available, so just trim the last section
       // it's a wild guess but works.
       tz = tz.split('/').slice(0, 2).join('/');
-      s.goto(tz);
+      this.s = s.goto(tz);
       this.timezone = tz;
     },
 
