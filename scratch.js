@@ -1,9 +1,21 @@
 const spacetime = require('./src/index')
 
-//from Jan 8th 10:30am EST
-// let s = spacetime('June 30, 2017 20:01:00', 'Australia/Brisbane');
-// console.log(s.format('nice'))
+// let d = spacetime('2019-11-04T00:00:00.000')
+// let s = d
+// for (let i = 0; i < 7; i += 1) {
+//   console.log(s.format('date'))
+//   s = s.add(1, 'day')
+// }
+//
+// d = d.add(1, 'week')
+// console.log('---')
+// for (let i = 0; i < 7; i += 1) {
+//   console.log(d.format('date'))
+//   d = d.add(1, 'day')
+// }
 
 
-console.log(spacetime('2018-02-02T22:00:00').format('time'))
-console.log(spacetime('2018-02-02 22:00:00').format('time'))
+let d = spacetime('2019-11-04T00:00:00.000')
+// console.log(d.format('nice-day'))
+d = d.add(7, 'days')
+console.log(d.format('nice-day') + '  -- Monday 11?')

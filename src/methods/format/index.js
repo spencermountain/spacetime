@@ -107,6 +107,7 @@ const aliases = {
   'dd/mm/yyyy': 'numeric-us',
   'little-endian': 'numeric-uk',
   'big-endian': 'numeric',
+  'day-nice': 'nice-day'
 }
 Object.keys(aliases).forEach((k) => format[k] = format[aliases[k]])
 
