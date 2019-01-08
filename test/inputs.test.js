@@ -126,7 +126,7 @@ test('iso-string-input', t => {
 test('iso format with space', t => {
   let a = spacetime('2018-02-02T22:00:00')
   let b = spacetime('2018-02-02 22:00:00')
-  t.equal(a.epoch, b.epoch, 'support space-iso')
+  t.ok(a.isSame(b, 'minute'), 'support space-iso')
   t.end();
 });
 

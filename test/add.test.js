@@ -58,7 +58,7 @@ test('add', t => {
   t.end();
 });
 
-test('hour-regression', t => {
+test('hour-tricky', t => {
   let s = spacetime('January 1, 2017 13:20:00', 'Canada/Pacific');
   t.equal(s.hour(), 13, 'init.hour()');
   t.equal(s.minute(), 20, 'init.minute()');
@@ -66,6 +66,13 @@ test('hour-regression', t => {
   s = s.add(1, 'hour');
   t.equal(s.hour(), 14, '.hour()');
   t.equal(s.minute(), 20, '.minute()');
+  t.end();
+});
+
+test('day-tricky', t => {
+  let d = spacetime('2019-11-04T00:00:00.000', 'Canada/Eastern')
+  d = d.add(7, 'days')
+  t.equal(d.format('nice-day'), 'Mon Nov 11th', 'add days over dst-change')
   t.end();
 });
 
