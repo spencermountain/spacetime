@@ -54,6 +54,9 @@ const rollMonth = function(want, old) {
 const addMethods = SpaceTime => {
   SpaceTime.prototype.add = function(num, unit) {
     let s = this.clone()
+    if (!unit) {
+      return s //don't bother
+    }
     let old = this.clone()
     unit = fns.normalize(unit);
     //move forward by the estimated milliseconds (rough)

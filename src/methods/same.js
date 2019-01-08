@@ -43,6 +43,9 @@ const addMethods = SpaceTime => {
 
   SpaceTime.prototype.isSame = function(b, unit) {
     let a = this;
+    if (!unit) {
+      return null
+    }
     if (typeof b === 'string' || typeof b === 'number') {
       b = new SpaceTime(b, this.timezone.name);
     }

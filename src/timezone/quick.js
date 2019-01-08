@@ -15,12 +15,9 @@ const quickOffset = function(s) {
   }
   let split = obj.dst.split('->')
   let inSummer = isSummer(s.epoch, split[0], split[1], jul)
-  // console.log(s.epoch, inSummer)
-  // console.log(new Date(s.epoch), inSummer)
   if (inSummer === true) {
     return jul
   }
-  // console.log(jul)
   return dec
 }
 module.exports = quickOffset
