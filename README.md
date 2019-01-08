@@ -17,11 +17,11 @@
 </div>
 
 - calculate time in remote timezones
-- support **daylight savings**, **leap years** (and seconds!), and **hemisphere-logic**
-- [Moment](https://momentjs.com/)-like 💘 API (but immutable)
-- Orient by quarter, season, month, week..
+- support **daylight savings**, **leap years**, and **hemispheres**
+- [Moment-like](https://beta.observablehq.com/@spencermountain/spacetime-api) 💘 API (but immutable!)
+- Orient time by quarter, season, month, week..
 - _Zero Dependencies_ - no [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
-- **weighs just 49KB**.
+- **only 50KB**.
 
 ```html
 <script src="https://unpkg.com/spacetime/builds/spacetime.min.js"></script>
@@ -60,16 +60,19 @@ d.isAsleep()
   </div>
   <div>
     <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
-    • <a href="https://github.com/spencermountain/spacetime-geo">spacetime-daylight</a>
+    • <a href="https://github.com/spencermountain/spacetime-daylight">spacetime-daylight</a>
     • <a href="https://github.com/spencermountain/sometime">spacetime-calendar</a>
   </div>
 </div>
 
 ### [Date Inputs](https://github.com/smallwins/spacetime/wiki/Input)
 ```js
-s = spacetime(1489520157) // Epoch
-s = spacetime([2017, 5, 2]) // yyyy, m, d (zero-based months, 1-based days)
-s = spacetime('July 2, 2017 5:01:00') // ISO
+//epoch
+s = spacetime(1489520157)
+//array [yyyy, m, d] (zero-based months, 1-based days)
+s = spacetime([2017, 5, 2])
+//iso
+s = spacetime('July 2, 2017 5:01:00')
 
 // All inputs accept a timezone, as 2nd param:
 s = spacetime(1489520157, 'Canada/Pacific')
