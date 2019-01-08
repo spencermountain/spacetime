@@ -5,11 +5,5 @@ const spacetime = require('./src/index')
 // console.log(s.format('nice'))
 
 
-let s = spacetime({
-  month: '12',
-  day: '25',
-  hour: '6',
-  minute: '24',
-  ampm: null
-})
-console.log(s.format('nice'))
+console.log(spacetime('2018-02-02T22:00:00').format('time'))
+console.log(spacetime('2018-02-02 22:00:00').format('time'))

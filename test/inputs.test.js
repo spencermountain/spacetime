@@ -123,6 +123,13 @@ test('iso-string-input', t => {
   t.end();
 });
 
+test('iso format with space', t => {
+  let a = spacetime('2018-02-02T22:00:00')
+  let b = spacetime('2018-02-02 22:00:00')
+  t.equal(a.epoch, b.epoch, 'support space-iso')
+  t.end();
+});
+
 test('funny-numeric-forms', t => {
   let a = spacetime('2016/03/13')
 
