@@ -80,8 +80,16 @@ const addMethods = SpaceTime => {
       want = rollMonth(want, old);
     }
     //support 25-hour day-changes on dst-changes
-    else if (unit === 'date' && num !== 0 && old.isSame(s, 'day')) {
-      want.date = old.date() + num;
+    else if (unit === 'date') {
+      //specify a naive date number, if it's easy to do...
+      let sum = old.date() + num
+      if (sum <= 28 && sum > 1) {
+        want.date = sum
+      }
+      //or if we haven't moved at all..
+      else if (num !== 0 && old.isSame(s, 'day')) {
+        want.date = old.date() + num;
+      }
     }
     //ensure year has changed (leap-years)
     else if (unit === 'year' && s.year() === old.year()) {

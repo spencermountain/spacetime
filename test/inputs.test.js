@@ -61,6 +61,22 @@ test('obj-input', t => {
   t.equal(s.date(), 28, 'obj-date');
   t.equal(s.year(), 2020, 'obj-year');
   t.equal(s.monthName(), 'march', 'obj-month');
+
+  //ignore null and undefined values
+  let a = spacetime({
+    month: '12',
+    day: '25',
+    hour: '6',
+    minute: '24',
+    ampm: null
+  })
+  let b = spacetime({
+    month: '12',
+    day: '25',
+    hour: '6',
+    minute: '24'
+  })
+  t.equal(a.format('nice'), b.format('nice'), 'ampm null')
   t.end();
 });
 
@@ -104,6 +120,13 @@ test('iso-string-input', t => {
   t.equal(s.date(), 6, 'iso-string-date');
   t.equal(s.month(), 7, 'iso-string-month');
   t.equal(s.year(), 2017, 'iso-string-year');
+  t.end();
+});
+
+test('iso format with space', t => {
+  let a = spacetime('2018-02-02T22:00:00')
+  let b = spacetime('2018-02-02 22:00:00')
+  t.ok(a.isSame(b, 'minute'), 'support space-iso')
   t.end();
 });
 

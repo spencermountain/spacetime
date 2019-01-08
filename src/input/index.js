@@ -32,10 +32,16 @@ const handleObject = function(s, obj) {
   let keys = Object.keys(obj);
   for (let i = 0; i < keys.length; i++) {
     let unit = keys[i];
-    if (s[unit] !== undefined) {
-      let num = obj[unit] || 0;
-      s = s[unit](num);
+    //make sure we have this method
+    if (s[unit] === undefined || typeof s[unit] !== 'function') {
+      continue
     }
+    //make sure the value is a number
+    if (obj[unit] === null || obj[unit] === undefined || obj[unit] === '') {
+      continue
+    }
+    let num = obj[unit] || 0;
+    s = s[unit](num);
   }
   return s;
 };

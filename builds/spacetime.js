@@ -1,4 +1,4 @@
-/* spacetime v5.1.0
+/* spacetime v5.1.1
    github.com/spencermountain/spacetime
    MIT
 */
@@ -6,7 +6,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 "use strict";
 
-module.exports = '5.1.0';
+module.exports = '5.1.1';
 
 },{}],2:[function(_dereq_,module,exports){
 'use strict';
@@ -359,12 +359,19 @@ var handleObject = function handleObject(s, obj) {
   var keys = Object.keys(obj);
 
   for (var i = 0; i < keys.length; i++) {
-    var unit = keys[i];
+    var unit = keys[i]; //make sure we have this method
 
-    if (s[unit] !== undefined) {
-      var num = obj[unit] || 0;
-      s = s[unit](num);
+    if (s[unit] === undefined || typeof s[unit] !== 'function') {
+      continue;
+    } //make sure the value is a number
+
+
+    if (obj[unit] === null || obj[unit] === undefined || obj[unit] === '') {
+      continue;
     }
+
+    var num = obj[unit] || 0;
+    s = s[unit](num);
   }
 
   return s;
@@ -1019,8 +1026,16 @@ var addMethods = function addMethods(SpaceTime) {
 
       want = rollMonth(want, old);
     } //support 25-hour day-changes on dst-changes
-    else if (unit === 'date' && num !== 0 && old.isSame(s, 'day')) {
-        want.date = old.date() + num;
+    else if (unit === 'date') {
+        //specify a naive date number, if it's easy to do...
+        var sum = old.date() + num;
+
+        if (sum <= 28 && sum > 1) {
+          want.date = sum;
+        } //or if we haven't moved at all..
+        else if (num !== 0 && old.isSame(s, 'day')) {
+            want.date = old.date() + num;
+          }
       } //ensure year has changed (leap-years)
       else if (unit === 'year' && s.year() === old.year()) {
           s.epoch += ms.week;
@@ -1420,7 +1435,8 @@ var aliases = {
   'mm/dd/yyyy': 'numeric-us',
   'dd/mm/yyyy': 'numeric-us',
   'little-endian': 'numeric-uk',
-  'big-endian': 'numeric'
+  'big-endian': 'numeric',
+  'day-nice': 'nice-day'
 };
 Object.keys(aliases).forEach(function (k) {
   return format[k] = format[aliases[k]];
@@ -2528,10 +2544,13 @@ var walk = function walk(s, n, fn, unit, previous) {
   var original = s.epoch; //try to get it as close as we can
 
   var diff = n - current;
-  s.epoch += ms[unit] * diff; //edge case, if we are going many days, be a little conservative
+  s.epoch += ms[unit] * diff; //DST edge-case: if we are going many days, be a little conservative
 
   if (unit === 'day' && Math.abs(diff) > 28) {
-    s.epoch += ms.hour;
+    //but don't push it over a month
+    if (n < 28) {
+      s.epoch += ms.hour;
+    }
   } //repair it if we've gone too far or something
   //(go by half-steps, just in case)
 
@@ -2668,8 +2687,7 @@ var walkTo = function walkTo(s, wants) {
     } // console.log(k, n)
 
 
-    units[k].walkTo(s, n); // console.log(s.monthName())
-    // console.log(s.format())
+    units[k].walkTo(s, n); // console.log(s.format('nice-day'), '\n')
   }
 
   return;

@@ -53,7 +53,9 @@ d.isAsleep()
     <img width="550" src="https://user-images.githubusercontent.com/399657/40795771-0b2d6236-64d1-11e8-987d-31a907f32889.gif" />
   </div>
   <div>
-    <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a> • <a href="https://github.com/spencermountain/spacetime-geo">spacetime-daylight</a>
+    <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
+    • <a href="https://github.com/spencermountain/spacetime-geo">spacetime-daylight</a>
+    • <a href="https://github.com/spencermountain/sometime">spacetime-calendar</a>
   </div>
 </div>
 
@@ -268,6 +270,12 @@ a.format('day') //'Sábado'
 
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
 
+### See also:
+* [Luxon](https://moment.github.io/luxon/) - a small library from the clever moment people
+* [date-fns](https://date-fns.org/) - an battle-hardened client-side Date utility
+* [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) - some pretty weird, but [mostly-supported](https://caniuse.com/#feat=internationalization) in-browser date utilities
+
+Thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
 <div align="center">
   <div>Made with caution + great-patience,</div>
   <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a>, and <a href="https://twitter.com/begin">SmallWins</a></div>
