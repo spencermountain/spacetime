@@ -3,8 +3,6 @@ const tzs = require('../../zonefile/unpack')
 const informal = require('../../zonefile/informal').lookup
 const guessTz = require('./guessTz')
 const local = guessTz()
-// console.log(informal)
-// const isNum = /^(etc\/gmt|etc|gmt|utc|h)([+\-0-9 ]+)$/i
 const isOffset = /(\-?[0-9]+)h(rs)?/
 
 //add all the city names by themselves

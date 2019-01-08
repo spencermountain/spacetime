@@ -57,6 +57,7 @@ exports.toCardinal = function(str) {
 
 exports.normalize = str => {
   str = str.toLowerCase();
+  str = str.replace(/ies$/, 'y') //'centuries'
   str = str.replace(/s$/, '');
   if (str === 'day') {
     return 'date';

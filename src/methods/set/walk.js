@@ -3,7 +3,6 @@ const ms = require('../../data/milliseconds');
 
 //basically, step-forward/backward until js Date object says we're there.
 const walk = function(s, n, fn, unit, previous) {
-  // console.log(unit, s.d.getDate())
   let current = s.d[fn]()
   if (current === n) {
     return //already there
@@ -118,7 +117,6 @@ const walkTo = (s, wants) => {
     }
     // console.log(k, n)
     units[k].walkTo(s, n);
-  // console.log(s.format('nice-day'), '\n')
   }
   return;
 };

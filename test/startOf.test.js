@@ -72,6 +72,16 @@ test('end of day', t => {
   t.end();
 });
 
+test('end of decade', t => {
+  let a = spacetime('Nov 23 1999').endOf('decade')
+  let b = spacetime('Nov 12 1992').endOf('decade')
+  t.equal(a.epoch, b.epoch, 'both same time')
+  t.equal(a.format('month'), 'December', 'December')
+  t.equal(b.date(), 31, 'is new-years')
+  t.equal(b.year(), 1999, 'is y2k')
+  t.end();
+});
+
 test('start-end are idempodent', t => {
   let units = ['day', 'week', 'month', 'quarter', 'season', 'year'];
   units.forEach(unit => {

@@ -120,6 +120,20 @@ const units = {
       millisecond: 0
     });
     return s;
+  },
+  decade: s => {
+    s = s.startOf('year')
+    let year = s.year()
+    let decade = parseInt(year / 10, 10) * 10
+    s = s.year(decade)
+    return s
+  },
+  century: s => {
+    s = s.startOf('year')
+    let year = s.year()
+    let decade = parseInt(year / 100, 10) * 100
+    s = s.year(decade)
+    return s
   }
 };
 units.date = units.day;

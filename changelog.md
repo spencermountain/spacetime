@@ -14,6 +14,10 @@
 * support implicit date in `nov 2019`
 * support `tues March 5th 2018` inputs
 * pretty-dramatic speed optimizations (~50%)
+### 5.2.0
+* `next()` and `last()` methods
+* support for century and decades
+* full-api tests and docs
 
 ### v4.0.0
 * `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`
