@@ -1,4 +1,4 @@
-/* spacetime v5.2.0
+/* spacetime v5.2.1
    github.com/spencermountain/spacetime
    MIT
 */
@@ -6,7 +6,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 "use strict";
 
-module.exports = '5.2.0';
+module.exports = '5.2.1';
 
 },{}],2:[function(_dereq_,module,exports){
 'use strict';
@@ -1043,13 +1043,22 @@ var addMethods = function addMethods(SpaceTime) {
       want.month = old.month() + num; //month is the one unit we 'model' directly
 
       want = rollMonth(want, old);
+    } //support coercing a week, too
+
+
+    if (unit === 'week') {
+      var sum = old.date() + num * 7;
+
+      if (sum <= 28 && sum > 1) {
+        want.date = sum;
+      }
     } //support 25-hour day-changes on dst-changes
     else if (unit === 'date') {
         //specify a naive date number, if it's easy to do...
-        var sum = old.date() + num;
+        var _sum = old.date() + num;
 
-        if (sum <= 28 && sum > 1) {
-          want.date = sum;
+        if (_sum <= 28 && _sum > 1) {
+          want.date = _sum;
         } //or if we haven't moved at all..
         else if (num !== 0 && old.isSame(s, 'day')) {
             want.date = old.date() + num;
