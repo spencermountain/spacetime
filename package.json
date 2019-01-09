@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "description": "figure-out dates across timezones",
   "main": "builds/spacetime.js",
   "unpkg": "builds/spacetime.min.js",
@@ -26,7 +26,7 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.2.2",
-    "@babel/preset-env": "7.2.0",
+    "@babel/preset-env": "7.2.3",
     "amble": "0.0.7",
     "babelify": "10.0.0",
     "browserify": "16.2.3",
@@ -37,7 +37,7 @@
     "tap-dancer": "0.1.2",
     "tap-spec": "5.0.0",
     "tape": "4.9.1",
-    "terser": "3.13.1",
+    "terser": "3.14.1",
     "timekeeper": "2.1.2"
   }
 }

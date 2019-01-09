@@ -76,6 +76,11 @@ test('hour-tricky', t => {
 
 test('day-tricky', t => {
   let d = spacetime('2019-11-04T00:00:00.000', 'Canada/Eastern')
+  d = d.add(1, 'week')
+  t.equal(d.format('nice-day'), 'Mon Nov 11th', 'add week over dst-change')
+
+  //same thing, but days
+  d = spacetime('2019-11-04T00:00:00.000', 'Canada/Eastern')
   d = d.add(7, 'days')
   t.equal(d.format('nice-day'), 'Mon Nov 11th', 'add days over dst-change')
   t.end();

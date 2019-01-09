@@ -84,6 +84,13 @@ const addMethods = SpaceTime => {
       //month is the one unit we 'model' directly
       want = rollMonth(want, old);
     }
+    //support coercing a week, too
+    if (unit === 'week') {
+      let sum = old.date() + (num * 7)
+      if (sum <= 28 && sum > 1) {
+        want.date = sum
+      }
+    }
     //support 25-hour day-changes on dst-changes
     else if (unit === 'date') {
       //specify a naive date number, if it's easy to do...
