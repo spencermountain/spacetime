@@ -31,7 +31,7 @@ function getDiff(a, b) {
   const isBefore = a.isBefore(b);
   const later = isBefore ? b : a;
   let earlier = isBefore ? a : b;
-  earlier = earlier.clone()
+  earlier = earlier.clone();
   const diff = {
     years: 0,
 
@@ -41,24 +41,35 @@ function getDiff(a, b) {
     minutes: 0,
     seconds: 0,
   };
-  Object.keys(diff).forEach((unit) => {
+  Object.keys(diff).forEach(unit => {
     if (earlier.isSame(later, unit)) {
-      return
+      return;
     }
-    let max = earlier.diff(later, unit)
-    earlier = earlier.add(max, unit)
+    let max = earlier.diff(later, unit);
+    
+    // use a temp object to do the 'gone too far' math, then
+    // only adds actual difference to 'earlier' which prevents
+    // situation like 31 Jan adds 1 month to Feb end up with date 28 and
+    // only goes back to day 28 Jan when subtract 1 month after that
+    // 
+    // issue: https://github.com/spencermountain/spacetime/issues/89
+
+    const temp = earlier.clone().add(max, unit);
     //did we go one too far?
-    if (earlier.epoch > later.epoch + 10) { //(fudge this calc by 10 milliseconds)
-      earlier = earlier.subtract(1, unit)
-      max -= 1
+    if (temp.epoch > later.epoch + 10) { //(fudge this calc by 10 milliseconds)
+      max -= 1;
     }
-    diff[unit] = max
-  })
+    // add 0 year can also change epoch
+    if (max !== 0) {
+      earlier = earlier.add(max, unit);
+    }
+    diff[unit] = max;
+  });
   //reverse it
   if (isBefore) {
     Object.keys(diff).forEach(u => {
       if (diff[u] !== 0) {
-        diff[u] *= -1
+        diff[u] *= -1;
       }
     });
   }
@@ -75,7 +86,7 @@ function pluralize(value, unit) {
 
 //create the human-readable diff between the two dates
 const since = function(start, end) {
-  end = fns.beADate(end, start)
+  end = fns.beADate(end, start);
   const diff = getDiff(start, end);
   const isNow = Object.keys(diff).every(u => !diff[u]);
   if (isNow === true) {
@@ -132,6 +143,6 @@ const since = function(start, end) {
     qualified: qualified,
     precise: precise
   };
-}
+};
 
 module.exports = since;
