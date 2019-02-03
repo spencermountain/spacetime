@@ -31,7 +31,7 @@ function getDiff(a, b) {
   const isBefore = a.isBefore(b);
   const later = isBefore ? b : a;
   let earlier = isBefore ? a : b;
-  earlier = earlier.clone();
+  earlier = earlier.clone()
   const diff = {
     years: 0,
 
@@ -41,9 +41,9 @@ function getDiff(a, b) {
     minutes: 0,
     seconds: 0,
   };
-  Object.keys(diff).forEach(unit => {
+  Object.keys(diff).forEach((unit) => {
     if (earlier.isSame(later, unit)) {
-      return;
+      return
     }
     let max = earlier.diff(later, unit);
     
@@ -63,13 +63,13 @@ function getDiff(a, b) {
     if (max !== 0) {
       earlier = earlier.add(max, unit);
     }
-    diff[unit] = max;
-  });
+    diff[unit] = max
+  })
   //reverse it
   if (isBefore) {
     Object.keys(diff).forEach(u => {
       if (diff[u] !== 0) {
-        diff[u] *= -1;
+        diff[u] *= -1
       }
     });
   }
@@ -86,7 +86,7 @@ function pluralize(value, unit) {
 
 //create the human-readable diff between the two dates
 const since = function(start, end) {
-  end = fns.beADate(end, start);
+  end = fns.beADate(end, start)
   const diff = getDiff(start, end);
   const isNow = Object.keys(diff).every(u => !diff[u]);
   if (isNow === true) {
@@ -143,6 +143,6 @@ const since = function(start, end) {
     qualified: qualified,
     precise: precise
   };
-};
+}
 
 module.exports = since;
