@@ -45,12 +45,23 @@ function getDiff(a, b) {
     if (earlier.isSame(later, unit)) {
       return
     }
-    let max = earlier.diff(later, unit)
-    earlier = earlier.add(max, unit)
+    let max = earlier.diff(later, unit);
+    
+    // use a temp object to do the 'gone too far' math, then
+    // only adds actual difference to 'earlier' which prevents
+    // situation like 31 Jan adds 1 month to Feb end up with date 28 and
+    // only goes back to day 28 Jan when subtract 1 month after that
+    // 
+    // issue: https://github.com/spencermountain/spacetime/issues/89
+
+    const temp = earlier.clone().add(max, unit);
     //did we go one too far?
-    if (earlier.epoch > later.epoch + 10) { //(fudge this calc by 10 milliseconds)
-      earlier = earlier.subtract(1, unit)
-      max -= 1
+    if (temp.epoch > later.epoch + 10) { //(fudge this calc by 10 milliseconds)
+      max -= 1;
+    }
+    // add 0 year can also change epoch
+    if (max !== 0) {
+      earlier = earlier.add(max, unit);
     }
     diff[unit] = max
   })
