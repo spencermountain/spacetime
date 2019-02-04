@@ -1,9 +1,7 @@
 const spacetime = require('./src/index')
 
-// let d = spacetime('June 8th').next('month')
-// d.log()
-let d = spacetime('2019-11-04T00:00:00.000')
-
-
-d = d.add(1, 'week')
-console.log(d.format('day-nice'))
+let str = '2019-01-25T20:00:00+01:00'
+let a = spacetime(str)
+setTimeout(() => {
+  console.log(a.isEqual(str))
+})
