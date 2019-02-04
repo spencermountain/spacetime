@@ -41,7 +41,9 @@ const strFmt = [
       let obj = {
         year: arr[1],
         month: month,
-        date: arr[3]
+        date: arr[3],
+        second: 0,
+        millisecond: 0
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -60,7 +62,9 @@ const strFmt = [
       let obj = {
         year: arr[1],
         month: parseInt(arr[2], 10) - 1,
-        date: parseInt(arr[3], 10)
+        date: parseInt(arr[3], 10),
+        second: 0,
+        millisecond: 0
       }
       if (obj.month >= 12) { //support yyyy/dd/mm (weird, but ok)
         obj.date = parseInt(arr[2], 10)
@@ -88,7 +92,9 @@ const strFmt = [
       let obj = {
         year: year,
         month: month,
-        date: date
+        date: date,
+        second: 0,
+        millisecond: 0
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -108,7 +114,9 @@ const strFmt = [
       let obj = {
         year: year,
         month: month,
-        date: fns.toCardinal(arr[2] || '')
+        date: fns.toCardinal(arr[2] || ''),
+        second: 0,
+        millisecond: 0
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -130,7 +138,9 @@ const strFmt = [
       let obj = {
         year: year,
         month: month,
-        date: 1
+        date: 1,
+        second: 0,
+        millisecond: 0
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -152,7 +162,9 @@ const strFmt = [
       let obj = {
         year: year,
         month: month,
-        date: fns.toCardinal(arr[1])
+        date: fns.toCardinal(arr[1]),
+        second: 0,
+        millisecond: 0
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -170,7 +182,9 @@ const strFmt = [
       let obj = {
         year: year,
         month: d.getMonth(),
-        date: d.getDate()
+        date: d.getDate(),
+        second: 0,
+        millisecond: 0
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -193,7 +207,9 @@ const strFmt = [
       let obj = {
         year: year,
         month: d.getMonth(),
-        date: d.getDate()
+        date: d.getDate(),
+        second: 0,
+        millisecond: 0
       }
       if (hasDate(obj) === false) {
         s.epoch = null

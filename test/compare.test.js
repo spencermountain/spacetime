@@ -28,6 +28,20 @@ test('compare', t => {
   t.end();
 });
 
+test('dont leak milliseconds', t => {
+  let inputs = [
+    '2019-01-25T20:00:00+01:00',
+    '2012-01-20',
+    'June 5th, 1992',
+    'June 5th',
+    '2018/02/02'
+  ]
+  inputs.forEach((str) => {
+    t.equal(spacetime(str).isEqual(str), true, str)
+  })
+  t.end()
+})
+
 test('goto is still equal', t => {
   let original = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern');
   let d = original.goto('Canada/Pacific');
