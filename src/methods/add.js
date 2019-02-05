@@ -18,7 +18,7 @@ let keep = {
   decade: order,
   century: order,
 };
-keep.week = keep.date;
+keep.week = keep.hour;
 keep.season = keep.date;
 keep.quarter = keep.date;
 
