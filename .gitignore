@@ -7,3 +7,5 @@ npm-debug.log
 viz/
 coverage/
 coverage.lcov
+.vscode
+.gitignore
