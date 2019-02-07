@@ -22,6 +22,16 @@ keep.week = keep.hour;
 keep.season = keep.date;
 keep.quarter = keep.date;
 
+// Units need to be dst adjuested
+const dstAwareUnits = {
+  year: true,
+  quarter:true,
+  season: true,
+  month: true,
+  week: true,
+  day: true
+};
+
 const keepDate = {
   month: true,
   quarter: true,
@@ -78,6 +88,14 @@ const addMethods = SpaceTime => {
         want[u] = old[u]();
       });
     }
+
+    if (dstAwareUnits[unit]) {
+      const diff = (old.timezone().current.offset - s.timezone().current.offset);
+      s.epoch += diff * 3600 * 1000
+    }
+
+
+
     //ensure month/year has ticked-over
     if (unit === 'month') {
       want.month = old.month() + num;
