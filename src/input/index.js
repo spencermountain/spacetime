@@ -21,7 +21,7 @@ const minimumEpoch = 2500000000
 //support [2016, 03, 01] format
 const handleArray = function(s, arr) {
   let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < order.length; i++) {
     let num = arr[i] || 0;
     s = s[order[i]](num);
   }

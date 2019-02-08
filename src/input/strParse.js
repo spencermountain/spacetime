@@ -6,19 +6,13 @@ const hasDate = require('./hasDate')
 const fns = require('../fns')
 // const zones = require('../../data');
 
-const parseHour = function(s, str) {
+const parseHour = function(s, str = '') {
   str = str.replace(/^\s+/, ''); //trim
-  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/);
-  if (arr) {
-    s = s.hour(arr[1]);
-    s = s.minute(arr[2]);
-    if (arr[3]) {
-      s = s.seconds(arr[3]);
-    }
-    if (arr[4]) {
-      s = s.millisecond(arr[4]);
-    }
-  }
+  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/) || [];
+  s = s.hour(arr[1] || 0);
+  s = s.minute(arr[2] || 0);
+  s = s.seconds(arr[3] || 0);
+  s = s.millisecond(arr[4] || 0);
   return s
 };
 
@@ -41,9 +35,7 @@ const strFmt = [
       let obj = {
         year: arr[1],
         month: month,
-        date: arr[3],
-        second: 0,
-        millisecond: 0
+        date: arr[3]
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -62,9 +54,7 @@ const strFmt = [
       let obj = {
         year: arr[1],
         month: parseInt(arr[2], 10) - 1,
-        date: parseInt(arr[3], 10),
-        second: 0,
-        millisecond: 0
+        date: parseInt(arr[3], 10)
       }
       if (obj.month >= 12) { //support yyyy/dd/mm (weird, but ok)
         obj.date = parseInt(arr[2], 10)
@@ -75,6 +65,7 @@ const strFmt = [
         return s
       }
       walkTo(s, obj);
+      s = parseHour(s);
       return s
     }
   },
@@ -92,15 +83,14 @@ const strFmt = [
       let obj = {
         year: year,
         month: month,
-        date: date,
-        second: 0,
-        millisecond: 0
+        date: date
       }
       if (hasDate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj);
+      s = parseHour(s);
       return s
     }
   },
@@ -114,18 +104,14 @@ const strFmt = [
       let obj = {
         year: year,
         month: month,
-        date: fns.toCardinal(arr[2] || ''),
-        second: 0,
-        millisecond: 0
+        date: fns.toCardinal(arr[2] || '')
       }
       if (hasDate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj);
-      if (arr[4]) {
-        s = parseHour(s, arr[4]);
-      }
+      s = parseHour(s, arr[4]);
       return s
     }
   },
@@ -138,18 +124,14 @@ const strFmt = [
       let obj = {
         year: year,
         month: month,
-        date: 1,
-        second: 0,
-        millisecond: 0
+        date: 1
       }
       if (hasDate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj);
-      if (arr[4]) {
-        s = parseHour(s, arr[4]);
-      }
+      s = parseHour(s, arr[4]);
       return s
     }
   },
@@ -163,14 +145,13 @@ const strFmt = [
         year: year,
         month: month,
         date: fns.toCardinal(arr[1]),
-        second: 0,
-        millisecond: 0
       }
       if (hasDate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj);
+      s = parseHour(s);
       return s
     }
   },
@@ -182,15 +163,14 @@ const strFmt = [
       let obj = {
         year: year,
         month: d.getMonth(),
-        date: d.getDate(),
-        second: 0,
-        millisecond: 0
+        date: d.getDate()
       }
       if (hasDate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj);
+      s = parseHour(s);
       return s
     }
   },
@@ -207,15 +187,14 @@ const strFmt = [
       let obj = {
         year: year,
         month: d.getMonth(),
-        date: d.getDate(),
-        second: 0,
-        millisecond: 0
+        date: d.getDate()
       }
       if (hasDate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj);
+      s = parseHour(s);
       return s
     }
   }
