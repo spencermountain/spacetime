@@ -39,6 +39,10 @@ test('unix-formatting', t => {
     [`EEE, MMM d, ''yy`, 'Thu, Nov 16, \'17'],
     [`hh 'o''clock' a`, '11 oclock AM'],
     ['yyyyy.MMMM.dd GGG hh:mm aaa', '02017.November.16 AD 11:34 AM'],
+    ['yyyy-MM-ddTHH:mm:ssZ', '2017-11-16T11:34:25-0500'],
+    ['yyyy-MM-ddTHH:mm:ssZZ', '2017-11-16T11:34:25-0500'],
+    ['yyyy-MM-ddTHH:mm:ssZZZ', '2017-11-16T11:34:25-0500'],
+    ['yyyy-MM-ddTHH:mm:ssZZZZ', '2017-11-16T11:34:25-05:00'],
   ]
   arr.forEach((a) => {
     t.equal(s.unixFmt(a[0]), a[1], a[0])

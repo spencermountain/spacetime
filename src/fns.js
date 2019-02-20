@@ -87,3 +87,10 @@ exports.beADate = function(d, s) {
   }
   return d
 }
+
+exports.formatTimezone = function(offset, delimiter){
+  delimiter = delimiter || ''
+  const absOffset = Math.abs(offset)
+  const sign = offset > 0 ? '+' : '-'
+  return `${sign}${exports.zeroPad(absOffset)}${delimiter}00`
+}
