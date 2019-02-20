@@ -1,5 +1,6 @@
 'use strict'
 const pad = require('../../fns').zeroPad
+const formatTimezone = require('../../fns').formatTimezone
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
@@ -84,10 +85,10 @@ const mapping = {
   zz: (s) => s.timezone().name,
   zzz: (s) => s.timezone().name,
   zzzz: (s) => s.timezone().name,
-  Z: (s) => s.timezone().current.offset + '00',
-  ZZ: (s) => s.timezone().current.offset + '00',
-  ZZZ: (s) => s.timezone().current.offset + '00',
-  ZZZZ: (s) => s.timezone().current.offset + ':00',
+  Z: (s) => formatTimezone(s.timezone().current.offset),
+  ZZ: (s) => formatTimezone(s.timezone().current.offset),
+  ZZZ: (s) => formatTimezone(s.timezone().current.offset),
+  ZZZZ: (s) => formatTimezone(s.timezone().current.offset, ':'),
 
 }
 
