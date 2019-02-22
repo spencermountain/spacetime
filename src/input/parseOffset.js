@@ -8,15 +8,31 @@ const parseOffset = function(s, offset) {
   if (offset === 'Z') {
     offset = '+0000'
   }
-  //support "+01:00"
-  if (/:00/.test(offset) === true) {
-    offset = offset.replace(/:00/, '')
+
+  // according to ISO8601, tz could be hh:mm, hhmm or hh
+  // so need few more steps before the calculation.
+
+  let num = 0;
+
+  // for (+-)hh:mm
+  if (/^[\+-]?[0-9]{2}:[0-9]{2}$/.test(offset)) {
+      //support "+01:00"
+    if (/:00/.test(offset) === true) {
+      offset = offset.replace(/:00/, '')
+    }
+    //support "+01:30"
+    if (/:30/.test(offset) === true) {
+      offset = offset.replace(/:30/, '.5')
+    }
   }
-  //support "+01:30"
-  if (/:00/.test(offset) === true) {
-    offset = offset.replace(/:00/, '.5')
+
+  // for (+-)hhmm
+  if (/^[\+-]?[0-9]{4}$/.test(offset)) {
+    offset = offset.replace(/30$/, '.5');
   }
-  let num = parseInt(offset, 10)
+
+  num = parseFloat(offset)
+
   //divide by 100 or 10 - , "+0100", "+01"
   if (Math.abs(num) > 100) {
     num = num / 100
