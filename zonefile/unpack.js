@@ -22,7 +22,7 @@ Object.keys(data).forEach((k) => {
 })
 
 //add etc/gmt+n
-for (let i = -12; i < 13; i += 1) {
+for (let i = -12; i < 13; i += 0.5) {
   let num = i
   if (num > 0) {
     num = '+' + num
