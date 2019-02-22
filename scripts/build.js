@@ -36,6 +36,6 @@ cmd += ' >> ' + compressed;
 exec(cmd);
 
 //log the size of our builds
-stats = fs.statSync(compressed);
-fileSize = (stats['size'] / 1000.0).toFixed(2);
+var stats = fs.statSync(compressed);
+var fileSize = (stats['size'] / 1000.0).toFixed(2);
 console.log('\n\n min: ' + fileSize + 'kb');
