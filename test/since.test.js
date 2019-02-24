@@ -162,7 +162,7 @@ test('supports soft inputs', t => {
 
 
 test('from + fromNow aliases', t => {
-  let obj = spacetime('April 12th 2008', 'Canada/Eastern').from('March 12 2018')
+  let obj = spacetime('April 12th 2008', 'Canada/Pacific').from('March 12 2018')
   t.equal(obj.qualified, 'almost 10 years ago', 'qualified')
   t.equal(obj.precise, '9 years, 11 months ago', 'precise')
   t.end();
@@ -172,7 +172,14 @@ test('since calculation involves month addition and subtraction', t => {
   let prev = spacetime('2019-01-31T23:00:50.0Z');
   let now = spacetime('2019-02-01T10:00:00.0Z');
   t.deepEqual(now.since(prev), {
-    diff: { years: 0, months: 0, days: 0, hours: 10, minutes: 59, seconds: 10 },
+    diff: {
+      years: 0,
+      months: 0,
+      days: 0,
+      hours: 10,
+      minutes: 59,
+      seconds: 10
+    },
     rounded: '11 hours ago',
     qualified: 'almost 11 hours ago',
     precise: '10 hours, 59 minutes ago'
@@ -182,7 +189,14 @@ test('since calculation involves month addition and subtraction', t => {
   now = spacetime('2019-09-01T11:00:00.0Z');
 
   t.deepEqual(now.since(prev), {
-    diff: { years: 0, months: 0, days: 0, hours: 23, minutes: 0, seconds: 0 },
+    diff: {
+      years: 0,
+      months: 0,
+      days: 0,
+      hours: 23,
+      minutes: 0,
+      seconds: 0
+    },
     rounded: '23 hours ago',
     qualified: '23 hours ago',
     precise: '23 hours ago'

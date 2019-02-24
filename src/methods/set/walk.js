@@ -31,7 +31,7 @@ const walk = function(s, n, fn, unit, previous) {
   }
   //oops, did we change previous unit? revert it.
   if (previous !== null && startUnit !== s.d[previous]()) {
-    console.warn('spacetime warning: missed setting ' + unit)
+    // console.warn('spacetime warning: missed setting ' + unit)
     s.epoch = original
   }
 }
