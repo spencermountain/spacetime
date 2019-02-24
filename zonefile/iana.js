@@ -1266,6 +1266,10 @@ module.exports = {
     offset: 9,
     hem: "n"
   },
+  "asia/tomsk": {
+    offset: 7,
+    hem: "n"
+  },
   "asia/ujung_pandang": {
     offset: 8,
     hem: "n"
@@ -1820,7 +1824,11 @@ module.exports = {
     dst: "03/25:03->10/28:04"
   },
   "europe/volgograd": {
-    offset: 3,
+    offset: 4,
+    hem: "n"
+  },
+  "asia/volgograd": {
+    offset: 4,
     hem: "n"
   },
   "europe/warsaw": {
