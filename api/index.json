@@ -136,10 +136,6 @@
       "doc": "change to a new date. ",
       "out": "clone"
     },
-    "d": {
-      "doc": "return a javascript date object for this time",
-      "out": "clone"
-    },
     "isValid": {
       "doc": "does this time exist on the gregorian/javascript calendar?",
       "out": "clone"
