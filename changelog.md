@@ -18,6 +18,10 @@
 * `next()` and `last()` methods
 * support for century and decades
 * full-api tests and docs
+### 5.3.0
+* added more iana timezones
+* fixed zero-padding in iso offsets
+* support half hour offsets in iso formats
 
 ### v4.0.0
 * `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`
