@@ -41,8 +41,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      parseOffset(s, arr[5], givenTz, options);
+      // Should walk to target date before parseOffset,
+      // otherwise it jsut parsing with current epoch.
       walkTo(s, obj);
+      parseOffset(s, arr[5], givenTz, options);
       s = parseHour(s, arr[4]);
       return s
     }
