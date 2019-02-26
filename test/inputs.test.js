@@ -182,6 +182,53 @@ test('invalid inputs', t => {
 });
 
 
+test('time-inputs', t => {
+  let s = spacetime('July 27 2018')
+  t.equal(s.format('nice'), 'Jul 27th, 12:00am', 'no-time')
+
+  //time-easier
+  s = spacetime('Tuesday August 1st, 3:30am')
+  t.equal(s.format('nice'), 'Aug 1st, 3:30am', '3:30am')
+
+  s = spacetime('Tuesday August 1st, 3:30pm')
+  t.equal(s.format('nice'), 'Aug 1st, 3:30pm', '3:30pm')
+
+  s = spacetime('Tuesday August 1st, 2pm')
+  t.equal(s.format('nice'), 'Aug 1st, 2:00pm', '2pm')
+
+  s = spacetime('Tuesday August 1st, 9am')
+  t.equal(s.format('nice'), 'Aug 1st, 9:00am', '9am')
+
+  //time-weirder
+  s = spacetime('Tuesday August 1st, 12:00am')
+  t.equal(s.format('nice'), 'Aug 1st, 12:00am', '12:00am')
+
+  s = spacetime('August 1, 2017 00:01:05')
+  t.equal(s.format('nice'), 'Aug 1st, 12:01am', '12:01am')
+
+  //invalid minutes
+  s = spacetime('June 5 2019, 5:5')
+  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-minute1')
+
+  s = spacetime('June 5 2019, 5:90')
+  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-minute2')
+
+  s = spacetime('June 5 2019, 5:82pm')
+  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-minute2')
+
+  //invalid hours
+  s = spacetime('June 5 2019, 13pm')
+  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-hour1')
+
+  s = spacetime('June 5 2019, 28am')
+  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-hour2')
+
+  s = spacetime('June 5 2019, 200am')
+  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-hour3')
+
+  t.end();
+});
+
 test('inplicit-years', t => {
   var year = new Date().getFullYear()
   t.equal(spacetime('sunday April 3rd').format('numeric'), spacetime('April 3rd ' + year).format('numeric'))

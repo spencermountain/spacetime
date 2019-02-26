@@ -33,9 +33,15 @@ const parseTime = function(s, str = '') {
   //try an informal form - 5pm (no minutes)
   arr = str.match(/([0-9]+) ?(am|pm)/)
   if (arr !== null && arr[1]) {
+    let h = Number(arr[1])
+    //validate it a little..
+    if (h > 12 || h < 1) {
+      return s.startOf('day')
+    }
     s = s.hour(arr[1] || 0);
     s = s.ampm(arr[2])
     s = s.startOf('hour')
+    return s
   }
   //no time info found, use start-of-day
   s = s.startOf('day')
