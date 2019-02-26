@@ -5,14 +5,40 @@ const parseOffset = require('./parseOffset')
 const hasDate = require('./hasDate')
 const fns = require('../fns')
 // const zones = require('../../data');
-
-const parseHour = function(s, str = '') {
-  str = str.replace(/^\s+/, ''); //trim
-  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/) || [];
-  s = s.hour(arr[1] || 0);
-  s = s.minute(arr[2] || 0);
-  s = s.seconds(arr[3] || 0);
-  s = s.millisecond(arr[4] || 0);
+const parseTime = function(s, str = '') {
+  str = str.replace(/^\s+/, '').toLowerCase(); //trim
+  //formal time formats - 04:30.23
+  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/)
+  if (arr !== null) {
+    //validate it a little
+    let h = Number(arr[1])
+    if (h < 0 || h > 24) {
+      return s.startOf('day')
+    }
+    let m = Number(arr[2]) //don't accept '5:3pm'
+    if (arr[2].length < 2 || m < 0 || m > 59) {
+      return s.startOf('day')
+    }
+    s = s.hour(h);
+    s = s.minute(m);
+    s = s.seconds(arr[3] || 0);
+    s = s.millisecond(arr[4] || 0);
+    //parse-out am/pm
+    let ampm = str.match(/[\b0-9](am|pm)\b/)
+    if (ampm !== null && ampm[1]) {
+      s = s.ampm(ampm[1])
+    }
+    return s
+  }
+  //try an informal form - 5pm (no minutes)
+  arr = str.match(/([0-9]+) ?(am|pm)/)
+  if (arr !== null && arr[1]) {
+    s = s.hour(arr[1] || 0);
+    s = s.ampm(arr[2])
+    s = s.startOf('hour')
+  }
+  //no time info found, use start-of-day
+  s = s.startOf('day')
   return s
 };
 
@@ -43,7 +69,7 @@ const strFmt = [
       }
       parseOffset(s, arr[5], givenTz, options);
       walkTo(s, obj);
-      s = parseHour(s, arr[4]);
+      s = parseTime(s, arr[4]);
       return s
     }
   },
@@ -65,7 +91,7 @@ const strFmt = [
         return s
       }
       walkTo(s, obj);
-      s = parseHour(s);
+      s = parseTime(s);
       return s
     }
   },
@@ -90,14 +116,14 @@ const strFmt = [
         return s
       }
       walkTo(s, obj);
-      s = parseHour(s);
+      s = parseTime(s);
       return s
     }
   },
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {
-    reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+))?$/i,
+    reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm)?))?$/i,
     parse: (s, arr) => {
       let month = months[arr[1].toLowerCase()];
       let year = parseYear(arr[3])
@@ -111,7 +137,7 @@ const strFmt = [
         return s
       }
       walkTo(s, obj);
-      s = parseHour(s, arr[4]);
+      s = parseTime(s, arr[4]);
       return s
     }
   },
@@ -131,7 +157,7 @@ const strFmt = [
         return s
       }
       walkTo(s, obj);
-      s = parseHour(s, arr[4]);
+      s = parseTime(s, arr[4]);
       return s
     }
   },
@@ -151,7 +177,7 @@ const strFmt = [
         return s
       }
       walkTo(s, obj);
-      s = parseHour(s);
+      s = parseTime(s);
       return s
     }
   },
@@ -170,7 +196,7 @@ const strFmt = [
         return s
       }
       walkTo(s, obj);
-      s = parseHour(s);
+      s = parseTime(s);
       return s
     }
   },
@@ -194,7 +220,7 @@ const strFmt = [
         return s
       }
       walkTo(s, obj);
-      s = parseHour(s);
+      s = parseTime(s);
       return s
     }
   }
