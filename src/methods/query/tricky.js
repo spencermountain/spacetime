@@ -39,17 +39,21 @@ module.exports = {
     if (hour >= 12) {
       which = 'pm';
     }
-    if (input === undefined) {
+    if (typeof input !== 'string') {
       return which;
     }
+    //okay, we're doing a setter
     let s = this.clone()
-    if (input === which) {
-      return s;
+    input = input.toLowerCase().trim()
+    //ampm should never change the day
+    // - so use `.hour(n)` instead of `.minus(12,'hour')`
+    if (hour >= 12 && input === 'am') { //noon is 12pm
+      hour -= 12
+      return s.hour(hour)
     }
-    if (s === 'am') {
-      s = s.subtract(12, 'hours');
-    } else {
-      s = s.add(12, 'hours');
+    if (hour < 12 && input === 'pm') {
+      hour += 12
+      return s.hour(hour)
     }
     return s;
   },

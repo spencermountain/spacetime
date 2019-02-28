@@ -22,6 +22,9 @@
 * added more iana timezones
 * fixed zero-padding in iso offsets
 * support half hour offsets in iso formats
+### 5.4.0
+* support more time input formats
+* fixes offset input issue [#103](https://github.com/spencermountain/spacetime/issues/103)
 
 ### v4.0.0
 * `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`
