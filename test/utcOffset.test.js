@@ -32,3 +32,9 @@ test('set-offset-from-ISO-8601', t => {
 
   t.end();
 });
+
+test('offset-should-be-consistant', t => {
+  let s = spacetime("2019-03-13T18:00:00.000-05:00");
+  t.equal(s.format("iso").slice(-6), '-05:00');
+  t.end();
+})
