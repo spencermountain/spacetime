@@ -1,4 +1,4 @@
-/* spacetime v5.3.0
+/* spacetime v5.4.0
    github.com/spencermountain/spacetime
    MIT
 */
@@ -6,7 +6,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 "use strict";
 
-module.exports = '5.3.0';
+module.exports = '5.4.0';
 
 },{}],2:[function(_dereq_,module,exports){
 'use strict';
@@ -436,8 +436,9 @@ var parseInput = function parseInput(s, input, givenTz) {
   } //little cleanup..
 
 
-  input = input.replace(/\b(mon|tues|wed|wednes|thu|thurs|fri|sat|satur|sun)(day)?\b/, '');
-  input = input.trim().replace(/ +/g, ' '); //try some known-words, like 'now'
+  input = input.replace(/\b(mon|tues|wed|wednes|thu|thurs|fri|sat|satur|sun)(day)?\b/i, '');
+  input = input.replace(/,/g, '');
+  input = input.replace(/ +/g, ' ').trim(); //try some known-words, like 'now'
 
   if (namedDates.hasOwnProperty(input) === true) {
     s = namedDates[input](s);
@@ -602,15 +603,60 @@ var hasDate = _dereq_('./hasDate');
 var fns = _dereq_('../fns'); // const zones = require('../../data');
 
 
-var parseHour = function parseHour(s) {
+var parseTime = function parseTime(s) {
   var str = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  str = str.replace(/^\s+/, ''); //trim
+  str = str.replace(/^\s+/, '').toLowerCase(); //trim
+  //formal time formats - 04:30.23
 
-  var arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/) || [];
-  s = s.hour(arr[1] || 0);
-  s = s.minute(arr[2] || 0);
-  s = s.seconds(arr[3] || 0);
-  s = s.millisecond(arr[4] || 0);
+  var arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/);
+
+  if (arr !== null) {
+    //validate it a little
+    var h = Number(arr[1]);
+
+    if (h < 0 || h > 24) {
+      return s.startOf('day');
+    }
+
+    var m = Number(arr[2]); //don't accept '5:3pm'
+
+    if (arr[2].length < 2 || m < 0 || m > 59) {
+      return s.startOf('day');
+    }
+
+    s = s.hour(h);
+    s = s.minute(m);
+    s = s.seconds(arr[3] || 0);
+    s = s.millisecond(arr[4] || 0); //parse-out am/pm
+
+    var ampm = str.match(/[\b0-9](am|pm)\b/);
+
+    if (ampm !== null && ampm[1]) {
+      s = s.ampm(ampm[1]);
+    }
+
+    return s;
+  } //try an informal form - 5pm (no minutes)
+
+
+  arr = str.match(/([0-9]+) ?(am|pm)/);
+
+  if (arr !== null && arr[1]) {
+    var _h = Number(arr[1]); //validate it a little..
+
+
+    if (_h > 12 || _h < 1) {
+      return s.startOf('day');
+    }
+
+    s = s.hour(arr[1] || 0);
+    s = s.ampm(arr[2]);
+    s = s.startOf('hour');
+    return s;
+  } //no time info found, use start-of-day
+
+
+  s = s.startOf('day');
   return s;
 };
 
@@ -638,11 +684,13 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     if (hasDate(obj) === false) {
       s.epoch = null;
       return s;
-    }
+    } // Should walk to target date before parseOffset,
+    // otherwise it jsut parsing with current epoch.
 
-    parseOffset(s, arr[5], givenTz, options);
+
     walkTo(s, obj);
-    s = parseHour(s, arr[4]);
+    parseOffset(s, arr[5], givenTz, options);
+    s = parseTime(s, arr[4]);
     return s;
   }
 }, //iso "2015-03-25" or "2015/03/25" //0-based-months!
@@ -667,7 +715,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     }
 
     walkTo(s, obj);
-    s = parseHour(s);
+    s = parseTime(s);
     return s;
   }
 }, //short - uk "03/25/2015"  //0-based-months!
@@ -696,13 +744,13 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     }
 
     walkTo(s, obj);
-    s = parseHour(s);
+    s = parseTime(s);
     return s;
   }
 }, //Long "Mar 25 2015"
 //February 22, 2017 15:30:00
 {
-  reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+))?$/i,
+  reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm)?))?$/i,
   parse: function parse(s, arr) {
     var month = months[arr[1].toLowerCase()];
     var year = parseYear(arr[3]);
@@ -718,7 +766,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     }
 
     walkTo(s, obj);
-    s = parseHour(s, arr[4]);
+    s = parseTime(s, arr[4]);
     return s;
   }
 }, //February 2017 (implied date)
@@ -739,7 +787,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     }
 
     walkTo(s, obj);
-    s = parseHour(s, arr[4]);
+    s = parseTime(s, arr[4]);
     return s;
   }
 }, //Long "25 Mar 2015"
@@ -760,7 +808,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     }
 
     walkTo(s, obj);
-    s = parseHour(s);
+    s = parseTime(s);
     return s;
   }
 }, {
@@ -781,7 +829,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     }
 
     walkTo(s, obj);
-    s = parseHour(s);
+    s = parseTime(s);
     return s;
   }
 }, {
@@ -807,7 +855,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     }
 
     walkTo(s, obj);
-    s = parseHour(s);
+    s = parseTime(s);
     return s;
   }
 }];
@@ -2332,20 +2380,24 @@ module.exports = {
       which = 'pm';
     }
 
-    if (input === undefined) {
+    if (typeof input !== 'string') {
       return which;
-    }
+    } //okay, we're doing a setter
+
 
     var s = this.clone();
+    input = input.toLowerCase().trim(); //ampm should never change the day
+    // - so use `.hour(n)` instead of `.minus(12,'hour')`
 
-    if (input === which) {
-      return s;
+    if (hour >= 12 && input === 'am') {
+      //noon is 12pm
+      hour -= 12;
+      return s.hour(hour);
     }
 
-    if (s === 'am') {
-      s = s.subtract(12, 'hours');
-    } else {
-      s = s.add(12, 'hours');
+    if (hour < 12 && input === 'pm') {
+      hour += 12;
+      return s.hour(hour);
     }
 
     return s;
