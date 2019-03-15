@@ -14,7 +14,7 @@ const safeIntl = function() {
     return null;
   }
   let timezone = format.resolvedOptions().timeZone;
-  if (!timezone || (timezone.indexOf('/') === -1 && timezone === 'UTC')) {
+  if (!timezone || (!timezone.includes('/') && timezone === 'UTC')) {
     return null
   }
   return timezone;
