@@ -11,7 +11,7 @@ var timezones = [
   'America/New_York',
 ];
 
-test('ST → ST', function(t) {
+test('ST → ST', t => {
   timezones.forEach(tz => {
     //start in ST - december 5th 2010 5:00am
     let d1 = spacetime([2010, 11, 5, 5, 0], tz);
@@ -29,7 +29,7 @@ test('ST → ST', function(t) {
   t.end();
 });
 
-test('ST → DST', function(t) {
+test('ST → DST', t => {
   timezones.forEach(tz => {
     //start in ST - december 5th 2010 10:20am
     let d1 = spacetime([2010, 11, 5, 10, 0], tz);
@@ -47,7 +47,7 @@ test('ST → DST', function(t) {
   t.end();
 });
 
-test('DST → DST', function(t) {
+test('DST → DST', t => {
   timezones.forEach(tz => {
     //start in DST - june 5th 2010 3:00pm
     let d1 = spacetime([2010, 5, 5, 15, 0], tz);
@@ -65,7 +65,7 @@ test('DST → DST', function(t) {
   t.end();
 });
 
-test('DST → ST', function(t) {
+test('DST → ST', t => {
   timezones.forEach(tz => {
     //start in DST - june 5th 2010 8:00pm
     let d1 = spacetime([2010, 5, 5, 20, 0], tz);
