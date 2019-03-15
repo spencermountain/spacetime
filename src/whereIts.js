@@ -16,7 +16,7 @@ const whereIts = function(a, b) {
   let startHour = start.hour();
   let endHour = end.hour();
   let tzs = Object.keys(start.timezones).filter(tz => {
-    if (tz.indexOf('/') === -1) {
+    if (!tz.includes('/')) {
       return false
     }
     let m = new Spacetime(null, tz);
