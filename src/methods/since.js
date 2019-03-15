@@ -91,7 +91,7 @@ const since = function(start, end) {
   const isNow = Object.keys(diff).every(u => !diff[u]);
   if (isNow === true) {
     return {
-      diff: diff,
+      diff,
       rounded: 'now',
       qualified: 'now',
       precise: 'now'
@@ -138,10 +138,10 @@ const since = function(start, end) {
     precise = 'in ' + precise;
   }
   return {
-    diff: diff,
-    rounded: rounded,
-    qualified: qualified,
-    precise: precise
+    diff,
+    rounded,
+    qualified,
+    precise
   };
 }
 
