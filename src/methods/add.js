@@ -40,7 +40,7 @@ const keepDate = {
 };
 //month is the only thing we 'model/compute'
 //- because ms-shifting can be off by enough
-const rollMonth = function(want, old) {
+const rollMonth = (want, old) => {
   //increment year
   if (want.month > 0) {
     let years = parseInt(want.month / 12, 10);
