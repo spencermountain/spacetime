@@ -26,7 +26,7 @@ const months = {
   'nov': 11,
   'dec': 12,
 }
-const zeroPad = function(str, len = 2) {
+const zeroPad = (str, len = 2) => {
   let pad = '0';
   str = str + '';
   return str.length >= len
@@ -92,7 +92,7 @@ const parseTz = (tz) => {
   }
 }
 
-const doAll = function() {
+const doAll = () => {
   let changes = 0
   let keys = Object.keys(data)
   keys.forEach((k) => {
