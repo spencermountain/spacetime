@@ -1,23 +1,15 @@
 'use strict';
 
 //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
-exports.isLeapYear = function(year) {
-  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
-}
+exports.isLeapYear = year => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 // unsurprisingly-nasty `typeof date` call
-exports.isDate = function(d) {
-  return (
+exports.isDate = d => (
     Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
   );
-};
-exports.isArray = function(input) {
-  return Object.prototype.toString.call(input) === '[object Array]';
-};
-exports.isObject = function(input) {
-  return Object.prototype.toString.call(input) === '[object Object]';
-};
+exports.isArray = input => Object.prototype.toString.call(input) === '[object Array]';
+exports.isObject = input => Object.prototype.toString.call(input) === '[object Object]';
 
-exports.zeroPad = function(str, len = 2) {
+exports.zeroPad = (str, len = 2) => {
   let pad = '0';
   str = str + '';
   return str.length >= len
@@ -25,14 +17,14 @@ exports.zeroPad = function(str, len = 2) {
     : new Array(len - str.length + 1).join(pad) + str;
 };
 
-exports.titleCase = function(str) {
+exports.titleCase = str => {
   if (!str) {
     return '';
   }
   return str[0].toUpperCase() + str.substr(1)
 };
 
-exports.ordinal = function(i) {
+exports.ordinal = i => {
   let j = i % 10;
   let k = i % 100;
   if (j === 1 && k !== 11) {
@@ -48,7 +40,7 @@ exports.ordinal = function(i) {
 };
 
 //strip 'st' off '1st'..
-exports.toCardinal = function(str) {
+exports.toCardinal = str => {
   str = String(str)
   str = str.replace(/([0-9])(st|nd|rd|th)$/i, '$1')
   return parseInt(str, 10)
@@ -64,7 +56,7 @@ exports.normalize = str => {
   return str;
 };
 
-exports.getEpoch = function(tmp) {
+exports.getEpoch = tmp => {
   //support epoch
   if (typeof tmp === 'number') {
     return tmp;
@@ -80,14 +72,14 @@ exports.getEpoch = function(tmp) {
 };
 
 //make sure this input is a spacetime obj
-exports.beADate = function(d, s) {
+exports.beADate = (d, s) => {
   if (exports.isObject(d) === false) {
     return s.clone().set(d)
   }
   return d
 }
 
-exports.formatTimezone = function(offset, delimiter = ''){
+exports.formatTimezone = (offset, delimiter = '') => {
   const absOffset = Math.abs(offset)
   const sign = offset > 0 ? '+' : '-'
   return `${sign}${exports.zeroPad(absOffset)}${delimiter}00`
