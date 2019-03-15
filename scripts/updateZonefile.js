@@ -26,8 +26,7 @@ const months = {
   'nov': 11,
   'dec': 12,
 }
-const zeroPad = function(str, len) {
-  len = len || 2;
+const zeroPad = function(str, len = 2) {
   let pad = '0';
   str = str + '';
   return str.length >= len
