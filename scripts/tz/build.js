@@ -12,7 +12,7 @@ config.silent = true;
 //change this to generate a new one
 const year = 2018;
 
-const parseLine = function(str) {
+const parseLine = str => {
   let meta = {};
   str = str.replace(/^[a-z\/_]*? /i, '');
   if (str.match(/isdst=0/)) {
@@ -45,7 +45,7 @@ const parseLine = function(str) {
   return meta;
 };
 
-const fetchZone = function(tz) {
+const fetchZone = tz => {
   let zone = {
     tz,
     o: iana[tz],
@@ -83,7 +83,7 @@ const fetchZone = function(tz) {
   return obj;
 };
 
-const prefixCompress = function(obj) {
+const prefixCompress = obj => {
   let result = {};
   let keys = Object.keys(obj);
   keys.forEach(k => {
