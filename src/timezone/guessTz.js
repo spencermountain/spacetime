@@ -5,7 +5,7 @@
 const fallbackTZ = 'asia/shanghai'; //
 
 //this Intl object is not supported often, yet
-const safeIntl = function() {
+const safeIntl = () => {
   if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
     return null;
   }
