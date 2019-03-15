@@ -48,8 +48,7 @@ const parseTime = function(s, str = '') {
   return s
 };
 
-const parseYear = function(str) {
-  str = str || ''
+const parseYear = function(str = '') {
   //support '18 -> 2018
   // str = str.replace(/^'([0-9]{2})/, '20$1')
   // str = str.replace('([0-9]+) ?b\.?c\.?$', '-$1')
