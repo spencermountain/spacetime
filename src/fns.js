@@ -17,8 +17,7 @@ exports.isObject = function(input) {
   return Object.prototype.toString.call(input) === '[object Object]';
 };
 
-exports.zeroPad = function(str, len) {
-  len = len || 2;
+exports.zeroPad = function(str, len = 2) {
   let pad = '0';
   str = str + '';
   return str.length >= len
@@ -88,8 +87,7 @@ exports.beADate = function(d, s) {
   return d
 }
 
-exports.formatTimezone = function(offset, delimiter){
-  delimiter = delimiter || ''
+exports.formatTimezone = function(offset, delimiter = ''){
   const absOffset = Math.abs(offset)
   const sign = offset > 0 ? '+' : '-'
   return `${sign}${exports.zeroPad(absOffset)}${delimiter}00`
