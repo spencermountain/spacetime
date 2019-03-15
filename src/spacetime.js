@@ -31,10 +31,8 @@ const SpaceTime = function(input, tz, options = {}) {
   })
   //add this data on the object, to allow adding new timezones
   Object.defineProperty(this, 'timezones', {
-    get: function() {
-      return timezones
-    },
-    set: function(obj) {
+    get: () => timezones,
+    set: obj => {
       timezones = obj
       return obj
     }
