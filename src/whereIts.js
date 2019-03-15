@@ -2,7 +2,7 @@
 const Spacetime = require('./spacetime');
 // const timezones = require('../data');
 
-const whereIts = function(a, b) {
+const whereIts = (a, b) => {
   let start = new Spacetime(null);
   let end = new Spacetime(null);
   start = start.time(a);
