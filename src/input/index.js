@@ -19,7 +19,7 @@ const namedDates = require('./named-dates')
 const minimumEpoch = 2500000000
 
 //support [2016, 03, 01] format
-const handleArray = function(s, arr) {
+const handleArray = (s, arr) => {
   let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
   for (let i = 0; i < order.length; i++) {
     let num = arr[i] || 0;
@@ -28,7 +28,7 @@ const handleArray = function(s, arr) {
   return s;
 };
 //support {year:2016, month:3} format
-const handleObject = function(s, obj) {
+const handleObject = (s, obj) => {
   let keys = Object.keys(obj);
   for (let i = 0; i < keys.length; i++) {
     let unit = keys[i];
