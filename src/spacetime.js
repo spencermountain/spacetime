@@ -6,8 +6,7 @@ const methods = require('./methods')
 let timezones = require('../zonefile/unpack')
 
 //fake timezone-support, for fakers (es5 class)
-const SpaceTime = function(input, tz, options) {
-  options = options || {}
+const SpaceTime = function(input, tz, options = {}) {
   //the holy moment
   this.epoch = null
   //the shift for the given timezone
