@@ -5,7 +5,7 @@ const parseOffset = require('./parseOffset')
 const hasDate = require('./hasDate')
 const fns = require('../fns')
 // const zones = require('../../data');
-const parseTime = function(s, str = '') {
+const parseTime = (s, str = '') => {
   str = str.replace(/^\s+/, '').toLowerCase(); //trim
   //formal time formats - 04:30.23
   let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/)
@@ -48,7 +48,7 @@ const parseTime = function(s, str = '') {
   return s
 };
 
-const parseYear = function(str = '') {
+const parseYear = (str = '') => {
   //support '18 -> 2018
   // str = str.replace(/^'([0-9]{2})/, '20$1')
   // str = str.replace('([0-9]+) ?b\.?c\.?$', '-$1')
