@@ -119,7 +119,7 @@ module.exports = {
     }
     walkTo(s, {
       month: n,
-      date: date,
+      date,
     });
     return s.epoch;
   },
