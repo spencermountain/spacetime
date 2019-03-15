@@ -55,9 +55,9 @@ const parseLine = (line) => {
     month: zeroPad(months[arr[9].toLowerCase()]),
     date: zeroPad(parseInt(arr[10], 10)),
     hour: zeroPad(hour),
-    min: min,
-    dst: dst,
-    offset: offset
+    min,
+    dst,
+    offset
   }
   if (obj.hour > 24 || obj.day > 31 || obj.month > 12) {
     console.error('oops', obj)
@@ -87,7 +87,7 @@ const parseTz = (tz) => {
   //this weird format i made: "03/26:03->10/29:02"
   let dst = `${a.month}/${a.date}:${a.hour}->${b.month}/${b.date}:${b.hour}`
   return {
-    dst: dst,
+    dst,
     offset: a.offset
   }
 }
