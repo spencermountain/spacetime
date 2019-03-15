@@ -47,7 +47,7 @@ const parseLine = function(str) {
 
 const fetchZone = function(tz) {
   let zone = {
-    tz: tz,
+    tz,
     o: iana[tz],
   };
   let lines = exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`)
@@ -61,7 +61,7 @@ const fetchZone = function(tz) {
     zone.h = o.h;
   });
   let obj = {
-    tz: tz,
+    tz,
     o: iana[tz],
     h: zone.h,
   };
