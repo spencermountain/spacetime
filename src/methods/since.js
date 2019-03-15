@@ -85,7 +85,7 @@ function pluralize(value, unit) {
 }
 
 //create the human-readable diff between the two dates
-const since = function(start, end) {
+const since = (start, end) => {
   end = fns.beADate(end, start)
   const diff = getDiff(start, end);
   const isNow = Object.keys(diff).every(u => !diff[u]);
