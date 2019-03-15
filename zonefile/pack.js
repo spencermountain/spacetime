@@ -26,7 +26,7 @@ Object.keys(iana).forEach((k) => {
     key += '|' + o.dst
   }
   all[key] = all[key] || []
-  let name = k.replace(/(.*?)\//, function(a, prefix) {
+  let name = k.replace(/(.*?)\//, (a, prefix) => {
     let index = prefixes.indexOf(prefix)
     if (index !== -1) {
       return index + '/'
