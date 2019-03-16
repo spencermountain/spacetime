@@ -1,6 +1,6 @@
 'use strict';
 //pull-apart ISO offsets, like "+0100"
-const parseOffset = function(s, offset) {
+const parseOffset = (s, offset) => {
   if (!offset) {
     return s
   }

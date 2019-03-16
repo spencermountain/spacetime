@@ -677,7 +677,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     var month = parseInt(arr[2], 10) - 1;
     var obj = {
       year: arr[1],
-      month: month,
+      month,
       date: arr[3]
     };
 
@@ -733,9 +733,9 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
 
     var year = arr[3] || new Date().getFullYear();
     var obj = {
-      year: year,
-      month: month,
-      date: date
+      year,
+      month,
+      date
     };
 
     if (hasDate(obj) === false) {
@@ -755,8 +755,8 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     var month = months[arr[1].toLowerCase()];
     var year = parseYear(arr[3]);
     var obj = {
-      year: year,
-      month: month,
+      year,
+      month,
       date: fns.toCardinal(arr[2] || '')
     };
 
@@ -776,8 +776,8 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     var month = months[arr[1].toLowerCase()];
     var year = parseYear(arr[2]);
     var obj = {
-      year: year,
-      month: month,
+      year,
+      month,
       date: 1
     };
 
@@ -797,8 +797,8 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     var month = months[arr[2].toLowerCase()];
     var year = parseYear(arr[3]);
     var obj = {
-      year: year,
-      month: month,
+      year,
+      month,
       date: fns.toCardinal(arr[1])
     };
 
@@ -818,7 +818,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     var year = parseYear(arr[0]);
     var d = new Date();
     var obj = {
-      year: year,
+      year,
       month: d.getMonth(),
       date: d.getDate()
     };
@@ -844,7 +844,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     var year = parseInt(str.trim(), 10);
     var d = new Date();
     var obj = {
-      year: year,
+      year,
       month: d.getMonth(),
       date: d.getDate()
     };
@@ -2614,7 +2614,7 @@ module.exports = {
 
     walkTo(s, {
       month: n,
-      date: date
+      date
     });
     return s.epoch;
   },
@@ -2905,7 +2905,7 @@ var since = function since(start, end) {
 
   if (isNow === true) {
     return {
-      diff: diff,
+      diff,
       rounded: 'now',
       qualified: 'now',
       precise: 'now'
@@ -2958,10 +2958,10 @@ var since = function since(start, end) {
   }
 
   return {
-    diff: diff,
-    rounded: rounded,
-    qualified: qualified,
-    precise: precise
+    diff,
+    rounded,
+    qualified,
+    precise
   };
 };
 
@@ -3080,7 +3080,7 @@ var units = {
         }
 
         walkTo(s, {
-          year: year,
+          year,
           month: seasons[hem][i][1],
           date: seasons[hem][i][2],
           hour: 0,
@@ -3152,8 +3152,8 @@ var endOf = function endOf(a, unit) {
 };
 
 module.exports = {
-  startOf: startOf,
-  endOf: endOf
+  startOf,
+  endOf
 };
 
 },{"../data/quarters":6,"../data/seasons":7,"./set/walk":31}],34:[function(_dereq_,module,exports){
@@ -4050,8 +4050,8 @@ var lookup = Object.keys(informal).reduce(function (h, k) {
   return h;
 }, {});
 module.exports = {
-  informal: informal,
-  lookup: lookup
+  informal,
+  lookup
 };
 
 },{}],45:[function(_dereq_,module,exports){

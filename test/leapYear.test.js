@@ -124,7 +124,7 @@ test('length of year', t => {
   for (let i = 0; i < 15; i++) {
     let year = 2014 + i
     var s = spacetime({
-      year: year
+      year
     }).endOf('year');
     t.equal(s.dayOfYear(), right[year], 'year ' + year);
   }

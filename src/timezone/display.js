@@ -35,7 +35,7 @@ const british = {
   'europe/jersey': true,
 }
 
-const handleSpecial = function(tz, offset) {
+const handleSpecial = (tz, offset) => {
   if (british.hasOwnProperty(tz)) {
     if (offset === '1') {
       return 'BST'
@@ -45,7 +45,7 @@ const handleSpecial = function(tz, offset) {
   return null
 }
 
-const chooseAbbrev = function(arr, obj) {
+const chooseAbbrev = (arr, obj) => {
   if (arr[1] && obj.current.isDST === true) {
     return arr[1].toUpperCase()
   }
@@ -55,7 +55,7 @@ const chooseAbbrev = function(arr, obj) {
   return null
 }
 //
-const display = function(tz, obj) {
+const display = (tz, obj) => {
   //try a straight-up match
   if (informal.hasOwnProperty(tz)) {
     let abbr = chooseAbbrev(informal[tz], obj)

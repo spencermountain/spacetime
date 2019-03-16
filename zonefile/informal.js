@@ -261,6 +261,6 @@ const lookup = Object.keys(informal).reduce((h, k) => {
 }, {});
 
 module.exports = {
-  informal: informal,
-  lookup: lookup
+  informal,
+  lookup
 }

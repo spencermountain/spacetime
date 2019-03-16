@@ -6,7 +6,7 @@ const months = require('../../data/months');
 const monthLength = require('../../data/monthLengths');
 const walkTo = require('./walk');
 
-const validate = function(n) {
+const validate = n => {
   //handle number as a string
   if (typeof n === 'string') {
     n = parseInt(n, 10);
@@ -17,7 +17,7 @@ const validate = function(n) {
 const order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
 
 //reduce hostile micro-changes when moving dates by millisecond
-const confirm = function(s, tmp, unit) {
+const confirm = (s, tmp, unit) => {
   let n = order.indexOf(unit);
   let arr = order.slice(n, order.length);
   for (let i = 0; i < arr.length; i++) {
@@ -119,7 +119,7 @@ module.exports = {
     }
     walkTo(s, {
       month: n,
-      date: date,
+      date,
     });
     return s.epoch;
   },

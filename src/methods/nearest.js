@@ -1,6 +1,6 @@
 'use strict'
 //round to either current, or +1 of this unit
-const nearest = function(s, unit) {
+const nearest = (s, unit) => {
   unit = unit.toLowerCase();
   unit = unit.replace(/s$/, ''); //singular form...
   let prog = s.progress();
