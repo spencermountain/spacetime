@@ -17,13 +17,11 @@ const months = [
   'november',
   'december',
 ];
-const allMonths = function(s) {
-  return months.map(m => {
+const allMonths = s => months.map(m => {
     s = s.month(m);
     let meta = s.timezone();
     return meta.current.isDST;
   });
-};
 
 test('dst-by-date', t => {
   //this may be too hard to do.

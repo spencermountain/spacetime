@@ -92,7 +92,7 @@ const mapping = {
 
 }
 
-const addAlias = function(char, to, n) {
+const addAlias = (char, to, n) => {
   let name = char
   let toName = to
   for (let i = 0; i < n; i += 1) {
@@ -111,7 +111,7 @@ addAlias('S', 's', 2)
 addAlias('v', 'z', 4)
 addAlias('V', 'Z', 4)
 
-const unixFmt = function(s, str) {
+const unixFmt = (s, str) => {
   let chars = str.split('')
   //combine consecutive chars, like 'yyyy' as one.
   let arr = [chars[0]]

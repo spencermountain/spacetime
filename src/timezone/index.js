@@ -11,7 +11,7 @@ const parseDst = dst => {
   return dst.split('->')
 };
 
-const titleCase = function(str) {
+const titleCase = str => {
   str = str[0].toUpperCase() + str.substr(1)
   str = str.replace(/\/gmt/, '/GMT')
   str = str.replace(/[\/_]([a-z])/ig, (s) => {

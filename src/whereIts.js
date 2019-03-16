@@ -2,7 +2,7 @@
 const Spacetime = require('./spacetime');
 // const timezones = require('../data');
 
-const whereIts = function(a, b) {
+const whereIts = (a, b) => {
   let start = new Spacetime(null);
   let end = new Spacetime(null);
   start = start.time(a);
@@ -16,7 +16,7 @@ const whereIts = function(a, b) {
   let startHour = start.hour();
   let endHour = end.hour();
   let tzs = Object.keys(start.timezones).filter(tz => {
-    if (tz.indexOf('/') === -1) {
+    if (!tz.includes('/')) {
       return false
     }
     let m = new Spacetime(null, tz);

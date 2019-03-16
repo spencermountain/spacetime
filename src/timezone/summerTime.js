@@ -1,9 +1,7 @@
 'use strict'
 const zeroPad = require('../fns').zeroPad;
 
-const toString = function(d) {
-  return zeroPad((d.getMonth() + 1)) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours())
-};
+const toString = d => zeroPad((d.getMonth() + 1)) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours());
 
 // a timezone will begin with a specific offset in january
 // then some will switch to something else between november-march

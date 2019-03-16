@@ -5,7 +5,7 @@ const months = require('../data/months');
 
 const addMethods = SpaceTime => {
   const methods = {
-    i18n: function(data) {
+    i18n: data => {
       if (
         !fns.isObject(data) ||
         !fns.isObject(data.days) ||
