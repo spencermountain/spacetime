@@ -1,9 +1,8 @@
-require('shelljs/global');
-config.silent = true;
-const data = require('../data')
+const sh = require('shelljs');
+sh.config.silent = true;
+const data = require('../zonefile/iana')
 const fs = require('fs')
-const year = 2018
-const zonefile = require(`../data/zonefile.${year}.json`)
+const year = new Date().getFullYear()
 // /usr/share/zoneinfo only stores changes, and will use the most-recent change
 // see /usr/share/zoneinfo/Africa/Algiers - has changes scheduled for 2038
 
@@ -67,7 +66,7 @@ const parseLine = (line) => {
 }
 
 const parseTz = (tz) => {
-  let lines = exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`)
+  let lines = sh.exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`)
     .toString()
     .split('\n');
   lines = lines.filter((l) => l)
@@ -110,17 +109,16 @@ const doAll = () => {
         console.log('to: ' + obj.dst)
         console.log('was ' + data[k].dst)
         console.log('')
-        let arr = k.split('/')
-        zonefile[arr[0]][arr[1]][2] = obj.dst
+        data[k].dst = obj.dst
         changes += 1
       }
     }
   })
   console.log('\n\nmade ' + changes + ' changes to ' + keys.length + ' timezones')
-  fs.writeFileSync('./zonefile.' + year + '.json', JSON.stringify(zonefile, null, 2))
+  fs.writeFileSync('./zonefile.' + year + '.json', JSON.stringify(data, null, 2))
 }
 doAll()
-// console.log(parseTz('America/Los_Angeles'))
+// console.log(parseTz('Europe/Berlin'))
 // console.log(parseTz('Africa/Algiers'))
 // console.log(parseTz('America/Godthab'))
 // console.log(zonefile['America/Godthab'].dst)
