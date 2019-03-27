@@ -74,20 +74,20 @@ test('goto-from-algiers (no-dst-places)', t => {
 
 test('move-from-dst', t => {
   //dst in Paris (+2h)
-  let s = spacetime('March 27, 2017 22:48:00', 'Europe/Paris');
-  t.equal(s.format('nice-full'), 'Monday March 27th, 10:48pm', 'init-paris');
+  let s = spacetime('April 2, 2019 22:48:00', 'Europe/Paris');
+  t.equal(s.format('nice-full'), 'Tuesday April 2nd, 10:48pm', 'init-paris');
   t.equal(s.timezone().current.isDST, true, 'paris-is-in-dst');
   t.equal(s.timezone().current.offset, 2, 'paris-is-+2h');
 
   //in Johannesburg (+2h)
   s = s.goto('Africa/Johannesburg');
-  t.equal(s.format('nice-full'), 'Monday March 27th, 10:48pm', 'init-joburg');
+  t.equal(s.format('nice-full'), 'Tuesday April 2nd, 10:48pm', 'init-joburg');
   t.equal(s.timezone().current.isDST, false, 'joburg-is-never-in-dst');
   t.equal(s.timezone().current.offset, 2, 'joburg-is+2');
 
   //dst London (+1h)
   s = s.goto('Europe/London');
-  t.equal(s.format('nice-full'), 'Monday March 27th, 9:48pm', 'init-london');
+  t.equal(s.format('nice-full'), 'Tuesday April 2nd, 9:48pm', 'init-london');
   t.equal(s.timezone().current.isDST, true, 'london-is-in-dst');
   t.equal(s.timezone().current.offset, 1, 'london-is-+1h');
   t.end();

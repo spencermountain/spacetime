@@ -3,7 +3,7 @@ const monthLengths = require('../data/monthLengths')
 const isLeapYear = require('../fns').isLeapYear
 
 //given a month, return whether day number exists in it
-const hasDate = function(obj) {
+const hasDate = obj => {
   //invalid values
   if (monthLengths.hasOwnProperty(obj.month) !== true) {
 

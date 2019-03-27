@@ -1,6 +1,6 @@
 const isSummer = require('./summerTime')
 //
-const quickOffset = function(s) {
+const quickOffset = s => {
   let zones = s.timezones
   let obj = zones[s.tz]
   if (obj.dst === undefined) {

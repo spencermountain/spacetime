@@ -5,7 +5,7 @@ const parseOffset = require('./parseOffset')
 const hasDate = require('./hasDate')
 const fns = require('../fns')
 // const zones = require('../../data');
-const parseTime = function(s, str = '') {
+const parseTime = (s, str = '') => {
   str = str.replace(/^\s+/, '').toLowerCase(); //trim
   //formal time formats - 04:30.23
   let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/)
@@ -48,8 +48,7 @@ const parseTime = function(s, str = '') {
   return s
 };
 
-const parseYear = function(str) {
-  str = str || ''
+const parseYear = (str = '') => {
   //support '18 -> 2018
   // str = str.replace(/^'([0-9]{2})/, '20$1')
   // str = str.replace('([0-9]+) ?b\.?c\.?$', '-$1')
@@ -66,7 +65,7 @@ const strFmt = [
       let month = parseInt(arr[2], 10) - 1;
       let obj = {
         year: arr[1],
-        month: month,
+        month,
         date: arr[3]
       }
       if (hasDate(obj) === false) {
@@ -115,9 +114,9 @@ const strFmt = [
       }
       let year = arr[3] || new Date().getFullYear()
       let obj = {
-        year: year,
-        month: month,
-        date: date
+        year,
+        month,
+        date
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -136,8 +135,8 @@ const strFmt = [
       let month = months[arr[1].toLowerCase()];
       let year = parseYear(arr[3])
       let obj = {
-        year: year,
-        month: month,
+        year,
+        month,
         date: fns.toCardinal(arr[2] || '')
       }
       if (hasDate(obj) === false) {
@@ -156,8 +155,8 @@ const strFmt = [
       let month = months[arr[1].toLowerCase()];
       let year = parseYear(arr[2])
       let obj = {
-        year: year,
-        month: month,
+        year,
+        month,
         date: 1
       }
       if (hasDate(obj) === false) {
@@ -176,8 +175,8 @@ const strFmt = [
       let month = months[arr[2].toLowerCase()];
       let year = parseYear(arr[3])
       let obj = {
-        year: year,
-        month: month,
+        year,
+        month,
         date: fns.toCardinal(arr[1]),
       }
       if (hasDate(obj) === false) {
@@ -195,7 +194,7 @@ const strFmt = [
       let year = parseYear(arr[0])
       let d = new Date()
       let obj = {
-        year: year,
+        year,
         month: d.getMonth(),
         date: d.getDate()
       }
@@ -219,7 +218,7 @@ const strFmt = [
       let year = parseInt(str.trim(), 10)
       let d = new Date()
       let obj = {
-        year: year,
+        year,
         month: d.getMonth(),
         date: d.getDate()
       }

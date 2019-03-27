@@ -2,7 +2,7 @@
 var test = require('tape');
 var spacetime = require('./lib');
 
-test('display-test-direct', function(t) {
+test('display-test-direct', t => {
   var s = spacetime('Dec 4', 'new york')
   t.equal(s.timezone().display, 'EST', 'standard time - north');
   s = s.add(6, 'months')
@@ -30,7 +30,7 @@ test('display-test-direct', function(t) {
   t.end();
 });
 
-test('display-indirect', function(t) {
+test('display-indirect', t => {
   var s = spacetime('Dec 4', 'toronto')
   t.equal(s.timezone().display, 'EST', 'standard time - toronto');
   s = s.add(6, 'months')
@@ -60,7 +60,7 @@ test('display-indirect', function(t) {
   t.end();
 });
 
-test('hemisphere-africa-europe', function(t) {
+test('hemisphere-africa-europe', t => {
   var s = spacetime('Dec 4', 'prague')
   t.equal(s.timezone().display, 'CET', 'dec - north');
   s = s.add(6, 'months')
@@ -73,7 +73,7 @@ test('hemisphere-africa-europe', function(t) {
   t.end();
 });
 
-test('hemisphere-china', function(t) {
+test('hemisphere-china', t => {
   var s = spacetime('Dec 4', 'chongqing')
   t.equal(s.timezone().display, 'CT', 'dec - north');
   s = s.add(6, 'months')
@@ -86,7 +86,7 @@ test('hemisphere-china', function(t) {
   t.end();
 });
 
-test('weird-australia', function(t) {
+test('weird-australia', t => {
   let s = spacetime('Dec 4', 'acst')
   t.equal(s.timezone().display, 'ACDT', 'acst acst in dec');
   s = s.add(6, 'months')

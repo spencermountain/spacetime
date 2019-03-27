@@ -1,9 +1,8 @@
-require('shelljs/global');
-config.silent = true;
-const data = require('../data')
+const sh = require('shelljs');
+sh.config.silent = true;
+const data = require('../zonefile/iana')
 const fs = require('fs')
-const year = 2018
-const zonefile = require(`../data/zonefile.${year}.json`)
+const year = new Date().getFullYear()
 // /usr/share/zoneinfo only stores changes, and will use the most-recent change
 // see /usr/share/zoneinfo/Africa/Algiers - has changes scheduled for 2038
 
@@ -26,8 +25,7 @@ const months = {
   'nov': 11,
   'dec': 12,
 }
-const zeroPad = function(str, len) {
-  len = len || 2;
+const zeroPad = (str, len = 2) => {
   let pad = '0';
   str = str + '';
   return str.length >= len
@@ -56,9 +54,9 @@ const parseLine = (line) => {
     month: zeroPad(months[arr[9].toLowerCase()]),
     date: zeroPad(parseInt(arr[10], 10)),
     hour: zeroPad(hour),
-    min: min,
-    dst: dst,
-    offset: offset
+    min,
+    dst,
+    offset
   }
   if (obj.hour > 24 || obj.day > 31 || obj.month > 12) {
     console.error('oops', obj)
@@ -68,7 +66,7 @@ const parseLine = (line) => {
 }
 
 const parseTz = (tz) => {
-  let lines = exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`)
+  let lines = sh.exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`)
     .toString()
     .split('\n');
   lines = lines.filter((l) => l)
@@ -88,12 +86,12 @@ const parseTz = (tz) => {
   //this weird format i made: "03/26:03->10/29:02"
   let dst = `${a.month}/${a.date}:${a.hour}->${b.month}/${b.date}:${b.hour}`
   return {
-    dst: dst,
+    dst,
     offset: a.offset
   }
 }
 
-const doAll = function() {
+const doAll = () => {
   let changes = 0
   let keys = Object.keys(data)
   keys.forEach((k) => {
@@ -111,17 +109,16 @@ const doAll = function() {
         console.log('to: ' + obj.dst)
         console.log('was ' + data[k].dst)
         console.log('')
-        let arr = k.split('/')
-        zonefile[arr[0]][arr[1]][2] = obj.dst
+        data[k].dst = obj.dst
         changes += 1
       }
     }
   })
   console.log('\n\nmade ' + changes + ' changes to ' + keys.length + ' timezones')
-  fs.writeFileSync('./zonefile.' + year + '.json', JSON.stringify(zonefile, null, 2))
+  fs.writeFileSync('./zonefile.' + year + '.json', JSON.stringify(data, null, 2))
 }
 doAll()
-// console.log(parseTz('America/Los_Angeles'))
+// console.log(parseTz('Europe/Berlin'))
 // console.log(parseTz('Africa/Algiers'))
 // console.log(parseTz('America/Godthab'))
 // console.log(zonefile['America/Godthab'].dst)

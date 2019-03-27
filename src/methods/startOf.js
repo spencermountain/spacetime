@@ -97,7 +97,7 @@ const units = {
           year -= 1;
         }
         walkTo(s, {
-          year: year,
+          year,
           month: seasons[hem][i][1],
           date: seasons[hem][i][2],
           hour: 0,
@@ -162,6 +162,6 @@ const endOf = (a, unit) => {
   return s;
 };
 module.exports = {
-  startOf: startOf,
-  endOf: endOf
+  startOf,
+  endOf
 };

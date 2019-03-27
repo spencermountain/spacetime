@@ -6,7 +6,7 @@ const fns = require('../../fns');
 //destructive setters change the seconds, milliseconds, etc
 //- and not just the unit they're setting
 
-const clearMinutes = function(s) {
+const clearMinutes = s => {
   s = s.minute(0);
   s = s.second(0);
   s = s.millisecond(1);

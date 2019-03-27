@@ -5,7 +5,7 @@ const fns = require('../fns');
 let doAll = () => {
 }
 //increment until dates are the same
-const climb = function(a, b, unit) {
+const climb = (a, b, unit) => {
   let i = 0;
   a = a.clone();
   while (a.isBefore(b)) {
@@ -20,7 +20,7 @@ const climb = function(a, b, unit) {
   return i;
 };
 
-const diffQuick = function(a, b) {
+const diffQuick = (a, b) => {
   let ms = b.epoch - a.epoch
   let obj = {
     milliseconds: ms,
@@ -31,7 +31,7 @@ const diffQuick = function(a, b) {
   return obj
 }
 
-const diff = function(a, b, unit) {
+const diff = (a, b, unit) => {
   //remove trailing s
   b = fns.beADate(b, a)
   if (!unit) {
@@ -55,7 +55,7 @@ const diff = function(a, b, unit) {
   }
 }
 
-doAll = function(a, b) {
+doAll = (a, b) => {
   //do ms, seconds, minutes in a faster way
   let all = diffQuick(a, b)
   all.years = diff(a, b, 'year')
