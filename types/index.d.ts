@@ -1,12 +1,4 @@
-export interface Spacetime {
-  dayName: () => string;
-}
-
-type SpacetimeConstructor = (timestamp: number) => Spacetime;
-
-interface SpacetimeStatic extends SpacetimeConstructor {
-  now: () => Spacetime;
-}
+import { SpacetimeStatic } from "./constructors";
 
 declare const spacetime: SpacetimeStatic;
 export default spacetime;
