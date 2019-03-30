@@ -1,3 +1,4 @@
 import { SpacetimeStatic } from "./constructors";
 
-export const spacetime: SpacetimeStatic;
+declare const spacetime: SpacetimeStatic;
+export default spacetime;
