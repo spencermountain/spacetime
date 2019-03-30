@@ -8,7 +8,7 @@ interface SpacetimeConstructor {
   (epoch: number, timezone?: string): Spacetime;
 
   /* array [yyyy, m, d] (zero-based months, 1-based days) */
-  (arr: [number, number, number], timezone?: string): Spacetime;
+  (arr: Array<string>, timezone?: string): Spacetime;
 
   /* iso */
   (iso: string, timezone?: string): Spacetime;

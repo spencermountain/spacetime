@@ -47,6 +47,7 @@ export interface SpacetimeMain {
   diff: (value: number, unit: TimeUnit) => number;
 }
 
+/* The return types are not actually both number and Spacetime, but this aids in casting to the proper type */
 export interface SpacetimeGetterSetters {
   /* set or return the current number of milliseconds (0-999) */
   millisecond: (value?: number) => number & Spacetime;
@@ -97,11 +98,56 @@ export interface SpacetimeGetterSetters {
   monthName: (value?: string) => string & Spacetime;
 }
 
-export interface SpacetimeUtils {}
+export interface SpacetimeUtils {
+  /* date */
+  set(date: Date): Spacetime;
+  /* epoch */
+  set(epoch: number): Spacetime;
+  /* array [yyyy, m, d] (zero-based months, 1-based days) */
+  set(arr: Array<string>): Spacetime;
+  /* iso */
+  set(iso: string): Spacetime;
+
+  /* does this time exist on the gregorian/javascript calendar? */
+  isValid: () => boolean;
+
+  /* pretty-print the date to the console, for nicer debugging */
+  log: () => string;
+
+  /* Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
+  progress: () => Progress;
+
+  /* is the current year a leap year? */
+  leapYear: () => boolean;
+
+  /* is daylight-savings-time activated right now, for this timezone? */
+  inDST: () => boolean;
+
+  /* does this timezone ever use daylight-savings */
+  hasDST: () => boolean;
+
+  /* the current, DST-aware time-difference from UTC, in hours */
+  offset: () => number;
+
+  /* checks if the current time is between 10pm and 8am */
+  isAsleep: () => boolean;
+}
 
 export interface Spacetime
   extends SpacetimeMain,
     SpacetimeGetterSetters,
     SpacetimeUtils {}
 
-export interface Timezone {}
+export interface Timezone {
+  change?: { start: string; back: string };
+  current: { offset: number; isDST: boolean };
+  default_offset: number;
+  display: string;
+  hasDst: boolean;
+  hemisphere: string;
+  name: string;
+}
+
+export interface Progress {
+  [key: string]: number;
+}
