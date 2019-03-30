@@ -8,7 +8,7 @@ export interface SpacetimeMain {
   clone: () => Spacetime;
 
   /* return a bunch of meta-data about your current timezone */
-  timezone: () => Timezone;
+  timezone: () => TimezoneMeta;
 
   /* output nicely-formatted strings */
   format: (format: Format) => string | object;
@@ -136,9 +136,16 @@ export interface SpacetimeUtils {
 export interface Spacetime
   extends SpacetimeMain,
     SpacetimeGetterSetters,
-    SpacetimeUtils {}
+    SpacetimeUtils {
+  d: Date;
+  epoch: number;
+  silent: boolean;
+  tz: string;
 
-export interface Timezone {
+  timezones: TimezoneSet;
+}
+
+export interface TimezoneMeta {
   change?: { start: string; back: string };
   current: { offset: number; isDST: boolean };
   default_offset: number;
@@ -150,4 +157,12 @@ export interface Timezone {
 
 export interface Progress {
   [key: string]: number;
+}
+
+export interface TimezoneSet {
+  [key: string]: {
+    offset: number;
+    hem: string;
+    dst?: string;
+  };
 }
