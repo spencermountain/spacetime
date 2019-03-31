@@ -22,7 +22,8 @@
   },
   "files": [
     "builds",
-    "api"
+    "api",
+    "types"
   ],
   "dependencies": {},
   "devDependencies": {
