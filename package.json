@@ -4,6 +4,7 @@
   "description": "figure-out dates across timezones",
   "main": "builds/spacetime.js",
   "unpkg": "builds/spacetime.min.js",
+  "types": "types/index.d.ts",
   "license": "Apache-2.0",
   "scripts": {
     "build": "node ./scripts/build.js",
@@ -21,7 +22,8 @@
   },
   "files": [
     "builds",
-    "api"
+    "api",
+    "types"
   ],
   "dependencies": {},
   "devDependencies": {
