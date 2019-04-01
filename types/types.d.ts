@@ -11,7 +11,7 @@ export interface SpacetimeMain {
   timezone: () => TimezoneMeta;
 
   /* output nicely-formatted strings */
-  format: (format: Format) => string | object;
+  format: (format: Format | string) => string | object;
 
   /* move to the first millisecond of the day, week, month, year, etc. */
   startOf: (unit: TimeUnit) => Spacetime;
