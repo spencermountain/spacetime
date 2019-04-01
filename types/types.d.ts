@@ -13,6 +13,9 @@ export interface SpacetimeMain {
   /* output nicely-formatted strings */
   format: (format: Format | string) => string | object;
 
+  /* output formatted string using unix formatting code (yyyy.MM.dd h:mm a) */
+  unixFmt: (format: string) => string;
+
   /* move to the first millisecond of the day, week, month, year, etc. */
   startOf: (unit: TimeUnit) => Spacetime;
 
