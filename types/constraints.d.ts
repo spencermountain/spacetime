@@ -1,4 +1,6 @@
 export type TimeUnit =
+  | "millisecond"
+  | "second"
   | "minute"
   | "quarterHour"
   | "hour"
