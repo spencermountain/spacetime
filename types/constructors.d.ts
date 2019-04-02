@@ -1,33 +1,54 @@
 import { Spacetime } from "./types";
 
 interface SpacetimeConstructorOptions {
-  /* javascript dates use millisecond-epochs, instead of second-epochs, like some other languages. This is a common bug, and by default spacetime warns if you set an epoch within January 1970. to disable set to true */
+  /** javascript dates use millisecond-epochs, instead of second-epochs, like some other languages. This is a common bug, and by default spacetime warns if you set an epoch within January 1970. to disable set to true */
   silent: boolean;
 }
 
 interface SpacetimeConstructor {
-  /* date */
+  /**
+   * @param date Javascript date object
+   * @param timezone Optional timezone. If omitted uses the browser timezone.
+   * @param options Options for silencing warnings.
+   */
   (
     date: Date,
     timezone?: string,
     options?: SpacetimeConstructorOptions
   ): Spacetime;
 
-  /* epoch */
+  /**
+   * @param epoch Timestamp in **milliseconds**. If you are getting a date in 1970, you are likely using seconds.
+   * @param timezone Optional timezone. If omitted uses the browser timezone.
+   * @param options Options for silencing warnings.
+   */
   (
     epoch: number,
     timezone?: string,
     options?: SpacetimeConstructorOptions
   ): Spacetime;
 
-  /* array [yyyy, m, d] (zero-based months, 1-based days) */
+  /**
+   * @param arr Date values in an array such as [yyyy, m, d].
+   *
+   * ```typescript
+   * let d = spacetime([2011, 1, 15]);
+   * d.format('nice-year'); // "Feb 15th, 2011"
+   * ```
+   * @param timezone Optional timezone. If omitted uses the browser timezone.
+   * @param options Options for silencing warnings.
+   */
   (
     arr: Array<string>,
     timezone?: string,
     options?: SpacetimeConstructorOptions
   ): Spacetime;
 
-  /* iso */
+  /**
+   * @param iso Date as an iso string. ex '2017-04-03T08:00:00'
+   * @param timezone Optional timezone. If omitted uses the browser timezone.
+   * @param options Options for silencing warnings.
+   */
   (
     iso: string,
     timezone?: string,
@@ -36,12 +57,12 @@ interface SpacetimeConstructor {
 }
 
 interface SpacetimeStatic extends SpacetimeConstructor {
-  /* now */
+  /** now */
   now: () => Spacetime;
 
-  /* this morning */
+  /** this morning */
   today: () => Spacetime;
 
-  /* tomorrow morning */
+  /** tomorrow morning */
   tomorrow: () => Spacetime;
 }
