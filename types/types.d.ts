@@ -47,7 +47,7 @@ export interface SpacetimeMain {
   isSame: (other: Spacetime | Date, unit: TimeUnit) => boolean;
 
   /* given a date amd a unit, count how many of them you'd need to make the dates equal */
-  diff: (value: number, unit: TimeUnit) => number;
+  diff(value: Spacetime | ParsableDate, unit: TimeUnit): number;
 }
 
 /* The return types are not actually both number and Spacetime, but this aids in casting to the proper type */
@@ -102,14 +102,8 @@ export interface SpacetimeGetterSetters {
 }
 
 export interface SpacetimeUtils {
-  /* date */
-  set(date: Date): Spacetime;
-  /* epoch */
-  set(epoch: number): Spacetime;
-  /* array [yyyy, m, d] (zero-based months, 1-based days) */
-  set(arr: Array<string>): Spacetime;
-  /* iso */
-  set(iso: string): Spacetime;
+  /* change to a new date */
+  set(date: ParsableDate): Spacetime;
 
   /* does this time exist on the gregorian/javascript calendar? */
   isValid: () => boolean;
@@ -169,3 +163,5 @@ export interface TimezoneSet {
     dst?: string;
   };
 }
+
+export type ParsableDate = Date | number | Array<number> | string;
