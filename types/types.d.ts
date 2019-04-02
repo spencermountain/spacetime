@@ -11,7 +11,7 @@ export interface SpacetimeMain {
   timezone: () => TimezoneMeta;
 
   /** output nicely-formatted strings */
-  format: (format: Format | string) => string | object;
+  format: (format: Format) => string | object;
 
   /** output formatted string using unix formatting code (yyyy.MM.dd h:mm a) */
   unixFmt: (format: string) => string;

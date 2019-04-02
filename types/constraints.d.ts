@@ -53,4 +53,5 @@ export type Format =
   | "nice"
   | "nice-year"
   | "nice-day"
-  | "nice-full";
+  | "nice-full"
+  | string;
