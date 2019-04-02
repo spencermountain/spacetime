@@ -46,8 +46,11 @@ export interface SpacetimeMain {
   /** detect if two date/times are the same day, week, or year, etc */
   isSame: (other: Spacetime | Date, unit: TimeUnit) => boolean;
 
-  /** given a date amd a unit, count how many of them you'd need to make the dates equal */
+  /** given a date and a unit, count how many of them you'd need to make the dates equal */
   diff(value: Spacetime | ParsableDate, unit: TimeUnit): number;
+
+  /** given a date, count how many of various units to make the dates equal */
+  diff(value: Spacetime | ParsableDate): Diff;
 }
 
 /** The return types are not actually both number and Spacetime, but this aids in casting to the proper type */
@@ -179,6 +182,17 @@ export interface Progress {
   week: number;
   /** Progress of value from 0-1 */
   year: number;
+}
+
+export interface Diff {
+  days: number;
+  hours: number;
+  milliseconds: number;
+  minutes: number;
+  months: number;
+  seconds: number;
+  weeks: number;
+  years: number;
 }
 
 /** set where the key is tz database name in lowercase, eg, 'america/denver' */
