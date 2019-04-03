@@ -19,7 +19,7 @@ const format = {
   'month-short': (s) => fns.titleCase(months.short()[s.month()]),
   'month-number': (s) => s.month(),
   'month-ordinal': (s) => fns.ordinal(s.month()),
-  'month-pad': (s) => fns.zeroPad(s.month()),
+  'month-pad': (s) => fns.zeroPad(s.month() + 1),
 
   year: (s) => {
     let year = s.year()
