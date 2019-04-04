@@ -45,6 +45,15 @@ d.isAsleep()
 //true
 ```
 
+Or with Typescript
+```ts
+import spacetime from 'spacetime';
+let d = spacetime.now();
+d.format('nice');
+//'Apr 1st, 4:32pm'
+```
+
+
 <div align="center">
   <h3>
     <a href="https://beta.observablehq.com/@spencermountain/spacetime">

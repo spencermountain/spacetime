@@ -1,4 +1,6 @@
 export type TimeUnit =
+  | "millisecond"
+  | "second"
   | "minute"
   | "quarterHour"
   | "hour"
@@ -51,4 +53,5 @@ export type Format =
   | "nice"
   | "nice-year"
   | "nice-day"
-  | "nice-full";
+  | "nice-full"
+  | string;
