@@ -1,18 +1,18 @@
-var sh = require('shelljs')
-var echo = sh.echo
-var exec = sh.exec
+const sh = require('shelljs')
+const echo = sh.echo
+const exec = sh.exec
 sh.config.silent = true
-var fs = require('fs')
-var pkg = require('../package.json')
-var browserify = './node_modules/.bin/browserify'
-var derequire = './node_modules/.bin/derequire'
-var terser = './node_modules/.bin/terser'
+const fs = require('fs')
+const pkg = require('../package.json')
+const browserify = './node_modules/.bin/browserify'
+const derequire = './node_modules/.bin/derequire'
+const terser = './node_modules/.bin/terser'
 
 //final build locations
-var banner =
+const banner =
   '/* spacetime v' + pkg.version + '\n   github.com/spencermountain/spacetime\n   MIT\n*/\n'
-var uncompressed = './builds/spacetime.js'
-var compressed = './builds/spacetime.min.js'
+const uncompressed = './builds/spacetime.js'
+const compressed = './builds/spacetime.min.js'
 
 //set new version number
 fs.writeFileSync('./_version.js', "module.exports='" + pkg.version + "'")
@@ -25,7 +25,7 @@ echo(banner).to(uncompressed)
 echo(banner).to(compressed)
 
 //browserify + derequire
-var cmd = browserify + ' ./src/index.js --standalone spacetime'
+const cmd = browserify + ' ./src/index.js --standalone spacetime'
 cmd += ' -t [ babelify --presets [ @babel/preset-env ] ]'
 cmd += ' | ' + derequire
 cmd += ' >> ' + uncompressed
@@ -37,6 +37,6 @@ cmd += ' >> ' + compressed
 exec(cmd)
 
 //log the size of our builds
-var stats = fs.statSync(compressed)
-var fileSize = (stats['size'] / 1000.0).toFixed(2)
+const stats = fs.statSync(compressed)
+const fileSize = (stats['size'] / 1000.0).toFixed(2)
 console.log('\n\n min: ' + fileSize + 'kb')

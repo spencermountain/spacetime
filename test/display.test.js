@@ -1,9 +1,9 @@
 'use strict'
-var test = require('tape')
-var spacetime = require('./lib')
+let test = require('tape')
+let spacetime = require('./lib')
 
 test('display-test-direct', t => {
-  var s = spacetime('Dec 4', 'new york')
+  let s = spacetime('Dec 4', 'new york')
   t.equal(s.timezone().display, 'EST', 'standard time - north')
   s = s.add(6, 'months')
   t.equal(s.timezone().display, 'EDT', 'daylight time')
@@ -31,7 +31,7 @@ test('display-test-direct', t => {
 })
 
 test('display-indirect', t => {
-  var s = spacetime('Dec 4', 'toronto')
+  let s = spacetime('Dec 4', 'toronto')
   t.equal(s.timezone().display, 'EST', 'standard time - toronto')
   s = s.add(6, 'months')
   t.equal(s.timezone().display, 'EDT', 'daylight time - toronto')
@@ -61,7 +61,7 @@ test('display-indirect', t => {
 })
 
 test('hemisphere-africa-europe', t => {
-  var s = spacetime('Dec 4', 'prague')
+  let s = spacetime('Dec 4', 'prague')
   t.equal(s.timezone().display, 'CET', 'dec - north')
   s = s.add(6, 'months')
   t.equal(s.timezone().display, 'CEST', 'jul - north')
@@ -74,7 +74,7 @@ test('hemisphere-africa-europe', t => {
 })
 
 test('hemisphere-china', t => {
-  var s = spacetime('Dec 4', 'chongqing')
+  let s = spacetime('Dec 4', 'chongqing')
   t.equal(s.timezone().display, 'CT', 'dec - north')
   s = s.add(6, 'months')
   t.equal(s.timezone().display, 'CT', 'jul - north')

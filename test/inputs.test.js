@@ -173,7 +173,7 @@ test('invalid inputs', t => {
   t.equal(spacetime('29th Feb 2000').isValid(), true, 'long format #5')
   t.equal(spacetime('29th February 2003').isValid(), false, 'long format #6')
 
-  var s = spacetime('-2 February 2003', 'UTC', {
+  let s = spacetime('-2 February 2003', 'UTC', {
     silent: true
   })
   t.equal(s.isValid(), false, 'negative numbers invalid too')
@@ -228,7 +228,7 @@ test('time-inputs', t => {
 })
 
 test('inplicit-years', t => {
-  var year = new Date().getFullYear()
+  let year = new Date().getFullYear()
   t.equal(
     spacetime('sunday April 3rd').format('numeric'),
     spacetime('April 3rd ' + year).format('numeric')

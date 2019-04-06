@@ -63,13 +63,13 @@ test('add', t => {
 // })
 
 // test('issame', t => {
-//   var m1 = spacetime('2014-10-01T00:00:00', 'Europe/London');
-//   var m2 = spacetime('2014-10-01T00:00:00', 'Europe/London');
+//   let m1 = spacetime('2014-10-01T00:00:00', 'Europe/London');
+//   let m2 = spacetime('2014-10-01T00:00:00', 'Europe/London');
 //
-//   var lastDayOfMonth = m1.clone().endOf('month').date();
+//   let lastDayOfMonth = m1.clone().endOf('month').date();
 //
-//   for (var day1 = 1; day1 <= lastDayOfMonth; day1++) {
-//     for (var day2 = 1; day2 <= lastDayOfMonth; day2++) {
+//   for (let day1 = 1; day1 <= lastDayOfMonth; day1++) {
+//     for (let day2 = 1; day2 <= lastDayOfMonth; day2++) {
 //       m1.date(day1);
 //       m2.date(day2);
 //       t.ok(
@@ -79,11 +79,11 @@ test('add', t => {
 //     }
 //   }
 //
-//   var m3 = spacetime('2014-09-09T00:00:00', 'America/Chicago');
-//   var m4 = spacetime('2014-09-09T01:00:00', 'America/Toronto');
+//   let m3 = spacetime('2014-09-09T00:00:00', 'America/Chicago');
+//   let m4 = spacetime('2014-09-09T01:00:00', 'America/Toronto');
 //
-//   for (var hour1 = 0; hour1 <= 22; hour1++) {
-//     for (var hour2 = 1; hour2 <= 23; hour2++) {
+//   for (let hour1 = 0; hour1 <= 22; hour1++) {
+//     for (let hour2 = 1; hour2 <= 23; hour2++) {
 //       m3.hour(hour1);
 //       m4.hour(hour2);
 //

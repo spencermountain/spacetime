@@ -1,11 +1,11 @@
 'use strict'
-var test = require('tape')
+let test = require('tape')
 const spacetime = require('./lib')
-var api = require('../api/index.json')
+let api = require('../api/index.json')
 
 test('test main methods', t => {
   Object.keys(api.main).forEach(k => {
-    var s = spacetime('1998-03-28')
+    let s = spacetime('1998-03-28')
     s[k]()
     t.ok(true, k)
   })
@@ -14,7 +14,7 @@ test('test main methods', t => {
 
 test('test getter methods', t => {
   Object.keys(api.getters).forEach(k => {
-    var s = spacetime('1998-03-28')
+    let s = spacetime('1998-03-28')
     s[k]()
     t.ok(true, k)
   })
@@ -28,7 +28,7 @@ test('test util methods', t => {
       t.ok(true, k)
       return
     }
-    var s = spacetime('1998-03-28')
+    let s = spacetime('1998-03-28')
     s[k]()
     t.ok(true, k)
   })

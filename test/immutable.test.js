@@ -6,7 +6,7 @@ const day0 = spacetime.now()
 const today = day0.format('nice')
 
 test('clone still works', t => {
-  var day1 = day0.clone()
+  let day1 = day0.clone()
   t.ok(day0.format('nice') === day1.format('nice'), 'eq')
   t.ok(day0.format('nice') === day1.format('nice'), 'eq')
   //log this, if it ever happends. i saw it once.

@@ -4,7 +4,7 @@ const spacetime = require('./lib')
 const tk = require('timekeeper')
 
 test('now-is-now', t => {
-  var time = new Date(1554092400000) // 4:20, april 1st 2019 GMT
+  let time = new Date(1554092400000) // 4:20, april 1st 2019 GMT
   tk.travel(time)
 
   let d = spacetime(null, 'Etc/GMT')
@@ -30,7 +30,7 @@ test('now-is-now', t => {
 
 test('epoch-input', t => {
   let gmt420 = 1554092400000 // 4:20, april 1st 2019 GMT
-  var time = new Date(gmt420)
+  let time = new Date(gmt420)
   tk.travel(time)
 
   let moved = spacetime.now('Etc/GMT') //4:20

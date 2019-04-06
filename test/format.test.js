@@ -1,6 +1,6 @@
 'use strict'
-var test = require('tape')
-var spacetime = require('./lib')
+let test = require('tape')
+let spacetime = require('./lib')
 
 test('to-from utc-format', t => {
   ;[
@@ -15,13 +15,13 @@ test('to-from utc-format', t => {
     '2015-01-02T20:01:22.023Z',
     '2016-03-28T09:01:00.999Z'
   ].forEach(str => {
-    var s = spacetime(str, 'Asia/Taipei')
-    var out = s.format('iso')
+    let s = spacetime(str, 'Asia/Taipei')
+    let out = s.format('iso')
     t.equal(str, out, 'equal - ' + str)
   })
 
-  var str = '2016-01-01T09:00:00.122Z'
-  var s = spacetime(str, 'Canada/Eastern')
+  let str = '2016-01-01T09:00:00.122Z'
+  let s = spacetime(str, 'Canada/Eastern')
   t.equal(s.format('iso'), str, 'input matches output')
 
   t.end()
@@ -73,15 +73,15 @@ test('bc-year-formatting', t => {
 
 test('iso-in = iso-out', t => {
   let str = '2018-07-09T12:59:00.362-07:00'
-  var minus = spacetime(str)
+  let minus = spacetime(str)
   t.equal(minus.format('iso'), str, 'minus-seven')
 
   str = '2018-07-09T12:59:00.000+07:00'
-  var plus = spacetime(str)
+  let plus = spacetime(str)
   t.equal(plus.format('iso'), str, 'plus-seven')
 
   str = '2018-07-09T12:59:00.393Z'
-  var zero = spacetime(str)
+  let zero = spacetime(str)
   t.equal(zero.format('iso'), str, 'zulu')
 
   t.end()

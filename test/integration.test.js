@@ -4,7 +4,7 @@ const spacetime = require('./lib')
 //ST  = winter.   november -> march
 //DST = summer.   march    -> november
 
-var timezones = ['America/Los_Angeles', 'America/Denver', 'America/Chicago', 'America/New_York']
+let timezones = ['America/Los_Angeles', 'America/Denver', 'America/Chicago', 'America/New_York']
 
 test('ST → ST', t => {
   timezones.forEach(tz => {
