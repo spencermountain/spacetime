@@ -1,20 +1,19 @@
-'use strict';
-// const zones = require('../../data');
+'use strict'
 const findTz = require('./find')
 const inSummerTime = require('./summerTime')
 const display = require('./display')
 
 const parseDst = dst => {
   if (!dst) {
-    return [];
+    return []
   }
   return dst.split('->')
-};
+}
 
 const titleCase = str => {
   str = str[0].toUpperCase() + str.substr(1)
   str = str.replace(/\/gmt/, '/GMT')
-  str = str.replace(/[\/_]([a-z])/ig, (s) => {
+  str = str.replace(/[\/_]([a-z])/gi, s => {
     return s.toUpperCase()
   })
   return str
@@ -29,13 +28,13 @@ const timezone = s => {
   }
   if (tz === null) {
     if (s.silent === false) {
-      console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
+      console.warn("Warn: could not find given or local timezone - '" + s.tz + "'")
     }
     return {
       current: {
-        epochShift: 0,
-      },
-    };
+        epochShift: 0
+      }
+    }
   }
   let found = zones[tz]
   let result = {
@@ -51,7 +50,7 @@ const timezone = s => {
     let arr = parseDst(found.dst)
     result.change = {
       start: arr[0],
-      back: arr[1],
+      back: arr[1]
     }
   }
   //find the offsets for summer/winter times
@@ -61,7 +60,8 @@ const timezone = s => {
   if (result.hasDst === true) {
     if (result.hemisphere === 'North') {
       winter = summer - 1
-    } else { //southern hemisphere
+    } else {
+      //southern hemisphere
       winter = found.offset + 1
     }
   }
@@ -74,12 +74,13 @@ const timezone = s => {
   } else if (inSummerTime(s.epoch, result.change.start, result.change.back, summer) === true) {
     result.current.offset = summer
     result.current.isDST = result.hemisphere === 'North' //dst 'on' in winter in north
-  } else { //use 'winter' january-time
+  } else {
+    //use 'winter' january-time
     result.current.offset = winter
     result.current.isDST = result.hemisphere === 'South' //dst 'on' in summer in south
   }
   //try to find the best name for it..
   result.display = display(tz, result, zones)
   return result
-};
-module.exports = timezone;
+}
+module.exports = timezone

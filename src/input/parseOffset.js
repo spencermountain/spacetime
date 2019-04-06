@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 //pull-apart ISO offsets, like "+0100"
 const parseOffset = (s, offset) => {
   if (!offset) {
@@ -12,11 +12,11 @@ const parseOffset = (s, offset) => {
   // according to ISO8601, tz could be hh:mm, hhmm or hh
   // so need few more steps before the calculation.
 
-  let num = 0;
+  let num = 0
 
   // for (+-)hh:mm
   if (/^[\+-]?[0-9]{2}:[0-9]{2}$/.test(offset)) {
-      //support "+01:00"
+    //support "+01:00"
     if (/:00/.test(offset) === true) {
       offset = offset.replace(/:00/, '')
     }
@@ -28,7 +28,7 @@ const parseOffset = (s, offset) => {
 
   // for (+-)hhmm
   if (/^[\+-]?[0-9]{4}$/.test(offset)) {
-    offset = offset.replace(/30$/, '.5');
+    offset = offset.replace(/30$/, '.5')
   }
 
   num = parseFloat(offset)
@@ -39,7 +39,8 @@ const parseOffset = (s, offset) => {
   }
   // console.log(offset, num)
   let current = s.timezone().current.offset
-  if (current === num) { //we cool..
+  if (current === num) {
+    //we cool..
     return s
   }
   //okay, try to match it to a utc timezone
@@ -55,7 +56,6 @@ const parseOffset = (s, offset) => {
   let zones = s.timezones
   // console.log(tz)
   if (zones[tz]) {
-
     // console.log('changing timezone to: ' + tz)
     //log a warning if we're over-writing a given timezone
     // if (givenTz && zones[givenTz] && zones[givenTz].offset !== zones[tz].offset && s.silent === false) {

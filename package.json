@@ -26,6 +26,13 @@
     "api",
     "types"
   ],
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.4.3",

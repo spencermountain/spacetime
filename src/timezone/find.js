@@ -63,7 +63,7 @@ const lookupTz = (str, zones) => {
       return gmt
     }
   }
-  console.warn('Cannot find timezone named: \'' + str + '\'')
+  console.warn("Cannot find timezone named: '" + str + "'")
   return local
 }
 module.exports = lookupTz

@@ -1,5 +1,7 @@
 const isSummer = require('./summerTime')
-//
+
+// this method avoids having to do a full dst-calculation on every operation
+// it reproduces some things in ./index.js, but speeds up spacetime considerably
 const quickOffset = s => {
   let zones = s.timezones
   let obj = zones[s.tz]

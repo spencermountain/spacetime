@@ -1,12 +1,12 @@
-'use strict';
-const walkTo = require('../methods/set/walk');
+'use strict'
+const walkTo = require('../methods/set/walk')
 const months = require('../data/months').mapping()
 const parseOffset = require('./parseOffset')
 const hasDate = require('./hasDate')
 const fns = require('../fns')
 // const zones = require('../../data');
 const parseTime = (s, str = '') => {
-  str = str.replace(/^\s+/, '').toLowerCase(); //trim
+  str = str.replace(/^\s+/, '').toLowerCase() //trim
   //formal time formats - 04:30.23
   let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/)
   if (arr !== null) {
@@ -19,10 +19,10 @@ const parseTime = (s, str = '') => {
     if (arr[2].length < 2 || m < 0 || m > 59) {
       return s.startOf('day')
     }
-    s = s.hour(h);
-    s = s.minute(m);
-    s = s.seconds(arr[3] || 0);
-    s = s.millisecond(arr[4] || 0);
+    s = s.hour(h)
+    s = s.minute(m)
+    s = s.seconds(arr[3] || 0)
+    s = s.millisecond(arr[4] || 0)
     //parse-out am/pm
     let ampm = str.match(/[\b0-9](am|pm)\b/)
     if (ampm !== null && ampm[1]) {
@@ -38,7 +38,7 @@ const parseTime = (s, str = '') => {
     if (h > 12 || h < 1) {
       return s.startOf('day')
     }
-    s = s.hour(arr[1] || 0);
+    s = s.hour(arr[1] || 0)
     s = s.ampm(arr[2])
     s = s.startOf('hour')
     return s
@@ -46,7 +46,7 @@ const parseTime = (s, str = '') => {
   //no time info found, use start-of-day
   s = s.startOf('day')
   return s
-};
+}
 
 const parseYear = (str = '') => {
   //support '18 -> 2018
@@ -62,7 +62,7 @@ const strFmt = [
   {
     reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9\-\+:]+)?$/,
     parse: (s, arr, givenTz, options) => {
-      let month = parseInt(arr[2], 10) - 1;
+      let month = parseInt(arr[2], 10) - 1
       let obj = {
         year: arr[1],
         month,
@@ -74,9 +74,9 @@ const strFmt = [
       }
       // Should walk to target date before parseOffset,
       // otherwise it jsut parsing with current epoch.
-      walkTo(s, obj);
-      parseOffset(s, arr[5], givenTz, options);
-      s = parseTime(s, arr[4]);
+      walkTo(s, obj)
+      parseOffset(s, arr[5], givenTz, options)
+      s = parseTime(s, arr[4])
       return s
     }
   },
@@ -89,7 +89,8 @@ const strFmt = [
         month: parseInt(arr[2], 10) - 1,
         date: parseInt(arr[3], 10)
       }
-      if (obj.month >= 12) { //support yyyy/dd/mm (weird, but ok)
+      if (obj.month >= 12) {
+        //support yyyy/dd/mm (weird, but ok)
         obj.date = parseInt(arr[2], 10)
         obj.month = parseInt(arr[3], 10) - 1
       }
@@ -97,8 +98,8 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj);
-      s = parseTime(s);
+      walkTo(s, obj)
+      s = parseTime(s)
       return s
     }
   },
@@ -106,10 +107,11 @@ const strFmt = [
   {
     reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/,
     parse: (s, arr) => {
-      let month = parseInt(arr[1], 10) - 1;
+      let month = parseInt(arr[1], 10) - 1
       let date = parseInt(arr[2], 10)
-      if (month >= 12) { //support yyyy/dd/mm (weird, but ok)
-        month = parseInt(arr[2], 10) - 1;
+      if (month >= 12) {
+        //support yyyy/dd/mm (weird, but ok)
+        month = parseInt(arr[2], 10) - 1
         date = parseInt(arr[1], 10)
       }
       let year = arr[3] || new Date().getFullYear()
@@ -122,8 +124,8 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj);
-      s = parseTime(s);
+      walkTo(s, obj)
+      s = parseTime(s)
       return s
     }
   },
@@ -132,7 +134,7 @@ const strFmt = [
   {
     reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm)?))?$/i,
     parse: (s, arr) => {
-      let month = months[arr[1].toLowerCase()];
+      let month = months[arr[1].toLowerCase()]
       let year = parseYear(arr[3])
       let obj = {
         year,
@@ -143,8 +145,8 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj);
-      s = parseTime(s, arr[4]);
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
       return s
     }
   },
@@ -152,7 +154,7 @@ const strFmt = [
   {
     reg: /^([a-z]+) ([0-9]{4})$/i,
     parse: (s, arr) => {
-      let month = months[arr[1].toLowerCase()];
+      let month = months[arr[1].toLowerCase()]
       let year = parseYear(arr[2])
       let obj = {
         year,
@@ -163,8 +165,8 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj);
-      s = parseTime(s, arr[4]);
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
       return s
     }
   },
@@ -172,23 +174,24 @@ const strFmt = [
   {
     reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?$/i,
     parse: (s, arr) => {
-      let month = months[arr[2].toLowerCase()];
+      let month = months[arr[2].toLowerCase()]
       let year = parseYear(arr[3])
       let obj = {
         year,
         month,
-        date: fns.toCardinal(arr[1]),
+        date: fns.toCardinal(arr[1])
       }
       if (hasDate(obj) === false) {
         s.epoch = null
         return s
       }
-      walkTo(s, obj);
-      s = parseTime(s);
+      walkTo(s, obj)
+      s = parseTime(s)
       return s
     }
   },
-  { // '1992'
+  {
+    // '1992'
     reg: /^[0-9]{4}$/i,
     parse: (s, arr) => {
       let year = parseYear(arr[0])
@@ -202,12 +205,13 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj);
-      s = parseTime(s);
+      walkTo(s, obj)
+      s = parseTime(s)
       return s
     }
   },
-  { // '200bc'
+  {
+    // '200bc'
     reg: /^[0-9,]+ ?b\.?c\.?$/i,
     parse: (s, arr) => {
       let str = arr[0] || ''
@@ -226,11 +230,11 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj);
-      s = parseTime(s);
+      walkTo(s, obj)
+      s = parseTime(s)
       return s
     }
   }
-];
+]
 
-module.exports = strFmt;
+module.exports = strFmt

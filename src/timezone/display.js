@@ -32,7 +32,7 @@ const british = {
   'europe/belfast': true,
   'europe/dublin': true,
   'europe/guernsey': true,
-  'europe/jersey': true,
+  'europe/jersey': true
 }
 
 const handleSpecial = (tz, offset) => {

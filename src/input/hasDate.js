@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 const monthLengths = require('../data/monthLengths')
 const isLeapYear = require('../fns').isLeapYear
 
@@ -6,7 +6,6 @@ const isLeapYear = require('../fns').isLeapYear
 const hasDate = obj => {
   //invalid values
   if (monthLengths.hasOwnProperty(obj.month) !== true) {
-
     return false
   }
   //support leap-year in february

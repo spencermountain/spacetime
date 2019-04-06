@@ -1,43 +1,39 @@
-'use strict';
+'use strict'
 
 //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
 exports.isLeapYear = year => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 // unsurprisingly-nasty `typeof date` call
-exports.isDate = d => (
-    Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
-  );
-exports.isArray = input => Object.prototype.toString.call(input) === '[object Array]';
-exports.isObject = input => Object.prototype.toString.call(input) === '[object Object]';
+exports.isDate = d => Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
+exports.isArray = input => Object.prototype.toString.call(input) === '[object Array]'
+exports.isObject = input => Object.prototype.toString.call(input) === '[object Object]'
 
 exports.zeroPad = (str, len = 2) => {
-  let pad = '0';
-  str = str + '';
-  return str.length >= len
-    ? str
-    : new Array(len - str.length + 1).join(pad) + str;
-};
+  let pad = '0'
+  str = str + ''
+  return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str
+}
 
 exports.titleCase = str => {
   if (!str) {
-    return '';
+    return ''
   }
   return str[0].toUpperCase() + str.substr(1)
-};
+}
 
 exports.ordinal = i => {
-  let j = i % 10;
-  let k = i % 100;
+  let j = i % 10
+  let k = i % 100
   if (j === 1 && k !== 11) {
-    return i + 'st';
+    return i + 'st'
   }
   if (j === 2 && k !== 12) {
-    return i + 'nd';
+    return i + 'nd'
   }
   if (j === 3 && k !== 13) {
-    return i + 'rd';
+    return i + 'rd'
   }
-  return i + 'th';
-};
+  return i + 'th'
+}
 
 //strip 'st' off '1st'..
 exports.toCardinal = str => {
@@ -47,29 +43,29 @@ exports.toCardinal = str => {
 }
 
 exports.normalize = str => {
-  str = str.toLowerCase();
+  str = str.toLowerCase()
   str = str.replace(/ies$/, 'y') //'centuries'
-  str = str.replace(/s$/, '');
+  str = str.replace(/s$/, '')
   if (str === 'day') {
-    return 'date';
+    return 'date'
   }
-  return str;
-};
+  return str
+}
 
 exports.getEpoch = tmp => {
   //support epoch
   if (typeof tmp === 'number') {
-    return tmp;
+    return tmp
   }
   //suport date objects
   if (exports.isDate(tmp)) {
-    return tmp.getTime();
+    return tmp.getTime()
   }
   if (tmp.epoch) {
-    return tmp.epoch;
+    return tmp.epoch
   }
-  return null;
-};
+  return null
+}
 
 //make sure this input is a spacetime obj
 exports.beADate = (d, s) => {

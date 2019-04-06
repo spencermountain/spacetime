@@ -18,4 +18,4 @@ module.exports = {
     ['spring', 8, 1], //sept 1
     ['summer', 11, 1] //dec 1
   ]
-};
+}

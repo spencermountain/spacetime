@@ -6,6 +6,7 @@ const nearest = require('./methods/nearest')
 const diff = require('./methods/diff')
 const since = require('./methods/since')
 const ends = require('./methods/startOf')
+const every = require('./methods/every')
 const timezone = require('./timezone/index')
 const findTz = require('./timezone/find')
 const handleInput = require('./input')
@@ -13,9 +14,12 @@ const fns = require('./fns')
 
 //the spacetime instance methods (also, the API)
 const methods = {
-  set: function(input) {
+  set: function(input, tz) {
     let s = this.clone()
     s = handleInput(s, input)
+    if (tz) {
+      this.tz = findTz(tz)
+    }
     return s
   },
   timezone: function() {
@@ -86,6 +90,10 @@ const methods = {
     s.tz = findTz(tz, s.timezones) //science!
     return s
   },
+  //get each week/month/day between a -> b
+  every: function(unit, to) {
+    return every(this, unit, to)
+  },
   isAwake: function() {
     let hour = this.hour()
     //10pm -> 8am
@@ -114,7 +122,7 @@ const methods = {
     date += '\n     - ' + this.format('time')
     console.log('\n\n', date + '\n     - ' + tz.name + ' (' + tz.current.offset + ')')
     return this
-  },
+  }
 }
 // aliases
 methods.inDST = methods.isDST

@@ -21,7 +21,7 @@ const SpaceTime = function(input, tz, options = {}) {
       //every computer is somewhere- get this computer's built-in offset
       let bias = new Date(this.epoch).getTimezoneOffset() || 0
       //movement
-      let shift = bias + (offset * 60) //in minutes
+      let shift = bias + offset * 60 //in minutes
       shift = shift * 60 * 1000 //in ms
       //remove this computer's offset
       let epoch = this.epoch + shift

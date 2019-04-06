@@ -1,10 +1,11 @@
-const fns = require('../../fns');
+const fns = require('../../fns')
 
 // "+01:00", "+0100", or simply "+01"
 const isoOffset = s => {
   let offset = s.timezone().current.offset
   let minute = '00'
-  if (offset % 1 === 0.5) { //fraction of the hour
+  if (offset % 1 === 0.5) {
+    //fraction of the hour
     minute = '30'
     offset = Math.floor(offset)
   }
@@ -19,7 +20,7 @@ const isoOffset = s => {
   }
   offset = offset + ':' + minute
   //this is a little cleaner?
-  if (offset === "+00:00") {
+  if (offset === '+00:00') {
     offset = 'Z'
   }
   return offset

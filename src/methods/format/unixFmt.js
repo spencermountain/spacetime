@@ -6,90 +6,90 @@ const formatTimezone = require('../../fns').formatTimezone
 
 //time-symbols we support
 const mapping = {
-  G: (s) => s.era(),
-  GG: (s) => s.era(),
-  GGG: (s) => s.era(),
-  GGGG: (s) => s.era() === 'AD' ? 'Anno Domini' : 'Before Christ',
+  G: s => s.era(),
+  GG: s => s.era(),
+  GGG: s => s.era(),
+  GGGG: s => (s.era() === 'AD' ? 'Anno Domini' : 'Before Christ'),
   //year
-  y: (s) => s.year(),
-  yy: (s) => { //last two chars
+  y: s => s.year(),
+  yy: s => {
+    //last two chars
     return parseInt(String(s.year()).substr(2, 4), 10)
   },
-  yyy: (s) => s.year(),
-  yyyy: (s) => s.year(),
-  yyyyy: (s) => '0' + s.year(),
+  yyy: s => s.year(),
+  yyyy: s => s.year(),
+  yyyyy: s => '0' + s.year(),
   // u: (s) => {},//extended non-gregorian years
 
   //quarter
-  Q: (s) => s.quarter(),
-  QQ: (s) => s.quarter(),
-  QQQ: (s) => s.quarter(),
-  QQQQ: (s) => s.quarter(),
+  Q: s => s.quarter(),
+  QQ: s => s.quarter(),
+  QQQ: s => s.quarter(),
+  QQQQ: s => s.quarter(),
 
   //month
-  M: (s) => s.month() + 1,
-  MM: (s) => pad(s.month() + 1),
-  MMM: (s) => s.format('month-short'),
-  MMMM: (s) => s.format('month'),
+  M: s => s.month() + 1,
+  MM: s => pad(s.month() + 1),
+  MMM: s => s.format('month-short'),
+  MMMM: s => s.format('month'),
 
   //week
-  w: (s) => s.week(),
-  ww: (s) => pad(s.week()),
+  w: s => s.week(),
+  ww: s => pad(s.week()),
   //week of month
   // W: (s) => s.week(),
 
   //date of month
-  d: (s) => s.date(),
-  dd: (s) => pad(s.date()),
+  d: s => s.date(),
+  dd: s => pad(s.date()),
   //date of year
-  D: (s) => s.dayOfYear(),
-  DD: (s) => pad(s.dayOfYear()),
-  DDD: (s) => pad(s.dayOfYear(), 3),
+  D: s => s.dayOfYear(),
+  DD: s => pad(s.dayOfYear()),
+  DDD: s => pad(s.dayOfYear(), 3),
 
   // F: (s) => {},//date of week in month
   // g: (s) => {},//modified julian day
 
   //day
-  E: (s) => s.format('day-short'),
-  EE: (s) => s.format('day-short'),
-  EEE: (s) => s.format('day-short'),
-  EEEE: (s) => s.format('day'),
-  EEEEE: (s) => s.format('day')[0],
-  e: (s) => s.day(),
-  ee: (s) => s.day(),
-  eee: (s) => s.format('day-short'),
-  eeee: (s) => s.format('day'),
-  eeeee: (s) => s.format('day')[0],
+  E: s => s.format('day-short'),
+  EE: s => s.format('day-short'),
+  EEE: s => s.format('day-short'),
+  EEEE: s => s.format('day'),
+  EEEEE: s => s.format('day')[0],
+  e: s => s.day(),
+  ee: s => s.day(),
+  eee: s => s.format('day-short'),
+  eeee: s => s.format('day'),
+  eeeee: s => s.format('day')[0],
 
   //am/pm
-  a: (s) => s.ampm().toUpperCase(),
-  aa: (s) => s.ampm().toUpperCase(),
-  aaa: (s) => s.ampm().toUpperCase(),
-  aaaa: (s) => s.ampm().toUpperCase(),
+  a: s => s.ampm().toUpperCase(),
+  aa: s => s.ampm().toUpperCase(),
+  aaa: s => s.ampm().toUpperCase(),
+  aaaa: s => s.ampm().toUpperCase(),
 
   //hour
-  h: (s) => s.h12(),
-  hh: (s) => pad(s.h12()),
-  H: (s) => s.hour(),
-  HH: (s) => pad(s.hour()),
+  h: s => s.h12(),
+  hh: s => pad(s.h12()),
+  H: s => s.hour(),
+  HH: s => pad(s.hour()),
   // j: (s) => {},//weird hour format
 
-  m: (s) => s.minute(),
-  mm: (s) => pad(s.minute()),
-  s: (s) => s.second(),
-  ss: (s) => pad(s.second()),
+  m: s => s.minute(),
+  mm: s => pad(s.minute()),
+  s: s => s.second(),
+  ss: s => pad(s.second()),
   //milliseconds in the day
-  A: (s) => s.epoch - s.startOf('day').epoch,
+  A: s => s.epoch - s.startOf('day').epoch,
   //timezone
-  z: (s) => s.timezone().name,
-  zz: (s) => s.timezone().name,
-  zzz: (s) => s.timezone().name,
-  zzzz: (s) => s.timezone().name,
-  Z: (s) => formatTimezone(s.timezone().current.offset),
-  ZZ: (s) => formatTimezone(s.timezone().current.offset),
-  ZZZ: (s) => formatTimezone(s.timezone().current.offset),
-  ZZZZ: (s) => formatTimezone(s.timezone().current.offset, ':'),
-
+  z: s => s.timezone().name,
+  zz: s => s.timezone().name,
+  zzz: s => s.timezone().name,
+  zzzz: s => s.timezone().name,
+  Z: s => formatTimezone(s.timezone().current.offset),
+  ZZ: s => formatTimezone(s.timezone().current.offset),
+  ZZZ: s => formatTimezone(s.timezone().current.offset),
+  ZZZZ: s => formatTimezone(s.timezone().current.offset, ':')
 }
 
 const addAlias = (char, to, n) => {
@@ -140,7 +140,7 @@ const unixFmt = (s, str) => {
     } else {
       txt += c
     }
-    return txt;
-  }, '');
+    return txt
+  }, '')
 }
 module.exports = unixFmt
