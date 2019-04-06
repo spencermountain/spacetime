@@ -6,7 +6,7 @@ const isOffset = /(\-?[0-9]+)h(rs)?/
 
 //add all the city names by themselves
 const cities = Object.keys(tzs).reduce((h, k) => {
-  let city = k.split('/')[1]
+  let city = k.split('/')[1] || ''
   city = city.replace(/_/g, ' ')
   h[city] = k
   return h

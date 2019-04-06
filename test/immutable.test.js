@@ -4,7 +4,6 @@ const test = require('tape')
 const spacetime = require('./lib')
 const day0 = spacetime.now()
 const today = day0.format('nice')
-console.log(day0.timezone())
 
 test('clone still works', t => {
   let day1 = day0.clone()
