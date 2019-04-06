@@ -1,7 +1,7 @@
 //find the implicit iana code for this machine.
 //safely query the Intl object
 //based on - https://bitbucket.org/pellepim/jstimezonedetect/src
-const fallbackTZ = 'UTC' //
+const fallbackTZ = 'utc' //
 
 //this Intl object is not supported often, yet
 const safeIntl = () => {
@@ -16,7 +16,7 @@ const safeIntl = () => {
   if (!timezone) {
     return null
   }
-  return timezone
+  return timezone.toLowerCase()
 }
 
 const guessTz = () => {
@@ -24,7 +24,7 @@ const guessTz = () => {
   if (timezone === null) {
     return fallbackTZ
   }
-  return timezone.toLowerCase()
+  return timezone
 }
 //do it once per computer
 module.exports = guessTz

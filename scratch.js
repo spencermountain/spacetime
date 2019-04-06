@@ -22,8 +22,13 @@ const spacetime = require('./src/index')
 // s = s.next('wednesday') //start of the nearest future wednesday
 // s = s.next('march') //start of the nearest future march
 
-let str = '2018-07-09T12:59:00.000+07:00'
-let plus = spacetime(str)
-let iso = plus.format('iso')
-console.log(iso === str)
-console.log(iso)
+// let str = '2017-09-02T08:15:10.000+07:00'
+// let plus = spacetime(str)
+// console.log(plus.timezone().current.offset)
+// let iso = plus.format('iso')
+// console.log(iso === str)
+// console.log(iso)
+
+let a = spacetime('2019-03-13T18:00:00.000-05:00')
+console.log('timestamp:', a)
+console.log(a.format('iso'))

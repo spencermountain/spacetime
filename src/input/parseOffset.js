@@ -10,7 +10,6 @@ const parseOffset = (s, offset) => {
 
   // according to ISO8601, tz could be hh:mm, hhmm or hh
   // so need few more steps before the calculation.
-
   let num = 0
 
   // for (+-)hh:mm
@@ -53,18 +52,10 @@ const parseOffset = (s, offset) => {
   }
   let tz = 'etc/gmt' + num
   let zones = s.timezones
-  // console.log(tz)
+
   if (zones[tz]) {
+    // log a warning if we're over-writing a given timezone?
     // console.log('changing timezone to: ' + tz)
-    //log a warning if we're over-writing a given timezone
-    // if (givenTz && zones[givenTz] && zones[givenTz].offset !== zones[tz].offset && s.silent === false) {
-    //don't log during our tests, either..
-    // if (typeof process !== 'undefined' && process.env && !process.env.TESTENV) {
-    //   console.warn('  - Setting timezone to: \'' + tz + '\'')
-    //   console.warn('     from ISO string \'' + offset + '\'')
-    //   console.warn('     overwriting given timezone: \'' + givenTz + '\'\n')
-    // }
-    // }
     s.tz = tz
   }
   return s
