@@ -1,6 +1,6 @@
-'use strict';
-const test = require('tape');
-const spacetime = require('./lib');
+'use strict'
+const test = require('tape')
+const spacetime = require('./lib')
 
 const defaultWords = {
   days: {
@@ -24,15 +24,15 @@ const defaultWords = {
       'december'
     ]
   }
-};
+}
 
 test('i18n', t => {
-  let a = spacetime([2000, 0, 1]);
+  let a = spacetime([2000, 0, 1])
 
-  t.equal(a.format('day-short'), 'Sat', 'en: day-short');
-  t.equal(a.format('day'), 'Saturday', 'en: day');
-  t.equal(a.format('month-short'), 'Jan', 'en: month-short');
-  t.equal(a.format('month'), 'January', 'en: month');
+  t.equal(a.format('day-short'), 'Sat', 'en: day-short')
+  t.equal(a.format('day'), 'Saturday', 'en: day')
+  t.equal(a.format('month-short'), 'Jan', 'en: month-short')
+  t.equal(a.format('month'), 'January', 'en: month')
 
   a.i18n({
     days: {
@@ -56,15 +56,15 @@ test('i18n', t => {
         'diciembre'
       ]
     }
-  });
+  })
 
-  t.equal(a.format('day-short'), 'Sáb', 'es: day-short');
-  t.equal(a.format('day'), 'Sábado', 'es: day');
-  t.equal(a.format('month-short'), 'Ene', 'es: month-short');
-  t.equal(a.format('month'), 'Enero', 'es: month');
+  t.equal(a.format('day-short'), 'Sáb', 'es: day-short')
+  t.equal(a.format('day'), 'Sábado', 'es: day')
+  t.equal(a.format('month-short'), 'Ene', 'es: month-short')
+  t.equal(a.format('month'), 'Enero', 'es: month')
 
   //reset them, for the other tests
-  a.i18n(defaultWords);
+  a.i18n(defaultWords)
 
-  t.end();
-});
+  t.end()
+})

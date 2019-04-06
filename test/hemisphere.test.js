@@ -1,6 +1,6 @@
-'use strict';
-const test = require('tape');
-const spacetime = require('./lib');
+'use strict'
+const test = require('tape')
+const spacetime = require('./lib')
 
 let june = 1401660600207 //june 1, 6:10pm
 let jan = 1515368004641 //january 7th, 6:30pm
@@ -17,8 +17,8 @@ test('toronto/Santiago same in june', t => {
   t.equal('South', b.hemisphere(), 'santiago in south')
 
   t.ok(a.format('nice'), b.format('nice'), 'same-calendar-time')
-  t.end();
-});
+  t.end()
+})
 
 test('toronto/Santiago -2hrs in january', t => {
   var a = spacetime(jan, 'America/Toronto')
@@ -31,8 +31,8 @@ test('toronto/Santiago -2hrs in january', t => {
   t.equal(true, b.timezone().current.isDST, 'santiago is dst')
   t.equal('South', b.hemisphere(), 'santiago in south')
   t.notEqual(a.format('nice'), b.format('nice'), 'not same-calendar-time')
-  t.end();
-});
+  t.end()
+})
 
 test('northern-hemisphere spring-ahead', t => {
   //regina is always -6, mexico city goes -5 in the summer (dst+1)
@@ -49,8 +49,8 @@ test('northern-hemisphere spring-ahead', t => {
   t.notEqual(sep1.format('nice'), sep2.format('nice'), 'not-same-calendar-time-anymore')
   t.equal(true, sep1.isDST(), 'Mexico_City-is-dst-in-sep')
   t.equal(false, sep2.isDST(), 'Regina-never-dst2')
-  t.end();
-});
+  t.end()
+})
 
 test('southern-hemisphere spring-back', t => {
   //so both are -3 in january
@@ -67,5 +67,5 @@ test('southern-hemisphere spring-back', t => {
   t.equal(21, jul2.hour(), 'not-same-time')
   t.equal(false, jul1.isDST(), 'Santiago-not-dst-in-july')
   t.equal(false, jul2.isDST(), 'argentina-never-dst2')
-  t.end();
-});
+  t.end()
+})

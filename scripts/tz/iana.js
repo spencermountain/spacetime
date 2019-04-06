@@ -524,5 +524,5 @@ module.exports = {
   'Pacific/Truk': 600,
   'Pacific/Wake': 720,
   'Pacific/Wallis': 720,
-  'Pacific/Yap': 600,
-};
+  'Pacific/Yap': 600
+}

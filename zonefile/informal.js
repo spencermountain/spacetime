@@ -194,7 +194,7 @@ const informal = {
   'pacific/galapagos': ['galt'],
   'pacific/fiji': ['fjt', 'fjst'],
   'asia/dili': ['tlt', null, 'east timor'],
-  'indian/christmas': ['cxt'],
+  'indian/christmas': ['cxt']
   // sbt: 11, //solomon islands time
   // mht: 12, //marshall islands time
   // bit: -12, //baker island time
@@ -234,19 +234,19 @@ const informal = {
   // vut: 11, //vanuatu time
   // wakt: 12, //wake island time
 
-//i forget (sorry!)
-// haec: 2, //heure avancée deurope centrale french-language name for cest
-// syot: 3, //showa station time
-// yekt: 5, //yekaterinburg time
-// sct: 4, //seychelles time
-// orat: 5, //oral time
-// mawt: 5, //mawson station time
-// hovt: 7, //khovd standard time
-// hovst: 8, //khovd summer time
-// davt: 7, //davis time
-// chost: 9, //choibalsan summer time
-// chot: 8, //choibalsan standard time
-// wst: 8, //western standard time
+  //i forget (sorry!)
+  // haec: 2, //heure avancée deurope centrale french-language name for cest
+  // syot: 3, //showa station time
+  // yekt: 5, //yekaterinburg time
+  // sct: 4, //seychelles time
+  // orat: 5, //oral time
+  // mawt: 5, //mawson station time
+  // hovt: 7, //khovd standard time
+  // hovst: 8, //khovd summer time
+  // davt: 7, //davis time
+  // chost: 9, //choibalsan summer time
+  // chot: 8, //choibalsan standard time
+  // wst: 8, //western standard time
 }
 
 //use each abbreviation as a key
@@ -257,8 +257,8 @@ const lookup = Object.keys(informal).reduce((h, k) => {
       h[arr[i]] = k
     }
   }
-  return h;
-}, {});
+  return h
+}, {})
 
 module.exports = {
   informal,

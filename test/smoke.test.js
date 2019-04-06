@@ -1,6 +1,6 @@
-'use strict';
-const test = require('tape');
-const spacetime = require('./lib');
+'use strict'
+const test = require('tape')
+const spacetime = require('./lib')
 
 test('random november time', t => {
   let epoch = 1510799750000 //november 15th 9:35pm 2017 EST
@@ -28,14 +28,13 @@ test('random november time', t => {
     ['America/Edmonton', 'Wed 7:35pm'],
     ['Africa/Khartoum', 'Thu 4:35am']
   ]
-  arr.forEach((a) => {
+  arr.forEach(a => {
     let s = spacetime(epoch, a[0])
     let have = `${s.format('day-short')} ${s.time()}`
     t.equal(a[1], have, a[0])
   })
-  t.end();
-});
-
+  t.end()
+})
 
 // copied from https://www.epochconverter.com/timezones?q=1520999750000
 test('random march time', t => {
@@ -56,20 +55,21 @@ test('random march time', t => {
     ['Pacific/Easter', 'Mar 13 2018 22:55:50'],
     ['Pacific/Efate', 'Mar 14 2018 14:55:50'],
     ['Pacific/Guam', 'Mar 14 2018 13:55:50'],
-    ['Pacific/Pohnpei', 'Mar 14 2018 14:55:50'],
+    ['Pacific/Pohnpei', 'Mar 14 2018 14:55:50']
   ]
-  arr.forEach((a) => {
+  arr.forEach(a => {
     let s = spacetime(epoch, a[0])
     let hour = s.hour()
     if (hour <= 9) {
       hour = '0' + hour
     }
-    let have = `${s.format('month-short')} ${s.date()} ${s.year()} ${hour}:${s.minute()}:${s.seconds()}`
+    let have = `${s.format(
+      'month-short'
+    )} ${s.date()} ${s.year()} ${hour}:${s.minute()}:${s.seconds()}`
     t.equal(a[1], have, a[0])
   })
-  t.end();
-});
-
+  t.end()
+})
 
 // https://www.epochconverter.com/timezones?q=1520999750000
 test('random july time', t => {
@@ -82,9 +82,9 @@ test('random july time', t => {
     ['Australia/Currie', 'Jul 17 11:55pm'],
     ['Europe/Zagreb', 'Jul 17 3:55pm'],
     ['America/Caracas', 'Jul 17 9:55am'],
-    ['Asia/Karachi', 'Jul 17 6:55pm'],
+    ['Asia/Karachi', 'Jul 17 6:55pm']
   ]
-  arr.forEach((a) => {
+  arr.forEach(a => {
     let s = spacetime(epoch, a[0])
     let hour = s.hour()
     if (hour <= 9) {
@@ -93,8 +93,8 @@ test('random july time', t => {
     let have = `${s.format('month-short')} ${s.date()} ${s.time()}`
     t.equal(a[1], have, a[0])
   })
-  t.end();
-});
+  t.end()
+})
 
 // https://www.epochconverter.com/timezones?q=1520999750000
 test('random january time', t => {
@@ -107,9 +107,9 @@ test('random january time', t => {
     ['Asia/Barnaul', 'Jan 29 7:09pm'],
     ['Asia/Urumqi', 'Jan 29 6:09pm'],
     ['Asia/Tbilisi', 'Jan 29 4:09pm'],
-    ['Pacific/Pohnpei', 'Jan 29 11:09pm'],
+    ['Pacific/Pohnpei', 'Jan 29 11:09pm']
   ]
-  arr.forEach((a) => {
+  arr.forEach(a => {
     let s = spacetime(epoch, a[0])
     let hour = s.hour()
     if (hour <= 9) {
@@ -118,5 +118,5 @@ test('random january time', t => {
     let have = `${s.format('month-short')} ${s.date()} ${s.time()}`
     t.equal(a[1], have, a[0])
   })
-  t.end();
-});
+  t.end()
+})
