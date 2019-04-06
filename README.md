@@ -129,8 +129,11 @@ s = s.endOf('quarter') // 11:59:59pm, June 30th
 
 s = s.nearest('hour') //round up/down to the hour
 s = s.nearest('quarter-hour') //5:15, 5:30, 5:45..
-s = s.next('month') //start-of the next month
-s = s.last('year') //start-of the last year
+s = s.nearest('tuesday') //start of the closest tuesday
+s = s.next('month') //start of the next month
+s = s.next('wednesday') //start of the nearest future wednesday
+s = s.next('march') //start of the nearest future march
+s = s.last('year') //start of the last year
 
 //utilities:
 s.clone() // Make a copy

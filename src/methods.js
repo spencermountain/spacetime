@@ -126,4 +126,5 @@ const methods = {
 // aliases
 methods.inDST = methods.isDST
 methods.round = methods.nearest
+methods.each = methods.every
 module.exports = methods

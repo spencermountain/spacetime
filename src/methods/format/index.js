@@ -125,7 +125,7 @@ const printFormat = (s, str = '') => {
     return out
   }
   //support '{hour}:{minute}' notation
-  if (str.includes('{')) {
+  if (str.indexOf('{') !== -1) {
     let sections = /\{(.+?)\}/g
     str = str.replace(sections, (_, fmt) => {
       fmt = fmt.toLowerCase().trim()
