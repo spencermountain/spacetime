@@ -34,7 +34,7 @@
 - support more time input formats
 - fixes offset input issue [#103](https://github.com/spencermountain/spacetime/issues/103)
 
-### 5.5.0
+### 5.6.0
 
 - support typescript types by Jacob Craig
 - use given timezone when given a spacetime object as an input
