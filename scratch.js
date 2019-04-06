@@ -6,9 +6,14 @@ const spacetime = require('./src/index')
 //   console.log(s.format('nice'))
 // })
 
-console.log(
-  spacetime
-    .now()
-    .next('wednesday')
-    .format('nice-day')
-)
+// console.log(
+//   spacetime
+//     .now()
+//     .next('wednesday')
+//     .format('nice-day')
+// )
+
+let iso = '2017-01-01T08:00:00.000Z'
+let s = spacetime(iso, 'Asia/Taipei')
+console.log(s.timezone())
+console.log(s.format('iso'))

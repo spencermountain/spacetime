@@ -19,7 +19,7 @@ test('to-from utc-format', t => {
     '2019-04-01T12:15:00.000+05:00',
     '2019-04-01T12:15:00.000+05:30'
   ].forEach(str => {
-    let s = spacetime(str, 'Asia/Taipei')
+    let s = spacetime(str)
     let out = s.format('iso')
     t.equal(str, out, 'equal - ' + str)
   })
