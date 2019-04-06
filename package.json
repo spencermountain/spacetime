@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "5.5.0",
+  "version": "5.6.0",
   "description": "figure-out dates across timezones",
   "main": "builds/spacetime.js",
   "unpkg": "builds/spacetime.min.js",
@@ -45,7 +45,7 @@
     "derequire": "2.0.6",
     "nyc": "13.3.0",
     "shelljs": "0.8.3",
-    "tap-dancer": "0.1.2",
+    "tap-dancer": "0.2.0",
     "tap-spec": "5.0.0",
     "tape": "4.10.1",
     "terser": "3.17.0",

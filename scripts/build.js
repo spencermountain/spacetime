@@ -25,7 +25,7 @@ echo(banner).to(uncompressed)
 echo(banner).to(compressed)
 
 //browserify + derequire
-const cmd = browserify + ' ./src/index.js --standalone spacetime'
+let cmd = browserify + ' ./src/index.js --standalone spacetime'
 cmd += ' -t [ babelify --presets [ @babel/preset-env ] ]'
 cmd += ' | ' + derequire
 cmd += ' >> ' + uncompressed
