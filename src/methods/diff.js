@@ -1,30 +1,28 @@
-'use strict';
-const fns = require('../fns');
+const fns = require('../fns')
 
 //init this function up here
-let doAll = () => {
-}
+let doAll = () => {}
 //increment until dates are the same
 const climb = (a, b, unit) => {
-  let i = 0;
-  a = a.clone();
+  let i = 0
+  a = a.clone()
   while (a.isBefore(b)) {
     //do proper, expensive increment to catch all-the-tricks
-    a = a.add(1, unit);
-    i += 1;
+    a = a.add(1, unit)
+    i += 1
   }
   //oops, we went too-far..
   if (!a.isSame(b, unit)) {
-    i -= 1;
+    i -= 1
   }
-  return i;
-};
+  return i
+}
 
 const diffQuick = (a, b) => {
   let ms = b.epoch - a.epoch
   let obj = {
     milliseconds: ms,
-    seconds: parseInt(ms / 1000, 10),
+    seconds: parseInt(ms / 1000, 10)
   }
   obj.minutes = parseInt(obj.seconds / 60, 10)
   obj.hours = parseInt(obj.minutes / 60, 10)
@@ -38,7 +36,7 @@ const diff = (a, b, unit) => {
     return doAll(a, b)
   }
   //make sure it's plural-form
-  unit = fns.normalize(unit);
+  unit = fns.normalize(unit)
   if (/s$/.test(unit) !== true) {
     unit += 's'
   }
@@ -48,10 +46,10 @@ const diff = (a, b, unit) => {
   }
   //otherwise, do full-version
   if (a.isBefore(b)) {
-    return climb(a, b, unit);
+    return climb(a, b, unit)
   } else {
     //reverse it
-    return climb(b, a, unit) * -1;
+    return climb(b, a, unit) * -1
   }
 }
 
@@ -68,4 +66,4 @@ doAll = (a, b) => {
   }
   return all
 }
-module.exports = diff;
+module.exports = diff

@@ -3,7 +3,7 @@ cache: yarn
 notifications:
   email: false
 node_js:
-  - "6"
+  - '6'
 script:
   - npm run test-spec
   - npm run coverage

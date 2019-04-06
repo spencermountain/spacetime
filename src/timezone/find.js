@@ -1,4 +1,3 @@
-'use strict'
 const tzs = require('../../zonefile/unpack')
 const informal = require('../../zonefile/informal').lookup
 const guessTz = require('./guessTz')
@@ -7,7 +6,7 @@ const isOffset = /(\-?[0-9]+)h(rs)?/
 
 //add all the city names by themselves
 const cities = Object.keys(tzs).reduce((h, k) => {
-  let city = k.split('/')[1]
+  let city = k.split('/')[1] || ''
   city = city.replace(/_/g, ' ')
   h[city] = k
   return h
@@ -63,7 +62,7 @@ const lookupTz = (str, zones) => {
       return gmt
     }
   }
-  console.warn('Cannot find timezone named: \'' + str + '\'')
+  console.warn("Cannot find timezone named: '" + str + "'")
   return local
 }
 module.exports = lookupTz

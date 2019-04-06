@@ -40,6 +40,14 @@
       "doc": "go to the beginning of the previous unit",
       "out": "clone"
     },
+    "nearest": {
+      "doc": "move forward/backward to the closest unit",
+      "out": "clone"
+    },
+    "every": {
+      "doc": "list all dates up to a certain time",
+      "out": "clone"
+    },
     "isAfter": {
       "doc": "pass-in a spacetime object or date input and see if it takes-place after your spacetime date/time",
       "out": "Boolean"

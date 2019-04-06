@@ -1,12 +1,12 @@
 /* eslint no-unused-vars: "off" */
-'use strict';
-const test = require('tape');
-const spacetime = require('./lib');
-const day0 = spacetime.now();
-const today = day0.format('nice');
+'use strict'
+const test = require('tape')
+const spacetime = require('./lib')
+const day0 = spacetime.now()
+const today = day0.format('nice')
 
 test('clone still works', t => {
-  var day1 = day0.clone()
+  let day1 = day0.clone()
   t.ok(day0.format('nice') === day1.format('nice'), 'eq')
   t.ok(day0.format('nice') === day1.format('nice'), 'eq')
   //log this, if it ever happends. i saw it once.
@@ -17,56 +17,67 @@ test('clone still works', t => {
 })
 
 test('.add does not mutate', t => {
-  t.plan(1);
-  let tmrw = day0.add(1, 'day').format('nice');
-  t.ok(today === day0.format('nice'), 'not mutated');
-});
+  t.plan(1)
+  let tmrw = day0.add(1, 'day').format('nice')
+  t.ok(today === day0.format('nice'), 'not mutated')
+})
 
 test('.subtract does not mutate', t => {
-  t.plan(1);
-  let tmrw = day0.subtract(1, 'day').format('nice');
-  t.ok(today === day0.format('nice'), 'not mutated');
-});
+  t.plan(1)
+  let tmrw = day0.subtract(1, 'day').format('nice')
+  t.ok(today === day0.format('nice'), 'not mutated')
+})
 
 test('.hour does not mutate', t => {
-  t.plan(1);
-  let tmrw = day0.hour(1).format('nice');
-  t.ok(today === day0.format('nice'), 'not mutated');
-});
+  t.plan(1)
+  let tmrw = day0.hour(1).format('nice')
+  t.ok(today === day0.format('nice'), 'not mutated')
+})
 
 test('.date does not mutate', t => {
-  t.plan(1);
-  let tmrw = day0.date(1).month(1).year(2018).format('nice');
-  t.ok(today === day0.format('nice'), 'not mutated');
-});
+  t.plan(1)
+  let tmrw = day0
+    .date(1)
+    .month(1)
+    .year(2018)
+    .format('nice')
+  t.ok(today === day0.format('nice'), 'not mutated')
+})
 
 test('.day does not mutate', t => {
-  t.plan(1);
-  let tmrw = day0.day(22).format('nice');
-  t.ok(today === day0.format('nice'), 'not mutated');
-});
+  t.plan(1)
+  let tmrw = day0.day(22).format('nice')
+  t.ok(today === day0.format('nice'), 'not mutated')
+})
 
 test('.month does not mutate', t => {
-  t.plan(1);
-  let tmrw = day0.month(7).format('nice');
-  t.ok(today === day0.format('nice'), 'not mutated');
-});
+  t.plan(1)
+  let tmrw = day0.month(7).format('nice')
+  t.ok(today === day0.format('nice'), 'not mutated')
+})
 
 test('.quarter does not mutate', t => {
-  t.plan(1);
-  let tmrw = day0.quarter(4).format('nice');
-  t.ok(today === day0.format('nice'), 'not mutated');
-});
+  t.plan(1)
+  let tmrw = day0.quarter(4).format('nice')
+  t.ok(today === day0.format('nice'), 'not mutated')
+})
 
 test('.goto does not mutate', t => {
-  t.plan(1);
-  let tmrw = day0.goto('Australia/Brisbane').format('nice');
-  t.ok(today === day0.format('nice'), 'not mutated');
-});
+  t.plan(1)
+  let tmrw = day0.goto('Australia/Brisbane').format('nice')
+  t.ok(today === day0.format('nice'), 'not mutated')
+})
 test('time setting works', t => {
-  t.equal(spacetime.now().time('6:00pm').time(), '6:00pm', 'input=output')
+  t.equal(
+    spacetime
+      .now()
+      .time('6:00pm')
+      .time(),
+    '6:00pm',
+    'input=output'
+  )
   t.end()
-});
+})
 
 test('smoke-test all mutable methods', t => {
   let arr = [
@@ -91,13 +102,13 @@ test('smoke-test all mutable methods', t => {
     ['subtract', 12, 'hours'],
     ['time', '4:24pm'],
     ['week', 4],
-    ['year', 1982],
-  // ['from',],
-  // ['fromNow',],
-  // ['i18n',],
+    ['year', 1982]
+    // ['from',],
+    // ['fromNow',],
+    // ['i18n',],
   ]
   const epoch = 1552114800001
-  arr.forEach((a) => {
+  arr.forEach(a => {
     let immut = spacetime(1552114800001, 'Canada/Pacific')
     let fn = a[0]
     let s = immut[fn](a[1], a[2])
@@ -106,7 +117,7 @@ test('smoke-test all mutable methods', t => {
     t.notEqual(immut.epoch, s.epoch, fn + ' - immutable result changed')
   })
   t.end()
-});
+})
 
 test('boolean methods identical', t => {
   let r = spacetime(1552124200401)
@@ -116,9 +127,9 @@ test('boolean methods identical', t => {
     ['isAfter', r, 'day', false],
     ['isBefore', r, 'day', true],
     ['isEqual', r, 'day', false],
-    ['isBetween', r, r2, false],
+    ['isBetween', r, r2, false]
   ]
-  arr.forEach((a) => {
+  arr.forEach(a => {
     let immut = spacetime(1552114800001)
     let fn = a[0]
     let one = immut[fn](a[1], a[2])

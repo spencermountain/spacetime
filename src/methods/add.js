@@ -1,10 +1,9 @@
-'use strict';
-const walkTo = require('./set/walk');
-const ms = require('../data/milliseconds');
-const monthLength = require('../data/monthLengths');
-const fns = require('../fns');
+const walkTo = require('./set/walk')
+const ms = require('../data/milliseconds')
+const monthLength = require('../data/monthLengths')
+const fns = require('../fns')
 
-const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month'];
+const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month']
 let keep = {
   second: order.slice(0, 1),
   minute: order.slice(0, 2),
@@ -16,50 +15,50 @@ let keep = {
   season: order.slice(0, 4),
   year: order,
   decade: order,
-  century: order,
-};
-keep.week = keep.hour;
-keep.season = keep.date;
-keep.quarter = keep.date;
+  century: order
+}
+keep.week = keep.hour
+keep.season = keep.date
+keep.quarter = keep.date
 
 // Units need to be dst adjuested
 const dstAwareUnits = {
   year: true,
-  quarter:true,
+  quarter: true,
   season: true,
   month: true,
   week: true,
   day: true
-};
+}
 
 const keepDate = {
   month: true,
   quarter: true,
   season: true,
   year: true
-};
+}
 //month is the only thing we 'model/compute'
 //- because ms-shifting can be off by enough
 const rollMonth = (want, old) => {
   //increment year
   if (want.month > 0) {
-    let years = parseInt(want.month / 12, 10);
-    want.year = old.year() + years;
-    want.month = want.month % 12;
+    let years = parseInt(want.month / 12, 10)
+    want.year = old.year() + years
+    want.month = want.month % 12
   } else if (want.month < 0) {
     //decrement year
-    let years = Math.floor(Math.abs(want.month) / 13, 10);
-    years = Math.abs(years) + 1;
-    want.year = old.year() - years;
+    let years = Math.floor(Math.abs(want.month) / 13, 10)
+    years = Math.abs(years) + 1
+    want.year = old.year() - years
     //ignore extras
-    want.month = want.month % 12;
-    want.month = want.month + 12;
+    want.month = want.month % 12
+    want.month = want.month + 12
     if (want.month === 12) {
-      want.month = 0;
+      want.month = 0
     }
   }
-  return want;
-};
+  return want
+}
 
 const addMethods = SpaceTime => {
   SpaceTime.prototype.add = function(num, unit) {
@@ -68,43 +67,41 @@ const addMethods = SpaceTime => {
       return s //don't bother
     }
     let old = this.clone()
-    unit = fns.normalize(unit);
+    unit = fns.normalize(unit)
     //move forward by the estimated milliseconds (rough)
     if (ms[unit]) {
-      s.epoch += ms[unit] * num;
+      s.epoch += ms[unit] * num
     } else if (unit === 'week') {
-      s.epoch += ms.day * (num * 7);
+      s.epoch += ms.day * (num * 7)
     } else if (unit === 'quarter' || unit === 'season') {
-      s.epoch += ms.month * (num * 4);
+      s.epoch += ms.month * (num * 4)
     } else if (unit === 'season') {
-      s.epoch += ms.month * (num * 4);
+      s.epoch += ms.month * (num * 4)
     } else if (unit === 'quarterhour') {
-      s.epoch += ms.minute * 15;
+      s.epoch += ms.minute * 15
     }
     //now ensure our milliseconds/etc are in-line
-    let want = {};
+    let want = {}
     if (keep[unit]) {
       keep[unit].forEach(u => {
-        want[u] = old[u]();
-      });
+        want[u] = old[u]()
+      })
     }
 
     if (dstAwareUnits[unit]) {
-      const diff = (old.timezone().current.offset - s.timezone().current.offset);
+      const diff = old.timezone().current.offset - s.timezone().current.offset
       s.epoch += diff * 3600 * 1000
     }
 
-
-
     //ensure month/year has ticked-over
     if (unit === 'month') {
-      want.month = old.month() + num;
+      want.month = old.month() + num
       //month is the one unit we 'model' directly
-      want = rollMonth(want, old);
+      want = rollMonth(want, old)
     }
     //support coercing a week, too
     if (unit === 'week') {
-      let sum = old.date() + (num * 7)
+      let sum = old.date() + num * 7
       if (sum <= 28 && sum > 1) {
         want.date = sum
       }
@@ -118,12 +115,12 @@ const addMethods = SpaceTime => {
       }
       //or if we haven't moved at all..
       else if (num !== 0 && old.isSame(s, 'day')) {
-        want.date = old.date() + num;
+        want.date = old.date() + num
       }
     }
     //ensure year has changed (leap-years)
     else if (unit === 'year' && s.year() === old.year()) {
-      s.epoch += ms.week;
+      s.epoch += ms.week
     }
     //these are easier
     else if (unit === 'decade') {
@@ -133,24 +130,24 @@ const addMethods = SpaceTime => {
     }
     //keep current date, unless the month doesn't have it.
     if (keepDate[unit]) {
-      let max = monthLength[want.month];
-      want.date = old.date();
+      let max = monthLength[want.month]
+      want.date = old.date()
       if (want.date > max) {
-        want.date = max;
+        want.date = max
       }
     }
-    walkTo(s, want);
-    return s;
-  };
+    walkTo(s, want)
+    return s
+  }
 
   //subtract is only add *-1
   SpaceTime.prototype.subtract = function(num, unit) {
     let s = this.clone()
-    return s.add(num * -1, unit);
-  };
+    return s.add(num * -1, unit)
+  }
   //add aliases
   SpaceTime.prototype.minus = SpaceTime.prototype.subtract
   SpaceTime.prototype.plus = SpaceTime.prototype.add
-};
+}
 
-module.exports = addMethods;
+module.exports = addMethods

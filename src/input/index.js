@@ -1,6 +1,5 @@
-'use strict';
-const strFmt = require('./strParse');
-const fns = require('../fns');
+const strFmt = require('./strParse')
+const fns = require('../fns')
 const namedDates = require('./named-dates')
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
@@ -20,18 +19,18 @@ const minimumEpoch = 2500000000
 
 //support [2016, 03, 01] format
 const handleArray = (s, arr) => {
-  let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
+  let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
   for (let i = 0; i < order.length; i++) {
-    let num = arr[i] || 0;
-    s = s[order[i]](num);
+    let num = arr[i] || 0
+    s = s[order[i]](num)
   }
-  return s;
-};
+  return s
+}
 //support {year:2016, month:3} format
 const handleObject = (s, obj) => {
-  let keys = Object.keys(obj);
+  let keys = Object.keys(obj)
   for (let i = 0; i < keys.length; i++) {
-    let unit = keys[i];
+    let unit = keys[i]
     //make sure we have this method
     if (s[unit] === undefined || typeof s[unit] !== 'function') {
       continue
@@ -40,11 +39,11 @@ const handleObject = (s, obj) => {
     if (obj[unit] === null || obj[unit] === undefined || obj[unit] === '') {
       continue
     }
-    let num = obj[unit] || 0;
-    s = s[unit](num);
+    let num = obj[unit] || 0
+    s = s[unit](num)
   }
-  return s;
-};
+  return s
+}
 
 //find the epoch from different input styles
 const parseInput = (s, input, givenTz) => {
@@ -54,32 +53,33 @@ const parseInput = (s, input, givenTz) => {
       console.warn('  - Warning: You are setting the date to January 1970.')
       console.warn('       -   did input seconds instead of milliseconds?')
     }
-    s.epoch = input;
+    s.epoch = input
     return s
   }
   //set tmp time
-  s.epoch = Date.now();
+  s.epoch = Date.now()
   if (input === null || input === undefined) {
     return s //k, we're good.
   }
   //support input of Date() object
   if (fns.isDate(input) === true) {
-    s.epoch = input.getTime();
+    s.epoch = input.getTime()
     return s
   }
   //support [2016, 03, 01] format
   if (fns.isArray(input) === true) {
-    s = handleArray(s, input);
+    s = handleArray(s, input)
     return s
   }
   //support {year:2016, month:3} format
   if (fns.isObject(input) === true) {
     //support spacetime object as input
     if (input.epoch) {
-      s.epoch = input.epoch;
-      return s;
+      s.epoch = input.epoch
+      s.tz = input.tz
+      return s
     }
-    s = handleObject(s, input);
+    s = handleObject(s, input)
     return s
   }
   //input as a string..
@@ -97,16 +97,16 @@ const parseInput = (s, input, givenTz) => {
   }
   //try each text-parse template, use the first good result
   for (let i = 0; i < strFmt.length; i++) {
-    let m = input.match(strFmt[i].reg);
+    let m = input.match(strFmt[i].reg)
     if (m) {
-      s = strFmt[i].parse(s, m, givenTz);
+      s = strFmt[i].parse(s, m, givenTz)
       return s
     }
   }
   if (s.silent === false) {
-    console.warn('Warning: couldn\'t parse date-string: \'' + input + '\'')
+    console.warn("Warning: couldn't parse date-string: '" + input + "'")
   }
-  s.epoch = null;
+  s.epoch = null
   return s
-};
-module.exports = parseInput;
+}
+module.exports = parseInput

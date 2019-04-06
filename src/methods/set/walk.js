@@ -1,5 +1,4 @@
-'use strict';
-const ms = require('../../data/milliseconds');
+const ms = require('../../data/milliseconds')
 
 //basically, step-forward/backward until js Date object says we're there.
 const walk = (s, n, fn, unit, previous) => {
@@ -10,7 +9,7 @@ const walk = (s, n, fn, unit, previous) => {
   let startUnit = previous === null ? null : s.d[previous]()
   let original = s.epoch
   //try to get it as close as we can
-  let diff = (n - current)
+  let diff = n - current
   s.epoch += ms[unit] * diff
 
   //DST edge-case: if we are going many days, be a little conservative
@@ -27,7 +26,7 @@ const walk = (s, n, fn, unit, previous) => {
     s.epoch += halfStep
   }
   while (s.d[fn]() > n) {
-    s.epoch -= halfStep;
+    s.epoch -= halfStep
   }
   //oops, did we change previous unit? revert it.
   if (previous !== null && startUnit !== s.d[previous]()) {
@@ -60,12 +59,12 @@ const units = {
       }
       //incriment by day
       while (s.d.getMonth() < n) {
-        s.epoch += ms.day;
+        s.epoch += ms.day
       }
       while (s.d.getMonth() > n) {
-        s.epoch -= ms.day;
+        s.epoch -= ms.day
       }
-    },
+    }
   },
   date: {
     valid: n => n > 0 && n <= 31,
@@ -91,34 +90,34 @@ const units = {
     walkTo: (s, n) => {
       //do this one directly
       s.epoch = s.milliseconds(n).epoch
-    },
-  },
-};
+    }
+  }
+}
 
 const walkTo = (s, wants) => {
-  let keys = Object.keys(units);
-  let old = s.clone();
+  let keys = Object.keys(units)
+  let old = s.clone()
   for (let i = 0; i < keys.length; i++) {
-    let k = keys[i];
-    let n = wants[k];
+    let k = keys[i]
+    let n = wants[k]
     if (n === undefined) {
-      n = old[k]();
+      n = old[k]()
     }
     if (typeof n === 'string') {
-      n = parseInt(n, 10);
+      n = parseInt(n, 10)
     }
     //make-sure it's valid
     if (!units[k].valid(n)) {
-      s.epoch = null;
+      s.epoch = null
       if (s.silent === false) {
-        console.warn('invalid ' + k + ': ' + n);
+        console.warn('invalid ' + k + ': ' + n)
       }
-      return;
+      return
     }
     // console.log(k, n)
-    units[k].walkTo(s, n);
+    units[k].walkTo(s, n)
   }
-  return;
-};
+  return
+}
 
-module.exports = walkTo;
+module.exports = walkTo

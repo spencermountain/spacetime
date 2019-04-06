@@ -1,6 +1,6 @@
-'use strict';
-const test = require('tape');
-const spacetime = require('./lib');
+'use strict'
+const test = require('tape')
+const spacetime = require('./lib')
 
 test('informal timezones', t => {
   let arr = [
@@ -17,10 +17,10 @@ test('informal timezones', t => {
     ['pacific daylight', 'America/Los_Angeles'],
     ['GMT+8', '-8h'],
     ['bst', 'Europe/London'],
-    ['east african', 'eastern africa'],
+    ['east african', 'eastern africa']
   ]
   const date = 'November 11, 1999'
-  arr.forEach((a) => {
+  arr.forEach(a => {
     let left = spacetime(date, a[0])
     let right = spacetime(date, a[1])
     t.equal(left.format('nice'), right.format('nice'), a[0])

@@ -1,6 +1,6 @@
-'use strict';
-const test = require('tape');
-const spacetime = require('./lib');
+'use strict'
+const test = require('tape')
+const spacetime = require('./lib')
 
 //https://en.wikipedia.org/wiki/ISO_8601
 //the zone designator would be "+01:00", "+0100", or simply "+01"
@@ -25,16 +25,16 @@ test('set-offset-from-ISO-8601', t => {
     ['2019-02-22T20:00:00+05:30', 'Etc/GMT-5.5'],
     ['2019-02-22T01:00:00+0530', 'Etc/GMT-5.5']
   ]
-  arr.forEach((a) => {
-    let s = spacetime(a[0], defaultTz);
+  arr.forEach(a => {
+    let s = spacetime(a[0], defaultTz)
     t.equal(s.timezone().name, a[1], a[0])
   })
 
-  t.end();
-});
+  t.end()
+})
 
 test('offset-should-be-consistant', t => {
-  let s = spacetime("2019-03-13T18:00:00.000-05:00");
-  t.equal(s.format("iso").slice(-6), '-05:00');
-  t.end();
+  let s = spacetime('2019-03-13T18:00:00.000-05:00')
+  t.equal(s.format('iso').slice(-6), '-05:00')
+  t.end()
 })

@@ -1,9 +1,9 @@
-'use strict';
-var test = require('tape');
-var spacetime = require('./lib');
+'use strict'
+let test = require('tape')
+let spacetime = require('./lib')
 
 test('to-from utc-format', t => {
-  [
+  ;[
     '1998-05-01T08:00:00.000Z',
     '1998-05-30T22:00:00.000Z',
     '2017-01-01T08:00:00.000Z',
@@ -14,19 +14,22 @@ test('to-from utc-format', t => {
     '2016-11-04T09:00:59.122Z',
     '2015-01-02T20:01:22.023Z',
     '2016-03-28T09:01:00.999Z',
+    '2019-04-01T12:15:00.000+03:00',
+    '2019-04-01T12:15:00.000+04:00',
+    '2019-04-01T12:15:00.000+05:00',
+    '2019-04-01T12:15:00.000+05:30'
   ].forEach(str => {
-    var s = spacetime(str, 'Asia/Taipei');
-    var out = s.format('iso');
-    t.equal(str, out, 'equal - ' + str);
-  });
+    let s = spacetime(str)
+    let out = s.format('iso')
+    t.equal(str, out, 'equal - ' + str)
+  })
 
-  var str = '2016-01-01T09:00:00.122Z';
-  var s = spacetime(str, 'Canada/Eastern');
-  t.equal(s.format('iso'), str, 'input matches output');
+  let str = '2016-01-01T09:00:00.122Z'
+  let s = spacetime(str, 'Canada/Eastern')
+  t.equal(s.format('iso'), str, 'input matches output')
 
-  t.end();
-});
-
+  t.end()
+})
 
 test('unix-formatting', t => {
   let epoch = 1510850065194
@@ -36,31 +39,26 @@ test('unix-formatting', t => {
     ['h:mm a', '11:34 AM'],
     ['LLL', 'Nov'],
     [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.11.16 AD at 11:34:25 Canada/Eastern'],
-    [`EEE, MMM d, ''yy`, 'Thu, Nov 16, \'17'],
+    [`EEE, MMM d, ''yy`, "Thu, Nov 16, '17"],
     [`hh 'o''clock' a`, '11 oclock AM'],
     ['yyyyy.MMMM.dd GGG hh:mm aaa', '02017.November.16 AD 11:34 AM'],
     ['yyyy-MM-ddTHH:mm:ssZ', '2017-11-16T11:34:25-0500'],
     ['yyyy-MM-ddTHH:mm:ssZZ', '2017-11-16T11:34:25-0500'],
     ['yyyy-MM-ddTHH:mm:ssZZZ', '2017-11-16T11:34:25-0500'],
-    ['yyyy-MM-ddTHH:mm:ssZZZZ', '2017-11-16T11:34:25-05:00'],
+    ['yyyy-MM-ddTHH:mm:ssZZZZ', '2017-11-16T11:34:25-05:00']
   ]
-  arr.forEach((a) => {
+  arr.forEach(a => {
     t.equal(s.unixFmt(a[0]), a[1], a[0])
   })
 
   //test another date
   s = spacetime([2018, 'February', 20], 'Canada/Eastern')
-  arr = [
-    ['M', '2'],
-    ['MM', '02'],
-    ['MMM', 'Feb'],
-    ['MMMM', 'February']
-  ]
-  arr.forEach((a) => {
+  arr = [['M', '2'], ['MM', '02'], ['MMM', 'Feb'], ['MMMM', 'February']]
+  arr.forEach(a => {
     t.equal(s.unixFmt(a[0]), a[1], a[0])
   })
-  t.end();
-});
+  t.end()
+})
 
 test('bc-year-formatting', t => {
   let s = spacetime('2,000 BC')
@@ -74,30 +72,30 @@ test('bc-year-formatting', t => {
   t.equal(s.monthName(), 'july', 'still july')
   t.equal(s.date(), 27, 'still july 27')
 
-  t.end();
-});
+  t.end()
+})
 
 test('iso-in = iso-out', t => {
   let str = '2018-07-09T12:59:00.362-07:00'
-  var minus = spacetime(str);
-  t.equal(minus.format('iso'), str, 'minus-seven');
+  let minus = spacetime(str)
+  t.equal(minus.format('iso'), str, 'minus-seven')
 
   str = '2018-07-09T12:59:00.000+07:00'
-  var plus = spacetime(str);
-  t.equal(plus.format('iso'), str, 'plus-seven');
+  let plus = spacetime(str)
+  t.equal(plus.format('iso'), str, 'plus-seven')
 
   str = '2018-07-09T12:59:00.393Z'
-  var zero = spacetime(str);
-  t.equal(zero.format('iso'), str, 'zulu');
+  let zero = spacetime(str)
+  t.equal(zero.format('iso'), str, 'zulu')
 
-  t.end();
-});
+  t.end()
+})
 
 test('iso-with-fraction-offset', t => {
   let s = spacetime('June 8th 1918', 'Asia/Calcutta').time('1:00pm')
   t.equal(s.format('iso'), '1918-06-08T13:00:00.000+05:30', 'correct offset')
-  t.end();
-});
+  t.end()
+})
 
 test('made-up-syntax', t => {
   let s = spacetime('June 8th 1918', 'Asia/Calcutta')
@@ -106,14 +104,13 @@ test('made-up-syntax', t => {
     ['month', 'June'],
     ['{month}', 'June'],
     ['{month} {hour}:{minute}{ampm}', 'June 4:45pm'],
-    ['{day} the {date-ordinal} of {month}', 'Saturday the 8th of June'],
+    ['{day} the {date-ordinal} of {month}', 'Saturday the 8th of June']
   ]
-  arr.forEach((a) => {
+  arr.forEach(a => {
     t.equal(s.format(a[0]), a[1], a[0])
   })
-  t.end();
-});
-
+  t.end()
+})
 
 /* FIXME failing test
 test('unix-fmt-padding', t => {

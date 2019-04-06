@@ -19,7 +19,7 @@ let all = {}
 // }
 
 //pack iana data into a [o|h] object
-Object.keys(iana).forEach((k) => {
+Object.keys(iana).forEach(k => {
   let o = iana[k]
   let key = o.offset + '|' + o.hem
   if (o.dst) {
@@ -40,11 +40,10 @@ Object.keys(iana).forEach((k) => {
 // all = addHemisphere(all, informal.south, 's')
 // all = addHemisphere(all, informal.north, 'n')
 
-
 let keys = Object.keys(all)
-keys = keys.sort((a, b) => a < b ? 1 : -1)
+keys = keys.sort((a, b) => (a < b ? 1 : -1))
 let result = {}
-keys.forEach((k) => {
+keys.forEach(k => {
   result[k] = all[k].join(',')
 })
 
