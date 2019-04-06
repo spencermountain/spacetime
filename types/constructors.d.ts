@@ -1,8 +1,8 @@
-import { Spacetime } from "./types";
+import { Spacetime } from './types'
 
 interface SpacetimeConstructorOptions {
   /** javascript dates use millisecond-epochs, instead of second-epochs, like some other languages. This is a common bug, and by default spacetime warns if you set an epoch within January 1970. to disable set to true */
-  silent: boolean;
+  silent: boolean
 }
 
 interface SpacetimeConstructor {
@@ -15,7 +15,7 @@ interface SpacetimeConstructor {
     date: Date,
     timezone?: string,
     options?: SpacetimeConstructorOptions
-  ): Spacetime;
+  ): Spacetime
 
   /**
    * @param epoch Timestamp in **milliseconds**. If you are getting a date in 1970, you are likely using seconds.
@@ -26,7 +26,7 @@ interface SpacetimeConstructor {
     epoch: number,
     timezone?: string,
     options?: SpacetimeConstructorOptions
-  ): Spacetime;
+  ): Spacetime
 
   /**
    * @param arr Date values in an array such as [yyyy, m, d].
@@ -42,7 +42,18 @@ interface SpacetimeConstructor {
     arr: Array<string>,
     timezone?: string,
     options?: SpacetimeConstructorOptions
-  ): Spacetime;
+  ): Spacetime
+
+  /**
+   * @param obj Date as a key-value object. ex {month:'june', year:2019}
+   * @param timezone Optional timezone. If omitted uses the browser timezone.
+   * @param options Options for silencing warnings.
+   */
+  (
+    obj: { [unit: string]: string | number },
+    timezone?: string,
+    options?: SpacetimeConstructorOptions
+  ): Spacetime
 
   /**
    * @param iso Date as an iso string. ex '2017-04-03T08:00:00'
@@ -53,16 +64,16 @@ interface SpacetimeConstructor {
     iso: string,
     timezone?: string,
     options?: SpacetimeConstructorOptions
-  ): Spacetime;
+  ): Spacetime
 }
 
 interface SpacetimeStatic extends SpacetimeConstructor {
   /** now */
-  now: () => Spacetime;
+  now: () => Spacetime
 
   /** this morning */
-  today: () => Spacetime;
+  today: () => Spacetime
 
   /** tomorrow morning */
-  tomorrow: () => Spacetime;
+  tomorrow: () => Spacetime
 }
