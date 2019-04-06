@@ -1,7 +1,7 @@
 //find the implicit iana code for this machine.
 //safely query the Intl object
 //based on - https://bitbucket.org/pellepim/jstimezonedetect/src
-const fallbackTZ = 'asia/shanghai' //
+const fallbackTZ = 'UTC' //
 
 //this Intl object is not supported often, yet
 const safeIntl = () => {
@@ -13,7 +13,7 @@ const safeIntl = () => {
     return null
   }
   let timezone = format.resolvedOptions().timeZone
-  if (!timezone || (!timezone.includes('/') && timezone === 'UTC')) {
+  if (!timezone) {
     return null
   }
   return timezone

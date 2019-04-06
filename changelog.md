@@ -39,6 +39,7 @@
 - support typescript types by Jacob Craig
 - use given timezone when given a spacetime object as an input
 - adds `.every(unit, to)` method
+- set UTC as default fallback timezone
 
 ### v4.0.0
 
