@@ -13,6 +13,7 @@ const safeIntl = () => {
     return null
   }
   let timezone = format.resolvedOptions().timeZone
+  console.log(timezone)
   if (!timezone) {
     return null
   }

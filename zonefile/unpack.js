@@ -21,6 +21,11 @@ Object.keys(data).forEach(k => {
   })
 })
 
+all['utc'] = {
+  offset: 0,
+  hem: 'n' //(sorry)
+}
+
 //add etc/gmt+n
 for (let i = -13; i <= 13; i += 0.5) {
   let num = i
