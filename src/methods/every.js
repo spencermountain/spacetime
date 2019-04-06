@@ -44,8 +44,8 @@ const every = function(start, unit = '', end) {
   //okay, actually start doing it
   let result = []
   while (d.isBefore(end)) {
-    result.push(d)
     d = d.add(1, unit)
+    result.push(d)
   }
   return result
 }
