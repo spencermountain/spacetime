@@ -1,4 +1,3 @@
-'use strict'
 const days = require('../../data/days')
 const months = require('../../data/months')
 const walkTo = require('../set/walk')

@@ -1,4 +1,3 @@
-'use strict'
 const quarters = require('../../data/quarters')
 const seasons = require('../../data/seasons')
 const set = require('../set/set')

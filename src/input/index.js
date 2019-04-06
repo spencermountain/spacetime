@@ -1,4 +1,3 @@
-'use strict'
 const strFmt = require('./strParse')
 const fns = require('../fns')
 const namedDates = require('./named-dates')

@@ -1,4 +1,3 @@
-'use strict'
 let shortDays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 let longDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 

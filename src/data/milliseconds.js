@@ -1,4 +1,3 @@
-'use strict'
 let o = {
   millisecond: 1
 }

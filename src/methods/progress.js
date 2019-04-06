@@ -1,4 +1,3 @@
-'use strict'
 //how far it is along, from 0-1
 const progress = s => {
   const units = [

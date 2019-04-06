@@ -1,4 +1,3 @@
-'use strict'
 const quickOffset = require('./timezone/quick')
 const findTz = require('./timezone/find')
 const handleInput = require('./input')

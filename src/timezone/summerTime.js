@@ -1,4 +1,3 @@
-'use strict'
 const zeroPad = require('../fns').zeroPad
 
 const toString = d =>

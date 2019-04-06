@@ -1,4 +1,3 @@
-'use strict'
 const ms = require('../../data/milliseconds')
 
 //basically, step-forward/backward until js Date object says we're there.

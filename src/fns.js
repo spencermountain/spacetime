@@ -1,5 +1,3 @@
-'use strict'
-
 //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
 exports.isLeapYear = year => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 // unsurprisingly-nasty `typeof date` call
@@ -42,8 +40,9 @@ exports.toCardinal = str => {
   return parseInt(str, 10)
 }
 
-exports.normalize = str => {
-  str = str.toLowerCase()
+//used mostly for cleanup of unit names, like 'months'
+exports.normalize = (str = '') => {
+  str = str.toLowerCase().trim()
   str = str.replace(/ies$/, 'y') //'centuries'
   str = str.replace(/s$/, '')
   if (str === 'day') {

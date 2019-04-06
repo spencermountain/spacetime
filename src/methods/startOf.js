@@ -1,4 +1,3 @@
-'use strict'
 const seasons = require('../data/seasons')
 const quarters = require('../data/quarters')
 const walkTo = require('./set/walk')

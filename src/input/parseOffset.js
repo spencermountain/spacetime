@@ -1,4 +1,3 @@
-'use strict'
 //pull-apart ISO offsets, like "+0100"
 const parseOffset = (s, offset) => {
   if (!offset) {

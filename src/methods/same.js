@@ -1,5 +1,3 @@
-'use strict'
-
 //make a string, for easy comparison between dates
 const print = {
   millisecond: s => {

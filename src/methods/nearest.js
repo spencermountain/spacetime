@@ -1,8 +1,7 @@
-'use strict'
+const fns = require('../fns')
 //round to either current, or +1 of this unit
 const nearest = (s, unit) => {
-  unit = unit.toLowerCase()
-  unit = unit.replace(/s$/, '') //singular form...
+  unit = fns.normalize(unit)
   let prog = s.progress()
   if (prog[unit] !== undefined) {
     if (prog[unit] > 0.5) {

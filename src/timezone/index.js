@@ -1,4 +1,3 @@
-'use strict'
 const findTz = require('./find')
 const inSummerTime = require('./summerTime')
 const display = require('./display')

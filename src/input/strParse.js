@@ -1,4 +1,3 @@
-'use strict'
 const walkTo = require('../methods/set/walk')
 const months = require('../data/months').mapping()
 const parseOffset = require('./parseOffset')

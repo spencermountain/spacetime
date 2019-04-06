@@ -1,4 +1,3 @@
-'use strict'
 const walkTo = require('./set/walk')
 const ms = require('../data/milliseconds')
 const monthLength = require('../data/monthLengths')

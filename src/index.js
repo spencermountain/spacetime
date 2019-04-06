@@ -1,4 +1,3 @@
-'use strict'
 const Spacetime = require('./spacetime')
 const whereIts = require('./whereIts')
 const version = require('../_version')

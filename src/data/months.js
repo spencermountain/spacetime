@@ -1,4 +1,3 @@
-'use strict'
 let shortMonths = [
   'jan',
   'feb',

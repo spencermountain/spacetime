@@ -1,4 +1,3 @@
-'use strict'
 const tzs = require('../../zonefile/unpack')
 const informal = require('../../zonefile/informal').lookup
 const guessTz = require('./guessTz')

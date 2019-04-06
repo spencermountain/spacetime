@@ -1,4 +1,3 @@
-'use strict'
 const pad = require('../../fns').zeroPad
 const formatTimezone = require('../../fns').formatTimezone
 //parse this insane unix-time-templating thing, from the 19th century

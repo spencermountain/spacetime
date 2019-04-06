@@ -1,4 +1,3 @@
-'use strict'
 const set = require('../set/set')
 const walkTo = require('../set/walk')
 

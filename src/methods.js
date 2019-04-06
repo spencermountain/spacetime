@@ -1,4 +1,3 @@
-'use strict'
 const format = require('./methods/format')
 const unixFmt = require('./methods/format/unixFmt')
 const progress = require('./methods/progress')

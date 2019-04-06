@@ -1,4 +1,3 @@
-'use strict'
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
 const ms = require('../../data/milliseconds')

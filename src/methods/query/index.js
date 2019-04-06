@@ -1,4 +1,3 @@
-'use strict'
 const normal = require('./normal')
 const destructive = require('./destructive')
 const tricky = require('./tricky')

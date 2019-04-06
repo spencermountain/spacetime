@@ -1,4 +1,3 @@
-'use strict'
 const fns = require('../fns')
 const days = require('../data/days')
 const months = require('../data/months')

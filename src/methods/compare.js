@@ -1,4 +1,3 @@
-'use strict'
 const fns = require('../fns')
 
 const addMethods = SpaceTime => {
