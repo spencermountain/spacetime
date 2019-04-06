@@ -15,7 +15,7 @@ const uncompressed = './builds/spacetime.js'
 const compressed = './builds/spacetime.min.js'
 
 //set new version number
-fs.writeFileSync('./_version.js', "module.exports='" + pkg.version + "'")
+fs.writeFileSync('./_version.js', `module.exports = '${pkg.version}'`)
 
 //cleanup. remove old builds
 exec('rm -rf ./builds && mkdir builds')

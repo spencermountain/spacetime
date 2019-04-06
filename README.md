@@ -36,6 +36,7 @@
 ```
 
 `npm install spacetime`
+
 ```js
 const spacetime = require('spacetime')
 let d = spacetime.now('Europe/Paris')
@@ -46,20 +47,20 @@ d.isAsleep()
 ```
 
 Or with Typescript
+
 ```ts
-import spacetime from 'spacetime';
-let d = spacetime.now();
-d.format('nice');
+import spacetime from 'spacetime'
+let d = spacetime.now()
+d.format('nice')
 //'Apr 1st, 4:32pm'
 ```
-
 
 <div align="center">
   <h3>
     <a href="https://beta.observablehq.com/@spencermountain/spacetime">
       Demo
     </a>
-    &nbsp; &nbsp; • &nbsp; &nbsp; 
+    &nbsp; &nbsp; • &nbsp; &nbsp;
     <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
       Full API
     </a>
@@ -75,6 +76,7 @@ d.format('nice');
 </div>
 
 ### [Date Inputs:](https://github.com/smallwins/spacetime/wiki/Input)
+
 ```js
 //epoch
 s = spacetime(1489520157)
@@ -98,6 +100,7 @@ s = spacetime.tomorrow() // Tomorrow morning
 ```
 
 ### Get & Set dates:
+
 ```js
 s.date() // 14
 s.year() // 2017
@@ -111,21 +114,21 @@ s.era() // 'BC'/'AD'
 
 // Percentage-based information
 s.progress().month = 0.23 // We're a quarter way through the month
-s.progress().day = 0.48   // Almost noon
-s.progress().hour = 0.99  // 59 minutes and 59 seconds
+s.progress().day = 0.48 // Almost noon
+s.progress().hour = 0.99 // 59 minutes and 59 seconds
 
 // Add/subtract methods
 s = s.add(1, 'week')
 s = s.add(3, 'quarters')
-s = s.subtract(2, 'months').add(1,'day')
+s = s.subtract(2, 'months').add(1, 'day')
 
 // start-of/end-of
 s = s.startOf('day') // 12:00am
 s = s.startOf('month') // 12:00am, April 1st
 s = s.endOf('quarter') // 11:59:59pm, June 30th
 
-s = s.nearest('hour')//round up/down to the hour
-s = s.nearest('quarter-hour')//5:15, 5:30, 5:45..
+s = s.nearest('hour') //round up/down to the hour
+s = s.nearest('quarter-hour') //5:15, 5:30, 5:45..
 s = s.next('month') //start-of the next month
 s = s.last('year') //start-of the last year
 
@@ -173,7 +176,9 @@ now.since(before)
   }
 */
 ```
+
 it's sometimes confusing how `.diff()` and `.since()` understand things:
+
 ```js
 spacetime('January 1 2017').diff('December 30 2016', 'year')
 // returns 1
@@ -182,13 +187,16 @@ spacetime('January 1 2017').since('December 31 2016').diff
 ```
 
 ### Timezones:
+
 ```js
 // Roll into a new timezone, at the same moment
 s = s.goto('Australia/Brisbane')
 ```
+
 this is the safest way to declare a timezone, using an [IANA name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
 Spacetime also supports more informal timezone names, like:
+
 ```js
 s = s.goto('Jamaica') // "America/Jamaica"
 s = s.goto('Eastern Time') // "America/New_York"
@@ -201,7 +209,7 @@ s = s.goto('bst') //"British summer time" +1 (sorry Bougainville!)
 
 ```js
 //list timezones by their \ time
-spacetime.whereIts('8:30pm','9:30pm') // ['America/Winnipeg', 'America/Yellowknife'... ]
+spacetime.whereIts('8:30pm', '9:30pm') // ['America/Winnipeg', 'America/Yellowknife'... ]
 spacetime.whereIts('9am') //(within this hour)
 
 // Timezone metadata
@@ -216,6 +224,7 @@ s.timezones
 ```
 
 ### [Date Formatting](https://github.com/smallwins/spacetime/wiki/Formatting):
+
 ```js
 // Date + time formatting
 s.format('time') // '5:01am'
@@ -226,17 +235,21 @@ s.format('month-pad') // '04'
 
 //if you want more complex formats, use {}'s
 s.format('{year}-{date-pad}-{month-pad}') // '2018-02-02'
-s.format('{hour} o\'clock') // '2 o'clock'
+s.format("{hour} o'clock") // '2 o'clock'
 s.format('{time}{ampm} sharp') // '2:30pm sharp'
 
 //if you prefer, you can also use unix-formatting
-s.unixFmt('yyyy.MM.dd h:mm a')// '2017.Nov.16 11:34 AM'
+s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
 ```
+
 ## Options
+
 #### Ambiguity warnings:
+
 javascript dates use millisecond-epochs, instead of second-epochs, like some other languages.
 This is a common bug, and by default spacetime warns if you set an epoch within January 1970.
 to disable:
+
 ```js
 let s = spacetime(123456, 'UTC', {
   silent: true
@@ -246,6 +259,7 @@ s.log() // "Jan 1st, 12:02am"
 
 There is another situation where you may see a `console.warn` - if you give it a timezone, but then set a ISO-date string with a different offset, like `2017-04-03T08:00:00-0700` (-7hrs UTC offset).
 It sets the timezone to UTC-7, but also gives a warning.
+
 ```js
 let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
   silent: true
@@ -254,7 +268,9 @@ s.timezone().name // "Etc/GMT-7"
 ```
 
 #### Extending/Plugins:
+
 you can throw any methods onto the Spacetime class you want, with `spacetime.extend()`:
+
 ```js
 spacetime.extend({
   isHappyHour: function() {
@@ -287,15 +303,16 @@ a.i18n({
 a.format('day') //'Sábado'
 ```
 
-
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
 
 ### See also:
-* [Luxon](https://moment.github.io/luxon/) - a small library from the clever moment people
-* [date-fns](https://date-fns.org/) - an battle-hardened client-side Date utility
-* [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) - some pretty weird, but [mostly-supported](https://caniuse.com/#feat=internationalization) in-browser date utilities
+
+- [Luxon](https://moment.github.io/luxon/) - a small library from the clever moment people
+- [date-fns](https://date-fns.org/) - an battle-hardened client-side Date utility
+- [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) - some pretty weird, but [mostly-supported](https://caniuse.com/#feat=internationalization) in-browser date utilities
 
 Thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
+
 <div align="center">
   <div>Made with caution + great-patience,</div>
   <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a>, and <a href="https://twitter.com/begin">SmallWins</a></div>
