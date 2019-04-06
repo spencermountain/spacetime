@@ -1,7 +1,7 @@
 const spacetime = require('./src/index')
 
-console.log(spacetime('March 10, 2019 23:01:00', 'Canada/Pacific').isDST());
-console.log(spacetime('March 11, 2019 00:01:00', 'Canada/Pacific').isDST());
-console.log(spacetime('March 11, 2019 01:01:00', 'Canada/Pacific').isDST());
-console.log(spacetime('March 11, 2019 02:01:00', 'Canada/Pacific').isDST());
-console.log(spacetime('March 11, 2019 03:01:00', 'Canada/Pacific').isDST());
+// let d = spacetime({ month: 'june', year: 2019 })
+// d.log()
+// console.log(spacetime.every('month', 'October 2nd 2019'))
+let d = spacetime('June 5th 2019')
+console.log(d.format('iso-short'))

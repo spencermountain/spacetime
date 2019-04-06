@@ -14,7 +14,8 @@
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
     "test-spec": "TESTENV=dev tape ./test/**/*.test.js | tap-spec",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer",
-    "coverage": "node ./scripts/coverage.js"
+    "coverage": "node ./scripts/coverage.js",
+    "test:types": "ts-node ./test/types/index.ts"
   },
   "repository": {
     "type": "git",
