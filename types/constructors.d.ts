@@ -11,22 +11,14 @@ interface SpacetimeConstructor {
    * @param timezone Optional timezone. If omitted uses the browser timezone.
    * @param options Options for silencing warnings.
    */
-  (
-    date: Date,
-    timezone?: string,
-    options?: SpacetimeConstructorOptions
-  ): Spacetime
+  (date: Date, timezone?: string, options?: SpacetimeConstructorOptions): Spacetime
 
   /**
    * @param epoch Timestamp in **milliseconds**. If you are getting a date in 1970, you are likely using seconds.
    * @param timezone Optional timezone. If omitted uses the browser timezone.
    * @param options Options for silencing warnings.
    */
-  (
-    epoch: number,
-    timezone?: string,
-    options?: SpacetimeConstructorOptions
-  ): Spacetime
+  (epoch: number, timezone?: string, options?: SpacetimeConstructorOptions): Spacetime
 
   /**
    * @param arr Date values in an array such as [yyyy, m, d].
@@ -38,11 +30,7 @@ interface SpacetimeConstructor {
    * @param timezone Optional timezone. If omitted uses the browser timezone.
    * @param options Options for silencing warnings.
    */
-  (
-    arr: Array<number>,
-    timezone?: string,
-    options?: SpacetimeConstructorOptions
-  ): Spacetime
+  (arr: Array<number>, timezone?: string, options?: SpacetimeConstructorOptions): Spacetime
 
   /**
    * @param obj Date as a key-value object. ex {month:'june', year:2019}
@@ -60,11 +48,7 @@ interface SpacetimeConstructor {
    * @param timezone Optional timezone. If omitted uses the browser timezone.
    * @param options Options for silencing warnings.
    */
-  (
-    iso: string,
-    timezone?: string,
-    options?: SpacetimeConstructorOptions
-  ): Spacetime
+  (iso: string, timezone?: string, options?: SpacetimeConstructorOptions): Spacetime
 }
 
 interface SpacetimeStatic extends SpacetimeConstructor {
