@@ -14,10 +14,5 @@ test('typefile smoketest', (t: test.Test) => {
   t.end()
 })
 
-test('typefile static api exists', (t: test.Test) => {
-  t.equal(typeof spacetime, 'function', 'default is a function')
-  t.equal(typeof spacetime.now, 'function', '.now() is a function')
-  t.equal(typeof spacetime.today, 'function', '.today() is a function')
-  t.equal(typeof spacetime.tomorrow, 'function', '.tomorrow is a function')
-  t.end()
-})
+// Add reference to the other files so they included in the test build
+import './constructor.test'

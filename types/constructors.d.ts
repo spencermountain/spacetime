@@ -39,7 +39,7 @@ interface SpacetimeConstructor {
    * @param options Options for silencing warnings.
    */
   (
-    arr: Array<string>,
+    arr: Array<number>,
     timezone?: string,
     options?: SpacetimeConstructorOptions
   ): Spacetime
