@@ -16,7 +16,7 @@
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer",
     "coverage": "node ./scripts/coverage.js",
     "lint": "eslint ./src --ext .js",
-    "test:types": "ts-node ./test/types/index.ts"
+    "test:types": "ts-node ./test/types/index.ts | tap-dancer"
   },
   "repository": {
     "type": "git",
