@@ -18,6 +18,8 @@ const climb = (a, b, unit) => {
   return i
 }
 
+//these small units can just be 'eyeballed'
+//it's way too slow to do them procedurally
 const diffQuick = (a, b) => {
   let ms = b.epoch - a.epoch
   let obj = {

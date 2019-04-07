@@ -1,10 +1,11 @@
 const spacetime = require('./src/index')
 
-// let start = spacetime('April 6th 2019')
-// let end = spacetime('April 7th 2019')
-// start.every('tuesday', end).map(s => {
-//   console.log(s.format('nice'))
+let start = spacetime('April 8th 2019').startOf('week')
+let end = start.add(25, 'hour') //endOf('week').minus(28, 'hour')
+// start.every('day', end).map(s => {
+//   console.log(s.format('nice-day'))
 // })
+console.log(start.diff(end))
 
 // console.log(
 //   spacetime
@@ -12,11 +13,6 @@ const spacetime = require('./src/index')
 //     .next('wednesday')
 //     .format('nice-day')
 // )
-
-// let iso = '2017-01-01T08:00:00.000Z'
-// let s = spacetime(iso, 'Asia/Taipei')
-// console.log(s.timezone())
-// console.log(s.format('iso'))
 
 // s = s.nearest('tuesday') //start of the closest tuesday
 // s = s.next('wednesday') //start of the nearest future wednesday
@@ -29,6 +25,11 @@ const spacetime = require('./src/index')
 // console.log(iso === str)
 // console.log(iso)
 
-let a = spacetime('2019-03-13T18:00:00.000-05:00')
-console.log('timestamp:', a)
-console.log(a.format('iso'))
+// bug 1: before march
+// let a = spacetime('2019-03-13T18:00:00.000-05:00')
+// console.log('timestamp:', a)
+// console.log(a.format('iso'))
+
+// BUG 2
+// const d = spacetime([2019, 'march', 31], 'Europe/Stockholm')
+// console.log(d.format('nice'))
