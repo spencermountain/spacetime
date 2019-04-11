@@ -98,6 +98,17 @@ module.exports = {
 
   date: (s, n) => {
     n = validate(n)
+    //avoid setting february 31st
+    if (n > 28) {
+      const max = monthLength[s.month()]
+      if (n > max) {
+        n = max
+      }
+    }
+    //avoid setting < 0
+    if (n <= 0) {
+      n = 1
+    }
     walkTo(s, {
       date: n
     })
@@ -110,6 +121,14 @@ module.exports = {
       n = months.mapping()[n.toLowerCase()]
     }
     n = validate(n)
+    //don't go past december
+    if (n >= 12) {
+      n = 12
+    }
+    if (n <= 0) {
+      n = 0
+    }
+
     let date = s.date()
     //there's no 30th of february, etc.
     if (date > monthLength[n]) {

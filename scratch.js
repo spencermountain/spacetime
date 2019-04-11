@@ -9,5 +9,6 @@ const spacetime = require('./src/index')
 // const d = spacetime([2019, 'june'], 'Europe/Stockholm')
 // console.log(d.format('nice'))
 
-const d = spacetime([2019, 'june', 31])
+let d = spacetime([2019, 'february'])
+d = d.date(-2)
 console.log(d.format('nice'))

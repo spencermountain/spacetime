@@ -22,7 +22,7 @@ const handleArray = (s, arr) => {
   let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
   for (let i = 0; i < order.length; i++) {
     let num = arr[i] || 0
-    //the default date is '1'
+    //the default date is 1, not 0
     if (order[i] === 'date' && num === 0) {
       num = 1
     }
