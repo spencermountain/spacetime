@@ -1,8 +1,13 @@
 const spacetime = require('./src/index')
 
-console.log(
-  spacetime(1489520157124)
-    .goto('Europe/Berlin')
-    .format('iso')
-)
-// 2019-04-04T08:00:00.000+02:00
+// bug 1: before march
+// let a = spacetime('2019-03-13T18:00:00.000-05:00')
+// console.log('timestamp:', a)
+// console.log(a.format('iso'))
+
+// BUG 2
+// const d = spacetime([2019, 'june'], 'Europe/Stockholm')
+// console.log(d.format('nice'))
+
+const d = spacetime([2019, 'june', 31])
+console.log(d.format('nice'))
