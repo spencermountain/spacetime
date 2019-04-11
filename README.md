@@ -79,14 +79,14 @@ d.format('nice')
 
 ```js
 //epoch
-s = spacetime(1489520157)
+s = spacetime(1489520157124)
 //array [yyyy, m, d] (zero-based months, 1-based days)
 s = spacetime([2017, 5, 2])
 //iso
 s = spacetime('July 2, 2017 5:01:00')
 
 // All inputs accept a timezone, as 2nd param:
-s = spacetime(1489520157, 'Canada/Pacific')
+s = spacetime(1489520157124, 'Canada/Pacific')
 s = spacetime('2019/05/15', 'Canada/Pacific')
 
 // or set the offset right in the date-string (ISO-8601)
