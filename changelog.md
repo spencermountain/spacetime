@@ -41,6 +41,10 @@
 - adds `.every(unit, to)` method
 - set UTC as default fallback timezone
 
+### 5.7.0
+
+- avoid setting dates/months past maximums and minimums
+
 ### v4.0.0
 
 - `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`

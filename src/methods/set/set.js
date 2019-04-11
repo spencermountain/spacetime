@@ -123,7 +123,7 @@ module.exports = {
     n = validate(n)
     //don't go past december
     if (n >= 12) {
-      n = 12
+      n = 11
     }
     if (n <= 0) {
       n = 0
