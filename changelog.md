@@ -43,7 +43,8 @@
 
 ### 5.7.0
 
-- avoid setting dates/months past maximums and minimums
+- avoid setting dates/months/hours past maximums and minimums
+- `.hour(24)` now changes date to tomorrow
 
 ### v4.0.0
 

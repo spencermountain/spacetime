@@ -161,8 +161,8 @@ module.exports = {
     n -= 1 //days are 1-based
     if (n <= 0) {
       n = 0
-    } else if (n > 365) {
-      n = 365
+    } else if (n >= 365) {
+      n = 364
     }
     s = s.startOf('year')
     s = s.add(n, 'day')

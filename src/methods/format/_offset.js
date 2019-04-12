@@ -4,10 +4,14 @@ const fns = require('../../fns')
 const isoOffset = s => {
   let offset = s.timezone().current.offset
   let minute = '00'
-  if (offset % 1 === 0.5) {
-    //fraction of the hour
+  //handle 5.5 → '5:30'
+  if (Math.abs(offset % 1) === 0.5) {
     minute = '30'
-    offset = Math.floor(offset)
+    if (offset >= 0) {
+      offset = Math.floor(offset)
+    } else {
+      offset = Math.ceil(offset)
+    }
   }
   if (offset < 0) {
     //handle negative sign
