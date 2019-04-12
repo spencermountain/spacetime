@@ -62,6 +62,9 @@ module.exports = {
     let diff = s.hour() - n
     let shift = diff * ms.hour
     s.epoch -= shift
+    walkTo(s, {
+      hour: n
+    })
     confirm(s, old, 'minute')
     return s.epoch
   },

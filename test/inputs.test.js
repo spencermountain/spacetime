@@ -48,6 +48,10 @@ test('arr-input', t => {
   t.equal(s.year(), 2017, 'set-arr-year')
   t.equal(s.date(), 2, 'set-arr-date')
   t.equal(s.month(), 1, 'set-arr-month')
+
+  //on a dst change
+  let d = spacetime([2019, 'march', 31, 3, 3], 'Europe/Stockholm')
+  t.equal(d.format('{month} {date} {time}'), 'March 31 3:03am', 'array sets time over dst-switch')
   t.end()
 })
 

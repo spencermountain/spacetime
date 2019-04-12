@@ -5,7 +5,6 @@ const spacetime = require('./src/index')
 // d = d.millisecond(90)
 // d = d.dayOfYear(369)
 
-// bug 1: before march
-let a = spacetime('2019-03-13T18:00:00.000-05:00')
-console.log(a.timezone())
-console.log(a.format('iso'))
+let d = spacetime([2019, 'march', 31, 3, 3], 'Europe/Stockholm')
+console.log(d.format('{month} {date} {time}'))
+// Mar 30th, 12:00am
