@@ -144,6 +144,24 @@ test('funny-numeric-forms', t => {
   t.end()
 })
 
+test('empty-array', t => {
+  let s = spacetime([])
+  t.ok(s.isValid(), 'array input is valid')
+  t.ok(s.monthName(), 'january', 'empty array is january 1st')
+  t.ok(s.date(), 1, 'empty array is january 1st')
+  t.ok(s.year(), new Date().getFullYear(), 'empty array is start of current year')
+  t.end()
+})
+
+test('empty-object', t => {
+  let s = spacetime({})
+  t.ok(s.isValid(), 'obj input is valid')
+  t.ok(s.monthName(), 'january', 'empty obj is january 1st')
+  t.ok(s.date(), 1, 'empty obj is january 1st')
+  t.ok(s.year(), new Date().getFullYear(), 'empty obj is start of current year')
+  t.end()
+})
+
 test('invalid inputs', t => {
   t.equal(spacetime('2012-07-32').isValid(), false, 'day 32')
   t.equal(spacetime('2012-07-22').isValid(), true, 'day 22')
