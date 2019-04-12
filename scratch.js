@@ -6,6 +6,6 @@ const spacetime = require('./src/index')
 // d = d.dayOfYear(369)
 
 // bug 1: before march
-let s = spacetime('2019-03-13T18:00:00.000-05:30')
+let s = spacetime('2011-01-01T18:00:00.000+00:30')
 // console.log(s.timezone())
 console.log(s.format('iso'))
