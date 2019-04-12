@@ -53,6 +53,11 @@ module.exports = {
 
   hours: (s, n) => {
     n = validate(n)
+    if (n >= 24) {
+      n = 24
+    } else if (n < 0) {
+      n = 0
+    }
     let old = s.clone()
     let diff = s.hour() - n
     let shift = diff * ms.hour
@@ -153,9 +158,14 @@ module.exports = {
   dayOfYear: (s, n) => {
     n = validate(n)
     let old = s.clone()
-    let diff = n - s.dayOfYear()
-    let shift = diff * ms.day
-    s.epoch += shift
+    n -= 1 //days are 1-based
+    if (n <= 0) {
+      n = 0
+    } else if (n > 365) {
+      n = 365
+    }
+    s = s.startOf('year')
+    s = s.add(n, 'day')
     confirm(s, old, 'hour')
     return s.epoch
   }
