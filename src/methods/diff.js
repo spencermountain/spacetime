@@ -12,7 +12,7 @@ const climb = (a, b, unit) => {
     i += 1
   }
   //oops, we went too-far..
-  if (!a.isSame(b, unit)) {
+  if (a.isAfter(b, unit)) {
     i -= 1
   }
   return i

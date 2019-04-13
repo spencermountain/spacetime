@@ -45,6 +45,7 @@
 
 - avoid setting dates/months/hours past maximums and minimums
 - `.hour(24)` now changes date to tomorrow
+- faster diffs for large (decade-long) ranges
 
 ### v4.0.0
 

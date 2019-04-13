@@ -63,7 +63,7 @@ const rollMonth = (want, old) => {
 const addMethods = SpaceTime => {
   SpaceTime.prototype.add = function(num, unit) {
     let s = this.clone()
-    if (!unit) {
+    if (!unit || num === 0) {
       return s //don't bother
     }
     let old = this.clone()

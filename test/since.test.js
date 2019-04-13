@@ -165,7 +165,6 @@ test('since now - default', t => {
 test('supports soft inputs', t => {
   let now = spacetime([2019, 3, 12])
   let c = spacetime('dec 25 2018')
-  c.year(now.year() - 1)
   let obj = now.since(c).diff
   t.equal(obj.months, 3, 'christmas was 3 months ago')
 

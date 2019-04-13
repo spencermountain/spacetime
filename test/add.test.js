@@ -62,6 +62,26 @@ test('add', t => {
   t.end()
 })
 
+test('adding 0 changes nothing', t => {
+  let s = spacetime.now()
+  let a = s.clone()
+  s = s.add(0, 'month')
+  s = s.add(0, 'day')
+  s = s.add(0, 'week')
+  s = s.add(0, 'year')
+  s = s.add(0, 'hour')
+  s = s.add(0, 'minute')
+  s = s.minus(0, 'minute')
+  s = s.minus(0, 'days')
+  t.equal(s.epoch, a.epoch, 'time-didnt change')
+
+  s = spacetime('dec 25 2018')
+  let before = s.format('nice-year')
+  s = s.add(0, 'years')
+  t.equal(s.format('nice-year'), before, 'year didnt change')
+  t.end()
+})
+
 test('hour-tricky', t => {
   let s = spacetime('January 1, 2017 13:20:00', 'Canada/Pacific')
   t.equal(s.hour(), 13, 'init.hour()')
