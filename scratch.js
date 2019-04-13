@@ -5,6 +5,12 @@ const spacetime = require('./src/index')
 // d = d.millisecond(90)
 // d = d.dayOfYear(369)
 
-let d = spacetime([2019, 'march', 31, 3, 3], 'Europe/Stockholm')
-console.log(d.format('{month} {date} {time}'))
-// Mar 30th, 12:00am
+// let start = spacetime('April 8th 2019').startOf('week')
+// let end = start.add(25, 'hour')
+// console.log(start.diff(end))
+
+console.time('start')
+console.log('-start-')
+let diff = spacetime.now().diff('jan 2 1892')
+console.log(diff)
+console.timeEnd('start')
