@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "5.6.0",
+  "version": "5.7.0",
   "description": "figure-out dates across timezones",
   "main": "builds/spacetime.js",
   "unpkg": "builds/spacetime.min.js",
@@ -16,7 +16,7 @@
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer",
     "coverage": "node ./scripts/coverage.js",
     "lint": "eslint ./src --ext .js",
-    "test:types": "ts-node ./test/types/index.ts"
+    "test:types": "ts-node ./test/types/index.ts | tap-dancer"
   },
   "repository": {
     "type": "git",

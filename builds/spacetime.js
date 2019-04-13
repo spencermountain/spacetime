@@ -1,4 +1,4 @@
-/* spacetime v5.6.0
+/* spacetime v5.7.0
    github.com/spencermountain/spacetime
    MIT
 */
@@ -6,7 +6,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 "use strict";
 
-module.exports = '5.6.0';
+module.exports = '5.7.0';
 
 },{}],2:[function(_dereq_,module,exports){
 "use strict";
@@ -354,13 +354,19 @@ var namedDates = _dereq_('./named-dates'); //we have to actually parse these inp
 // this is only really ambiguous until 2054 or so
 
 
-var minimumEpoch = 2500000000; //support [2016, 03, 01] format
+var minimumEpoch = 2500000000;
+var defaults = {
+  year: new Date().getFullYear(),
+  month: 0,
+  date: 1 //support [2016, 03, 01] format
+
+};
 
 var handleArray = function handleArray(s, arr) {
   var order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
 
   for (var i = 0; i < order.length; i++) {
-    var num = arr[i] || 0;
+    var num = arr[i] || defaults[order[i]] || 0;
     s = s[order[i]](num);
   }
 
@@ -369,6 +375,7 @@ var handleArray = function handleArray(s, arr) {
 
 
 var handleObject = function handleObject(s, obj) {
+  obj = Object.assign({}, defaults, obj);
   var keys = Object.keys(obj);
 
   for (var i = 0; i < keys.length; i++) {
@@ -383,7 +390,7 @@ var handleObject = function handleObject(s, obj) {
       continue;
     }
 
-    var num = obj[unit] || 0;
+    var num = obj[unit] || defaults[unit] || 0;
     s = s[unit](num);
   }
 
@@ -554,16 +561,8 @@ var parseOffset = function parseOffset(s, offset) {
 
   if (Math.abs(num) > 100) {
     num = num / 100;
-  } // console.log(offset, num)
-
-
-  var current = s.timezone().current.offset;
-
-  if (current === num) {
-    //we cool..
-    return s;
   } //okay, try to match it to a utc timezone
-  //this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_()_/¯
+  //remember - this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_(:/)_/¯
   //https://askubuntu.com/questions/519550/why-is-the-8-timezone-called-gmt-8-in-the-filesystem
 
 
@@ -1088,7 +1087,7 @@ var addMethods = function addMethods(SpaceTime) {
   SpaceTime.prototype.add = function (num, unit) {
     var s = this.clone();
 
-    if (!unit) {
+    if (!unit || num === 0) {
       return s; //don't bother
     }
 
@@ -1266,12 +1265,14 @@ var climb = function climb(a, b, unit) {
   } //oops, we went too-far..
 
 
-  if (!a.isSame(b, unit)) {
+  if (a.isAfter(b, unit)) {
     i -= 1;
   }
 
   return i;
-};
+}; //these small units can just be 'eyeballed'
+//it's way too slow to do them procedurally
+
 
 var diffQuick = function diffQuick(a, b) {
   var ms = b.epoch - a.epoch;
@@ -1281,6 +1282,8 @@ var diffQuick = function diffQuick(a, b) {
   };
   obj.minutes = parseInt(obj.seconds / 60, 10);
   obj.hours = parseInt(obj.minutes / 60, 10);
+  obj.days = parseInt(obj.hours / 24, 10);
+  obj.weeks = parseInt(obj.days / 7, 10);
   return obj;
 };
 
@@ -1317,9 +1320,14 @@ doAll = function doAll(a, b) {
   //do ms, seconds, minutes in a faster way
   var all = diffQuick(a, b);
   all.years = diff(a, b, 'year');
-  all.months = diff(a, b, 'month');
+  all.months = diff(a, b, 'month'); //do a fast-diff for days/weeks, if it's huge
+
+  if (Math.abs(all.years) > 50) {
+    return all;
+  }
+
   all.weeks = diff(a, b, 'week');
-  all.days = diff(a, b, 'day'); //only slow-compute hours if it's a small diff
+  all.days = diff(a, b, 'day'); //only fully-compute hours if it's a small diff
 
   if (all.years === 0) {
     all.hours = diff(a, b, 'hour');
@@ -1365,11 +1373,7 @@ var every = function every(start) {
   } //cleanup unit param
 
 
-  unit = fns.normalize(unit);
-  unit = String(unit).toLowerCase();
-  unit = unit.replace(/s$/, ''); //singular form... :/
-
-  unit = unit.trim(); //cleanup to param
+  unit = fns.normalize(unit); //cleanup to param
 
   end = start.clone().set(end); //swap them, if they're backwards
 
@@ -1393,8 +1397,8 @@ var every = function every(start) {
   var result = [];
 
   while (d.isBefore(end)) {
-    d = d.add(1, unit);
     result.push(d);
+    d = d.add(1, unit);
   }
 
   return result;
@@ -1405,20 +1409,27 @@ module.exports = every;
 },{"../data/days":2,"../fns":8}],21:[function(_dereq_,module,exports){
 "use strict";
 
-var fns = _dereq_('../../fns'); // "+01:00", "+0100", or simply "+01"
+var fns = _dereq_('../../fns'); // create the timezone offset part of an iso timestamp
+// it's kind of nuts how involved this is
+// "+01:00", "+0100", or simply "+01"
 
 
 var isoOffset = function isoOffset(s) {
   var offset = s.timezone().current.offset;
-  var minute = '00';
+  var isNegative = offset < 0;
+  var minute = '00'; //handle 5.5 → '5:30'
 
-  if (offset % 1 === 0.5) {
-    //fraction of the hour
+  if (Math.abs(offset % 1) === 0.5) {
     minute = '30';
-    offset = Math.floor(offset);
+
+    if (offset >= 0) {
+      offset = Math.floor(offset);
+    } else {
+      offset = Math.ceil(offset);
+    }
   }
 
-  if (offset < 0) {
+  if (isNegative) {
     //handle negative sign
     offset *= -1;
     offset = fns.zeroPad(offset, 2);
@@ -1428,7 +1439,7 @@ var isoOffset = function isoOffset(s) {
     offset = '+' + offset;
   }
 
-  offset = offset + ':' + minute; //this is a little cleaner?
+  offset = offset + ':' + minute; //'Z' means 00
 
   if (offset === '+00:00') {
     offset = 'Z';
@@ -2182,9 +2193,7 @@ module.exports = addMethods;
 },{"./destructive":27,"./normal":29,"./tricky":30}],29:[function(_dereq_,module,exports){
 "use strict";
 
-var set = _dereq_('../set/set');
-
-var walkTo = _dereq_('../set/walk'); //the most basic get/set methods
+var set = _dereq_('../set/set'); //the most basic get/set methods
 
 
 var methods = {
@@ -2220,12 +2229,12 @@ var methods = {
 
     if (num !== undefined) {
       var s = this.clone();
-      s.epoch = set.hours(s, num);
-      walkTo(s, {
-        month: this.month(),
-        date: this.date(),
-        hour: num
-      });
+      s.epoch = set.hours(s, num); // walkTo(s, {
+      //   month: this.month(),
+      //   date: this.date(),
+      //   hour: num
+      // })
+
       return s;
     }
 
@@ -2420,7 +2429,7 @@ methods.h24 = methods.hour24;
 methods.days = methods.day;
 module.exports = methods;
 
-},{"../set/set":32,"../set/walk":33}],30:[function(_dereq_,module,exports){
+},{"../set/set":32}],30:[function(_dereq_,module,exports){
 "use strict";
 
 var days = _dereq_('../../data/days');
@@ -2633,10 +2642,20 @@ module.exports = {
   },
   hours: function hours(s, n) {
     n = validate(n);
+
+    if (n >= 24) {
+      n = 24;
+    } else if (n < 0) {
+      n = 0;
+    }
+
     var old = s.clone();
     var diff = s.hour() - n;
     var shift = diff * ms.hour;
     s.epoch -= shift;
+    walkTo(s, {
+      hour: n
+    });
     confirm(s, old, 'minute');
     return s.epoch;
   },
@@ -2683,7 +2702,21 @@ module.exports = {
     return s.epoch;
   },
   date: function date(s, n) {
-    n = validate(n);
+    n = validate(n); //avoid setting february 31st
+
+    if (n > 28) {
+      var max = monthLength[s.month()];
+
+      if (n > max) {
+        n = max;
+      }
+    } //avoid setting < 0
+
+
+    if (n <= 0) {
+      n = 1;
+    }
+
     walkTo(s, {
       date: n
     });
@@ -2695,7 +2728,16 @@ module.exports = {
       n = months.mapping()[n.toLowerCase()];
     }
 
-    n = validate(n);
+    n = validate(n); //don't go past december
+
+    if (n >= 12) {
+      n = 11;
+    }
+
+    if (n <= 0) {
+      n = 0;
+    }
+
     var date = s.date(); //there's no 30th of february, etc.
 
     if (date > monthLength[n]) {
@@ -2719,9 +2761,16 @@ module.exports = {
   dayOfYear: function dayOfYear(s, n) {
     n = validate(n);
     var old = s.clone();
-    var diff = n - s.dayOfYear();
-    var shift = diff * ms.day;
-    s.epoch += shift;
+    n -= 1; //days are 1-based
+
+    if (n <= 0) {
+      n = 0;
+    } else if (n >= 365) {
+      n = 364;
+    }
+
+    s = s.startOf('year');
+    s = s.add(n, 'day');
     confirm(s, old, 'hour');
     return s.epoch;
   }
@@ -2944,27 +2993,10 @@ function getDiff(a, b) {
       return;
     }
 
-    var max = earlier.diff(later, unit); // use a temp object to do the 'gone too far' math, then
-    // only adds actual difference to 'earlier' which prevents
-    // situation like 31 Jan adds 1 month to Feb end up with date 28 and
-    // only goes back to day 28 Jan when subtract 1 month after that
-    //
-    // issue: https://github.com/spencermountain/spacetime/issues/89
-
-    var temp = earlier.clone().add(max, unit); //did we go one too far?
-
-    if (temp.epoch > later.epoch + 10) {
-      //(fudge this calc by 10 milliseconds)
-      max -= 1;
-    } // add 0 year can also change epoch
-
-
-    if (max !== 0) {
-      earlier = earlier.add(max, unit);
-    }
-
+    var max = earlier.diff(later, unit);
+    earlier = earlier.add(max, unit);
     diff[unit] = max;
-  }); //reverse it
+  }); //reverse it, if necessary
 
   if (isBefore) {
     Object.keys(diff).forEach(function (u) {

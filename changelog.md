@@ -41,6 +41,13 @@
 - adds `.every(unit, to)` method
 - set UTC as default fallback timezone
 
+### 5.7.0
+
+- avoid setting dates/months/hours past maximums and minimums
+- `.hour(24)` now changes date to tomorrow
+- faster diffs for large (decade-long) ranges
+- **[big]** fix awkward diff/since issues ('dec 25->jan 5' should be 0 years)
+
 ### v4.0.0
 
 - `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`

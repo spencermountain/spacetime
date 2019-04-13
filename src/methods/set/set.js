@@ -53,10 +53,18 @@ module.exports = {
 
   hours: (s, n) => {
     n = validate(n)
+    if (n >= 24) {
+      n = 24
+    } else if (n < 0) {
+      n = 0
+    }
     let old = s.clone()
     let diff = s.hour() - n
     let shift = diff * ms.hour
     s.epoch -= shift
+    walkTo(s, {
+      hour: n
+    })
     confirm(s, old, 'minute')
     return s.epoch
   },
@@ -98,6 +106,17 @@ module.exports = {
 
   date: (s, n) => {
     n = validate(n)
+    //avoid setting february 31st
+    if (n > 28) {
+      const max = monthLength[s.month()]
+      if (n > max) {
+        n = max
+      }
+    }
+    //avoid setting < 0
+    if (n <= 0) {
+      n = 1
+    }
     walkTo(s, {
       date: n
     })
@@ -110,6 +129,14 @@ module.exports = {
       n = months.mapping()[n.toLowerCase()]
     }
     n = validate(n)
+    //don't go past december
+    if (n >= 12) {
+      n = 11
+    }
+    if (n <= 0) {
+      n = 0
+    }
+
     let date = s.date()
     //there's no 30th of february, etc.
     if (date > monthLength[n]) {
@@ -134,9 +161,14 @@ module.exports = {
   dayOfYear: (s, n) => {
     n = validate(n)
     let old = s.clone()
-    let diff = n - s.dayOfYear()
-    let shift = diff * ms.day
-    s.epoch += shift
+    n -= 1 //days are 1-based
+    if (n <= 0) {
+      n = 0
+    } else if (n >= 365) {
+      n = 364
+    }
+    s = s.startOf('year')
+    s = s.add(n, 'day')
     confirm(s, old, 'hour')
     return s.epoch
   }

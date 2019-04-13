@@ -35,15 +35,8 @@ const parseOffset = (s, offset) => {
   if (Math.abs(num) > 100) {
     num = num / 100
   }
-  // console.log(offset, num)
-  let current = s.timezone().current.offset
-  if (current === num) {
-    //we cool..
-    return s
-  }
   //okay, try to match it to a utc timezone
-
-  //this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_()_/¯
+  //remember - this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_(:/)_/¯
   //https://askubuntu.com/questions/519550/why-is-the-8-timezone-called-gmt-8-in-the-filesystem
   num *= -1
 

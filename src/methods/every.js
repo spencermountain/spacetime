@@ -20,10 +20,6 @@ const every = function(start, unit = '', end) {
   }
   //cleanup unit param
   unit = fns.normalize(unit)
-  unit = String(unit).toLowerCase()
-  unit = unit.replace(/s$/, '') //singular form... :/
-  unit = unit.trim()
-
   //cleanup to param
   end = start.clone().set(end)
   //swap them, if they're backwards
@@ -44,8 +40,8 @@ const every = function(start, unit = '', end) {
   //okay, actually start doing it
   let result = []
   while (d.isBefore(end)) {
-    d = d.add(1, unit)
     result.push(d)
+    d = d.add(1, unit)
   }
   return result
 }

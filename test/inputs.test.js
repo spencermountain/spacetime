@@ -48,6 +48,10 @@ test('arr-input', t => {
   t.equal(s.year(), 2017, 'set-arr-year')
   t.equal(s.date(), 2, 'set-arr-date')
   t.equal(s.month(), 1, 'set-arr-month')
+
+  //on a dst change
+  let d = spacetime([2019, 'march', 31, 3, 3], 'Europe/Stockholm')
+  t.equal(d.format('{month} {date} {time}'), 'March 31 3:03am', 'array sets time over dst-switch')
   t.end()
 })
 
@@ -141,6 +145,24 @@ test('funny-numeric-forms', t => {
 
   b = spacetime('13/03/2016')
   t.equal(a.format('numeric'), b.format('numeric'), 'dd/mm/yyyy')
+  t.end()
+})
+
+test('empty-array', t => {
+  let s = spacetime([])
+  t.ok(s.isValid(), 'array input is valid')
+  t.ok(s.monthName(), 'january', 'empty array is january 1st')
+  t.ok(s.date(), 1, 'empty array is january 1st')
+  t.ok(s.year(), new Date().getFullYear(), 'empty array is start of current year')
+  t.end()
+})
+
+test('empty-object', t => {
+  let s = spacetime({})
+  t.ok(s.isValid(), 'obj input is valid')
+  t.ok(s.monthName(), 'january', 'empty obj is january 1st')
+  t.ok(s.date(), 1, 'empty obj is january 1st')
+  t.ok(s.year(), new Date().getFullYear(), 'empty obj is start of current year')
   t.end()
 })
 

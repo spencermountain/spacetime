@@ -17,17 +17,24 @@ const namedDates = require('./named-dates')
 // this is only really ambiguous until 2054 or so
 const minimumEpoch = 2500000000
 
+const defaults = {
+  year: new Date().getFullYear(),
+  month: 0,
+  date: 1
+}
+
 //support [2016, 03, 01] format
 const handleArray = (s, arr) => {
   let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
   for (let i = 0; i < order.length; i++) {
-    let num = arr[i] || 0
+    let num = arr[i] || defaults[order[i]] || 0
     s = s[order[i]](num)
   }
   return s
 }
 //support {year:2016, month:3} format
 const handleObject = (s, obj) => {
+  obj = Object.assign({}, defaults, obj)
   let keys = Object.keys(obj)
   for (let i = 0; i < keys.length; i++) {
     let unit = keys[i]
@@ -39,7 +46,7 @@ const handleObject = (s, obj) => {
     if (obj[unit] === null || obj[unit] === undefined || obj[unit] === '') {
       continue
     }
-    let num = obj[unit] || 0
+    let num = obj[unit] || defaults[unit] || 0
     s = s[unit](num)
   }
   return s

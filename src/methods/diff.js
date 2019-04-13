@@ -12,12 +12,14 @@ const climb = (a, b, unit) => {
     i += 1
   }
   //oops, we went too-far..
-  if (!a.isSame(b, unit)) {
+  if (a.isAfter(b, unit)) {
     i -= 1
   }
   return i
 }
 
+//these small units can just be 'eyeballed'
+//it's way too slow to do them procedurally
 const diffQuick = (a, b) => {
   let ms = b.epoch - a.epoch
   let obj = {
@@ -26,6 +28,8 @@ const diffQuick = (a, b) => {
   }
   obj.minutes = parseInt(obj.seconds / 60, 10)
   obj.hours = parseInt(obj.minutes / 60, 10)
+  obj.days = parseInt(obj.hours / 24, 10)
+  obj.weeks = parseInt(obj.days / 7, 10)
   return obj
 }
 
@@ -58,9 +62,14 @@ doAll = (a, b) => {
   let all = diffQuick(a, b)
   all.years = diff(a, b, 'year')
   all.months = diff(a, b, 'month')
+
+  //do a fast-diff for days/weeks, if it's huge
+  if (Math.abs(all.years) > 50) {
+    return all
+  }
   all.weeks = diff(a, b, 'week')
   all.days = diff(a, b, 'day')
-  //only slow-compute hours if it's a small diff
+  //only fully-compute hours if it's a small diff
   if (all.years === 0) {
     all.hours = diff(a, b, 'hour')
   }
