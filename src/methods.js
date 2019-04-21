@@ -121,6 +121,21 @@ const methods = {
     date += '\n     - ' + this.format('time')
     console.log('\n\n', date + '\n     - ' + tz.name + ' (' + tz.current.offset + ')')
     return this
+  },
+  dateBorder: function() {
+    let hour = this.now().format('time'), tz;
+      if (this.format('time').indexOf('a'||'p') !== -1) { hour += 12; }
+    let offset = this.timezone().current.offset + (24 - hour);
+    
+    if (offset === 0) { tz = `GMT+0`; }
+      else {
+        if (offset >= 24) { tz = `GMT${24 - offset}`;
+          } else if (offset <= 24) { tz = `GMT+${offset}`; }
+      }
+
+    console.log(`date border time zone: 
+    ${this.goto(tz)}`);
+    return this.goto(tz);
   }
 }
 // aliases
