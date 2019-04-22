@@ -128,14 +128,12 @@ const methods = {
     let offset = this.timezone().current.offset + (24 - hour);
     
     if (offset === 0) { tz = `GMT+0`; }
-      else {
-        if (offset >= 24) { tz = `GMT${24 - offset}`;
-          } else if (offset <= 24) { tz = `GMT+${offset}`; }
-      }
+      else if (offset >= 24) { tz = `GMT${24 - offset}`;
+      } else if (offset <= 24) { tz = `GMT+${offset}`; }
 
     console.log(`date border time zone: 
-    ${this.goto(tz)}`);
-    return this.goto(tz);
+    ${this.goto(tz).timezone()}`);
+    return this.goto(tz).timezone();
   }
 }
 // aliases
