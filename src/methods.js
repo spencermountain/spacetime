@@ -123,17 +123,17 @@ const methods = {
     return this
   },
   dateBorder: function() {
-    let hour = this.now().format('time'), tz;
-      if (this.format('time').indexOf('a'||'p') !== -1) { hour += 12; }
-    let offset = this.timezone().current.offset + (24 - hour);
-    
-    if (offset === 0) { tz = `GMT+0`; }
-      else if (offset >= 24) { tz = `GMT${24 - offset}`;
-      } else if (offset <= 24) { tz = `GMT+${offset}`; }
-
-    console.log(`date border time zone: 
-    ${this.goto(tz).timezone()}`);
-    return this.goto(tz).timezone();
+    let time = this.now().format('time'), tz;
+    let hour = this.now().hour();
+      if ((time.indexOf('p') !== -1) 
+        && hour !== 12) { hour += 12; }
+    const offset = (24 - hour);
+      if (offset === 0) { tz = `GMT+0`; }
+        else if (offset >= 24) { tz = `GMT${24 - offset}`;
+        } else if (offset <= 24) { tz = `GMT+${offset}`; }
+    console.log('date border time zone:\n',
+    this.now().goto(tz).timezone());
+    return this.now().goto(tz).timezone();
   }
 }
 // aliases
