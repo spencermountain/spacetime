@@ -1,11 +1,13 @@
-const countriesLong = require('../data/countries').long();
-const countriesIso = require('../data/countries').short();
-const stewardName = require('../data/countries').stewards();
-
-const territoryName = require('../data/countries').territories();
-const firstDay = require('../data/countries').days();
-const weekDays = require('../data/days').long();
+const countries = require('../data/countries');
+const weekDays = require('../data/days');
 const spacetime = require('../spacetime');
+
+const countriesLong = countries.long();
+const countriesIso = countries.short();
+const stewardName = countries.stewards();
+const territoryName = countries.territories();
+const firstDay = countries.days();
+
 
 module.exports = weekStarts = (country = '') => {
     // if country not set as an argument
@@ -18,7 +20,7 @@ module.exports = weekStarts = (country = '') => {
   // 0 - sun, 1 - mon, 6 - sat, -1 - wrong input
   const countryIndex = findCountryIndex(country);
     if (countryIndex !== -1) {
-      return weekDays[
+      return weekDays.long()[
         firstDay[countryIndex]
       ];
     }
