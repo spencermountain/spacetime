@@ -50,12 +50,15 @@ function findCountryIndex(country) {
       countries = countriesLong;
     } else if (country.length === 3) {
       countries = countriesIso;
-    }
+    } else { return -1; }
 
     // search countries arrays for index of country
     index = iterateCountries(countries, country);
     
     // when country was found return it's index
+    // wrong name in long form was set (-2)
+    // in case was not found (-1) continue search
+    if (!index) { return -1; }
     if (index !== -1) { return index; }
     
     // if no country matched - search if it's one of territories
