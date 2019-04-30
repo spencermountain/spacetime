@@ -6,6 +6,10 @@ const weekStarts = require('./src/input/weekStarts');
 // Can be used 3 letter short form of coutry name (ISO3166) or usual long name
 // https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
 console.log(`
+First day of week in Canada is ${weekStarts('canada')}
+`);
+
+console.log(`
 First day of week in United States is ${weekStarts('UniTed STATES')}
 `);
 console.log(`

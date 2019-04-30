@@ -1,10 +1,10 @@
-const countriesLong = require('../data/countries').longCountries;
-const countriesIso = require('../data/countries').shortCountries;
-const stewardName = require('../data/countries').stewardName;
+const countriesLong = require('../data/countries').long();
+const countriesIso = require('../data/countries').short();
+const stewardName = require('../data/countries').stewards();
 
-const territoryName = require('../data/countries').territoryName;
-const dayIndexes = require('../data/countries').dayIndexes;
-const days = require('../data/days')
+const territoryName = require('../data/countries').territories();
+const firstDay = require('../data/countries').days();
+const weekDays = require('../data/days').long();
 const spacetime = require('../spacetime');
 
 module.exports = weekStarts = (country = '') => {
@@ -17,10 +17,9 @@ module.exports = weekStarts = (country = '') => {
   // search for country (in english) and return index of a week day
   // 0 - sun, 1 - mon, 6 - sat, -1 - wrong input
   const countryIndex = findCountryIndex(country);
-  const weekDays = days.long();
     if (countryIndex !== -1) {
       return weekDays[
-        dayIndexes[countryIndex]
+        firstDay[countryIndex]
       ];
     }
   return -1;
