@@ -1,4 +1,4 @@
-const countries = require('../data/countries');
+let countries = require('../data/countries');
 const weekDays = require('../data/days');
 const spacetime = require('../spacetime');
 
@@ -8,8 +8,77 @@ const stewardName = countries.stewards();
 const territoryName = countries.territories();
 const firstDay = countries.days();
 
+function iterateCountries(countryArray, country) {
+  for (let index = 0; index<countryArray.length; index++) {
+    if (countryArray[index].indexOf(country.toLowerCase()) !== -1) {
+      return index;
+    }
+  }
+  return -1;
+}
 
-module.exports = weekStarts = (country = '') => {
+function getCurrentCountry() {
+
+  // TODO: (optional?) get current location - 
+  // state and call weekStarts
+  let countryName = 'united states';
+  // const time = spacetime.now().timezone();
+  return countryName;
+}
+
+/**
+ * searches for country in an array, if no found
+ * returns -1
+ * @param string country 
+ * @returns index of country in an array
+ */
+function findCountryIndex(country) {
+
+let index = -1;
+let countries;
+
+  if (country.length > 3) {
+    countries = countriesLong;
+  } else if (country.length === 3) {
+    countries = countriesIso;
+  } else { return -1; }
+
+  // search countries arrays for index of country
+  index = iterateCountries(countries, country);
+  
+  // when country was found return it's index
+  // wrong name in long form was set (-2)
+  // in case was not found (-1) continue search
+  if (!index) { return -1; }
+  if (index !== -1) { return index; }
+  
+  // if no country matched - search if it's one of territories
+  if (index === -1) {
+    countries = territoryName;
+      for (const i of countries.keys()) {
+        for (const j of countries[i].keys()) {
+          if (countries[i][j].indexOf(country.toLowerCase()) !== -1) {
+            index = i;
+            break;
+          }
+        }
+      }
+
+    // searches for steward counry in array of countries
+    // and a country was found (index !== -1)
+      if (index !== -1) {
+        country = stewardName[index];
+        countries = countriesLong;
+        index = iterateCountries(countries, country);
+      }
+      
+    return index;
+  }
+
+  return -1;
+}
+
+const weekStarts = (country = '') => {
     // if country not set as an argument
     if (country === '') {
         country = getCurrentCountry();
@@ -27,72 +96,7 @@ module.exports = weekStarts = (country = '') => {
   return -1;
 };
 
-function getCurrentCountry() {
-
-    // TODO: (optional?) get current location - 
-    // state and call weekStarts
-    let countryName = 'united states';
-    const time = spacetime.now().timezone();
-    return countryName;
-}
-
-  /**
-   * searches for country in an array, if no found
-   * returns -1
-   * @param string country 
-   * @returns index of country in an array
-   */
-function findCountryIndex(country) {
-
-  let index = -1;
-  let countries;
-  
-    if (country.length > 3) {
-      countries = countriesLong;
-    } else if (country.length === 3) {
-      countries = countriesIso;
-    } else { return -1; }
-
-    // search countries arrays for index of country
-    index = iterateCountries(countries, country);
-    
-    // when country was found return it's index
-    // wrong name in long form was set (-2)
-    // in case was not found (-1) continue search
-    if (!index) { return -1; }
-    if (index !== -1) { return index; }
-    
-    // if no country matched - search if it's one of territories
-    if (index === -1) {
-      countries = territoryName;
-        for (const i of countries.keys()) {
-          for (const j of countries[i].keys()) {
-            if (countries[i][j].indexOf(country.toLowerCase()) !== -1) {
-              index = i;
-              break;
-            }
-          }
-        }
-
-      // searches for steward counry in array of countries
-      // and a country was found (index !== -1)
-        if (index !== -1) {
-          let country = stewardName[index];
-          countries = countriesLong;
-          index = iterateCountries(countries, country);
-        }
-        
-      return index;
-    }
-}
-
-function iterateCountries(countries, country) {
-  for (let index = 0; index<countries.length; index++) {
-    if (countries[index].indexOf(country.toLowerCase()) !== -1) {
-      return index;
-    }
-  }
-}
+module.exports = weekStarts;
 
 /*
 Abkhazia 1
