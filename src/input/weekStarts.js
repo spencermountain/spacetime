@@ -1,8 +1,11 @@
-const countriesLong = require('../data/countries').countriesLong;
-const countriesIso = require('../data/countries').countriesShort;
+const countriesLong = require('../data/countries').longCountries;
+const countriesIso = require('../data/countries').shortCountries;
 const stewardName = require('../data/countries').stewardName;
+
 const territoryName = require('../data/countries').territoryName;
 const dayIndexes = require('../data/countries').dayIndexes;
+const days = require('../data/days')
+const spacetime = require('../spacetime');
 
 module.exports = weekStarts = (country = '') => {
     // if country not set as an argument
@@ -12,16 +15,23 @@ module.exports = weekStarts = (country = '') => {
     }
 
   // search for country (in english) and return index of a week day
-  // 0 - sun, 1 - mon, 6 - sat
+  // 0 - sun, 1 - mon, 6 - sat, -1 - wrong input
   const countryIndex = findCountryIndex(country);
+  const weekDays = days.long();
     if (countryIndex !== -1) {
-      return dayIndexes[countryIndex];
+      return weekDays[
+        dayIndexes[countryIndex]
+      ];
     }
   return -1;
 };
 
 function getCurrentCountry() {
+
+    // TODO: (optional?) get current location - 
+    // state and call weekStarts
     let countryName = 'united states';
+    const time = spacetime.now().timezone();
     return countryName;
 }
 
@@ -35,7 +45,7 @@ function findCountryIndex(country) {
 
   let index = -1;
   let countries;
-
+  
     if (country.length > 3) {
       countries = countriesLong;
     } else if (country.length === 3) {
@@ -43,17 +53,17 @@ function findCountryIndex(country) {
     }
 
     // search countries arrays for index of country
-    index = iterateCountries(countries, country );
-
-      // when country was found return it's index
-      if (index !== -1) { return index; }
-
+    index = iterateCountries(countries, country);
+    
+    // when country was found return it's index
+    if (index !== -1) { return index; }
+    
     // if no country matched - search if it's one of territories
     if (index === -1) {
       countries = territoryName;
         for (const i of countries.keys()) {
           for (const j of countries[i].keys()) {
-            if (countries[i][j].indexOf(country)) {
+            if (countries[i][j].indexOf(country.toLowerCase()) !== -1) {
               index = i;
               break;
             }
@@ -67,20 +77,19 @@ function findCountryIndex(country) {
           countries = countriesLong;
           index = iterateCountries(countries, country);
         }
-
+        
       return index;
     }
 }
 
 function iterateCountries(countries, country) {
-  for (const i of countries.keys()) {
-    if (countries[i].indexOf(country)) {
-      return i;
+  for (let index = 0; index<countries.length; index++) {
+    if (countries[index].indexOf(country.toLowerCase()) !== -1) {
+      return index;
     }
   }
 }
 
-module.exports = { weekStarts };
 /*
 Abkhazia 1
 Afghanistan 6
