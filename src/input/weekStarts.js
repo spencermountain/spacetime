@@ -1,12 +1,12 @@
-let countries = require('../data/countries');
+const countriesData = require('../data/countries');
 const weekDays = require('../data/days');
-const spacetime = require('../spacetime');
+// const spacetime = require('../spacetime');
 
-const countriesLong = countries.long();
-const countriesIso = countries.short();
-const stewardName = countries.stewards();
-const territoryName = countries.territories();
-const firstDay = countries.days();
+const countriesLong = countriesData.long();
+const countriesIso = countriesData.short();
+const stewardName = countriesData.stewards();
+const territoryName = countriesData.territories();
+const firstDay = countriesData.days();
 
 function iterateCountries(countryArray, country) {
   for (let index = 0; index<countryArray.length; index++) {
