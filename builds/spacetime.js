@@ -1,4 +1,4 @@
-/* spacetime v5.7.0
+/* spacetime v5.8.0
    github.com/spencermountain/spacetime
    MIT
 */
@@ -6,7 +6,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 "use strict";
 
-module.exports = '5.7.0';
+module.exports = '5.8.0';
 
 },{}],2:[function(_dereq_,module,exports){
 "use strict";
@@ -675,7 +675,7 @@ var parseYear = function parseYear() {
 
 var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
 {
-  reg: /^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9\-\+:]+)?$/,
+  reg: /^(\-?0?0?[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9\-\+:]+)?$/,
   parse: function parse(s, arr, givenTz, options) {
     var month = parseInt(arr[2], 10) - 1;
     var obj = {
@@ -1251,7 +1251,9 @@ module.exports = addMethods;
 var fns = _dereq_('../fns'); //init this function up here
 
 
-var doAll = function doAll() {}; //increment until dates are the same
+var doAll = function doAll() {};
+
+var quickMonth = function quickMonth() {}; //increment until dates are the same
 
 
 var climb = function climb(a, b, unit) {
@@ -1303,8 +1305,15 @@ var diff = function diff(a, b, unit) {
   } //do quick-form for these small-ones
 
 
+  var quick = diffQuick(a, b);
+
   if (unit === 'milliseconds' || unit === 'seconds' || unit === 'minutes') {
-    return diffQuick(a, b)[unit];
+    return quick[unit];
+  } //do the fast version for large months
+
+
+  if (unit === 'months' && quick.weeks > 364) {
+    return quickMonth(a, b);
   } //otherwise, do full-version
 
 
@@ -1314,18 +1323,31 @@ var diff = function diff(a, b, unit) {
     //reverse it
     return climb(b, a, unit) * -1;
   }
+}; //there's always 12 months in a year,
+//so to speed-up a big diff, cheat this one
+
+
+quickMonth = function quickMonth(a, b) {
+  // do all the years
+  var yearDiff = b.year() - a.year();
+  var months = yearDiff * 12; //do one year
+
+  var tmp = b.year(a.year());
+  months += diff(a, tmp, 'months');
+  return months;
 };
 
 doAll = function doAll(a, b) {
   //do ms, seconds, minutes in a faster way
   var all = diffQuick(a, b);
-  all.years = diff(a, b, 'year');
-  all.months = diff(a, b, 'month'); //do a fast-diff for days/weeks, if it's huge
+  all.years = diff(a, b, 'year'); //do a fast-diff for days/weeks, if it's huge
 
   if (Math.abs(all.years) > 50) {
+    all.months = quickMonth(a, b);
     return all;
   }
 
+  all.months = diff(a, b, 'month');
   all.weeks = diff(a, b, 'week');
   all.days = diff(a, b, 'day'); //only fully-compute hours if it's a small diff
 
@@ -1501,6 +1523,10 @@ var format = {
   'month-pad': function monthPad(s) {
     return fns.zeroPad(s.month());
   },
+  'iso-month': function isoMonth(s) {
+    return fns.zeroPad(s.month() + 1);
+  },
+  //1-based months
   year: function year(s) {
     var year = s.year();
 
@@ -1520,6 +1546,19 @@ var format = {
 
     year = Math.abs(year);
     return year + ' BC';
+  },
+  'iso-year': function isoYear(s) {
+    var year = s.year();
+    var isNegative = year < 0;
+    var str = fns.zeroPad(Math.abs(year), 4); //0-padded
+
+    if (isNegative) {
+      //negative years are for some reason 6-digits ('-00008')
+      str = fns.zeroPad(str, 6);
+      str = '-' + str;
+    }
+
+    return str;
   },
   time: function time(s) {
     return s.time();
@@ -1581,6 +1620,7 @@ var format = {
   //mm/dd
   // ... https://en.wikipedia.org/wiki/ISO_8601 ;(((
   iso: function iso(s) {
+    var year = s.format('iso-year');
     var month = fns.zeroPad(s.month() + 1); //1-based months
 
     var date = fns.zeroPad(s.date());
@@ -1589,7 +1629,7 @@ var format = {
     var second = fns.zeroPad(s.second());
     var ms = fns.zeroPad(s.millisecond(), 3);
     var offset = isoOffset(s);
-    return "".concat(s.year(), "-").concat(month, "-").concat(date, "T").concat(hour, ":").concat(minute, ":").concat(second, ".").concat(ms).concat(offset); //2018-03-09T08:50:00.000-05:00
+    return "".concat(year, "-").concat(month, "-").concat(date, "T").concat(hour, ":").concat(minute, ":").concat(second, ".").concat(ms).concat(offset); //2018-03-09T08:50:00.000-05:00
   },
   'iso-short': function isoShort(s) {
     var month = fns.zeroPad(s.month() + 1); //1-based months
@@ -1625,6 +1665,8 @@ var aliases = {
   tz: 'timezone',
   'day-num': 'day-number',
   'month-num': 'month-number',
+  'month-iso': 'iso-month',
+  'year-iso': 'iso-year',
   'nice-short': 'nice',
   mdy: 'numeric-us',
   dmy: 'numeric-uk',
@@ -2817,7 +2859,9 @@ var walk = function walk(s, n, fn, unit, previous) {
 
   if (previous !== null && startUnit !== s.d[previous]()) {
     // console.warn('spacetime warning: missed setting ' + unit)
-    s.epoch = original;
+    s.epoch = original; // i mean, but make it close...
+
+    s.epoch += ms[unit] * diff * 0.97; // i guess?
   }
 }; //find the desired date by a increment/check while loop
 
