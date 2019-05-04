@@ -15,5 +15,9 @@ const spacetime = require('./src/index')
 // let obj = now.since(c)
 // console.log(obj)
 
-let s = spacetime([2019, 'march', 31, 3, 3], 'Europe/Berlin')
+let s = spacetime('march 4th 2019 11:43pm', 'Europe/Berlin')
+s = s.date(31)
 console.log(s.format('nice'))
+
+// let s = spacetime([2019, 'march', 31, 3, 3], 'Europe/Berlin')
+// console.log(s.format('nice'))
