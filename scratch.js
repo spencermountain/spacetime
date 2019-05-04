@@ -15,7 +15,8 @@ const spacetime = require('./src/index')
 // let obj = now.since(c)
 // console.log(obj)
 
-let s = spacetime('dec 25 2018')
-console.log(s.format('nice-year'))
-s = s.add(0, 'year')
-console.log(s.format('nice-year'))
+let s = spacetime('0098-05-04T23:16:19.444Z', 'Europe/Berlin')
+// console.log(s.format('month-iso'))
+
+// let s = spacetime([2019, 'march', 31, 3, 3], 'Europe/Berlin')
+console.log(s.format('iso'))

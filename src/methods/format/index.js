@@ -19,6 +19,7 @@ const format = {
   'month-number': s => s.month(),
   'month-ordinal': s => fns.ordinal(s.month()),
   'month-pad': s => fns.zeroPad(s.month()),
+  'iso-month': s => fns.zeroPad(s.month() + 1), //1-based months
 
   year: s => {
     let year = s.year()
@@ -35,6 +36,17 @@ const format = {
     }
     year = Math.abs(year)
     return year + ' BC'
+  },
+  'iso-year': s => {
+    let year = s.year()
+    let isNegative = year < 0
+    let str = fns.zeroPad(Math.abs(year), 4) //0-padded
+    if (isNegative) {
+      //negative years are for some reason 6-digits ('-00008')
+      str = fns.zeroPad(str, 6)
+      str = '-' + str
+    }
+    return str
   },
 
   time: s => s.time(),
@@ -61,6 +73,7 @@ const format = {
 
   // ... https://en.wikipedia.org/wiki/ISO_8601 ;(((
   iso: s => {
+    let year = s.format('iso-year')
     let month = fns.zeroPad(s.month() + 1) //1-based months
     let date = fns.zeroPad(s.date())
     let hour = fns.zeroPad(s.h24())
@@ -68,7 +81,7 @@ const format = {
     let second = fns.zeroPad(s.second())
     let ms = fns.zeroPad(s.millisecond(), 3)
     let offset = isoOffset(s)
-    return `${s.year()}-${month}-${date}T${hour}:${minute}:${second}.${ms}${offset}` //2018-03-09T08:50:00.000-05:00
+    return `${year}-${month}-${date}T${hour}:${minute}:${second}.${ms}${offset}` //2018-03-09T08:50:00.000-05:00
   },
   'iso-short': s => {
     let month = fns.zeroPad(s.month() + 1) //1-based months
@@ -98,6 +111,8 @@ const aliases = {
   tz: 'timezone',
   'day-num': 'day-number',
   'month-num': 'month-number',
+  'month-iso': 'iso-month',
+  'year-iso': 'iso-year',
   'nice-short': 'nice',
   mdy: 'numeric-us',
   dmy: 'numeric-uk',

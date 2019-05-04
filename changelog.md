@@ -48,6 +48,13 @@
 - faster diffs for large (decade-long) ranges
 - **[big]** fix awkward diff/since issues ('dec 25->jan 5' should be 0 years)
 
+### 5.8.0
+
+- faster diff for large-number of months
+- more support for esoteric iso formats
+- add format('iso-month')
+- change fallback behaviour for set failure edge-cases
+
 ### v4.0.0
 
 - `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`

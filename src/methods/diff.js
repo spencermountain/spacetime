@@ -2,6 +2,7 @@ const fns = require('../fns')
 
 //init this function up here
 let doAll = () => {}
+let quickMonth = () => {}
 //increment until dates are the same
 const climb = (a, b, unit) => {
   let i = 0
@@ -45,8 +46,13 @@ const diff = (a, b, unit) => {
     unit += 's'
   }
   //do quick-form for these small-ones
+  const quick = diffQuick(a, b)
   if (unit === 'milliseconds' || unit === 'seconds' || unit === 'minutes') {
-    return diffQuick(a, b)[unit]
+    return quick[unit]
+  }
+  //do the fast version for large months
+  if (unit === 'months' && quick.weeks > 364) {
+    return quickMonth(a, b)
   }
   //otherwise, do full-version
   if (a.isBefore(b)) {
@@ -57,16 +63,28 @@ const diff = (a, b, unit) => {
   }
 }
 
+//there's always 12 months in a year,
+//so to speed-up a big diff, cheat this one
+quickMonth = (a, b) => {
+  // do all the years
+  let yearDiff = b.year() - a.year()
+  let months = yearDiff * 12
+  //do one year
+  let tmp = b.year(a.year())
+  months += diff(a, tmp, 'months')
+  return months
+}
+
 doAll = (a, b) => {
   //do ms, seconds, minutes in a faster way
   let all = diffQuick(a, b)
   all.years = diff(a, b, 'year')
-  all.months = diff(a, b, 'month')
-
   //do a fast-diff for days/weeks, if it's huge
   if (Math.abs(all.years) > 50) {
+    all.months = quickMonth(a, b)
     return all
   }
+  all.months = diff(a, b, 'month')
   all.weeks = diff(a, b, 'week')
   all.days = diff(a, b, 'day')
   //only fully-compute hours if it's a small diff
