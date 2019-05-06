@@ -17,3 +17,4 @@ test('typefile smoketest', (t: test.Test) => {
 
 // Add reference to the other files so they included in the test build
 import './constructor.test'
+import './types.test'
