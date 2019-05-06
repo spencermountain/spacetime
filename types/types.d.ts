@@ -134,6 +134,9 @@ export interface SpacetimeUtils {
 }
 
 export interface Spacetime extends SpacetimeMain, SpacetimeGetterSetters, SpacetimeUtils {
+  /** @returns the date as a native date object */
+  d: Date
+
   /** @returns epoch in milliseconds */
   epoch: number
 
