@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "5.8.0",
+  "version": "5.8.1",
   "description": "figure-out dates across timezones",
   "main": "builds/spacetime.js",
   "unpkg": "builds/spacetime.min.js",
