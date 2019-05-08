@@ -3,7 +3,6 @@ const diffAll = require('./diffQuick')
 
 //init this function up here
 let doAll = () => {}
-let quickMonth = () => {}
 //increment until dates are the same
 const climb = (a, b, unit) => {
   let i = 0
@@ -53,7 +52,7 @@ const diff = (a, b, unit) => {
   }
   //do the fast version for large months
   if (unit === 'months' && quick.weeks > 364) {
-    return quickMonth(a, b)
+    return doAll(a, b).months
   }
   //otherwise, do full-version
   if (a.isBefore(b)) {
@@ -62,18 +61,6 @@ const diff = (a, b, unit) => {
     //reverse it
     return climb(b, a, unit) * -1
   }
-}
-
-//there's always 12 months in a year,
-//so to speed-up a big diff, cheat this one
-quickMonth = (a, b) => {
-  // do all the years
-  let yearDiff = b.year() - a.year()
-  let months = yearDiff * 12
-  //do one year
-  let tmp = b.year(a.year())
-  months += diff(a, tmp, 'months')
-  return months
 }
 
 doAll = (a, b) => {

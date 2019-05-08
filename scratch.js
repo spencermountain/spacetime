@@ -1,7 +1,7 @@
 const spacetime = require('./src/index')
 
 console.time('all')
-let diff = spacetime('Feb 11 1500').diff(spacetime('March 11 2018'))
+let diff = spacetime('June 11 3000').diff(spacetime('March 11 2018'))
 console.log(diff)
 console.timeEnd('all')
 
