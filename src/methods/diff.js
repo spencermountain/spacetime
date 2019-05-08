@@ -92,18 +92,14 @@ doAll = (a, b) => {
   //do ms, seconds, minutes in a faster way
   let all = diffQuick(a, b)
   all.years = quickYear(a, b)
-  // all.years = diff(a, b, 'year')
-  //do a fast-diff for days/weeks, if it's huge
-  if (Math.abs(all.years) > 50) {
-    all.months = quickMonth(a, b)
-    return all
-  }
-  all.months = diff(a, b, 'month')
+  all.months = quickMonth(a, b)
   all.weeks = diff(a, b, 'week')
   all.days = diff(a, b, 'day')
   //only fully-compute hours if it's a small diff
   if (all.years === 0) {
+    console.time('hour')
     all.hours = diff(a, b, 'hour')
+    console.timeEnd('hour')
   }
   return all
 }
