@@ -32,18 +32,18 @@ const diff = function(a, b) {
 
   //there's always 12 months in a year...
   obj.months = obj.years * 12
-  obj.months += tmp.diff(b, 'month')
   tmp = a.add(obj.months, 'month')
+  obj.months += tmp.diff(b, 'month')
 
-  //there's always atleast 4 weeks in a month..
+  // there's always atleast 4 weeks in a month..
   obj.weeks = obj.months * 4
-  obj.weeks += tmp.diff(b, 'week')
   tmp = a.add(obj.weeks, 'week')
+  obj.weeks += tmp.diff(b, 'week')
 
-  //there's always atleast 7 days in a week
+  // there's always atleast 7 days in a week
   obj.days = obj.weeks * 7
-  obj.days += tmp.diff(b, 'day')
   tmp = a.add(obj.days, 'day')
+  obj.days += tmp.diff(b, 'day')
 
   return obj
 }

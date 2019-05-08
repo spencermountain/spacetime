@@ -115,20 +115,20 @@ test('quick-diff-45-months', t => {
 
   Object.keys(obj).forEach(k => {
     let val = start.diff(end, k)
-    t.equal(obj[k], val, 'diff 1-' + k)
+    t.equal(obj[k], val, 'diff #1 -' + k)
   })
   t.end()
 })
 
 test('quick-diff-18-weeks', t => {
-  let start = spacetime('Feb 25th 2019')
+  let start = spacetime('June 25th 2019')
   let end = start.minus(18, 'weeks')
 
   let obj = start.diff(end)
   t.equal(obj.weeks, -18, '18-weeks')
   Object.keys(obj).forEach(k => {
     let val = start.diff(end, k)
-    t.equal(obj[k], val, 'diff 2-' + k)
+    t.equal(obj[k], val, 'diff #2 -' + k)
   })
   t.end()
 })
@@ -140,7 +140,7 @@ test('quick-diff-13-minutes', t => {
   let obj = start.diff(end)
   Object.keys(obj).forEach(k => {
     let val = start.diff(end, k)
-    t.equal(obj[k], val, 'diff 3-' + k)
+    t.equal(obj[k], val, 'diff #3 -' + k)
   })
   t.end()
 })
