@@ -17,10 +17,10 @@ const fastYear = (a, b) => {
 const diff = function(a, b) {
   // an hour is always the same # of milliseconds
   // so these units can be 'pre-calculated'
-  let ms = b.epoch - a.epoch
+  let msDiff = b.epoch - a.epoch
   let obj = {
-    milliseconds: ms,
-    seconds: parseInt(ms / 1000, 10)
+    milliseconds: msDiff,
+    seconds: parseInt(msDiff / 1000, 10)
   }
   obj.minutes = parseInt(obj.seconds / 60, 10)
   obj.hours = parseInt(obj.minutes / 60, 10)
@@ -35,8 +35,9 @@ const diff = function(a, b) {
   tmp = a.add(obj.months, 'month')
   obj.months += tmp.diff(b, 'month')
 
-  // there's always atleast 4 weeks in a month..
-  obj.weeks = obj.months * 4
+  // there's always atleast 52 weeks in a year..
+  // (month * 4) isn't as close
+  obj.weeks = obj.years * 52
   tmp = a.add(obj.weeks, 'week')
   obj.weeks += tmp.diff(b, 'week')
 
