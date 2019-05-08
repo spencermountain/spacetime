@@ -73,3 +73,29 @@ test('diff-awkward', t => {
 
   t.end()
 })
+
+test('year-diff-short', t => {
+  // only 10 months apart
+  let start = spacetime('Dec 25th 2019')
+  let end = start.add(10, 'months')
+
+  let year = start.diff(end, 'year')
+  t.equal(year, 0, '10 months is not a year')
+
+  year = start.diff(end).years
+  t.equal(year, 0, '10 months is (still) not a year')
+  t.end()
+})
+
+test('year-diff-enough', t => {
+  // fully >13 months apart
+  let start = spacetime('Feb 25th 2019')
+  let end = start.add(13, 'months')
+
+  let year = start.diff(end, 'year')
+  t.equal(year, 1, '13 months is one year')
+
+  year = start.diff(end).years
+  t.equal(year, 1, '13 months is (still) one year')
+  t.end()
+})

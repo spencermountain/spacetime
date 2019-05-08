@@ -3,6 +3,7 @@ const fns = require('../fns')
 //init this function up here
 let doAll = () => {}
 let quickMonth = () => {}
+let quickYear = () => {}
 //increment until dates are the same
 const climb = (a, b, unit) => {
   let i = 0
@@ -63,6 +64,18 @@ const diff = (a, b, unit) => {
   }
 }
 
+// don't do anything too fancy here.
+// 2020 - 2019 may be 1 year, or 0 years
+// (ignore leap years)
+quickYear = (a, b) => {
+  let years = b.year() - a.year()
+  // should we decrement it by 1?
+  a = a.year(b.year())
+  if (a.isAfter(b)) {
+    years -= 1
+  }
+  return years
+}
 //there's always 12 months in a year,
 //so to speed-up a big diff, cheat this one
 quickMonth = (a, b) => {
@@ -78,7 +91,8 @@ quickMonth = (a, b) => {
 doAll = (a, b) => {
   //do ms, seconds, minutes in a faster way
   let all = diffQuick(a, b)
-  all.years = diff(a, b, 'year')
+  all.years = quickYear(a, b)
+  // all.years = diff(a, b, 'year')
   //do a fast-diff for days/weeks, if it's huge
   if (Math.abs(all.years) > 50) {
     all.months = quickMonth(a, b)
