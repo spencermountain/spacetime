@@ -1,9 +1,9 @@
 const fns = require('../fns')
+const diffAll = require('./diffQuick')
 
 //init this function up here
 let doAll = () => {}
 let quickMonth = () => {}
-let quickYear = () => {}
 //increment until dates are the same
 const climb = (a, b, unit) => {
   let i = 0
@@ -64,18 +64,6 @@ const diff = (a, b, unit) => {
   }
 }
 
-// don't do anything too fancy here.
-// 2020 - 2019 may be 1 year, or 0 years
-// (ignore leap years)
-quickYear = (a, b) => {
-  let years = b.year() - a.year()
-  // should we decrement it by 1?
-  a = a.year(b.year())
-  if (a.isAfter(b)) {
-    years -= 1
-  }
-  return years
-}
 //there's always 12 months in a year,
 //so to speed-up a big diff, cheat this one
 quickMonth = (a, b) => {
@@ -89,18 +77,20 @@ quickMonth = (a, b) => {
 }
 
 doAll = (a, b) => {
-  //do ms, seconds, minutes in a faster way
-  let all = diffQuick(a, b)
-  all.years = quickYear(a, b)
-  all.months = quickMonth(a, b)
-  all.weeks = diff(a, b, 'week')
-  all.days = diff(a, b, 'day')
-  //only fully-compute hours if it's a small diff
-  if (all.years === 0) {
-    console.time('hour')
-    all.hours = diff(a, b, 'hour')
-    console.timeEnd('hour')
+  let reversed = false
+  if (a.isAfter(b)) {
+    let tmp = a
+    a = b
+    b = tmp
+    reversed = true
   }
-  return all
+  let obj = diffAll(a, b)
+  //reverse values, if necessary
+  if (reversed === true) {
+    Object.keys(obj).forEach(k => {
+      obj[k] *= -1
+    })
+  }
+  return obj
 }
 module.exports = diff
