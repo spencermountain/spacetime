@@ -121,6 +121,15 @@ const methods = {
     date += '\n     - ' + this.format('time')
     console.log('\n\n', date + '\n     - ' + tz.name + ' (' + tz.current.offset + ')')
     return this
+  },
+  //alias of 'since' but opposite - like moment.js
+  from: function(d) {
+    d = this.clone().set(d)
+    return d.since(this)
+  },
+  fromNow: function() {
+    let d = this.clone().set(Date.now())
+    return d.since(this)
   }
 }
 // aliases
