@@ -1,6 +1,7 @@
 const seasons = require('../data/seasons')
 const quarters = require('../data/quarters')
 const walkTo = require('./set/walk')
+const fns = require('../fns')
 
 const units = {
   minute: s => {
@@ -10,7 +11,7 @@ const units = {
     })
     return s
   },
-  quarterHour: s => {
+  quarterhour: s => {
     let minute = s.minutes()
     if (minute >= 45) {
       s = s.minutes(45)
@@ -139,6 +140,7 @@ units.date = units.day
 
 const startOf = (a, unit) => {
   let s = a.clone()
+  unit = fns.normalize(unit)
   if (units[unit]) {
     return units[unit](s)
   }
@@ -152,6 +154,7 @@ const startOf = (a, unit) => {
 //piggy-backs off startOf
 const endOf = (a, unit) => {
   let s = a.clone()
+  unit = fns.normalize(unit)
   if (units[unit]) {
     s = units[unit](s)
     s = s.add(1, unit)
