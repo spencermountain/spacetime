@@ -12,5 +12,4 @@ const spacetime = require('./src/index')
 // console.log(obj)
 
 let s = spacetime('jan 2 2019', 'Canada/Eastern')
-s = s.nearest('season')
-console.log(s.format('nice'))
+console.log(s.progress('year'))

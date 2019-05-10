@@ -52,8 +52,8 @@ const methods = {
     let year = this.year()
     return fns.isLeapYear(year)
   },
-  progress: function() {
-    return progress(this)
+  progress: function(unit) {
+    return progress(this, unit)
   },
   nearest: function(unit) {
     return nearest(this, unit)
