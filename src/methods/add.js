@@ -78,7 +78,7 @@ const addMethods = SpaceTime => {
     } else if (unit === 'season') {
       s.epoch += ms.month * (num * 4)
     } else if (unit === 'quarterhour') {
-      s.epoch += ms.minute * 15
+      s.epoch += ms.minute * 15 * num
     }
     //now ensure our milliseconds/etc are in-line
     let want = {}

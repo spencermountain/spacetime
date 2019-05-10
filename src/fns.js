@@ -45,6 +45,7 @@ exports.normalize = (str = '') => {
   str = str.toLowerCase().trim()
   str = str.replace(/ies$/, 'y') //'centuries'
   str = str.replace(/s$/, '')
+  str = str.replace(/-/g, '')
   if (str === 'day') {
     return 'date'
   }
