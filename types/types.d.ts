@@ -115,7 +115,7 @@ export interface SpacetimeUtils {
   log: () => string
 
   /** Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
-  progress: () => Progress
+  progress: (unit?: string) => Progress
 
   /** is the current year a leap year? */
   leapYear: () => boolean

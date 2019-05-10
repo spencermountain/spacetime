@@ -52,8 +52,8 @@ const methods = {
     let year = this.year()
     return fns.isLeapYear(year)
   },
-  progress: function() {
-    return progress(this)
+  progress: function(unit) {
+    return progress(this, unit)
   },
   nearest: function(unit) {
     return nearest(this, unit)
@@ -121,6 +121,15 @@ const methods = {
     date += '\n     - ' + this.format('time')
     console.log('\n\n', date + '\n     - ' + tz.name + ' (' + tz.current.offset + ')')
     return this
+  },
+  //alias of 'since' but opposite - like moment.js
+  from: function(d) {
+    d = this.clone().set(d)
+    return d.since(this)
+  },
+  fromNow: function() {
+    let d = this.clone().set(Date.now())
+    return d.since(this)
   }
 }
 // aliases

@@ -59,6 +59,10 @@ test('add', t => {
   s = s.add(1, 'quarterHour')
   t.equal(s.minute(), 50, 'movequarterHour#2')
 
+  s = s.time('3:31pm')
+  s = s.add(4, 'quarter-hour')
+  t.equal(s.time(), '4:31pm', 'add 2 quarter-hours')
+
   t.end()
 })
 

@@ -27,6 +27,15 @@ test('start of quarterHour', t => {
   d = spacetime('March 28, 1999 20:00:12', 'Canada/Pacific')
   d = d.startOf('quarterHour')
   t.equal(d.time(), '8:00pm', 'quarterHour-start2')
+
+  let s = spacetime([2019, 4, 8, 10, 11, 12])
+  s = s.time('3:29pm')
+  s = s.startOf('quarter-hour')
+  t.equal(s.format('time'), '3:15pm', 'start-quarterhour-3')
+
+  s = s.time('3:20pm')
+  s = s.endOf('quarter-hour')
+  t.equal(s.format('time'), '3:29pm', 'end-quarter-hour')
   t.end()
 })
 

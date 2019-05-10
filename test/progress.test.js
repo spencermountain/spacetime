@@ -23,3 +23,10 @@ test('progress', t => {
   t.ok(obj.minute <= 0.1, 'just-starting-minute')
   t.end()
 })
+
+test('progress-param', t => {
+  let s = spacetime('jan 2 2019', 'Canada/Eastern')
+  t.equal(s.progress('year'), 0, 'start-year')
+  t.equal(s.progress('month'), 0.03, 'early-month')
+  t.end()
+})
