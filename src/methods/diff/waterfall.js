@@ -1,3 +1,5 @@
+const diffOne = require('./one')
+
 // don't do anything too fancy here.
 // 2020 - 2019 may be 1 year, or 0 years
 // - '1 year difference' means 366 days during a leap year
@@ -33,18 +35,18 @@ const diff = function(a, b) {
   //there's always 12 months in a year...
   obj.months = obj.years * 12
   tmp = a.add(obj.months, 'month')
-  obj.months += tmp.diff(b, 'month')
+  obj.months += diffOne(tmp, b, 'month')
 
   // there's always atleast 52 weeks in a year..
   // (month * 4) isn't as close
   obj.weeks = obj.years * 52
   tmp = a.add(obj.weeks, 'week')
-  obj.weeks += tmp.diff(b, 'week')
+  obj.weeks += diffOne(tmp, b, 'week')
 
   // there's always atleast 7 days in a week
   obj.days = obj.weeks * 7
   tmp = a.add(obj.days, 'day')
-  obj.days += tmp.diff(b, 'day')
+  obj.days += diffOne(tmp, b, 'day')
 
   return obj
 }
