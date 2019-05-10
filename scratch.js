@@ -12,4 +12,4 @@ const spacetime = require('./src/index')
 // console.log(obj)
 
 let s = spacetime('jan 2 2019', 'Canada/Eastern')
-console.log(s.progress('year'))
+console.log(s.progress('month'))
