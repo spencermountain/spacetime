@@ -53,7 +53,7 @@ export interface SpacetimeMain {
   diff(value: Spacetime | ParsableDate): Diff
 
   /** create the human-readable diff between the two dates */
-  since(startDate: Spacetime, endDate: Spacetime): Since
+  since(value: Spacetime | ParsableDate): Since
 }
 
 /** The return types are not actually both number and Spacetime, but this aids in casting to the proper type */
