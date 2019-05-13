@@ -51,6 +51,9 @@ export interface SpacetimeMain {
 
   /** given a date, count how many of various units to make the dates equal */
   diff(value: Spacetime | ParsableDate): Diff
+
+  /** create the human-readable diff between the two dates */
+  since(value: Spacetime | ParsableDate): Since
 }
 
 /** The return types are not actually both number and Spacetime, but this aids in casting to the proper type */
@@ -190,6 +193,13 @@ export interface Diff {
   seconds: number
   weeks: number
   years: number
+}
+
+export interface Since {
+  rounded: string;
+  qualified: string;
+  precise: string;
+  diff: Diff;
 }
 
 /** set where the key is tz database name in lowercase, eg, 'america/denver' */
