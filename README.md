@@ -72,6 +72,7 @@ d.format('nice')
     <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
     • <a href="https://github.com/spencermountain/spacetime-daylight">spacetime-daylight</a>
     • <a href="https://github.com/spencermountain/sometime">spacetime-calendar</a>
+    • <a href="https://github.com/spencermountain/spacetime-week">spacetime-week</a>
   </div>
 </div>
 
@@ -301,6 +302,25 @@ a.i18n({
   }
 });
 a.format('day') //'Sábado'
+```
+
+#### Configure start of week:
+
+by default, the start of the week is monday.
+
+You can determine the week by the official country setting, with [spacetime-week](https://github.com/spencermountain/spacetime-week)
+
+```js
+let s = spacetime.now()
+s = s.weekStart('sunday')
+
+s = s.startOf('week')
+s.dayName()
+//sunday
+
+s = s.endOf('week')
+s.dayName()
+//saturday
 ```
 
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)

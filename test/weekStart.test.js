@@ -53,3 +53,20 @@ test('named weekStart', t => {
 
   t.end()
 })
+
+//ensure .weekstart plays-nice with i18n changes
+test('i18n weekStart', t => {
+  let s = spacetime('may 30 2019', 'Canada/Pacific')
+  s.i18n({
+    days: {
+      long: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
+    }
+  })
+  s = s.startOf('week')
+  t.equal(s.dayName(), 'lunes', 'default is monday')
+
+  s = s.weekStart('martes')
+  s = s.startOf('week')
+  t.equal(s.dayName(), 'martes', 'week starts on martes')
+  t.end()
+})

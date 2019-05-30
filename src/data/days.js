@@ -5,7 +5,7 @@ module.exports = {
   short: () => shortDays,
   long: () => longDays,
   set: i18n => {
-    shortDays = i18n.short
-    longDays = i18n.long
+    shortDays = i18n.short || shortDays
+    longDays = i18n.long || longDays
   }
 }
