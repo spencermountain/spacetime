@@ -175,6 +175,14 @@
     "isAsleep": {
       "doc": "checks if the current time is between 10pm and 8am",
       "out": "Boolean"
+    },
+    "i18n": {
+      "doc": "changes the names of months and days",
+      "out": "clone"
+    },
+    "weekStart": {
+      "doc": "change the starting of the week (default is monday)",
+      "out": "clone"
     }
   }
 }

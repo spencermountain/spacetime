@@ -15,8 +15,8 @@ const SpaceTime = function(input, tz, options = {}) {
 
   //does the week start on sunday, or monday:
   this._weekStart = 1 //default to monday
-  if (options._weekStart !== undefined) {
-    this._weekStart = options._weekStart
+  if (options.weekStart !== undefined) {
+    this._weekStart = options.weekStart
   }
   //add getter/setters
   Object.defineProperty(this, 'd', {
@@ -58,7 +58,7 @@ Object.keys(methods).forEach(k => {
 SpaceTime.prototype.clone = function() {
   return new SpaceTime(this.epoch, this.tz, {
     silent: this.silent,
-    _weekStart: this._weekStart
+    weekStart: this._weekStart
   })
 }
 
