@@ -47,7 +47,7 @@ const units = {
   },
   week: s => {
     let original = s.clone()
-    s = s.day(1) //monday
+    s = s.day(s._weekStart) //monday
     if (s.isAfter(original)) {
       s = s.subtract(1, 'week')
     }

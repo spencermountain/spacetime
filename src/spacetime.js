@@ -12,6 +12,12 @@ const SpaceTime = function(input, tz, options = {}) {
   this.tz = findTz(tz, timezones)
   //whether to output warnings to console
   this.silent = options.silent || true
+
+  //does the week start on sunday, or monday:
+  this._weekStart = 1 //default to monday
+  if (options._weekStart !== undefined) {
+    this._weekStart = options._weekStart
+  }
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object
@@ -51,7 +57,8 @@ Object.keys(methods).forEach(k => {
 // ¯\_(ツ)_/¯
 SpaceTime.prototype.clone = function() {
   return new SpaceTime(this.epoch, this.tz, {
-    silent: this.silent
+    silent: this.silent,
+    _weekStart: this._weekStart
   })
 }
 

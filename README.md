@@ -247,12 +247,12 @@ s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
 #### Ambiguity warnings:
 
 javascript dates use millisecond-epochs, instead of second-epochs, like some other languages.
-This is a common bug, and by default spacetime warns if you set an epoch within January 1970.
-to disable:
+This is a common bug, and spacetime can warn if you set an epoch within January 1970.
+to enable:
 
 ```js
 let s = spacetime(123456, 'UTC', {
-  silent: true
+  silent: false
 })
 s.log() // "Jan 1st, 12:02am"
 ```
@@ -262,7 +262,7 @@ It sets the timezone to UTC-7, but also gives a warning.
 
 ```js
 let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
-  silent: true
+  silent: false
 })
 s.timezone().name // "Etc/GMT-7"
 ```
