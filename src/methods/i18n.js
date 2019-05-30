@@ -5,19 +5,14 @@ const months = require('../data/months')
 const addMethods = SpaceTime => {
   const methods = {
     i18n: data => {
-      if (
-        !fns.isObject(data) ||
-        !fns.isObject(data.days) ||
-        !fns.isObject(data.months) ||
-        !fns.isArray(data.days.short) ||
-        !fns.isArray(data.days.long) ||
-        !fns.isArray(data.months.short) ||
-        !fns.isArray(data.months.long)
-      ) {
-        throw new Error('Invalid i18n payload passed.')
+      //change the day names
+      if (fns.isObject(data.days)) {
+        days.set(data.days)
       }
-      days.set(data.days)
-      months.set(data.months)
+      //change the month names
+      if (fns.isObject(data.months)) {
+        months.set(data.months)
+      }
     }
   }
 

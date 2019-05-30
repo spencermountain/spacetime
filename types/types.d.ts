@@ -1,6 +1,21 @@
 import { TimeUnit, Format } from './constraints'
 
-export interface SpacetimeMain {
+export interface Spacetime {
+  /** @returns the date as a native date object */
+  d: Date
+
+  /** @returns epoch in milliseconds */
+  epoch: number
+
+  /** @returns whether warnings are enabled */
+  silent: boolean
+
+  /** @returns the timezone tz database name, eg, 'america/denver'  */
+  tz: string
+
+  /** @returns the tz database nameset  */
+  timezones: TimezoneSet
+
   /** move to a new timezone, but at this same moment. Accepts an IANA code or abbreviation */
   goto: (target: string) => Spacetime
 
@@ -54,10 +69,34 @@ export interface SpacetimeMain {
 
   /** create the human-readable diff between the two dates */
   since(value: Spacetime | ParsableDate): Since
-}
 
-/** The return types are not actually both number and Spacetime, but this aids in casting to the proper type */
-export interface SpacetimeGetterSetters {
+  /** change to a new date */
+  set(date: ParsableDate): Spacetime
+
+  /** does this time exist on the gregorian/javascript calendar? */
+  isValid: () => boolean
+
+  /** pretty-print the date to the console, for nicer debugging */
+  log: () => string
+
+  /** Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
+  progress: (unit?: string) => Progress
+
+  /** is the current year a leap year? */
+  leapYear: () => boolean
+
+  /** is daylight-savings-time activated right now, for this timezone? */
+  inDST: () => boolean
+
+  /** does this timezone ever use daylight-savings */
+  hasDST: () => boolean
+
+  /** the current, DST-aware time-difference from UTC, in hours */
+  offset: () => number
+
+  /** checks if the current time is between 10pm and 8am */
+  isAsleep: () => boolean
+
   /** set or return the current number of milliseconds (0-999) */
   millisecond: (value?: number) => number & Spacetime
 
@@ -107,52 +146,6 @@ export interface SpacetimeGetterSetters {
   monthName: (value?: string) => string & Spacetime
 }
 
-export interface SpacetimeUtils {
-  /** change to a new date */
-  set(date: ParsableDate): Spacetime
-
-  /** does this time exist on the gregorian/javascript calendar? */
-  isValid: () => boolean
-
-  /** pretty-print the date to the console, for nicer debugging */
-  log: () => string
-
-  /** Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
-  progress: (unit?: string) => Progress
-
-  /** is the current year a leap year? */
-  leapYear: () => boolean
-
-  /** is daylight-savings-time activated right now, for this timezone? */
-  inDST: () => boolean
-
-  /** does this timezone ever use daylight-savings */
-  hasDST: () => boolean
-
-  /** the current, DST-aware time-difference from UTC, in hours */
-  offset: () => number
-
-  /** checks if the current time is between 10pm and 8am */
-  isAsleep: () => boolean
-}
-
-export interface Spacetime extends SpacetimeMain, SpacetimeGetterSetters, SpacetimeUtils {
-  /** @returns the date as a native date object */
-  d: Date
-
-  /** @returns epoch in milliseconds */
-  epoch: number
-
-  /** @returns whether warnings are enabled */
-  silent: boolean
-
-  /** @returns the timezone tz database name, eg, 'america/denver'  */
-  tz: string
-
-  /** @returns the tz database nameset  */
-  timezones: TimezoneSet
-}
-
 export interface TimezoneMeta {
   change?: { start: string; back: string }
   current: { offset: number; isDST: boolean }
@@ -196,10 +189,10 @@ export interface Diff {
 }
 
 export interface Since {
-  rounded: string;
-  qualified: string;
-  precise: string;
-  diff: Diff;
+  rounded: string
+  qualified: string
+  precise: string
+  diff: Diff
 }
 
 /** set where the key is tz database name in lowercase, eg, 'america/denver' */

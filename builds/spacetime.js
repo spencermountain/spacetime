@@ -1,4 +1,4 @@
-/* spacetime v5.8.3
+/* spacetime v5.9.0
    github.com/spencermountain/spacetime
    MIT
 */
@@ -6,7 +6,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.spacetime = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 "use strict";
 
-module.exports = '5.8.3';
+module.exports = '5.9.0';
 
 },{}],2:[function(_dereq_,module,exports){
 "use strict";
@@ -14,15 +14,15 @@ module.exports = '5.8.3';
 var shortDays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 var longDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 module.exports = {
-  short: function short() {
+  "short": function short() {
     return shortDays;
   },
-  long: function long() {
+  "long": function long() {
     return longDays;
   },
   set: function set(i18n) {
-    shortDays = i18n.short;
-    longDays = i18n.long;
+    shortDays = i18n["short"] || shortDays;
+    longDays = i18n["long"] || longDays;
   }
 };
 
@@ -92,18 +92,18 @@ function buildMapping() {
 }
 
 module.exports = {
-  short: function short() {
+  "short": function short() {
     return shortMonths;
   },
-  long: function long() {
+  "long": function long() {
     return longMonths;
   },
   mapping: function mapping() {
     return buildMapping();
   },
   set: function set(i18n) {
-    shortMonths = i18n.short;
-    longMonths = i18n.long;
+    shortMonths = i18n["short"] || shortMonths;
+    longMonths = i18n["long"] || longMonths;
   }
 };
 
@@ -888,7 +888,9 @@ var findTz = _dereq_('./timezone/find');
 
 var handleInput = _dereq_('./input');
 
-var fns = _dereq_('./fns'); //the spacetime instance methods (also, the API)
+var fns = _dereq_('./fns');
+
+var days = _dereq_('./data/days'); //the spacetime instance methods (also, the API)
 
 
 var methods = {
@@ -967,7 +969,7 @@ var methods = {
     return !isNaN(this.d.getTime());
   },
   //travel to this timezone
-  goto: function goto(tz) {
+  "goto": function goto(tz) {
     var s = this.clone();
     s.tz = findTz(tz, s.timezones); //science!
 
@@ -1015,6 +1017,33 @@ var methods = {
   fromNow: function fromNow() {
     var d = this.clone().set(Date.now());
     return d.since(this);
+  },
+  weekStart: function weekStart(input) {
+    //accept a number directly
+    if (typeof input === 'number') {
+      this._weekStart = input;
+      return this;
+    }
+
+    if (typeof input === 'string') {
+      // accept 'wednesday'
+      input = input.toLowerCase().trim();
+      var num = days["short"]().indexOf(input);
+
+      if (num === -1) {
+        num = days["long"]().indexOf(input);
+      }
+
+      if (num === -1) {
+        num = 1; //go back to default
+      }
+
+      this._weekStart = num;
+    } else {
+      console.warn('Spacetime Error: Cannot understand .weekStart() input:', input);
+    }
+
+    return this;
   } // aliases
 
 };
@@ -1023,7 +1052,7 @@ methods.round = methods.nearest;
 methods.each = methods.every;
 module.exports = methods;
 
-},{"./fns":8,"./input":11,"./methods/diff":19,"./methods/every":22,"./methods/format":24,"./methods/format/unixFmt":25,"./methods/nearest":27,"./methods/progress":28,"./methods/since":36,"./methods/startOf":37,"./timezone/find":40,"./timezone/index":42}],17:[function(_dereq_,module,exports){
+},{"./data/days":2,"./fns":8,"./input":11,"./methods/diff":19,"./methods/every":22,"./methods/format":24,"./methods/format/unixFmt":25,"./methods/nearest":27,"./methods/progress":28,"./methods/since":36,"./methods/startOf":37,"./timezone/find":40,"./timezone/index":42}],17:[function(_dereq_,module,exports){
 "use strict";
 
 var walkTo = _dereq_('./set/walk');
@@ -1410,13 +1439,13 @@ var days = _dereq_('../data/days'); //is it 'wednesday'?
 
 
 var isDay = function isDay(unit) {
-  if (days.short().find(function (s) {
+  if (days["short"]().find(function (s) {
     return s === unit;
   })) {
     return true;
   }
 
-  if (days.long().find(function (s) {
+  if (days["long"]().find(function (s) {
     return s === unit;
   })) {
     return true;
@@ -1529,7 +1558,7 @@ var format = {
     return fns.titleCase(s.dayName());
   },
   'day-short': function dayShort(s) {
-    return fns.titleCase(days.short()[s.day()]);
+    return fns.titleCase(days["short"]()[s.day()]);
   },
   'day-number': function dayNumber(s) {
     return s.day();
@@ -1553,7 +1582,7 @@ var format = {
     return fns.titleCase(s.monthName());
   },
   'month-short': function monthShort(s) {
-    return fns.titleCase(months.short()[s.month()]);
+    return fns.titleCase(months["short"]()[s.month()]);
   },
   'month-number': function monthNumber(s) {
     return s.month();
@@ -1683,13 +1712,13 @@ var format = {
   },
   //i made these up
   nice: function nice(s) {
-    return "".concat(months.short()[s.month()], " ").concat(fns.ordinal(s.date()), ", ").concat(s.time());
+    return "".concat(months["short"]()[s.month()], " ").concat(fns.ordinal(s.date()), ", ").concat(s.time());
   },
   'nice-year': function niceYear(s) {
-    return "".concat(months.short()[s.month()], " ").concat(fns.ordinal(s.date()), ", ").concat(s.year());
+    return "".concat(months["short"]()[s.month()], " ").concat(fns.ordinal(s.date()), ", ").concat(s.year());
   },
   'nice-day': function niceDay(s) {
-    return "".concat(days.short()[s.day()], " ").concat(fns.titleCase(months.short()[s.month()]), " ").concat(fns.ordinal(s.date()));
+    return "".concat(days["short"]()[s.day()], " ").concat(fns.titleCase(months["short"]()[s.month()]), " ").concat(fns.ordinal(s.date()));
   },
   'nice-full': function niceFull(s) {
     return "".concat(s.dayName(), " ").concat(fns.titleCase(s.monthName()), " ").concat(fns.ordinal(s.date()), ", ").concat(s.time());
@@ -1958,13 +1987,13 @@ var mapping = {
   }
 };
 
-var addAlias = function addAlias(char, to, n) {
-  var name = char;
+var addAlias = function addAlias(_char, to, n) {
+  var name = _char;
   var toName = to;
 
   for (var i = 0; i < n; i += 1) {
     mapping[name] = mapping[toName];
-    name += char;
+    name += _char;
     toName += to;
   }
 };
@@ -2030,12 +2059,15 @@ var months = _dereq_('../data/months');
 var addMethods = function addMethods(SpaceTime) {
   var methods = {
     i18n: function i18n(data) {
-      if (!fns.isObject(data) || !fns.isObject(data.days) || !fns.isObject(data.months) || !fns.isArray(data.days.short) || !fns.isArray(data.days.long) || !fns.isArray(data.months.short) || !fns.isArray(data.months.long)) {
-        throw new Error('Invalid i18n payload passed.');
-      }
+      //change the day names
+      if (fns.isObject(data.days)) {
+        days.set(data.days);
+      } //change the month names
 
-      days.set(data.days);
-      months.set(data.months);
+
+      if (fns.isObject(data.months)) {
+        months.set(data.months);
+      }
     } //hook them into proto
 
   };
@@ -2350,10 +2382,10 @@ var methods = {
 
     if (typeof input === 'string') {
       input = input.toLowerCase();
-      want = days.short().indexOf(input);
+      want = days["short"]().indexOf(input);
 
       if (want === -1) {
-        want = days.long().indexOf(input);
+        want = days["long"]().indexOf(input);
       }
     } //move approx
 
@@ -2372,7 +2404,7 @@ var methods = {
   //these are helpful name-wrappers
   dayName: function dayName(input) {
     if (input === undefined) {
-      return days.long()[this.day()];
+      return days["long"]()[this.day()];
     }
 
     var s = this.clone();
@@ -2481,7 +2513,7 @@ var methods = {
   //'january'
   monthName: function monthName(input) {
     if (input === undefined) {
-      return months.long()[this.month()];
+      return months["long"]()[this.month()];
     }
 
     var s = this.clone();
@@ -3238,7 +3270,7 @@ var units = {
   },
   week: function week(s) {
     var original = s.clone();
-    s = s.day(1); //monday
+    s = s.day(s._weekStart); //monday
 
     if (s.isAfter(original)) {
       s = s.subtract(1, 'week');
@@ -3395,7 +3427,14 @@ var SpaceTime = function SpaceTime(input, tz) {
 
   this.tz = findTz(tz, timezones); //whether to output warnings to console
 
-  this.silent = options.silent || true; //add getter/setters
+  this.silent = options.silent || true; //does the week start on sunday, or monday:
+
+  this._weekStart = 1; //default to monday
+
+  if (options.weekStart !== undefined) {
+    this._weekStart = options.weekStart;
+  } //add getter/setters
+
 
   Object.defineProperty(this, 'd', {
     //return a js date object
@@ -3438,7 +3477,8 @@ Object.keys(methods).forEach(function (k) {
 
 SpaceTime.prototype.clone = function () {
   return new SpaceTime(this.epoch, this.tz, {
-    silent: this.silent
+    silent: this.silent,
+    weekStart: this._weekStart
   });
 }; //append more methods
 

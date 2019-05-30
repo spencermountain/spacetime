@@ -24,7 +24,7 @@ test('test getter methods', t => {
 test('test util methods', t => {
   Object.keys(api.utils).forEach(k => {
     //skip these ones
-    if (k === 'd' || k === 'log') {
+    if (k === 'd' || k === 'log' || k === 'i18n' || k === 'weekStart') {
       t.ok(true, k)
       return
     }

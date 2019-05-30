@@ -72,6 +72,7 @@ d.format('nice')
     <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
     • <a href="https://github.com/spencermountain/spacetime-daylight">spacetime-daylight</a>
     • <a href="https://github.com/spencermountain/sometime">spacetime-calendar</a>
+    • <a href="https://github.com/spencermountain/spacetime-week">spacetime-week</a>
   </div>
 </div>
 
@@ -247,12 +248,12 @@ s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
 #### Ambiguity warnings:
 
 javascript dates use millisecond-epochs, instead of second-epochs, like some other languages.
-This is a common bug, and by default spacetime warns if you set an epoch within January 1970.
-to disable:
+This is a common bug, and spacetime can warn if you set an epoch within January 1970.
+to enable:
 
 ```js
 let s = spacetime(123456, 'UTC', {
-  silent: true
+  silent: false
 })
 s.log() // "Jan 1st, 12:02am"
 ```
@@ -262,7 +263,7 @@ It sets the timezone to UTC-7, but also gives a warning.
 
 ```js
 let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
-  silent: true
+  silent: false
 })
 s.timezone().name // "Etc/GMT-7"
 ```
@@ -301,6 +302,25 @@ a.i18n({
   }
 });
 a.format('day') //'Sábado'
+```
+
+#### Configure start of week:
+
+by default, the start of the week is monday.
+
+You can determine the week by the official country setting, with [spacetime-week](https://github.com/spencermountain/spacetime-week)
+
+```js
+let s = spacetime.now()
+s = s.weekStart('sunday')
+
+s = s.startOf('week')
+s.dayName()
+//sunday
+
+s = s.endOf('week')
+s.dayName()
+//saturday
 ```
 
 ### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)

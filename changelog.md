@@ -55,6 +55,11 @@
 - add format('iso-month')
 - change fallback behaviour for set failure edge-cases
 
+### 5.9.0
+
+- add support for changing start/end of the week
+- allow more flexible `.i18n()` inputs
+
 ### v4.0.0
 
 - `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`

@@ -10,6 +10,7 @@ const timezone = require('./timezone/index')
 const findTz = require('./timezone/find')
 const handleInput = require('./input')
 const fns = require('./fns')
+const days = require('./data/days')
 
 //the spacetime instance methods (also, the API)
 const methods = {
@@ -130,6 +131,28 @@ const methods = {
   fromNow: function() {
     let d = this.clone().set(Date.now())
     return d.since(this)
+  },
+  weekStart: function(input) {
+    //accept a number directly
+    if (typeof input === 'number') {
+      this._weekStart = input
+      return this
+    }
+    if (typeof input === 'string') {
+      // accept 'wednesday'
+      input = input.toLowerCase().trim()
+      let num = days.short().indexOf(input)
+      if (num === -1) {
+        num = days.long().indexOf(input)
+      }
+      if (num === -1) {
+        num = 1 //go back to default
+      }
+      this._weekStart = num
+    } else {
+      console.warn('Spacetime Error: Cannot understand .weekStart() input:', input)
+    }
+    return this
   }
 }
 // aliases

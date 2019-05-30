@@ -45,7 +45,7 @@ module.exports = {
   long: () => longMonths,
   mapping: () => buildMapping(),
   set: i18n => {
-    shortMonths = i18n.short
-    longMonths = i18n.long
+    shortMonths = i18n.short || shortMonths
+    longMonths = i18n.long || longMonths
   }
 }
