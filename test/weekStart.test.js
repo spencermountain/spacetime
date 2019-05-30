@@ -68,5 +68,13 @@ test('i18n weekStart', t => {
   s = s.weekStart('martes')
   s = s.startOf('week')
   t.equal(s.dayName(), 'martes', 'week starts on martes')
+
+  //set it back..
+  s.i18n({
+    days: {
+      long: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+    }
+  })
+  t.equal(s.dayName(), 'tuesday', 'i18n swap back')
   t.end()
 })
