@@ -50,10 +50,10 @@ export interface Spacetime {
   last: (unit: TimeUnit) => Spacetime
 
   /** pass-in a spacetime object or date input and see if it takes-place after your spacetime date/time */
-  isAfter: (other: Spacetime | Date) => Spacetime
+  isAfter: (other: Spacetime | Date) => boolean
 
   /** pass-in a spacetime object or date input and see if it takes-place before your spacetime date/time */
-  isBefore: (other: Spacetime | Date) => Spacetime
+  isBefore: (other: Spacetime | Date) => boolean
 
   /** is this date on the exact same millisecond as another */
   isEqual: (other: Spacetime | Date) => boolean
