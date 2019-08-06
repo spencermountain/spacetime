@@ -1477,7 +1477,9 @@ const format = {
   time: s => s.time(),
   'time-24': s => `${s.hour24()}:${fns.zeroPad(s.minute())}`,
   hour: s => s.hour12(),
+  'hour-pad': s => fns.zeroPad(s.hour12()),
   'hour-24': s => s.hour24(),
+  'hour-24-pad': s => fns.zeroPad(s.hour24()),
 
   minute: s => s.minute(),
   'minute-pad': s => fns.zeroPad(s.minute()),
@@ -3557,7 +3559,7 @@ const whereIts = (a, b) => {
 };
 var whereIts_1 = whereIts;
 
-var _version = '5.9.1';
+var _version = '5.10.0';
 
 const main$1 = (input, tz, options) => new spacetime(input, tz, options);
 
