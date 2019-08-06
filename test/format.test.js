@@ -109,6 +109,16 @@ test('iso-with-fraction-offset', t => {
   t.end()
 })
 
+test('hour-pad', t => {
+  let s = spacetime('June 8th 1918', 'Asia/Calcutta').time('1:23pm')
+  t.equal(s.format('{hour-pad}:{minute-pad}'), '01:23', 'hour-pad')
+  t.equal(s.format('{hour-24-pad}:{minute-pad}'), '13:23', '24-hour-pad')
+  s = s.ampm('am')
+  t.equal(s.format('{hour-pad}:{minute-pad}'), '01:23', 'am-hour-pad')
+  t.equal(s.format('{hour-24-pad}:{minute-pad}'), '01:23', 'am-24-hour-pad')
+  t.end()
+})
+
 test('made-up-syntax', t => {
   let s = spacetime('June 8th 1918', 'Asia/Calcutta')
   s = s.time('4:45pm')
