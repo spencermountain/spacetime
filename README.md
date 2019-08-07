@@ -196,15 +196,12 @@ s = s.goto('Australia/Brisbane')
 
 this is the safest way to declare a timezone, using an [IANA name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
-Spacetime also supports more informal timezone names, like:
+if you want to support more relaxed timezone names like `'EST'`, `Eastern time`, use [spacetime-informal](https://github.com/spencermountain/spacetime-informal/)
 
 ```js
 s = s.goto('Jamaica') // "America/Jamaica"
-s = s.goto('Eastern Time') // "America/New_York"
-s = s.goto('PST') // automatically becomes 'PDT' in the summer
 s = s.goto('-7h') // UTC-7
 s = s.goto('GMT+8') // -8h!
-s = s.goto('bst') //"British summer time" +1 (sorry Bougainville!)
 // (these should be used with some caution)
 ```
 
