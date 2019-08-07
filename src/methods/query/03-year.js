@@ -2,6 +2,14 @@ const set = require('../set/set')
 const months = require('../../data/months')
 const quarters = require('../../data/quarters')
 const seasons = require('../../data/seasons')
+const ms = require('../../data/milliseconds')
+
+const clearMinutes = s => {
+  s = s.minute(0)
+  s = s.second(0)
+  s = s.millisecond(1)
+  return s
+}
 
 const methods = {
   // day 0-366
@@ -27,6 +35,51 @@ const methods = {
       sum += tmp.getDate()
     }
     return sum + this.d.getDate()
+  },
+
+  //since the start of the year
+  week: function(num) {
+    if (num !== undefined) {
+      let s = this.clone()
+      s = s.month(0)
+      s = s.date(1)
+      s = s.day('monday')
+      s = clearMinutes(s)
+      //don't go into last-year
+      if (s.monthName() === 'december') {
+        s = s.add(1, 'week')
+      }
+      num -= 1 //1-based
+      s = s.add(num, 'weeks')
+      return s
+    }
+    //find-out which week it is
+    let tmp = this.clone()
+    tmp = tmp.month(0)
+    tmp = tmp.date(1)
+    tmp = clearMinutes(tmp)
+    tmp = tmp.day('monday')
+    //don't go into last-year
+    if (tmp.monthName() === 'december') {
+      tmp = tmp.add(1, 'week')
+    }
+    const thisOne = this.epoch
+    //if the week technically hasn't started yet
+    if (tmp.epoch > thisOne) {
+      return 1
+    }
+    //speed it up, if we can
+    let i = 0
+    let skipWeeks = this.month() * 4
+    tmp.epoch += ms.week * skipWeeks
+    i += skipWeeks
+    for (; i < 52; i++) {
+      if (tmp.epoch > thisOne) {
+        return i
+      }
+      tmp = tmp.add(1, 'week')
+    }
+    return 52
   },
 
   //'january'
