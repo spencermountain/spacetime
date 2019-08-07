@@ -1,5 +1,4 @@
 const tzs = require('../../zonefile/unpack')
-const informal = require('../../zonefile/informal').lookup
 const guessTz = require('./guessTz')
 const local = guessTz()
 const isOffset = /(\-?[0-9]+)h(rs)?/
@@ -42,10 +41,6 @@ const lookupTz = (str, zones) => {
   tz = normalize(tz)
   if (zones.hasOwnProperty(tz) === true) {
     return tz
-  }
-  //try abbrevations and things
-  if (informal.hasOwnProperty(tz) === true) {
-    return informal[tz]
   }
   //try city-names
   if (cities.hasOwnProperty(tz) === true) {

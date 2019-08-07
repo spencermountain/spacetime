@@ -20,7 +20,7 @@
 - [Moment-like](https://beta.observablehq.com/@spencermountain/spacetime-api) 💘 API (but immutable!)
 - Orient time by quarter, season, month, week..
 - _Zero Dependencies_ - (no [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl))
-- **only 50KB**.
+- **only 40KB**.
 
 ```html
 <script src="https://unpkg.com/spacetime"></script>
