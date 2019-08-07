@@ -1,7 +1,7 @@
 # v6.0.0 
 - remove 'informal' timezone parsing (like `.goto('south africa')`)
 - remove 'display' info from `.timezone()` like 'EST' (move to [spacetime-informal](https://github.com/spencermountain/spacetime-informal/))
-- support detection of invalid dates
+- throw error on an invalid timezone  #150
 
 # v5.0.0 🚨 -breaking
 

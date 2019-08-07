@@ -9,7 +9,7 @@
   <a href="https://codecov.io/gh/spencermountain/spacetime">
     <img src="https://codecov.io/gh/spencermountain/spacetime/branch/master/graph/badge.svg" />
   </a>
-  <a href="https://unpkg.com/spacetime/builds/spacetime.min.js">
+  <a href="https://bundlephobia.com/result?p=spacetime@latest">
     <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/builds/spacetime.min.js" />
   </a>
   <hr/>

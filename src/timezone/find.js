@@ -57,7 +57,8 @@ const lookupTz = (str, zones) => {
       return gmt
     }
   }
-  console.warn("Cannot find timezone named: '" + str + "'")
-  return local
+  throw new Error(
+    "Spacetime: Cannot find timezone named: '" + str + "'. Please enter an IANA timezone id."
+  )
 }
 module.exports = lookupTz
