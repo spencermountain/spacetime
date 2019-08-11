@@ -12,6 +12,7 @@ export type TimeUnit =
   | 'year'
   | 'decade'
   | 'century'
+  | 'date'
 
 export type Format =
   | 'day'
