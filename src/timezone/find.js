@@ -1,8 +1,7 @@
 const tzs = require('../../zonefile/unpack')
-const informal = require('../../zonefile/informal').lookup
 const guessTz = require('./guessTz')
+const parseOffset = require('./parseOffset')
 const local = guessTz()
-const isOffset = /(\-?[0-9]+)h(rs)?/
 
 //add all the city names by themselves
 const cities = Object.keys(tzs).reduce((h, k) => {
@@ -43,26 +42,20 @@ const lookupTz = (str, zones) => {
   if (zones.hasOwnProperty(tz) === true) {
     return tz
   }
-  //try abbrevations and things
-  if (informal.hasOwnProperty(tz) === true) {
-    return informal[tz]
-  }
   //try city-names
   if (cities.hasOwnProperty(tz) === true) {
     return cities[tz]
   }
   // //try to parse '-5h'
-  let m = tz.match(isOffset)
-  if (m !== null) {
-    let num = Number(m[1])
-    num = num * -1 //it's opposite!
-    num = (num > 0 ? '+' : '') + num
-    let gmt = 'etc/gmt' + num
-    if (zones.hasOwnProperty(gmt)) {
-      return gmt
+  if (/[0-9]/.test(tz) === true) {
+    let id = parseOffset(tz)
+    if (id) {
+      return id
     }
   }
-  console.warn("Cannot find timezone named: '" + str + "'")
-  return local
+
+  throw new Error(
+    "Spacetime: Cannot find timezone named: '" + str + "'. Please enter an IANA timezone id."
+  )
 }
 module.exports = lookupTz

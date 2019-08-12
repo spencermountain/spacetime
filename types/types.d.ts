@@ -1,5 +1,6 @@
 import { TimeUnit, Format } from './constraints'
 
+/** a date/timezone object */
 export interface Spacetime {
   /** @returns the date as a native date object */
   d: Date

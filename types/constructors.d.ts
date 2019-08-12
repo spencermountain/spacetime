@@ -55,18 +55,18 @@ export interface SpacetimeConstructor {
 }
 
 export interface SpacetimeStatic extends SpacetimeConstructor {
-  /** now */
+  /** set as the current time */
   now: (timezone?: string, options?: SpacetimeConstructorOptions) => Spacetime
 
-  /** this morning */
+  /** set as this morning */
   today: (timezone?: string, options?: SpacetimeConstructorOptions) => Spacetime
 
-  /** tomorrow morning */
+  /** set as tomorrow morning */
   tomorrow: (timezone?: string, options?: SpacetimeConstructorOptions) => Spacetime
 
-  /** yesterday morning */
+  /** set as yesterday morning */
   yesterday: (timezone?: string, options?: SpacetimeConstructorOptions) => Spacetime
 
-  /** Extend Spacetime with a custom function/object. This will not be reflected in types, you must extend the SpacetimeStatic definition if you want typing for your custom object */
+  /** Extend Spacetime with a custom function/object.  */
   extend: (extension: { [key: string]: any } | {}) => SpacetimeStatic
 }

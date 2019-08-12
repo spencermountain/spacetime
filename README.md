@@ -9,7 +9,7 @@
   <a href="https://codecov.io/gh/spencermountain/spacetime">
     <img src="https://codecov.io/gh/spencermountain/spacetime/branch/master/graph/badge.svg" />
   </a>
-  <a href="https://unpkg.com/spacetime/builds/spacetime.min.js">
+  <a href="https://bundlephobia.com/result?p=spacetime@latest">
     <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/builds/spacetime.min.js" />
   </a>
   <hr/>
@@ -20,7 +20,7 @@
 - [Moment-like](https://beta.observablehq.com/@spencermountain/spacetime-api) 💘 API (but immutable!)
 - Orient time by quarter, season, month, week..
 - _Zero Dependencies_ - (no [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl))
-- **only 50KB**.
+- **only 40KB**.
 
 ```html
 <script src="https://unpkg.com/spacetime"></script>
@@ -70,6 +70,7 @@ d.format('nice')
   </div>
   <div>
     <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
+    <a href="https://github.com/spencermountain/spacetime-informal">spacetime-informal</a>
     • <a href="https://github.com/spencermountain/spacetime-daylight">spacetime-daylight</a>
     • <a href="https://github.com/spencermountain/sometime">spacetime-calendar</a>
     • <a href="https://github.com/spencermountain/spacetime-week">spacetime-week</a>
@@ -196,15 +197,12 @@ s = s.goto('Australia/Brisbane')
 
 this is the safest way to declare a timezone, using an [IANA name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
-Spacetime also supports more informal timezone names, like:
+if you want to support more relaxed timezone names like `'EST'`, `Eastern time`, use [spacetime-informal](https://github.com/spencermountain/spacetime-informal/)
 
 ```js
 s = s.goto('Jamaica') // "America/Jamaica"
-s = s.goto('Eastern Time') // "America/New_York"
-s = s.goto('PST') // automatically becomes 'PDT' in the summer
 s = s.goto('-7h') // UTC-7
 s = s.goto('GMT+8') // -8h!
-s = s.goto('bst') //"British summer time" +1 (sorry Bougainville!)
 // (these should be used with some caution)
 ```
 
