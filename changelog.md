@@ -2,6 +2,7 @@
 - remove 'informal' timezone parsing (like `.goto('south africa')`)
 - remove 'display' info from `.timezone()` like 'EST' (move to [spacetime-informal](https://github.com/spencermountain/spacetime-informal/))
 - throw error on an invalid timezone  #150
+- optimize `.week()` method
 
 # v5.0.0 🚨 -breaking
 

@@ -70,6 +70,7 @@ d.format('nice')
   </div>
   <div>
     <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
+    <a href="https://github.com/spencermountain/spacetime-informal">spacetime-informal</a>
     • <a href="https://github.com/spencermountain/spacetime-daylight">spacetime-daylight</a>
     • <a href="https://github.com/spencermountain/sometime">spacetime-calendar</a>
     • <a href="https://github.com/spencermountain/spacetime-week">spacetime-week</a>

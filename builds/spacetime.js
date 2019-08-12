@@ -334,273 +334,6 @@
 	// console.log(Object.keys(all).length)
 	var unpack = all;
 
-	// this is a very rough list of informal and abbreviated timezones
-	// i am not an expert, or even half-knowledgeable in this subject.
-	// please help.
-	// partially from: https://en.wikipedia.org/wiki/list_of_time_zone_abbreviations
-
-	//format:  'best/iana': [standard, daylight, alias...]
-	const informal = {
-	  //north america
-	  'america/halifax': ['ast', 'adt', 'atlantic'], //or 'arabia standard time'
-	  'america/new_york': ['est', 'edt', 'eastern'], //or 'Ecuador Time'
-	  'america/chicago': ['cst', 'cdt', 'central'],
-	  'america/denver': ['mst', 'mdt', 'mountain'],
-	  'america/los_angeles': ['pst', 'pdt', 'pacific'],
-	  'america/anchorage': ['ahst', 'ahdt', 'akst', 'akdt', 'alaska'], //Alaska Standard Time
-	  'america/st_johns': ['nst', 'ndt', 'nt', 'newfoundland', 'nddt'],
-
-	  //south america
-	  'america/caracas': ['vet', null, 'venezuela'],
-	  'america/bogota': ['cot', null, 'colombia'],
-	  'america/cayenne': ['gft', null, 'french guiana'],
-	  'america/paramaribo': ['srt', null, 'suriname'],
-	  'america/guyana': ['gyt'],
-	  'america/buenos_aires': ['art', null, 'argentina'],
-	  'america/la_paz': ['bot', null, 'bolivia'],
-	  'america/asuncion': ['pyt', 'pyst', 'paraguay'],
-	  'america/santiago': ['clt', 'clst', 'chile'],
-	  'america/lima': ['pet', null, 'peru'],
-	  'america/montevideo': ['uyt', null, 'uruguay'],
-	  'atlantic/stanley': ['fkst', null, 'falkland island'],
-	  //brazil
-	  'america/manaus': ['amt'],
-	  'america/sao_paulo': ['brt', 'brst'],
-	  'brazil/acre': ['act'],
-	  // amst: -3, //amazon summer time (brazil)
-	  // fnt: -2, //fernando de noronha time
-	  // pmdt: -2, //saint pierre and miquelon daylight time
-	  // pmst: -3, //saint pierre and miquelon standard time
-	  // rott: -3, //rothera research station time
-
-	  // awt: 'america/blanc-sablon',
-	  // addt: 'america/pangnirtung',
-	  // apt: 'america/blanc-sablon',
-	  // cddt: 'america/rankin_inlet',
-	  // cwt: 'america/mexico_city',
-	  // cpt: 'america/atikokan',
-	  // eddt: 'america/iqaluit',
-	  // ept: 'america/detroit',
-	  // ewt: 'america/detroit',
-	  // ect: 'america/anguilla', //eastern caribbean time (does not recognise dst)
-	  // 'eastern caribbean': 'america/anguilla',
-	  // ffmt: 'america/martinique',
-	  // kmt: 'america/grand_turk',
-	  // mddt: 'america/cambridge_bay',
-	  // mpt: 'america/boise',
-	  // mwt: 'america/phoenix',
-	  // nwt: 'america/adak',
-	  // // npt: 'america/goose_bay',
-	  // pddt: 'america/inuvik',
-	  // ppmt: 'america/port-au-prince',
-	  // ppt: 'america/dawson_creek',
-	  // pwt: 'america/dawson_creek',
-	  // qmt: 'america/guayaquil',
-	  // sdmt: 'america/santo_domingo',
-	  // sjmt: 'america/costa_rica',
-	  // ydt: 'america/dawson', //yukon
-	  // ypt: 'america/dawson',
-	  // yddt: 'america/dawson',
-	  // ywt: 'america/dawson',
-	  // yst: 'america/whitehorse',
-
-	  //europe
-	  'europe/london': ['gmt', 'bst', 'british'], //britain is different
-	  'etc/gmt': ['gmt', null, 'greenwich'],
-	  'europe/lisbon': ['wet', 'west', 'west europe'], //western europe
-	  'europe/berlin': ['cet', 'cest', 'central europe', 'middle european', 'met', 'mest'], //central europe
-	  'europe/riga': ['eet', 'eest', 'east europe', 'kalt'], //eastern europe
-	  // -- these are old european ones, before the EU, i think:
-	  // 'europe/minsk': ['feet', 'feest', 'eastern europe'], //further eastern europe (discontinued)
-	  // ace: 'europe/dublin',
-	  // amt: 'europe/amsterdam',
-	  // bdst: 'europe/gibraltar',
-	  // bmt: 'europe/brussels',
-	  // bst: 'europe/gibraltar', //british summer time
-	  // 'british summer': 1,
-	  // dmt: 'europe/dublin',
-	  // dft: 1, //aix-specific equivalent of central european time
-	  // cmt: 'europe/copenhagen',
-	  // // ist: 'europe/dublin',
-	  // imt: 'europe/sofia',
-	  // lst: 'europe/riga',
-	  // pmt: 'europe/prague',
-	  // rmt: 'europe/rome',
-	  // set: 'europe/stockholm',
-	  // wemt: 'europe/madrid',
-	  // tse: 'europe/dublin',
-	  // utc: 'etc/utc', //coordinated universal time
-	  // 'coordinated universal': 'etc/utc',
-
-	  //russia
-	  'europe/moscow': ['msk', null, 'fet', 'mdst', 'msd'], //'further eastern europe'
-	  'europe/samara': ['samt'],
-	  'asia/yekaterinburg': ['yekt'],
-	  'asia/omsk': ['omst'],
-	  'asia/krasnoyarsk': ['krat'],
-	  'asia/novosibirsk': ['novt'],
-	  'asia/irkutsk': ['irkt'],
-	  'asia/yakutsk': ['yakt'],
-	  'asia/vladivostok': ['vlat'],
-	  'asia/magadan': ['magt'],
-	  'asia/sakhalin': ['sakt'],
-	  'asia/srednekolymsk': ['sret'],
-	  'asia/anadyr': ['anat'],
-	  'asia/kamchatka': ['pett'],
-
-	  //near-russia
-	  'asia/tashkent': ['uzt', 'uzbekistan'], //uzbekistan time
-	  'asia/bishkek': ['kgt', 'kyrgyzstan'], //kyrgyzstan time
-	  'antarctica/vostok': ['vost'],
-	  'asia/hovd': ['hovt'],
-	  'asia/ashgabat': ['tmt', null, 'turkmenistan'],
-	  // wmt: 'europe/warsaw',
-	  // 'europe/volgograd':['volt']
-
-	  //africa
-	  'africa/lagos': ['wat', 'wast', 'west africa'], //west african
-	  'africa/khartoum': ['cat', null, 'central africa'],
-	  'africa/nairobi': ['eat', null, 'east africa'],
-	  'atlantic/cape_verde': ['cvt'],
-	  'indian/mauritius': ['mut'],
-	  'indian/reunion': ['ret'],
-	  'africa/johannesburg': ['sast', null, 'south africa'],
-
-	  //atlantic
-	  'atlantic/azores': ['azot', 'azost', 'hmt'],
-	  'america/godthab': ['wgt', 'wgst', 'west greenland'],
-	  'america/scoresbysund': ['egt', 'egst', 'east greenland'],
-
-	  //middle-east
-	  'europe/istanbul': ['trt', null, 'turkey'],
-	  'asia/tbilisi': ['get', null, 'georgia'],
-	  // 'asia/yerevan': ['amt', null, 'armenia'], //(sorry!)
-	  'asia/baku': ['azt', null, 'azerbaijan'],
-	  'asia/jerusalem': [null, 'idt', 'israel', 'jmt', 'iddt'], //using ist for india
-	  'asia/tehran': ['irst', 'irdt', 'iran'],
-	  'asia/karachi': ['pkt', null, 'pakistan'],
-	  'asia/kabul': ['aft', null, 'afghanistan'],
-	  'asia/dushanbe': ['tjt', null, 'tajikistan'],
-	  'asia/almaty': ['almt', null, 'alma ata'],
-	  'asia/dubai': ['gst', null, 'gulf'],
-
-	  //india
-	  'asia/kolkata': ['ist', null, 'india', 'slst'],
-	  // 'asia/dhaka': ['bst', null, 'bangladesh'], //(sorry)
-	  'asia/thimbu': ['btt', null, 'bhutan'],
-	  'indian/maldives': ['mvt'],
-	  'asia/kathmandu': ['npt', null, 'nepal'],
-	  'indian/cocos': ['cct', null, 'cocos island'],
-	  'indian/chagos': ['iot', null, 'indian chagos'],
-	  'indian/kerguelen': ['tft', null, 'french southern and antarctic'],
-	  // biot: 6, //british indian ocean time
-	  // iot: 3, //indian ocean time
-
-	  //asia
-	  'asia/shanghai': ['ct', null, 'china', 'hkt'],
-	  'asia/ulaanbaatar': ['ulat'],
-	  'asia/seoul': ['kst', null, 'korea'],
-	  'asia/tokyo': ['jst', null, 'japan'],
-	  'asia/phnom_penh': ['ict', null, 'indochina'],
-	  'asia/manila': ['pht', null, 'philippines'],
-	  'asia/singapore': ['sgt'],
-	  // mmt: 'asia/colombo',
-
-	  //australia
-	  'australia/brisbane': ['aest', 'aedt', 'australian east'], //australian eastern standard time
-	  'australia/adelaide': ['acst', 'acdt', 'australian central'], //australian central daylight savings time
-	  'australia/eucla': ['acwst', null, 'cwst', 'australian central western'], //australian central western standard time (unofficial)
-	  'australia/perth': ['awst', 'awdt', 'australian west'], //australian western standard time
-	  'pacific/auckland': ['nzst', 'nzdt', 'nzmt'],
-	  'australia/lord_howe': ['lhst', 'lhdt'],
-
-	  //pacific
-	  'pacific/guam': ['chst'],
-	  'pacific/chatham': ['chast', 'chadt'],
-	  'pacific/honolulu': ['hst'],
-	  'asia/brunei': ['bnt', null, 'bdt'],
-	  'pacific/midway': ['sst', null, 'samoa', 'sdt'],
-	  'pacific/niue': ['nut'],
-	  'pacific/fakaofo': ['tkt'],
-	  'pacific/rarotonga': ['ckt', null, 'cook islands'],
-	  'chile/easterisland': ['east', 'easst', 'easter island', 'emt'],
-	  'asia/jayapura': ['wit', null, 'east indonesia'],
-	  'asia/jakarta': ['wib', null, 'west indonesia'],
-	  'asia/makassar': ['wita', null, 'central indonesia'],
-	  'pacific/galapagos': ['galt'],
-	  'pacific/fiji': ['fjt', 'fjst'],
-	  'asia/dili': ['tlt', null, 'east timor'],
-	  'indian/christmas': ['cxt']
-	  // sbt: 11, //solomon islands time
-	  // mht: 12, //marshall islands time
-	  // bit: -12, //baker island time
-	  // cist: -8, //clipperton island standard time
-	  // chut: 10, //chuuk time
-	  // ddut: 10, //dumont durville time
-	  // gst: 'pacific/guam',
-	  // gamt: -9, //gambier islands time
-	  // git: -9, //gambier island time
-	  // gilt: 12, //gilbert island time
-	  // idlw: -12, //international day line west time zone
-	  // 'international day line west': -12,
-	  // kost: 11, //kosrae time
-	  // lint: 14, //line islands time
-	  // magt: 12, //magadan time
-	  // mist: 11, //macquarie island station time
-	  // nct: 11, //new caledonia time
-	  // nft: 11, //norfolk island time
-	  // phot: 13, //phoenix island time
-	  // pont: 11, //pohnpei standard time
-	  // pett: 12, //kamchatka time
-	  // mart: -9.5, //marquesas islands time
-	  // mit: -9.5, //marquesas islands time
-	  // myt: 8, //malaysia time
-	  // nut: -11, //niue time
-	  // pht: 8, //philippine time
-	  // pgt: 10, //papua new guinea time
-	  // pmmt: 'pacific/bougainville',
-	  // // smt: 'asia/singapore',
-	  // sakt: 11, //sakhalin island time
-	  // sret: 11, //srednekolymsk time
-	  // sst: 'pacific/pago_pago',
-	  // taht: -10, //tahiti time
-	  // tvt: 12, //tuvalu time
-	  // tkt: 13, //tokelau time
-	  // tot: 13, //tonga time
-	  // vut: 11, //vanuatu time
-	  // wakt: 12, //wake island time
-
-	  //i forget (sorry!)
-	  // haec: 2, //heure avancée deurope centrale french-language name for cest
-	  // syot: 3, //showa station time
-	  // yekt: 5, //yekaterinburg time
-	  // sct: 4, //seychelles time
-	  // orat: 5, //oral time
-	  // mawt: 5, //mawson station time
-	  // hovt: 7, //khovd standard time
-	  // hovst: 8, //khovd summer time
-	  // davt: 7, //davis time
-	  // chost: 9, //choibalsan summer time
-	  // chot: 8, //choibalsan standard time
-	  // wst: 8, //western standard time
-	};
-
-	//use each abbreviation as a key
-	const lookup = Object.keys(informal).reduce((h, k) => {
-	  let arr = informal[k];
-	  for (let i = 0; i < 5; i += 1) {
-	    if (arr[i]) {
-	      h[arr[i]] = k;
-	    }
-	  }
-	  return h
-	}, {});
-
-	var informal_1 = {
-	  informal,
-	  lookup
-	};
-
 	//find the implicit iana code for this machine.
 	//safely query the Intl object
 	//based on - https://bitbucket.org/pellepim/jstimezonedetect/src
@@ -631,8 +364,6 @@
 	};
 	//do it once per computer
 	var guessTz_1 = guessTz;
-
-	const informal$1 = informal_1.lookup;
 
 	const local = guessTz_1();
 	const isOffset = /(\-?[0-9]+)h(rs)?/;
@@ -676,10 +407,6 @@
 	  if (zones.hasOwnProperty(tz) === true) {
 	    return tz
 	  }
-	  //try abbrevations and things
-	  if (informal$1.hasOwnProperty(tz) === true) {
-	    return informal$1[tz]
-	  }
 	  //try city-names
 	  if (cities.hasOwnProperty(tz) === true) {
 	    return cities[tz]
@@ -695,8 +422,9 @@
 	      return gmt
 	    }
 	  }
-	  console.warn("Cannot find timezone named: '" + str + "'");
-	  return local
+	  throw new Error(
+	    "Spacetime: Cannot find timezone named: '" + str + "'. Please enter an IANA timezone id."
+	  )
 	};
 	var find = lookupTz;
 
@@ -2276,89 +2004,6 @@
 	};
 	var every_1 = every;
 
-	const informal$2 = informal_1.informal;
-	//these timezone abbreviations are used aggressively in other places
-	//if tz doesn't have an abbreviation, and is in the same offset...
-	//these are pretty subjective. i just made them up.
-	const greedy_north = {
-	  '-8': 'america/anchorage',
-	  '-7': 'america/los_angeles',
-	  '-6': 'america/denver',
-	  '-5': 'america/chicago',
-	  '-4': 'america/new_york',
-	  '-3': 'america/halifax',
-
-	  '0': 'etc/gmt',
-	  '1': 'europe/lisbon',
-	  '2': 'europe/berlin',
-	  // '3': 'europe/riga',
-	  // '3': 'europe/moscow',
-	  '8': 'asia/shanghai'
-	};
-	const greedy_south = {
-	  '-3': 'america/sao_paulo',
-	  '0': 'etc/gmt',
-	  '1': 'africa/lagos',
-	  // '2': 'africa/khartoum',//central africa
-	  '2': 'africa/johannesburg', //south africa
-	  '3': 'africa/nairobi',
-	  '10': 'australia/brisbane',
-	  '12': 'pacific/auckland'
-	};
-
-	const british = {
-	  'europe/belfast': true,
-	  'europe/dublin': true,
-	  'europe/guernsey': true,
-	  'europe/jersey': true
-	};
-
-	const handleSpecial = (tz, offset) => {
-	  if (british.hasOwnProperty(tz)) {
-	    if (offset === '1') {
-	      return 'BST'
-	    }
-	    return 'GMT'
-	  }
-	  return null
-	};
-
-	const chooseAbbrev = (arr, obj) => {
-	  if (arr[1] && obj.current.isDST === true) {
-	    return arr[1].toUpperCase()
-	  }
-	  if (arr[0]) {
-	    return arr[0].toUpperCase()
-	  }
-	  return null
-	};
-	//
-	const display = (tz, obj) => {
-	  //try a straight-up match
-	  if (informal$2.hasOwnProperty(tz)) {
-	    let abbr = chooseAbbrev(informal$2[tz], obj);
-	    if (abbr !== null) {
-	      return abbr
-	    }
-	  }
-	  let offset = String(obj.default_offset);
-	  let special = handleSpecial(tz, offset);
-	  if (special) {
-	    return special
-	  }
-
-	  if (obj.hemisphere === 'North' && greedy_north.hasOwnProperty(offset)) {
-	    let useTz = greedy_north[offset];
-	    return chooseAbbrev(informal$2[useTz], obj) || ''
-	  }
-	  if (obj.hemisphere === 'South' && greedy_south.hasOwnProperty(offset)) {
-	    let useTz = greedy_south[offset];
-	    return chooseAbbrev(informal$2[useTz], obj) || ''
-	  }
-	  return ''
-	};
-	var display_1 = display;
-
 	const parseDst = dst => {
 	  if (!dst) {
 	    return []
@@ -2435,8 +2080,6 @@
 	    result.current.offset = winter;
 	    result.current.isDST = result.hemisphere === 'South'; //dst 'on' in summer in south
 	  }
-	  //try to find the best name for it..
-	  result.display = display_1(tz, result);
 	  return result
 	};
 	var timezone_1 = timezone;
@@ -2934,13 +2577,6 @@
 	};
 	var _01Time = methods$1;
 
-	const clearMinutes = s => {
-	  s = s.minute(0);
-	  s = s.second(0);
-	  s = s.millisecond(1);
-	  return s
-	};
-
 	const methods$2 = {
 	  // # day in the month
 	  date: function(num) {
@@ -2990,6 +2626,51 @@
 	    return s
 	  },
 
+	  //either name or number
+	  month: function(input) {
+	    if (input !== undefined) {
+	      let s = this.clone();
+	      s.epoch = set.month(s, input);
+	      return s
+	    }
+	    return this.d.getMonth()
+	  }
+	};
+	var _02Date = methods$2;
+
+	const clearMinutes = s => {
+	  s = s.minute(0);
+	  s = s.second(0);
+	  s = s.millisecond(1);
+	  return s
+	};
+
+	const methods$3 = {
+	  // day 0-366
+	  dayOfYear: function(num) {
+	    if (num !== undefined) {
+	      let s = this.clone();
+	      s.epoch = set.dayOfYear(s, num);
+	      return s
+	    }
+	    //days since newyears - jan 1st is 1, jan 2nd is 2...
+	    let sum = 0;
+	    let month = this.d.getMonth();
+	    let tmp;
+	    //count the num days in each month
+	    for (let i = 1; i <= month; i++) {
+	      tmp = new Date();
+	      tmp.setDate(1);
+	      tmp.setYear(this.d.getFullYear()); //the year matters, because leap-years
+	      tmp.setHours(1);
+	      tmp.setMinutes(1);
+	      tmp.setMonth(i);
+	      tmp.setHours(-2); //the last day of the month
+	      sum += tmp.getDate();
+	    }
+	    return sum + this.d.getDate()
+	  },
+
 	  //since the start of the year
 	  week: function(num) {
 	    if (num !== undefined) {
@@ -3021,51 +2702,18 @@
 	    if (tmp.epoch > thisOne) {
 	      return 1
 	    }
-	    for (let i = 0; i < 52; i++) {
+	    //speed it up, if we can
+	    let i = 0;
+	    let skipWeeks = this.month() * 4;
+	    tmp.epoch += milliseconds.week * skipWeeks;
+	    i += skipWeeks;
+	    for (; i < 52; i++) {
 	      if (tmp.epoch > thisOne) {
 	        return i
 	      }
 	      tmp = tmp.add(1, 'week');
 	    }
 	    return 52
-	  },
-
-	  //either name or number
-	  month: function(input) {
-	    if (input !== undefined) {
-	      let s = this.clone();
-	      s.epoch = set.month(s, input);
-	      return s
-	    }
-	    return this.d.getMonth()
-	  }
-	};
-	var _02Date = methods$2;
-
-	const methods$3 = {
-	  // day 0-366
-	  dayOfYear: function(num) {
-	    if (num !== undefined) {
-	      let s = this.clone();
-	      s.epoch = set.dayOfYear(s, num);
-	      return s
-	    }
-	    //days since newyears - jan 1st is 1, jan 2nd is 2...
-	    let sum = 0;
-	    let month = this.d.getMonth();
-	    let tmp;
-	    //count the num days in each month
-	    for (let i = 1; i <= month; i++) {
-	      tmp = new Date();
-	      tmp.setDate(1);
-	      tmp.setYear(this.d.getFullYear()); //the year matters, because leap-years
-	      tmp.setHours(1);
-	      tmp.setMinutes(1);
-	      tmp.setMonth(i);
-	      tmp.setHours(-2); //the last day of the month
-	      sum += tmp.getDate();
-	    }
-	    return sum + this.d.getDate()
 	  },
 
 	  //'january'
