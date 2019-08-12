@@ -359,8 +359,48 @@ const guessTz = () => {
 //do it once per computer
 var guessTz_1 = guessTz;
 
+const isOffset = /(\-?[0-9]+)h(rs)?/i;
+const isNumber = /(\-?[0-9]+)/;
+const utcOffset = /utc([\-+]?[0-9]+)/i;
+const gmtOffset = /gmt([\-+]?[0-9]+)/i;
+
+const toIana = function(num) {
+  num = Number(num);
+  if (num > -13 && num < 13) {
+    num = num * -1; //it's opposite!
+    num = (num > 0 ? '+' : '') + num; //add plus sign
+    return 'etc/gmt' + num
+  }
+  return null
+};
+
+const parseOffset = function(tz) {
+  // '+5hrs'
+  let m = tz.match(isOffset);
+  if (m !== null) {
+    return toIana(m[1])
+  }
+  // 'utc+5'
+  m = tz.match(utcOffset);
+  if (m !== null) {
+    return toIana(m[1])
+  }
+  // 'GMT-5' (not opposite)
+  m = tz.match(gmtOffset);
+  if (m !== null) {
+    let num = Number(m[1]) * -1;
+    return toIana(num)
+  }
+  // '+5'
+  m = tz.match(isNumber);
+  if (m !== null) {
+    return toIana(m[1])
+  }
+  return null
+};
+var parseOffset_1 = parseOffset;
+
 const local = guessTz_1();
-const isOffset = /(\-?[0-9]+)h(rs)?/;
 
 //add all the city names by themselves
 const cities = Object.keys(unpack).reduce((h, k) => {
@@ -406,16 +446,13 @@ const lookupTz = (str, zones) => {
     return cities[tz]
   }
   // //try to parse '-5h'
-  let m = tz.match(isOffset);
-  if (m !== null) {
-    let num = Number(m[1]);
-    num = num * -1; //it's opposite!
-    num = (num > 0 ? '+' : '') + num;
-    let gmt = 'etc/gmt' + num;
-    if (zones.hasOwnProperty(gmt)) {
-      return gmt
+  if (/[0-9]/.test(tz) === true) {
+    let id = parseOffset_1(tz);
+    if (id) {
+      return id
     }
   }
+
   throw new Error(
     "Spacetime: Cannot find timezone named: '" + str + "'. Please enter an IANA timezone id."
   )
@@ -616,7 +653,7 @@ var months = {
 };
 
 //pull-apart ISO offsets, like "+0100"
-const parseOffset = (s, offset) => {
+const parseOffset$1 = (s, offset) => {
   if (!offset) {
     return s
   }
@@ -670,7 +707,7 @@ const parseOffset = (s, offset) => {
   }
   return s
 };
-var parseOffset_1 = parseOffset;
+var parseOffset_1$1 = parseOffset$1;
 
 const parseTime = (s, str = '') => {
   str = str.replace(/^\s+/, '').toLowerCase(); //trim
@@ -787,7 +824,7 @@ const strFmt = [
         s.epoch = null;
         return s
       }
-      parseOffset_1(s, arr[5]);
+      parseOffset_1$1(s, arr[5]);
       walk_1(s, obj);
       s = parseTime_1(s, arr[4]);
       return s
@@ -3207,7 +3244,7 @@ const whereIts = (a, b) => {
 };
 var whereIts_1 = whereIts;
 
-var _version = '5.10.0';
+var _version = '6.0.0';
 
 const main$1 = (input, tz, options) => new spacetime(input, tz, options);
 
