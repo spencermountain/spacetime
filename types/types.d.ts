@@ -59,6 +59,9 @@ export interface Spacetime {
   /** is this date on the exact same millisecond as another */
   isEqual: (other: Spacetime | Date) => boolean
 
+  /** is this date between these start and end dates? */
+  isBetween: (start: Spacetime | Date, end: Spacetime | Date) => boolean
+
   /** detect if two date/times are the same day, week, or year, etc */
   isSame: (other: Spacetime | Date, unit: TimeUnit) => boolean
 
