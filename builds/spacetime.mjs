@@ -3244,7 +3244,7 @@ const whereIts = (a, b) => {
 };
 var whereIts_1 = whereIts;
 
-var _version = '6.0.0';
+var _version = '6.0.1';
 
 const main$1 = (input, tz, options) => new spacetime(input, tz, options);
 
