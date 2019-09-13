@@ -1,13 +1,15 @@
-var width = 960;
-var height = 660;
-var map = d3.select('#map').append('svg');
-map.attr('width', width).attr('height', height);
+var width = 960
+var height = 660
+var map = d3.select('#map').append('svg')
+// map.attr('width', width).attr('height', height)
+map.attr('preserveAspectRatio', 'xMinYMin meet')
+map.attr('viewBox', `0 0 ${width} ${height}`)
 
-var dayWidth = 600;
-var scale = d3.scale.linear();
-scale.range([0, dayWidth]).domain([0, 1]);
+// var dayWidth = 600
+var scale = d3.scale.linear()
+scale.range([0, 100]).domain([0, 1])
 
-var s = spacetime.now();
+var s = spacetime.now()
 
 window.day = new Vue({
   el: '#today',
@@ -18,105 +20,126 @@ window.day = new Vue({
     scale: scale,
     time: s.format('time-12h'),
     tzData: [],
-    months: ['#6accb2', '#705E5C', '#cc8a66', '#cc7066', '#7f9c6c', '#6699cc', '#303b50', '#335799', '#e6d7b3', '#914045', '#C4ABAB', '#838B91',
+    months: [
+      '#6accb2',
+      '#705E5C',
+      '#cc8a66',
+      '#cc7066',
+      '#7f9c6c',
+      '#6699cc',
+      '#303b50',
+      '#335799',
+      '#e6d7b3',
+      '#914045',
+      '#C4ABAB',
+      '#838B91'
     ],
     controls: [
       {
         title: 'hour',
         render: function() {
-          return s.h12() + s.ampm();
+          return s.h12() + s.ampm()
         }
       },
       {
         title: 'minute',
         render: function() {
-          return s.format('minute');
+          return s.format('minute')
         }
       },
       {
         title: 'day',
         render: function() {
-          return s.format('date-ordinal');
+          return s.format('date-ordinal')
         }
       },
       {
         title: 'month',
         render: function() {
-          return s.format('month-short');
+          return s.format('month-short')
         }
       },
       {
         title: 'week',
         render: function() {
-          return s.week();
+          return s.week()
         }
       },
       {
         title: 'year',
         render: function() {
-          return s.year();
+          return s.year()
         }
-      },
+      }
     ]
   },
 
   methods: {
-
-
     changeTZ: function(tz) {
       // there are some "timezone" like: "America/Indiana/Indianapolis"
       // and we can not find such "timezone" in zonefile
       //
       // but "America/Indiana" is available, so just trim the last section
       // it's a wild guess but works.
-      tz = tz.split('/').slice(0, 2).join('/');
-      this.s = s.goto(tz);
-      this.timezone = tz;
+      tz = tz
+        .split('/')
+        .slice(0, 2)
+        .join('/')
+      this.s = s.goto(tz)
+      this.timezone = tz
     },
 
     drawDay: function() {},
 
     drawMap: function() {
-      var timezones = this.tzData;
-      var projection = d3.geo.mercator().scale(width / 2 / Math.PI).translate([width, height]).precision(.1);
-      var path = d3.geo.path().projection(projection);
-      path.projection(null);
+      var timezones = this.tzData
+      var projection = d3.geo
+        .mercator()
+        .scale(width / 2 / Math.PI)
+        .translate([width, height])
+        .precision(0.1)
+      var path = d3.geo.path().projection(projection)
+      path.projection(null)
 
-      map.insert('g', '.graticule')
+      map
+        .insert('g', '.graticule')
         .attr('class', 'timezones')
         .selectAll('path')
         .data(topojson.feature(timezones, timezones.objects.timezones).features)
-        .enter().append('path')
+        .enter()
+        .append('path')
         .attr('d', path)
-        .on('click', (d) => {
-          console.log(d.id);
-          this.changeTZ(d.id);
-          this.drawMap();
+        .on('click', d => {
+          console.log(d.id)
+          this.changeTZ(d.id)
+          this.drawMap()
         })
-        .attr('fill', (d) => {
+        .attr('fill', d => {
           if (d.id === this.timezone) {
-            return 'cornflowerblue';
+            return 'cornflowerblue'
           }
-          return null;
+          return null
         })
         .append('title')
         .text(function(d) {
-          return d.id;
-        });
+          return d.id
+        })
 
-      map.insert('path', '.graticule')
-        .datum(topojson.mesh(timezones, timezones.objects.timezones, function(a, b) {
-          return a !== b;
-        }))
+      map
+        .insert('path', '.graticule')
+        .datum(
+          topojson.mesh(timezones, timezones.objects.timezones, function(a, b) {
+            return a !== b
+          })
+        )
         .attr('class', 'boundary')
-        .attr('d', path);
+        .attr('d', path)
     }
-
   },
   created() {
     d3.json('./lib/timezones.json', (error, timezones) => {
-      this.tzData = timezones;
-      this.drawMap();
-    });
+      this.tzData = timezones
+      this.drawMap()
+    })
   }
-});
+})
