@@ -1,13 +1,12 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<head lang="en">
+<head >
   <meta charset="utf-8">
   <title>spacetime</title>
-  <link href="./index.css" rel="stylesheet" async>
-  <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet" async>
-  <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-  <link rel="stylesheet" href="lib/codemirror.css" async>
-  <link rel="stylesheet" href="lib/mytheme.css" async>
+  <link href="./index.css" rel="stylesheet" defer>
+  <link rel="stylesheet" href="lib/codemirror.css" defer>
+  <link rel="stylesheet" href="lib/mytheme.css" defer>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -19,27 +18,27 @@
   <div class="nice big">
     Yeah,
   </div>
-  <div class="nice">
-    the world's pretty big
+  <div class="nice" style="margin-left:1rem; margin-top:1rem;">
+    the world's pretty big.
   </div>
   <div id="map" style="width:80%; left:10%; height:100%; margin:20px; text-align:center;">
   </div>
-  <div class="nice" style="position:relative; ">
-    but this library, it's pretty small ✨
+  <div class="nice" style="position:relative; margin-left:2rem;">
+    but this library is very small ✨
   </div>
-  <div id="today" style="text-align:center; position:relative; top:-30px; max-width: 80%;" >
+  <div id="today" style="text-align:center; position:relative; top:0px; max-width: 90%;" >
 
-    <div class="nice" style="font-size:22px; position:relative; top:-50px; left:150px; color:#546879" v-cloak>
+    <div class="nice" style="font-size:22px; position:relative; top:0px; left:100px; color:#546879" v-cloak>
       {{timezone}}:
     </div>
 
     <div id="leftBox" style="display:inline-block; position:relative; width:150px; top:-25px; font-size:15px; text-align:left;" class="nice">
     </div>
 
-    <div id="graph" class="nice" style="position:relative; top:-10px; text-align:left; display:inline-block; height:90px; margin-top:5px; width:80%;">
-      <div id="nowThing" v-cloak v-bind:style="{ left:(scale(s.progress().day))+'%' }" style="position:relative; display:inline-block; font-size:16px; text-align:center; max-width:200px; min-width:200px; margin-left: -100px; color:#838d97;">
-        {{s.format('month')+' '+s.format('date-ordinal')}}
-        <div>
+    <div id="graph" class="nice" style="position:relative; top:-10px; text-align:left; display:inline-block; height:90px; margin-top:5px; width:90%;">
+      <div id="nowThing" v-cloak v-bind:style="{ left:(scale(s.progress().day))+'%' }" style="position:relative; display:inline-block; font-size:16px; text-align:center; max-width:200px; min-width:200px; margin-left: -100px; color:#838d97;" v-cloak>
+        <span v-cloak>{{s.format('month')+' '+s.format('date-ordinal')}}</span>
+        <div v-cloak>
           {{s.time()}}
         </div>
         <div>
@@ -90,15 +89,15 @@
 
     <div class="table" style="margin-top:40px; text-align:center;">
 
-      <span class="tr nice control" v-for="c in controls" style="flex-wrap:wrap;" v-cloak>
-        <div style="position:relative; text-align:center;">
-          <span class="minus" v-on:click="s=s.subtract(1, c.title)">﹣</span>
-          <span style="display:inline-block; width:40px; min-width:40px; max-width:40px;">{{c.render()}}</span>
-          <span class="plus" v-on:click="s=s.add(1, c.title)">+</span>
+      <span class="tr nice control" v-for="c in controls" style="flex-wrap:wrap;  min-width: 120px;" v-cloak>
+        <div style="position:relative; text-align:center; ">
+          <span class="minus" v-on:click="subtract(c.title)">﹣</span>
+          <span style="display:inline-block; width:50px; min-width:50px; max-width:50px;" v-cloak>{{c.title}}</span>
+          <span class="plus" v-on:click="add(c.title)">+</span>
         </div>
         <div style="position:relative; top:-5px; color:silver; display:inline; padding-bottom:6px;">
           <!-- <span class="skip" title="start-of" v-on:click="s.startOf(c.title)">⇤</span> -->
-          <span>{{c.title}}</span>
+          <!-- <span>{{c.title}}</span> -->
           <!-- <span class="skip" title="end-of" v-on:click="s.endOf(c.title)">⇥</span> -->
         </div>
       </span>
@@ -127,8 +126,8 @@
       </span>
       <span class="tr nice" style="min-width:200px;">
         <div style="color:#8cc5df; margin-top:20px;">
-          <span class="number">50</span>
-          <span class="">kb</span>
+          <span class="number">40</span>
+          <span style="font-size: 30px;">kb</span>
         </div>
         <div style="font-size:18px;">that's more like it</div>
       </span>
@@ -146,13 +145,15 @@
     it can sometimes get confused. <span style="color:#8cc5df;">🌌</span>
   </div>
   <div class="nice byline">
-    but by making <a class="link" href="https://github.com/smallwins/spacetime/wiki#limitations">realistic compromises</a> spacetime considerably under-weighs most date libraries.<br />
-    It lets you have a <i>mostly-great</i> time, without thinking about awful things.
+    but by making <a class="link" href="https://github.com/smallwins/spacetime/wiki#limitations">realistic compromises</a>, spacetime considerably under-weighs most date libraries.<br />
+    <div style="margin-top:15px;">
+      It lets you have a <i>mostly-great</i> time, without thinking about awful things.
+    </div>
   </div>
   <div class="codemirror" id="html"></div>
   <div class="codemirror" id="node"></div>
 
-  <div style="margin-top:25px; text-align:center; color:silver; text-align:left; margin-left:15%;">
+  <div style="margin-top:25px; text-align:center; color:silver; text-align:left;">
     now go crazy:<br />
     <div class="codemirror" id="showoff"></div>
   </div>
@@ -163,7 +164,7 @@
       <div class="nice explain" v-cloak>
         it is currently <span class="epoch">{{epoch}}</span> everywhere (even in Australia).
       </div>
-      <div class="table" style="flex-wrap: nowrap;" v-cloak>
+      <div class="table" style="flex-wrap: nowrap; font-size: 13px;" v-cloak>
         <span class="tr nice">
           <b>[Fake-Paris]</b><br />
           time
@@ -236,12 +237,13 @@
     </div>
 
     <!-- docs/api -->
-    <div class="nice big" style="margin:20px;">API:</div>
-    <div style="width:80%; margin-left:15%; height:40px;position:relative;">
+    <div id="api" class="nice big" style="margin:20px;">API:</div>
+    <div style="width:80%; margin-left:15%; height:55px; position:relative;">
       <div v-if="doc.title">
         <b style="color:grey; font-size:25px;">{{doc.title}}():</b>
         <span style="color:grey; margin:10px;">{{doc.doc}}</span>
-        <span style="color:steelblue; margin:10px; position:relative; right:0px; white-space: nowrap;">returns: <b>{{doc.out}}</b></span>
+        <br/>
+        <span style="color:steelblue; margin-left:10px; margin-top:20px; position:relative; right:0px; white-space: nowrap;">returns: <b>{{doc.out}}</b></span>
       </div>
     </div>
     <div class="table">
@@ -282,11 +284,10 @@
   <script src="https://unpkg.com/spacetime"></script>
   <script src="lib/codemirror.js"></script>
   <script src="lib/javascript-mode.js"></script>
-  <script src="lib/html-mode.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
   <script src="https://d3js.org/d3.v3.min.js"></script>
   <script src="https://d3js.org/topojson.v1.min.js"></script>
-  <script src="./codemirror.js"></script>
-  <script src="./day/index.js" ></script>
   <script src="./explain.js"></script>
+  <script src="./day/index.js" ></script>
 </body>
+</html>

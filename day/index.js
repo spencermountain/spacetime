@@ -85,8 +85,14 @@ window.day = new Vue({
         .split('/')
         .slice(0, 2)
         .join('/')
-      this.s = s.goto(tz)
+      this.s = this.s.goto(tz)
       this.timezone = tz
+    },
+    add: function(unit) {
+      this.s = this.s.add(1, unit)
+    },
+    subtract: function(unit) {
+      this.s = this.s.minus(1, unit)
     },
 
     drawDay: function() {},
