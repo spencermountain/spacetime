@@ -21,7 +21,7 @@
   <div class="nice" style="margin-left:1rem; margin-top:1rem;">
     the world's pretty big.
   </div>
-  <div id="map" style="width:80%; left:10%; height:100%; margin:20px; text-align:center;">
+  <div id="map" style="width:80%; left:10%; height:100%; margin:20px; text-align:center; max-width: 920px;">
   </div>
   <div class="nice" style="position:relative; margin-left:2rem;">
     but this library is very small ✨
@@ -57,7 +57,7 @@
         <div style="position:absolute; left:73%;">6pm</div>
         <div style="position:absolute; left:86%;">10pm</div>
       </div>
-      <div id="yearline" v-cloak style="position:relative; top:15px; height:3px; text-align:center;">
+      <div id="yearline" v-cloak style="position:relative; top:15px; height:3px; text-align:center; user-select: none;">
         <span v-for="m,i in months">
           <span v-bind:style="{backgroundColor:m, left:8.3*i+'%'}" style="position:absolute; border-radius:1px; width:8.3%; top:0px; height:3px; opacity:0.8;"></span>
         </span>
@@ -87,7 +87,7 @@
       <div class="fact">{{s.dayTime()}}</div>
     </div> -->
 
-    <div class="table" style="margin-top:40px; text-align:center;">
+    <div class="table" style="margin-top:40px; text-align:center; user-select: none;">
 
       <span class="tr nice control" v-for="c in controls" style="flex-wrap:wrap;  min-width: 120px;" v-cloak>
         <div style="position:relative; text-align:center; ">
@@ -164,7 +164,7 @@
       <div class="nice explain" v-cloak>
         it is currently <span class="epoch">{{epoch}}</span> everywhere (even in Australia).
       </div>
-      <div class="table" style="flex-wrap: nowrap; font-size: 13px;" v-cloak>
+      <div class="table" style="flex-wrap: nowrap; font-size: 13px; max-width: 800px;" v-cloak>
         <span class="tr nice">
           <b>[Fake-Paris]</b><br />
           time
@@ -237,7 +237,7 @@
     </div>
 
     <!-- docs/api -->
-    <div id="api" class="nice big" style="margin:20px;">API:</div>
+    <div id="api" class="nice big" style="margin-left:20%; margin-top:40px; margin-bottom:20px;">API:</div>
     <div style="width:80%; margin-left:15%; height:55px; position:relative;">
       <div v-if="doc.title">
         <b style="color:grey; font-size:25px;">{{doc.title}}():</b>
