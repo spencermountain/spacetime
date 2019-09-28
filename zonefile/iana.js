@@ -1039,7 +1039,7 @@ module.exports = {
   'asia/gaza': {
     offset: 3,
     hem: 'n',
-    dst: '03/23:01->10/26:01'
+    dst: '03/29:00->10/26:01'
   },
   'asia/harbin': {
     offset: 8,
@@ -1048,7 +1048,7 @@ module.exports = {
   'asia/hebron': {
     offset: 3,
     hem: 'n',
-    dst: '03/23:01->10/26:01'
+    dst: '03/29:00->10/26:01'
   },
   'asia/ho_chi_minh': {
     offset: 7,
