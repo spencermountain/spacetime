@@ -27,7 +27,7 @@ all['utc'] = {
 }
 
 //add etc/gmt+n
-for (let i = -13; i <= 13; i += 0.5) {
+for (let i = -14; i <= 14; i += 0.5) {
   let num = i
   if (num > 0) {
     num = '+' + num
