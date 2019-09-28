@@ -188,9 +188,9 @@ var _build = {
 	"3|n|03/31:02->10/27:03": "8/chisinau,8/tiraspol",
 	"3|n|03/31:00->10/26:24": "2/beirut",
 	"3|n|03/29:02->10/27:02": "2/jerusalem,2/tel_aviv",
+	"3|n|03/29:00->10/26:01": "2/gaza,2/hebron",
 	"3|n|03/29:00->10/25:01": "2/amman",
 	"3|n|03/29:00->10/24:24": "2/damascus",
-	"3|n|03/23:01->10/26:01": "2/gaza,2/hebron",
 	"3|n": "0/addis_ababa,0/asmara,0/asmera,0/dar_es_salaam,0/djibouti,0/juba,0/kampala,0/mogadishu,0/nairobi,2/aden,2/baghdad,2/bahrain,2/istanbul,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,9/comoro,9/mayotte",
 	"2|s|03/31:02->10/27:02": "12/troll",
 	"2|s": "0/gaborone,0/harare,0/johannesburg,0/lubumbashi,0/lusaka,0/maputo,0/maseru,0/mbabane",
@@ -307,7 +307,7 @@ all['utc'] = {
 };
 
 //add etc/gmt+n
-for (let i = -13; i <= 13; i += 0.5) {
+for (let i = -14; i <= 14; i += 0.5) {
   let num = i;
   if (num > 0) {
     num = '+' + num;
@@ -3244,7 +3244,7 @@ const whereIts = (a, b) => {
 };
 var whereIts_1 = whereIts;
 
-var _version = '6.0.1';
+var _version = '6.1.0';
 
 const main$1 = (input, tz, options) => new spacetime(input, tz, options);
 

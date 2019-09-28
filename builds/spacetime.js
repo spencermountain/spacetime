@@ -231,9 +231,9 @@
 		"3|n|03/31:02->10/27:03": "8/chisinau,8/tiraspol",
 		"3|n|03/31:00->10/26:24": "2/beirut",
 		"3|n|03/29:02->10/27:02": "2/jerusalem,2/tel_aviv",
+		"3|n|03/29:00->10/26:01": "2/gaza,2/hebron",
 		"3|n|03/29:00->10/25:01": "2/amman",
 		"3|n|03/29:00->10/24:24": "2/damascus",
-		"3|n|03/23:01->10/26:01": "2/gaza,2/hebron",
 		"3|n": "0/addis_ababa,0/asmara,0/asmera,0/dar_es_salaam,0/djibouti,0/juba,0/kampala,0/mogadishu,0/nairobi,2/aden,2/baghdad,2/bahrain,2/istanbul,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,9/comoro,9/mayotte",
 		"2|s|03/31:02->10/27:02": "12/troll",
 		"2|s": "0/gaborone,0/harare,0/johannesburg,0/lubumbashi,0/lusaka,0/maputo,0/maseru,0/mbabane",
@@ -333,11 +333,10 @@
 	all['utc'] = {
 	  offset: 0,
 	  hem: 'n' //(sorry)
-	  //add etc/gmt+n
 
-	};
+	}; //add etc/gmt+n
 
-	for (var i = -13; i <= 13; i += 0.5) {
+	for (var i = -14; i <= 14; i += 0.5) {
 	  var num = i;
 
 	  if (num > 0) {
@@ -1165,9 +1164,8 @@
 	var defaults = {
 	  year: new Date().getFullYear(),
 	  month: 0,
-	  date: 1 //support [2016, 03, 01] format
-
-	};
+	  date: 1
+	}; //support [2016, 03, 01] format
 
 	var handleArray = function handleArray(s, arr) {
 	  var order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
@@ -1513,9 +1511,9 @@
 	  },
 	  'nice-full': function niceFull(s) {
 	    return "".concat(s.dayName(), " ").concat(fns.titleCase(s.monthName()), " ").concat(fns.ordinal(s.date()), ", ").concat(s.time());
-	  } //aliases
+	  }
+	}; //aliases
 
-	};
 	var aliases = {
 	  'day-name': 'day',
 	  'month-name': 'month',
@@ -2038,9 +2036,8 @@
 	  seconds: {
 	    almost: 50,
 	    over: 20
-	  } //get number of hours/minutes... between the two dates
-
-	};
+	  }
+	}; //get number of hours/minutes... between the two dates
 
 	function getDiff(a, b) {
 	  var isBefore = a.isBefore(b);
@@ -2666,9 +2663,9 @@
 	    }
 
 	    return this;
-	  } // aliases
+	  }
+	}; // aliases
 
-	};
 	methods.inDST = methods.isDST;
 	methods.round = methods.nearest;
 	methods.each = methods.every;
@@ -3365,10 +3362,9 @@
 	  month: true,
 	  quarter: true,
 	  season: true,
-	  year: true //month is the only thing we 'model/compute'
-	  //- because ms-shifting can be off by enough
-
-	};
+	  year: true
+	}; //month is the only thing we 'model/compute'
+	//- because ms-shifting can be off by enough
 
 	var rollMonth = function rollMonth(want, old) {
 	  //increment year
@@ -3598,9 +3594,9 @@
 	      }
 
 	      return startEpoch < this.epoch && this.epoch < endEpoch;
-	    } //hook them into proto
+	    }
+	  }; //hook them into proto
 
-	  };
 	  Object.keys(methods).forEach(function (k) {
 	    SpaceTime.prototype[k] = methods[k];
 	  });
@@ -3620,9 +3616,9 @@
 	      if (fns.isObject(data.months)) {
 	        months.set(data.months);
 	      }
-	    } //hook them into proto
+	    }
+	  }; //hook them into proto
 
-	  };
 	  Object.keys(methods).forEach(function (k) {
 	    SpaceTime.prototype[k] = methods[k];
 	  });
@@ -3743,7 +3739,7 @@
 
 	var whereIts_1 = whereIts;
 
-	var _version = '6.0.1';
+	var _version = '6.1.0';
 
 	var main$1 = function main(input, tz, options) {
 	  return new spacetime(input, tz, options);
