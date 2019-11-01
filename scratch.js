@@ -5,6 +5,8 @@ const spacetime = require('./src/index')
 // s = s.startOf('day')
 // s.log()
 
-console.log(spacetime('jan 1th 2018').week()) //tues
-console.log(spacetime('jan 9th 2018').week()) //wed
-console.log(spacetime('jan 15th 2018').week()) //tues
+let t = spacetime('2019-11-05T11:00:00.000-03:00')
+console.log(t.timezone().current.offset)
+t = t.goto('America/Sao_Paulo')
+console.log(t.timezone().current.offset)
+console.log(t.format('iso'))

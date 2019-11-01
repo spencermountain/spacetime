@@ -859,10 +859,10 @@ const strFmt = [
     parse: (s, arr) => {
       let month = parseInt(arr[1], 10) - 1;
       let date = parseInt(arr[2], 10);
-      if (month >= 12) {
-        //support yyyy/dd/mm (weird, but ok)
-        month = parseInt(arr[2], 10) - 1;
+      //support dd/mm/yyy
+      if (s.british || month >= 12) {
         date = parseInt(arr[1], 10);
+        month = parseInt(arr[2], 10) - 1;
       }
       let year = arr[3] || new Date().getFullYear();
       let obj = {
@@ -879,6 +879,27 @@ const strFmt = [
       return s
     }
   },
+  //common british format - "25-feb-2015"
+  {
+    reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
+    parse: (s, arr) => {
+      let month = months$1[arr[2].toLowerCase()];
+      let year = parseYear(arr[3]);
+      let obj = {
+        year,
+        month,
+        date: fns.toCardinal(arr[1] || '')
+      };
+      if (hasDate_1(obj) === false) {
+        s.epoch = null;
+        return s
+      }
+      walk_1(s, obj);
+      s = parseTime_1(s, arr[4]);
+      return s
+    }
+  },
+
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {
@@ -3147,6 +3168,8 @@ const SpaceTime = function(input$1, tz, options = {}) {
   this.tz = find(tz, timezones);
   //whether to output warnings to console
   this.silent = options.silent || true;
+  // favour british interpretation of 02/02/2018, etc
+  this.british = options.dmy || options.british;
 
   //does the week start on sunday, or monday:
   this._weekStart = 1; //default to monday
@@ -3244,7 +3267,7 @@ const whereIts = (a, b) => {
 };
 var whereIts_1 = whereIts;
 
-var _version = '6.1.0';
+var _version = '6.2.0';
 
 const main$1 = (input, tz, options) => new spacetime(input, tz, options);
 
