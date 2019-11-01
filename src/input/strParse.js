@@ -64,10 +64,10 @@ const strFmt = [
     parse: (s, arr) => {
       let month = parseInt(arr[1], 10) - 1
       let date = parseInt(arr[2], 10)
-      if (month >= 12) {
-        //support yyyy/dd/mm (weird, but ok)
-        month = parseInt(arr[2], 10) - 1
+      //support dd/mm/yyy
+      if (s.british || month >= 12) {
         date = parseInt(arr[1], 10)
+        month = parseInt(arr[2], 10) - 1
       }
       let year = arr[3] || new Date().getFullYear()
       let obj = {

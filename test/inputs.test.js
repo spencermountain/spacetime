@@ -273,3 +273,12 @@ test('inplicit-date', t => {
   t.equal(spacetime('sept 2019').format('iso-short'), '2019-09-01')
   t.end()
 })
+
+test('british-input', t => {
+  let s = spacetime('03/02/2017', null)
+  t.equal(s.format('iso-short'), '2017-03-02', 'default mm/dd/yyyy')
+
+  s = spacetime('03/02/2017', null, { british: true })
+  t.equal(s.format('iso-short'), '2017-02-03', 'force dd/mm/yyyy')
+  t.end()
+})
