@@ -84,6 +84,27 @@ const strFmt = [
       return s
     }
   },
+  //common british format - "25-feb-2015"
+  {
+    reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
+    parse: (s, arr) => {
+      let month = months[arr[2].toLowerCase()]
+      let year = parseYear(arr[3])
+      let obj = {
+        year,
+        month,
+        date: fns.toCardinal(arr[1] || '')
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
+    }
+  },
+
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {

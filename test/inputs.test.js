@@ -145,6 +145,9 @@ test('funny-numeric-forms', t => {
 
   b = spacetime('13/03/2016')
   t.equal(a.format('numeric'), b.format('numeric'), 'dd/mm/yyyy')
+
+  b = spacetime('13-mar-2016')
+  t.equal(a.format('numeric'), b.format('numeric'), 'dd/month/yyyy')
   t.end()
 })
 
