@@ -145,6 +145,9 @@ test('funny-numeric-forms', t => {
 
   b = spacetime('13/03/2016')
   t.equal(a.format('numeric'), b.format('numeric'), 'dd/mm/yyyy')
+
+  b = spacetime('13-mar-2016')
+  t.equal(a.format('numeric'), b.format('numeric'), 'dd/month/yyyy')
   t.end()
 })
 
@@ -268,5 +271,14 @@ test('inplicit-date', t => {
   t.equal(spacetime('wed november 2030').format('iso-short'), '2030-11-01')
   t.equal(spacetime('sep 2019').format('iso-short'), '2019-09-01')
   t.equal(spacetime('sept 2019').format('iso-short'), '2019-09-01')
+  t.end()
+})
+
+test('british-input', t => {
+  let s = spacetime('03/02/2017', null)
+  t.equal(s.format('iso-short'), '2017-03-02', 'default mm/dd/yyyy')
+
+  s = spacetime('03/02/2017', null, { dmy: true })
+  t.equal(s.format('iso-short'), '2017-02-03', 'force dd/mm/yyyy')
   t.end()
 })

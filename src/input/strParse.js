@@ -64,10 +64,10 @@ const strFmt = [
     parse: (s, arr) => {
       let month = parseInt(arr[1], 10) - 1
       let date = parseInt(arr[2], 10)
-      if (month >= 12) {
-        //support yyyy/dd/mm (weird, but ok)
-        month = parseInt(arr[2], 10) - 1
+      //support dd/mm/yyy
+      if (s.british || month >= 12) {
         date = parseInt(arr[1], 10)
+        month = parseInt(arr[2], 10) - 1
       }
       let year = arr[3] || new Date().getFullYear()
       let obj = {
@@ -84,6 +84,27 @@ const strFmt = [
       return s
     }
   },
+  //common british format - "25-feb-2015"
+  {
+    reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
+    parse: (s, arr) => {
+      let month = months[arr[2].toLowerCase()]
+      let year = parseYear(arr[3])
+      let obj = {
+        year,
+        month,
+        date: fns.toCardinal(arr[1] || '')
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
+    }
+  },
+
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {

@@ -12,6 +12,8 @@ const SpaceTime = function(input, tz, options = {}) {
   this.tz = findTz(tz, timezones)
   //whether to output warnings to console
   this.silent = options.silent || true
+  // favour british interpretation of 02/02/2018, etc
+  this.british = options.dmy || options.british
 
   //does the week start on sunday, or monday:
   this._weekStart = 1 //default to monday
