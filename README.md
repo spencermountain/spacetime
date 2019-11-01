@@ -290,6 +290,23 @@ s.isHappyHour()
 //true
 ```
 
+
+#### DD/MM/YYY interpretation:
+
+by default spacetime uses the American interpretation of ambiguous date formats, like javascript does:
+```js
+spacetime('12/01/2018') //dec 1st
+
+// unless it's clear (>12):
+spacetime('13/01/2018') //jan 13th
+```
+you can change this behaviour by passing in a `dmy` option, like this:
+```js
+spacetime('12/01/2018', null, { dmy: true }) //jan 12th
+```
+this format is more common in [britain, and south america](https://en.wikipedia.org/wiki/Date_format_by_country).
+
+
 #### Custom languages:
 
 ```js
