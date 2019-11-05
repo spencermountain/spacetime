@@ -47,6 +47,9 @@ export interface Spacetime {
   /** go to the beginning of the next unit */
   next: (unit: TimeUnit) => Spacetime
 
+  /** round to either current, or +1 of this unit */
+  nearest: (unit: TimeUnit) => Spacetime
+
   /** go to the beginning of the previous unit */
   last: (unit: TimeUnit) => Spacetime
 
