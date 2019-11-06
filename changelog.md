@@ -167,10 +167,13 @@
 - throw error on an invalid timezone  #150
 - optimize `.week()` method
 
+## v6.1.0
+- support for +14 timezones.
 
 ## v6.2.0
-- add `.decade()` 
-- add `.century()` 
-- add `.millenium()` 
-- add `.json()` method
+- add config for `dmy` british date parsing
+- support `18-feb-2019` format
+  
+## v6.2.1
 - fix typescript types
+  

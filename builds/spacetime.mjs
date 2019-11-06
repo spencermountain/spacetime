@@ -946,31 +946,14 @@ const strFmt = [
     reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?$/i,
     parse: (s, arr) => {
       let month = months$1[arr[2].toLowerCase()];
+      if (!month) {
+        return null
+      }
       let year = parseYear(arr[3]);
       let obj = {
         year,
         month,
         date: fns.toCardinal(arr[1])
-      };
-      if (hasDate_1(obj) === false) {
-        s.epoch = null;
-        return s
-      }
-      walk_1(s, obj);
-      s = parseTime_1(s);
-      return s
-    }
-  },
-  {
-    // '1992'
-    reg: /^[0-9]{4}$/i,
-    parse: (s, arr) => {
-      let year = parseYear(arr[0]);
-      let d = new Date();
-      let obj = {
-        year,
-        month: d.getMonth(),
-        date: d.getDate()
       };
       if (hasDate_1(obj) === false) {
         s.epoch = null;
@@ -991,6 +974,49 @@ const strFmt = [
       //remove commas
       str = str.replace(/,/g, '');
       let year = parseInt(str.trim(), 10);
+      let d = new Date();
+      let obj = {
+        year,
+        month: d.getMonth(),
+        date: d.getDate()
+      };
+      if (hasDate_1(obj) === false) {
+        s.epoch = null;
+        return s
+      }
+      walk_1(s, obj);
+      s = parseTime_1(s);
+      return s
+    }
+  },
+  {
+    // '200ad'
+    reg: /^[0-9,]+ ?(a\.?d\.?|c\.?e\.?)$/i,
+    parse: (s, arr) => {
+      let str = arr[0] || '';
+      //remove commas
+      str = str.replace(/,/g, '');
+      let year = parseInt(str.trim(), 10);
+      let d = new Date();
+      let obj = {
+        year,
+        month: d.getMonth(),
+        date: d.getDate()
+      };
+      if (hasDate_1(obj) === false) {
+        s.epoch = null;
+        return s
+      }
+      walk_1(s, obj);
+      s = parseTime_1(s);
+      return s
+    }
+  },
+  {
+    // '1992'
+    reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
+    parse: (s, arr) => {
+      let year = parseYear(arr[0]);
       let d = new Date();
       let obj = {
         year,
@@ -1155,8 +1181,10 @@ const parseInput = (s, input, givenTz) => {
   for (let i = 0; i < strParse.length; i++) {
     let m = input.match(strParse[i].reg);
     if (m) {
-      s = strParse[i].parse(s, m, givenTz);
-      return s
+      let res = strParse[i].parse(s, m, givenTz);
+      if (res !== null) {
+        return res
+      }
     }
   }
   if (s.silent === false) {
@@ -1276,6 +1304,7 @@ const format = {
   quarter: s => 'Q' + s.quarter(),
   season: s => s.season(),
   era: s => s.era(),
+  json: s => s.json(),
   timezone: s => s.timezone().name,
   offset: s => _offset(s),
 
@@ -1346,9 +1375,12 @@ const printFormat = (s, str = '') => {
   }
   //support .format('month')
   if (format.hasOwnProperty(str)) {
-    let out = String(format[str](s) || '');
-    if (str !== 'ampm') {
-      out = fns.titleCase(out);
+    let out = format[str](s) || '';
+    if (str !== 'json') {
+      out = String(out);
+      if (str !== 'ampm') {
+        out = fns.titleCase(out);
+      }
     }
     return out
   }
@@ -1973,6 +2005,7 @@ const units$2 = {
   century: s => {
     s = s.startOf('year');
     let year = s.year();
+    // near 0AD goes '-1 | +1'
     let decade = parseInt(year / 100, 10) * 100;
     s = s.year(decade);
     return s
@@ -2136,6 +2169,19 @@ const timezone = s => {
 };
 var timezone_1 = timezone;
 
+const units$3 = [
+  'century',
+  'decade',
+  'year',
+  'month',
+  'date',
+  'day',
+  'hour',
+  'minute',
+  'second',
+  'millisecond'
+];
+
 //the spacetime instance methods (also, the API)
 const methods = {
   set: function(input$1, tz) {
@@ -2239,6 +2285,12 @@ const methods = {
     console.log('');
     console.log(format_1(this, 'full-short'));
     return this
+  },
+  json: function() {
+    return units$3.reduce((h, unit) => {
+      h[unit] = this[unit]();
+      return h
+    }, {})
   },
   debug: function() {
     let tz = this.timezone();
@@ -2860,6 +2912,75 @@ const methods$3 = {
       return 'BC'
     }
     return 'AD'
+  },
+
+  // 2019 -> 2010
+  decade: function(input) {
+    if (input !== undefined) {
+      input = String(input);
+      input = input.replace(/([0-9])'?s$/, '$1'); //1950's
+      if (!input) {
+        console.warn('Spacetime: Invalid decade input');
+        return this
+      }
+      // assume 20th century?? for '70s'.
+      if (input.length === 2 && /[0-9][0-9]/.test(input)) {
+        input = '19' + input;
+      }
+      return this.year(input).startOf('decade')
+    }
+    return this.startOf('decade').year()
+  },
+  // 1950 -> 19+1
+  century: function(input) {
+    if (input !== undefined) {
+      if (typeof input === 'string') {
+        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
+        input = input.replace(/c$/, ''); //20thC
+        input = Number(input);
+        if (isNaN(input)) {
+          console.warn('Spacetime: Invalid century input');
+          return this
+        }
+      }
+      let year = (input - 1) * 100;
+      // there is no year 0
+      if (year === 0) {
+        year = 1;
+      }
+      return this.year(year).startOf('century')
+    }
+    let num = this.startOf('century').year();
+    num = Math.floor(num / 100);
+    return num + 1
+  },
+  // 2019 -> 2+1
+  millenium: function(input) {
+    if (input !== undefined) {
+      if (typeof input === 'string') {
+        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
+        input = Number(input);
+        if (isNaN(input)) {
+          console.warn('Spacetime: Invalid millenium input');
+          return this
+        }
+      }
+      if (input > 0) {
+        input -= 1;
+      }
+      let year = input * 1000;
+      // there is no year 0
+      if (year === 0) {
+        year = 1;
+      }
+      return this.year(year)
+    }
+    // get the current millenium
+    let num = Math.floor(this.year() / 1000);
+    if (num >= 0) {
+      num += 1;
+    }
+    return num
   }
 };
 var _03Year = methods$3;
@@ -3267,7 +3388,7 @@ const whereIts = (a, b) => {
 };
 var whereIts_1 = whereIts;
 
-var _version = '6.2.0';
+var _version = '6.2.1';
 
 const main$1 = (input, tz, options) => new spacetime(input, tz, options);
 

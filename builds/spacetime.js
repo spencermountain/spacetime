@@ -1059,32 +1059,16 @@
 	  reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?$/i,
 	  parse: function parse(s, arr) {
 	    var month = months$1[arr[2].toLowerCase()];
+
+	    if (!month) {
+	      return null;
+	    }
+
 	    var year = parseYear(arr[3]);
 	    var obj = {
 	      year: year,
 	      month: month,
 	      date: fns.toCardinal(arr[1])
-	    };
-
-	    if (hasDate_1(obj) === false) {
-	      s.epoch = null;
-	      return s;
-	    }
-
-	    walk_1(s, obj);
-	    s = parseTime_1(s);
-	    return s;
-	  }
-	}, {
-	  // '1992'
-	  reg: /^[0-9]{4}$/i,
-	  parse: function parse(s, arr) {
-	    var year = parseYear(arr[0]);
-	    var d = new Date();
-	    var obj = {
-	      year: year,
-	      month: d.getMonth(),
-	      date: d.getDate()
 	    };
 
 	    if (hasDate_1(obj) === false) {
@@ -1106,6 +1090,51 @@
 
 	    str = str.replace(/,/g, '');
 	    var year = parseInt(str.trim(), 10);
+	    var d = new Date();
+	    var obj = {
+	      year: year,
+	      month: d.getMonth(),
+	      date: d.getDate()
+	    };
+
+	    if (hasDate_1(obj) === false) {
+	      s.epoch = null;
+	      return s;
+	    }
+
+	    walk_1(s, obj);
+	    s = parseTime_1(s);
+	    return s;
+	  }
+	}, {
+	  // '200ad'
+	  reg: /^[0-9,]+ ?(a\.?d\.?|c\.?e\.?)$/i,
+	  parse: function parse(s, arr) {
+	    var str = arr[0] || ''; //remove commas
+
+	    str = str.replace(/,/g, '');
+	    var year = parseInt(str.trim(), 10);
+	    var d = new Date();
+	    var obj = {
+	      year: year,
+	      month: d.getMonth(),
+	      date: d.getDate()
+	    };
+
+	    if (hasDate_1(obj) === false) {
+	      s.epoch = null;
+	      return s;
+	    }
+
+	    walk_1(s, obj);
+	    s = parseTime_1(s);
+	    return s;
+	  }
+	}, {
+	  // '1992'
+	  reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
+	  parse: function parse(s, arr) {
+	    var year = parseYear(arr[0]);
 	    var d = new Date();
 	    var obj = {
 	      year: year,
@@ -1287,8 +1316,11 @@
 	    var m = input.match(strParse[i].reg);
 
 	    if (m) {
-	      s = strParse[i].parse(s, m, givenTz);
-	      return s;
+	      var res = strParse[i].parse(s, m, givenTz);
+
+	      if (res !== null) {
+	        return res;
+	      }
 	    }
 	  }
 
@@ -1475,6 +1507,9 @@
 	  era: function era(s) {
 	    return s.era();
 	  },
+	  json: function json(s) {
+	    return s.json();
+	  },
 	  timezone: function timezone(s) {
 	    return s.timezone().name;
 	  },
@@ -1571,10 +1606,14 @@
 
 
 	  if (format.hasOwnProperty(str)) {
-	    var out = String(format[str](s) || '');
+	    var out = format[str](s) || '';
 
-	    if (str !== 'ampm') {
-	      out = fns.titleCase(out);
+	    if (str !== 'json') {
+	      out = String(out);
+
+	      if (str !== 'ampm') {
+	        out = fns.titleCase(out);
+	      }
 	    }
 
 	    return out;
@@ -2338,7 +2377,8 @@
 	  },
 	  century: function century(s) {
 	    s = s.startOf('year');
-	    var year = s.year();
+	    var year = s.year(); // near 0AD goes '-1 | +1'
+
 	    var decade = parseInt(year / 100, 10) * 100;
 	    s = s.year(decade);
 	    return s;
@@ -2532,6 +2572,8 @@
 
 	var timezone_1 = timezone;
 
+	var units$3 = ['century', 'decade', 'year', 'month', 'date', 'day', 'hour', 'minute', 'second', 'millisecond']; //the spacetime instance methods (also, the API)
+
 	var methods = {
 	  set: function set(input$1, tz) {
 	    var s = this.clone();
@@ -2640,6 +2682,14 @@
 	    console.log('');
 	    console.log(format_1(this, 'full-short'));
 	    return this;
+	  },
+	  json: function json() {
+	    var _this = this;
+
+	    return units$3.reduce(function (h, unit) {
+	      h[unit] = _this[unit]();
+	      return h;
+	    }, {});
 	  },
 	  debug: function debug() {
 	    var tz = this.timezone();
@@ -3328,6 +3378,92 @@
 	    }
 
 	    return 'AD';
+	  },
+	  // 2019 -> 2010
+	  decade: function decade(input) {
+	    if (input !== undefined) {
+	      input = String(input);
+	      input = input.replace(/([0-9])'?s$/, '$1'); //1950's
+
+	      if (!input) {
+	        console.warn('Spacetime: Invalid decade input');
+	        return this;
+	      } // assume 20th century?? for '70s'.
+
+
+	      if (input.length === 2 && /[0-9][0-9]/.test(input)) {
+	        input = '19' + input;
+	      }
+
+	      return this.year(input).startOf('decade');
+	    }
+
+	    return this.startOf('decade').year();
+	  },
+	  // 1950 -> 19+1
+	  century: function century(input) {
+	    if (input !== undefined) {
+	      if (typeof input === 'string') {
+	        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
+
+	        input = input.replace(/c$/, ''); //20thC
+
+	        input = Number(input);
+
+	        if (isNaN(input)) {
+	          console.warn('Spacetime: Invalid century input');
+	          return this;
+	        }
+	      }
+
+	      var year = (input - 1) * 100; // there is no year 0
+
+	      if (year === 0) {
+	        year = 1;
+	      }
+
+	      return this.year(year).startOf('century');
+	    }
+
+	    var num = this.startOf('century').year();
+	    num = Math.floor(num / 100);
+	    return num + 1;
+	  },
+	  // 2019 -> 2+1
+	  millenium: function millenium(input) {
+	    if (input !== undefined) {
+	      if (typeof input === 'string') {
+	        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
+
+	        input = Number(input);
+
+	        if (isNaN(input)) {
+	          console.warn('Spacetime: Invalid millenium input');
+	          return this;
+	        }
+	      }
+
+	      if (input > 0) {
+	        input -= 1;
+	      }
+
+	      var year = input * 1000; // there is no year 0
+
+	      if (year === 0) {
+	        year = 1;
+	      }
+
+	      return this.year(year);
+	    } // get the current millenium
+
+
+	    var num = Math.floor(this.year() / 1000);
+
+	    if (num >= 0) {
+	      num += 1;
+	    }
+
+	    return num;
 	  }
 	};
 	var _03Year = methods$3;
@@ -3761,7 +3897,7 @@
 
 	var whereIts_1 = whereIts;
 
-	var _version = '6.2.0';
+	var _version = '6.2.1';
 
 	var main$1 = function main(input, tz, options) {
 	  return new spacetime(input, tz, options);
