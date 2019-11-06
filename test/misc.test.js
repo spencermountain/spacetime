@@ -97,3 +97,53 @@ test('week number', t => {
   // t.equal(spacetime('jan 15th 2019').week(), 3, '2019 third week') //tuesday
   t.end()
 })
+
+test('century', t => {
+  let s = spacetime('Nov 2 2019', 'America/New_York')
+  t.equal(s.century(), 21, '21st century')
+
+  s = spacetime('1892', 'America/New_York')
+  t.equal(s.century(), 19, '19th century')
+
+  s = spacetime('300BC', 'America/New_York')
+  t.equal(s.century(), -3, '-3rd century?')
+
+  s = spacetime('2AD', 'America/Chicago')
+  t.equal(s.century(), 0, '0th century?')
+
+  t.end()
+})
+
+test('decade', t => {
+  let s = spacetime('Nov 2 2019', 'America/New_York')
+  t.equal(s.decade(), 2010, '2010')
+  s = spacetime('jan 1 2020')
+  t.equal(s.decade(), 2020, '2020')
+
+  s = spacetime('300BC', 'America/New_York')
+  t.equal(s.decade(), -300, '-300th century?')
+
+  s = spacetime('2AD')
+  t.equal(s.decade(), 0, '0th decade')
+
+  t.end()
+})
+
+test('json', t => {
+  let s = spacetime('2019-11-05T11:01:03.030-03:00')
+  let json = s.format('json')
+  let want = {
+    century: 21,
+    decade: 2010,
+    year: 2019,
+    month: 10,
+    date: 5,
+    day: 2,
+    hour: 11,
+    minute: 1,
+    second: 3,
+    millisecond: 30
+  }
+  t.deepEqual(json, want, 'correct json response')
+  t.end()
+})
