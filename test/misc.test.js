@@ -144,6 +144,8 @@ test('json', t => {
     second: 3,
     millisecond: 30
   }
-  t.deepEqual(json, want, 'correct json response')
+  Object.keys(want).forEach(k => {
+    t.equal(want[k], json[k], 'json-' + k)
+  })
   t.end()
 })
