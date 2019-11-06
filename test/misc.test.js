@@ -98,36 +98,6 @@ test('week number', t => {
   t.end()
 })
 
-test('century', t => {
-  let s = spacetime('Nov 2 2019', 'America/New_York')
-  t.equal(s.century(), 21, '21st century')
-
-  s = spacetime('1892', 'America/New_York')
-  t.equal(s.century(), 19, '19th century')
-
-  s = spacetime('300BC', 'America/New_York')
-  t.equal(s.century(), -3, '-3rd century?')
-
-  s = spacetime('2AD', 'America/Chicago')
-  t.equal(s.century(), 0, '0th century?')
-
-  t.end()
-})
-
-test('decade', t => {
-  let s = spacetime('Nov 2 2019', 'America/New_York')
-  t.equal(s.decade(), 2010, '2010')
-  s = spacetime('jan 1 2020')
-  t.equal(s.decade(), 2020, '2020')
-
-  s = spacetime('300BC', 'America/New_York')
-  t.equal(s.decade(), -300, '-300th century?')
-
-  s = spacetime('2AD')
-  t.equal(s.decade(), 0, '0th decade')
-
-  t.end()
-})
 
 test('json', t => {
   let s = spacetime('2019-11-05T11:01:03.030-03:00')

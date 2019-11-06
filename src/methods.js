@@ -117,14 +117,6 @@ const methods = {
   isAsleep: function() {
     return !this.isAwake()
   },
-  century: function() {
-    let num = this.startOf('century').year()
-    num = Math.floor(num / 100)
-    return num + 1
-  },
-  decade: function() {
-    return this.startOf('decade').year()
-  },
   //pretty-printing
   log: function() {
     console.log('')

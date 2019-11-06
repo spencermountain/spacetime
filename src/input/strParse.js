@@ -151,31 +151,14 @@ const strFmt = [
     reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?$/i,
     parse: (s, arr) => {
       let month = months[arr[2].toLowerCase()]
+      if (!month) {
+        return null
+      }
       let year = parseYear(arr[3])
       let obj = {
         year,
         month,
         date: fns.toCardinal(arr[1])
-      }
-      if (hasDate(obj) === false) {
-        s.epoch = null
-        return s
-      }
-      walkTo(s, obj)
-      s = parseTime(s)
-      return s
-    }
-  },
-  {
-    // '1992'
-    reg: /^[0-9]{4}$/i,
-    parse: (s, arr) => {
-      let year = parseYear(arr[0])
-      let d = new Date()
-      let obj = {
-        year,
-        month: d.getMonth(),
-        date: d.getDate()
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -196,6 +179,49 @@ const strFmt = [
       //remove commas
       str = str.replace(/,/g, '')
       let year = parseInt(str.trim(), 10)
+      let d = new Date()
+      let obj = {
+        year,
+        month: d.getMonth(),
+        date: d.getDate()
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      walkTo(s, obj)
+      s = parseTime(s)
+      return s
+    }
+  },
+  {
+    // '200ad'
+    reg: /^[0-9,]+ ?(a\.?d\.?|c\.?e\.?)$/i,
+    parse: (s, arr) => {
+      let str = arr[0] || ''
+      //remove commas
+      str = str.replace(/,/g, '')
+      let year = parseInt(str.trim(), 10)
+      let d = new Date()
+      let obj = {
+        year,
+        month: d.getMonth(),
+        date: d.getDate()
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      walkTo(s, obj)
+      s = parseTime(s)
+      return s
+    }
+  },
+  {
+    // '1992'
+    reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
+    parse: (s, arr) => {
+      let year = parseYear(arr[0])
       let d = new Date()
       let obj = {
         year,

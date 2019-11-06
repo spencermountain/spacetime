@@ -144,6 +144,7 @@ s = s.last('year') //start of the last year
 s.clone() // Make a copy
 s.isValid() // Sept 32nd → false
 s.isAwake() // it's between 8am → 10pm
+s.json() // get values in every unit as key-val object
 ```
 
 ### Comparisons:

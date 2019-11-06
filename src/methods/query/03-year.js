@@ -174,6 +174,75 @@ const methods = {
       return 'BC'
     }
     return 'AD'
+  },
+
+  // 2019 -> 2010
+  decade: function(input) {
+    if (input !== undefined) {
+      input = String(input)
+      input = input.replace(/([0-9])'?s$/, '$1') //1950's
+      if (!input) {
+        console.warn('Spacetime: Invalid decade input')
+        return this
+      }
+      // assume 20th century?? for '70s'.
+      if (input.length === 2 && /[0-9][0-9]/.test(input)) {
+        input = '19' + input
+      }
+      return this.year(input).startOf('decade')
+    }
+    return this.startOf('decade').year()
+  },
+  // 1950 -> 19+1
+  century: function(input) {
+    if (input !== undefined) {
+      if (typeof input === 'string') {
+        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
+        input = input.replace(/c$/, '') //20thC
+        input = Number(input)
+        if (isNaN(input)) {
+          console.warn('Spacetime: Invalid century input')
+          return this
+        }
+      }
+      let year = (input - 1) * 100
+      // there is no year 0
+      if (year === 0) {
+        year = 1
+      }
+      return this.year(year).startOf('century')
+    }
+    let num = this.startOf('century').year()
+    num = Math.floor(num / 100)
+    return num + 1
+  },
+  // 2019 -> 2+1
+  millenium: function(input) {
+    if (input !== undefined) {
+      if (typeof input === 'string') {
+        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
+        input = Number(input)
+        if (isNaN(input)) {
+          console.warn('Spacetime: Invalid millenium input')
+          return this
+        }
+      }
+      if (input > 0) {
+        input -= 1
+      }
+      let year = input * 1000
+      // there is no year 0
+      if (year === 0) {
+        year = 1
+      }
+      return this.year(year)
+    }
+    // get the current millenium
+    let num = Math.floor(this.year() / 1000)
+    if (num >= 0) {
+      num += 1
+    }
+    return num
   }
 }
 module.exports = methods
