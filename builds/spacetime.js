@@ -3761,7 +3761,7 @@
 
 	var whereIts_1 = whereIts;
 
-	var _version = '6.2.0';
+	var _version = '6.2.1';
 
 	var main$1 = function main(input, tz, options) {
 	  return new spacetime(input, tz, options);
