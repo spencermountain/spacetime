@@ -1927,7 +1927,7 @@ module.exports = {
   'pacific/chatham': {
     offset: 12.75,
     hem: 's',
-    dst: '04/07:03->04/07:02'
+    dst: '04/07:03->09/29:02'
   },
   'pacific/chuuk': {
     offset: 10,
@@ -1953,7 +1953,7 @@ module.exports = {
   'pacific/fiji': {
     offset: 12,
     hem: 's',
-    dst: '01/13:03->11/03:02'
+    dst: '01/13:03->11/10:02'
   },
   'pacific/funafuti': {
     offset: 12,

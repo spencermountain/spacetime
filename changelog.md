@@ -177,3 +177,8 @@
 ## v6.2.1
 - fix typescript types
   
+## v6.3.0
+- add `.decade()` 
+- add `.century()` 
+- add `.millenium()` 
+- add `.json()` method
