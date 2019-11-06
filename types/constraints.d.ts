@@ -51,6 +51,7 @@ export type Format =
   | 'numeric-uk'
   | 'mm/dd'
   | 'iso'
+  | 'json'
   | 'iso-short'
   | 'iso-utc'
   | 'nice'

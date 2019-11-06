@@ -80,8 +80,20 @@ export interface Spacetime {
   /** does this time exist on the gregorian/javascript calendar? */
   isValid: () => boolean
 
+  /** which century is it? */
+  century: () => number
+
+  /** which decade is it? */
+  decade: () => number
+
   /** pretty-print the date to the console, for nicer debugging */
   log: () => string
+
+  /** pretty-print the full-date to the console, for nice debugging */
+  logYear: () => string
+
+  /** return all date units as a key-value map */
+  json: () => string
 
   /** Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
   progress: (unit?: string) => Progress

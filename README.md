@@ -117,6 +117,8 @@ s = s.day('monday') // Change to (this week's) monday
 s = s.month('march') // Change to (this year's) March 1st
 s = s.quarter(2) // Change to April 1st
 s.era() // 'BC'/'AD'
+s.decade() // 2000
+s.century() // 21
 
 // Percentage-based information
 s.progress().month = 0.23 // We're a quarter way through the month
