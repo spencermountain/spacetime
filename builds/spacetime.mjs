@@ -206,9 +206,9 @@ var _build = {
 	"13|s|01/15:02->11/05:03": "11/tongatapu",
 	"13|n": "11/enderbury,11/fakaofo",
 	"12|s|04/07:03->09/29:02": "12/mcmurdo,12/south_pole,11/auckland",
-	"12|s|01/13:03->11/03:02": "11/fiji",
+	"12|s|01/13:03->11/10:02": "11/fiji",
 	"12|n": "2/anadyr,2/kamchatka,2/srednekolymsk,11/funafuti,11/kwajalein,11/majuro,11/nauru,11/tarawa,11/wake,11/wallis",
-	"12.75|s|04/07:03->04/07:02": "11/chatham",
+	"12.75|s|04/07:03->09/29:02": "11/chatham",
 	"11|s": "12/macquarie,11/bougainville",
 	"11|n": "2/magadan,2/sakhalin,11/efate,11/guadalcanal,11/kosrae,11/noumea,11/pohnpei,11/ponape",
 	"11.5|n": "11/norfolk",
@@ -243,8 +243,7 @@ var _build = {
 	"-4|n|03/10:02->11/03:02": "1/detroit,1/fort_wayne,1/grand_turk,1/indianapolis,1/iqaluit,1/louisville,1/montreal,1/nassau,1/new_york,1/nipigon,1/pangnirtung,1/port-au-prince,1/thunder_bay,1/toronto,6/eastern",
 	"-4|n|03/10:00->11/03:01": "1/havana",
 	"-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/porto_velho,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin",
-	"-3|s|02/16:24->11/03:00": "1/sao_paulo,5/east",
-	"-3|s": "1/argentina,1/buenos_aires,1/cordoba,1/fortaleza,1/montevideo,1/punta_arenas,12/rothera,3/stanley",
+	"-3|s": "1/argentina,1/buenos_aires,1/cordoba,1/fortaleza,1/montevideo,1/punta_arenas,1/sao_paulo,12/rothera,3/stanley,5/east",
 	"-3|n|03/10:02->11/03:02": "1/glace_bay,1/goose_bay,1/halifax,1/moncton,1/thule,3/bermuda,6/atlantic",
 	"-3|n": "1/araguaina,1/bahia,1/belem,1/catamarca,1/cayenne,1/jujuy,1/maceio,1/mendoza,1/paramaribo,1/recife,1/rosario,1/santarem",
 	"-2|s": "5/denoronha",
@@ -509,7 +508,7 @@ const walk = (s, n, fn, unit, previous) => {
     // console.warn('spacetime warning: missed setting ' + unit)
     s.epoch = original;
     // i mean, but make it close...
-    s.epoch += milliseconds[unit] * diff * 0.97; // i guess?
+    s.epoch += milliseconds[unit] * diff * 0.89; // i guess?
   }
 };
 //find the desired date by a increment/check while loop
@@ -524,7 +523,7 @@ const units = {
       let d = s.d;
       let current = d.getMonth();
       let original = s.epoch;
-      let startUnit = d.getYear();
+      let startUnit = d.getFullYear();
       if (current === n) {
         return
       }
@@ -532,7 +531,7 @@ const units = {
       let diff = n - current;
       s.epoch += milliseconds.day * (diff * 28); //special case
       //oops, did we change the year? revert it.
-      if (startUnit !== s.d.getYear()) {
+      if (startUnit !== s.d.getFullYear()) {
         s.epoch = original;
       }
       //incriment by day
@@ -830,9 +829,9 @@ const strFmt = [
       return s
     }
   },
-  //iso "2015-03-25" or "2015/03/25" //0-based-months!
+  //iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
   {
-    reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2})$/,
+    reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2}),?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
     parse: (s, arr) => {
       let obj = {
         year: arr[1],
@@ -849,13 +848,13 @@ const strFmt = [
         return s
       }
       walk_1(s, obj);
-      s = parseTime_1(s);
+      s = parseTime_1(s, arr[4]);
       return s
     }
   },
-  //short - uk "03/25/2015"  //0-based-months!
+  //mm/dd/yyyy - uk/canada "6/28/2019, 12:26:14 PM"
   {
-    reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/,
+    reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?,?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
     parse: (s, arr) => {
       let month = parseInt(arr[1], 10) - 1;
       let date = parseInt(arr[2], 10);
@@ -875,7 +874,7 @@ const strFmt = [
         return s
       }
       walk_1(s, obj);
-      s = parseTime_1(s);
+      s = parseTime_1(s, arr[4]);
       return s
     }
   },
@@ -903,7 +902,7 @@ const strFmt = [
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {
-    reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm)?))?$/i,
+    reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
     parse: (s, arr) => {
       let month = months$1[arr[1].toLowerCase()];
       let year = parseYear(arr[3]);
@@ -943,9 +942,12 @@ const strFmt = [
   },
   //Long "25 Mar 2015"
   {
-    reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?$/i,
+    reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?,? ?([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
     parse: (s, arr) => {
       let month = months$1[arr[2].toLowerCase()];
+      if (!month) {
+        return null
+      }
       let year = parseYear(arr[3]);
       let obj = {
         year,
@@ -957,15 +959,20 @@ const strFmt = [
         return s
       }
       walk_1(s, obj);
-      s = parseTime_1(s);
+      s = parseTime_1(s, arr[4]);
       return s
     }
   },
   {
-    // '1992'
-    reg: /^[0-9]{4}$/i,
+    // '200bc'
+    reg: /^[0-9,]+ ?b\.?c\.?$/i,
     parse: (s, arr) => {
-      let year = parseYear(arr[0]);
+      let str = arr[0] || '';
+      //make negative-year
+      str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1');
+      //remove commas
+      str = str.replace(/,/g, '');
+      let year = parseInt(str.trim(), 10);
       let d = new Date();
       let obj = {
         year,
@@ -982,15 +989,33 @@ const strFmt = [
     }
   },
   {
-    // '200bc'
-    reg: /^[0-9,]+ ?b\.?c\.?$/i,
+    // '200ad'
+    reg: /^[0-9,]+ ?(a\.?d\.?|c\.?e\.?)$/i,
     parse: (s, arr) => {
       let str = arr[0] || '';
-      //make negative-year
-      str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1');
       //remove commas
       str = str.replace(/,/g, '');
       let year = parseInt(str.trim(), 10);
+      let d = new Date();
+      let obj = {
+        year,
+        month: d.getMonth(),
+        date: d.getDate()
+      };
+      if (hasDate_1(obj) === false) {
+        s.epoch = null;
+        return s
+      }
+      walk_1(s, obj);
+      s = parseTime_1(s);
+      return s
+    }
+  },
+  {
+    // '1992'
+    reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
+    parse: (s, arr) => {
+      let year = parseYear(arr[0]);
       let d = new Date();
       let obj = {
         year,
@@ -1155,8 +1180,10 @@ const parseInput = (s, input, givenTz) => {
   for (let i = 0; i < strParse.length; i++) {
     let m = input.match(strParse[i].reg);
     if (m) {
-      s = strParse[i].parse(s, m, givenTz);
-      return s
+      let res = strParse[i].parse(s, m, givenTz);
+      if (res !== null) {
+        return res
+      }
     }
   }
   if (s.silent === false) {
@@ -1276,6 +1303,7 @@ const format = {
   quarter: s => 'Q' + s.quarter(),
   season: s => s.season(),
   era: s => s.era(),
+  json: s => s.json(),
   timezone: s => s.timezone().name,
   offset: s => _offset(s),
 
@@ -1346,9 +1374,12 @@ const printFormat = (s, str = '') => {
   }
   //support .format('month')
   if (format.hasOwnProperty(str)) {
-    let out = String(format[str](s) || '');
-    if (str !== 'ampm') {
-      out = fns.titleCase(out);
+    let out = format[str](s) || '';
+    if (str !== 'json') {
+      out = String(out);
+      if (str !== 'ampm') {
+        out = fns.titleCase(out);
+      }
     }
     return out
   }
@@ -1973,6 +2004,7 @@ const units$2 = {
   century: s => {
     s = s.startOf('year');
     let year = s.year();
+    // near 0AD goes '-1 | +1'
     let decade = parseInt(year / 100, 10) * 100;
     s = s.year(decade);
     return s
@@ -2136,6 +2168,19 @@ const timezone = s => {
 };
 var timezone_1 = timezone;
 
+const units$3 = [
+  'century',
+  'decade',
+  'year',
+  'month',
+  'date',
+  'day',
+  'hour',
+  'minute',
+  'second',
+  'millisecond'
+];
+
 //the spacetime instance methods (also, the API)
 const methods = {
   set: function(input$1, tz) {
@@ -2239,6 +2284,12 @@ const methods = {
     console.log('');
     console.log(format_1(this, 'full-short'));
     return this
+  },
+  json: function() {
+    return units$3.reduce((h, unit) => {
+      h[unit] = this[unit]();
+      return h
+    }, {})
   },
   debug: function() {
     let tz = this.timezone();
@@ -2713,7 +2764,7 @@ const methods$3 = {
     for (let i = 1; i <= month; i++) {
       tmp = new Date();
       tmp.setDate(1);
-      tmp.setYear(this.d.getFullYear()); //the year matters, because leap-years
+      tmp.setFullYear(this.d.getFullYear()); //the year matters, because leap-years
       tmp.setHours(1);
       tmp.setMinutes(1);
       tmp.setMonth(i);
@@ -2725,6 +2776,7 @@ const methods$3 = {
 
   //since the start of the year
   week: function(num) {
+    // week-setter
     if (num !== undefined) {
       let s = this.clone();
       s = s.month(0);
@@ -2749,6 +2801,12 @@ const methods$3 = {
     if (tmp.monthName() === 'december') {
       tmp = tmp.add(1, 'week');
     }
+    // is first monday the 1st?
+    let toAdd = 1;
+    if (tmp.date() === 1) {
+      toAdd = 0;
+    }
+    tmp = tmp.minus(1, 'second');
     const thisOne = this.epoch;
     //if the week technically hasn't started yet
     if (tmp.epoch > thisOne) {
@@ -2761,7 +2819,7 @@ const methods$3 = {
     i += skipWeeks;
     for (; i < 52; i++) {
       if (tmp.epoch > thisOne) {
-        return i
+        return i + toAdd
       }
       tmp = tmp.add(1, 'week');
     }
@@ -2860,6 +2918,96 @@ const methods$3 = {
       return 'BC'
     }
     return 'AD'
+  },
+
+  // 2019 -> 2010
+  decade: function(input) {
+    if (input !== undefined) {
+      input = String(input);
+      input = input.replace(/([0-9])'?s$/, '$1'); //1950's
+      input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
+      if (!input) {
+        console.warn('Spacetime: Invalid decade input');
+        return this
+      }
+      // assume 20th century?? for '70s'.
+      if (input.length === 2 && /[0-9][0-9]/.test(input)) {
+        input = '19' + input;
+      }
+      let year = Number(input);
+      if (isNaN(year)) {
+        return this
+      }
+      // round it down to the decade
+      year = Math.floor(year / 10) * 10;
+      return this.year(year) //.startOf('decade')
+    }
+    return this.startOf('decade').year()
+  },
+  // 1950 -> 19+1
+  century: function(input) {
+    if (input !== undefined) {
+      if (typeof input === 'string') {
+        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
+        input = input.replace(/([0-9]+) ?(b\.?c\.?|a\.?d\.?)/i, (a, b, c) => {
+          if (c.match(/b\.?c\.?/i)) {
+            b = '-' + b;
+          }
+          return b
+        });
+        input = input.replace(/c$/, ''); //20thC
+      }
+      let year = Number(input);
+      if (isNaN(input)) {
+        console.warn('Spacetime: Invalid century input');
+        return this
+      }
+      // there is no century 0
+      if (year === 0) {
+        year = 1;
+      }
+      if (year >= 0) {
+        year = (year - 1) * 100;
+      } else {
+        year = (year + 1) * 100;
+      }
+      return this.year(year)
+    }
+    // century getter
+    let num = this.startOf('century').year();
+    num = Math.floor(num / 100);
+    if (num < 0) {
+      return num - 1
+    }
+    return num + 1
+  },
+  // 2019 -> 2+1
+  millenium: function(input) {
+    if (input !== undefined) {
+      if (typeof input === 'string') {
+        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
+        input = Number(input);
+        if (isNaN(input)) {
+          console.warn('Spacetime: Invalid millenium input');
+          return this
+        }
+      }
+      if (input > 0) {
+        input -= 1;
+      }
+      let year = input * 1000;
+      // there is no year 0
+      if (year === 0) {
+        year = 1;
+      }
+      return this.year(year)
+    }
+    // get the current millenium
+    let num = Math.floor(this.year() / 1000);
+    if (num >= 0) {
+      num += 1;
+    }
+    return num
   }
 };
 var _03Year = methods$3;
@@ -3267,7 +3415,7 @@ const whereIts = (a, b) => {
 };
 var whereIts_1 = whereIts;
 
-var _version = '6.2.1';
+var _version = '6.3.0';
 
 const main$1 = (input, tz, options) => new spacetime(input, tz, options);
 

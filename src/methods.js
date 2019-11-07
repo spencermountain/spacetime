@@ -11,6 +11,18 @@ const findTz = require('./timezone/find')
 const handleInput = require('./input')
 const fns = require('./fns')
 const days = require('./data/days')
+const units = [
+  'century',
+  'decade',
+  'year',
+  'month',
+  'date',
+  'day',
+  'hour',
+  'minute',
+  'second',
+  'millisecond'
+]
 
 //the spacetime instance methods (also, the API)
 const methods = {
@@ -115,6 +127,12 @@ const methods = {
     console.log('')
     console.log(format(this, 'full-short'))
     return this
+  },
+  json: function() {
+    return units.reduce((h, unit) => {
+      h[unit] = this[unit]()
+      return h
+    }, {})
   },
   debug: function() {
     let tz = this.timezone()

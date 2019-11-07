@@ -65,6 +65,7 @@ const format = {
   quarter: s => 'Q' + s.quarter(),
   season: s => s.season(),
   era: s => s.era(),
+  json: s => s.json(),
   timezone: s => s.timezone().name,
   offset: s => isoOffset(s),
 
@@ -135,9 +136,12 @@ const printFormat = (s, str = '') => {
   }
   //support .format('month')
   if (format.hasOwnProperty(str)) {
-    let out = String(format[str](s) || '')
-    if (str !== 'ampm') {
-      out = fns.titleCase(out)
+    let out = format[str](s) || ''
+    if (str !== 'json') {
+      out = String(out)
+      if (str !== 'ampm') {
+        out = fns.titleCase(out)
+      }
     }
     return out
   }

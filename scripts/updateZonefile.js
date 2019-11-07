@@ -99,8 +99,8 @@ const doAll = () => {
       //compare offsets
       if (obj.offset !== null && obj.offset !== data[k].o) {
         console.log('\n----offset change ' + k + '----')
-        console.log('to: ' + obj.offset)
         console.log('from: ' + data[k].o)
+        console.log('to: ' + obj.offset)
       }
       //compare DST-change day
       if (obj.dst !== data[k].dst) {

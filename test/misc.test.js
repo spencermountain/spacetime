@@ -97,3 +97,31 @@ test('week number', t => {
   // t.equal(spacetime('jan 15th 2019').week(), 3, '2019 third week') //tuesday
   t.end()
 })
+
+test('json', t => {
+  let s = spacetime('2019-11-05T11:01:03.030-03:00')
+  let json = s.format('json')
+  let want = {
+    century: 21,
+    decade: 2010,
+    year: 2019,
+    month: 10,
+    date: 5,
+    day: 2,
+    hour: 11,
+    minute: 1,
+    second: 3,
+    millisecond: 30
+  }
+  Object.keys(want).forEach(k => {
+    t.equal(want[k], json[k], 'json-' + k)
+  })
+  t.end()
+})
+
+test('set-time rollover dst', t => {
+  let s = spacetime('6 October 2019', 'australia/sydney').time('4:20am')
+  t.equal(s.date(), 6, 'still the 6th')
+  t.equal(s.time(), '4:20am', 'correct time')
+  t.end()
+})

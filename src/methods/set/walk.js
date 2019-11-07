@@ -33,7 +33,7 @@ const walk = (s, n, fn, unit, previous) => {
     // console.warn('spacetime warning: missed setting ' + unit)
     s.epoch = original
     // i mean, but make it close...
-    s.epoch += ms[unit] * diff * 0.97 // i guess?
+    s.epoch += ms[unit] * diff * 0.89 // i guess?
   }
 }
 //find the desired date by a increment/check while loop
@@ -48,7 +48,7 @@ const units = {
       let d = s.d
       let current = d.getMonth()
       let original = s.epoch
-      let startUnit = d.getYear()
+      let startUnit = d.getFullYear()
       if (current === n) {
         return
       }
@@ -56,7 +56,7 @@ const units = {
       let diff = n - current
       s.epoch += ms.day * (diff * 28) //special case
       //oops, did we change the year? revert it.
-      if (startUnit !== s.d.getYear()) {
+      if (startUnit !== s.d.getFullYear()) {
         s.epoch = original
       }
       //incriment by day

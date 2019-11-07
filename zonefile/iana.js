@@ -756,8 +756,8 @@ module.exports = {
   },
   'america/sao_paulo': {
     offset: -3,
-    hem: 's',
-    dst: '02/16:24->11/03:00'
+    hem: 's'
+    // dst: '02/16:24->11/03:00'
   },
   'america/scoresbysund': {
     offset: 0,
@@ -1483,8 +1483,8 @@ module.exports = {
   },
   'brazil/east': {
     offset: -3,
-    hem: 's',
-    dst: '02/16:24->11/03:00'
+    hem: 's'
+    // dst: '02/16:24->11/03:00'
   },
   'brazil/west': {
     offset: -4,
@@ -1927,7 +1927,7 @@ module.exports = {
   'pacific/chatham': {
     offset: 12.75,
     hem: 's',
-    dst: '04/07:03->04/07:02'
+    dst: '04/07:03->09/29:02'
   },
   'pacific/chuuk': {
     offset: 10,
@@ -1953,7 +1953,7 @@ module.exports = {
   'pacific/fiji': {
     offset: 12,
     hem: 's',
-    dst: '01/13:03->11/03:02'
+    dst: '01/13:03->11/10:02'
   },
   'pacific/funafuti': {
     offset: 12,

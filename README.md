@@ -117,6 +117,8 @@ s = s.day('monday') // Change to (this week's) monday
 s = s.month('march') // Change to (this year's) March 1st
 s = s.quarter(2) // Change to April 1st
 s.era() // 'BC'/'AD'
+s.decade() // 2000
+s.century() // 21
 
 // Percentage-based information
 s.progress().month = 0.23 // We're a quarter way through the month
@@ -142,6 +144,7 @@ s = s.last('year') //start of the last year
 s.clone() // Make a copy
 s.isValid() // Sept 32nd → false
 s.isAwake() // it's between 8am → 10pm
+s.json() // get values in every unit as key-val object
 ```
 
 ### Comparisons:

@@ -35,9 +35,9 @@ const strFmt = [
       return s
     }
   },
-  //iso "2015-03-25" or "2015/03/25" //0-based-months!
+  //iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
   {
-    reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2})$/,
+    reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2}),?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
     parse: (s, arr) => {
       let obj = {
         year: arr[1],
@@ -54,13 +54,13 @@ const strFmt = [
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s)
+      s = parseTime(s, arr[4])
       return s
     }
   },
-  //short - uk "03/25/2015"  //0-based-months!
+  //mm/dd/yyyy - uk/canada "6/28/2019, 12:26:14 PM"
   {
-    reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/,
+    reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?,?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
     parse: (s, arr) => {
       let month = parseInt(arr[1], 10) - 1
       let date = parseInt(arr[2], 10)
@@ -80,7 +80,7 @@ const strFmt = [
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s)
+      s = parseTime(s, arr[4])
       return s
     }
   },
@@ -108,7 +108,7 @@ const strFmt = [
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {
-    reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm)?))?$/i,
+    reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
     parse: (s, arr) => {
       let month = months[arr[1].toLowerCase()]
       let year = parseYear(arr[3])
@@ -148,9 +148,12 @@ const strFmt = [
   },
   //Long "25 Mar 2015"
   {
-    reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?$/i,
+    reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?,? ?([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
     parse: (s, arr) => {
       let month = months[arr[2].toLowerCase()]
+      if (!month) {
+        return null
+      }
       let year = parseYear(arr[3])
       let obj = {
         year,
@@ -162,15 +165,20 @@ const strFmt = [
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s)
+      s = parseTime(s, arr[4])
       return s
     }
   },
   {
-    // '1992'
-    reg: /^[0-9]{4}$/i,
+    // '200bc'
+    reg: /^[0-9,]+ ?b\.?c\.?$/i,
     parse: (s, arr) => {
-      let year = parseYear(arr[0])
+      let str = arr[0] || ''
+      //make negative-year
+      str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1')
+      //remove commas
+      str = str.replace(/,/g, '')
+      let year = parseInt(str.trim(), 10)
       let d = new Date()
       let obj = {
         year,
@@ -187,15 +195,33 @@ const strFmt = [
     }
   },
   {
-    // '200bc'
-    reg: /^[0-9,]+ ?b\.?c\.?$/i,
+    // '200ad'
+    reg: /^[0-9,]+ ?(a\.?d\.?|c\.?e\.?)$/i,
     parse: (s, arr) => {
       let str = arr[0] || ''
-      //make negative-year
-      str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1')
       //remove commas
       str = str.replace(/,/g, '')
       let year = parseInt(str.trim(), 10)
+      let d = new Date()
+      let obj = {
+        year,
+        month: d.getMonth(),
+        date: d.getDate()
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      walkTo(s, obj)
+      s = parseTime(s)
+      return s
+    }
+  },
+  {
+    // '1992'
+    reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
+    parse: (s, arr) => {
+      let year = parseYear(arr[0])
       let d = new Date()
       let obj = {
         year,

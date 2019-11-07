@@ -131,6 +131,7 @@ const units = {
   century: s => {
     s = s.startOf('year')
     let year = s.year()
+    // near 0AD goes '-1 | +1'
     let decade = parseInt(year / 100, 10) * 100
     s = s.year(decade)
     return s
