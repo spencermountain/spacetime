@@ -182,3 +182,6 @@
 - add `.century()` 
 - add `.millenium()` 
 - add `.json()` method
+- remove dst for Brazil
+- fix .week() counting logic
+- change overflow error-amount for #166
