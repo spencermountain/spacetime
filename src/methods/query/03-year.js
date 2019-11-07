@@ -27,7 +27,7 @@ const methods = {
     for (let i = 1; i <= month; i++) {
       tmp = new Date()
       tmp.setDate(1)
-      tmp.setYear(this.d.getFullYear()) //the year matters, because leap-years
+      tmp.setFullYear(this.d.getFullYear()) //the year matters, because leap-years
       tmp.setHours(1)
       tmp.setMinutes(1)
       tmp.setMonth(i)
@@ -181,6 +181,7 @@ const methods = {
     if (input !== undefined) {
       input = String(input)
       input = input.replace(/([0-9])'?s$/, '$1') //1950's
+      input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
       if (!input) {
         console.warn('Spacetime: Invalid decade input')
         return this
@@ -189,7 +190,13 @@ const methods = {
       if (input.length === 2 && /[0-9][0-9]/.test(input)) {
         input = '19' + input
       }
-      return this.year(input).startOf('decade')
+      let year = Number(input)
+      if (isNaN(year)) {
+        return this
+      }
+      // round it down to the decade
+      year = Math.floor(year / 10) * 10
+      return this.year(year) //.startOf('decade')
     }
     return this.startOf('decade').year()
   },
@@ -198,22 +205,36 @@ const methods = {
     if (input !== undefined) {
       if (typeof input === 'string') {
         input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
+        input = input.replace(/([0-9]+) ?(b\.?c\.?|a\.?d\.?)/i, (a, b, c) => {
+          if (c.match(/b\.?c\.?/i)) {
+            b = '-' + b
+          }
+          return b
+        })
         input = input.replace(/c$/, '') //20thC
-        input = Number(input)
-        if (isNaN(input)) {
-          console.warn('Spacetime: Invalid century input')
-          return this
-        }
       }
-      let year = (input - 1) * 100
-      // there is no year 0
+      let year = Number(input)
+      if (isNaN(input)) {
+        console.warn('Spacetime: Invalid century input')
+        return this
+      }
+      // there is no century 0
       if (year === 0) {
         year = 1
       }
-      return this.year(year).startOf('century')
+      if (year >= 0) {
+        year = (year - 1) * 100
+      } else {
+        year = (year + 1) * 100
+      }
+      return this.year(year)
     }
+    // century getter
     let num = this.startOf('century').year()
     num = Math.floor(num / 100)
+    if (num < 0) {
+      return num - 1
+    }
     return num + 1
   },
   // 2019 -> 2+1

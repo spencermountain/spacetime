@@ -1,15 +1,5 @@
 const spacetime = require('./src/index')
 
-// let s = spacetime('October 6th 2019', 'australia/sydney') //.time('6:20pm')
-// s.log()
-// s = s.startOf('day')
-// s.log()
-
-let s = spacetime().century(1)
-console.log(s.year())
-console.log(s.format('nice-year'))
-// let s = spacetime('183 BC')
-// s = s.startOf('century')
-// console.log(s.year())
-// console.log(s.century())
-// console.log(s.decade())
+let s = spacetime('300BC')
+console.log(s.century())
+// console.log(s.format('nice-year'))

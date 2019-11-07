@@ -1,46 +1,6 @@
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('get-century', t => {
-  let s = spacetime('Nov 2 2019', 'America/New_York')
-  t.equal(s.century(), 21, '21st century')
-
-  s = spacetime('1892', 'America/New_York')
-  t.equal(s.century(), 19, '19th century')
-
-  // s = spacetime('300BC', 'America/New_York')
-  // t.equal(s.century(), -3, '-3rd century?')
-
-  // s = spacetime('2AD', 'America/Chicago')
-  // t.equal(s.century(), 0, '0th century?')
-
-  t.end()
-})
-
-test('set-century', t => {
-  let s = spacetime('Nov 2 2019', 'America/New_York')
-  s.century('2nd')
-  t.equal(s.year(), 2019, 'doesnt mutate')
-
-  s = s.century('21st')
-  t.equal(s.year(), 2000, '21st century')
-  s = s.century(20)
-  t.equal(s.year(), 1900, '20 century')
-  s = s.century('19th c')
-  t.equal(s.year(), 1800, '19th c')
-  s = s.century('17c')
-  t.equal(s.year(), 1600, '17c')
-
-  // s = s.century('1')
-  // t.equal(s.year(), 1, '1 century')
-  // s = s.century('200bc')
-  // t.equal(s.year(), 100, '1 century bc')
-  // s = s.century(-20)
-  // t.equal(s.year(), -2000, '20 century bc')
-
-  t.end()
-})
-
 test('get-decade', t => {
   let s = spacetime('Nov 2 2019', 'America/New_York')
   t.equal(s.decade(), 2010, '2010')
@@ -61,20 +21,67 @@ test('set-decade', t => {
   s.decade(1950)
   t.equal(s.year(), 2019, 'decade doesnt mutate')
 
-  s.decade('1950')
+  s = s.decade('1950')
   t.equal(s.year(), 1950, '1950 decade')
-  s.decade('1860s')
+  s = s.decade('1950 AD')
+  t.equal(s.year(), 1950, '1950 AD')
+  s = s.decade('1860s')
   t.equal(s.year(), 1860, '1860s decade')
-  s.decade('60s')
+  s = s.decade(1954)
+  t.equal(s.year(), 1950, 'round-down decade')
+  s = s.decade('60s')
   t.equal(s.year(), 1960, '60s decade')
-  s.decade(50)
-  t.equal(s.year(), 50, '50 decade')
-  s.decade(0)
-  t.equal(s.year(), 1, '0th decade')
-  s.decade(-50)
+  // s = s.decade(50)
+  // t.equal(s.year(), 50, '50 decade')
+  // s = s.decade(0)
+  // t.equal(s.year(), 1, '0th decade')
+  s = s.decade(-50)
   t.equal(s.year(), -50, '-50 decade')
-  s.decade(-1950)
+  s = s.decade(-1950)
   t.equal(s.year(), -1950, '-1950 decade')
+  s = s.decade('1950bc')
+  t.equal(s.year(), -1950, '1950bc decade')
+  s = s.decade(-1954)
+  t.equal(s.year(), -1960, '-round down negative')
+
+  t.end()
+})
+
+test('get-century', t => {
+  let s = spacetime('Nov 2 2019', 'America/New_York')
+  t.equal(s.century(), 21, '21st century')
+
+  s = spacetime('1892', 'America/New_York')
+  t.equal(s.century(), 19, '19th century')
+
+  s = spacetime('300BC', 'America/New_York')
+  t.equal(s.century(), -4, '4rth century bc')
+
+  s = spacetime('2AD', 'America/Chicago')
+  t.equal(s.century(), 1, '1st century?')
+
+  t.end()
+})
+test('set-century', t => {
+  let s = spacetime('Nov 2 2019', 'America/New_York')
+  s.century('2nd')
+  t.equal(s.year(), 2019, 'doesnt mutate')
+
+  s = s.century('21st')
+  t.equal(s.year(), 2000, '21st century')
+  s = s.century(20)
+  t.equal(s.year(), 1900, '20 century')
+  s = s.century('19th c')
+  t.equal(s.year(), 1800, '19th c')
+  s = s.century('17c')
+  t.equal(s.year(), 1600, '17c')
+
+  // s = s.century('1')
+  // t.equal(s.year(), 1, '1 century')
+  // s = s.century('-100')
+  // t.equal(s.year(), 100, '1 century bc')
+  s = s.century(-20)
+  t.equal(s.year(), -1900, '20 century bc is -1990')
 
   t.end()
 })
