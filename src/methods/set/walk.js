@@ -33,7 +33,7 @@ const walk = (s, n, fn, unit, previous) => {
     // console.warn('spacetime warning: missed setting ' + unit)
     s.epoch = original
     // i mean, but make it close...
-    s.epoch += ms[unit] * diff * 0.97 // i guess?
+    s.epoch += ms[unit] * diff * 0.89 // i guess?
   }
 }
 //find the desired date by a increment/check while loop
