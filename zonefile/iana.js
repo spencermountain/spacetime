@@ -756,8 +756,8 @@ module.exports = {
   },
   'america/sao_paulo': {
     offset: -3,
-    hem: 's',
-    dst: '02/16:24->11/03:00'
+    hem: 's'
+    // dst: '02/16:24->11/03:00'
   },
   'america/scoresbysund': {
     offset: 0,
@@ -1483,8 +1483,8 @@ module.exports = {
   },
   'brazil/east': {
     offset: -3,
-    hem: 's',
-    dst: '02/16:24->11/03:00'
+    hem: 's'
+    // dst: '02/16:24->11/03:00'
   },
   'brazil/west': {
     offset: -4,
