@@ -39,6 +39,7 @@ const methods = {
 
   //since the start of the year
   week: function(num) {
+    // week-setter
     if (num !== undefined) {
       let s = this.clone()
       s = s.month(0)
@@ -63,6 +64,12 @@ const methods = {
     if (tmp.monthName() === 'december') {
       tmp = tmp.add(1, 'week')
     }
+    // is first monday the 1st?
+    let toAdd = 1
+    if (tmp.date() === 1) {
+      toAdd = 0
+    }
+    tmp = tmp.minus(1, 'second')
     const thisOne = this.epoch
     //if the week technically hasn't started yet
     if (tmp.epoch > thisOne) {
@@ -75,7 +82,7 @@ const methods = {
     i += skipWeeks
     for (; i < 52; i++) {
       if (tmp.epoch > thisOne) {
-        return i
+        return i + toAdd
       }
       tmp = tmp.add(1, 'week')
     }
