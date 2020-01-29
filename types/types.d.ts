@@ -3,7 +3,7 @@ import { TimeUnit, Format } from './constraints'
 /** a date/timezone object */
 export interface Spacetime {
   /**
-   * @deprecated use toLocalDate. This is an implementation that was not meant to be used
+   * @deprecated use toLocalDate. This is an implementation detail that was not intended for external use
    * @returns the date as a native date object
    */
   d: Date
