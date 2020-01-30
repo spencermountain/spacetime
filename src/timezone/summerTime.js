@@ -1,6 +1,6 @@
 const zeroPad = require('../fns').zeroPad
 
-const toString = d =>
+const serialize = d =>
   zeroPad(d.getMonth() + 1) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours())
 
 // a timezone will begin with a specific offset in january
@@ -16,7 +16,7 @@ const shouldChange = (epoch, start, end, defaultOffset) => {
   shift = shift * 60 * 1000 //in ms
   d = new Date(epoch + shift)
 
-  let current = toString(d)
+  let current = serialize(d)
   //eg. is it after ~november?
   if (current >= start) {
     //eg. is it before ~march~ too?

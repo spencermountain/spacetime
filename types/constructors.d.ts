@@ -2,10 +2,10 @@ import { Spacetime } from './types'
 
 export interface SpacetimeConstructorOptions {
   /** javascript dates use millisecond-epochs, instead of second-epochs, like some other languages. This is a common bug, and by default spacetime warns if you set an epoch within January 1970. to disable set to true */
-  silent: boolean
+  silent?: boolean
 
   /** the day number, between 0-6, that the week starts on. (Sunday is 0) */
-  weekStart: number
+  weekStart?: number
 }
 
 export interface SpacetimeConstructor {

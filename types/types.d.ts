@@ -2,7 +2,10 @@ import { TimeUnit, Format } from './constraints'
 
 /** a date/timezone object */
 export interface Spacetime {
-  /** @returns the date as a native date object */
+  /**
+   * @deprecated use toLocalDate. This is an implementation detail that was not intended for external use
+   * @returns the date as a native date object
+   */
   d: Date
 
   /** @returns epoch in milliseconds */
@@ -22,6 +25,9 @@ export interface Spacetime {
 
   /** @returns a copy of this object, with no references to the original */
   clone: () => Spacetime
+
+  /** @returns the native Date object at the same epoch */
+  toLocalDate(): Date
 
   /** @returns a bunch of meta-data about your current timezone */
   timezone: () => TimezoneMeta

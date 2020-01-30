@@ -80,10 +80,10 @@ test('since()', t => {
       diff: {
         years: -1,
         months: -11,
-        days: -0,
-        hours: -0,
-        minutes: -0,
-        seconds: -0
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
       },
       rounded: 'in 2 years',
       qualified: 'in almost 2 years',
@@ -96,12 +96,12 @@ test('since()', t => {
     a.since(overTwoMonths),
     {
       diff: {
-        years: -0,
+        years: 0,
         months: -2,
         days: -11,
-        hours: -0,
-        minutes: -0,
-        seconds: -0
+        hours: 0,
+        minutes: 0,
+        seconds: 0
       },
       rounded: 'in 2 months',
       qualified: 'in over 2 months',
@@ -115,10 +115,10 @@ test('since()', t => {
     {
       diff: {
         years: -1,
-        months: -0,
-        days: -0,
-        hours: -0,
-        minutes: -0,
+        months: 0,
+        days: 0,
+        hours: 0,
+        minutes: 0,
         seconds: -1
       },
       rounded: 'in 1 year',
@@ -132,11 +132,11 @@ test('since()', t => {
     a.since(twoSeconds),
     {
       diff: {
-        years: -0,
-        months: -0,
-        days: -0,
-        hours: -0,
-        minutes: -0,
+        years: 0,
+        months: 0,
+        days: 0,
+        hours: 0,
+        minutes: 0,
         seconds: -2
       },
       rounded: 'in 2 seconds',
