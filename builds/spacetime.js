@@ -1,3 +1,4 @@
+/* spencermountain/spacetime 6.3.0 Apache 2.0 */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -137,7 +138,7 @@
 
 	var zeroPad = fns.zeroPad;
 
-	var toString = function toString(d) {
+	var serialize = function serialize(d) {
 	  return zeroPad(d.getMonth() + 1) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours());
 	}; // a timezone will begin with a specific offset in january
 	// then some will switch to something else between november-march
@@ -155,7 +156,7 @@
 	  shift = shift * 60 * 1000; //in ms
 
 	  d = new Date(epoch + shift);
-	  var current = toString(d); //eg. is it after ~november?
+	  var current = serialize(d); //eg. is it after ~november?
 
 	  if (current >= start) {
 	    //eg. is it before ~march~ too?
@@ -217,7 +218,7 @@
 		"7|n": "2/bangkok,2/barnaul,2/ho_chi_minh,2/hovd,2/krasnoyarsk,2/novokuznetsk,2/novosibirsk,2/phnom_penh,2/pontianak,2/saigon,2/tomsk,2/vientiane",
 		"6|s": "12/vostok",
 		"6|n": "2/almaty,2/bishkek,2/dacca,2/dhaka,2/kashgar,2/omsk,2/qyzylorda,2/thimbu,2/thimphu,2/urumqi,9/chagos",
-		"6.5|n": "2/rangoon,9/cocos",
+		"6.5|n": "2/rangoon,2/yangon,9/cocos",
 		"5|s": "12/mawson,9/kerguelen",
 		"5|n": "2/aqtau,2/aqtobe,2/ashgabat,2/ashkhabad,2/atyrau,2/baku,2/dushanbe,2/karachi,2/oral,2/samarkand,2/tashkent,2/yekaterinburg,9/maldives",
 		"5.75|n": "2/kathmandu,2/katmandu",
@@ -230,6 +231,7 @@
 		"3|n|03/31:03->10/27:04": "2/nicosia,8/athens,8/bucharest,8/helsinki,8/kiev,8/mariehamn,8/nicosia,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye",
 		"3|n|03/31:02->10/27:03": "8/chisinau,8/tiraspol",
 		"3|n|03/31:00->10/26:24": "2/beirut",
+		"3|n|03/29:03->10/25:04": "2/famagusta",
 		"3|n|03/29:02->10/27:02": "2/jerusalem,2/tel_aviv",
 		"3|n|03/29:00->10/26:01": "2/gaza,2/hebron",
 		"3|n|03/29:00->10/25:01": "2/amman",

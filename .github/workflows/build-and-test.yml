@@ -29,8 +29,8 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm i
-          npm i eslint ts-node
+          npm ci
+          npm i eslint ts-node typescript
           npm run lint
           npm run pack
           npm run build
