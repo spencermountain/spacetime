@@ -3,6 +3,7 @@ import json from 'rollup-plugin-json'
 import { terser } from 'rollup-plugin-terser'
 import resolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
+import sizeCheck from 'rollup-plugin-filesize-check'
 
 export default [
   {
@@ -13,7 +14,7 @@ export default [
         format: 'esm'
       }
     ],
-    plugins: [resolve(), json(), commonjs()]
+    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 85, warn: 10 })]
   },
   {
     input: 'src/index.js',
@@ -32,7 +33,8 @@ export default [
       babel({
         babelrc: false,
         presets: ['@babel/preset-env']
-      })
+      }),
+      sizeCheck({ expect: 95, warn: 10 })
     ]
   },
   {
@@ -52,7 +54,8 @@ export default [
         babelrc: false,
         presets: ['@babel/preset-env']
       }),
-      terser()
+      terser(),
+      sizeCheck({ expect: 45, warn: 10 })
     ]
   }
 ]

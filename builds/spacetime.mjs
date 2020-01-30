@@ -257,6 +257,7 @@ var _build = {
 };
 
 var _build$1 = /*#__PURE__*/Object.freeze({
+	__proto__: null,
 	'default': _build
 });
 
@@ -3366,6 +3367,11 @@ SpaceTime.prototype.clone = function() {
     silent: this.silent,
     weekStart: this._weekStart
   })
+};
+
+//return native date object at the same epoch
+SpaceTime.prototype.toLocalDate = function() {
+  return new Date(this.epoch)
 };
 
 //append more methods

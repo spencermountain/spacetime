@@ -6,19 +6,18 @@
   "unpkg": "builds/spacetime.min.js",
   "module": "builds/spacetime.mjs",
   "types": "types/index.d.ts",
-  "license": "Apache-2.0",
+  "sideEffects": false,
   "scripts": {
-    "build": "npm run version && rollup -c && npm run filesize",
+    "build": "npm run version && rollup -c --silent",
     "build:tz": "node ./scripts/updateZonefile.js",
     "pack": "node ./zonefile/pack.js",
-    "watch": "amble ./scratch.js",
     "version": "node ./scripts/version.js",
-    "filesize": "node ./scripts/filesize.js",
+    "watch": "amble ./scratch.js",
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer",
+    "test:types": "ts-node ./test/types/index.ts | tap-dancer",
     "coverage": "node ./scripts/coverage.js",
-    "lint": "eslint ./src --ext .js",
-    "test:types": "ts-node ./test/types/index.ts | tap-dancer"
+    "lint": "eslint ./src --ext .js"
   },
   "repository": {
     "type": "git",
@@ -38,20 +37,20 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "7.6.2",
-    "@babel/preset-env": "7.6.2",
+    "@babel/core": "7.8.4",
+    "@babel/preset-env": "7.8.4",
     "amble": "0.0.7",
-    "codecov": "3.6.1",
-    "nyc": "14.1.1",
-    "rollup": "1.21.4",
+    "rollup": "1.30.1",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "10.1.0",
+    "rollup-plugin-filesize-check": "0.0.1",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "5.2.0",
-    "rollup-plugin-terser": "5.1.2",
+    "rollup-plugin-terser": "5.2.0",
     "shelljs": "0.8.3",
     "tap-dancer": "0.2.0",
-    "tape": "4.11.0",
+    "tape": "4.13.0",
     "timekeeper": "2.2.0"
-  }
+  },
+  "license": "Apache-2.0"
 }

@@ -2,7 +2,7 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
 	(global = global || self, global.spacetime = factory());
-}(this, function () { 'use strict';
+}(this, (function () { 'use strict';
 
 	function createCommonjsModule(fn, module) {
 		return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -300,6 +300,7 @@
 	};
 
 	var _build$1 = /*#__PURE__*/Object.freeze({
+		__proto__: null,
 		'default': _build
 	});
 
@@ -3882,6 +3883,11 @@
 	    silent: this.silent,
 	    weekStart: this._weekStart
 	  });
+	}; //return native date object at the same epoch
+
+
+	SpaceTime.prototype.toLocalDate = function () {
+	  return new Date(this.epoch);
 	}; //append more methods
 
 
@@ -3975,5 +3981,5 @@
 
 	return src;
 
-}));
+})));
 //# sourceMappingURL=spacetime.js.map
