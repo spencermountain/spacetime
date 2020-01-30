@@ -4,9 +4,10 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
-## [Unreleased] v6.4.0
+## v6.4.0
 
 - add `.toLocalDate()`
+- update zonefile to 2020
 - add Famagusta and Yangon iana zones
 
 ## v6.3.0
