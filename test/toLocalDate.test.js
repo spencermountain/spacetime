@@ -10,4 +10,5 @@ test('toLocalDate-is-epoch', t => {
   let localDateSeconds = localDate.getTime()
 
   t.equal(localDateSeconds, d.epoch, 'toLocalDate is not epoch')
+  t.end()
 })
