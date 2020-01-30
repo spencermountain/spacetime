@@ -41,13 +41,13 @@ test('dst-by-date', t => {
 test('dst-by-month', t => {
   ////        jan   feb    mar    apr   may   jun   july   aug   sept  oct   nov   dec
   let est = [false, false, false, true, true, true, true, true, true, true, true, false]
-  let pst = [false, false, false, true, true, true, true, true, true, true, true, false]
+  let pst = [false, false, false, true, true, true, true, true, true, true, false, false]
   let aus = [true, true, true, false, false, false, false, false, false, true, true, true] //april 2, oct 1
   let tai = [false, false, false, false, false, false, false, false, false, false, false, false] //no dst
   let s = spacetime('January 1, 2016 20:42:00', 'Canada/Eastern')
   t.deepEqual(allMonths(s), est, 'est')
 
-  s = spacetime('January 1, 2016 20:42:00', 'Canada/Pacific')
+  s = spacetime('January 2, 2016 20:42:00', 'Canada/Pacific')
   t.deepEqual(allMonths(s), pst, 'pst')
 
   s = spacetime('January 2, 2016 20:42:00', 'Australia/Canberra')

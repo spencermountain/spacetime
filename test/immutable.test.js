@@ -82,7 +82,7 @@ test('time setting works', t => {
 test('smoke-test all mutable methods', t => {
   let arr = [
     ['add', 3, 'days'],
-    ['ampm', 'am'],
+    ['ampm', 'pm'],
     ['date', 12],
     ['day', 'thursday'],
     ['dayName', 'monday'],
@@ -109,12 +109,12 @@ test('smoke-test all mutable methods', t => {
   ]
   const epoch = 1552114800001
   arr.forEach(a => {
-    let immut = spacetime(1552114800001, 'Canada/Pacific')
+    let orig = spacetime(1552114800001, 'Canada/Pacific')
     let fn = a[0]
-    let s = immut[fn](a[1], a[2])
+    let s = orig[fn](a[1], a[2])
     //make-sure original didn't change
-    t.equal(immut.epoch, epoch, fn + ' - immutable didnt change')
-    t.notEqual(immut.epoch, s.epoch, fn + ' - immutable result changed')
+    t.equal(orig.epoch, epoch, fn + ' - immutable didnt change')
+    t.notEqual(orig.epoch, s.epoch, fn + ' - immutable result changed')
   })
   t.end()
 })
