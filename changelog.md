@@ -1,30 +1,42 @@
 This project follows semVer, where:
-* **[major]** is an API, or result-format change
-* **[minor]** is a result change
-* **[patch]** is a bugfix
-  
+
+- **[major]** is an API, or result-format change
+- **[minor]** is a result change
+- **[patch]** is a bugfix
+
 ## [Unreleased] v6.4.0
+
 - add `.toLocalDate()`
+- add Famagusta and Yangon iana zones
 
 ## v6.3.0
-- add `.decade()` 
-- add `.century()` 
-- add `.millenium()` 
+
+- add `.decade()`
+- add `.century()`
+- add `.millenium()`
 - add `.json()` method
 - remove dst for Brazil
 - fix .week() counting logic
 - change overflow error-amount for #166
+
 ## v6.2.1
+
 - fix typescript types
+
 ## v6.2.0
+
 - add config for `dmy` british date parsing
 - support `18-feb-2019` format
+
 ## v6.1.0
+
 - support for +14 timezones.
-# v6.0.0 
+
+# v6.0.0
+
 - remove 'informal' timezone parsing (like `.goto('south africa')`)
 - remove 'display' info from `.timezone()` like 'EST' (move to [spacetime-informal](https://github.com/spencermountain/spacetime-informal/))
-- throw error on an invalid timezone  #150
+- throw error on an invalid timezone #150
 - optimize `.week()` method
 
 ---
@@ -33,6 +45,7 @@ This project follows semVer, where:
 
 - add support for changing start/end of the week
 - allow more flexible `.i18n()` inputs
+
 ### 5.8.0
 
 - faster diff for large-number of months
@@ -59,12 +72,12 @@ This project follows semVer, where:
 - support more time input formats
 - fixes offset input issue [#103](https://github.com/spencermountain/spacetime/issues/103)
 
-
 ### 5.3.0
 
 - added more iana timezones
 - fixed zero-padding in iso offsets
 - support half hour offsets in iso formats
+
 ### 5.2.0
 
 - `next()` and `last()` methods
@@ -108,6 +121,7 @@ This project follows semVer, where:
 - do larger `.diff()` operations (gt 1yr) in fast-mode
 - support BC formatting of input and in `s.format('year')`
 - bug fix for iso-format hour-offsets (#58)
+
 ### v4.2.2
 
 - adds `.extend()` method for authoring plugins
@@ -127,7 +141,6 @@ This project follows semVer, where:
 
 - support `.from()` and `.fromNow()` methods
 
-
 ### v4.0.0
 
 - `format(iso)` now uses `.` for millisecond separator: `2016-11-04T09:00:59.122Z`
@@ -144,6 +157,7 @@ This project follows semVer, where:
 ### v3.2.0
 
 - update zonefile to 2018 dst dates
+
 ### v3.1.0
 
 - dramatic speedup by optimizing walkTo method
@@ -162,6 +176,7 @@ This project follows semVer, where:
 - support unix/unicode time-formating basic-level
 - add `.era()` get/set method
 - found 6 or 7 wrong offsets
+
 ## v2.0.0
 
 - fix major [southern-hemisphere issue](https://github.com/smallwins/spacetime/issues/27)
@@ -174,6 +189,7 @@ This project follows semVer, where:
 ## v1.3.2
 
 - fix for inf-loop regression on DST-switch
+
 ## v1.3.1
 
 - adds `spacetime.i18n()` method
@@ -190,4 +206,3 @@ This project follows semVer, where:
 - adds isBetween() method
 
 # v1.0.0 :rocket:
-
