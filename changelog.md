@@ -4,6 +4,10 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
+### v6.4.1
+
+- run mjs build through babel (#175)
+
 ## v6.4.0
 
 - add `.toLocalDate()`
