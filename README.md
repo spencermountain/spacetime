@@ -250,33 +250,34 @@ s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
 
 ## Limitations & caveats
 
-#### Historical timezone info
+#### ◆ Historical timezone info
 
 DST changes move around all the time, and timezones pop-in and out of existence.
 We store and use only the latest DST information, and apply it to historical dates.
 
-#### DST changes within 1-hour
+#### ◆ DST changes within 1-hour
 
 when very-close to a DST change, we can get the hour wrong, by 1.
-This is a [tricky](https://github.com/spencermountain/spacetime/issues/182)) order-of-operations issue, when using the js Date object.
 
-Most DST changes occur during the night, anyways.
+This is [a tricky](https://github.com/spencermountain/spacetime/issues/182) order-of-operations issue.
 
-#### International date line
+To most people, DST changes occur during an unspecified time overnight, anyways.
+
+#### ◆ International date line
 
 `.goto()` never crosses the date-line. This is mostly the intuitive behaviour.
 
 But if you're in `Fiji` (just west of the date line), and you go to `Midway` (just east of the date line), .goto() will subtract a bunch of hours, instead of just adding one.
 
-#### Destructive changes
+#### ◆ Destructive changes
 
-if it's `2:30pm` and you add a month, it should still be `2:30pm`. Some changes are more destructive than others. Most choices are sensible.
+if it's `2:30pm` and you add a month, it should still be `2:30pm`. Some changes are more destructive than others. Many of thse choices are subjective, but also sensible.
 
-#### 0-based vs 1-based
+#### ◆ 0-based vs 1-based ...
 
-(for better or worse) we copy the JavaScript spec for 0-based months, and 1-based dates.
+for better or worse we copy the JavaScript spec for 0-based months, and 1-based dates.
 
-ISO-formatting is different. Keep on your toes.
+ISO-formatting is different, so keep on your toes.
 
 see [more considerations and gotchas](https://github.com/spencermountain/spacetime/wiki)
 
