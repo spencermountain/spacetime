@@ -1036,6 +1036,11 @@ module.exports = {
     offset: 5,
     hem: 'n'
   },
+  'asia/famagusta': {
+    offset: 3,
+    hem: 'n',
+    dst: '03/29:03->10/25:04'
+  },
   'asia/gaza': {
     offset: 3,
     hem: 'n',
