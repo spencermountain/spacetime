@@ -64,6 +64,11 @@ SpaceTime.prototype.clone = function() {
   })
 }
 
+//return native date object at the same epoch
+SpaceTime.prototype.toLocalDate = function() {
+  return new Date(this.epoch)
+}
+
 //append more methods
 require('./methods/query')(SpaceTime)
 require('./methods/add')(SpaceTime)
