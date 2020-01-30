@@ -116,53 +116,85 @@ export interface Spacetime {
   /** checks if the current time is between 10pm and 8am */
   isAsleep: () => boolean
 
-  /** set or return the current number of milliseconds (0-999) */
-  millisecond: (value?: number) => number & Spacetime
+  /** get the current number of milliseconds (0-999) */
+  millisecond(): number
+  /** set the current number of milliseconds (0-999) */
+  millisecond(value: number): Spacetime
 
-  /** set or return the current number of seconds (0-59) */
-  second: (value?: number) => number & Spacetime
+  /** get the current number of seconds (0-59) */
+  second(): number
+  /** set the current number of seconds (0-59) */
+  second(value: number): Spacetime
 
-  /** set or return the current number of minutes (0-59) */
-  minute: (value?: number) => number & Spacetime
+  /** get the current number of minutes (0-59) */
+  minute(): number
+  /** set the current number of minutes (0-59) */
+  minute(value: number): Spacetime
 
-  /** set or return the current hour, in 24 time (0-23). also accepts/parses '3pm' */
-  hour: (value?: number | string) => number & Spacetime
+  /** get the current hour, in 24 time (0-23). */
+  hour(): number
+  /** set the current hour, in 24 time (0-23). also accepts/parses '3pm' */
+  hour(value: number | string): Spacetime
 
-  /** set or return the day-number of the month (1- max31) */
-  date: (value?: number) => number & Spacetime
+  /** get the day-number of the month (1- max31) */
+  date(): number
+  /** set the day-number of the month (1- max31) */
+  date(value: number): Spacetime
 
-  /** set or return the zero-based month-number (0-11). Also accepts 'June', or 'oct'. */
-  month: (value?: number | string) => number & Spacetime
+  /** get the zero-based month-number (0-11). */
+  month(): number
+  /** set the zero-based month-number (0-11). Also accepts 'June', or 'oct'. */
+  month(value: string): Spacetime
 
-  /** set or return the 4-digit year as an integer */
-  year: (value?: number) => number & Spacetime
+  /** get the 4-digit year as an integer */
+  year(): number
+  /** set the 4-digit year as an integer */
+  year(value: number): Spacetime
 
-  /** set or return a formatted, 12-hour time, like '11:30pm' */
-  time: (value?: string) => number & Spacetime
+  /** get a formatted, 12-hour time, like '11:30pm' */
+  time(): number
+  /** set a formatted, 12-hour time, like '11:30pm' */
+  time(value: string): Spacetime
 
-  /** set or return the week-number of the year (1-52) */
-  week: (value?: number) => number & Spacetime
+  /** get the week-number of the year (1-52) */
+  week(): number
+  /** set the week-number of the year (1-52) */
+  week(value: number): Spacetime
 
-  /** set or return the fiscal-quarter (1-4) */
-  quarter: (value?: number) => number & Spacetime
+  /** get the fiscal-quarter (1-4) */
+  quarter(): number
+  /** set the fiscal-quarter (1-4) */
+  quarter(value: number): Spacetime
 
-  /** set or return the name of the season, spring/summer/fall/autumn/winter */
-  season: (value?: string) => string & Spacetime
+  /** get the name of the season, spring/summer/fall/autumn/winter */
+  season(): string
+  /** set the name of the season, spring/summer/fall/autumn/winter */
+  season(value: string): Spacetime
 
-  /** set or return the hour + minute in decimal form, so '3:30am' is 3.5 */
-  hourFloat: (value?: number) => number & Spacetime
+  /** get the hour + minute in decimal form, so '3:30am' is 3.5 */
+  hourFloat(): number
+  /** set the hour + minute in decimal form, so '3:30am' is 3.5 */
+  hourFloat(value: number): Spacetime
 
-  /** set or return the day of the week as an integer, starting on sunday (day-0). Also accepts names like 'wednesday', or 'thurs' */
-  day: (value?: number | string) => number & Spacetime
+  /** get the day of the week as an integer, starting on sunday (day-0) */
+  day(): number
+  /** set the day of the week as an integer, starting on sunday (day-0). Also accepts names like 'wednesday', or 'thurs' */
+  day(value: number | string): Spacetime
 
-  /** set or return whether the time is am or pm */
-  ampm: (value?: string) => string & Spacetime
+  /** get whether the time is am or pm */
+  ampm(): string
+  /** set whether the time is am or pm */
+  ampm(value: string): Spacetime
 
-  /** set or return the general time-of-day, like 'afternoon' */
-  dayTime: (value?: string) => string & Spacetime
+  /** get the general time-of-day, like 'afternoon' */
+  dayTime(): string
+  /** set the general time-of-day, like 'afternoon' */
+  dayTime(value: string): Spacetime
 
-  /** set or return the current month as a string, like 'april' */
-  monthName: (value?: string) => string & Spacetime
+  /** get the current month as a string, like 'april' */
+  monthName(): string
+  /** set the current month as a string, like 'april' */
+  monthName(value: string): Spacetime
 }
 
 export interface TimezoneMeta {
