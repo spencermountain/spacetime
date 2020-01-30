@@ -1200,6 +1200,10 @@ module.exports = {
     offset: 6.5,
     hem: 'n'
   },
+  'asia/yangon': {
+    offset: 6.5,
+    hem: 'n'
+  },
   'asia/riyadh': {
     offset: 3,
     hem: 'n'
