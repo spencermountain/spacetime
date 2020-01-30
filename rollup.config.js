@@ -14,7 +14,16 @@ export default [
   {
     input: 'src/index.js',
     output: [{ banner: banner, file: 'builds/spacetime.mjs', format: 'esm' }],
-    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 85, warn: 10 })]
+    plugins: [
+      resolve(),
+      json(),
+      commonjs(),
+      babel({
+        babelrc: false,
+        presets: ['@babel/preset-env']
+      }),
+      sizeCheck({ expect: 92, warn: 10 })
+    ]
   },
   {
     input: 'src/index.js',
