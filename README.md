@@ -79,7 +79,7 @@ d.format('nice')
   </div>
 </div>
 
-### [Date Inputs:](https://github.com/smallwins/spacetime/wiki/Input)
+### [Date Inputs:](https://github.com/spencermountain/spacetime/wiki/Input)
 
 ```js
 //epoch
@@ -229,7 +229,7 @@ s.isDST() // True
 s.timezones
 ```
 
-### [Date Formatting](https://github.com/smallwins/spacetime/wiki/Formatting):
+### [Date Formatting](https://github.com/spencermountain/spacetime/wiki/Formatting):
 
 ```js
 // Date + time formatting
@@ -390,10 +390,7 @@ Thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
 
 <div align="center">
   <div>Made with caution + great-patience,</div>
-  <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a>, and <a href="https://twitter.com/begin">SmallWins</a></div>
-  <a href="https://begin.com">
-    <img width="50" src="https://user-images.githubusercontent.com/399657/31141177-9f339dc8-a844-11e7-8330-0cee2dc12128.jpg"/>
-  </a>
+  <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a></div>
 </div>
 
 Apache 2.0

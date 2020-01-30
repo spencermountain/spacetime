@@ -184,7 +184,7 @@ This project follows semVer, where:
 
 ## v2.0.0
 
-- fix major [southern-hemisphere issue](https://github.com/smallwins/spacetime/issues/27)
+- fix major [southern-hemisphere issue](https://github.com/spencermountain/spacetime/issues/27)
 - re-structure `d.timezone()` response
 - add `.hemisphere()` method
 - use proper short-day forms
