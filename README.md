@@ -248,6 +248,31 @@ s.format('{time}{ampm} sharp') // '2:30pm sharp'
 s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
 ```
 
+## Limitations & caveats
+
+#### Historical timezone info
+
+DST dates move around all the time, and timezones pop-in and out of existence. We store and use only the latest DST information, and apply it to historical dates.
+
+#### DST changes within 1-hour
+
+when very-close to a DST change, we can get the hour wrong, by 1. Most DST changes occurr at 2am, anyways. (see [#182](https://github.com/spencermountain/spacetime/issues/182))
+
+#### International date line
+
+`.goto()` never crosses the date-line. This is mostly the intuitive behaviour, but if you're in `Fiji` (just west of the date line), and you go to `Midway` (just east of the date line), .goto() will subtract a ton of hours, instead of just adding one.
+
+### Destructive changes
+
+if it's `2:30pm` and you add a month, it should still be `2:30pm`. Some changes are more destructive than others. Most choices are sensible.
+
+### 0-based vs 1-based
+
+(or better or worse) we copy the JavaScript spec for 0-based months, and 1-based dates.
+ISO-formatting is different. It's a lot of fun. Keep on your toes.
+
+see [more caveats and considerations](https://github.com/spencermountain/spacetime/wiki)
+
 ## Options
 
 #### Ambiguity warnings:
@@ -293,22 +318,24 @@ s.isHappyHour()
 //true
 ```
 
-
 #### DD/MM/YYY interpretation:
 
 by default spacetime uses the American interpretation of ambiguous date formats, like javascript does:
+
 ```js
 spacetime('12/01/2018') //dec 1st
 
 // unless it's clear (>12):
 spacetime('13/01/2018') //jan 13th
 ```
+
 you can change this behaviour by passing in a `dmy` option, like this:
+
 ```js
 spacetime('12/01/2018', null, { dmy: true }) //jan 12th
 ```
-this format is more common in [britain, and south america](https://en.wikipedia.org/wiki/Date_format_by_country).
 
+this format is more common in [britain, and south america](https://en.wikipedia.org/wiki/Date_format_by_country).
 
 #### Custom languages:
 
@@ -344,8 +371,6 @@ s = s.endOf('week')
 s.dayName()
 //saturday
 ```
-
-### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
 
 ### See also:
 
