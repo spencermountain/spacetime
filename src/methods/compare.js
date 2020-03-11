@@ -26,7 +26,7 @@ const addMethods = SpaceTime => {
       }
       return this.epoch === epoch
     },
-    isBetween: function(start, end) {
+    isBetween: function(start, end, isInclusive = false) {
       start = fns.beADate(start, this)
       end = fns.beADate(end, this)
       let startEpoch = fns.getEpoch(start)
@@ -36,6 +36,9 @@ const addMethods = SpaceTime => {
       let endEpoch = fns.getEpoch(end)
       if (endEpoch === null) {
         return null
+      }
+      if (isInclusive) {
+        return this.isBetween(start, end) || this.isEqual(start) || this.isEqual(end);
       }
       return startEpoch < this.epoch && this.epoch < endEpoch
     }
