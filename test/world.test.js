@@ -66,10 +66,10 @@ test('is-always-input-date', t => {
     t.equal(d.date(), 7, tz + ' 7th')
     t.equal(d.year(), 2018, tz + ' is 2018')
 
-    let e = spacetime('March 28, 1999', tz)
+    let e = spacetime('March 28, 1998', tz)
     t.equal(e.monthName(), 'march', tz + ' is march')
     t.equal(e.date(), 28, tz + ' 28th')
-    t.equal(e.year(), 1999, tz + ' is 1999')
+    t.equal(e.year(), 1998, tz + ' is 1998')
   })
   t.end()
 })

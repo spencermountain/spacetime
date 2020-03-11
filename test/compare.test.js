@@ -21,10 +21,12 @@ test('compare', t => {
 
   let start = original.clone()
   let end = original.clone()
+  const startOfDay = start.startOf('day');
+  const endOfDay = start.endOf('day');
   start = start.subtract(1, 'milliseconds')
   end = end.add(1, 'milliseconds')
   t.equal(original.isBetween(start, end), true, 'originally-is-between')
-
+  t.equal(original.startOf('day').isBetween(startOfDay, endOfDay, true), true, 'is-inclusive-of-start-time')
   t.end()
 })
 
