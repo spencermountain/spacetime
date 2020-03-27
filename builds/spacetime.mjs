@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.4.1 Apache 2.0 */
+/* spencermountain/spacetime 6.4.2 Apache 2.0 */
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -3939,7 +3939,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.4.1';
+var _version = '6.4.2';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);
