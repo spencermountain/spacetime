@@ -3767,6 +3767,7 @@ var addMethods$3 = function addMethods(SpaceTime) {
       return this.epoch === epoch;
     },
     isBetween: function isBetween(start, end) {
+      var isInclusive = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       start = fns.beADate(start, this);
       end = fns.beADate(end, this);
       var startEpoch = fns.getEpoch(start);
@@ -3779,6 +3780,10 @@ var addMethods$3 = function addMethods(SpaceTime) {
 
       if (endEpoch === null) {
         return null;
+      }
+
+      if (isInclusive) {
+        return this.isBetween(start, end) || this.isEqual(start) || this.isEqual(end);
       }
 
       return startEpoch < this.epoch && this.epoch < endEpoch;

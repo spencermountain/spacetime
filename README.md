@@ -168,7 +168,7 @@ let end = s.add(1, 'milliseconds')
 s.isAfter(d) // True
 s.isEqual(d) // False
 s.isBefore(d) // False
-s.isBetween(start, end) // True
+s.isBetween(start, end, inclusive?) // True
 
 // Comparison by unit
 s.isSame(d, 'year') // True
