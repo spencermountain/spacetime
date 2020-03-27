@@ -55,6 +55,16 @@ d.format('nice')
 //'Apr 1st, 4:32pm'
 ```
 
+make sure to add this to your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "esModuleInterop": true
+  }
+}
+```
+
 <div align="center">
   <h3>
     <a href="https://beta.observablehq.com/@spencermountain/spacetime">

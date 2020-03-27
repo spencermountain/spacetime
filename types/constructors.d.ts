@@ -14,7 +14,7 @@ export interface SpacetimeConstructor {
    * @param timezone Optional timezone. If omitted uses the browser timezone.
    * @param options Options for silencing warnings.
    */
-  (date: Date, timezone?: string, options?: SpacetimeConstructorOptions): Spacetime
+  (date?: Date, timezone?: string, options?: SpacetimeConstructorOptions): Spacetime
 
   /**
    * @param epoch Timestamp in **milliseconds**. If you are getting a date in 1970, you are likely using seconds.
