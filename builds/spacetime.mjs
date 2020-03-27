@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.4.1 Apache 2.0 */
+/* spencermountain/spacetime 6.4.2 Apache 2.0 */
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -3767,6 +3767,7 @@ var addMethods$3 = function addMethods(SpaceTime) {
       return this.epoch === epoch;
     },
     isBetween: function isBetween(start, end) {
+      var isInclusive = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       start = fns.beADate(start, this);
       end = fns.beADate(end, this);
       var startEpoch = fns.getEpoch(start);
@@ -3779,6 +3780,10 @@ var addMethods$3 = function addMethods(SpaceTime) {
 
       if (endEpoch === null) {
         return null;
+      }
+
+      if (isInclusive) {
+        return this.isBetween(start, end) || this.isEqual(start) || this.isEqual(end);
       }
 
       return startEpoch < this.epoch && this.epoch < endEpoch;
@@ -3934,7 +3939,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.4.1';
+var _version = '6.4.2';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);

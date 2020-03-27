@@ -55,6 +55,16 @@ d.format('nice')
 //'Apr 1st, 4:32pm'
 ```
 
+make sure to add this to your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "esModuleInterop": true
+  }
+}
+```
+
 <div align="center">
   <h3>
     <a href="https://beta.observablehq.com/@spencermountain/spacetime">
@@ -158,7 +168,7 @@ let end = s.add(1, 'milliseconds')
 s.isAfter(d) // True
 s.isEqual(d) // False
 s.isBefore(d) // False
-s.isBetween(start, end) // True
+s.isBetween(start, end, inclusive?) // True
 
 // Comparison by unit
 s.isSame(d, 'year') // True

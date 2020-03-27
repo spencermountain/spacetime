@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.4.1 Apache 2.0 */
+/* spencermountain/spacetime 6.4.2 Apache 2.0 */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -3773,6 +3773,7 @@
 	      return this.epoch === epoch;
 	    },
 	    isBetween: function isBetween(start, end) {
+	      var isInclusive = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 	      start = fns.beADate(start, this);
 	      end = fns.beADate(end, this);
 	      var startEpoch = fns.getEpoch(start);
@@ -3785,6 +3786,10 @@
 
 	      if (endEpoch === null) {
 	        return null;
+	      }
+
+	      if (isInclusive) {
+	        return this.isBetween(start, end) || this.isEqual(start) || this.isEqual(end);
 	      }
 
 	      return startEpoch < this.epoch && this.epoch < endEpoch;
@@ -3940,7 +3945,7 @@
 
 	var whereIts_1 = whereIts;
 
-	var _version = '6.4.1';
+	var _version = '6.4.2';
 
 	var main$1 = function main(input, tz, options) {
 	  return new spacetime(input, tz, options);
