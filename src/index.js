@@ -18,8 +18,8 @@ main.yesterday = (tz, options) => {
   let s = new Spacetime(new Date().getTime(), tz, options)
   return s.subtract(1, 'day').startOf('day')
 }
-main.extend = function(obj) {
-  Object.keys(obj).forEach(k => {
+main.extend = function (obj) {
+  Object.keys(obj).forEach((k) => {
     Spacetime.prototype[k] = obj[k]
   })
   return this
