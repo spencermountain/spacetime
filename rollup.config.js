@@ -32,7 +32,7 @@ export default [
         banner: banner,
         file: 'builds/spacetime.js',
         format: 'umd',
-        sourcemap: true,
+        sourcemap: false,
         name: 'spacetime'
       }
     ],

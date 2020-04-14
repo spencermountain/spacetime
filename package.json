@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "6.4.2",
+  "version": "6.4.3",
   "description": "figure-out dates across timezones",
   "main": "builds/spacetime.js",
   "unpkg": "builds/spacetime.min.js",
@@ -38,10 +38,10 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.9.0",
-    "@babel/preset-env": "7.9.0",
+    "@babel/preset-env": "7.9.5",
     "amble": "0.0.7",
-    "rollup": "2.2.0",
-    "rollup-plugin-babel": "^4.3.3",
+    "rollup": "2.6.1",
+    "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-filesize-check": "0.0.1",
     "rollup-plugin-json": "^4.0.0",
