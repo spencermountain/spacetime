@@ -150,6 +150,9 @@ s = s.nearest('quarter-hour') //5:15, 5:30, 5:45..
 s = s.next('month') //start of the next month
 s = s.last('year') //start of the last year
 
+// fill-in all dates between a range
+s.every('week', 'Jan 1st 2020') // (in tz of starting-date)
+
 //utilities:
 s.clone() // Make a copy
 s.isValid() // Sept 32nd → false
