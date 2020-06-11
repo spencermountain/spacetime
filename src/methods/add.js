@@ -1,7 +1,13 @@
 const walkTo = require('./set/walk')
 const ms = require('../data/milliseconds')
 const monthLength = require('../data/monthLengths')
+const model = require('./set/_model')
 const fns = require('../fns')
+// this logic is a bit of a mess,
+// but briefly:
+// millisecond-math, and some post-processing covers most-things
+// we 'model' the calendar here only a little bit
+// and that usually works-out...
 
 const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month']
 let keep = {
@@ -37,32 +43,11 @@ const keepDate = {
   season: true,
   year: true
 }
-//month is the only thing we 'model/compute'
-//- because ms-shifting can be off by enough
-const rollMonth = (want, old) => {
-  //increment year
-  if (want.month > 0) {
-    let years = parseInt(want.month / 12, 10)
-    want.year = old.year() + years
-    want.month = want.month % 12
-  } else if (want.month < 0) {
-    //decrement year
-    let years = Math.floor(Math.abs(want.month) / 13, 10)
-    years = Math.abs(years) + 1
-    want.year = old.year() - years
-    //ignore extras
-    want.month = want.month % 12
-    want.month = want.month + 12
-    if (want.month === 12) {
-      want.month = 0
-    }
-  }
-  return want
-}
 
-const addMethods = SpaceTime => {
-  SpaceTime.prototype.add = function(num, unit) {
+const addMethods = (SpaceTime) => {
+  SpaceTime.prototype.add = function (num, unit) {
     let s = this.clone()
+
     if (!unit || num === 0) {
       return s //don't bother
     }
@@ -83,7 +68,7 @@ const addMethods = SpaceTime => {
     //now ensure our milliseconds/etc are in-line
     let want = {}
     if (keep[unit]) {
-      keep[unit].forEach(u => {
+      keep[unit].forEach((u) => {
         want[u] = old[u]()
       })
     }
@@ -97,7 +82,7 @@ const addMethods = SpaceTime => {
     if (unit === 'month') {
       want.month = old.month() + num
       //month is the one unit we 'model' directly
-      want = rollMonth(want, old)
+      want = model.months(want, old)
     }
     //support coercing a week, too
     if (unit === 'week') {
@@ -108,13 +93,16 @@ const addMethods = SpaceTime => {
     }
     //support 25-hour day-changes on dst-changes
     else if (unit === 'date') {
-      //specify a naive date number, if it's easy to do...
-      let sum = old.date() + num
-      if (sum <= 28 && sum > 1) {
-        want.date = sum
+      if (num < 0) {
+        want = model.daysBack(want, old, num)
+      } else {
+        //specify a naive date number, if it's easy to do...
+        let sum = old.date() + num
+        // ok, model this one too
+        want = model.days(want, old, sum)
       }
-      //or if we haven't moved at all..
-      else if (num !== 0 && old.isSame(s, 'day')) {
+      //manually punt it if we haven't moved at all..
+      if (num !== 0 && old.isSame(s, 'day')) {
         want.date = old.date() + num
       }
     }
@@ -141,7 +129,7 @@ const addMethods = SpaceTime => {
   }
 
   //subtract is only add *-1
-  SpaceTime.prototype.subtract = function(num, unit) {
+  SpaceTime.prototype.subtract = function (num, unit) {
     let s = this.clone()
     return s.add(num * -1, unit)
   }

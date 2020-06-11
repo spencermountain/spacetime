@@ -2,7 +2,7 @@
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('add', t => {
+test('add', (t) => {
   let s = spacetime('January 1, 2017 1:20:05', 'Canada/Eastern')
   //initial state
   t.equal(s.date(), 1, '.date()')
@@ -66,7 +66,7 @@ test('add', t => {
   t.end()
 })
 
-test('adding 0 changes nothing', t => {
+test('adding 0 changes nothing', (t) => {
   let s = spacetime.now()
   let a = s.clone()
   s = s.add(0, 'month')
@@ -86,7 +86,7 @@ test('adding 0 changes nothing', t => {
   t.end()
 })
 
-test('hour-tricky', t => {
+test('hour-tricky', (t) => {
   let s = spacetime('January 1, 2017 13:20:00', 'Canada/Pacific')
   t.equal(s.hour(), 13, 'init.hour()')
   t.equal(s.minute(), 20, 'init.minute()')
@@ -97,7 +97,7 @@ test('hour-tricky', t => {
   t.end()
 })
 
-test('day-tricky', t => {
+test('day-tricky', (t) => {
   let d = spacetime('2019-11-04T00:00:00.000', 'Canada/Eastern')
   d = d.add(1, 'week')
   t.equal(d.format('nice-day'), 'Mon Nov 11th', 'add week over dst-change')
@@ -106,10 +106,20 @@ test('day-tricky', t => {
   d = spacetime('2019-11-04T00:00:00.000', 'Canada/Eastern')
   d = d.add(7, 'days')
   t.equal(d.format('nice-day'), 'Mon Nov 11th', 'add days over dst-change')
+
+  // add day over month-change
+  let s = spacetime('Oct 31 2020', 'Canada/Eastern')
+  s = s.add(2, 'day')
+  t.equal(s.format('nice'), 'Nov 2nd, 12:00am', 'add day over month-change')
+  // add day over year-change
+  s = spacetime('Dec 31 2020', 'Canada/Eastern')
+  s = s.add(2, 'day')
+  t.equal(s.format('nice'), 'Jan 2nd, 12:00am', 'add day over year-change')
+
   t.end()
 })
 
-test('year-tricky', t => {
+test('year-tricky', (t) => {
   let s = spacetime(1451667600000, 'Canada/Eastern') //jan 1 2016 (leap year)
   t.equal(s.year(), 2016, 'year1')
 

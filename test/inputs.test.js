@@ -2,7 +2,7 @@
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('inputs', t => {
+test('inputs', (t) => {
   let a = spacetime([2015, 2, 25])
   let b = spacetime('25 Mar 2015')
   let c = spacetime('Mar 25 2015')
@@ -18,7 +18,7 @@ test('inputs', t => {
   t.end()
 })
 
-test('hour-inputs', t => {
+test('hour-inputs', (t) => {
   let s = spacetime('March 21, 2017 20:42:00')
   t.equal(s.date(), 21, 'before-dst.date()')
   t.ok(s.isValid(), 'hour input is valid')
@@ -28,7 +28,7 @@ test('hour-inputs', t => {
   t.end()
 })
 
-test('null input', t => {
+test('null input', (t) => {
   let a = spacetime(null, 'Canada/Eastern')
   let b = spacetime(Date.now(), 'Canada/Eastern')
   t.ok(a.isValid(), 'null input is valid')
@@ -37,7 +37,16 @@ test('null input', t => {
   t.end()
 })
 
-test('arr-input', t => {
+test('undefined input', (t) => {
+  let a = spacetime(undefined, 'Canada/Eastern')
+  let b = spacetime(Date.now(), 'Canada/Eastern')
+  t.ok(a.isValid(), 'undefined input is valid')
+  t.equal(a.format('iso-short'), b.format('iso-short'), 'dates are the same')
+  t.equal(a.format('time'), b.format('time'), 'times are the same')
+  t.end()
+})
+
+test('arr-input', (t) => {
   let s = spacetime([2020, 2, 28])
   t.ok(s.isValid(), 'array input is valid')
   t.equal(s.year(), 2020, 'arr-year')
@@ -55,7 +64,7 @@ test('arr-input', t => {
   t.end()
 })
 
-test('obj-input', t => {
+test('obj-input', (t) => {
   let s = spacetime({
     year: 2020,
     month: 'march',
@@ -81,10 +90,18 @@ test('obj-input', t => {
     minute: '24'
   })
   t.equal(a.format('nice'), b.format('nice'), 'ampm null')
+
+  s = spacetime({ year: 1921 })
+  t.equal(s.format('nice-year'), 'Jan 1st, 1921', 'assume default date')
+  s = spacetime({ year: 1921, month: 'feb' })
+  t.equal(s.format('nice-year'), 'Feb 1st, 1921', 'assume default date2')
+  s = spacetime({ year: 1921, date: 3 })
+  t.equal(s.format('nice-year'), 'Jan 3rd, 1921', 'assume default date3')
+
   t.end()
 })
 
-test('date-input', t => {
+test('date-input', (t) => {
   let d = new Date('March 11, 2017')
   let s = spacetime(d)
   t.ok(s.isValid(), 'date object input is valid')
@@ -94,7 +111,7 @@ test('date-input', t => {
   t.end()
 })
 
-test('self-input', t => {
+test('self-input', (t) => {
   let a = spacetime('March 11, 2017')
   let s = spacetime(a)
   t.ok(s.isValid(), 'spacetime object input is valid')
@@ -104,7 +121,7 @@ test('self-input', t => {
   t.end()
 })
 
-test('inputs-in-comparisons', t => {
+test('inputs-in-comparisons', (t) => {
   let s = spacetime('March 11, 2017')
   t.ok(s.isAfter(new Date('March 10, 2017')), 'compare with date obj')
   // t.ok(s.isBefore([2022, 3, 2]), 'compare with array'); //this isn't working yet
@@ -114,7 +131,7 @@ test('inputs-in-comparisons', t => {
   t.end()
 })
 
-test('iso-string-input', t => {
+test('iso-string-input', (t) => {
   let s = spacetime('2017-08-06T09:00:00.000Z')
   t.ok(s.isValid(), 'obj input is valid')
   t.equal(s.millisecond(), 0, 'iso-string-millisecond')
@@ -127,14 +144,14 @@ test('iso-string-input', t => {
   t.end()
 })
 
-test('iso format with space', t => {
+test('iso format with space', (t) => {
   let a = spacetime('2018-02-02T22:00:00')
   let b = spacetime('2018-02-02 22:00:00')
   t.ok(a.isSame(b, 'minute'), 'support space-iso')
   t.end()
 })
 
-test('funny-numeric-forms', t => {
+test('funny-numeric-forms', (t) => {
   let a = spacetime('2016/03/13')
 
   let b = spacetime('03/13/2016')
@@ -151,7 +168,7 @@ test('funny-numeric-forms', t => {
   t.end()
 })
 
-test('empty-array', t => {
+test('empty-array', (t) => {
   let s = spacetime([])
   t.ok(s.isValid(), 'array input is valid')
   t.ok(s.monthName(), 'january', 'empty array is january 1st')
@@ -160,7 +177,7 @@ test('empty-array', t => {
   t.end()
 })
 
-test('empty-object', t => {
+test('empty-object', (t) => {
   let s = spacetime({})
   t.ok(s.isValid(), 'obj input is valid')
   t.ok(s.monthName(), 'january', 'empty obj is january 1st')
@@ -169,7 +186,7 @@ test('empty-object', t => {
   t.end()
 })
 
-test('invalid inputs', t => {
+test('invalid inputs', (t) => {
   t.equal(spacetime('2012-07-32').isValid(), false, 'day 32')
   t.equal(spacetime('2012-07-22').isValid(), true, 'day 22')
 
@@ -205,7 +222,7 @@ test('invalid inputs', t => {
   t.end()
 })
 
-test('time-inputs', t => {
+test('time-inputs', (t) => {
   let s = spacetime('July 27 2018')
   t.equal(s.format('nice'), 'Jul 27th, 12:00am', 'no-time')
 
@@ -252,7 +269,7 @@ test('time-inputs', t => {
   t.end()
 })
 
-test('inplicit-years', t => {
+test('inplicit-years', (t) => {
   let year = new Date().getFullYear()
   t.equal(
     spacetime('sunday April 3rd').format('numeric'),
@@ -263,7 +280,7 @@ test('inplicit-years', t => {
   t.end()
 })
 
-test('inplicit-date', t => {
+test('inplicit-date', (t) => {
   t.equal(spacetime('dec 1919').format('iso-short'), '1919-12-01')
   t.equal(spacetime('november 2030').format('iso-short'), '2030-11-01')
   t.equal(spacetime('thursday november 2030').format('iso-short'), '2030-11-01')
@@ -274,7 +291,7 @@ test('inplicit-date', t => {
   t.end()
 })
 
-test('british-input', t => {
+test('british-input', (t) => {
   let s = spacetime('03/02/2017', null)
   t.equal(s.format('iso-short'), '2017-03-02', 'default mm/dd/yyyy')
 
