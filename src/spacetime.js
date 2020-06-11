@@ -50,10 +50,8 @@ const SpaceTime = function (input, tz, options = {}) {
     }
   })
   //parse the various formats
-  if (input !== undefined || input === null) {
-    let tmp = handleInput(this, input, tz, options)
-    this.epoch = tmp.epoch
-  }
+  let tmp = handleInput(this, input, tz, options)
+  this.epoch = tmp.epoch
 }
 
 //(add instance methods to prototype)

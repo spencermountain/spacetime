@@ -37,6 +37,15 @@ test('null input', (t) => {
   t.end()
 })
 
+test('undefined input', (t) => {
+  let a = spacetime(undefined, 'Canada/Eastern')
+  let b = spacetime(Date.now(), 'Canada/Eastern')
+  t.ok(a.isValid(), 'undefined input is valid')
+  t.equal(a.format('iso-short'), b.format('iso-short'), 'dates are the same')
+  t.equal(a.format('time'), b.format('time'), 'times are the same')
+  t.end()
+})
+
 test('arr-input', (t) => {
   let s = spacetime([2020, 2, 28])
   t.ok(s.isValid(), 'array input is valid')
