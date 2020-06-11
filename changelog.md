@@ -10,6 +10,7 @@ This project follows semVer, where:
 
 ### v6.6.0
 - support  `undefined` as input (like null)
+- fix for missing defaults in object input
 - 
 ### v6.5.0
 

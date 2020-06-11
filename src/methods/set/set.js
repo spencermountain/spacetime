@@ -5,7 +5,7 @@ const months = require('../../data/months')
 const monthLength = require('../../data/monthLengths')
 const walkTo = require('./walk')
 
-const validate = n => {
+const validate = (n) => {
   //handle number as a string
   if (typeof n === 'string') {
     n = parseInt(n, 10)

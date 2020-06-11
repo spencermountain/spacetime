@@ -13,3 +13,7 @@ const monthLengths = [
   31 // December - 31 days
 ]
 module.exports = monthLengths
+
+// 28 - feb
+// 30 - april, june, sept, nov
+// 31 - jan, march, may, july, aug, oct, dec
