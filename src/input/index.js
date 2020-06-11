@@ -24,17 +24,17 @@ const defaults = {
 }
 
 //support [2016, 03, 01] format
-const handleArray = (s, arr) => {
+const handleArray = (s, arr, today) => {
   let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
   for (let i = 0; i < order.length; i++) {
-    let num = arr[i] || defaults[order[i]] || 0
+    let num = arr[i] || today[order[i]] || 0
     s = s[order[i]](num)
   }
   return s
 }
 //support {year:2016, month:3} format
-const handleObject = (s, obj) => {
-  obj = Object.assign({}, defaults, obj)
+const handleObject = (s, obj, today) => {
+  obj = Object.assign({}, today, obj)
   let keys = Object.keys(obj)
   for (let i = 0; i < keys.length; i++) {
     let unit = keys[i]
@@ -46,7 +46,7 @@ const handleObject = (s, obj) => {
     if (obj[unit] === null || obj[unit] === undefined || obj[unit] === '') {
       continue
     }
-    let num = obj[unit] || defaults[unit] || 0
+    let num = obj[unit] || today[unit] || 0
     s = s[unit](num)
   }
   return s
@@ -54,6 +54,7 @@ const handleObject = (s, obj) => {
 
 //find the epoch from different input styles
 const parseInput = (s, input, givenTz) => {
+  let today = s._today || defaults
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
     if (input > 0 && input < minimumEpoch && s.silent === false) {
@@ -75,7 +76,7 @@ const parseInput = (s, input, givenTz) => {
   }
   //support [2016, 03, 01] format
   if (fns.isArray(input) === true) {
-    s = handleArray(s, input)
+    s = handleArray(s, input, today)
     return s
   }
   //support {year:2016, month:3} format
@@ -86,7 +87,7 @@ const parseInput = (s, input, givenTz) => {
       s.tz = input.tz
       return s
     }
-    s = handleObject(s, input)
+    s = handleObject(s, input, today)
     return s
   }
   //input as a string..

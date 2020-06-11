@@ -5,7 +5,7 @@ const methods = require('./methods')
 let timezones = require('../zonefile/unpack')
 
 //fake timezone-support, for fakers (es5 class)
-const SpaceTime = function(input, tz, options = {}) {
+const SpaceTime = function (input, tz, options = {}) {
   //the holy moment
   this.epoch = null
   //the shift for the given timezone
@@ -20,10 +20,14 @@ const SpaceTime = function(input, tz, options = {}) {
   if (options.weekStart !== undefined) {
     this._weekStart = options.weekStart
   }
+  // the reference today date object, (for testing)
+  if (options.today !== undefined) {
+    this._today = options.today
+  }
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object
-    get: function() {
+    get: function () {
       let offset = quickOffset(this)
       //every computer is somewhere- get this computer's built-in offset
       let bias = new Date(this.epoch).getTimezoneOffset() || 0
@@ -39,7 +43,7 @@ const SpaceTime = function(input, tz, options = {}) {
   //add this data on the object, to allow adding new timezones
   Object.defineProperty(this, 'timezones', {
     get: () => timezones,
-    set: obj => {
+    set: (obj) => {
       timezones = obj
       return obj
     }
@@ -52,20 +56,21 @@ const SpaceTime = function(input, tz, options = {}) {
 }
 
 //(add instance methods to prototype)
-Object.keys(methods).forEach(k => {
+Object.keys(methods).forEach((k) => {
   SpaceTime.prototype[k] = methods[k]
 })
 
 // ¯\_(ツ)_/¯
-SpaceTime.prototype.clone = function() {
+SpaceTime.prototype.clone = function () {
   return new SpaceTime(this.epoch, this.tz, {
     silent: this.silent,
-    weekStart: this._weekStart
+    weekStart: this._weekStart,
+    today: this._today
   })
 }
 
 //return native date object at the same epoch
-SpaceTime.prototype.toLocalDate = function() {
+SpaceTime.prototype.toLocalDate = function () {
   return new Date(this.epoch)
 }
 

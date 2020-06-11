@@ -2,5 +2,5 @@ const spacetime = require('./src/index')
 
 // let s = spacetime()
 
-let arr = spacetime('march 2 2021').every('week', 'jan 2 2021')
-console.log(arr.map((d) => d.format()))
+let s = spacetime('march 2', null, { today: { year: 1992 } })
+console.log(s.format('nice-year'))
