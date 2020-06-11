@@ -57,7 +57,8 @@ export interface Spacetime {
   nearest: (unit: TimeUnit) => Spacetime
 
   /** list all dates up to a certain time */
-  every: (unit: TimeUnit, other: Spacetime) => Spacetime[]
+  every: (unit: TimeUnit, end: Spacetime) => Spacetime[]
+  every: (unit: TimeUnit, end: String) => Spacetime[]
 
   /** go to the beginning of the previous unit */
   last: (unit: TimeUnit) => Spacetime

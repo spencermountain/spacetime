@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.4.3 Apache 2.0 */
+/* spencermountain/spacetime 6.5.0 Apache 2.0 */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -242,7 +242,7 @@
 		"2|n": "0/blantyre,0/bujumbura,0/cairo,0/khartoum,0/kigali,0/tripoli,8/kaliningrad",
 		"1|s|04/02:01->09/03:03": "0/windhoek",
 		"1|s": "0/kinshasa,0/luanda",
-		"1|n|04/19:03->05/24:02": "0/casablanca,0/el_aaiun",
+		"1|n|04/19:03->05/31:02": "0/casablanca,0/el_aaiun",
 		"1|n|03/29:01->10/25:02": "3/canary,3/faeroe,3/faroe,3/madeira,8/belfast,8/dublin,8/guernsey,8/isle_of_man,8/jersey,8/lisbon,8/london",
 		"1|n": "0/algiers,0/bangui,0/brazzaville,0/douala,0/lagos,0/libreville,0/malabo,0/ndjamena,0/niamey,0/porto-novo,0/tunis",
 		"14|n": "11/kiritimati",
@@ -909,10 +909,14 @@
 
 	var parseYear = function parseYear() {
 	  var str = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-	  //support '18 -> 2018
-	  // str = str.replace(/^'([0-9]{2})/, '20$1')
-	  // str = str.replace('([0-9]+) ?b\.?c\.?$', '-$1')
-	  var year = parseInt(str.trim(), 10);
+	  var today = arguments.length > 1 ? arguments[1] : undefined;
+	  var year = parseInt(str.trim(), 10); // use a given year from options.today
+
+	  if (!year && today) {
+	    year = today.year;
+	  } // fallback to this year
+
+
 	  year = year || new Date().getFullYear();
 	  return year;
 	};
@@ -996,7 +1000,7 @@
 	  reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
 	  parse: function parse(s, arr) {
 	    var month = months$1[arr[2].toLowerCase()];
-	    var year = parseYear(arr[3]);
+	    var year = parseYear(arr[3], s._today);
 	    var obj = {
 	      year: year,
 	      month: month,
@@ -1018,7 +1022,7 @@
 	  reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
 	  parse: function parse(s, arr) {
 	    var month = months$1[arr[1].toLowerCase()];
-	    var year = parseYear(arr[3]);
+	    var year = parseYear(arr[3], s._today);
 	    var obj = {
 	      year: year,
 	      month: month,
@@ -1039,11 +1043,11 @@
 	  reg: /^([a-z]+) ([0-9]{4})$/i,
 	  parse: function parse(s, arr) {
 	    var month = months$1[arr[1].toLowerCase()];
-	    var year = parseYear(arr[2]);
+	    var year = parseYear(arr[2], s._today);
 	    var obj = {
 	      year: year,
 	      month: month,
-	      date: 1
+	      date: s._today.date || 1
 	    };
 
 	    if (hasDate_1(obj) === false) {
@@ -1065,7 +1069,7 @@
 	      return null;
 	    }
 
-	    var year = parseYear(arr[3]);
+	    var year = parseYear(arr[3], s._today);
 	    var obj = {
 	      year: year,
 	      month: month,
@@ -1135,12 +1139,18 @@
 	  // '1992'
 	  reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
 	  parse: function parse(s, arr) {
-	    var year = parseYear(arr[0]);
-	    var d = new Date();
+	    var today = s._today;
+	    var year = parseYear(arr[0], today);
+	    var d = new Date(); // using today's date, but a new month is awkward.
+
+	    if (today.month && !today.date) {
+	      today.date = 1;
+	    }
+
 	    var obj = {
 	      year: year,
-	      month: d.getMonth(),
-	      date: d.getDate()
+	      month: today.month || d.getMonth(),
+	      date: today.date || d.getDate()
 	    };
 
 	    if (hasDate_1(obj) === false) {
@@ -1217,11 +1227,11 @@
 	  date: 1
 	}; //support [2016, 03, 01] format
 
-	var handleArray = function handleArray(s, arr) {
+	var handleArray = function handleArray(s, arr, today) {
 	  var order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
 
 	  for (var i = 0; i < order.length; i++) {
-	    var num = arr[i] || defaults[order[i]] || 0;
+	    var num = arr[i] || today[order[i]] || defaults[order[i]] || 0;
 	    s = s[order[i]](num);
 	  }
 
@@ -1229,8 +1239,8 @@
 	}; //support {year:2016, month:3} format
 
 
-	var handleObject = function handleObject(s, obj) {
-	  obj = Object.assign({}, defaults, obj);
+	var handleObject = function handleObject(s, obj, today) {
+	  obj = Object.assign({}, today, obj);
 	  var keys = Object.keys(obj);
 
 	  for (var i = 0; i < keys.length; i++) {
@@ -1245,7 +1255,7 @@
 	      continue;
 	    }
 
-	    var num = obj[unit] || defaults[unit] || 0;
+	    var num = obj[unit] || today[unit] || defaults[unit] || 0;
 	    s = s[unit](num);
 	  }
 
@@ -1254,7 +1264,8 @@
 
 
 	var parseInput = function parseInput(s, input, givenTz) {
-	  //if we've been given a epoch number, it's easy
+	  var today = s._today || defaults; //if we've been given a epoch number, it's easy
+
 	  if (typeof input === 'number') {
 	    if (input > 0 && input < minimumEpoch && s.silent === false) {
 	      console.warn('  - Warning: You are setting the date to January 1970.');
@@ -1280,7 +1291,7 @@
 
 
 	  if (fns.isArray(input) === true) {
-	    s = handleArray(s, input);
+	    s = handleArray(s, input, today);
 	    return s;
 	  } //support {year:2016, month:3} format
 
@@ -1293,7 +1304,7 @@
 	      return s;
 	    }
 
-	    s = handleObject(s, input);
+	    s = handleObject(s, input, today);
 	    return s;
 	  } //input as a string..
 
@@ -2578,7 +2589,7 @@
 	var methods = {
 	  set: function set(input$1, tz) {
 	    var s = this.clone();
-	    s = input(s, input$1);
+	    s = input(s, input$1, null);
 
 	    if (tz) {
 	      this.tz = find(tz);
@@ -3842,6 +3853,13 @@
 
 	  if (options.weekStart !== undefined) {
 	    this._weekStart = options.weekStart;
+	  } // the reference today date object, (for testing)
+
+
+	  this._today = {};
+
+	  if (options.today !== undefined) {
+	    this._today = options.today;
 	  } //add getter/setters
 
 
@@ -3887,7 +3905,8 @@
 	SpaceTime.prototype.clone = function () {
 	  return new SpaceTime(this.epoch, this.tz, {
 	    silent: this.silent,
-	    weekStart: this._weekStart
+	    weekStart: this._weekStart,
+	    today: this._today
 	  });
 	}; //return native date object at the same epoch
 
@@ -3945,29 +3964,43 @@
 
 	var whereIts_1 = whereIts;
 
-	var _version = '6.4.3';
+	var _version = '6.5.0';
 
 	var main$1 = function main(input, tz, options) {
 	  return new spacetime(input, tz, options);
+	}; // set all properties of a given 'today' object
+
+
+	var setToday = function setToday(s) {
+	  var today = s._today;
+	  Object.keys(today).forEach(function (k) {
+	    s = s[k](today[k]);
+	  });
+	  return s;
 	}; //some helper functions on the main method
 
 
 	main$1.now = function (tz, options) {
-	  return new spacetime(new Date().getTime(), tz, options);
+	  var s = new spacetime(new Date().getTime(), tz, options);
+	  s = setToday(s);
+	  return s;
 	};
 
 	main$1.today = function (tz, options) {
 	  var s = new spacetime(new Date().getTime(), tz, options);
+	  s = setToday(s);
 	  return s.startOf('day');
 	};
 
 	main$1.tomorrow = function (tz, options) {
 	  var s = new spacetime(new Date().getTime(), tz, options);
+	  s = setToday(s);
 	  return s.add(1, 'day').startOf('day');
 	};
 
 	main$1.yesterday = function (tz, options) {
 	  var s = new spacetime(new Date().getTime(), tz, options);
+	  s = setToday(s);
 	  return s.subtract(1, 'day').startOf('day');
 	};
 

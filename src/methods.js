@@ -26,70 +26,70 @@ const units = [
 
 //the spacetime instance methods (also, the API)
 const methods = {
-  set: function(input, tz) {
+  set: function (input, tz) {
     let s = this.clone()
-    s = handleInput(s, input)
+    s = handleInput(s, input, null)
     if (tz) {
       this.tz = findTz(tz)
     }
     return s
   },
-  timezone: function() {
+  timezone: function () {
     return timezone(this)
   },
-  isDST: function() {
+  isDST: function () {
     return timezone(this).current.isDST
   },
-  hasDST: function() {
+  hasDST: function () {
     return timezone(this).hasDst
   },
-  offset: function() {
+  offset: function () {
     return timezone(this).current.offset * 60
   },
-  hemisphere: function() {
+  hemisphere: function () {
     return timezone(this).hemisphere
   },
-  format: function(fmt) {
+  format: function (fmt) {
     return format(this, fmt)
   },
-  unixFmt: function(fmt) {
+  unixFmt: function (fmt) {
     return unixFmt(this, fmt)
   },
-  startOf: function(unit) {
+  startOf: function (unit) {
     return ends.startOf(this, unit)
   },
-  endOf: function(unit) {
+  endOf: function (unit) {
     return ends.endOf(this, unit)
   },
-  leapYear: function() {
+  leapYear: function () {
     let year = this.year()
     return fns.isLeapYear(year)
   },
-  progress: function(unit) {
+  progress: function (unit) {
     return progress(this, unit)
   },
-  nearest: function(unit) {
+  nearest: function (unit) {
     return nearest(this, unit)
   },
-  diff: function(d, unit) {
+  diff: function (d, unit) {
     return diff(this, d, unit)
   },
-  since: function(d) {
+  since: function (d) {
     if (!d) {
       d = this.clone().set()
     }
     return since(this, d)
   },
-  next: function(unit) {
+  next: function (unit) {
     let s = this.add(1, unit)
     return s.startOf(unit)
   },
   //the start of the previous year/week/century
-  last: function(unit) {
+  last: function (unit) {
     let s = this.subtract(1, unit)
     return s.startOf(unit)
   },
-  isValid: function() {
+  isValid: function () {
     //null/undefined epochs
     if (!this.epoch && this.epoch !== 0) {
       return false
@@ -97,16 +97,16 @@ const methods = {
     return !isNaN(this.d.getTime())
   },
   //travel to this timezone
-  goto: function(tz) {
+  goto: function (tz) {
     let s = this.clone()
     s.tz = findTz(tz, s.timezones) //science!
     return s
   },
   //get each week/month/day between a -> b
-  every: function(unit, to) {
+  every: function (unit, to) {
     return every(this, unit, to)
   },
-  isAwake: function() {
+  isAwake: function () {
     let hour = this.hour()
     //10pm -> 8am
     if (hour < 8 || hour > 22) {
@@ -114,27 +114,27 @@ const methods = {
     }
     return true
   },
-  isAsleep: function() {
+  isAsleep: function () {
     return !this.isAwake()
   },
   //pretty-printing
-  log: function() {
+  log: function () {
     console.log('')
     console.log(format(this, 'nice-short'))
     return this
   },
-  logYear: function() {
+  logYear: function () {
     console.log('')
     console.log(format(this, 'full-short'))
     return this
   },
-  json: function() {
+  json: function () {
     return units.reduce((h, unit) => {
       h[unit] = this[unit]()
       return h
     }, {})
   },
-  debug: function() {
+  debug: function () {
     let tz = this.timezone()
     let date = this.format('MM') + ' ' + this.format('date-ordinal') + ' ' + this.year()
     date += '\n     - ' + this.format('time')
@@ -142,15 +142,15 @@ const methods = {
     return this
   },
   //alias of 'since' but opposite - like moment.js
-  from: function(d) {
+  from: function (d) {
     d = this.clone().set(d)
     return d.since(this)
   },
-  fromNow: function() {
+  fromNow: function () {
     let d = this.clone().set(Date.now())
     return d.since(this)
   },
-  weekStart: function(input) {
+  weekStart: function (input) {
     //accept a number directly
     if (typeof input === 'number') {
       this._weekStart = input

@@ -5,11 +5,13 @@ const parseTime = require('./parseTime')
 const hasDate = require('./hasDate')
 const fns = require('../fns')
 
-const parseYear = (str = '') => {
-  //support '18 -> 2018
-  // str = str.replace(/^'([0-9]{2})/, '20$1')
-  // str = str.replace('([0-9]+) ?b\.?c\.?$', '-$1')
+const parseYear = (str = '', today) => {
   let year = parseInt(str.trim(), 10)
+  // use a given year from options.today
+  if (!year && today) {
+    year = today.year
+  }
+  // fallback to this year
   year = year || new Date().getFullYear()
   return year
 }
@@ -89,7 +91,7 @@ const strFmt = [
     reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
     parse: (s, arr) => {
       let month = months[arr[2].toLowerCase()]
-      let year = parseYear(arr[3])
+      let year = parseYear(arr[3], s._today)
       let obj = {
         year,
         month,
@@ -111,7 +113,7 @@ const strFmt = [
     reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
     parse: (s, arr) => {
       let month = months[arr[1].toLowerCase()]
-      let year = parseYear(arr[3])
+      let year = parseYear(arr[3], s._today)
       let obj = {
         year,
         month,
@@ -131,11 +133,11 @@ const strFmt = [
     reg: /^([a-z]+) ([0-9]{4})$/i,
     parse: (s, arr) => {
       let month = months[arr[1].toLowerCase()]
-      let year = parseYear(arr[2])
+      let year = parseYear(arr[2], s._today)
       let obj = {
         year,
         month,
-        date: 1
+        date: s._today.date || 1
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -154,7 +156,7 @@ const strFmt = [
       if (!month) {
         return null
       }
-      let year = parseYear(arr[3])
+      let year = parseYear(arr[3], s._today)
       let obj = {
         year,
         month,
@@ -221,12 +223,17 @@ const strFmt = [
     // '1992'
     reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
     parse: (s, arr) => {
-      let year = parseYear(arr[0])
+      let today = s._today
+      let year = parseYear(arr[0], today)
       let d = new Date()
+      // using today's date, but a new month is awkward.
+      if (today.month && !today.date) {
+        today.date = 1
+      }
       let obj = {
         year,
-        month: d.getMonth(),
-        date: d.getDate()
+        month: today.month || d.getMonth(),
+        date: today.date || d.getDate()
       }
       if (hasDate(obj) === false) {
         s.epoch = null

@@ -150,6 +150,9 @@ s = s.nearest('quarter-hour') //5:15, 5:30, 5:45..
 s = s.next('month') //start of the next month
 s = s.last('year') //start of the last year
 
+// fill-in all dates between a range
+s.every('week', 'Jan 1st 2020') // (in tz of starting-date)
+
 //utilities:
 s.clone() // Make a copy
 s.isValid() // Sept 32nd → false
@@ -315,6 +318,36 @@ let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
 })
 s.timezone().name // "Etc/GMT-7"
 ```
+
+
+#### Configure 'today' context:
+spacetime makes some assumptions about some string inputs:
+```js
+// assumes start of month
+let s = spacetime('June 1992')
+s.date() // 1
+
+// assumes current year
+let s = spacetime('June 5th')
+s.year() // 2020 (or whatever it is now)
+
+// assumes Jan 1st
+let s = spacetime('2030')
+s.month() // 'January'
+```
+
+you can configure this assumed date (usually for testing) by passing it in as an option:
+
+```js
+let today= {
+  month: 3,
+  date: 4,
+  year: 1996,
+}
+let s = spacetime('June 5th', null, {today:today})
+s.year() // 1996
+```
+it also works for `spacetime.now(tz, {today:today})` and others.
 
 #### Extending/Plugins:
 

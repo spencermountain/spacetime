@@ -58,7 +58,7 @@ module.exports = {
   'africa/casablanca': {
     offset: 1,
     hem: 'n',
-    dst: '04/19:03->05/24:02'
+    dst: '04/19:03->05/31:02'
   },
   'africa/ceuta': {
     offset: 2,
@@ -88,7 +88,7 @@ module.exports = {
   'africa/el_aaiun': {
     offset: 1,
     hem: 'n',
-    dst: '04/19:03->05/24:02'
+    dst: '04/19:03->05/31:02'
   },
   'africa/freetown': {
     offset: 0,

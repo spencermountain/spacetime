@@ -4,6 +4,15 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
+<!-- [planned]
+* don't reverse dates for .every() method
+-->
+
+### v6.5.0
+
+- support `options.today`
+- update deps, minor zonefile update
+
 ### v6.4.1
 
 - run mjs build through babel (#175)
