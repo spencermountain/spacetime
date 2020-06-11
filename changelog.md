@@ -9,9 +9,11 @@ This project follows semVer, where:
 -->
 
 ### v6.6.0
-- support  `undefined` as input (like null)
+
+- support `undefined` as input (like null)
 - fix for missing defaults in object input
-- 
+- fix major DST add/subtract bug #193
+
 ### v6.5.0
 
 - support `options.today`

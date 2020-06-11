@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.5.0 Apache 2.0 */
+/* spencermountain/spacetime 6.6.0 Apache 2.0 */
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -868,7 +868,7 @@ var monthLengths = [31, // January - 31 days
 30, // November - 30 days
 31 // December - 31 days
 ];
-var monthLengths_1 = monthLengths;
+var monthLengths_1 = monthLengths; // 28 - feb
 
 var isLeapYear = fns.isLeapYear; //given a month, return whether day number exists in it
 
@@ -1234,7 +1234,7 @@ var handleArray = function handleArray(s, arr, today) {
 
 
 var handleObject = function handleObject(s, obj, today) {
-  obj = Object.assign({}, today, obj);
+  obj = Object.assign({}, defaults, today, obj);
   var keys = Object.keys(obj);
 
   for (var i = 0; i < keys.length; i++) {
@@ -3531,6 +3531,97 @@ var addMethods = function addMethods(Space) {
 
 var query = addMethods;
 
+var isLeapYear$1 = fns.isLeapYear;
+
+var getMonthLength = function getMonthLength(month, year) {
+  if (month === 1 && isLeapYear$1(year)) {
+    return 29;
+  }
+
+  return monthLengths_1[month];
+}; //month is the one thing we 'model/compute'
+//- because ms-shifting can be off by enough
+
+
+var rollMonth = function rollMonth(want, old) {
+  //increment year
+  if (want.month > 0) {
+    var years = parseInt(want.month / 12, 10);
+    want.year = old.year() + years;
+    want.month = want.month % 12;
+  } else if (want.month < 0) {
+    //decrement year
+    var _years = Math.floor(Math.abs(want.month) / 13, 10);
+
+    _years = Math.abs(_years) + 1;
+    want.year = old.year() - _years; //ignore extras
+
+    want.month = want.month % 12;
+    want.month = want.month + 12;
+
+    if (want.month === 12) {
+      want.month = 0;
+    }
+  }
+
+  return want;
+};
+
+var rollDaysDown = function rollDaysDown(want, old, sum) {
+  want.year = old.year();
+  want.month = old.month();
+  var date = old.date();
+  want.date = date - Math.abs(sum);
+
+  while (want.date < 1) {
+    want.month -= 1;
+
+    if (want.month < 0) {
+      want.month = 11;
+      want.year -= 1;
+    }
+
+    var max = getMonthLength(want.month, want.year);
+    want.date += max;
+  }
+
+  return want;
+}; // briefly support day=33 (this does not need to be perfect.)
+
+
+var rollDaysUp = function rollDaysUp(want, old, sum) {
+  var year = old.year();
+  var month = old.month();
+  var max = getMonthLength(month, year);
+
+  while (sum > max) {
+    sum -= max;
+    month += 1;
+
+    if (month >= 12) {
+      month -= 12;
+      year += 1;
+    }
+
+    max = getMonthLength(month, year);
+  }
+
+  want.month = month;
+  want.date = sum;
+  return want;
+};
+
+var _model = {
+  months: rollMonth,
+  days: rollDaysUp,
+  daysBack: rollDaysDown
+};
+
+// but briefly:
+// millisecond-math, and some post-processing covers most-things
+// we 'model' the calendar here only a little bit
+// and that usually works-out...
+
 var order$1 = ['millisecond', 'second', 'minute', 'hour', 'date', 'month'];
 var keep = {
   second: order$1.slice(0, 1),
@@ -3562,31 +3653,6 @@ var keepDate = {
   quarter: true,
   season: true,
   year: true
-}; //month is the only thing we 'model/compute'
-//- because ms-shifting can be off by enough
-
-var rollMonth = function rollMonth(want, old) {
-  //increment year
-  if (want.month > 0) {
-    var years = parseInt(want.month / 12, 10);
-    want.year = old.year() + years;
-    want.month = want.month % 12;
-  } else if (want.month < 0) {
-    //decrement year
-    var _years = Math.floor(Math.abs(want.month) / 13, 10);
-
-    _years = Math.abs(_years) + 1;
-    want.year = old.year() - _years; //ignore extras
-
-    want.month = want.month % 12;
-    want.month = want.month + 12;
-
-    if (want.month === 12) {
-      want.month = 0;
-    }
-  }
-
-  return want;
 };
 
 var addMethods$1 = function addMethods(SpaceTime) {
@@ -3630,7 +3696,7 @@ var addMethods$1 = function addMethods(SpaceTime) {
     if (unit === 'month') {
       want.month = old.month() + num; //month is the one unit we 'model' directly
 
-      want = rollMonth(want, old);
+      want = _model.months(want, old);
     } //support coercing a week, too
 
 
@@ -3642,15 +3708,20 @@ var addMethods$1 = function addMethods(SpaceTime) {
       }
     } //support 25-hour day-changes on dst-changes
     else if (unit === 'date') {
-        //specify a naive date number, if it's easy to do...
-        var _sum = old.date() + num;
+        if (num < 0) {
+          want = _model.daysBack(want, old, num);
+        } else {
+          //specify a naive date number, if it's easy to do...
+          var _sum = old.date() + num; // ok, model this one too
 
-        if (_sum <= 28 && _sum > 1) {
-          want.date = _sum;
-        } //or if we haven't moved at all..
-        else if (num !== 0 && old.isSame(s, 'day')) {
-            want.date = old.date() + num;
-          }
+
+          want = _model.days(want, old, _sum);
+        } //manually punt it if we haven't moved at all..
+
+
+        if (num !== 0 && old.isSame(s, 'day')) {
+          want.date = old.date() + num;
+        }
       } //ensure year has changed (leap-years)
       else if (unit === 'year' && s.year() === old.year()) {
           s.epoch += milliseconds.week;
@@ -3885,10 +3956,8 @@ var SpaceTime = function SpaceTime(input$1, tz) {
     }
   }); //parse the various formats
 
-  if (input$1 !== undefined || input$1 === null) {
-    var tmp = input(this, input$1, tz);
-    this.epoch = tmp.epoch;
-  }
+  var tmp = input(this, input$1, tz);
+  this.epoch = tmp.epoch;
 }; //(add instance methods to prototype)
 
 
@@ -3958,7 +4027,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.5.0';
+var _version = '6.6.0';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);
@@ -3966,7 +4035,7 @@ var main$1 = function main(input, tz, options) {
 
 
 var setToday = function setToday(s) {
-  var today = s._today;
+  var today = s._today || {};
   Object.keys(today).forEach(function (k) {
     s = s[k](today[k]);
   });

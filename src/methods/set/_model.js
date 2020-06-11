@@ -31,6 +31,7 @@ const rollMonth = (want, old) => {
   return want
 }
 
+// briefly support day=-2 (this does not need to be perfect.)
 const rollDaysDown = (want, old, sum) => {
   want.year = old.year()
   want.month = old.month()

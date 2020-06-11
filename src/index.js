@@ -6,7 +6,7 @@ const main = (input, tz, options) => new Spacetime(input, tz, options)
 
 // set all properties of a given 'today' object
 const setToday = function (s) {
-  let today = s._today
+  let today = s._today || {}
   Object.keys(today).forEach((k) => {
     s = s[k](today[k])
   })
