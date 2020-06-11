@@ -34,7 +34,7 @@ const handleArray = (s, arr, today) => {
 }
 //support {year:2016, month:3} format
 const handleObject = (s, obj, today) => {
-  obj = Object.assign({}, today, obj)
+  obj = Object.assign({}, defaults, today, obj)
   let keys = Object.keys(obj)
   for (let i = 0; i < keys.length; i++) {
     let unit = keys[i]
