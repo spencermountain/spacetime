@@ -21,6 +21,7 @@ const SpaceTime = function (input, tz, options = {}) {
     this._weekStart = options.weekStart
   }
   // the reference today date object, (for testing)
+  this._today = {}
   if (options.today !== undefined) {
     this._today = options.today
   }

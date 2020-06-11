@@ -27,7 +27,7 @@ const defaults = {
 const handleArray = (s, arr, today) => {
   let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
   for (let i = 0; i < order.length; i++) {
-    let num = arr[i] || today[order[i]] || 0
+    let num = arr[i] || today[order[i]] || defaults[order[i]] || 0
     s = s[order[i]](num)
   }
   return s
@@ -46,7 +46,7 @@ const handleObject = (s, obj, today) => {
     if (obj[unit] === null || obj[unit] === undefined || obj[unit] === '') {
       continue
     }
-    let num = obj[unit] || today[unit] || 0
+    let num = obj[unit] || today[unit] || defaults[unit] || 0
     s = s[unit](num)
   }
   return s

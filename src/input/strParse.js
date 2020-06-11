@@ -137,7 +137,7 @@ const strFmt = [
       let obj = {
         year,
         month,
-        date: 1
+        date: s._today.date || 1
       }
       if (hasDate(obj) === false) {
         s.epoch = null
@@ -223,12 +223,17 @@ const strFmt = [
     // '1992'
     reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
     parse: (s, arr) => {
-      let year = parseYear(arr[0], s._today)
+      let today = s._today
+      let year = parseYear(arr[0], today)
       let d = new Date()
+      // using today's date, but a new month is awkward.
+      if (today.month && !today.date) {
+        today.date = 1
+      }
       let obj = {
         year,
-        month: d.getMonth(),
-        date: d.getDate()
+        month: today.month || d.getMonth(),
+        date: today.date || d.getDate()
       }
       if (hasDate(obj) === false) {
         s.epoch = null
