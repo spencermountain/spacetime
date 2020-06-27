@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.6.0 Apache 2.0 */
+/* spencermountain/spacetime 6.6.1 Apache 2.0 */
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -3565,7 +3565,8 @@ var rollMonth = function rollMonth(want, old) {
   }
 
   return want;
-};
+}; // briefly support day=-2 (this does not need to be perfect.)
+
 
 var rollDaysDown = function rollDaysDown(want, old, sum) {
   want.year = old.year();
@@ -4027,7 +4028,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.6.0';
+var _version = '6.6.1';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);

@@ -8,6 +8,10 @@ This project follows semVer, where:
 * don't reverse dates for .every() method
 -->
 
+### v6.6.1
+
+- typescript fix
+
 ### v6.6.0
 
 - support `undefined` as input (like null)

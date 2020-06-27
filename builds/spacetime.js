@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.6.0 Apache 2.0 */
+/* spencermountain/spacetime 6.6.1 Apache 2.0 */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -3571,7 +3571,8 @@
 	  }
 
 	  return want;
-	};
+	}; // briefly support day=-2 (this does not need to be perfect.)
+
 
 	var rollDaysDown = function rollDaysDown(want, old, sum) {
 	  want.year = old.year();
@@ -4033,7 +4034,7 @@
 
 	var whereIts_1 = whereIts;
 
-	var _version = '6.6.0';
+	var _version = '6.6.1';
 
 	var main$1 = function main(input, tz, options) {
 	  return new spacetime(input, tz, options);
