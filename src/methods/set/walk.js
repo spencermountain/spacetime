@@ -20,12 +20,11 @@ const walk = (s, n, fn, unit, previous) => {
       s.epoch += ms.hour
     }
   }
-  //oops, did we change previous unit? revert it.
+  // 1st time: oops, did we change previous unit? revert it.
   if (previous !== null && startUnit !== s.d[previous]()) {
     // console.warn('spacetime warning: missed setting ' + unit)
     s.epoch = original
-    // i mean, but make it close...
-    s.epoch += ms[unit] * diff * 0.89 // i guess?
+    // s.epoch += ms[unit] * diff * 0.89 // maybe try and make it close...?
   }
   //repair it if we've gone too far or something
   //(go by half-steps, just in case)
@@ -33,8 +32,14 @@ const walk = (s, n, fn, unit, previous) => {
   while (s.d[fn]() < n) {
     s.epoch += halfStep
   }
+
   while (s.d[fn]() > n) {
     s.epoch -= halfStep
+  }
+  // 2nd time: did we change previous unit? revert it.
+  if (previous !== null && startUnit !== s.d[previous]()) {
+    // console.warn('spacetime warning: missed setting ' + unit)
+    s.epoch = original
   }
 }
 //find the desired date by a increment/check while loop
