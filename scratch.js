@@ -1,21 +1,28 @@
 const spacetime = require('./src/index')
 
-let s = spacetime('Feb 1 2017')
-console.log(s.format('nice'))
+let s = spacetime('April 1 2017')
+console.log(s.format('{month-short} {month-pad} {iso-month}'))
 
-// s = s.add(1, 'day')
-s = s.add(2, 'day')
-console.log(s.format('nice'))
+// let d = spacetime('june 2nd 1892')
+// d.every('year', 'june 2nd 1902').forEach((y) => {
+//   console.log(y.format('iso-short'))
+// })
 
-// let s = spacetime('Oct 31 2020')
-// console.log(s.format('nice'))
+// let a = spacetime('jan 1 1894')
+// console.log(a.add(1, 'year').format())
+// missing 1805
 
-// // s = s.add(1, 'day')
-// s = s.add(2, 'day')
-// console.log(s.format('nice'))
+// let str = spacetime('2019-09-29', 'Pacific/Auckland').time('2:01AM').format('time')
+// console.log(str)
 
-// let d = spacetime(1572681600000, 'America/Los_Angeles')
-// for (let i = 0; i < 12; i += 1) {
-//   d = d.add(1, 'day')
-//   console.log(d.format('nice'))
+// let dst = spacetime('2019-09-25', 'Pacific/Auckland')
+
+// for (let i = 0; i < 3; i++) {
+//   dst = dst.add(1, 'days')
+//   dst = dst.time('1:59AM')
+//   console.log(dst.format('nice') + ' (' + dst.isDST() + ')')
+//   dst = dst.time('2:01AM')
+//   console.log(dst.format('nice') + ' (' + dst.isDST() + ')')
+//   dst = dst.time('3:01AM')
+//   console.log(dst.format('nice') + ' (' + dst.isDST() + ')')
 // }

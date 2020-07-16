@@ -250,7 +250,8 @@ s.format('time') // '5:01am'
 s.format('numeric-uk') // 02/03/2017
 s.format('month') // 'April'
 s.format('month-short') // 'Apr'
-s.format('month-pad') // '04'
+s.format('month-pad') // '03'
+s.format('iso-month') // '04'
 
 //if you want more complex formats, use {}'s
 s.format('{year}-{date-pad}-{month-pad}') // '2018-02-02'
