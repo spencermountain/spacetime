@@ -2,11 +2,11 @@
 const test = require('tape')
 const spacetime = require('./lib')
 
-const fmt = s => {
+const fmt = (s) => {
   return s.format('nice-short')
 }
 
-test('leapyear-basic', t => {
+test('leapyear-basic', (t) => {
   let d = spacetime('December 12, 2016 20:42:00', 'Africa/Algiers')
   t.equal(d.leapYear(), true, '2016-leap')
 
@@ -28,7 +28,7 @@ test('leapyear-basic', t => {
   t.end()
 })
 
-test('leapyear-in-add', t => {
+test('leapyear-in-add', (t) => {
   let d = spacetime('December 1, 2000 20:42:00', 'Africa/Algiers')
   let first = d.clone()
 
@@ -51,7 +51,7 @@ test('leapyear-in-add', t => {
   t.end()
 })
 
-test('add-1-day-adds-25-hours', t => {
+test('add-1-day-adds-25-hours', (t) => {
   let d = spacetime(1509858000000, 'Canada/Eastern')
   t.equal(d.date(), 5, 'is 5th')
   d = d.add(1, 'date')
@@ -61,9 +61,9 @@ test('add-1-day-adds-25-hours', t => {
   t.end()
 })
 
-test('feb-29th-exists', t => {
+test('feb-29th-exists', (t) => {
   let leaps = [2004, 2008, 2012, 2016, 2020, 2024]
-  leaps.forEach(y => {
+  leaps.forEach((y) => {
     //feb 28th 11:30pm
     let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers')
     s = s.add(1, 'hour')
@@ -76,9 +76,9 @@ test('feb-29th-exists', t => {
   t.end()
 })
 
-test('feb-29th-doesnt-exist', t => {
+test('feb-29th-doesnt-exist', (t) => {
   let noLeaps = [2005, 2009, 2010, 2011, 2013, 2017, 2019, 2021]
-  noLeaps.forEach(y => {
+  noLeaps.forEach((y) => {
     //feb 28th 11:30pm
     let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers')
     s = s.add(1, 'hour')
@@ -91,7 +91,7 @@ test('feb-29th-doesnt-exist', t => {
   t.end()
 })
 
-test('length of year', t => {
+test('length of year', (t) => {
   let right = {
     '2014': 365,
     '2015': 365,
@@ -116,5 +116,23 @@ test('length of year', t => {
     }).endOf('year')
     t.equal(s.dayOfYear(), right[year], 'year ' + year)
   }
+  t.end()
+})
+
+test('set feb 29th in leap year', (t) => {
+  let s = spacetime.now()
+  s = s.year(2020)
+  s = s.month(1)
+  s = s.date(29)
+  t.equal(s.format('iso-short'), '2020-02-29', 'is leap day')
+  t.end()
+})
+
+test('set feb 29th in non-leap year', (t) => {
+  let s = spacetime.now()
+  s = s.year(2019)
+  s = s.month(1)
+  s = s.date(29)
+  t.equal(s.format('iso-short'), '2019-02-28', 'is not leap day')
   t.end()
 })

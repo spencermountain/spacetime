@@ -111,7 +111,7 @@ module.exports = {
     if (n > 28) {
       let month = s.month()
       let max = monthLength[month]
-      // support leap in february
+      // support leap day in february
       if (month === 1 && n === 29 && isLeapYear(s.year())) {
         max = 29
       }
