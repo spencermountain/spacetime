@@ -1,7 +1,7 @@
 const spacetime = require('./src/index')
 
-let s = spacetime('April 1 2017')
-console.log(s.format('{month-short} {month-pad} {iso-month}'))
+let s = spacetime('January 4 2017').time('12:01am')
+console.log(s.format('{month} {month-number} {month-pad} {month-iso} {hour-24}'))
 
 // let d = spacetime('june 2nd 1892')
 // d.every('year', 'june 2nd 1902').forEach((y) => {

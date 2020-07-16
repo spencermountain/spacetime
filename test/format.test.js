@@ -2,7 +2,7 @@
 let test = require('tape')
 let spacetime = require('./lib')
 
-test('to-from utc-format', t => {
+test('to-from utc-format', (t) => {
   ;[
     '1998-05-01T08:00:00.000Z',
     '1998-05-30T22:00:00.000Z',
@@ -30,7 +30,7 @@ test('to-from utc-format', t => {
     '-000098-05-04T23:16:19.444Z',
     '-000986-05-01T09:58:23.078-04:00',
     '-002345-05-04T23:12:01.970Z'
-  ].forEach(str => {
+  ].forEach((str) => {
     let s = spacetime(str)
     let out = s.format('iso')
     t.equal(str, out, 'equal - ' + str)
@@ -43,7 +43,7 @@ test('to-from utc-format', t => {
   t.end()
 })
 
-test('unix-formatting', t => {
+test('unix-formatting', (t) => {
   let epoch = 1510850065194
   let s = spacetime(epoch, 'Canada/Eastern')
   //examples from http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
@@ -59,20 +59,25 @@ test('unix-formatting', t => {
     ['yyyy-MM-ddTHH:mm:ssZZZ', '2017-11-16T11:34:25-0500'],
     ['yyyy-MM-ddTHH:mm:ssZZZZ', '2017-11-16T11:34:25-05:00']
   ]
-  arr.forEach(a => {
+  arr.forEach((a) => {
     t.equal(s.unixFmt(a[0]), a[1], a[0])
   })
 
   //test another date
   s = spacetime([2018, 'February', 20], 'Canada/Eastern')
-  arr = [['M', '2'], ['MM', '02'], ['MMM', 'Feb'], ['MMMM', 'February']]
-  arr.forEach(a => {
+  arr = [
+    ['M', '2'],
+    ['MM', '02'],
+    ['MMM', 'Feb'],
+    ['MMMM', 'February']
+  ]
+  arr.forEach((a) => {
     t.equal(s.unixFmt(a[0]), a[1], a[0])
   })
   t.end()
 })
 
-test('bc-year-formatting', t => {
+test('bc-year-formatting', (t) => {
   let s = spacetime('2,000 BC')
   t.equal(s.format('year'), '2000 BC', '2000bc')
   t.equal(s.year(), -2000, '-2000')
@@ -87,7 +92,7 @@ test('bc-year-formatting', t => {
   t.end()
 })
 
-test('iso-in = iso-out', t => {
+test('iso-in = iso-out', (t) => {
   let str = '2018-07-09T12:59:00.362-07:00'
   let minus = spacetime(str)
   t.equal(minus.format('iso'), str, 'minus-seven')
@@ -103,13 +108,13 @@ test('iso-in = iso-out', t => {
   t.end()
 })
 
-test('iso-with-fraction-offset', t => {
+test('iso-with-fraction-offset', (t) => {
   let s = spacetime('June 8th 1918', 'Asia/Calcutta').time('1:00pm')
   t.equal(s.format('iso'), '1918-06-08T13:00:00.000+05:30', 'correct offset')
   t.end()
 })
 
-test('hour-pad', t => {
+test('hour-pad', (t) => {
   let s = spacetime('June 8th 1918', 'Asia/Calcutta').time('1:23pm')
   t.equal(s.format('{hour-pad}:{minute-pad}'), '01:23', 'hour-pad')
   t.equal(s.format('{hour-24-pad}:{minute-pad}'), '13:23', '24-hour-pad')
@@ -119,7 +124,7 @@ test('hour-pad', t => {
   t.end()
 })
 
-test('made-up-syntax', t => {
+test('made-up-syntax', (t) => {
   let s = spacetime('June 8th 1918', 'Asia/Calcutta')
   s = s.time('4:45pm')
   let arr = [
@@ -128,9 +133,16 @@ test('made-up-syntax', t => {
     ['{month} {hour}:{minute}{ampm}', 'June 4:45pm'],
     ['{day} the {date-ordinal} of {month}', 'Saturday the 8th of June']
   ]
-  arr.forEach(a => {
+  arr.forEach((a) => {
     t.equal(s.format(a[0]), a[1], a[0])
   })
+  t.end()
+})
+
+test('test 0-based formatting', (t) => {
+  let s = spacetime('January 4 2017').time('12:01am')
+  let out = s.format('{month} {month-number} {month-pad} {month-iso} {hour-24}')
+  t.equal(out, 'January 0 00 01 0', '0-based and 1-based months')
   t.end()
 })
 
