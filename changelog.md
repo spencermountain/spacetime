@@ -9,7 +9,8 @@ This project follows semVer, where:
 -->
 
 ### v6.6.2
-- fix for formatting when the output is 0 😓
+- [fix] for formatting when the output is 0 😓
+- [fix] for leap-day in `.date()` method
 
 ### v6.6.1
 

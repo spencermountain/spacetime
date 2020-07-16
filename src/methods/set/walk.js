@@ -11,13 +11,21 @@ const walk = (s, n, fn, unit, previous) => {
   //try to get it as close as we can
   let diff = n - current
   s.epoch += ms[unit] * diff
-
   //DST edge-case: if we are going many days, be a little conservative
-  if (unit === 'day' && Math.abs(diff) > 28) {
+  // console.log(unit, diff)
+  if (unit === 'day') {
+    // s.epoch -= ms.minute
     //but don't push it over a month
-    if (n < 28) {
+    if (Math.abs(diff) > 28 && n < 28) {
       s.epoch += ms.hour
     }
+  }
+  //oops, did we change previous unit? revert it.
+  if (previous !== null && startUnit !== s.d[previous]()) {
+    // console.warn('spacetime warning: missed setting ' + unit)
+    s.epoch = original
+    // i mean, but make it close...
+    s.epoch += ms[unit] * diff * 0.89 // i guess?
   }
   //repair it if we've gone too far or something
   //(go by half-steps, just in case)
@@ -28,22 +36,15 @@ const walk = (s, n, fn, unit, previous) => {
   while (s.d[fn]() > n) {
     s.epoch -= halfStep
   }
-  //oops, did we change previous unit? revert it.
-  if (previous !== null && startUnit !== s.d[previous]()) {
-    // console.warn('spacetime warning: missed setting ' + unit)
-    s.epoch = original
-    // i mean, but make it close...
-    s.epoch += ms[unit] * diff * 0.89 // i guess?
-  }
 }
 //find the desired date by a increment/check while loop
 const units = {
   year: {
-    valid: n => n > -4000 && n < 4000,
+    valid: (n) => n > -4000 && n < 4000,
     walkTo: (s, n) => walk(s, n, 'getFullYear', 'year', null)
   },
   month: {
-    valid: n => n >= 0 && n <= 11,
+    valid: (n) => n >= 0 && n <= 11,
     walkTo: (s, n) => {
       let d = s.d
       let current = d.getMonth()
@@ -69,26 +70,26 @@ const units = {
     }
   },
   date: {
-    valid: n => n > 0 && n <= 31,
+    valid: (n) => n > 0 && n <= 31,
     walkTo: (s, n) => walk(s, n, 'getDate', 'day', 'getMonth')
   },
   hour: {
-    valid: n => n >= 0 && n < 24,
+    valid: (n) => n >= 0 && n < 24,
     walkTo: (s, n) => walk(s, n, 'getHours', 'hour', 'getDate')
   },
   minute: {
-    valid: n => n >= 0 && n < 60,
+    valid: (n) => n >= 0 && n < 60,
     walkTo: (s, n) => walk(s, n, 'getMinutes', 'minute', 'getHours')
   },
   second: {
-    valid: n => n >= 0 && n < 60,
+    valid: (n) => n >= 0 && n < 60,
     walkTo: (s, n) => {
       //do this one directly
       s.epoch = s.seconds(n).epoch
     }
   },
   millisecond: {
-    valid: n => n >= 0 && n < 1000,
+    valid: (n) => n >= 0 && n < 1000,
     walkTo: (s, n) => {
       //do this one directly
       s.epoch = s.milliseconds(n).epoch
@@ -116,7 +117,6 @@ const walkTo = (s, wants) => {
       }
       return
     }
-    // console.log(k, n)
     units[k].walkTo(s, n)
   }
   return
