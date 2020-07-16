@@ -4,6 +4,7 @@ const ms = require('../../data/milliseconds')
 const months = require('../../data/months')
 const monthLength = require('../../data/monthLengths')
 const walkTo = require('./walk')
+const isLeapYear = require('../../fns').isLeapYear
 
 const validate = (n) => {
   //handle number as a string
@@ -108,7 +109,12 @@ module.exports = {
     n = validate(n)
     //avoid setting february 31st
     if (n > 28) {
-      const max = monthLength[s.month()]
+      let month = s.month()
+      let max = monthLength[month]
+      // support leap in february
+      if (month === 1 && n === 29 && isLeapYear(s.year())) {
+        max = 29
+      }
       if (n > max) {
         n = max
       }
