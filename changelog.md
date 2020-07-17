@@ -11,6 +11,7 @@ This project follows semVer, where:
 ### v6.6.2
 - [fix] for formatting when the output is 0 😓
 - [fix] for leap-day in `.date()` method
+- [fix] \#214 1-minute error in the year 1895
 
 ### v6.6.1
 
