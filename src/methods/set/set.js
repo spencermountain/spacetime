@@ -49,12 +49,12 @@ module.exports = {
     let shift = diff * ms.minute
     s.epoch -= shift
     // check against a screw-up
-    if (old.hour() != s.hour()) {
-      walkTo(old, {
-        minute: n
-      })
-      return old.epoch
-    }
+    // if (old.hour() != s.hour()) {
+    //   walkTo(old, {
+    //     minute: n
+    //   })
+    //   return old.epoch
+    // }
     confirm(s, old, 'second')
     return s.epoch
   },
