@@ -204,6 +204,9 @@ export interface Spacetime {
   monthName(): string
   /** set the current month as a string, like 'april' */
   monthName(value: string): Spacetime
+
+  /** list timezones by their time */
+  whereIts: (a: string, b?: string) => string[]
 }
 
 export interface TimezoneMeta {
