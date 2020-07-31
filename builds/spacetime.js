@@ -2,7 +2,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(global = global || self, global.spacetime = factory());
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.spacetime = factory());
 }(this, (function () { 'use strict';
 
 	function createCommonjsModule(fn, module) {
@@ -553,12 +553,20 @@
 
 	  var diff = n - current;
 	  s.epoch += milliseconds[unit] * diff; //DST edge-case: if we are going many days, be a little conservative
+	  // console.log(unit, diff)
 
-	  if (unit === 'day' && Math.abs(diff) > 28) {
+	  if (unit === 'day') {
+	    // s.epoch -= ms.minute
 	    //but don't push it over a month
-	    if (n < 28) {
+	    if (Math.abs(diff) > 28 && n < 28) {
 	      s.epoch += milliseconds.hour;
 	    }
+	  } // 1st time: oops, did we change previous unit? revert it.
+
+
+	  if (previous !== null && startUnit !== s.d[previous]()) {
+	    // console.warn('spacetime warning: missed setting ' + unit)
+	    s.epoch = original; // s.epoch += ms[unit] * diff * 0.89 // maybe try and make it close...?
 	  } //repair it if we've gone too far or something
 	  //(go by half-steps, just in case)
 
@@ -571,14 +579,12 @@
 
 	  while (s.d[fn]() > n) {
 	    s.epoch -= halfStep;
-	  } //oops, did we change previous unit? revert it.
+	  } // 2nd time: did we change previous unit? revert it.
 
 
 	  if (previous !== null && startUnit !== s.d[previous]()) {
 	    // console.warn('spacetime warning: missed setting ' + unit)
-	    s.epoch = original; // i mean, but make it close...
-
-	    s.epoch += milliseconds[unit] * diff * 0.89; // i guess?
+	    s.epoch = original;
 	  }
 	}; //find the desired date by a increment/check while loop
 
@@ -694,8 +700,7 @@
 	      }
 
 	      return;
-	    } // console.log(k, n)
-
+	    }
 
 	    units[k].walkTo(s, n);
 	  }
@@ -1638,7 +1643,7 @@
 	      fmt = fmt.toLowerCase().trim();
 
 	      if (format.hasOwnProperty(fmt)) {
-	        return String(format[fmt](s) || '');
+	        return String(format[fmt](s));
 	      }
 
 	      return '';
@@ -2755,6 +2760,8 @@
 
 	//these methods wrap around them.
 
+	var isLeapYear$1 = fns.isLeapYear;
+
 	var validate = function validate(n) {
 	  //handle number as a string
 	  if (typeof n === 'string') {
@@ -2797,7 +2804,14 @@
 	    var old = s.clone();
 	    var diff = s.minute() - n;
 	    var shift = diff * milliseconds.minute;
-	    s.epoch -= shift;
+	    s.epoch -= shift; // check against a screw-up
+	    // if (old.hour() != s.hour()) {
+	    //   walkTo(old, {
+	    //     minute: n
+	    //   })
+	    //   return old.epoch
+	    // }
+
 	    confirm(s, old, 'second');
 	    return s.epoch;
 	  },
@@ -2866,7 +2880,12 @@
 	    n = validate(n); //avoid setting february 31st
 
 	    if (n > 28) {
-	      var max = monthLengths_1[s.month()];
+	      var month = s.month();
+	      var max = monthLengths_1[month]; // support leap day in february
+
+	      if (month === 1 && n === 29 && isLeapYear$1(s.year())) {
+	        max = 29;
+	      }
 
 	      if (n > max) {
 	        n = max;
@@ -3537,10 +3556,10 @@
 
 	var query = addMethods;
 
-	var isLeapYear$1 = fns.isLeapYear;
+	var isLeapYear$2 = fns.isLeapYear;
 
 	var getMonthLength = function getMonthLength(month, year) {
-	  if (month === 1 && isLeapYear$1(year)) {
+	  if (month === 1 && isLeapYear$2(year)) {
 	    return 29;
 	  }
 
