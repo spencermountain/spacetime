@@ -69,4 +69,7 @@ export interface SpacetimeStatic extends SpacetimeConstructor {
 
   /** Extend Spacetime with a custom function/object.  */
   extend: (extension: { [key: string]: any } | {}) => SpacetimeStatic
+
+  /** list timezones by their time */
+  whereIts: (a: string, b?: string) => string[]
 }

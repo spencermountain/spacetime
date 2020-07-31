@@ -1,21 +1,19 @@
 const spacetime = require('./src/index')
 
-let s = spacetime('Feb 1 2017')
-console.log(s.format('nice'))
+// let s = spacetime([2020, 1, 29])
+// console.log(s.format())
 
-// s = s.add(1, 'day')
-s = s.add(2, 'day')
-console.log(s.format('nice'))
+let s = spacetime('jan 3 2019').startOf('year') //.minus(1, 'second')
+let arr = s.every('day', s.endOf('year'))
+console.log(arr.length)
+arr = arr.slice(0, 5)
+arr.forEach((d) => {
+  console.log(d.format('nice'))
+})
 
-// let s = spacetime('Oct 31 2020')
-// console.log(s.format('nice'))
-
-// // s = s.add(1, 'day')
-// s = s.add(2, 'day')
-// console.log(s.format('nice'))
-
-// let d = spacetime(1572681600000, 'America/Los_Angeles')
-// for (let i = 0; i < 12; i += 1) {
-//   d = d.add(1, 'day')
-//   console.log(d.format('nice'))
-// }
+// try to keep time of day in every?
+let s = spacetime.today('Canada/Eastern').time('2:01pm')
+let hours = s.every('week', s.add(1, 'year'))
+hours.forEach((d) => {
+  console.log(d.format('time') + '   -   ' + d.sunPosition().altitude)
+})

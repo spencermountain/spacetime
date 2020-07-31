@@ -4,6 +4,7 @@ const ms = require('../../data/milliseconds')
 const months = require('../../data/months')
 const monthLength = require('../../data/monthLengths')
 const walkTo = require('./walk')
+const isLeapYear = require('../../fns').isLeapYear
 
 const validate = (n) => {
   //handle number as a string
@@ -47,6 +48,13 @@ module.exports = {
     let diff = s.minute() - n
     let shift = diff * ms.minute
     s.epoch -= shift
+    // check against a screw-up
+    // if (old.hour() != s.hour()) {
+    //   walkTo(old, {
+    //     minute: n
+    //   })
+    //   return old.epoch
+    // }
     confirm(s, old, 'second')
     return s.epoch
   },
@@ -108,7 +116,12 @@ module.exports = {
     n = validate(n)
     //avoid setting february 31st
     if (n > 28) {
-      const max = monthLength[s.month()]
+      let month = s.month()
+      let max = monthLength[month]
+      // support leap day in february
+      if (month === 1 && n === 29 && isLeapYear(s.year())) {
+        max = 29
+      }
       if (n > max) {
         n = max
       }

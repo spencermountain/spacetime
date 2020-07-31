@@ -8,6 +8,11 @@ This project follows semVer, where:
 * don't reverse dates for .every() method
 -->
 
+### v6.6.2
+- [fix] for formatting when the output is 0 😓
+- [fix] for leap-day in `.date()` method
+- update deps
+
 ### v6.6.1
 
 - typescript fix
