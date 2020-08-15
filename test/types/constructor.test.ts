@@ -1,5 +1,6 @@
 import * as test from 'tape'
 import { spacetime } from './spacetime-static'
+import { ParsableDate } from '../../types/types'
 
 test('static api exists', (t: test.Test) => {
   t.equal(typeof spacetime, 'function', 'default is a function')
@@ -22,5 +23,6 @@ test('constructor args work', (t: test.Test) => {
     'accepts unit descriptor object'
   )
   t.equal(spacetime('2017-04-03').isValid(), true, 'accepts iso string')
+  t.equal(spacetime(<ParsableDate>'2017-04-03').isValid(), true, 'accepts datelike object')
   t.end()
 })
