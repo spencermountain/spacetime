@@ -1,4 +1,4 @@
-import { Spacetime } from './types'
+import { Spacetime, ParsableDate } from './types'
 
 export interface SpacetimeConstructorOptions {
   /** javascript dates use millisecond-epochs, instead of second-epochs, like some other languages. This is a common bug, and by default spacetime warns if you set an epoch within January 1970. to disable set to true */
@@ -52,6 +52,13 @@ export interface SpacetimeConstructor {
    * @param options Options for silencing warnings.
    */
   (iso: string, timezone?: string, options?: SpacetimeConstructorOptions): Spacetime
+
+  /**
+   * @param parsableDate a parsable date like object
+   * @param timezone Optional timezone. If omitted uses the browser timezone.
+   * @param options Options for silencing warnings.
+   */
+  (parsableDate: ParsableDate, timezone?: string, options?: SpacetimeConstructorOptions): Spacetime
 }
 
 export interface SpacetimeStatic extends SpacetimeConstructor {
