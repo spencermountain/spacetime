@@ -28,6 +28,16 @@ test('change assumed date', function (t) {
   t.end()
 })
 
+test('null input w/ today', function (t) {
+  let s = spacetime(null, null, { today: { year: 2012, month: 2 } })
+  t.equal(s.format('nice-year'), 'Mar 1st, 2012', 'got date')
+
+  s = spacetime('', 'Canada/Eastern', { today: { year: 1999, month: 0, date: 28 } })
+  t.equal(s.format('nice-year'), 'Jan 28th, 1999', 'got date')
+
+  t.end()
+})
+
 test('today methods works', function (t) {
   let today = {
     date: 2,

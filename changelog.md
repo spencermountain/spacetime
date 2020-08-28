@@ -8,6 +8,11 @@ This project follows semVer, where:
 * don't reverse dates for .every() method
 -->
 
+### v6.6.3
+- support for 'today' param with null inputs
+- support for 'today' param with 'today/tonight' inputs
+- interpret empty-string input like null input (as now)
+  
 ### v6.6.2
 
 - [fix] for formatting when the output is 0 😓
