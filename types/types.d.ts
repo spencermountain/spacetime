@@ -153,7 +153,7 @@ export interface Spacetime {
   /** get the zero-based month-number (0-11). */
   month(): number
   /** set the zero-based month-number (0-11). Also accepts 'June', or 'oct'. */
-  month(value: string): Spacetime
+  month(value: string | number): Spacetime
 
   /** get the 4-digit year as an integer */
   year(): number

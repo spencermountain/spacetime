@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.6.2 Apache 2.0 */
+/* spencermountain/spacetime 6.6.3 Apache 2.0 */
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -1164,40 +1164,50 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
 }];
 var strParse = strFmt;
 
+// pull in 'today' data for the baseline moment
+var getNow = function getNow(s) {
+  s.epoch = Date.now();
+  Object.keys(s._today || {}).forEach(function (k) {
+    if (typeof s[k] === 'function') {
+      s = s[k](s._today[k]);
+    }
+  });
+  return s;
+};
+
 var dates = {
   now: function now(s) {
-    s.epoch = Date.now();
-    return s;
-  },
-  tonight: function tonight(s) {
-    s.epoch = Date.now();
-    s = s.hour(18);
-    return s;
+    return getNow(s);
   },
   today: function today(s) {
-    s.epoch = Date.now();
+    return getNow(s);
+  },
+  tonight: function tonight(s) {
+    s = getNow(s);
+    s = s.hour(18); //6pm
+
     return s;
   },
   tomorrow: function tomorrow(s) {
-    s.epoch = Date.now();
+    s = getNow(s);
     s = s.add(1, 'day');
     s = s.startOf('day');
     return s;
   },
   yesterday: function yesterday(s) {
-    s.epoch = Date.now();
+    s = getNow(s);
     s = s.subtract(1, 'day');
     s = s.startOf('day');
     return s;
   },
   christmas: function christmas(s) {
-    var year = new Date().getFullYear();
+    var year = getNow(s).year();
     s = s.set([year, 11, 25, 18, 0, 0]); // Dec 25
 
     return s;
   },
   'new years': function newYears(s) {
-    var year = new Date().getFullYear();
+    var year = getNow(s).year();
     s = s.set([year, 11, 31, 18, 0, 0]); // Dec 31
 
     return s;
@@ -1276,9 +1286,18 @@ var parseInput = function parseInput(s, input, givenTz) {
   } //set tmp time
 
 
-  s.epoch = Date.now();
+  s.epoch = Date.now(); // overwrite tmp time with 'today' value, if exists
 
-  if (input === null || input === undefined) {
+  if (s._today && fns.isObject(s._today) && Object.keys(s._today).length > 0) {
+    var res = handleObject(s, today, defaults);
+
+    if (res.isValid()) {
+      s.epoch = res.epoch;
+    }
+  } // null input means 'now'
+
+
+  if (input === null || input === undefined || input === '') {
     return s; //k, we're good.
   } //support input of Date() object
 
@@ -1327,10 +1346,10 @@ var parseInput = function parseInput(s, input, givenTz) {
     var m = input.match(strParse[i].reg);
 
     if (m) {
-      var res = strParse[i].parse(s, m, givenTz);
+      var _res = strParse[i].parse(s, m, givenTz);
 
-      if (res !== null) {
-        return res;
+      if (_res !== null) {
+        return _res;
       }
     }
   }
@@ -4047,7 +4066,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.6.2';
+var _version = '6.6.3';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);

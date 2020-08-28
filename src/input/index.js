@@ -66,7 +66,15 @@ const parseInput = (s, input, givenTz) => {
   }
   //set tmp time
   s.epoch = Date.now()
-  if (input === null || input === undefined) {
+  // overwrite tmp time with 'today' value, if exists
+  if (s._today && fns.isObject(s._today) && Object.keys(s._today).length > 0) {
+    let res = handleObject(s, today, defaults)
+    if (res.isValid()) {
+      s.epoch = res.epoch
+    }
+  }
+  // null input means 'now'
+  if (input === null || input === undefined || input === '') {
     return s //k, we're good.
   }
   //support input of Date() object

@@ -3,17 +3,9 @@ const spacetime = require('./src/index')
 // let s = spacetime([2020, 1, 29])
 // console.log(s.format())
 
-let s = spacetime('jan 3 2019').startOf('year') //.minus(1, 'second')
-let arr = s.every('day', s.endOf('year'))
-console.log(arr.length)
-arr = arr.slice(0, 5)
-arr.forEach((d) => {
-  console.log(d.format('nice'))
-})
+let s = spacetime('now', null, { today: { year: 2012 } })
+console.log(s.format())
 
-// try to keep time of day in every?
-let s = spacetime.today('Canada/Eastern').time('2:01pm')
-let hours = s.every('week', s.add(1, 'year'))
-hours.forEach((d) => {
-  console.log(d.format('time') + '   -   ' + d.sunPosition().altitude)
-})
+// let a = spacetime(null, 'Canada/Eastern')
+// let b = spacetime(Date.now(), 'Canada/Eastern')
+// console.log(a.format(), b.format())

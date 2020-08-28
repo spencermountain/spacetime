@@ -1,36 +1,45 @@
+// pull in 'today' data for the baseline moment
+const getNow = function (s) {
+  s.epoch = Date.now()
+  Object.keys(s._today || {}).forEach((k) => {
+    if (typeof s[k] === 'function') {
+      s = s[k](s._today[k])
+    }
+  })
+  return s
+}
+
 const dates = {
-  now: s => {
-    s.epoch = Date.now()
+  now: (s) => {
+    return getNow(s)
+  },
+  today: (s) => {
+    return getNow(s)
+  },
+  tonight: (s) => {
+    s = getNow(s)
+    s = s.hour(18) //6pm
     return s
   },
-  tonight: s => {
-    s.epoch = Date.now()
-    s = s.hour(18)
-    return s
-  },
-  today: s => {
-    s.epoch = Date.now()
-    return s
-  },
-  tomorrow: s => {
-    s.epoch = Date.now()
+  tomorrow: (s) => {
+    s = getNow(s)
     s = s.add(1, 'day')
     s = s.startOf('day')
     return s
   },
-  yesterday: s => {
-    s.epoch = Date.now()
+  yesterday: (s) => {
+    s = getNow(s)
     s = s.subtract(1, 'day')
     s = s.startOf('day')
     return s
   },
-  christmas: s => {
-    let year = new Date().getFullYear()
+  christmas: (s) => {
+    let year = getNow(s).year()
     s = s.set([year, 11, 25, 18, 0, 0]) // Dec 25
     return s
   },
-  'new years': s => {
-    let year = new Date().getFullYear()
+  'new years': (s) => {
+    let year = getNow(s).year()
     s = s.set([year, 11, 31, 18, 0, 0]) // Dec 31
     return s
   }
