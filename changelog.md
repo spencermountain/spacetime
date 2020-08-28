@@ -9,10 +9,13 @@ This project follows semVer, where:
 -->
 
 ### v6.6.3
+
 - support for 'today' param with null inputs
 - support for 'today' param with 'today/tonight' inputs
 - interpret empty-string input like null input (as 'now')
-  
+- typescript fixes (#220 #222)
+-
+
 ### v6.6.2
 
 - [fix] for formatting when the output is 0 😓
