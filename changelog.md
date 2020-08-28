@@ -11,7 +11,7 @@ This project follows semVer, where:
 ### v6.6.3
 - support for 'today' param with null inputs
 - support for 'today' param with 'today/tonight' inputs
-- interpret empty-string input like null input (as now)
+- interpret empty-string input like null input (as 'now')
   
 ### v6.6.2
 
