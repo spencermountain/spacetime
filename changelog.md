@@ -8,6 +8,11 @@ This project follows semVer, where:
 * don't reverse dates for .every() method
 -->
 
+### v6.6.4
+
+- [fix] 45m offset formatting issue
+- update deps
+
 ### v6.6.3
 
 - support for 'today' param with null inputs

@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.6.3 Apache 2.0 */
+/* spencermountain/spacetime 6.6.4 Apache 2.0 */
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -112,9 +112,11 @@ var fns = createCommonjsModule(function (module, exports) {
 
   exports.formatTimezone = function (offset) {
     var delimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-    var absOffset = Math.abs(offset);
     var sign = offset > 0 ? '+' : '-';
-    return "".concat(sign).concat(exports.zeroPad(absOffset)).concat(delimiter, "00");
+    var absOffset = Math.abs(offset);
+    var hours = exports.zeroPad(parseInt('' + absOffset, 10));
+    var minutes = exports.zeroPad(absOffset % 1 * 60);
+    return "".concat(sign).concat(hours).concat(delimiter).concat(minutes);
   };
 });
 var fns_1 = fns.isLeapYear;
@@ -1384,36 +1386,7 @@ var days = {
 
 var isoOffset = function isoOffset(s) {
   var offset = s.timezone().current.offset;
-  var isNegative = offset < 0;
-  var minute = '00'; //handle 5.5 → '5:30'
-
-  if (Math.abs(offset % 1) === 0.5) {
-    minute = '30';
-
-    if (offset >= 0) {
-      offset = Math.floor(offset);
-    } else {
-      offset = Math.ceil(offset);
-    }
-  }
-
-  if (isNegative) {
-    //handle negative sign
-    offset *= -1;
-    offset = fns.zeroPad(offset, 2);
-    offset = '-' + offset;
-  } else {
-    offset = fns.zeroPad(offset, 2);
-    offset = '+' + offset;
-  }
-
-  offset = offset + ':' + minute; //'Z' means 00
-
-  if (offset === '+00:00') {
-    offset = 'Z';
-  }
-
-  return offset;
+  return !offset ? 'Z' : fns.formatTimezone(offset, ':');
 };
 
 var _offset = isoOffset;
@@ -4066,7 +4039,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.6.3';
+var _version = '6.6.4';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);
