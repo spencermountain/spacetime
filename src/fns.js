@@ -76,7 +76,9 @@ exports.beADate = (d, s) => {
 }
 
 exports.formatTimezone = (offset, delimiter = '') => {
-  const absOffset = Math.abs(offset)
   const sign = offset > 0 ? '+' : '-'
-  return `${sign}${exports.zeroPad(absOffset)}${delimiter}00`
+  const absOffset = Math.abs(offset)
+  const hours = exports.zeroPad(parseInt('' + absOffset, 10))
+  const minutes = exports.zeroPad(absOffset % 1 * 60)
+  return `${sign}${hours}${delimiter}${minutes}`
 }
