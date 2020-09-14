@@ -5,7 +5,7 @@ const fns = require('../../fns')
 // "+01:00", "+0100", or simply "+01"
 const isoOffset = s => {
   let offset = s.timezone().current.offset
-  return !offset ? 'Z' : fns.formatTimezone(offset)
+  return !offset ? 'Z' : fns.formatTimezone(offset, ':')
 }
 
 module.exports = isoOffset
