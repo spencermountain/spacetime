@@ -146,6 +146,12 @@ test('test 0-based formatting', (t) => {
   t.end()
 })
 
+test('offset formatting', (t) => {
+  const date = spacetime(null, 'Asia/Kathmandu')
+  t.equal(date.format('offset'), '+05:45', '45min offset')
+  t.end()
+})
+
 /* FIXME failing test
 test('unix-fmt-padding', t => {
   let d = spacetime({
