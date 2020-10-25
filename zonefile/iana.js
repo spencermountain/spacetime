@@ -415,6 +415,10 @@ module.exports = {
     hem: 'n',
     dst: '03/08:02->11/01:02'
   },
+  'america/fort_nelson': {
+    offset: -7,
+    hem: 'n'
+  },
   'america/fort_wayne': {
     offset: -4,
     hem: 'n',

@@ -6,9 +6,5 @@ const spacetime = require('./src/index')
 // let s = spacetime('now', null, { today: { year: 2012 } })
 // console.log(s.format())
 
-const date = spacetime(null, 'Asia/Kathmandu')
-console.log(date.format('offset'))
-
-// let a = spacetime(null, 'Canada/Eastern')
-// let b = spacetime(Date.now(), 'Canada/Eastern')
-// console.log(a.format(), b.format())
+let s = spacetime(null, 'America/Fort_Nelson')
+console.log(s.time())
