@@ -39,7 +39,7 @@ function getDiff(a, b) {
     minutes: 0,
     seconds: 0
   }
-  Object.keys(diff).forEach(unit => {
+  Object.keys(diff).forEach((unit) => {
     if (earlier.isSame(later, unit)) {
       return
     }
@@ -47,10 +47,9 @@ function getDiff(a, b) {
     earlier = earlier.add(max, unit)
     diff[unit] = max
   })
-
   //reverse it, if necessary
   if (isBefore) {
-    Object.keys(diff).forEach(u => {
+    Object.keys(diff).forEach((u) => {
       if (diff[u] !== 0) {
         diff[u] *= -1
       }
@@ -71,7 +70,7 @@ function pluralize(value, unit) {
 const since = (start, end) => {
   end = fns.beADate(end, start)
   const diff = getDiff(start, end)
-  const isNow = Object.keys(diff).every(u => !diff[u])
+  const isNow = Object.keys(diff).every((u) => !diff[u])
   if (isNow === true) {
     return {
       diff,

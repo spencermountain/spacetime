@@ -75,7 +75,7 @@ export interface Spacetime {
   isBetween: (start: Spacetime | Date, end: Spacetime | Date, isInclusive?: boolean) => boolean
 
   /** detect if two date/times are the same day, week, or year, etc */
-  isSame: (other: Spacetime | Date, unit: TimeUnit) => boolean
+  isSame: (other: Spacetime | Date, unit: TimeUnit, tzSensitive?:boolean) => boolean
 
   /** given a date and a unit, count how many of them you'd need to make the dates equal */
   diff(value: Spacetime | ParsableDate, unit: TimeUnit): number

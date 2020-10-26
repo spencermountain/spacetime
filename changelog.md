@@ -8,6 +8,10 @@ This project follows semVer, where:
 * don't reverse dates for .every() method
 -->
 
+### v6.7.0
+- add missing timezones `America/Fort_Nelson`, `Asia/Qostanay`, and `America/Nuuk`
+- fix comparison issue #231 effecting `.isSame()` and `.since()` accross different timezones
+
 ### v6.6.4
 
 - [fix] 45m offset formatting issue

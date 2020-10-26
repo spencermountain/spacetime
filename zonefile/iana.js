@@ -415,6 +415,10 @@ module.exports = {
     hem: 'n',
     dst: '03/08:02->11/01:02'
   },
+  'america/fort_nelson': {
+    offset: -7,
+    hem: 'n'
+  },
   'america/fort_wayne': {
     offset: -4,
     hem: 'n',
@@ -652,6 +656,11 @@ module.exports = {
   'america/noronha': {
     offset: -2,
     hem: 'n'
+  },
+  'america/nuuk': {
+    offset: -3,
+    hem: 'n',
+    dst: '03/28:22->10/24:23'
   },
   'america/north_dakota': {
     offset: -5,
@@ -1197,6 +1206,10 @@ module.exports = {
     hem: 'n'
   },
   'asia/qyzylorda': {
+    offset: 6,
+    hem: 'n'
+  },
+  'asia/qostanay': {
     offset: 6,
     hem: 'n'
   },

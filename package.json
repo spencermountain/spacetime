@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "6.6.4",
+  "version": "6.7.0",
   "description": "figure-out dates across timezones",
   "main": "builds/spacetime.js",
   "unpkg": "builds/spacetime.min.js",
@@ -16,7 +16,9 @@
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer  --color always",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer  --color always",
     "test:types": "ts-node ./test/types/index.ts | tap-dancer  --color always",
-    "coverage": "node ./scripts/coverage.js",
+    "coverage": "nyc -r lcov -n 'src/**/*' -n 'plugins/**/*' npm run coverage:tests",
+    "coverage:tests": "npm run test",
+    "codecov": "npm run coverage && codecov -t 411de6c7-82d2-41e9-a1cc-9096cdab6c72",
     "lint": "eslint ./src --ext .js"
   },
   "repository": {
@@ -37,10 +39,12 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "7.11.6",
-    "@babel/preset-env": "7.11.5",
+    "@babel/core": "7.12.3",
+    "@babel/preset-env": "7.12.1",
     "amble": "1.1.0",
-    "rollup": "2.26.11",
+    "codecov": "3.8.0",
+    "nyc": "^15.1.0",
+    "rollup": "2.32.1",
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-filesize-check": "0.0.1",
@@ -48,7 +52,7 @@
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-terser": "7.0.2",
     "shelljs": "0.8.4",
-    "tap-dancer": "0.2.0",
+    "tap-dancer": "0.3.0",
     "tape": "5.0.1",
     "timekeeper": "2.2.0"
   },
