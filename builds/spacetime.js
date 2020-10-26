@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.6.4 Apache 2.0 */
+/* spencermountain/spacetime 6.7.0 Apache 2.0 */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -219,7 +219,7 @@
 		"7|s": "12/davis,2/jakarta,9/christmas",
 		"7|n": "2/bangkok,2/barnaul,2/ho_chi_minh,2/hovd,2/krasnoyarsk,2/novokuznetsk,2/novosibirsk,2/phnom_penh,2/pontianak,2/saigon,2/tomsk,2/vientiane",
 		"6|s": "12/vostok",
-		"6|n": "2/almaty,2/bishkek,2/dacca,2/dhaka,2/kashgar,2/omsk,2/qyzylorda,2/thimbu,2/thimphu,2/urumqi,9/chagos",
+		"6|n": "2/almaty,2/bishkek,2/dacca,2/dhaka,2/kashgar,2/omsk,2/qyzylorda,2/qostanay,2/thimbu,2/thimphu,2/urumqi,9/chagos",
 		"6.5|n": "2/rangoon,2/yangon,9/cocos",
 		"5|s": "12/mawson,9/kerguelen",
 		"5|n": "2/aqtau,2/aqtobe,2/ashgabat,2/ashkhabad,2/atyrau,2/baku,2/dushanbe,2/karachi,2/oral,2/samarkand,2/tashkent,2/yekaterinburg,9/maldives",
@@ -270,7 +270,7 @@
 		"-8|n|03/08:02->11/01:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat",
 		"-8|n": "11/pitcairn",
 		"-7|n|03/08:02->11/01:02": "1/dawson,1/ensenada,1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,1/whitehorse,6/pacific,6/yukon,10/bajanorte",
-		"-7|n": "1/creston,1/dawson_creek,1/hermosillo,1/phoenix",
+		"-7|n": "1/creston,1/dawson_creek,1/fort_nelson,1/hermosillo,1/phoenix",
 		"-6|s|04/04:22->09/05:22": "7/easterisland,11/easter",
 		"-6|n|04/05:02->10/25:02": "1/chihuahua,1/mazatlan,10/bajasur",
 		"-6|n|03/08:02->11/01:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/ojinaga,1/shiprock,1/yellowknife,6/mountain",
@@ -290,6 +290,7 @@
 		"-4|n|03/08:00->11/01:01": "1/havana",
 		"-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/porto_velho,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin",
 		"-3|s": "1/argentina,1/buenos_aires,1/cordoba,1/fortaleza,1/montevideo,1/punta_arenas,1/sao_paulo,12/rothera,3/stanley,5/east",
+		"-3|n|03/28:22->10/24:23": "1/nuuk",
 		"-3|n|03/08:02->11/01:02": "1/glace_bay,1/goose_bay,1/halifax,1/moncton,1/thule,3/bermuda,6/atlantic",
 		"-3|n": "1/araguaina,1/bahia,1/belem,1/catamarca,1/cayenne,1/jujuy,1/maceio,1/mendoza,1/paramaribo,1/recife,1/rosario,1/santarem",
 		"-2|s": "5/denoronha",
@@ -3811,6 +3812,7 @@
 
 	var addMethods$2 = function addMethods(SpaceTime) {
 	  SpaceTime.prototype.isSame = function (b, unit) {
+	    var tzAware = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 	    var a = this;
 
 	    if (!unit) {
@@ -3822,7 +3824,12 @@
 	    } //support 'seconds' aswell as 'second'
 
 
-	    unit = unit.replace(/s$/, '');
+	    unit = unit.replace(/s$/, ''); // make them the same timezone for proper comparison
+
+	    if (tzAware === true && a.tz !== b.tz) {
+	      b = b.clone();
+	      b.tz = a.tz;
+	    }
 
 	    if (print[unit]) {
 	      return print[unit](a) === print[unit](b);
@@ -4045,7 +4052,7 @@
 
 	var whereIts_1 = whereIts;
 
-	var _version = '6.6.4';
+	var _version = '6.7.0';
 
 	var main$1 = function main(input, tz, options) {
 	  return new spacetime(input, tz, options);

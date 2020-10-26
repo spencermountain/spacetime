@@ -659,7 +659,8 @@ module.exports = {
   },
   'america/nuuk': {
     offset: -3,
-    hem: 'n'
+    hem: 'n',
+    dst: '03/28:22->10/24:23'
   },
   'america/north_dakota': {
     offset: -5,
