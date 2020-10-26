@@ -1,37 +1,37 @@
 //make a string, for easy comparison between dates
 const print = {
-  millisecond: s => {
+  millisecond: (s) => {
     return s.epoch
   },
-  second: s => {
+  second: (s) => {
     return [s.year(), s.month(), s.date(), s.hour(), s.minute(), s.second()].join('-')
   },
-  minute: s => {
+  minute: (s) => {
     return [s.year(), s.month(), s.date(), s.hour(), s.minute()].join('-')
   },
-  hour: s => {
+  hour: (s) => {
     return [s.year(), s.month(), s.date(), s.hour()].join('-')
   },
-  day: s => {
+  day: (s) => {
     return [s.year(), s.month(), s.date()].join('-')
   },
-  week: s => {
+  week: (s) => {
     return [s.year(), s.week()].join('-')
   },
-  month: s => {
+  month: (s) => {
     return [s.year(), s.month()].join('-')
   },
-  quarter: s => {
+  quarter: (s) => {
     return [s.year(), s.quarter()].join('-')
   },
-  year: s => {
+  year: (s) => {
     return s.year()
   }
 }
 print.date = print.day
 
-const addMethods = SpaceTime => {
-  SpaceTime.prototype.isSame = function(b, unit) {
+const addMethods = (SpaceTime) => {
+  SpaceTime.prototype.isSame = function (b, unit, tzAware = true) {
     let a = this
     if (!unit) {
       return null
@@ -42,6 +42,11 @@ const addMethods = SpaceTime => {
     //support 'seconds' aswell as 'second'
     unit = unit.replace(/s$/, '')
 
+    // make them the same timezone for proper comparison
+    if (tzAware === true && a.tz !== b.tz) {
+      b = b.clone()
+      b.tz = a.tz
+    }
     if (print[unit]) {
       return print[unit](a) === print[unit](b)
     }

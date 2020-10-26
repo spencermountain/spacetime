@@ -41,7 +41,6 @@ function getDiff(a, b) {
   }
   Object.keys(diff).forEach((unit) => {
     if (earlier.isSame(later, unit)) {
-      console.log(unit)
       return
     }
     let max = earlier.diff(later, unit)
@@ -71,7 +70,6 @@ function pluralize(value, unit) {
 const since = (start, end) => {
   end = fns.beADate(end, start)
   const diff = getDiff(start, end)
-  console.log(diff)
   const isNow = Object.keys(diff).every((u) => !diff[u])
   if (isNow === true) {
     return {

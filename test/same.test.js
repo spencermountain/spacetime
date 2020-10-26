@@ -52,5 +52,9 @@ test('isSame - timezones', (t) => {
   let a = spacetime('oct 1st 2020 2:32pm', 'America/Catamarca')
   let b = spacetime('oct 1st 2020 2:32pm', 'America/Cayenne')
   t.equal(a.isSame(b, 'hour'), true, 'diff timezones, same offset')
+
+  // ignore timezone differences
+  t.equal(start.isSame(end, 'hour', false), true, 'tzSensitivity off')
+
   t.end()
 })
