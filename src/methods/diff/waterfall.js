@@ -16,7 +16,7 @@ const fastYear = (a, b) => {
 // use a waterfall-method for computing a diff of any 'pre-knowable' units
 // compute years, then compute months, etc..
 // ... then ms-math for any very-small units
-const diff = function(a, b) {
+const diff = function (a, b) {
   // an hour is always the same # of milliseconds
   // so these units can be 'pre-calculated'
   let msDiff = b.epoch - a.epoch
