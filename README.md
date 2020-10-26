@@ -198,8 +198,9 @@ now.since(before)
   }
 */
 ```
+all comparisons are computed with timezone sensitivity - *8am EST is before 8am PST*.
 
-it's sometimes confusing how `.diff()` and `.since()` understand things:
+it's sometimes confusing how `.diff()` and `.since()` are different:
 
 ```js
 spacetime('January 1 2017').diff('December 30 2016', 'year')
@@ -227,7 +228,7 @@ s = s.goto('GMT+8') // -8h!
 ```
 
 ```js
-//list timezones by their \ time
+//list timezones by their current time
 spacetime.whereIts('8:30pm', '9:30pm') // ['America/Winnipeg', 'America/Yellowknife'... ]
 spacetime.whereIts('9am') //(within this hour)
 

@@ -657,6 +657,10 @@ module.exports = {
     offset: -2,
     hem: 'n'
   },
+  'america/nuuk': {
+    offset: -3,
+    hem: 'n'
+  },
   'america/north_dakota': {
     offset: -5,
     hem: 'n',
@@ -1201,6 +1205,10 @@ module.exports = {
     hem: 'n'
   },
   'asia/qyzylorda': {
+    offset: 6,
+    hem: 'n'
+  },
+  'asia/qostanay': {
     offset: 6,
     hem: 'n'
   },
