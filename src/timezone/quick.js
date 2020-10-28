@@ -20,7 +20,7 @@ const quickOffset = s => {
     dec = jul - 1
   }
   let split = obj.dst.split('->')
-  let inSummer = isSummer(s.epoch, split[0], split[1], jul)
+  let inSummer = isSummer(s.epoch, split[0], split[1], jul, dec)
   if (inSummer === true) {
     return jul
   }
