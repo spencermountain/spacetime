@@ -270,14 +270,6 @@ s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
 DST changes move around all the time, and timezones pop-in and out of existence.
 We store and use only the latest DST information, and apply it to historical dates.
 
-#### ◆ DST changes within 1-hour
-
-when very-close to a DST change, we can get the hour wrong, by 1.
-
-This is [a tricky](https://github.com/spencermountain/spacetime/issues/182) order-of-operations issue.
-
-To most people, DST changes occur during an unspecified time overnight, anyways.
-
 #### ◆ International date line
 
 `.goto()` never crosses the date-line. This is mostly the intuitive behaviour.
