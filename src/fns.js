@@ -1,9 +1,9 @@
 //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
-exports.isLeapYear = year => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+exports.isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 // unsurprisingly-nasty `typeof date` call
-exports.isDate = d => Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
-exports.isArray = input => Object.prototype.toString.call(input) === '[object Array]'
-exports.isObject = input => Object.prototype.toString.call(input) === '[object Object]'
+exports.isDate = (d) => Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
+exports.isArray = (input) => Object.prototype.toString.call(input) === '[object Array]'
+exports.isObject = (input) => Object.prototype.toString.call(input) === '[object Object]'
 
 exports.zeroPad = (str, len = 2) => {
   let pad = '0'
@@ -11,14 +11,14 @@ exports.zeroPad = (str, len = 2) => {
   return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str
 }
 
-exports.titleCase = str => {
+exports.titleCase = (str) => {
   if (!str) {
     return ''
   }
   return str[0].toUpperCase() + str.substr(1)
 }
 
-exports.ordinal = i => {
+exports.ordinal = (i) => {
   let j = i % 10
   let k = i % 100
   if (j === 1 && k !== 11) {
@@ -34,7 +34,7 @@ exports.ordinal = i => {
 }
 
 //strip 'st' off '1st'..
-exports.toCardinal = str => {
+exports.toCardinal = (str) => {
   str = String(str)
   str = str.replace(/([0-9])(st|nd|rd|th)$/i, '$1')
   return parseInt(str, 10)
@@ -46,13 +46,16 @@ exports.normalize = (str = '') => {
   str = str.replace(/ies$/, 'y') //'centuries'
   str = str.replace(/s$/, '')
   str = str.replace(/-/g, '')
-  if (str === 'day') {
+  if (str === 'day' || str === 'days') {
     return 'date'
+  }
+  if (str === 'min' || str === 'mins') {
+    return 'minute'
   }
   return str
 }
 
-exports.getEpoch = tmp => {
+exports.getEpoch = (tmp) => {
   //support epoch
   if (typeof tmp === 'number') {
     return tmp
@@ -79,6 +82,6 @@ exports.formatTimezone = (offset, delimiter = '') => {
   const sign = offset > 0 ? '+' : '-'
   const absOffset = Math.abs(offset)
   const hours = exports.zeroPad(parseInt('' + absOffset, 10))
-  const minutes = exports.zeroPad(absOffset % 1 * 60)
+  const minutes = exports.zeroPad((absOffset % 1) * 60)
   return `${sign}${hours}${delimiter}${minutes}`
 }

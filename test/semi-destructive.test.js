@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('non-destructive', t => {
+test('non-destructive', (t) => {
   let s = spacetime([2017, 5, 25])
   s = s.seconds(5)
   s = s.year(2025)
@@ -16,7 +15,7 @@ test('non-destructive', t => {
   t.end()
 })
 
-test('semi-destructive', t => {
+test('semi-destructive', (t) => {
   let s = spacetime('June 12, 2017 20:01:00', 'Australia/Brisbane')
   t.equal(s.date(), 12, 'date-init')
   s = s.month('march')

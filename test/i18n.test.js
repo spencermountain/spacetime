@@ -1,4 +1,3 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
@@ -26,7 +25,7 @@ const defaultWords = {
   }
 }
 
-test('i18n', t => {
+test('i18n', (t) => {
   let a = spacetime([2000, 0, 1])
 
   t.equal(a.format('day-short'), 'Sat', 'en: day-short')

@@ -1,4 +1,3 @@
-'use strict'
 const iana = require('./iana')
 // const whitelist = require('./whitelist');
 const whitelist = Object.keys(iana)
@@ -12,7 +11,7 @@ sh.config.silent = true
 //change this to generate a new one
 const year = new Date().getFullYear()
 
-const parseLine = str => {
+const parseLine = (str) => {
   let meta = {}
   str = str.replace(/^[a-z\/_]*? /i, '')
   if (str.match(/isdst=0/)) {
@@ -45,18 +44,15 @@ const parseLine = str => {
   return meta
 }
 
-const fetchZone = tz => {
+const fetchZone = (tz) => {
   let zone = {
     tz,
     o: iana[tz]
   }
-  let lines = sh
-    .exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`)
-    .toString()
-    .split('\n')
+  let lines = sh.exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n')
   lines
-    .filter(str => str)
-    .forEach(str => {
+    .filter((str) => str)
+    .forEach((str) => {
       let o = parseLine(str)
       if (o.season) {
         zone[o.season] = o.date
@@ -86,10 +82,10 @@ const fetchZone = tz => {
   return obj
 }
 
-const prefixCompress = obj => {
+const prefixCompress = (obj) => {
   let result = {}
   let keys = Object.keys(obj)
-  keys.forEach(k => {
+  keys.forEach((k) => {
     let name = k.split('/')
     result[name[0]] = result[name[0]] || {}
     result[name[0]][name[1]] = result[name[0]][name[1]] || {}

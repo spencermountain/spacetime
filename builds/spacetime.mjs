@@ -1,167 +1,83 @@
-/* spencermountain/spacetime 6.7.0 Apache 2.0 */
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
+/* spencermountain/spacetime 6.8.0 Apache 2.0 */
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
-function getCjsExportFromNamespace (n) {
-	return n && n['default'] || n;
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
 }
 
-var fns = createCommonjsModule(function (module, exports) {
-  //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
-  exports.isLeapYear = function (year) {
-    return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-  }; // unsurprisingly-nasty `typeof date` call
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
 
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
 
-  exports.isDate = function (d) {
-    return Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf());
-  };
-
-  exports.isArray = function (input) {
-    return Object.prototype.toString.call(input) === '[object Array]';
-  };
-
-  exports.isObject = function (input) {
-    return Object.prototype.toString.call(input) === '[object Object]';
-  };
-
-  exports.zeroPad = function (str) {
-    var len = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-    var pad = '0';
-    str = str + '';
-    return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str;
-  };
-
-  exports.titleCase = function (str) {
-    if (!str) {
-      return '';
+      if (i && _arr.length === i) break;
     }
-
-    return str[0].toUpperCase() + str.substr(1);
-  };
-
-  exports.ordinal = function (i) {
-    var j = i % 10;
-    var k = i % 100;
-
-    if (j === 1 && k !== 11) {
-      return i + 'st';
-    }
-
-    if (j === 2 && k !== 12) {
-      return i + 'nd';
-    }
-
-    if (j === 3 && k !== 13) {
-      return i + 'rd';
-    }
-
-    return i + 'th';
-  }; //strip 'st' off '1st'..
-
-
-  exports.toCardinal = function (str) {
-    str = String(str);
-    str = str.replace(/([0-9])(st|nd|rd|th)$/i, '$1');
-    return parseInt(str, 10);
-  }; //used mostly for cleanup of unit names, like 'months'
-
-
-  exports.normalize = function () {
-    var str = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-    str = str.toLowerCase().trim();
-    str = str.replace(/ies$/, 'y'); //'centuries'
-
-    str = str.replace(/s$/, '');
-    str = str.replace(/-/g, '');
-
-    if (str === 'day') {
-      return 'date';
-    }
-
-    return str;
-  };
-
-  exports.getEpoch = function (tmp) {
-    //support epoch
-    if (typeof tmp === 'number') {
-      return tmp;
-    } //suport date objects
-
-
-    if (exports.isDate(tmp)) {
-      return tmp.getTime();
-    }
-
-    if (tmp.epoch) {
-      return tmp.epoch;
-    }
-
-    return null;
-  }; //make sure this input is a spacetime obj
-
-
-  exports.beADate = function (d, s) {
-    if (exports.isObject(d) === false) {
-      return s.clone().set(d);
-    }
-
-    return d;
-  };
-
-  exports.formatTimezone = function (offset) {
-    var delimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-    var sign = offset > 0 ? '+' : '-';
-    var absOffset = Math.abs(offset);
-    var hours = exports.zeroPad(parseInt('' + absOffset, 10));
-    var minutes = exports.zeroPad(absOffset % 1 * 60);
-    return "".concat(sign).concat(hours).concat(delimiter).concat(minutes);
-  };
-});
-var fns_1 = fns.isLeapYear;
-var fns_2 = fns.isDate;
-var fns_3 = fns.isArray;
-var fns_4 = fns.isObject;
-var fns_5 = fns.zeroPad;
-var fns_6 = fns.titleCase;
-var fns_7 = fns.ordinal;
-var fns_8 = fns.toCardinal;
-var fns_9 = fns.normalize;
-var fns_10 = fns.getEpoch;
-var fns_11 = fns.beADate;
-var fns_12 = fns.formatTimezone;
-
-var zeroPad = fns.zeroPad;
-
-var serialize = function serialize(d) {
-  return zeroPad(d.getMonth() + 1) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours());
-}; // a timezone will begin with a specific offset in january
-// then some will switch to something else between november-march
-
-
-var shouldChange = function shouldChange(epoch, start, end, defaultOffset) {
-  //note: this has a cray order-of-operations issue
-  //we can't get the date, without knowing the timezone, and vice-versa
-  //it's possible that we can miss a dst-change by a few hours.
-  var d = new Date(epoch); //(try to mediate this a little?)
-
-  var bias = d.getTimezoneOffset() || 0;
-  var shift = bias + defaultOffset * 60; //in minutes
-
-  shift = shift * 60 * 1000; //in ms
-
-  d = new Date(epoch + shift);
-  var current = serialize(d); //eg. is it after ~november?
-
-  if (current >= start) {
-    //eg. is it before ~march~ too?
-    if (current < end) {
-      return true;
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
     }
   }
 
-  return false;
+  return _arr;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+var MSEC_IN_HOUR = 60 * 60 * 1000; //convert our local date syntax a javascript UTC date
+
+var toUtc = function toUtc(dstChange, offset, year) {
+  var _dstChange$split = dstChange.split('/'),
+      _dstChange$split2 = _slicedToArray(_dstChange$split, 2),
+      month = _dstChange$split2[0],
+      rest = _dstChange$split2[1];
+
+  var _rest$split = rest.split(':'),
+      _rest$split2 = _slicedToArray(_rest$split, 2),
+      day = _rest$split2[0],
+      hour = _rest$split2[1];
+
+  return Date.UTC(year, month - 1, day, hour) - offset * MSEC_IN_HOUR;
+}; // compare epoch with dst change events (in utc)
+
+
+var shouldChange = function shouldChange(epoch, start, end, summerOffset, winterOffset) {
+  var year = new Date(epoch).getUTCFullYear();
+  var startUtc = toUtc(start, winterOffset, year);
+  var endUtc = toUtc(end, summerOffset, year); // simple number comparison now
+
+  return epoch >= startUtc && epoch < endUtc;
 };
 
 var summerTime = shouldChange;
@@ -190,7 +106,7 @@ var quickOffset = function quickOffset(s) {
   }
 
   var split = obj.dst.split('->');
-  var inSummer = summerTime(s.epoch, split[0], split[1], jul);
+  var inSummer = summerTime(s.epoch, split[0], split[1], jul, dec);
 
   if (inSummer === true) {
     return jul;
@@ -298,12 +214,20 @@ var _build = {
 };
 
 var _build$1 = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	'default': _build
+  __proto__: null,
+  'default': _build
 });
 
 //prefixes for iana names..
 var _prefixes = ['africa', 'america', 'asia', 'atlantic', 'australia', 'brazil', 'canada', 'chile', 'europe', 'indian', 'mexico', 'pacific', 'antarctica', 'etc'];
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+function getCjsExportFromNamespace (n) {
+	return n && n['default'] || n;
+}
 
 var data = getCjsExportFromNamespace(_build$1);
 
@@ -877,6 +801,135 @@ var monthLengths = [31, // January - 31 days
 31 // December - 31 days
 ];
 var monthLengths_1 = monthLengths; // 28 - feb
+
+var fns = createCommonjsModule(function (module, exports) {
+  //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
+  exports.isLeapYear = function (year) {
+    return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
+  }; // unsurprisingly-nasty `typeof date` call
+
+
+  exports.isDate = function (d) {
+    return Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf());
+  };
+
+  exports.isArray = function (input) {
+    return Object.prototype.toString.call(input) === '[object Array]';
+  };
+
+  exports.isObject = function (input) {
+    return Object.prototype.toString.call(input) === '[object Object]';
+  };
+
+  exports.zeroPad = function (str) {
+    var len = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+    var pad = '0';
+    str = str + '';
+    return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str;
+  };
+
+  exports.titleCase = function (str) {
+    if (!str) {
+      return '';
+    }
+
+    return str[0].toUpperCase() + str.substr(1);
+  };
+
+  exports.ordinal = function (i) {
+    var j = i % 10;
+    var k = i % 100;
+
+    if (j === 1 && k !== 11) {
+      return i + 'st';
+    }
+
+    if (j === 2 && k !== 12) {
+      return i + 'nd';
+    }
+
+    if (j === 3 && k !== 13) {
+      return i + 'rd';
+    }
+
+    return i + 'th';
+  }; //strip 'st' off '1st'..
+
+
+  exports.toCardinal = function (str) {
+    str = String(str);
+    str = str.replace(/([0-9])(st|nd|rd|th)$/i, '$1');
+    return parseInt(str, 10);
+  }; //used mostly for cleanup of unit names, like 'months'
+
+
+  exports.normalize = function () {
+    var str = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    str = str.toLowerCase().trim();
+    str = str.replace(/ies$/, 'y'); //'centuries'
+
+    str = str.replace(/s$/, '');
+    str = str.replace(/-/g, '');
+
+    if (str === 'day' || str === 'days') {
+      return 'date';
+    }
+
+    if (str === 'min' || str === 'mins') {
+      return 'minute';
+    }
+
+    return str;
+  };
+
+  exports.getEpoch = function (tmp) {
+    //support epoch
+    if (typeof tmp === 'number') {
+      return tmp;
+    } //suport date objects
+
+
+    if (exports.isDate(tmp)) {
+      return tmp.getTime();
+    }
+
+    if (tmp.epoch) {
+      return tmp.epoch;
+    }
+
+    return null;
+  }; //make sure this input is a spacetime obj
+
+
+  exports.beADate = function (d, s) {
+    if (exports.isObject(d) === false) {
+      return s.clone().set(d);
+    }
+
+    return d;
+  };
+
+  exports.formatTimezone = function (offset) {
+    var delimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    var sign = offset > 0 ? '+' : '-';
+    var absOffset = Math.abs(offset);
+    var hours = exports.zeroPad(parseInt('' + absOffset, 10));
+    var minutes = exports.zeroPad(absOffset % 1 * 60);
+    return "".concat(sign).concat(hours).concat(delimiter).concat(minutes);
+  };
+});
+var fns_1 = fns.isLeapYear;
+var fns_2 = fns.isDate;
+var fns_3 = fns.isArray;
+var fns_4 = fns.isObject;
+var fns_5 = fns.zeroPad;
+var fns_6 = fns.titleCase;
+var fns_7 = fns.ordinal;
+var fns_8 = fns.toCardinal;
+var fns_9 = fns.normalize;
+var fns_10 = fns.getEpoch;
+var fns_11 = fns.beADate;
+var fns_12 = fns.formatTimezone;
 
 var isLeapYear = fns.isLeapYear; //given a month, return whether day number exists in it
 
@@ -2562,7 +2615,7 @@ var timezone = function timezone(s) {
   if (result.hasDst === false) {
     result.current.offset = summer;
     result.current.isDST = false;
-  } else if (summerTime(s.epoch, result.change.start, result.change.back, summer) === true) {
+  } else if (summerTime(s.epoch, result.change.start, result.change.back, summer, winter) === true) {
     result.current.offset = summer;
     result.current.isDST = result.hemisphere === 'North'; //dst 'on' in winter in north
   } else {
@@ -4046,7 +4099,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.7.0';
+var _version = '6.8.0';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);

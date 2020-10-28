@@ -1,4 +1,3 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 const useOldTz = require('./lib/useOldTz')
@@ -17,14 +16,14 @@ const months = [
   'november',
   'december'
 ]
-const allMonths = s =>
-  months.map(m => {
+const allMonths = (s) =>
+  months.map((m) => {
     s = s.month(m)
     let meta = s.timezone()
     return meta.current.isDST
   })
 
-test('dst-by-date', t => {
+test('dst-by-date', (t) => {
   //this may be too hard to do.
   let s = spacetime('March 11, 2017 10:42:00', 'Canada/Eastern')
   s = useOldTz(s)
@@ -38,7 +37,7 @@ test('dst-by-date', t => {
   t.end()
 })
 
-test('dst-by-month', t => {
+test('dst-by-month', (t) => {
   ////        jan   feb    mar    apr   may   jun   july   aug   sept  oct   nov   dec
   let est = [false, false, false, true, true, true, true, true, true, true, true, false]
   let pst = [false, false, false, true, true, true, true, true, true, true, false, false]
@@ -58,7 +57,7 @@ test('dst-by-month', t => {
   t.end()
 })
 
-test('sneaky-dst', t => {
+test('sneaky-dst', (t) => {
   let s = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern')
   s = s.hour(0)
   //move date over a dst change
@@ -67,7 +66,7 @@ test('sneaky-dst', t => {
   t.end()
 })
 
-test('has-dst', t => {
+test('has-dst', (t) => {
   let s = spacetime('March 28, 1999 20:42:00', 'Africa/Algiers')
   t.equal(s.hasDST(), false, 'never has dst')
   t.equal(s.inDST(), false, 'not in dst')

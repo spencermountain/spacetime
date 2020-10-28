@@ -1,18 +1,17 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('daytime-consistent', t => {
+test('daytime-consistent', (t) => {
   let s = spacetime.now()
   let times = ['morning', 'afternoon', 'evening', 'night']
-  times.forEach(daytime => {
+  times.forEach((daytime) => {
     s = s.dayTime(daytime)
     t.equal(s.dayTime(), daytime, daytime + ' is ' + daytime)
   })
   t.end()
 })
 
-test('daytime-sanity-test', t => {
+test('daytime-sanity-test', (t) => {
   let s = spacetime.now()
   let time = '2am'
   s = s.time(time)

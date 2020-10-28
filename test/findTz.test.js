@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('whereits', t => {
+test('whereits', (t) => {
   let tzs = spacetime.whereIts('9am')
   t.ok(tzs.length > 0, '9am somewhere')
   t.ok(tzs.length < 90, '9am-is-subset')
@@ -37,7 +36,7 @@ test('whereits', t => {
   t.end()
 })
 
-test('throw-error-on-invalid', t => {
+test('throw-error-on-invalid', (t) => {
   try {
     spacetime('12pm', 'invalid-timezone')
     t.ok(false, 'did-not-throw-exception')

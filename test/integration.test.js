@@ -1,4 +1,3 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 //ST  = winter.   november -> march
@@ -6,8 +5,8 @@ const spacetime = require('./lib')
 
 let timezones = ['America/Los_Angeles', 'America/Denver', 'America/Chicago', 'America/New_York']
 
-test('ST → ST', t => {
-  timezones.forEach(tz => {
+test('ST → ST', (t) => {
+  timezones.forEach((tz) => {
     //start in ST - december 5th 2010 5:00am
     let d1 = spacetime([2010, 11, 5, 5, 0], tz)
     let str = d1.format('nice')
@@ -24,8 +23,8 @@ test('ST → ST', t => {
   t.end()
 })
 
-test('ST → DST', t => {
-  timezones.forEach(tz => {
+test('ST → DST', (t) => {
+  timezones.forEach((tz) => {
     //start in ST - december 5th 2010 10:20am
     let d1 = spacetime([2010, 11, 5, 10, 0], tz)
     let str = d1.format('nice')
@@ -42,8 +41,8 @@ test('ST → DST', t => {
   t.end()
 })
 
-test('DST → DST', t => {
-  timezones.forEach(tz => {
+test('DST → DST', (t) => {
+  timezones.forEach((tz) => {
     //start in DST - june 5th 2010 3:00pm
     let d1 = spacetime([2010, 5, 5, 15, 0], tz)
     let str = d1.format('nice')
@@ -60,8 +59,8 @@ test('DST → DST', t => {
   t.end()
 })
 
-test('DST → ST', t => {
-  timezones.forEach(tz => {
+test('DST → ST', (t) => {
+  timezones.forEach((tz) => {
     //start in DST - june 5th 2010 8:00pm
     let d1 = spacetime([2010, 5, 5, 20, 0], tz)
     let str = d1.format('nice')

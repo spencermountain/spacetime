@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('implicit goto', t => {
+test('implicit goto', (t) => {
   let a = spacetime('March 14, 2017 22:48:00', 'Africa/Algiers')
   let b = spacetime('March 14, 2017 22:48:00', 'Canada/Pacific')
 
@@ -11,7 +10,7 @@ test('implicit goto', t => {
   t.end()
 })
 
-test('goto-from-est', t => {
+test('goto-from-est', (t) => {
   let s = spacetime('February 22, 2017 15:42:00', 'Canada/Eastern')
   t.equal(s.date(), 22, 'est-date')
   t.equal(s.monthName(), 'february', 'est-month')
@@ -37,7 +36,7 @@ test('goto-from-est', t => {
   t.end()
 })
 
-test('goto-from-algiers (no-dst-places)', t => {
+test('goto-from-algiers (no-dst-places)', (t) => {
   //march 14th in algiers (+60)
   let s = spacetime('March 14, 2017 22:48:00', 'Africa/Algiers')
   t.equal(s.format('nice-full'), 'Tuesday March 14th, 10:48pm', 'init-date')
@@ -76,7 +75,7 @@ test('goto-from-algiers (no-dst-places)', t => {
   t.end()
 })
 
-test('move-from-dst', t => {
+test('move-from-dst', (t) => {
   //dst in Paris (+2h)
   let s = spacetime('April 2, 2019 22:48:00', 'Europe/Paris')
   t.equal(s.format('nice-full'), 'Tuesday April 2nd, 10:48pm', 'init-paris')
@@ -97,7 +96,7 @@ test('move-from-dst', t => {
   t.end()
 })
 
-test('move-from-not-dst', t => {
+test('move-from-not-dst', (t) => {
   //not-dst in Paris (+1h)
   let s = spacetime('March 17, 2017 22:48:00', 'Europe/Paris')
   t.equal(s.format('nice-full'), 'Friday March 17th, 10:48pm', 'init-paris')
@@ -118,7 +117,7 @@ test('move-from-not-dst', t => {
   t.end()
 })
 
-test('move-to-dst', t => {
+test('move-to-dst', (t) => {
   //move from never-dst (uruguay) to a dst (moncton)
   let s = spacetime('August 1, 2017 00:01:05', 'America/Montevideo')
   t.equal(s.format('nice-full'), 'Tuesday August 1st, 12:01am', 'init-uruguay')
@@ -131,7 +130,7 @@ test('move-to-dst', t => {
   t.end()
 })
 
-test('move-to-not-dst', t => {
+test('move-to-not-dst', (t) => {
   //now move from never-dst (uruguay) to a not-dst (moncton)
   let s = spacetime('January 1, 2017 00:01:05', 'America/Montevideo')
   t.equal(s.format('nice-full'), 'Sunday January 1st, 12:01am', 'init-uruguay')

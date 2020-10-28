@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('since()', t => {
+test('since()', (t) => {
   const a = spacetime('November 11, 1999 11:11:11', 'Canada/Eastern')
   const b = spacetime('December 12, 2000 12:12:12', 'Canada/Eastern')
 
@@ -60,18 +59,9 @@ test('since()', t => {
     'same'
   )
 
-  const almostTwoYears = a
-    .clone()
-    .add(1, 'year')
-    .add(11, 'months')
-  const overTwoMonths = a
-    .clone()
-    .add(2, 'months')
-    .add(11, 'days')
-  const yearAndASecond = a
-    .clone()
-    .add(1, 'year')
-    .add(1, 'second')
+  const almostTwoYears = a.clone().add(1, 'year').add(11, 'months')
+  const overTwoMonths = a.clone().add(2, 'months').add(11, 'days')
+  const yearAndASecond = a.clone().add(1, 'year').add(1, 'second')
   const twoSeconds = a.clone().add(2, 'seconds')
 
   t.deepEqual(
@@ -149,11 +139,8 @@ test('since()', t => {
   t.end()
 })
 
-test('since now - default', t => {
-  const past = spacetime
-    .now()
-    .subtract(23, 'months')
-    .subtract(23, 'seconds')
+test('since now - default', (t) => {
+  const past = spacetime.now().subtract(23, 'months').subtract(23, 'seconds')
   const since = past.since()
   t.equal(since.diff.years, -1, '1 year back')
   t.equal(since.diff.months, -11, '11 months back')
@@ -162,7 +149,7 @@ test('since now - default', t => {
   t.end()
 })
 
-test('supports soft inputs', t => {
+test('supports soft inputs', (t) => {
   let now = spacetime([2019, 3, 12])
   let c = spacetime('dec 25 2018')
   let obj = now.since(c).diff
@@ -197,14 +184,14 @@ test('supports soft inputs', t => {
   t.end()
 })
 
-test('from + fromNow aliases', t => {
+test('from + fromNow aliases', (t) => {
   let obj = spacetime('April 12th 2008', 'Canada/Pacific').from('March 12 2018')
   t.equal(obj.qualified, 'almost 10 years ago', 'qualified')
   t.equal(obj.precise, '9 years, 11 months ago', 'precise')
   t.end()
 })
 
-test('since calculation involves month addition and subtraction', t => {
+test('since calculation involves month addition and subtraction', (t) => {
   let prev = spacetime('2019-01-31T23:00:50.0Z')
   let now = spacetime('2019-02-01T10:00:00.0Z')
   t.deepEqual(now.since(prev), {

@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('progress', t => {
+test('progress', (t) => {
   let d = spacetime('December 31, 1999 23:59:58', 'Canada/Eastern')
   let obj = d.progress()
   t.ok(obj.year > 0.95, 'almost-done-year')
@@ -24,7 +23,7 @@ test('progress', t => {
   t.end()
 })
 
-test('progress-param', t => {
+test('progress-param', (t) => {
   let s = spacetime('jan 2 2019', 'Canada/Eastern')
   t.equal(s.progress('year'), 0, 'start-year')
   t.equal(s.progress('month'), 0.03, 'early-month')

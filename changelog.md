@@ -4,43 +4,44 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
-<!-- [planned]
-* don't reverse dates for .every() method
--->
+<!-- [planned] -->
 
+### v6.8.0
+- **[fix]** major DST issue #182 (thanks Boris!)
+ 
 ### v6.7.0
-- add missing timezones `America/Fort_Nelson`, `Asia/Qostanay`, and `America/Nuuk`
-- fix comparison issue #231 effecting `.isSame()` and `.since()` accross different timezones
+- **[fix]** add missing timezones `America/Fort_Nelson`, `Asia/Qostanay`, and `America/Nuuk`
+- **[fix]**  comparison issue #231 effecting `.isSame()` and `.since()` accross different timezones
 
 ### v6.6.4
 
-- [fix] 45m offset formatting issue
+- **[fix]** 45m offset formatting issue
 - update deps
 
 ### v6.6.3
 
-- support for 'today' param with null inputs
-- support for 'today' param with 'today/tonight' inputs
-- interpret empty-string input like null input (as 'now')
-- typescript fixes (#220 #222)
+- **[change]** support for 'today' param with null inputs
+- **[change]** support for 'today' param with 'today/tonight' inputs
+- **[change]** interpret empty-string input like null input (as 'now')
+- **[fix]** typescript fixes (#220 #222)
 -
 
 ### v6.6.2
 
-- [fix] for formatting when the output is 0 😓
-- [fix] for leap-day in `.date()` method
+- **[fix]** for formatting when the output is 0 😓
+- **[fix]** for leap-day in `.date()` method
 - update deps
 - add github release/publish script
 
 ### v6.6.1
 
-- typescript fix
+- **[fix]** typescript fix
 
 ### v6.6.0
 
-- support `undefined` as input (like null)
-- fix for missing defaults in object input
-- fix major DST add/subtract bug #193
+- **[change]** support `undefined` as input (like null)
+- **[fix]** for missing defaults in object input
+- **[fix]** major DST add/subtract bug #193
 
 ### v6.5.0
 
