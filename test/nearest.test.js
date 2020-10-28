@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('nearest', t => {
+test('nearest', (t) => {
   let s = spacetime('jan 2 2019', 'Canada/Eastern')
   let month = s.nearest('month')
   let year = s.nearest('year')
@@ -12,7 +11,7 @@ test('nearest', t => {
   t.end()
 })
 
-test('nearest-time', t => {
+test('nearest-time', (t) => {
   let s = spacetime('feb 20 2017', 'Canada/Pacific')
   s = s.time('3:29am')
   let hour = s.nearest('hour')
@@ -20,7 +19,7 @@ test('nearest-time', t => {
   t.end()
 })
 
-test('nearest-quarter-hour', t => {
+test('nearest-quarter-hour', (t) => {
   let s = spacetime([2019, 4, 8, 10, 11, 12], 'Canada/Eastern')
   s = s.nearest('quarter-hour')
   t.equal(s.format('iso'), '2019-05-08T10:15:00.000-04:00', 'nearest-quarterhour')

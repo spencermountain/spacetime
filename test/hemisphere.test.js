@@ -1,11 +1,10 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
 const june = 1401660600207 //june 1, 6:10pm
 const jan = 1515368004641 //january 7th, 6:30pm
 
-test('toronto/Santiago same in june', t => {
+test('toronto/Santiago same in june', (t) => {
   let a = spacetime(june, 'America/Toronto')
   t.equal(-4, a.timezone().current.offset, 'toronto -4')
   t.equal(true, a.timezone().current.isDST, 'toronto in dst')
@@ -20,7 +19,7 @@ test('toronto/Santiago same in june', t => {
   t.end()
 })
 
-test('toronto/Santiago -2hrs in january', t => {
+test('toronto/Santiago -2hrs in january', (t) => {
   let a = spacetime(jan, 'America/Toronto')
   t.equal(-5, a.timezone().current.offset, 'toronto -5')
   t.equal(false, a.timezone().current.isDST, 'toronto not dst')
@@ -34,7 +33,7 @@ test('toronto/Santiago -2hrs in january', t => {
   t.end()
 })
 
-test('northern-hemisphere spring-ahead', t => {
+test('northern-hemisphere spring-ahead', (t) => {
   //regina is always -6, mexico city goes -5 in the summer (dst+1)
   //so both are -6 in january
   let jan1 = spacetime('January 21, 2017 20:42:00', 'America/Mexico_City')
@@ -52,7 +51,7 @@ test('northern-hemisphere spring-ahead', t => {
   t.end()
 })
 
-test('southern-hemisphere spring-back', t => {
+test('southern-hemisphere spring-back', (t) => {
   //so both are -3 in january
   let jan1 = spacetime('January 21, 2017 20:42:00', 'America/Santiago')
   let jan2 = jan1.clone().goto('America/Cordoba')

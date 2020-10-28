@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('clone', t => {
+test('clone', (t) => {
   let a = spacetime('March 18, 1999 23:42:00', 'Canada/Eastern')
   let b = a.clone()
   t.equal(a.date(), 18, 'start-date')

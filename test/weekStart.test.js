@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('change start of week', t => {
+test('change start of week', (t) => {
   let s = spacetime('may 30 2019', 'Canada/Eastern')
   s = s.startOf('week')
   t.equal(s.dayName(), 'monday', 'monday is default')
@@ -32,7 +31,7 @@ test('change start of week', t => {
   t.end()
 })
 
-test('named weekStart', t => {
+test('named weekStart', (t) => {
   let s = spacetime('june 1 2019', 'Europe/Berlin')
 
   s = s.weekStart('thursday')
@@ -55,7 +54,7 @@ test('named weekStart', t => {
 })
 
 //ensure .weekstart plays-nice with i18n changes
-test('i18n weekStart', t => {
+test('i18n weekStart', (t) => {
   let s = spacetime('may 30 2019', 'Canada/Pacific')
   s.i18n({
     days: {

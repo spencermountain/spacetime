@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('random november time', t => {
+test('random november time', (t) => {
   let epoch = 1510799750000 //november 15th 9:35pm 2017 EST
   // https://www.epochconverter.com/timezones?q=1510799750000
   const arr = [
@@ -28,7 +27,7 @@ test('random november time', t => {
     ['America/Edmonton', 'Wed 7:35pm'],
     ['Africa/Khartoum', 'Thu 4:35am']
   ]
-  arr.forEach(a => {
+  arr.forEach((a) => {
     let s = spacetime(epoch, a[0])
     let have = `${s.format('day-short')} ${s.time()}`
     t.equal(a[1], have, a[0])
@@ -37,7 +36,7 @@ test('random november time', t => {
 })
 
 // copied from https://www.epochconverter.com/timezones?q=1520999750000
-test('random march time', t => {
+test('random march time', (t) => {
   let epoch = 1520999750000 //March 13, 2018 11:55pm
   const arr = [
     ['Africa/Abidjan', 'Mar 14 2018 03:55:50'],
@@ -57,7 +56,7 @@ test('random march time', t => {
     ['Pacific/Guam', 'Mar 14 2018 13:55:50'],
     ['Pacific/Pohnpei', 'Mar 14 2018 14:55:50']
   ]
-  arr.forEach(a => {
+  arr.forEach((a) => {
     let s = spacetime(epoch, a[0])
     let hour = s.hour()
     if (hour <= 9) {
@@ -72,7 +71,7 @@ test('random march time', t => {
 })
 
 // https://www.epochconverter.com/timezones?q=1520999750000
-test('random july time', t => {
+test('random july time', (t) => {
   let epoch = 1500299750000
   const arr = [
     ['Africa/Abidjan', 'Jul 17 1:55pm'],
@@ -84,7 +83,7 @@ test('random july time', t => {
     ['America/Caracas', 'Jul 17 9:55am'],
     ['Asia/Karachi', 'Jul 17 6:55pm']
   ]
-  arr.forEach(a => {
+  arr.forEach((a) => {
     let s = spacetime(epoch, a[0])
     let hour = s.hour()
     if (hour <= 9) {
@@ -97,7 +96,7 @@ test('random july time', t => {
 })
 
 // https://www.epochconverter.com/timezones?q=1520999750000
-test('random january time', t => {
+test('random january time', (t) => {
   let epoch = 1580299750000
   const arr = [
     ['Africa/Abidjan', 'Jan 29 12:09pm'],
@@ -109,7 +108,7 @@ test('random january time', t => {
     ['Asia/Tbilisi', 'Jan 29 4:09pm'],
     ['Pacific/Pohnpei', 'Jan 29 11:09pm']
   ]
-  arr.forEach(a => {
+  arr.forEach((a) => {
     let s = spacetime(epoch, a[0])
     let hour = s.hour()
     if (hour <= 9) {

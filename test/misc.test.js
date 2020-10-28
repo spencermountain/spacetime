@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('isAwake', t => {
+test('isAwake', (t) => {
   let s = spacetime('March 26, 1999 13:42:00', 'Canada/Eastern')
   t.equal(s.isAwake(), true, 'awake')
   s = spacetime('March 26, 1999 23:42:00', 'Canada/Eastern')
@@ -10,7 +9,7 @@ test('isAwake', t => {
   t.end()
 })
 
-test('asleep-test', t => {
+test('asleep-test', (t) => {
   let s = spacetime.now()
   s = s.dayTime('night')
   t.equal(s.isAsleep(), true, 'sleeping at night')
@@ -27,14 +26,14 @@ test('asleep-test', t => {
   t.end()
 })
 
-test('named-dates', t => {
+test('named-dates', (t) => {
   let christmas = spacetime('christmas', 'Canada/Eastern')
   let newYears = spacetime('new years', 'Canada/Eastern')
   t.equal(christmas.isBefore(newYears), true, 'christmas-is-before-new-years')
   t.end()
 })
 
-test('nearest', t => {
+test('nearest', (t) => {
   let s = spacetime('Nov 2')
   s = s.nearest('month')
   t.equal(s.monthName(), 'november', 'nov')
@@ -47,7 +46,7 @@ test('nearest', t => {
   t.end()
 })
 
-test('next', t => {
+test('next', (t) => {
   let s = spacetime('Nov 2')
   s = s.next('month')
   t.equal(s.monthName(), 'december', 'dec')
@@ -65,7 +64,7 @@ test('next', t => {
   t.end()
 })
 
-test('last', t => {
+test('last', (t) => {
   let s = spacetime('Nov 2')
   s = s.last('month')
   t.equal(s.monthName(), 'october', 'oct')
@@ -78,7 +77,7 @@ test('last', t => {
   t.end()
 })
 
-test('offset', t => {
+test('offset', (t) => {
   let s = spacetime('Nov 2', 'America/New_York')
   t.equal(s.offset(), -240, '-240 offset')
 
@@ -86,7 +85,7 @@ test('offset', t => {
   t.equal(s.offset(), -300, '-240 offset')
   t.end()
 })
-test('week number', t => {
+test('week number', (t) => {
   //TODO: these should pass
   t.equal(spacetime('jan 1st 2018').week(), 1, '2018 first week') //monday
   t.equal(spacetime('jan 9th 2018').week(), 2, '2018 second week') //tuesday
@@ -98,7 +97,7 @@ test('week number', t => {
   t.end()
 })
 
-test('json', t => {
+test('json', (t) => {
   let s = spacetime('2019-11-05T11:01:03.030-03:00')
   let json = s.format('json')
   let want = {
@@ -113,13 +112,13 @@ test('json', t => {
     second: 3,
     millisecond: 30
   }
-  Object.keys(want).forEach(k => {
+  Object.keys(want).forEach((k) => {
     t.equal(want[k], json[k], 'json-' + k)
   })
   t.end()
 })
 
-test('set-time rollover dst', t => {
+test('set-time rollover dst', (t) => {
   let s = spacetime('6 October 2019', 'australia/sydney').time('4:20am')
   t.equal(s.date(), 6, 'still the 6th')
   t.equal(s.time(), '4:20am', 'correct time')

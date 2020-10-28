@@ -1,7 +1,7 @@
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('get-decade', t => {
+test('get-decade', (t) => {
   let s = spacetime('Nov 2 2019', 'America/New_York')
   t.equal(s.decade(), 2010, '2010')
   s = spacetime('jan 1 2020')
@@ -16,7 +16,7 @@ test('get-decade', t => {
   t.end()
 })
 
-test('set-decade', t => {
+test('set-decade', (t) => {
   let s = spacetime.now().year(2019)
   s.decade(1950)
   t.equal(s.year(), 2019, 'decade doesnt mutate')
@@ -47,7 +47,7 @@ test('set-decade', t => {
   t.end()
 })
 
-test('get-century', t => {
+test('get-century', (t) => {
   let s = spacetime('Nov 2 2019', 'America/New_York')
   t.equal(s.century(), 21, '21st century')
 
@@ -62,7 +62,7 @@ test('get-century', t => {
 
   t.end()
 })
-test('set-century', t => {
+test('set-century', (t) => {
   let s = spacetime('Nov 2 2019', 'America/New_York')
   s.century('2nd')
   t.equal(s.year(), 2019, 'doesnt mutate')
@@ -86,7 +86,7 @@ test('set-century', t => {
   t.end()
 })
 
-test('get-millenium', t => {
+test('get-millenium', (t) => {
   let s = spacetime('Nov 2 2019', 'America/New_York')
   t.equal(s.millenium(), 3, '3rd millenium')
   s = spacetime('Nov 2 1219', 'America/New_York')
@@ -102,7 +102,7 @@ test('get-millenium', t => {
   t.end()
 })
 
-test('set-millenium', t => {
+test('set-millenium', (t) => {
   let s = spacetime.now().year(2019)
   s.millenium('2nd')
   t.equal(s.year(), 2019, 'millenium doesnt mutate')

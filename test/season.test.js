@@ -1,4 +1,3 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
@@ -19,14 +18,14 @@ let north = [
   'Asia/Istanbul'
 ]
 
-test('season-by-hemisphere', t => {
+test('season-by-hemisphere', (t) => {
   //june
   let s = spacetime('june 6 2017', 'Canada/Eastern')
-  south.forEach(tz => {
+  south.forEach((tz) => {
     s = s.goto(tz)
     t.equal(s.season(), 'winter', tz + ' june-winter')
   })
-  north.forEach(tz => {
+  north.forEach((tz) => {
     s = s.goto(tz)
     t.equal(s.season(), 'summer', tz + ' june-summer')
   })

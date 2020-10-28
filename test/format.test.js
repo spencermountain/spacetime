@@ -1,4 +1,3 @@
-'use strict'
 let test = require('tape')
 let spacetime = require('./lib')
 

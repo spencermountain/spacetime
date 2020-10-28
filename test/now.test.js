@@ -1,9 +1,8 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 const tk = require('timekeeper')
 
-test('now-is-now', t => {
+test('now-is-now', (t) => {
   let time = new Date(1554092400000) // 4:20, april 1st 2019 GMT
   tk.travel(time)
 
@@ -28,7 +27,7 @@ test('now-is-now', t => {
   t.end()
 })
 
-test('epoch-input', t => {
+test('epoch-input', (t) => {
   let gmt420 = 1554092400000 // 4:20, april 1st 2019 GMT
   let time = new Date(gmt420)
   tk.travel(time)

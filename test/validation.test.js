@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('large date numbers', function(t) {
+test('large date numbers', function (t) {
   let d = spacetime([2019, 'february'])
   d = d.date(30)
   t.equal(d.date(), 28, 'feb is <= 28')
@@ -16,7 +15,7 @@ test('large date numbers', function(t) {
   t.end()
 })
 
-test('small date numbers', function(t) {
+test('small date numbers', function (t) {
   let d = spacetime([2019, 'february'])
   d = d.date(0)
   t.equal(d.date(), 1, 'date is >= 1')
@@ -30,7 +29,7 @@ test('small date numbers', function(t) {
   t.end()
 })
 
-test('large month numbers', function(t) {
+test('large month numbers', function (t) {
   let d = spacetime([2019])
   d = d.month(14)
   t.equal(d.monthName(), 'december', 'month is <= december')

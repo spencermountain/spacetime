@@ -1,8 +1,7 @@
-'use strict'
 const test = require('tape')
 const spacetime = require('./lib')
 
-test('set', t => {
+test('set', (t) => {
   let s = spacetime('June 22, 2017 20:12:01', 'Canada/Pacific')
 
   s = s.date(5)
@@ -81,7 +80,7 @@ test('set', t => {
   t.end()
 })
 
-test('set by weekday', t => {
+test('set by weekday', (t) => {
   let s = spacetime([2017, 2, 22], 'Canada/Eastern') //wednesday
   //make sure it's in the right place
   t.equal(s.date(), 22, '.date()')
@@ -108,7 +107,7 @@ test('set by weekday', t => {
   t.end()
 })
 
-test('set-tricky', t => {
+test('set-tricky', (t) => {
   let s = spacetime('June 22, 2017 13:01:00', 'Canada/Eastern') //the 22rd
   t.equal(s.date(), 22, '.date()')
   t.equal(s.hour(), 13, '.hour()')
@@ -129,7 +128,7 @@ test('set-tricky', t => {
   t.end()
 })
 
-test('rollback-in-constructor', t => {
+test('rollback-in-constructor', (t) => {
   let s = spacetime('June 22, 2017 5:01:00', 'Australia/Brisbane')
   t.equal(s.hour(), 5, 'hour-australia')
   s = spacetime('June 22, 2017 5:01:00', 'Canada/Pacific')
@@ -139,7 +138,7 @@ test('rollback-in-constructor', t => {
   t.end()
 })
 
-test('set-date-fancy', t => {
+test('set-date-fancy', (t) => {
   let s = spacetime('June 22, 2017 20:01:00', 'Australia/Brisbane') //the 22rd
   t.equal(s.date(), 22, '.date-before')
   s = s.date(15)
@@ -147,13 +146,9 @@ test('set-date-fancy', t => {
   t.end()
 })
 
-test('add-a-week-bug', t => {
-  let a = spacetime('2018-10-21')
-    .goto('America/Adak')
-    .add(1, 'week')
-  let b = spacetime('2018-10-22')
-    .goto('America/Adak')
-    .add(1, 'week')
+test('add-a-week-bug', (t) => {
+  let a = spacetime('2018-10-21').goto('America/Adak').add(1, 'week')
+  let b = spacetime('2018-10-22').goto('America/Adak').add(1, 'week')
   t.notEqual(a.format('iso'), b.format('iso'), 'two days are not the same')
   t.equal(a.diff(b, 'day'), 1, 'still one day apart')
   t.end()
