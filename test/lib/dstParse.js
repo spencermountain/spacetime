@@ -7,6 +7,10 @@ const dstParse = (dstChange, num) => {
     hour = '0'
     day = Number(day) + 1
   }
+  if (hour === '00') {
+    hour = '23'
+    day = Number(day) - 1
+  }
   return {
     year: new Date().getFullYear(),
     month: Number(month) - 1, //
