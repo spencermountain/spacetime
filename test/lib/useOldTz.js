@@ -4,6 +4,7 @@ const changeTz = (s) => {
   timezones['canada/eastern'].dst = '03/12:03->11/05:01'
   timezones['australia/canberra'].dst = '04/02:02->10/01:03'
   timezones['pacific/fiji'].dst = '01/15:02->11/05:03'
+  timezones['europe/brussels'].dst = '03/29:02->10/25:03'
   s.timezones = timezones
   return s
 }
