@@ -107,8 +107,14 @@ const addMethods = (SpaceTime) => {
       }
     }
     //ensure year has changed (leap-years)
-    else if (unit === 'year' && s.year() === old.year()) {
-      s.epoch += ms.week
+    else if (unit === 'year') {
+      let wantYear = old.year() + num
+      let haveYear = s.year()
+      if (haveYear < wantYear) {
+        s.epoch += ms.day
+      } else if (haveYear > wantYear) {
+        s.epoch += ms.day
+      }
     }
     //these are easier
     else if (unit === 'decade') {
