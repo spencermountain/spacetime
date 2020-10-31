@@ -173,11 +173,11 @@ const strFmt = [
   },
   {
     // 'q2 2002'
-    reg: /^(q[0-9])( [0-9]{4})?/i,
+    reg: /^(q[0-9])( of)?( [0-9]{4})?/i,
     parse: (s, arr) => {
       let quarter = arr[1] || ''
       s = s.quarter(quarter)
-      let year = arr[2] || ''
+      let year = arr[3] || ''
       if (year) {
         year = year.trim()
         s = s.year(year)
@@ -187,11 +187,11 @@ const strFmt = [
   },
   {
     // 'summer 2002'
-    reg: /^(spring|summer|winter|fall|autumn)( [0-9]{4})?/i,
+    reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?/i,
     parse: (s, arr) => {
       let season = arr[1] || ''
       s = s.season(season)
-      let year = arr[2] || ''
+      let year = arr[3] || ''
       if (year) {
         year = year.trim()
         s = s.year(year)

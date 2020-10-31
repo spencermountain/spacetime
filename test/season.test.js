@@ -54,5 +54,10 @@ test('set season - north', (t) => {
   t.equal(s.date(), 1, 'fall year .date()')
   t.equal(s.year(), 2001, 'fall .year()')
 
+  s = spacetime('fall of 1960', 'Canada/Eastern')
+  t.equal(s.monthName(), 'september', 'fall of year .month()')
+  t.equal(s.date(), 1, 'fall of year .date()')
+  t.equal(s.year(), 1960, 'fall of .year()')
+
   t.end()
 })

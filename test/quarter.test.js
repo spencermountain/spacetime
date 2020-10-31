@@ -23,5 +23,10 @@ test('set quarter', (t) => {
   t.equal(s.date(), 1, 'q1 year .date()')
   t.equal(s.year(), 2001, 'q1 .year()')
 
+  s = spacetime('q1 of 1962')
+  t.equal(s.monthName(), 'january', 'q1 year of .month()')
+  t.equal(s.date(), 1, 'q1 year of .date()')
+  t.equal(s.year(), 1962, 'q1 of .year()')
+
   t.end()
 })
