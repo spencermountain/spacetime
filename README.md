@@ -417,7 +417,7 @@ s.dayName()
 Thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
 
 <div align="center">
-  <div>Made with caution + great-patience,</div>
+  <div>Made with caution and patience</div>
   <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a></div>
 </div>
 
