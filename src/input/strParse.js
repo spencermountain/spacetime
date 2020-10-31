@@ -220,6 +220,20 @@ const strFmt = [
     }
   },
   {
+    // 'q2 2002'
+    reg: /^(q[0-9])( [0-9]{4})?/i,
+    parse: (s, arr) => {
+      let quarter = arr[1] || ''
+      s = s.quarter(quarter)
+      let year = arr[2] || ''
+      if (year) {
+        year = year.trim()
+        s = s.year(year)
+      }
+      return s
+    }
+  },
+  {
     // '1992'
     reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
     parse: (s, arr) => {
