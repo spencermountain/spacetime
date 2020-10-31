@@ -8,6 +8,7 @@ This project follows semVer, where:
 <!-- [unreleased] 
 - **[fix]** - inc/dec year issue on exact nye millisecond
 - **[change]** support parsing quarter-names as input - 'q2 2001'
+- **[change]** support parsing season-names as input - 'fall 2001'
 -->
 
 
