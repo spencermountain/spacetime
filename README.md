@@ -54,16 +54,7 @@ let d = spacetime.now()
 d.format('nice')
 //'Apr 1st, 4:32pm'
 ```
-
-make sure to add this to your `tsconfig.json`:
-
-```json
-{
-  "compilerOptions": {
-    "esModuleInterop": true
-  }
-}
-```
+<a href="https://github.com/spencermountain/spacetime/wiki/Typescript">typescript docs</a>
 
 <div align="center">
   <h3>
