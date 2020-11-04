@@ -57,6 +57,13 @@ test('dst-by-month', (t) => {
   t.end()
 })
 
+test('day-dst', (t) => {
+  let d = spacetime('2020-11-01')
+  d = d.day('monday')
+  t.equal(d.format('{day}'), 'Monday', 'found monday over dst change')
+  t.end()
+})
+
 test('sneaky-dst', (t) => {
   let s = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern')
   s = s.hour(0)
