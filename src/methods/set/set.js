@@ -70,6 +70,18 @@ module.exports = {
     let diff = s.hour() - n
     let shift = diff * ms.hour
     s.epoch -= shift
+    // oops, did we change the day?
+    if (s.date() !== old.date()) {
+      s = old.clone()
+      if (diff > 1) {
+        diff -= 1
+      }
+      if (diff < 1) {
+        diff += 1
+      }
+      shift = diff * ms.hour
+      s.epoch -= shift
+    }
     walkTo(s, {
       hour: n
     })

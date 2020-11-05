@@ -59,6 +59,7 @@ test('dst-by-month', (t) => {
 
 test('sneaky-dst', (t) => {
   let s = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern')
+  s = useOldTz(s)
   s = s.hour(0)
   //move date over a dst change
   s = s.date(2)
@@ -66,8 +67,17 @@ test('sneaky-dst', (t) => {
   t.end()
 })
 
+test('set hour() -dst', (t) => {
+  let d = spacetime('2020-03-08T08:45:00', 'America/Chicago')
+  d = useOldTz(d)
+  d = d.hour(0)
+  t.equal(d.iso(), '2020-03-08T00:45:00.000-06:00', 'sneaky-hour')
+  t.end()
+})
+
 test('has-dst', (t) => {
   let s = spacetime('March 28, 1999 20:42:00', 'Africa/Algiers')
+  s = useOldTz(s)
   t.equal(s.hasDST(), false, 'never has dst')
   t.equal(s.inDST(), false, 'not in dst')
 

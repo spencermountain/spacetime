@@ -83,3 +83,34 @@ test('dst-fall-minus', (t) => {
   t.equal(d.timezone().current.isDST, true, `${d.time()} true`)
   t.end()
 })
+
+// 12:00am  ->  1:02am  ->  3:02am ->  4:02am
+//  false   ->   false  ->  true   ->  true
+test('add-spring-dst', (t) => {
+  let d = spacetime('2020-03-08T00:02:00', 'America/Chicago')
+  d = useOldTz(d)
+  t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
+  t.equal(d.time(), '12:02am', '12:02am')
+
+  d = d.add(30, 'minutes')
+  t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
+  t.equal(d.time(), '12:32am', '12:32am')
+
+  d = d.add(30, 'minutes')
+  t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
+  t.equal(d.time(), '1:02am', '1:02am')
+
+  d = d.add(30, 'minutes')
+  t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
+  t.equal(d.time(), '1:32am', '1:32am')
+
+  // ---skip 2am---
+  d = d.add(30, 'minutes')
+  t.equal(d.timezone().current.isDST, true, `${d.time()} true`)
+  t.equal(d.time(), '3:02am', '3:02am')
+
+  d = d.add(30, 'minutes')
+  t.equal(d.timezone().current.isDST, true, `${d.time()} true`)
+  t.equal(d.time(), '3:32am', '3:32am')
+  t.end()
+})
