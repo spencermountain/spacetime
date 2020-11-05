@@ -118,6 +118,17 @@ test('day-tricky', (t) => {
   t.end()
 })
 
+test('new-years-eve', (t) => {
+  let year = 2022
+  let nye = spacetime(`2022-01-01T00:00:00.000Z`)
+  for (let i = 0; i < 20; i += 1) {
+    nye = nye.minus(1, 'year')
+    year -= 1
+    t.equal(nye.format(), `${year}-01-01`, `${year} exact millisecond`)
+  }
+  t.end()
+})
+
 test('year-tricky', (t) => {
   let s = spacetime(1451667600000, 'Canada/Eastern') //jan 1 2016 (leap year)
   t.equal(s.year(), 2016, 'year1')

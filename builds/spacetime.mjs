@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.8.0 Apache 2.0 */
+/* spencermountain/spacetime 6.9.0 Apache 2.0 */
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
@@ -72,15 +72,16 @@ var toUtc = function toUtc(dstChange, offset, year) {
 }; // compare epoch with dst change events (in utc)
 
 
-var shouldChange = function shouldChange(epoch, start, end, summerOffset, winterOffset) {
+var inSummerTime = function inSummerTime(epoch, start, end, summerOffset, winterOffset) {
   var year = new Date(epoch).getUTCFullYear();
   var startUtc = toUtc(start, winterOffset, year);
-  var endUtc = toUtc(end, summerOffset, year); // simple number comparison now
+  var endUtc = toUtc(end, summerOffset, year); // console.log(epoch, endUtc)
+  // simple number comparison now
 
   return epoch >= startUtc && epoch < endUtc;
 };
 
-var summerTime = shouldChange;
+var summerTime = inSummerTime;
 
 // it reproduces some things in ./index.js, but speeds up spacetime considerably
 
@@ -1141,6 +1142,36 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     return s;
   }
 }, {
+  // 'q2 2002'
+  reg: /^(q[0-9])( of)?( [0-9]{4})?/i,
+  parse: function parse(s, arr) {
+    var quarter = arr[1] || '';
+    s = s.quarter(quarter);
+    var year = arr[3] || '';
+
+    if (year) {
+      year = year.trim();
+      s = s.year(year);
+    }
+
+    return s;
+  }
+}, {
+  // 'summer 2002'
+  reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?/i,
+  parse: function parse(s, arr) {
+    var season = arr[1] || '';
+    s = s.season(season);
+    var year = arr[3] || '';
+
+    if (year) {
+      year = year.trim();
+      s = s.year(year);
+    }
+
+    return s;
+  }
+}, {
   // '200bc'
   reg: /^[0-9,]+ ?b\.?c\.?$/i,
   parse: function parse(s, arr) {
@@ -1404,7 +1435,7 @@ var parseInput = function parseInput(s, input, givenTz) {
     if (m) {
       var _res = strParse[i].parse(s, m, givenTz);
 
-      if (_res !== null) {
+      if (_res !== null && _res.isValid()) {
         return _res;
       }
     }
@@ -2867,7 +2898,23 @@ var set = {
     var old = s.clone();
     var diff = s.hour() - n;
     var shift = diff * milliseconds.hour;
-    s.epoch -= shift;
+    s.epoch -= shift; // oops, did we change the day?
+
+    if (s.date() !== old.date()) {
+      s = old.clone();
+
+      if (diff > 1) {
+        diff -= 1;
+      }
+
+      if (diff < 1) {
+        diff += 1;
+      }
+
+      shift = diff * milliseconds.hour;
+      s.epoch -= shift;
+    }
+
     walk_1(s, {
       hour: n
     });
@@ -3224,7 +3271,7 @@ var methods$2 = {
 
     var day = this.d.getDay();
     var diff = day - want;
-    var s = this.subtract(diff * 24, 'hours'); //tighten it back up
+    var s = this.subtract(diff, 'days'); //tighten it back up
 
     walk_1(s, {
       hour: original.hour(),
@@ -3789,8 +3836,15 @@ var addMethods$1 = function addMethods(SpaceTime) {
           want.date = old.date() + num;
         }
       } //ensure year has changed (leap-years)
-      else if (unit === 'year' && s.year() === old.year()) {
-          s.epoch += milliseconds.week;
+      else if (unit === 'year') {
+          var wantYear = old.year() + num;
+          var haveYear = s.year();
+
+          if (haveYear < wantYear) {
+            s.epoch += milliseconds.day;
+          } else if (haveYear > wantYear) {
+            s.epoch += milliseconds.day;
+          }
         } //these are easier
         else if (unit === 'decade') {
             want.year = s.year() + 10;
@@ -4099,7 +4153,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.8.0';
+var _version = '6.9.0';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);

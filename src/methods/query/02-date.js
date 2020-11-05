@@ -4,7 +4,7 @@ const walkTo = require('../set/walk')
 
 const methods = {
   // # day in the month
-  date: function(num) {
+  date: function (num) {
     if (num !== undefined) {
       let s = this.clone()
       s.epoch = set.date(s, num)
@@ -14,7 +14,7 @@ const methods = {
   },
 
   //like 'wednesday' (hard!)
-  day: function(input) {
+  day: function (input) {
     if (input === undefined) {
       return this.d.getDay()
     }
@@ -31,7 +31,7 @@ const methods = {
     //move approx
     let day = this.d.getDay()
     let diff = day - want
-    let s = this.subtract(diff * 24, 'hours')
+    let s = this.subtract(diff, 'days')
     //tighten it back up
     walkTo(s, {
       hour: original.hour(),
@@ -42,7 +42,7 @@ const methods = {
   },
 
   //these are helpful name-wrappers
-  dayName: function(input) {
+  dayName: function (input) {
     if (input === undefined) {
       return days.long()[this.day()]
     }
@@ -52,7 +52,7 @@ const methods = {
   },
 
   //either name or number
-  month: function(input) {
+  month: function (input) {
     if (input !== undefined) {
       let s = this.clone()
       s.epoch = set.month(s, input)

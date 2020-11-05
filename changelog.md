@@ -5,6 +5,16 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- [planned] -->
+<!-- [unreleased] 
+
+-->
+
+
+### v6.9.0
+- **[fix]** - dst-change issues like #236
+- **[fix]** - inc/dec year issue on exact nye millisecond
+- **[change]** support parsing quarter-names as input - 'q2 2001'
+- **[change]** support parsing season-names as input - 'fall 2001'
 
 ### v6.8.0
 - **[fix]** major DST issue #182 (thanks Boris!)

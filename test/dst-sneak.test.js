@@ -6,9 +6,9 @@ const useOldTz = require('./lib/useOldTz')
 test('fall-dst-repeats-hour', (t) => {
   let tz = 'europe/brussels' // 10/25:03
   // create 12:01am
-  let s = spacetime('Oct 25th 2020 2:01am', tz)
+  let s = spacetime('Oct 25th 2020 1:01am', tz)
   s = useOldTz(s)
-  t.equal(s.time(), '2:01am', 'current time 2:01am')
+  t.equal(s.time(), '1:01am', 'current time 1:01am')
   t.equal(s.timezone().current.isDST, true, 'in dst first')
   s = s.time('2:59am')
   t.equal(s.time(), '2:59am', 'current time 2:59am')
