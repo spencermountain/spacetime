@@ -10,5 +10,7 @@ const spacetime = require('./src/index')
 // console.log(s.format(), s.time())
 // console.log(s.timezone().current.isDST + ' should be true')
 
-let d = spacetime('2020-11-01T04:00:00', 'America/Chicago')
-console.log(d.format(), d.time())
+// -5hrs -> -6hrs
+let d = spacetime('2020-11-01T00:00:00', 'America/Chicago')
+console.log(d.timezone())
+console.log(d.iso())
