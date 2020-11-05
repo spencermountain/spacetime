@@ -279,6 +279,14 @@ ISO-formatting is different, so keep on your toes.
 
 see [more considerations and gotchas](https://github.com/spencermountain/spacetime/wiki)
 
+#### Daylight-savings gotchas
+We've written in detail about how spacetime handles Daylight-savings changes [here](https://observablehq.com/@spencermountain/spacetime-daylight-savings-time?collection=@spencermountain/spacetime)
+
+Fall DST changes have an hour that is repeated twice. There are a lot of tricky situations that come from this.
+Add 10 minutes at `1:55am`, and a spacetime diff may show `-50mins`. Within an hour of this change, some spacetime methods may be off-by-one hour.
+
+Springtime DST changes are generally smoother than Fall ones. 
+
 ## Options
 
 #### Ambiguity warnings:
