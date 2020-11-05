@@ -10,7 +10,21 @@ const spacetime = require('./src/index')
 // console.log(s.format(), s.time())
 // console.log(s.timezone().current.isDST + ' should be true')
 
+// November - 'fall-back'
+//
+function testDST(d) {
+  console.log(d.time(), d.timezone().current.isDST)
+  d = d.add(30, 'minutes')
+  console.log(d.time(), d.timezone().current.isDST)
+  d = d.add(30, 'minutes')
+  console.log(d.time(), d.timezone().current.isDST)
+  d = d.add(30, 'minutes')
+  console.log('---')
+  console.log(d.time(), d.timezone().current.isDST)
+  d = d.add(30, 'minutes')
+  console.log(d.time(), d.timezone().current.isDST)
+}
+
 // -5hrs -> -6hrs
-let d = spacetime('2020-11-01T00:00:00', 'America/Chicago')
-console.log(d.timezone())
-console.log(d.iso())
+let d = spacetime('2020-11-01T00:32:00', 'America/Chicago')
+testDST(d)
