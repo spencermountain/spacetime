@@ -10,7 +10,5 @@ const spacetime = require('./src/index')
 // console.log(s.format(), s.time())
 // console.log(s.timezone().current.isDST + ' should be true')
 
-let s = spacetime('summer of 2001')
-console.log(s.format())
-
-// console.log('summer 2001'.match(/^(spring|summer|winter|fall|autumn)( [0-9]{4})?/))
+let d = spacetime('2020-11-01T04:00:00', 'America/Chicago')
+console.log(d.format(), d.time())
