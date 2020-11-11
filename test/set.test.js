@@ -69,6 +69,18 @@ test('set', (t) => {
   t.equal(s.hour(), 17, 'time-hour-pm()')
   t.equal(s.minute(), 20, 'time-minute-pm()')
 
+  s = s.time('5:20 pm')
+  t.equal(s.hour(), 17, 'time-hour-pm-with-space()')
+  t.equal(s.minute(), 20, 'time-minute-pm-with-space()')
+
+  s = s.time('5pm')
+  t.equal(s.hour(), 17, 'time-hour-pm-hour-only()')
+  t.equal(s.minute(), 0, 'time-minute-pm-hour-only()')
+
+  s = s.time('6 pm')
+  t.equal(s.hour(), 18, 'time-hour-pm-hour-only-with-space()')
+  t.equal(s.minute(), 0, 'time-minute-pm-hour-only-with-space()')
+
   s = s.time('13:20pm')
   t.equal(s.hour(), 13, 'time-hour-24h()')
   t.equal(s.minute(), 20, 'time-minute-24h()')
