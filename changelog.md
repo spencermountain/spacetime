@@ -11,6 +11,7 @@ This project follows semVer, where:
 - **[fix]** - support whitespace between time and am/pm (thanks Andy!)
 - **[change]** - make empty array + obj equal to null inputs #240
 - **[change]** - update timezones
+- **[change]** - remove Yukon DST pre-emtively
 
 
 ### v6.9.0

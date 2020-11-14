@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.9.0 Apache 2.0 */
+/* spencermountain/spacetime 6.10.0 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -129,7 +129,8 @@
   	"9|n": "2/chita,2/khandyga,2/pyongyang,2/seoul,2/tokyo,11/palau",
   	"9.5|s|04/05:03->10/04:02": "4/adelaide,4/broken_hill,4/south,4/yancowinna",
   	"9.5|s": "4/darwin,4/north",
-  	"8|s": "12/casey,2/kuala_lumpur,2/makassar,2/singapore,4/perth,4/west",
+  	"8|s|03/08:01->10/04:00": "12/casey",
+  	"8|s": "2/kuala_lumpur,2/makassar,2/singapore,4/perth,4/west",
   	"8|n|03/25:03->09/29:23": "2/ulan_bator",
   	"8|n": "2/brunei,2/choibalsan,2/chongqing,2/chungking,2/harbin,2/hong_kong,2/irkutsk,2/kuching,2/macao,2/macau,2/manila,2/shanghai,2/taipei,2/ujung_pandang,2/ulaanbaatar",
   	"8.75|s": "4/eucla",
@@ -150,8 +151,8 @@
   	"3|n|03/29:03->10/25:04": "2/famagusta,2/nicosia,8/athens,8/bucharest,8/helsinki,8/kiev,8/mariehamn,8/nicosia,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye",
   	"3|n|03/29:02->10/25:03": "8/chisinau,8/tiraspol",
   	"3|n|03/29:00->10/24:24": "2/beirut",
+  	"3|n|03/28:00->10/24:01": "2/gaza,2/hebron",
   	"3|n|03/27:02->10/25:02": "2/jerusalem,2/tel_aviv",
-  	"3|n|03/27:00->10/31:01": "2/gaza,2/hebron",
   	"3|n|03/27:00->10/30:01": "2/amman",
   	"3|n|03/27:00->10/29:24": "2/damascus",
   	"3|n": "0/addis_ababa,0/asmara,0/asmera,0/dar_es_salaam,0/djibouti,0/juba,0/kampala,0/mogadishu,0/nairobi,2/aden,2/baghdad,2/bahrain,2/istanbul,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,9/comoro,9/mayotte",
@@ -169,10 +170,11 @@
   	"13|s|01/15:02->11/05:03": "11/tongatapu",
   	"13|n": "11/enderbury,11/fakaofo",
   	"12|s|04/05:03->09/27:02": "12/mcmurdo,12/south_pole,11/auckland",
-  	"12|s|01/12:03->11/08:02": "11/fiji",
+  	"12|s|01/12:03->12/20:02": "11/fiji",
   	"12|n": "2/anadyr,2/kamchatka,2/srednekolymsk,11/funafuti,11/kwajalein,11/majuro,11/nauru,11/tarawa,11/wake,11/wallis",
   	"12.75|s|04/05:03->04/05:02": "11/chatham",
-  	"11|s": "12/macquarie,11/bougainville",
+  	"11|s|04/05:03->10/04:02": "12/macquarie",
+  	"11|s": "11/bougainville",
   	"11|n": "2/magadan,2/sakhalin,11/efate,11/guadalcanal,11/kosrae,11/noumea,11/pohnpei,11/ponape",
   	"11.5|n|04/05:03->10/04:02": "11/norfolk",
   	"10|s|04/05:03->10/04:02": "4/act,4/canberra,4/currie,4/hobart,4/melbourne,4/nsw,4/sydney,4/tasmania,4/victoria",
@@ -186,8 +188,9 @@
   	"-9.5|n": "11/marquesas",
   	"-8|n|03/08:02->11/01:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat",
   	"-8|n": "11/pitcairn",
-  	"-7|n|03/08:02->11/01:02": "1/dawson,1/ensenada,1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,1/whitehorse,6/pacific,6/yukon,10/bajanorte",
-  	"-7|n": "1/creston,1/dawson_creek,1/fort_nelson,1/hermosillo,1/phoenix",
+  	"-7|n|03/08:02->11/01:02": "1/ensenada,1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,6/pacific,10/bajanorte",
+  	"-7|n|03/08:02->11/01:01": "6/yukon",
+  	"-7|n": "1/creston,1/dawson,1/dawson_creek,1/fort_nelson,1/hermosillo,1/phoenix,1/whitehorse",
   	"-6|s|04/04:22->09/05:22": "7/easterisland,11/easter",
   	"-6|n|04/05:02->10/25:02": "1/chihuahua,1/mazatlan,10/bajasur",
   	"-6|n|03/08:02->11/01:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/ojinaga,1/shiprock,1/yellowknife,6/mountain",
@@ -1330,6 +1333,10 @@
   }; //support [2016, 03, 01] format
 
   var handleArray = function handleArray(s, arr, today) {
+    if (arr.length === 0) {
+      return s;
+    }
+
     var order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
 
     for (var i = 0; i < order.length; i++) {
@@ -1342,6 +1349,11 @@
 
 
   var handleObject = function handleObject(s, obj, today) {
+    // if obj is empty, do nothing
+    if (Object.keys(obj).length === 0) {
+      return s;
+    }
+
     obj = Object.assign({}, defaults, today, obj);
     var keys = Object.keys(obj);
 
@@ -2929,11 +2941,11 @@
     },
     //support setting time by '4:25pm' - this isn't very-well developed..
     time: function time(s, str) {
-      var m = str.match(/([0-9]{1,2}):([0-9]{1,2})(am|pm)?/);
+      var m = str.match(/([0-9]{1,2}):([0-9]{1,2}) ?(am|pm)?/);
 
       if (!m) {
         //fallback to support just '2am'
-        m = str.match(/([0-9]{1,2})(am|pm)/);
+        m = str.match(/([0-9]{1,2}) ?(am|pm)/);
 
         if (!m) {
           return s.epoch;
@@ -4159,7 +4171,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.9.0';
+  var _version = '6.10.0';
 
   var main$1 = function main(input, tz, options) {
     return new spacetime(input, tz, options);
