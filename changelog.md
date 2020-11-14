@@ -5,8 +5,9 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- [planned] -->
-<!-- [unreleased] 
-
+<!-- [unreleased] v6.10.0
+- **[fix]** - support whitespace between time and am/pm (thanks Andy!)
+- 
 -->
 
 
