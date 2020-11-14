@@ -376,8 +376,8 @@ module.exports = {
   },
   'america/dawson': {
     offset: -7,
-    hem: 'n',
-    dst: '03/08:02->11/01:02'
+    hem: 'n'
+    // dst: '03/08:02->11/01:01'
   },
   'america/dawson_creek': {
     offset: -7,
@@ -850,8 +850,8 @@ module.exports = {
   },
   'america/whitehorse': {
     offset: -7,
-    hem: 'n',
-    dst: '03/08:02->11/01:02'
+    hem: 'n'
+    // dst: '03/08:02->11/01:01'
   },
   'america/winnipeg': {
     offset: -5,
@@ -870,7 +870,8 @@ module.exports = {
   },
   'antarctica/casey': {
     offset: 8,
-    hem: 's'
+    hem: 's',
+    dst: '03/08:01->10/04:00'
   },
   'antarctica/davis': {
     offset: 7,
@@ -882,7 +883,8 @@ module.exports = {
   },
   'antarctica/macquarie': {
     offset: 11,
-    hem: 's'
+    hem: 's',
+    dst: '04/05:03->10/04:02'
   },
   'antarctica/mawson': {
     offset: 5,
@@ -1052,7 +1054,7 @@ module.exports = {
   'asia/gaza': {
     offset: 3,
     hem: 'n',
-    dst: '03/27:00->10/31:01'
+    dst: '03/28:00->10/24:01'
   },
   'asia/harbin': {
     offset: 8,
@@ -1061,7 +1063,7 @@ module.exports = {
   'asia/hebron': {
     offset: 3,
     hem: 'n',
-    dst: '03/27:00->10/31:01'
+    dst: '03/28:00->10/24:01'
   },
   'asia/ho_chi_minh': {
     offset: 7,
@@ -1551,7 +1553,7 @@ module.exports = {
   'canada/yukon': {
     offset: -7,
     hem: 'n',
-    dst: '03/08:02->11/01:02'
+    dst: '03/08:02->11/01:01'
   },
   'chile/continental': {
     offset: -4,
@@ -1973,7 +1975,7 @@ module.exports = {
   'pacific/fiji': {
     offset: 12,
     hem: 's',
-    dst: '01/12:03->11/08:02'
+    dst: '01/12:03->12/20:02'
   },
   'pacific/funafuti': {
     offset: 12,

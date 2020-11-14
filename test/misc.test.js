@@ -78,13 +78,14 @@ test('last', (t) => {
 })
 
 test('offset', (t) => {
-  let s = spacetime('Nov 2', 'America/New_York')
+  let s = spacetime('Oct 12 2020', 'America/New_York')
   t.equal(s.offset(), -240, '-240 offset')
 
-  s = spacetime('march 2', 'America/New_York')
-  t.equal(s.offset(), -300, '-240 offset')
+  s = spacetime('march 1 2020', 'America/New_York')
+  t.equal(s.offset(), -300, '-300 offset')
   t.end()
 })
+
 test('week number', (t) => {
   //TODO: these should pass
   t.equal(spacetime('jan 1st 2018').week(), 1, '2018 first week') //monday
@@ -122,5 +123,20 @@ test('set-time rollover dst', (t) => {
   let s = spacetime('6 October 2019', 'australia/sydney').time('4:20am')
   t.equal(s.date(), 6, 'still the 6th')
   t.equal(s.time(), '4:20am', 'correct time')
+  t.end()
+})
+
+test('weird inputs', (t) => {
+  let now = spacetime.now().add(1, 'millisecond')
+  let isNull = spacetime(null)
+  t.ok(isNull.isSame(now, 'hour'), 'null input')
+  let isUndefined = spacetime(undefined)
+  t.ok(isUndefined.isSame(now, 'hour'), 'Undefined input')
+  let isFalse = spacetime(false)
+  t.ok(isFalse.isSame(now, 'hour'), 'isFalse input')
+  let isObj = spacetime({})
+  t.ok(isObj.isSame(now, 'hour'), 'isObj input')
+  let isArr = spacetime([])
+  t.ok(isArr.isSame(now, 'hour'), 'isArr input')
   t.end()
 })

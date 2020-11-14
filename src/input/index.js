@@ -25,6 +25,9 @@ const defaults = {
 
 //support [2016, 03, 01] format
 const handleArray = (s, arr, today) => {
+  if (arr.length === 0) {
+    return s
+  }
   let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
   for (let i = 0; i < order.length; i++) {
     let num = arr[i] || today[order[i]] || defaults[order[i]] || 0
@@ -34,6 +37,10 @@ const handleArray = (s, arr, today) => {
 }
 //support {year:2016, month:3} format
 const handleObject = (s, obj, today) => {
+  // if obj is empty, do nothing
+  if (Object.keys(obj).length === 0) {
+    return s
+  }
   obj = Object.assign({}, defaults, today, obj)
   let keys = Object.keys(obj)
   for (let i = 0; i < keys.length; i++) {
