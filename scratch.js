@@ -5,8 +5,11 @@ const spacetime = require('./src/index')
 // d = d.add(30, 'minutes')
 // console.log(d.format('nice'))
 
-let d = spacetime([], 'America/Chicago')
-console.log(d.format('{nice} {year}'))
+// let d = spacetime([], 'America/Chicago')
+// console.log(d.format('{nice} {year}'))
 
 // d = spacetime({}, 'America/Chicago')
 // console.log(d.format('{nice} {year}'))
+
+let s = spacetime(null, '12h')
+console.log(s.timezone())

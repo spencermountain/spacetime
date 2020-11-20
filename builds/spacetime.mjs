@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.10.0 Apache 2.0 */
+/* spencermountain/spacetime 6.10.1 Apache 2.0 */
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
@@ -335,7 +335,7 @@ var gmtOffset = /gmt([\-+]?[0-9]+)/i;
 var toIana = function toIana(num) {
   num = Number(num);
 
-  if (num > -13 && num < 13) {
+  if (num >= -13 && num <= 13) {
     num = num * -1; //it's opposite!
 
     num = (num > 0 ? '+' : '') + num; //add plus sign
@@ -4165,7 +4165,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.10.0';
+var _version = '6.10.1';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);

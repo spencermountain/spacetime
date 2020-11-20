@@ -7,6 +7,11 @@ This project follows semVer, where:
 <!-- [unreleased] 
 -->
 
+### v6.10.1
+- **[fix]** - keep yukon dst changes (for now!) #243
+- **[fix]** - support new-zealand time in '13h' format #242
+- update deps
+  
 ### v6.10.0
 - **[fix]** - support whitespace between time and am/pm (thanks Andy!)
 - **[change]** - make empty array + obj equal to null inputs #240
