@@ -56,8 +56,14 @@ export interface Spacetime {
   /** round to either current, or +1 of this unit */
   nearest: (unit: TimeUnit) => Spacetime
 
+  /** round to either current, or +1 of this unit */
+  round: (unit: TimeUnit) => Spacetime
+
   /** list all dates up to a certain time */
   every: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
+
+  /** list all dates up to a certain time */
+  each: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
 
   /** go to the beginning of the previous unit */
   last: (unit: TimeUnit) => Spacetime
@@ -75,7 +81,7 @@ export interface Spacetime {
   isBetween: (start: Spacetime | Date, end: Spacetime | Date, isInclusive?: boolean) => boolean
 
   /** detect if two date/times are the same day, week, or year, etc */
-  isSame: (other: Spacetime | Date, unit: TimeUnit, tzSensitive?:boolean) => boolean
+  isSame: (other: Spacetime | Date, unit: TimeUnit, tzSensitive?: boolean) => boolean
 
   /** given a date and a unit, count how many of them you'd need to make the dates equal */
   diff(value: Spacetime | ParsableDate, unit: TimeUnit): number
@@ -85,6 +91,12 @@ export interface Spacetime {
 
   /** create the human-readable diff between the two dates */
   since(value: Spacetime | ParsableDate): Since
+
+  /** create the human-readable diff between the two dates */
+  from(value: Spacetime | ParsableDate): Since
+
+  /** create the human-readable diff between now and the given date */
+  fromNow(value: Spacetime | ParsableDate): Since
 
   /** change to a new date */
   set(date: ParsableDate): Spacetime
@@ -114,6 +126,9 @@ export interface Spacetime {
   leapYear: () => boolean
 
   /** is daylight-savings-time activated right now, for this timezone? */
+  isDST: () => boolean
+
+  /** is daylight-savings-time activated right now, for this timezone? */
   inDST: () => boolean
 
   /** does this timezone ever use daylight-savings */
@@ -121,6 +136,12 @@ export interface Spacetime {
 
   /** the current, DST-aware time-difference from UTC, in hours */
   offset: () => number
+
+  /** what hemisphere is it?  */
+  hemisphere: () => string
+
+  /** checks if the current time is between 8am and 10pm */
+  isAwake: () => boolean
 
   /** checks if the current time is between 10pm and 8am */
   isAsleep: () => boolean
@@ -204,6 +225,8 @@ export interface Spacetime {
   monthName(): string
   /** set the current month as a string, like 'april' */
   monthName(value: string): Spacetime
+
+  weekStart(value: number | string): Spacetime
 }
 
 export interface TimezoneMeta {
