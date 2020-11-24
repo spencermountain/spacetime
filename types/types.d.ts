@@ -226,6 +226,7 @@ export interface Spacetime {
   /** set the current month as a string, like 'april' */
   monthName(value: string): Spacetime
 
+  /** the day number, between 0-6, that the week starts on. (Sunday is 0).  Also accepts 'sunday' */
   weekStart(value: number | string): Spacetime
 }
 
