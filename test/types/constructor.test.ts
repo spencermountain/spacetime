@@ -25,6 +25,8 @@ test('constructor args work', (t: test.Test) => {
   t.equal(spacetime('2017-04-03').isValid(), true, 'accepts iso string')
   t.equal(spacetime(<ParsableDate>'2017-04-03').isValid(), true, 'accepts datelike object')
 
+  t.equal(spacetime('2017-04-03', 'America/Vancouver').isValid(), true, 'accepts timezone argument')
+
   t.equal(
     spacetime('2017-04-03', undefined, { silent: false }).isValid(),
     true,
