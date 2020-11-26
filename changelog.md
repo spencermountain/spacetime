@@ -7,6 +7,11 @@ This project follows semVer, where:
 <!-- [unreleased] 
 -->
 
+### v6.11.0
+- **[change]** - support 6-digit millisecond, and lowercase iso
+- **[change]** - first week of year must start > dec 29th
+- **[fix]** - typescript fixes
+ 
 ### v6.10.1
 - **[fix]** - keep yukon dst changes (for now!) #243
 - **[fix]** - support new-zealand time in '13h' format #242
