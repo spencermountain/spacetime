@@ -12,6 +12,9 @@ const parseTime = (s, str = '') => {
     if (arr[2].length < 2 || m < 0 || m > 59) {
       return s.startOf('day')
     }
+    if(arr[4] > 999) { // fix overflow issue with milliseconds, if input is longer than standard (e.g. 2017-08-06T09:00:00.123456Z)
+      arr[4] = parseInt(`${arr[4]}`.substring(0, 3), 10);
+    }
     s = s.hour(h)
     s = s.minute(m)
     s = s.seconds(arr[3] || 0)
