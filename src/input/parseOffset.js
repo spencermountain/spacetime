@@ -4,7 +4,7 @@ const parseOffset = (s, offset) => {
     return s
   }
   //this is a fancy-move
-  if (offset === 'Z') {
+  if (offset === 'Z' || offset === 'z') {
     offset = '+0000'
   }
 

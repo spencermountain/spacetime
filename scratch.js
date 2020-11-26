@@ -11,5 +11,10 @@ const spacetime = require('./src/index')
 // d = spacetime({}, 'America/Chicago')
 // console.log(d.format('{nice} {year}'))
 
-let s = spacetime(null, '12h')
-console.log(s.timezone())
+// let s = spacetime('2020-03-02t00:00:00.000z')
+// console.log(s.format('nice'))
+
+let a = spacetime('2020-03-02t01:03:10.000z')
+let b = spacetime('2020-03-02T01:03:10.000Z')
+console.log(a.iso())
+console.log(b.iso())
