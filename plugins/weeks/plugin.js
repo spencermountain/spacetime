@@ -1,8 +1,33 @@
+// the first week of a month includes a thursday, in that month
+// (leap days do not effect week-ordering!)
+const getFirstWeek = function (s) {
+  let month = s.month()
+  let start = s.date(1)
+  start = start.startOf('week')
+  let thu = start.add(3, 'days')
+  if (thu.month() !== month) {
+    start = start.add(1, 'week')
+  }
+  return start
+}
+
 module.exports = {
   monthWeek: function (n) {
+    let start = getFirstWeek(this.clone())
     // week-setter
     if (n !== undefined) {
+      return start.add(n, 'weeks')
     }
-    return this
+    // week-getter
+    let num = 0
+    let end = start.endOf('week')
+    for (let i = 0; i < 5; i += 1) {
+      if (end.isAfter(this)) {
+        return num + 1
+      }
+      end = end.add(1, 'week')
+      num += 1
+    }
+    return num + 1
   }
 }

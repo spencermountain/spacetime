@@ -63,7 +63,7 @@ const methods = {
     tmp = clearMinutes(tmp)
     tmp = tmp.day('monday')
     //don't go into last-year
-    if (tmp.monthName() === 'december') {
+    if (tmp.monthName() === 'december' && tmp.date() >= 28) {
       tmp = tmp.add(1, 'week')
     }
     // is first monday the 1st?

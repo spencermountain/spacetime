@@ -1,3 +1,30 @@
+<div align="center">
+
+  <div>calculate the nth day of a month</div>
+  <div><img src="https://cloud.githubusercontent.com/assets/399657/23590290/ede73772-01aa-11e7-8915-181ef21027bc.png" /></div>
+
+  <div align="center">
+    <a href="https://npmjs.org/package/spacetime-week-math">
+      <img src="https://img.shields.io/npm/v/spacetime-week-math.svg?style=flat-square" />
+    </a>
+    <!-- <a href="https://codecov.io/gh/spencermountain/spacetime-week-math">
+      <img src="https://codecov.io/gh/spencermountain/spacetime-week-math/branch/master/graph/badge.svg" />
+    </a> -->
+    <a href="https://unpkg.com/spacetime-week-math/builds/spacetime-week-math.min.js">
+      <img src="https://badge-size.herokuapp.com/spencermountain/spacetime-week-math/master/builds/spacetime-week-math.min.js" />
+    </a>
+  </div>
+  <div align="center">
+    <code>spacetime-week-math</code>
+  </div>
+  <sub>
+    by
+    <a href="https://spencermountain.github.io/">Spencer Kelly</a>
+  </sub>
+</div>
+<p></p>
+
+
 a spacetime plugin to calculate the nth day of a month.
 
 like `.week()` which is based on the year, `.monthWeek()` works as a getter+setter, based on the input param:
@@ -12,5 +39,8 @@ s = s.monthWeek(0)
 // Mon Sep 28th
 
 ```
+
+
+work-in-progress.
 
 MIT
