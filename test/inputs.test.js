@@ -318,3 +318,9 @@ test('british-input', (t) => {
   t.equal(s.format('iso-short'), '2017-02-03', 'force dd/mm/yyyy')
   t.end()
 })
+
+test('period-seperated', (t) => {
+  let s = spacetime('2015.08.13')
+  t.equal(s.format(), '2015-08-13', 'period-parsed')
+  t.end()
+})
