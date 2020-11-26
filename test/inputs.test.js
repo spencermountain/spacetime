@@ -143,6 +143,21 @@ test('iso-string-input', (t) => {
   t.end()
 })
 
+
+test('overlong-milliseconds-iso-string-input', (t) => {
+  let s = spacetime('2017-08-06T09:00:00.12345Z')
+  t.ok(s.isValid(), 'overlong obj input is valid')
+  t.equal(s.millisecond(), 123, 'overlong-iso-string-millisecond')
+  t.equal(s.second(), 0, 'overlong-iso-string-second')
+  t.equal(s.minute(), 0, 'overlong-iso-string-minute')
+  t.equal(s.hour(), 9, 'overlong-iso-string-hour')
+  t.equal(s.date(), 6, 'overlong-iso-string-date')
+  t.equal(s.month(), 7, 'overlong-iso-string-month')
+  t.equal(s.year(), 2017, 'overlong-iso-string-year')
+  t.end()
+})
+
+
 test('iso format with space', (t) => {
   let a = spacetime('2018-02-02T22:00:00')
   let b = spacetime('2018-02-02 22:00:00')
