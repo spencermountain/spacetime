@@ -4,7 +4,7 @@ const quarters = require('../../data/quarters')
 const seasons = require('../../data/seasons')
 const ms = require('../../data/milliseconds')
 
-const clearMinutes = s => {
+const clearMinutes = (s) => {
   s = s.minute(0)
   s = s.second(0)
   s = s.millisecond(1)
@@ -13,7 +13,7 @@ const clearMinutes = s => {
 
 const methods = {
   // day 0-366
-  dayOfYear: function(num) {
+  dayOfYear: function (num) {
     if (num !== undefined) {
       let s = this.clone()
       s.epoch = set.dayOfYear(s, num)
@@ -38,7 +38,7 @@ const methods = {
   },
 
   //since the start of the year
-  week: function(num) {
+  week: function (num) {
     // week-setter
     if (num !== undefined) {
       let s = this.clone()
@@ -46,8 +46,10 @@ const methods = {
       s = s.date(1)
       s = s.day('monday')
       s = clearMinutes(s)
-      //don't go into last-year
-      if (s.monthName() === 'december') {
+      //first week starts first Thurs in Jan
+      // so mon dec 28th is 1st week
+      // so mon dec 29th is not the week
+      if (s.monthName() === 'december' && s.date() >= 28) {
         s = s.add(1, 'week')
       }
       num -= 1 //1-based
@@ -61,7 +63,7 @@ const methods = {
     tmp = clearMinutes(tmp)
     tmp = tmp.day('monday')
     //don't go into last-year
-    if (tmp.monthName() === 'december') {
+    if (tmp.monthName() === 'december' && tmp.date() >= 28) {
       tmp = tmp.add(1, 'week')
     }
     // is first monday the 1st?
@@ -90,7 +92,7 @@ const methods = {
   },
 
   //'january'
-  monthName: function(input) {
+  monthName: function (input) {
     if (input === undefined) {
       return months.long()[this.month()]
     }
@@ -100,7 +102,7 @@ const methods = {
   },
 
   //q1, q2, q3, q4
-  quarter: function(num) {
+  quarter: function (num) {
     if (num !== undefined) {
       if (typeof num === 'string') {
         num = num.replace(/^q/i, '')
@@ -125,7 +127,7 @@ const methods = {
   },
 
   //spring, summer, winter, fall
-  season: function(input) {
+  season: function (input) {
     let hem = 'north'
     if (this.hemisphere() === 'South') {
       hem = 'south'
@@ -151,7 +153,7 @@ const methods = {
   },
 
   //the year number
-  year: function(num) {
+  year: function (num) {
     if (num !== undefined) {
       let s = this.clone()
       s.epoch = set.year(s, num)
@@ -161,7 +163,7 @@ const methods = {
   },
 
   //bc/ad years
-  era: function(str) {
+  era: function (str) {
     if (str !== undefined) {
       let s = this.clone()
       str = str.toLowerCase()
@@ -184,7 +186,7 @@ const methods = {
   },
 
   // 2019 -> 2010
-  decade: function(input) {
+  decade: function (input) {
     if (input !== undefined) {
       input = String(input)
       input = input.replace(/([0-9])'?s$/, '$1') //1950's
@@ -208,7 +210,7 @@ const methods = {
     return this.startOf('decade').year()
   },
   // 1950 -> 19+1
-  century: function(input) {
+  century: function (input) {
     if (input !== undefined) {
       if (typeof input === 'string') {
         input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
@@ -245,7 +247,7 @@ const methods = {
     return num + 1
   },
   // 2019 -> 2+1
-  millenium: function(input) {
+  millenium: function (input) {
     if (input !== undefined) {
       if (typeof input === 'string') {
         input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
