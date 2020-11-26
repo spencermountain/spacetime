@@ -131,7 +131,7 @@ test('inputs-in-comparisons', (t) => {
 })
 
 test('iso-string-input', (t) => {
-  let s = spacetime('2017-08-06T09:00:00.000Z')
+  let s = spacetime('2017-08-06T09:00:00Z')
   t.ok(s.isValid(), 'obj input is valid')
   t.equal(s.millisecond(), 0, 'iso-string-millisecond')
   t.equal(s.second(), 0, 'iso-string-second')
@@ -145,15 +145,15 @@ test('iso-string-input', (t) => {
 
 
 test('overlong-milliseconds-iso-string-input', (t) => {
-  let s = spacetime('2017-08-06T09:00:00.123456Z')
+  let s = spacetime('2017-08-06T09:00:00Z')
   t.ok(s.isValid(), 'obj input is valid')
-  t.equal(s.millisecond(), 123, 'iso-string-millisecond')
-  t.equal(s.second(), 0, 'iso-string-second')
-  t.equal(s.minute(), 0, 'iso-string-minute')
-  t.equal(s.hour(), 9, 'iso-string-hour')
-  t.equal(s.date(), 6, 'iso-string-date')
-  t.equal(s.month(), 7, 'iso-string-month')
-  t.equal(s.year(), 2017, 'iso-string-year')
+  t.equal(s.millisecond(), 123, 'overlong-iso-string-millisecond')
+  t.equal(s.second(), 0, 'overlong-iso-string-second')
+  t.equal(s.minute(), 0, 'overlong-iso-string-minute')
+  t.equal(s.hour(), 9, 'overlong-iso-string-hour')
+  t.equal(s.date(), 6, 'overlong-iso-string-date')
+  t.equal(s.month(), 7, 'overlong-iso-string-month')
+  t.equal(s.year(), 2017, 'overlong-iso-string-year')
   t.end()
 })
 
