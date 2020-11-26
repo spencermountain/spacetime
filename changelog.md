@@ -11,6 +11,7 @@ This project follows semVer, where:
 - **[change]** - support 6-digit millisecond, and lowercase iso
 - **[change]** - first week of year must start > dec 29th
 - **[fix]** - typescript fixes
+- update deps
  
 ### v6.10.1
 - **[fix]** - keep yukon dst changes (for now!) #243

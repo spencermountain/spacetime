@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.10.1 Apache 2.0 */
+/* spencermountain/spacetime 6.11.0 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -189,8 +189,8 @@
   	"-8|n|03/08:02->11/01:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat",
   	"-8|n": "11/pitcairn",
   	"-7|n|03/08:02->11/01:02": "1/ensenada,1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,6/pacific,10/bajanorte",
-  	"-7|n|03/08:02->11/01:01": "6/yukon",
-  	"-7|n": "1/creston,1/dawson,1/dawson_creek,1/fort_nelson,1/hermosillo,1/phoenix,1/whitehorse",
+  	"-7|n|03/08:02->11/01:01": "1/dawson,1/whitehorse,6/yukon",
+  	"-7|n": "1/creston,1/dawson_creek,1/fort_nelson,1/hermosillo,1/phoenix",
   	"-6|s|04/04:22->09/05:22": "7/easterisland,11/easter",
   	"-6|n|04/05:02->10/25:02": "1/chihuahua,1/mazatlan,10/bajasur",
   	"-6|n|03/08:02->11/01:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/ojinaga,1/shiprock,1/yellowknife,6/mountain",
@@ -684,7 +684,7 @@
     } //this is a fancy-move
 
 
-    if (offset === 'Z') {
+    if (offset === 'Z' || offset === 'z') {
       offset = '+0000';
     } // according to ISO8601, tz could be hh:mm, hhmm or hh
     // so need few more steps before the calculation.
@@ -757,6 +757,11 @@
 
       if (arr[2].length < 2 || m < 0 || m > 59) {
         return s.startOf('day');
+      }
+
+      if (arr[4] > 999) {
+        // fix overflow issue with milliseconds, if input is longer than standard (e.g. 2017-08-06T09:00:00.123456Z)
+        arr[4] = parseInt("".concat(arr[4]).substring(0, 3), 10);
       }
 
       s = s.hour(h);
@@ -988,7 +993,7 @@
 
   var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
   {
-    reg: /^(\-?0?0?[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9\-\+:]+)?$/,
+    reg: /^(\-?0?0?[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9\-\+:]+)?$/i,
     parse: function parse(s, arr, givenTz, options) {
       var month = parseInt(arr[2], 10) - 1;
       var obj = {
@@ -3365,9 +3370,11 @@
         s = s.month(0);
         s = s.date(1);
         s = s.day('monday');
-        s = clearMinutes(s); //don't go into last-year
+        s = clearMinutes(s); //first week starts first Thurs in Jan
+        // so mon dec 28th is 1st week
+        // so mon dec 29th is not the week
 
-        if (s.monthName() === 'december') {
+        if (s.monthName() === 'december' && s.date() >= 28) {
           s = s.add(1, 'week');
         }
 
@@ -3384,7 +3391,7 @@
       tmp = clearMinutes(tmp);
       tmp = tmp.day('monday'); //don't go into last-year
 
-      if (tmp.monthName() === 'december') {
+      if (tmp.monthName() === 'december' && tmp.date() >= 28) {
         tmp = tmp.add(1, 'week');
       } // is first monday the 1st?
 
@@ -4171,7 +4178,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.10.1';
+  var _version = '6.11.0';
 
   var main$1 = function main(input, tz, options) {
     return new spacetime(input, tz, options);
