@@ -131,7 +131,7 @@ test('inputs-in-comparisons', (t) => {
 })
 
 test('iso-string-input', (t) => {
-  let s = spacetime('2017-08-06T09:00:00Z')
+  let s = spacetime('2017-08-06T09:00.000Z')
   t.ok(s.isValid(), 'obj input is valid')
   t.equal(s.millisecond(), 0, 'iso-string-millisecond')
   t.equal(s.second(), 0, 'iso-string-second')
@@ -145,7 +145,7 @@ test('iso-string-input', (t) => {
 
 
 test('overlong-milliseconds-iso-string-input', (t) => {
-  let s = spacetime('2017-08-06T09:00:12345Z')
+  let s = spacetime('2017-08-06T09:00.12345Z')
   t.ok(s.isValid(), 'overlong obj input is valid')
   t.equal(s.millisecond(), 123, 'overlong-iso-string-millisecond')
   t.equal(s.second(), 0, 'overlong-iso-string-second')
