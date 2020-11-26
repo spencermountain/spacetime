@@ -2,10 +2,8 @@
   "name": "spacetime-week-math",
   "version": "0.0.1",
   "description": "calculate nth week of the month",
-  "main": "builds/spacetime.js",
-  "unpkg": "builds/spacetime.min.js",
-  "module": "builds/spacetime.mjs",
-  "types": "types/index.d.ts",
+  "main": "plugin.js",
+  "unpkg": "plugin.js",
   "sideEffects": false,
   "scripts": {
     "test": "TESTENV=dev tape ./week.test.js | tap-dancer  --color always"

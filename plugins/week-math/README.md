@@ -33,12 +33,24 @@ like `.week()` which is based on the year, `.monthWeek()` works as a getter+sett
 // Oct 2020 starts on a thursday
 let s = spacetime('saturday oct 10th 2020')
 s.monthWeek()
-// 1
+// 2
 
-s = s.monthWeek(0)
+s = s.monthWeek(1)
 // Mon Sep 28th
 
 ```
+the week numbers start at 1.
+
+**Note:** 
+the getter/setter can produce different results:
+```js
+let s = spacetime('saturday oct 10th 2020')
+s = s.monthWeek(1)
+// Mon Sep 28th
+s.monthWeek()
+// 5
+```
+Sep 28th is considered the 5th week of September.
 
 
 work-in-progress.
