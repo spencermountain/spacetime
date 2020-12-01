@@ -406,6 +406,10 @@ var lookupTz = function lookupTz(str, zones) {
     return local;
   }
 
+  if (typeof str !== 'string') {
+    console.error("Timezone must be a string - recieved: '", str, "'\n");
+  }
+
   var tz = str.trim();
   var split = str.split('/'); //support long timezones like 'America/Argentina/Rio_Gallegos'
 
@@ -1008,7 +1012,7 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
   }
 }, //iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
 {
-  reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2}),?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
+  reg: /^([0-9]{4})[\-\/.]([0-9]{1,2})[\-\/.]([0-9]{1,2}),?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
   parse: function parse(s, arr) {
     var obj = {
       year: arr[1],
@@ -1059,6 +1063,27 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
     s = parseTime_1(s, arr[4]);
     return s;
   }
+}, // '2012-06' last attempt at iso-like format
+{
+  reg: /^([0-9]{4})[\-\/]([0-9]{2})$/i,
+  parse: function parse(s, arr, givenTz, options) {
+    var month = parseInt(arr[2], 10) - 1;
+    var obj = {
+      year: arr[1],
+      month: month,
+      date: 1
+    };
+
+    if (hasDate_1(obj) === false) {
+      s.epoch = null;
+      return s;
+    }
+
+    parseOffset_1$1(s, arr[5]);
+    walk_1(s, obj);
+    s = parseTime_1(s, arr[4]);
+    return s;
+  }
 }, //common british format - "25-feb-2015"
 {
   reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
@@ -1069,6 +1094,27 @@ var strFmt = [//iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-
       year: year,
       month: month,
       date: fns.toCardinal(arr[1] || '')
+    };
+
+    if (hasDate_1(obj) === false) {
+      s.epoch = null;
+      return s;
+    }
+
+    walk_1(s, obj);
+    s = parseTime_1(s, arr[4]);
+    return s;
+  }
+}, //alt short format - "feb-25-2015"
+{
+  reg: /^([a-z]+)[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/i,
+  parse: function parse(s, arr) {
+    var month = months$1[arr[1].toLowerCase()];
+    var year = parseYear(arr[3], s._today);
+    var obj = {
+      year: year,
+      month: month,
+      date: fns.toCardinal(arr[2] || '')
     };
 
     if (hasDate_1(obj) === false) {
@@ -1450,6 +1496,7 @@ var parseInput = function parseInput(s, input, givenTz) {
     var m = input.match(strParse[i].reg);
 
     if (m) {
+      // console.log(strFmt[i].reg)
       var _res = strParse[i].parse(s, m, givenTz);
 
       if (_res !== null && _res.isValid()) {
@@ -1480,6 +1527,11 @@ var days = {
   set: function set(i18n) {
     shortDays = i18n["short"] || shortDays;
     longDays = i18n["long"] || longDays;
+  },
+  aliases: {
+    tues: 2,
+    thur: 4,
+    thurs: 4
   }
 };
 
@@ -2940,7 +2992,7 @@ var set = {
   },
   //support setting time by '4:25pm' - this isn't very-well developed..
   time: function time(s, str) {
-    var m = str.match(/([0-9]{1,2}):([0-9]{1,2}) ?(am|pm)?/);
+    var m = str.match(/([0-9]{1,2}):([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/);
 
     if (!m) {
       //fallback to support just '2am'
@@ -2951,6 +3003,8 @@ var set = {
       }
 
       m.splice(2, 0, '0'); //add implicit 0 minutes
+
+      m.splice(3, 0, ''); //add implicit seconds
     }
 
     var h24 = false;
@@ -2963,20 +3017,24 @@ var set = {
 
 
     if (h24 === false) {
-      if (m[3] === 'am' && hour === 12) {
+      if (m[4] === 'am' && hour === 12) {
         //12am is midnight
         hour = 0;
       }
 
-      if (m[3] === 'pm' && hour < 12) {
+      if (m[4] === 'pm' && hour < 12) {
         //12pm is noon
         hour += 12;
       }
-    }
+    } // handle seconds
 
+
+    m[3] = m[3] || '';
+    m[3] = m[3].replace(/:/, '');
+    var sec = parseInt(m[3], 10) || 0;
     s = s.hour(hour);
     s = s.minute(minute);
-    s = s.second(0);
+    s = s.second(sec);
     s = s.millisecond(0);
     return s.epoch;
   },
@@ -3160,6 +3218,7 @@ var methods$1 = {
   time: function time(str) {
     if (str !== undefined) {
       var s = this.clone();
+      str = str.toLowerCase().trim();
       s.epoch = set.time(s, str);
       return s;
     }
@@ -3278,10 +3337,15 @@ var methods$2 = {
 
     if (typeof input === 'string') {
       input = input.toLowerCase();
-      want = days["short"]().indexOf(input);
 
-      if (want === -1) {
-        want = days["long"]().indexOf(input);
+      if (days.aliases.hasOwnProperty(input)) {
+        want = days.aliases[input];
+      } else {
+        want = days["short"]().indexOf(input);
+
+        if (want === -1) {
+          want = days["long"]().indexOf(input);
+        }
       }
     } //move approx
 
@@ -3796,7 +3860,13 @@ var addMethods$1 = function addMethods(SpaceTime) {
     }
 
     var old = this.clone();
-    unit = fns.normalize(unit); //move forward by the estimated milliseconds (rough)
+    unit = fns.normalize(unit); // support 'fortnight' alias
+
+    if (unit === 'fortnight') {
+      num *= 2;
+      unit = 'week';
+    } //move forward by the estimated milliseconds (rough)
+
 
     if (milliseconds[unit]) {
       s.epoch += milliseconds[unit] * num;
