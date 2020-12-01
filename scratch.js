@@ -5,5 +5,6 @@ const spacetime = require('./src/index')
 // d = d.add(30, 'minutes')
 // console.log(d.format('nice'))
 
-let s = spacetime().time('13h00')
-console.log(s.time())
+// let s = spacetime('09.13.2013')
+let s = spacetime('13.09.2013')
+console.log(s.format())

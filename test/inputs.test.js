@@ -338,8 +338,13 @@ test('time with seconds', (t) => {
 test('period-seperated', (t) => {
   let s = spacetime('2015.08.13')
   t.equal(s.format(), '2015-08-13', 'period-parsed')
+
+  let a = spacetime('09.13.2013')
+  let b = spacetime('13.09.2013')
+  t.equal(a.format(), b.format(), 'dmy dot format')
   t.end()
 })
+
 test('iso-truncated', (t) => {
   let s = spacetime('2012-07')
   t.equal(s.format(), '2012-07-01', 'iso-truncated')

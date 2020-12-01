@@ -5,11 +5,14 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- [unreleased] 
+
+-->
+
 ### v6.12.1
 - **[new]** - support for '97 year format
 - **[change]** - support `13h00` time format
-- **[fix]** - .add() issue sometimes effecting quarter/season
--->
+- **[change]** - support `09.13.2013` and `13.09.2013` formats
+- **[fix]** - `.add()` issue sometimes effecting quarter/season
 
 ### v6.12.0
 - **[new]** - support period-seperated short-iso format
