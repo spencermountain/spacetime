@@ -102,3 +102,29 @@ test('start-end are idempodent', (t) => {
   })
   t.end()
 })
+
+test('startof is idempodent', (t) => {
+  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season']
+  units.forEach((unit) => {
+    let a = spacetime('2020-06-01').startOf(unit)
+    let b = a.clone()
+    for (let i = 0; i < 14; i += 1) {
+      b = b.startOf(unit)
+    }
+    t.equal(a.iso(), b.iso(), unit + ' idempodent')
+  })
+  t.end()
+})
+
+test('endof is idempodent', (t) => {
+  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season']
+  units.forEach((unit) => {
+    let a = spacetime('2020-06-01').endOf(unit)
+    let b = a.clone()
+    for (let i = 0; i < 7; i += 1) {
+      b = b.endOf(unit)
+    }
+    t.equal(a.iso(), b.iso(), unit + ' idempodent')
+  })
+  t.end()
+})
