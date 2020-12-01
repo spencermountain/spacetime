@@ -5,6 +5,7 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- [unreleased] 
+- **[new]** - support for '97 year format
 -->
 
 ### v6.12.0

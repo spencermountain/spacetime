@@ -181,6 +181,19 @@ module.exports = {
   },
 
   year: (s, n) => {
+    // support '97
+    if (typeof n === 'string' && /^'[0-9]{2}$/.test(n)) {
+      n = n.replace(/'/, '').trim()
+      n = Number(n)
+      // '89 is 1989
+      if (n > 30) {
+        //change this in 10y
+        n = 1900 + n
+      } else {
+        // '12 is 2012
+        n = 2000 + n
+      }
+    }
     n = validate(n)
     walkTo(s, {
       year: n

@@ -5,7 +5,7 @@ const spacetime = require('./src/index')
 // d = d.add(30, 'minutes')
 // console.log(d.format('nice'))
 
-let s = spacetime('2012-07')
+let s = spacetime().year("'97").startOf('year')
 // s = s.time('1:02:12 PM')
 // s = s.time()
 console.log(s.format())

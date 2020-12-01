@@ -140,6 +140,17 @@ test('add fortnight', (t) => {
   t.equal(a.iso(), b.iso(), 'fortnight')
   t.end()
 })
+test('apostrophe year', (t) => {
+  let s = spacetime().year("'97").startOf('year')
+  t.equal(s.format('iso-short'), '1997-01-01', "'97")
+
+  s = spacetime().year("'13").startOf('year')
+  t.equal(s.format('iso-short'), '2013-01-01', "'13")
+
+  s = spacetime({ year: `'22`, month: 'feb' }).startOf('month')
+  t.equal(s.format('iso-short'), '2022-02-01', 'apostrophe in object-input')
+  t.end()
+})
 
 test('weird inputs', (t) => {
   let now = spacetime.now().add(1, 'millisecond')
