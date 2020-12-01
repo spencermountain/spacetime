@@ -5,6 +5,9 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- [unreleased] 
+### v6.12.0
+- **[new]** - support fortnight in add/remove methods
+- **[new]** - support 'tues' 'thurs' in day() method
 -->
 
 ### v6.11.0

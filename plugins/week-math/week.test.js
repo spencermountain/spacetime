@@ -2,7 +2,7 @@ const test = require('tape')
 const spacetime = require('../../src')
 spacetime.plugin(require('./plugin'))
 
-test('monthweek-getter', (t) => {
+test('weekOfMonth-getter', (t) => {
   // october 1st starts on a thursday
   let arr = [
     // ['sep 28 2020', 1], //mon
@@ -19,35 +19,35 @@ test('monthweek-getter', (t) => {
   ]
   arr.forEach((a) => {
     let s = spacetime(a[0])
-    t.equal(s.monthWeek(), a[1], a[0] + '  ' + a[1])
+    t.equal(s.weekOfMonth(), a[1], a[0] + '  ' + a[1])
   })
   t.end()
 })
 
-test('monthweek-setter', (t) => {
+test('weekOfMonth-setter', (t) => {
   let s = spacetime('oct 8 2020')
-  s = s.monthWeek(0)
+  s = s.weekOfMonth(0)
   t.equal(s.format('iso-short'), '2020-09-28', '0')
 
   s = spacetime('oct 8 2020')
-  s = s.monthWeek(1)
+  s = s.weekOfMonth(1)
   t.equal(s.format('iso-short'), '2020-10-05', '1')
 
   s = spacetime('oct 8 2020')
-  s = s.monthWeek(2)
+  s = s.weekOfMonth(2)
   t.equal(s.format('iso-short'), '2020-10-12', '2')
   s = spacetime('oct 8 2020')
 
   s = spacetime('oct 8 2020')
-  s = s.monthWeek(3)
+  s = s.weekOfMonth(3)
   t.equal(s.format('iso-short'), '2020-10-19', '3')
 
   s = spacetime('oct 8 2020')
-  s = s.monthWeek(4)
+  s = s.weekOfMonth(4)
   t.equal(s.format('iso-short'), '2020-10-26', '4')
 
   s = spacetime('oct 8 2020')
-  s = s.monthWeek(5)
+  s = s.weekOfMonth(5)
   t.equal(s.format('iso-short'), '2020-11-02', '5')
   t.end()
 })

@@ -12,7 +12,7 @@ const cities = Object.keys(tzs).reduce((h, k) => {
 }, {})
 
 //try to match these against iana form
-const normalize = tz => {
+const normalize = (tz) => {
   tz = tz.replace(/ time/g, '')
   tz = tz.replace(/ (standard|daylight|summer)/g, '')
   tz = tz.replace(/\b(east|west|north|south)ern/g, '$1')
@@ -26,6 +26,9 @@ const normalize = tz => {
 const lookupTz = (str, zones) => {
   if (!str) {
     return local
+  }
+  if (typeof str !== 'string') {
+    console.error("Timezone must be a string - recieved: '", str, "'\n")
   }
   let tz = str.trim()
   let split = str.split('/')

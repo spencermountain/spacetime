@@ -27,15 +27,15 @@
 
 a spacetime plugin to calculate the nth day of a month.
 
-like `.week()` which is based on the year, `.monthWeek()` works as a getter+setter, based on the input param:
+like `.week()` which is based on the year, `.weekOfMonth()` works as a getter+setter, based on the input param:
 ```js
 
 // Oct 2020 starts on a thursday
 let s = spacetime('saturday oct 10th 2020')
-s.monthWeek()
+s.weekOfMonth()
 // 2
 
-s = s.monthWeek(1)
+s = s.weekOfMonth(1)
 // Mon Sep 28th
 
 ```
@@ -45,9 +45,9 @@ the week numbers start at 1.
 the getter/setter can produce different results:
 ```js
 let s = spacetime('saturday oct 10th 2020')
-s = s.monthWeek(1)
+s = s.weekOfMonth(1)
 // Mon Sep 28th
-s.monthWeek()
+s.weekOfMonth()
 // 5
 ```
 Sep 28th is considered the 5th week of September.
