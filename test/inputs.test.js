@@ -340,3 +340,8 @@ test('period-seperated', (t) => {
   t.equal(s.format(), '2015-08-13', 'period-parsed')
   t.end()
 })
+test('iso-truncated', (t) => {
+  let s = spacetime('2012-07')
+  t.equal(s.format(), '2012-07-01', 'iso-truncated')
+  t.end()
+})

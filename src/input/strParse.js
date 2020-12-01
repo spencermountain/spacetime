@@ -86,6 +86,26 @@ const strFmt = [
       return s
     }
   },
+  // '2012-06' last attempt at iso-like format
+  {
+    reg: /^([0-9]{4})[\-\/]([0-9]{2})$/i,
+    parse: (s, arr, givenTz, options) => {
+      let month = parseInt(arr[2], 10) - 1
+      let obj = {
+        year: arr[1],
+        month,
+        date: 1
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      parseOffset(s, arr[5], givenTz, options)
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
+    }
+  },
   //common british format - "25-feb-2015"
   {
     reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
