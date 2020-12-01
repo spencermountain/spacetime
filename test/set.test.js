@@ -158,6 +158,14 @@ test('set-date-fancy', (t) => {
   t.end()
 })
 
+test('military time format', (t) => {
+  let s = spacetime('2018-10-21')
+  s = s.time('13h00')
+  t.equal(s.time(), '1:00pm', '13h00')
+  s = s.time('2h30')
+  t.equal(s.time(), '2:30am', '2h30')
+  t.end()
+})
 test('add-a-week-bug', (t) => {
   let a = spacetime('2018-10-21').goto('America/Adak').add(1, 'week')
   let b = spacetime('2018-10-22').goto('America/Adak').add(1, 'week')

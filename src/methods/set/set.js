@@ -91,7 +91,7 @@ module.exports = {
 
   //support setting time by '4:25pm' - this isn't very-well developed..
   time: (s, str) => {
-    let m = str.match(/([0-9]{1,2}):([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/)
+    let m = str.match(/([0-9]{1,2})[:h]([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/)
     if (!m) {
       //fallback to support just '2am'
       m = str.match(/([0-9]{1,2}) ?(am|pm)/)
@@ -181,6 +181,19 @@ module.exports = {
   },
 
   year: (s, n) => {
+    // support '97
+    if (typeof n === 'string' && /^'[0-9]{2}$/.test(n)) {
+      n = n.replace(/'/, '').trim()
+      n = Number(n)
+      // '89 is 1989
+      if (n > 30) {
+        //change this in 10y
+        n = 1900 + n
+      } else {
+        // '12 is 2012
+        n = 2000 + n
+      }
+    }
     n = validate(n)
     walkTo(s, {
       year: n

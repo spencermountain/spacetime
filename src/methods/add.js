@@ -64,9 +64,9 @@ const addMethods = (SpaceTime) => {
     } else if (unit === 'week') {
       s.epoch += ms.day * (num * 7)
     } else if (unit === 'quarter' || unit === 'season') {
-      s.epoch += ms.month * (num * 4)
+      s.epoch += ms.month * (num * 3)
     } else if (unit === 'season') {
-      s.epoch += ms.month * (num * 4)
+      s.epoch += ms.month * (num * 3)
     } else if (unit === 'quarterhour') {
       s.epoch += ms.minute * 15 * num
     }

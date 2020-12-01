@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.12.0 Apache 2.0 */
+/* spencermountain/spacetime 6.12.1 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -1043,7 +1043,7 @@
     }
   }, //mm/dd/yyyy - uk/canada "6/28/2019, 12:26:14 PM"
   {
-    reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?,?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
+    reg: /^([0-9]{1,2})[\-\/.]([0-9]{1,2})[\-\/.]?([0-9]{4})?,?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
     parse: function parse(s, arr) {
       var month = parseInt(arr[1], 10) - 1;
       var date = parseInt(arr[2], 10); //support dd/mm/yyy
@@ -2998,7 +2998,7 @@
     },
     //support setting time by '4:25pm' - this isn't very-well developed..
     time: function time(s, str) {
-      var m = str.match(/([0-9]{1,2}):([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/);
+      var m = str.match(/([0-9]{1,2})[:h]([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/);
 
       if (!m) {
         //fallback to support just '2am'
@@ -3100,6 +3100,20 @@
       return s.epoch;
     },
     year: function year(s, n) {
+      // support '97
+      if (typeof n === 'string' && /^'[0-9]{2}$/.test(n)) {
+        n = n.replace(/'/, '').trim();
+        n = Number(n); // '89 is 1989
+
+        if (n > 30) {
+          //change this in 10y
+          n = 1900 + n;
+        } else {
+          // '12 is 2012
+          n = 2000 + n;
+        }
+      }
+
       n = validate(n);
       walk_1(s, {
         year: n
@@ -3879,9 +3893,9 @@
       } else if (unit === 'week') {
         s.epoch += milliseconds.day * (num * 7);
       } else if (unit === 'quarter' || unit === 'season') {
-        s.epoch += milliseconds.month * (num * 4);
+        s.epoch += milliseconds.month * (num * 3);
       } else if (unit === 'season') {
-        s.epoch += milliseconds.month * (num * 4);
+        s.epoch += milliseconds.month * (num * 3);
       } else if (unit === 'quarterhour') {
         s.epoch += milliseconds.minute * 15 * num;
       } //now ensure our milliseconds/etc are in-line
@@ -4248,7 +4262,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.12.0';
+  var _version = '6.12.1';
 
   var main$1 = function main(input, tz, options) {
     return new spacetime(input, tz, options);
