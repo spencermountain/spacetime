@@ -5,7 +5,9 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- [unreleased] 
+### v6.12.1
 - **[new]** - support for '97 year format
+- **[fix]** - .add() issue sometimes effecting quarter/season
 -->
 
 ### v6.12.0

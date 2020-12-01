@@ -128,3 +128,16 @@ test('endof is idempodent', (t) => {
   })
   t.end()
 })
+
+test('startof + minus = startof', (t) => {
+  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season']
+  units.forEach((unit) => {
+    let s = spacetime('2020-10-01').startOf(unit)
+    s = s.minus(1, unit)
+    let minus = s.iso()
+    s = s.startOf(unit)
+    let startOf = s.iso()
+    t.equal(minus, startOf, unit + ' start/minus')
+  })
+  t.end()
+})

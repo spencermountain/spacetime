@@ -4,14 +4,14 @@ const walkTo = require('./set/walk')
 const fns = require('../fns')
 
 const units = {
-  minute: s => {
+  minute: (s) => {
     walkTo(s, {
       second: 0,
       millisecond: 0
     })
     return s
   },
-  quarterhour: s => {
+  quarterhour: (s) => {
     let minute = s.minutes()
     if (minute >= 45) {
       s = s.minutes(45)
@@ -28,7 +28,7 @@ const units = {
     })
     return s
   },
-  hour: s => {
+  hour: (s) => {
     walkTo(s, {
       minute: 0,
       second: 0,
@@ -36,7 +36,7 @@ const units = {
     })
     return s
   },
-  day: s => {
+  day: (s) => {
     walkTo(s, {
       hour: 0,
       minute: 0,
@@ -45,7 +45,7 @@ const units = {
     })
     return s
   },
-  week: s => {
+  week: (s) => {
     let original = s.clone()
     s = s.day(s._weekStart) //monday
     if (s.isAfter(original)) {
@@ -59,7 +59,7 @@ const units = {
     })
     return s
   },
-  month: s => {
+  month: (s) => {
     walkTo(s, {
       date: 1,
       hour: 0,
@@ -69,7 +69,7 @@ const units = {
     })
     return s
   },
-  quarter: s => {
+  quarter: (s) => {
     let q = s.quarter()
     if (quarters[q]) {
       walkTo(s, {
@@ -83,7 +83,7 @@ const units = {
     }
     return s
   },
-  season: s => {
+  season: (s) => {
     let current = s.season()
     let hem = 'north'
     if (s.hemisphere() === 'South') {
@@ -110,7 +110,7 @@ const units = {
     }
     return s
   },
-  year: s => {
+  year: (s) => {
     walkTo(s, {
       month: 0,
       date: 1,
@@ -121,14 +121,14 @@ const units = {
     })
     return s
   },
-  decade: s => {
+  decade: (s) => {
     s = s.startOf('year')
     let year = s.year()
     let decade = parseInt(year / 10, 10) * 10
     s = s.year(decade)
     return s
   },
-  century: s => {
+  century: (s) => {
     s = s.startOf('year')
     let year = s.year()
     // near 0AD goes '-1 | +1'
