@@ -91,7 +91,7 @@ module.exports = {
 
   //support setting time by '4:25pm' - this isn't very-well developed..
   time: (s, str) => {
-    let m = str.match(/([0-9]{1,2}):([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/)
+    let m = str.match(/([0-9]{1,2})[:h]([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/)
     if (!m) {
       //fallback to support just '2am'
       m = str.match(/([0-9]{1,2}) ?(am|pm)/)

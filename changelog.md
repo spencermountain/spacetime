@@ -7,6 +7,7 @@ This project follows semVer, where:
 <!-- [unreleased] 
 ### v6.12.1
 - **[new]** - support for '97 year format
+- **[change]** - support `13h00` time format
 - **[fix]** - .add() issue sometimes effecting quarter/season
 -->
 
