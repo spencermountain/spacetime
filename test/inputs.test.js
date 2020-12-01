@@ -318,3 +318,30 @@ test('british-input', (t) => {
   t.equal(s.format('iso-short'), '2017-02-03', 'force dd/mm/yyyy')
   t.end()
 })
+
+test('short-format', (t) => {
+  let a = spacetime('22-aug')
+  let b = spacetime('aug-22')
+  t.equal(a.format('iso-short'), b.format('iso-short'), '22-aug')
+  t.end()
+})
+
+test('time with seconds', (t) => {
+  let s = spacetime('aug 22 2020', 'shanghai')
+  s = s.time('1:02:12 PM')
+  t.equal(s.iso(), '2020-08-22T13:02:12.000+08:00', '1:02:12 PM')
+  s = s.time('10:02:12 AM')
+  t.equal(s.iso(), '2020-08-22T10:02:12.000+08:00', '10:02:12 AM')
+  t.end()
+})
+
+test('period-seperated', (t) => {
+  let s = spacetime('2015.08.13')
+  t.equal(s.format(), '2015-08-13', 'period-parsed')
+  t.end()
+})
+test('iso-truncated', (t) => {
+  let s = spacetime('2012-07')
+  t.equal(s.format(), '2012-07-01', 'iso-truncated')
+  t.end()
+})

@@ -53,6 +53,11 @@ const addMethods = (SpaceTime) => {
     }
     let old = this.clone()
     unit = fns.normalize(unit)
+    // support 'fortnight' alias
+    if (unit === 'fortnight') {
+      num *= 2
+      unit = 'week'
+    }
     //move forward by the estimated milliseconds (rough)
     if (ms[unit]) {
       s.epoch += ms[unit] * num

@@ -39,7 +39,7 @@ const strFmt = [
   },
   //iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
   {
-    reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2}),?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
+    reg: /^([0-9]{4})[\-\/.]([0-9]{1,2})[\-\/.]([0-9]{1,2}),?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
     parse: (s, arr) => {
       let obj = {
         year: arr[1],
@@ -86,6 +86,26 @@ const strFmt = [
       return s
     }
   },
+  // '2012-06' last attempt at iso-like format
+  {
+    reg: /^([0-9]{4})[\-\/]([0-9]{2})$/i,
+    parse: (s, arr, givenTz, options) => {
+      let month = parseInt(arr[2], 10) - 1
+      let obj = {
+        year: arr[1],
+        month,
+        date: 1
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      parseOffset(s, arr[5], givenTz, options)
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
+    }
+  },
   //common british format - "25-feb-2015"
   {
     reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
@@ -96,6 +116,26 @@ const strFmt = [
         year,
         month,
         date: fns.toCardinal(arr[1] || '')
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
+    }
+  },
+  //alt short format - "feb-25-2015"
+  {
+    reg: /^([a-z]+)[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/i,
+    parse: (s, arr) => {
+      let month = months[arr[1].toLowerCase()]
+      let year = parseYear(arr[3], s._today)
+      let obj = {
+        year,
+        month,
+        date: fns.toCardinal(arr[2] || '')
       }
       if (hasDate(obj) === false) {
         s.epoch = null

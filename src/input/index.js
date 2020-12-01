@@ -122,6 +122,7 @@ const parseInput = (s, input, givenTz) => {
   for (let i = 0; i < strFmt.length; i++) {
     let m = input.match(strFmt[i].reg)
     if (m) {
+      // console.log(strFmt[i].reg)
       let res = strFmt[i].parse(s, m, givenTz)
       if (res !== null && res.isValid()) {
         return res

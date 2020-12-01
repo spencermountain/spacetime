@@ -23,9 +23,13 @@ const methods = {
     // accept 'wednesday'
     if (typeof input === 'string') {
       input = input.toLowerCase()
-      want = days.short().indexOf(input)
-      if (want === -1) {
-        want = days.long().indexOf(input)
+      if (days.aliases.hasOwnProperty(input)) {
+        want = days.aliases[input]
+      } else {
+        want = days.short().indexOf(input)
+        if (want === -1) {
+          want = days.long().indexOf(input)
+        }
       }
     }
     //move approx

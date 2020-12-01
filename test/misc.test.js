@@ -126,6 +126,21 @@ test('set-time rollover dst', (t) => {
   t.end()
 })
 
+test('day aliases', (t) => {
+  let s = spacetime().day('thurs')
+  t.equal(s.format('day'), 'Thursday', 'thurs')
+  s = spacetime().day('tues')
+  t.equal(s.format('day'), 'Tuesday', 'tues')
+  t.end()
+})
+test('add fortnight', (t) => {
+  let s = spacetime()
+  let a = s.clone().add(2, 'fortnight')
+  let b = s.clone().add(4, 'weeks')
+  t.equal(a.iso(), b.iso(), 'fortnight')
+  t.end()
+})
+
 test('weird inputs', (t) => {
   let now = spacetime.now().add(1, 'millisecond')
   let isNull = spacetime(null)

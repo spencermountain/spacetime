@@ -7,6 +7,12 @@ This project follows semVer, where:
 <!-- [unreleased] 
 -->
 
+### v6.12.0
+- **[new]** - support period-seperated short-iso format
+- **[new]** - support fortnight in add/remove methods
+- **[new]** - support 'tues' 'thurs' in day() method
+- **[new]** - support '2002-06' truncated iso input
+
 ### v6.11.0
 - **[change]** - support 6-digit millisecond, and lowercase iso
 - **[change]** - first week of year must start > dec 29th

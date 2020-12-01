@@ -12,7 +12,7 @@ const getFirstWeek = function (s) {
 }
 
 module.exports = {
-  monthWeek: function (n) {
+  weekOfMonth: function (n) {
     let start = getFirstWeek(this.clone())
     // week-setter
     if (n !== undefined) {
