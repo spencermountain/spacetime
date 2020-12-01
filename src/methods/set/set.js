@@ -91,7 +91,7 @@ module.exports = {
 
   //support setting time by '4:25pm' - this isn't very-well developed..
   time: (s, str) => {
-    let m = str.match(/([0-9]{1,2}):([0-9]{1,2}) ?(am|pm)?/)
+    let m = str.match(/([0-9]{1,2}):([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/)
     if (!m) {
       //fallback to support just '2am'
       m = str.match(/([0-9]{1,2}) ?(am|pm)/)
@@ -99,6 +99,7 @@ module.exports = {
         return s.epoch
       }
       m.splice(2, 0, '0') //add implicit 0 minutes
+      m.splice(3, 0, '') //add implicit seconds
     }
     let h24 = false
     let hour = parseInt(m[1], 10)
@@ -108,18 +109,22 @@ module.exports = {
     }
     //make the hour into proper 24h time
     if (h24 === false) {
-      if (m[3] === 'am' && hour === 12) {
+      if (m[4] === 'am' && hour === 12) {
         //12am is midnight
         hour = 0
       }
-      if (m[3] === 'pm' && hour < 12) {
+      if (m[4] === 'pm' && hour < 12) {
         //12pm is noon
         hour += 12
       }
     }
+    // handle seconds
+    m[3] = m[3] || ''
+    m[3] = m[3].replace(/:/, '')
+    let sec = parseInt(m[3], 10) || 0
     s = s.hour(hour)
     s = s.minute(minute)
-    s = s.second(0)
+    s = s.second(sec)
     s = s.millisecond(0)
     return s.epoch
   },

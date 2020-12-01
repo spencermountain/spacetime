@@ -2,7 +2,7 @@ const set = require('../set/set')
 const fns = require('../../fns')
 
 const methods = {
-  millisecond: function(num) {
+  millisecond: function (num) {
     if (num !== undefined) {
       let s = this.clone()
       s.epoch = set.milliseconds(s, num)
@@ -10,7 +10,7 @@ const methods = {
     }
     return this.d.getMilliseconds()
   },
-  second: function(num) {
+  second: function (num) {
     if (num !== undefined) {
       let s = this.clone()
       s.epoch = set.seconds(s, num)
@@ -18,7 +18,7 @@ const methods = {
     }
     return this.d.getSeconds()
   },
-  minute: function(num) {
+  minute: function (num) {
     if (num !== undefined) {
       let s = this.clone()
       s.epoch = set.minutes(s, num)
@@ -26,7 +26,7 @@ const methods = {
     }
     return this.d.getMinutes()
   },
-  hour: function(num) {
+  hour: function (num) {
     let d = this.d
     if (num !== undefined) {
       let s = this.clone()
@@ -37,7 +37,7 @@ const methods = {
   },
 
   //'3:30' is 3.5
-  hourFloat: function(num) {
+  hourFloat: function (num) {
     if (num !== undefined) {
       let s = this.clone()
       let minute = num % 1
@@ -55,7 +55,7 @@ const methods = {
   },
 
   // hour in 12h format
-  hour12: function(str) {
+  hour12: function (str) {
     let d = this.d
     if (str !== undefined) {
       let s = this.clone()
@@ -82,9 +82,10 @@ const methods = {
   },
 
   //some ambiguity here with 12/24h
-  time: function(str) {
+  time: function (str) {
     if (str !== undefined) {
       let s = this.clone()
+      str = str.toLowerCase().trim()
       s.epoch = set.time(s, str)
       return s
     }
@@ -92,7 +93,7 @@ const methods = {
   },
 
   // either 'am' or 'pm'
-  ampm: function(input) {
+  ampm: function (input) {
     let which = 'am'
     let hour = this.hour()
     if (hour >= 12) {
@@ -119,7 +120,7 @@ const methods = {
   },
 
   //some hard-coded times of day, like 'noon'
-  dayTime: function(str) {
+  dayTime: function (str) {
     if (str !== undefined) {
       const times = {
         morning: '7:00am',
@@ -160,7 +161,7 @@ const methods = {
   },
 
   //parse a proper iso string
-  iso: function(num) {
+  iso: function (num) {
     if (num !== undefined) {
       return this.set(num)
     }
