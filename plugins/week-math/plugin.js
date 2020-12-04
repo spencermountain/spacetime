@@ -29,5 +29,14 @@ module.exports = {
       num += 1
     }
     return num + 1
+  },
+  whichWeek: function () {
+    let s = this.startOf('week')
+    // it's always in the same month that it's thursday is...
+    let thurs = s.add(3, 'days')
+    let month = thurs.monthName()
+    let num = thurs.weekOfMonth()
+
+    return { num, month }
   }
 }

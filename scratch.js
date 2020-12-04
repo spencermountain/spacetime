@@ -1,10 +1,45 @@
 const spacetime = require('./src/index')
-// spacetime.extend(require('./plugins/week-math/plugin.js'))
+spacetime.extend(require('./plugins/week-math/plugin.js'))
 // bug 1: roll-forward
 // let d = spacetime('2020-03-08T00:31:01', 'America/Chicago')
 // d = d.add(30, 'minutes')
 // console.log(d.format('nice'))
 
-// let s = spacetime('09.13.2013')
-let s = spacetime('13.09.2013')
-console.log(s.format())
+// let s = spacetime('jan 1 2021')
+// let wks = s.weeksOfMonth()
+// wks.forEach((wk) => {
+//   console.log('   ' + wk.format('nice'))
+// })
+
+const byWeek = function (year) {
+  let arr = spacetime('jan 1 ' + year)
+    .minus(1, 'hour')
+    .every('week', 'Jan 1st 2022')
+  return arr.map((s) => {
+    let res = s.whichWeek()
+    return { title: s.format('nice-day'), num: res.num, month: res.month }
+  })
+}
+console.log(byWeek(2020))
+
+// const padEnd = function (str, width) {
+//   str = str.toString()
+//   while (str.length < width) {
+//     str += ' '
+//   }
+//   return str
+// }
+
+// let arr = spacetime('jan 1 2021').minus(1, 'hour').every('month', 'Jan 1st 2022')
+// arr.forEach((s) => {
+//   console.log('[[' + s.format('{month} {year}') + ']]')
+//   let wks = s.weeksOfMonth()
+//   let month = s.format('month')
+//   wks.forEach((wk, i) => {
+//     // console.log('   [[' + wk.format('nice-day') + ']]')
+//     let sun = wk.endOf('week')
+//     let name = `[[Week ${i + 1}: ${month} ${wk.format('{year}')}]]`
+//     name = padEnd(name, 25)
+//     console.log(`\t${name}  - ${wk.format('{date-ordinal}')}-${sun.format('date-ordinal')}`)
+//   })
+// })

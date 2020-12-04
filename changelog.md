@@ -5,7 +5,7 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- [unreleased] 
-
+ * fix .every() >= issue
 -->
 
 ### v6.12.1
