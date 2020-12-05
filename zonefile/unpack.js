@@ -43,6 +43,13 @@ for (let i = -14; i <= 14; i += 0.5) {
     hem: 'n'
   }
 }
+
+//add etc/user
+all['etc/user'] = {
+  offset: (new Date).getTimezoneOffset() / 60,
+  hem: 'n' //no good way to get this?
+}
+
 // console.log(all)
 
 // console.log(Object.keys(all).length)
