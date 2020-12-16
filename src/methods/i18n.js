@@ -1,6 +1,8 @@
 const fns = require('../fns')
 const days = require('../data/days')
 const months = require('../data/months')
+const caseFormat = require('../data/caseFormat')
+
 
 const addMethods = SpaceTime => {
   const methods = {
@@ -12,6 +14,11 @@ const addMethods = SpaceTime => {
       //change the month names
       if (fns.isObject(data.months)) {
         months.set(data.months)
+      }
+
+      // change the the display style of the month / day names
+      if (fns.isBoolean(data.useTitleCase)) {
+        caseFormat.set(data.useTitleCase)
       }
     }
   }

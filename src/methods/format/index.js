@@ -1,11 +1,20 @@
 const fns = require('../../fns')
 const months = require('../../data/months')
 const days = require('../../data/days')
+const caseFormat = require('../../data/caseFormat')
 const isoOffset = require('./_offset')
 
+const applyCaseFormat = (str) => {
+  if (caseFormat.useTitleCase()) {
+    return fns.titleCase(str)
+  }
+  return str
+
+}
+
 const format = {
-  day: (s) => fns.titleCase(s.dayName()),
-  'day-short': (s) => fns.titleCase(days.short()[s.day()]),
+  day: (s) => applyCaseFormat(s.dayName()),
+  'day-short': (s) => applyCaseFormat(days.short()[s.day()]),
   'day-number': (s) => s.day(),
   'day-ordinal': (s) => fns.ordinal(s.day()),
   'day-pad': (s) => fns.zeroPad(s.day()),
@@ -14,8 +23,8 @@ const format = {
   'date-ordinal': (s) => fns.ordinal(s.date()),
   'date-pad': (s) => fns.zeroPad(s.date()),
 
-  month: (s) => fns.titleCase(s.monthName()),
-  'month-short': (s) => fns.titleCase(months.short()[s.month()]),
+  month: (s) => applyCaseFormat(s.monthName()),
+  'month-short': (s) => applyCaseFormat(months.short()[s.month()]),
   'month-number': (s) => s.month(),
   'month-ordinal': (s) => fns.ordinal(s.month()),
   'month-pad': (s) => fns.zeroPad(s.month()),
@@ -100,9 +109,9 @@ const format = {
   nice: (s) => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.time()}`,
   'nice-year': (s) => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.year()}`,
   'nice-day': (s) =>
-    `${days.short()[s.day()]} ${fns.titleCase(months.short()[s.month()])} ${fns.ordinal(s.date())}`,
+    `${days.short()[s.day()]} ${applyCaseFormat(months.short()[s.month()])} ${fns.ordinal(s.date())}`,
   'nice-full': (s) =>
-    `${s.dayName()} ${fns.titleCase(s.monthName())} ${fns.ordinal(s.date())}, ${s.time()}`
+    `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(s.date())}, ${s.time()}`
 }
 //aliases
 const aliases = {
@@ -141,7 +150,7 @@ const printFormat = (s, str = '') => {
     if (str !== 'json') {
       out = String(out)
       if (str !== 'ampm') {
-        out = fns.titleCase(out)
+        out = applyCaseFormat(out)
       }
     }
     return out
