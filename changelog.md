@@ -4,9 +4,16 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
-<!-- [unreleased] 
+<!-- [upcoming] 
  * fix .every() >= issue
 -->
+
+<!-- ### [unreleased] 
+-->
+
+### v6.13.1 [Dec 2020]
+- **[change]** - add 'etc/user' timezone
+- **[fix]** - endOf('season') issue
 
 ### v6.12.1
 - **[new]** - support for '97 year format
