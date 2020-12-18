@@ -12,52 +12,53 @@ This project follows semVer, where:
 -->
 
 ### v6.12.2 [Dec 2020]
-- **[change]** - add 'etc/user' timezone (thanks Mitsunee)
+- **[change]** - support explicit local-timezone (thanks Mitsunee)
 - **[change]** - support i18n titlecase config (thanks Kayla)
 - **[fix]** - endOf('season') issue
+- **[fix]** - fix character escaping issue in unixFmt method #207
 update deps
 
 
-### v6.12.1
+### v6.12.1 [Dec 2020]
 - **[new]** - support for '97 year format
 - **[change]** - support `13h00` time format
 - **[change]** - support `09.13.2013` and `13.09.2013` formats
 - **[fix]** - `.add()` issue sometimes effecting quarter/season
 
-### v6.12.0
+### v6.12.0 [Dec 2020]
 - **[new]** - support period-seperated short-iso format
 - **[new]** - support fortnight in add/remove methods
 - **[new]** - support 'tues' 'thurs' in day() method
 - **[new]** - support '2002-06' truncated iso input
 
-### v6.11.0
+### v6.11.0 [Nov 2020]
 - **[change]** - support 6-digit millisecond, and lowercase iso
 - **[change]** - first week of year must start > dec 29th
 - **[fix]** - typescript fixes
 - update deps
  
-### v6.10.1
+### v6.10.1 [Nov 2020]
 - **[fix]** - keep yukon dst changes (for now!) #243
 - **[fix]** - support new-zealand time in '13h' format #242
 - update deps
   
-### v6.10.0
+### v6.10.0 [Nov 2020]
 - **[fix]** - support whitespace between time and am/pm (thanks Andy!)
 - **[change]** - make empty array + obj equal to null inputs #240
 - **[change]** - update timezones
 - **[change]** - remove Yukon DST pre-emtively
 
 
-### v6.9.0
+### v6.9.0 [Nov 2020]
 - **[fix]** - dst-change issues like #236
 - **[fix]** - inc/dec year issue on exact nye millisecond
 - **[change]** support parsing quarter-names as input - 'q2 2001'
 - **[change]** support parsing season-names as input - 'fall 2001'
 
-### v6.8.0
+### v6.8.0 [Oct 2020]
 - **[fix]** major DST issue #182 (thanks Boris!)
  
-### v6.7.0
+### v6.7.0 [Oct 2020]
 - **[fix]** add missing timezones `America/Fort_Nelson`, `Asia/Qostanay`, and `America/Nuuk`
 - **[fix]**  comparison issue #231 effecting `.isSame()` and `.since()` accross different timezones
 
@@ -85,7 +86,7 @@ update deps
 
 - **[fix]** typescript fix
 
-### v6.6.0
+### v6.6.0 [June 2020]
 
 - **[change]** support `undefined` as input (like null)
 - **[fix]** for missing defaults in object input
@@ -100,13 +101,13 @@ update deps
 
 - run mjs build through babel (#175)
 
-## v6.4.0
+## v6.4.0 [Jan 2020]
 
 - add `.toLocalDate()`
 - update zonefile to 2020
 - add Famagusta and Yangon iana zones
 
-## v6.3.0
+## v6.3.0 [Nov 2019]
 
 - add `.decade()`
 - add `.century()`
@@ -129,7 +130,7 @@ update deps
 
 - support for +14 timezones.
 
-# v6.0.0
+# v6.0.0 [Aug 2019]
 
 - remove 'informal' timezone parsing (like `.goto('south africa')`)
 - remove 'display' info from `.timezone()` like 'EST' (move to [spacetime-informal](https://github.com/spencermountain/spacetime-informal/))
