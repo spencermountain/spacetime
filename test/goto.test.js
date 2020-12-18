@@ -142,3 +142,9 @@ test('move-to-not-dst', (t) => {
   t.equal(s.timezone().current.offset, -4, 'Moncton-is -4hrs')
   t.end()
 })
+
+test('goto null returns to local tz', (t) => {
+  let s = spacetime().time('4:30pm').goto('Europe/Paris').goto(null)
+  t.equal(s.time(), '4:30pm', 'goto-null')
+  t.end()
+})

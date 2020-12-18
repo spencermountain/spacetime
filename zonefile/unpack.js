@@ -2,7 +2,7 @@ const data = require('./_build.json')
 const prefixes = require('./_prefixes.js')
 
 let all = {}
-Object.keys(data).forEach(k => {
+Object.keys(data).forEach((k) => {
   let split = k.split('|')
   let obj = {
     offset: Number(split[0]),
@@ -12,7 +12,7 @@ Object.keys(data).forEach(k => {
     obj.dst = split[2]
   }
   let names = data[k].split(',')
-  names.forEach(str => {
+  names.forEach((str) => {
     str = str.replace(/(^[0-9]+)\//, (before, num) => {
       num = Number(num)
       return prefixes[num] + '/'
@@ -23,7 +23,7 @@ Object.keys(data).forEach(k => {
 
 all['utc'] = {
   offset: 0,
-  hem: 'n' //(sorry)
+  hem: 'n' //default to northern hemisphere - (sorry!)
 }
 
 //add etc/gmt+n
@@ -44,13 +44,4 @@ for (let i = -14; i <= 14; i += 0.5) {
   }
 }
 
-//add etc/user
-all['etc/user'] = {
-  offset: (new Date).getTimezoneOffset() / 60,
-  hem: 'n' //no good way to get this?
-}
-
-// console.log(all)
-
-// console.log(Object.keys(all).length)
 module.exports = all

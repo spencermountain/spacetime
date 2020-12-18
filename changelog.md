@@ -11,9 +11,12 @@ This project follows semVer, where:
 <!-- ### [unreleased] 
 -->
 
-### v6.13.1 [Dec 2020]
-- **[change]** - add 'etc/user' timezone
+### v6.12.2 [Dec 2020]
+- **[change]** - add 'etc/user' timezone (thanks Mitsunee)
+- **[change]** - support i18n titlecase config (thanks Kayla)
 - **[fix]** - endOf('season') issue
+update deps
+
 
 ### v6.12.1
 - **[new]** - support for '97 year format
