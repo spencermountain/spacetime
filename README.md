@@ -234,6 +234,12 @@ s.isDST() // True
 s.timezones
 ```
 
+if you want to refer to the current computer's local tz, you can use `.goto(null)`
+```js
+spacetime().time('4:30pm').goto('Europe/Paris').goto(null).time()
+// 4:30pm
+```
+
 ### [Date Formatting](https://github.com/spencermountain/spacetime/wiki/Formatting):
 
 ```js
@@ -392,7 +398,8 @@ a.i18n({
   months: {
     long: [...],
     short: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-  }
+  },
+  useTitleCase: true // automatically in .format()
 });
 a.format('day') //'Sábado'
 ```

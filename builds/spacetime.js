@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.12.1 Apache 2.0 */
+/* spencermountain/spacetime 6.12.2 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -264,7 +264,7 @@
   });
   all['utc'] = {
     offset: 0,
-    hem: 'n' //(sorry)
+    hem: 'n' //default to northern hemisphere - (sorry!)
 
   }; //add etc/gmt+n
 
@@ -288,9 +288,7 @@
       offset: i * -1,
       hem: 'n'
     };
-  } // console.log(all)
-  // console.log(Object.keys(all).length)
-
+  }
 
   var unpack = all;
 
@@ -2012,38 +2010,76 @@
   addAlias('K', 'h', 2);
   addAlias('S', 's', 2);
   addAlias('v', 'z', 4);
-  addAlias('V', 'Z', 4);
+  addAlias('V', 'Z', 4); // support unix-style escaping with ' character
 
-  var unixFmt = function unixFmt(s, str) {
-    var chars = str.split(''); //combine consecutive chars, like 'yyyy' as one.
+  var escapeChars = function escapeChars(arr) {
+    for (var i = 0; i < arr.length; i += 1) {
+      if (arr[i] === "'") {
+        // greedy-search for next apostrophe
+        for (var o = i + 1; o < arr.length; o += 1) {
+          if (arr[o]) {
+            arr[i] += arr[o];
+          }
 
-    var arr = [chars[0]];
-    var quoteOn = false;
+          if (arr[o] === "'") {
+            arr[o] = null;
+            break;
+          }
 
-    for (var i = 1; i < chars.length; i += 1) {
-      //support quoted substrings
-      if (chars[i] === "'") {
-        quoteOn = !quoteOn; //support '', meaning one tick
-
-        if (quoteOn === true && chars[i + 1] && chars[i + 1] === "'") {
-          quoteOn = true;
-        } else {
-          continue;
+          arr[o] = null;
         }
-      } //merge it with the last one
-
-
-      if (quoteOn === true || chars[i] === arr[arr.length - 1][0]) {
-        arr[arr.length - 1] += chars[i];
-      } else {
-        arr.push(chars[i]);
       }
     }
 
+    return arr.filter(function (ch) {
+      return ch;
+    });
+  }; //combine consecutive chars, like 'yyyy' as one.
+
+
+  var combineRepeated = function combineRepeated(arr) {
+    for (var i = 0; i < arr.length; i += 1) {
+      var c = arr[i]; // greedy-forward
+
+      for (var o = i + 1; o < arr.length; o += 1) {
+        if (arr[o] === c) {
+          arr[i] += arr[o];
+          arr[o] = null;
+        } else {
+          break;
+        }
+      }
+    } // '' means one apostrophe
+
+
+    arr = arr.filter(function (ch) {
+      return ch;
+    });
+    arr = arr.map(function (str) {
+      if (str === "''") {
+        str = "'";
+      }
+
+      return str;
+    });
+    return arr;
+  };
+
+  var unixFmt = function unixFmt(s, str) {
+    var arr = str.split(''); // support character escaping
+
+    arr = escapeChars(arr); //combine 'yyyy' as string.
+
+    arr = combineRepeated(arr);
     return arr.reduce(function (txt, c) {
       if (mapping[c] !== undefined) {
         txt += mapping[c](s) || '';
       } else {
+        // 'unescape'
+        if (/^'.{1,}'$/.test(c)) {
+          c = c.replace(/'/g, '');
+        }
+
         txt += c;
       }
 
@@ -2571,7 +2607,8 @@
     unit = fns.normalize(unit);
 
     if (units$2[unit]) {
-      s = units$2[unit](s);
+      s = units$2[unit](s); // startof
+
       s = s.add(1, unit);
       s = s.subtract(1, 'milliseconds');
       return s;
@@ -3893,9 +3930,7 @@
       } else if (unit === 'week') {
         s.epoch += milliseconds.day * (num * 7);
       } else if (unit === 'quarter' || unit === 'season') {
-        s.epoch += milliseconds.month * (num * 3);
-      } else if (unit === 'season') {
-        s.epoch += milliseconds.month * (num * 3);
+        s.epoch += milliseconds.month * (num * 3.1); //go a little too-far
       } else if (unit === 'quarterhour') {
         s.epoch += milliseconds.minute * 15 * num;
       } //now ensure our milliseconds/etc are in-line
@@ -4262,7 +4297,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.12.1';
+  var _version = '6.12.2';
 
   var main$1 = function main(input, tz, options) {
     return new spacetime(input, tz, options);

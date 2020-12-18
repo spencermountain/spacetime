@@ -2,11 +2,11 @@ const fns = require('../fns')
 const days = require('../data/days')
 
 //is it 'wednesday'?
-const isDay = function(unit) {
-  if (days.short().find(s => s === unit)) {
+const isDay = function (unit) {
+  if (days.short().find((s) => s === unit)) {
     return true
   }
-  if (days.long().find(s => s === unit)) {
+  if (days.long().find((s) => s === unit)) {
     return true
   }
   return false
@@ -14,7 +14,7 @@ const isDay = function(unit) {
 
 // return a list of the weeks/months/days between a -> b
 // returns spacetime objects in the timezone of the input
-const every = function(start, unit = '', end) {
+const every = function (start, unit = '', end) {
   if (!unit || !end) {
     return []
   }

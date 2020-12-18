@@ -56,7 +56,10 @@ test('unix-formatting', (t) => {
     ['yyyy-MM-ddTHH:mm:ssZ', '2017-11-16T11:34:25-0500'],
     ['yyyy-MM-ddTHH:mm:ssZZ', '2017-11-16T11:34:25-0500'],
     ['yyyy-MM-ddTHH:mm:ssZZZ', '2017-11-16T11:34:25-0500'],
-    ['yyyy-MM-ddTHH:mm:ssZZZZ', '2017-11-16T11:34:25-05:00']
+    ['yyyy-MM-ddTHH:mm:ssZZZZ', '2017-11-16T11:34:25-05:00'],
+    // support spaces
+    ["HH'h'", '11h'],
+    ["HH 'h'", '11 h']
   ]
   arr.forEach((a) => {
     t.equal(s.unixFmt(a[0]), a[1], a[0])
