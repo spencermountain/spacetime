@@ -6,6 +6,9 @@ export interface SpacetimeConstructorOptions {
 
   /** the day number, between 0-6, that the week starts on. (Sunday is 0) */
   weekStart?: number
+
+  /** pass true to change parsing behaviour to dd/mm/yyyy. By default American interpretation will be used. */
+  dmy?: boolean
 }
 
 export interface SpacetimeConstructor {
