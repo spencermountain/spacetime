@@ -161,7 +161,11 @@ const printFormat = (s, str = '') => {
     str = str.replace(sections, (_, fmt) => {
       fmt = fmt.toLowerCase().trim()
       if (format.hasOwnProperty(fmt)) {
-        return String(format[fmt](s))
+        let out = String(format[fmt](s))
+        if (fmt !== 'ampm') {
+          return applyCaseFormat(out)
+        }
+        return out
       }
       return ''
     })
