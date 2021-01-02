@@ -107,11 +107,14 @@ const format = {
 
   //i made these up
   nice: (s) => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.time()}`,
+  'nice-24': (s) => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.hour24()}:${fns.zeroPad(s.minute())}`,
   'nice-year': (s) => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.year()}`,
   'nice-day': (s) =>
     `${days.short()[s.day()]} ${applyCaseFormat(months.short()[s.month()])} ${fns.ordinal(s.date())}`,
   'nice-full': (s) =>
-    `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(s.date())}, ${s.time()}`
+    `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(s.date())}, ${s.time()}`,
+  'nice-full-24': (s) =>
+    `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(s.date())}, ${s.hour24()}:${fns.zeroPad(s.minute())}`
 }
 //aliases
 const aliases = {
@@ -127,6 +130,7 @@ const aliases = {
   'month-iso': 'iso-month',
   'year-iso': 'iso-year',
   'nice-short': 'nice',
+  'nice-short-24': 'nice-24',
   mdy: 'numeric-us',
   dmy: 'numeric-uk',
   ymd: 'numeric',
