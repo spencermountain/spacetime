@@ -4,6 +4,7 @@ exports.isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || year % 40
 exports.isDate = (d) => Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
 exports.isArray = (input) => Object.prototype.toString.call(input) === '[object Array]'
 exports.isObject = (input) => Object.prototype.toString.call(input) === '[object Object]'
+exports.isBoolean = (input) => Object.prototype.toString.call(input) === '[object Boolean]'
 
 exports.zeroPad = (str, len = 2) => {
   let pad = '0'
