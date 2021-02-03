@@ -231,7 +231,7 @@ s.hasDST() // True
 s.isDST() // True
 
 //list all timezones
-s.timezones
+spacetime.timezones()
 ```
 
 if you want to refer to the current computer's local tz, you can use `.goto(null)`

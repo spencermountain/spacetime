@@ -70,7 +70,7 @@ test('time setting works', (t) => {
 test('smoke-test all mutable methods', (t) => {
   let arr = [
     ['add', 3, 'days'],
-    ['ampm', 'pm'],
+    ['ampm', 'am'],
     ['date', 12],
     ['day', 'thursday'],
     ['dayName', 'monday'],

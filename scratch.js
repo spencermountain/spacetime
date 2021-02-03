@@ -5,7 +5,11 @@ spacetime.extend(require('./plugins/week-math/plugin.js'))
 // d = d.add(30, 'minutes')
 // console.log(d.format('nice'))
 
-// let d = spacetime('03/02', null, { today: { date: 21, month: 0, year: 2018 } })
-// let d = spacetime('summer', null, { today: { date: 21, month: 0, year: 2018 } })
-let d = spacetime('q2', null, { today: { date: 21, month: 0, year: 2018 } })
-console.log(d.iso())
+// let epoch = 1552114800001
+// let a = spacetime(epoch, 'Canada/Pacific')
+// // let b = a.ampm('am')
+// console.log(a.time(), a.ampm())
+// console.log(b.time(), b.ampm())
+// console.log(a.epoch === b.epoch)
+
+console.log(spacetime.timezones())

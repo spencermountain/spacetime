@@ -1,5 +1,14 @@
 import { Spacetime, ParsableDate } from './types'
 
+/** set where the key is tz database name in lowercase, eg, 'america/denver' */
+export interface TimezoneSet {
+  [key: string]: {
+    offset: number
+    hem: string
+    dst?: string
+  }
+}
+
 export interface SpacetimeConstructorOptions {
   /** javascript dates use millisecond-epochs, instead of second-epochs, like some other languages. This is a common bug, and by default spacetime warns if you set an epoch within January 1970. to disable set to true */
   silent?: boolean
@@ -79,6 +88,9 @@ export interface SpacetimeStatic extends SpacetimeConstructor {
 
   /** Extend Spacetime with a custom function/object.  */
   extend: (extension: { [key: string]: any } | {}) => SpacetimeStatic
+
+  /** get a list of current timezones and their offsets  */
+  timezones: () => TimezoneSet
 
   /** list timezones by their time */
   whereIts: (a: string, b?: string) => string[]
