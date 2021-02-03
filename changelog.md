@@ -5,14 +5,20 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- [upcoming] 
- * fix .every() >= issue
 -->
 
 <!-- ### [unreleased] 
 -->
 
-### v6.12.2 [Dec 2020]
+### v6.12.3 [Feb 2021]
+- **[fix]** - fix .every() >= issue
+- **[fix]** - fix today-passthrough in some date formats
+- **[change]** - use updated DST changes (171 changes)
 - **[change]** - support explicit local-timezone (thanks Mitsunee)
+- **[new]** - spacetime.timezones() method
+- update deps
+
+### v6.12.2 [Dec 2020]
 - **[change]** - support i18n titlecase config (thanks Kayla)
 - **[fix]** - endOf('season') issue
 - **[fix]** - fix character escaping issue in unixFmt method #207

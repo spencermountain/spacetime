@@ -1,6 +1,7 @@
 /* eslint no-unused-vars: "off" */
 const test = require('tape')
 const spacetime = require('./lib')
+const useOldTz = require('./lib/useOldTz')
 const day0 = spacetime.now()
 const today = day0.format('nice')
 
@@ -97,7 +98,9 @@ test('smoke-test all mutable methods', (t) => {
   ]
   const epoch = 1552114800001
   arr.forEach((a) => {
-    let orig = spacetime(1552114800001, 'Canada/Pacific')
+    let d = spacetime(null, 'Canada/Pacific')
+    d = useOldTz(d)
+    let orig = d.set(1552114800001)
     let fn = a[0]
     let s = orig[fn](a[1], a[2])
     //make-sure original didn't change

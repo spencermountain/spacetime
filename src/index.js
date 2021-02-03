@@ -40,6 +40,10 @@ main.extend = function (obj) {
   })
   return this
 }
+main.timezones = function () {
+  let s = new Spacetime()
+  return s.timezones
+}
 //find tz by time
 main.whereIts = whereIts
 main.version = version

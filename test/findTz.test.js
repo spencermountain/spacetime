@@ -36,6 +36,17 @@ test('whereits', (t) => {
   t.end()
 })
 
+test('get all timezones method', (t) => {
+  let obj = spacetime.timezones()
+  t.ok(Object.keys(obj).length > 60, 'got a lot of timezones')
+  t.equal(
+    typeof obj['america/st_vincent'].offset,
+    'number',
+    'got a list of timeszones with offsets'
+  )
+  t.end()
+})
+
 test('throw-error-on-invalid', (t) => {
   try {
     spacetime('12pm', 'invalid-timezone')

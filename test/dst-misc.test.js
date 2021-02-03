@@ -44,15 +44,19 @@ test('dst-by-month', (t) => {
   let aus = [true, true, true, false, false, false, false, false, false, true, true, true] //april 2, oct 1
   let tai = [false, false, false, false, false, false, false, false, false, false, false, false] //no dst
   let s = spacetime('January 1, 2016 20:42:00', 'Canada/Eastern')
+  s = useOldTz(s)
   t.deepEqual(allMonths(s), est, 'est')
 
   s = spacetime('January 2, 2016 20:42:00', 'Canada/Pacific')
+  s = useOldTz(s)
   t.deepEqual(allMonths(s), pst, 'pst')
 
   s = spacetime('January 2, 2016 20:42:00', 'Australia/Canberra')
+  s = useOldTz(s)
   t.deepEqual(allMonths(s), aus, 'Australia/Canberra')
 
   s = spacetime('January 2, 2016 20:42:00', 'Asia/Taipei')
+  s = useOldTz(s)
   t.deepEqual(allMonths(s), tai, 'Taipei')
   t.end()
 })
