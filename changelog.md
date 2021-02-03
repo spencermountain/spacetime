@@ -15,6 +15,7 @@ This project follows semVer, where:
 - **[fix]** - fix today-passthrough in some date formats
 - **[change]** - use updated DST changes (171 changes)
 - **[change]** - support explicit local-timezone (thanks Mitsunee)
+- **[new]** - spacetime.timezones() method
 - update deps
 
 ### v6.12.2 [Dec 2020]
