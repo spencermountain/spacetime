@@ -71,7 +71,7 @@ const strFmt = [
         date = parseInt(arr[1], 10)
         month = parseInt(arr[2], 10) - 1
       }
-      let year = arr[3] || new Date().getFullYear()
+      let year = parseYear(arr[3], s._today) || new Date().getFullYear()
       let obj = {
         year,
         month,

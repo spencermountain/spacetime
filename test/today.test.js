@@ -38,6 +38,18 @@ test('null input w/ today', function (t) {
   t.end()
 })
 
+test('today passthrough', function (t) {
+  let d = spacetime('03/02', '-2h', { today: { date: 21, month: 0, year: 2018 } })
+  t.equal(d.iso(), '2018-03-02T00:00:00.000-02:00', '03/02')
+
+  d = spacetime('summer', '-2h', { today: { date: 21, month: 0, year: 2018 } })
+  t.equal(d.iso(), '2018-06-01T00:00:00.000-02:00', 'summer')
+
+  d = spacetime('q2', '-2h', { today: { date: 21, month: 0, year: 2018 } })
+  t.equal(d.iso(), '2018-04-01T00:00:00.000-02:00', 'q2')
+  t.end()
+})
+
 test('today methods works', function (t) {
   let today = {
     date: 2,
