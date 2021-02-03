@@ -5,15 +5,18 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- [upcoming] 
-- **[fix]** - fix .every() >= issue
-- **[change]** - use updated DST changes (171 changes)
-- update deps
 -->
 
 <!-- ### [unreleased] 
 -->
 
+### v6.12.3 [Feb 2021]
+- **[fix]** - fix .every() >= issue
+- **[fix]** - fix today-passthrough in some date formats
+- **[change]** - use updated DST changes (171 changes)
 - **[change]** - support explicit local-timezone (thanks Mitsunee)
+- update deps
+
 ### v6.12.2 [Dec 2020]
 - **[change]** - support i18n titlecase config (thanks Kayla)
 - **[fix]** - endOf('season') issue

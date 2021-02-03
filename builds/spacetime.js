@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.12.2 Apache 2.0 */
+/* spencermountain/spacetime 6.12.3 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -838,6 +838,10 @@
       return Object.prototype.toString.call(input) === '[object Object]';
     };
 
+    exports.isBoolean = function (input) {
+      return Object.prototype.toString.call(input) === '[object Boolean]';
+    };
+
     exports.zeroPad = function (str) {
       var len = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
       var pad = '0';
@@ -935,18 +939,19 @@
       return "".concat(sign).concat(hours).concat(delimiter).concat(minutes);
     };
   });
-  var fns_1 = fns.isLeapYear;
-  var fns_2 = fns.isDate;
-  var fns_3 = fns.isArray;
-  var fns_4 = fns.isObject;
-  var fns_5 = fns.zeroPad;
-  var fns_6 = fns.titleCase;
-  var fns_7 = fns.ordinal;
-  var fns_8 = fns.toCardinal;
-  var fns_9 = fns.normalize;
-  var fns_10 = fns.getEpoch;
-  var fns_11 = fns.beADate;
-  var fns_12 = fns.formatTimezone;
+  fns.isLeapYear;
+  fns.isDate;
+  fns.isArray;
+  fns.isObject;
+  fns.isBoolean;
+  fns.zeroPad;
+  fns.titleCase;
+  fns.ordinal;
+  fns.toCardinal;
+  fns.normalize;
+  fns.getEpoch;
+  fns.beADate;
+  fns.formatTimezone;
 
   var isLeapYear = fns.isLeapYear; //given a month, return whether day number exists in it
 
@@ -1051,7 +1056,7 @@
         month = parseInt(arr[2], 10) - 1;
       }
 
-      var year = arr[3] || new Date().getFullYear();
+      var year = parseYear(arr[3], s._today) || new Date().getFullYear();
       var obj = {
         year: year,
         month: month,
@@ -1539,6 +1544,16 @@
     }
   };
 
+  var titleCaseEnabled = true;
+  var caseFormat = {
+    useTitleCase: function useTitleCase() {
+      return titleCaseEnabled;
+    },
+    set: function set(useTitleCase) {
+      titleCaseEnabled = useTitleCase;
+    }
+  };
+
   // it's kind of nuts how involved this is
   // "+01:00", "+0100", or simply "+01"
 
@@ -1549,12 +1564,20 @@
 
   var _offset = isoOffset;
 
+  var applyCaseFormat = function applyCaseFormat(str) {
+    if (caseFormat.useTitleCase()) {
+      return fns.titleCase(str);
+    }
+
+    return str;
+  };
+
   var format = {
     day: function day(s) {
-      return fns.titleCase(s.dayName());
+      return applyCaseFormat(s.dayName());
     },
     'day-short': function dayShort(s) {
-      return fns.titleCase(days["short"]()[s.day()]);
+      return applyCaseFormat(days["short"]()[s.day()]);
     },
     'day-number': function dayNumber(s) {
       return s.day();
@@ -1575,10 +1598,10 @@
       return fns.zeroPad(s.date());
     },
     month: function month(s) {
-      return fns.titleCase(s.monthName());
+      return applyCaseFormat(s.monthName());
     },
     'month-short': function monthShort(s) {
-      return fns.titleCase(months["short"]()[s.month()]);
+      return applyCaseFormat(months["short"]()[s.month()]);
     },
     'month-number': function monthNumber(s) {
       return s.month();
@@ -1719,14 +1742,20 @@
     nice: function nice(s) {
       return "".concat(months["short"]()[s.month()], " ").concat(fns.ordinal(s.date()), ", ").concat(s.time());
     },
+    'nice-24': function nice24(s) {
+      return "".concat(months["short"]()[s.month()], " ").concat(fns.ordinal(s.date()), ", ").concat(s.hour24(), ":").concat(fns.zeroPad(s.minute()));
+    },
     'nice-year': function niceYear(s) {
       return "".concat(months["short"]()[s.month()], " ").concat(fns.ordinal(s.date()), ", ").concat(s.year());
     },
     'nice-day': function niceDay(s) {
-      return "".concat(days["short"]()[s.day()], " ").concat(fns.titleCase(months["short"]()[s.month()]), " ").concat(fns.ordinal(s.date()));
+      return "".concat(days["short"]()[s.day()], " ").concat(applyCaseFormat(months["short"]()[s.month()]), " ").concat(fns.ordinal(s.date()));
     },
     'nice-full': function niceFull(s) {
-      return "".concat(s.dayName(), " ").concat(fns.titleCase(s.monthName()), " ").concat(fns.ordinal(s.date()), ", ").concat(s.time());
+      return "".concat(s.dayName(), " ").concat(applyCaseFormat(s.monthName()), " ").concat(fns.ordinal(s.date()), ", ").concat(s.time());
+    },
+    'nice-full-24': function niceFull24(s) {
+      return "".concat(s.dayName(), " ").concat(applyCaseFormat(s.monthName()), " ").concat(fns.ordinal(s.date()), ", ").concat(s.hour24(), ":").concat(fns.zeroPad(s.minute()));
     }
   }; //aliases
 
@@ -1743,6 +1772,7 @@
     'month-iso': 'iso-month',
     'year-iso': 'iso-year',
     'nice-short': 'nice',
+    'nice-short-24': 'nice-24',
     mdy: 'numeric-us',
     dmy: 'numeric-uk',
     ymd: 'numeric',
@@ -1773,7 +1803,7 @@
         out = String(out);
 
         if (str !== 'ampm') {
-          out = fns.titleCase(out);
+          out = applyCaseFormat(out);
         }
       }
 
@@ -1787,7 +1817,13 @@
         fmt = fmt.toLowerCase().trim();
 
         if (format.hasOwnProperty(fmt)) {
-          return String(format[fmt](s));
+          var _out = String(format[fmt](s));
+
+          if (fmt !== 'ampm') {
+            return applyCaseFormat(_out);
+          }
+
+          return _out;
         }
 
         return '';
@@ -4160,6 +4196,11 @@
 
         if (fns.isObject(data.months)) {
           months.set(data.months);
+        } // change the the display style of the month / day names
+
+
+        if (fns.isBoolean(data.useTitleCase)) {
+          caseFormat.set(data.useTitleCase);
         }
       }
     }; //hook them into proto
@@ -4297,7 +4338,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.12.2';
+  var _version = '6.12.3';
 
   var main$1 = function main(input, tz, options) {
     return new spacetime(input, tz, options);
