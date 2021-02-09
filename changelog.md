@@ -10,6 +10,9 @@ This project follows semVer, where:
 <!-- ### [unreleased] 
 -->
 
+### v6.12.4 [Feb 2021]
+- **[fix]** - typescript issue
+
 ### v6.12.3 [Feb 2021]
 - **[fix]** - fix .every() >= issue
 - **[fix]** - fix today-passthrough in some date formats

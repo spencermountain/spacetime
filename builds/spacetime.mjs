@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.12.3 Apache 2.0 */
+/* spencermountain/spacetime 6.12.4 Apache 2.0 */
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
@@ -4332,7 +4332,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.12.3';
+var _version = '6.12.4';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);
