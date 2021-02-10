@@ -117,17 +117,18 @@ const addMethods = (SpaceTime) => {
     else if (unit === 'quarter') {
       want.month = old.month() + num * 3
       want.year = old.year()
+      // handle rollover
       if (want.month < 0) {
-        //TODO: support longer ranges here
-        want.month = 12 + want.month
-        want.year -= 1
-      }
-      if (want.month >= 12) {
-        want.month -= 12
-        want.year += 1
+        let years = Math.floor(want.month / 12)
+        let remainder = want.month + Math.abs(years) * 12
+        want.month = remainder
+        want.year += years
+      } else if (want.month >= 12) {
+        let years = Math.floor(want.month / 12)
+        want.month = want.month % 12
+        want.year += years
       }
       want.date = old.date()
-      // console.log(want)
     }
     //ensure year has changed (leap-years)
     else if (unit === 'year') {

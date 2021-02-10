@@ -20,8 +20,8 @@ spacetime.extend(require('./plugins/week-math/plugin.js'))
 // d = d.endOf('quarter')
 // console.log(d.format())
 
-let d = spacetime('2019-01-01')
-d = d.minus(1, 'quarter')
+let d = spacetime('2019-10-01')
+d = d.minus(8, 'quarter')
 console.log(d.format(), 'end')
 
 // let d = spacetime('2017-03-01')

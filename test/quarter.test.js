@@ -105,3 +105,31 @@ test('add/minus quarter', (t) => {
   t.equal(d.format(), '2020-01-01', 'minus 4 quarters leap')
   t.end()
 })
+
+test('long-move quarters', (t) => {
+  let d = spacetime('2019-01-01')
+  d = d.minus(8, 'quarter')
+  t.equal(d.format(), '2017-01-01', 'minus 8 quarters')
+
+  d = spacetime('2019-01-01')
+  d = d.plus(8, 'quarter')
+  t.equal(d.format(), '2021-01-01', 'plus 8 quarters')
+
+  d = spacetime('2019-03-11')
+  d = d.plus(13, 'quarter') //3 years and 1 quarter
+  t.equal(d.format(), '2022-06-11', 'plus 13 quarters')
+
+  d = spacetime('2012-11-03')
+  d = d.minus(13, 'quarter') //3 years and 1 quarter
+  t.equal(d.format(), '2009-08-03', 'minus 13 quarters')
+
+  d = spacetime('2010-01-11')
+  d = d.plus(4 * 8, 'quarter') //8 years
+  t.equal(d.format(), '2018-01-11', 'plus 8 years')
+
+  d = spacetime('2013-02-02')
+  d = d.minus(4 * 13, 'quarter') //13 years
+  t.equal(d.format(), '2000-02-02', 'minus 13 years')
+
+  t.end()
+})

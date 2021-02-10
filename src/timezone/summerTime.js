@@ -12,7 +12,6 @@ const inSummerTime = (epoch, start, end, summerOffset, winterOffset) => {
   const year = new Date(epoch).getUTCFullYear()
   const startUtc = toUtc(start, winterOffset, year)
   const endUtc = toUtc(end, summerOffset, year)
-  // console.log(epoch, endUtc)
   // simple number comparison now
   return epoch >= startUtc && epoch < endUtc
 }
