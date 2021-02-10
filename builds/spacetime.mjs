@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.12.4 Apache 2.0 */
+/* spencermountain/spacetime 6.12.5 Apache 2.0 */
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
@@ -75,8 +75,7 @@ var toUtc = function toUtc(dstChange, offset, year) {
 var inSummerTime = function inSummerTime(epoch, start, end, summerOffset, winterOffset) {
   var year = new Date(epoch).getUTCFullYear();
   var startUtc = toUtc(start, winterOffset, year);
-  var endUtc = toUtc(end, summerOffset, year); // console.log(epoch, endUtc)
-  // simple number comparison now
+  var endUtc = toUtc(end, summerOffset, year); // simple number comparison now
 
   return epoch >= startUtc && epoch < endUtc;
 };
@@ -546,7 +545,7 @@ var units = {
 
       if (startUnit !== s.d.getFullYear()) {
         s.epoch = original;
-      } //incriment by day
+      } //increment by day
 
 
       while (s.d.getMonth() < n) {
@@ -2637,10 +2636,11 @@ var endOf = function endOf(a, unit) {
   unit = fns.normalize(unit);
 
   if (units$2[unit]) {
+    // go to beginning, go to next one, step back 1ms
     s = units$2[unit](s); // startof
 
     s = s.add(1, unit);
-    s = s.subtract(1, 'milliseconds');
+    s = s.subtract(1, 'millisecond');
     return s;
   }
 
@@ -3947,7 +3947,13 @@ var addMethods$1 = function addMethods(SpaceTime) {
     }
 
     var old = this.clone();
-    unit = fns.normalize(unit); // support 'fortnight' alias
+    unit = fns.normalize(unit);
+
+    if (unit === 'millisecond') {
+      s.epoch += num;
+      return s;
+    } // support 'fortnight' alias
+
 
     if (unit === 'fortnight') {
       num *= 2;
@@ -3960,7 +3966,7 @@ var addMethods$1 = function addMethods(SpaceTime) {
     } else if (unit === 'week') {
       s.epoch += milliseconds.day * (num * 7);
     } else if (unit === 'quarter' || unit === 'season') {
-      s.epoch += milliseconds.month * (num * 3.1); //go a little too-far
+      s.epoch += milliseconds.month * (num * 3);
     } else if (unit === 'quarterhour') {
       s.epoch += milliseconds.minute * 15 * num;
     } //now ensure our milliseconds/etc are in-line
@@ -4009,22 +4015,40 @@ var addMethods$1 = function addMethods(SpaceTime) {
         if (num !== 0 && old.isSame(s, 'day')) {
           want.date = old.date() + num;
         }
-      } //ensure year has changed (leap-years)
-      else if (unit === 'year') {
-          var wantYear = old.year() + num;
-          var haveYear = s.year();
+      } // ensure a quarter is 3 months over
+      else if (unit === 'quarter') {
+          want.month = old.month() + num * 3;
+          want.year = old.year(); // handle rollover
 
-          if (haveYear < wantYear) {
-            s.epoch += milliseconds.day;
-          } else if (haveYear > wantYear) {
-            s.epoch += milliseconds.day;
+          if (want.month < 0) {
+            var years = Math.floor(want.month / 12);
+            var remainder = want.month + Math.abs(years) * 12;
+            want.month = remainder;
+            want.year += years;
+          } else if (want.month >= 12) {
+            var _years = Math.floor(want.month / 12);
+
+            want.month = want.month % 12;
+            want.year += _years;
           }
-        } //these are easier
-        else if (unit === 'decade') {
-            want.year = s.year() + 10;
-          } else if (unit === 'century') {
-            want.year = s.year() + 100;
-          } //keep current date, unless the month doesn't have it.
+
+          want.date = old.date();
+        } //ensure year has changed (leap-years)
+        else if (unit === 'year') {
+            var wantYear = old.year() + num;
+            var haveYear = s.year();
+
+            if (haveYear < wantYear) {
+              s.epoch += milliseconds.day;
+            } else if (haveYear > wantYear) {
+              s.epoch += milliseconds.day;
+            }
+          } //these are easier
+          else if (unit === 'decade') {
+              want.year = s.year() + 10;
+            } else if (unit === 'century') {
+              want.year = s.year() + 100;
+            } //keep current date, unless the month doesn't have it.
 
 
     if (keepDate[unit]) {
@@ -4036,7 +4060,10 @@ var addMethods$1 = function addMethods(SpaceTime) {
       }
     }
 
-    walk_1(s, want);
+    if (Object.keys(want).length > 1) {
+      walk_1(s, want);
+    }
+
     return s;
   }; //subtract is only add *-1
 
@@ -4332,7 +4359,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.12.4';
+var _version = '6.12.5';
 
 var main$1 = function main(input, tz, options) {
   return new spacetime(input, tz, options);
