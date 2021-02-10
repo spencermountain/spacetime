@@ -10,6 +10,9 @@ This project follows semVer, where:
 <!-- ### [unreleased] 
 -->
 
+### v6.12.5 [Feb 2021]
+- **[fix]** - add/minus by quarter issue
+
 ### v6.12.4 [Feb 2021]
 - **[fix]** - typescript issue
 

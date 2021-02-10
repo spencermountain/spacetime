@@ -65,7 +65,7 @@ const units = {
       if (startUnit !== s.d.getFullYear()) {
         s.epoch = original
       }
-      //incriment by day
+      //increment by day
       while (s.d.getMonth() < n) {
         s.epoch += ms.day
       }
