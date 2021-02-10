@@ -1,15 +1,37 @@
 const spacetime = require('./src/index')
 spacetime.extend(require('./plugins/week-math/plugin.js'))
-// bug 1: roll-forward
-// let d = spacetime('2020-03-08T00:31:01', 'America/Chicago')
-// d = d.add(30, 'minutes')
-// console.log(d.format('nice'))
 
-// let epoch = 1552114800001
-// let a = spacetime(epoch, 'Canada/Pacific')
-// // let b = a.ampm('am')
-// console.log(a.time(), a.ampm())
-// console.log(b.time(), b.ampm())
-// console.log(a.epoch === b.epoch)
+//
+//
+//
+//
 
-console.log(spacetime.timezones())
+// let d = spacetime('2018-10-01')
+// d = d.startOf('quarter')
+// d = d.add(1, 'quarter')
+// d = d.endOf('quarter')
+
+// let d = spacetime('2020-10-01')
+// d = d.endOf('quarter')
+// console.log(d.format())
+
+// let d = spacetime('2018-11-01')
+// // // d = d.startOf('quarter').add(1, 'quarter')
+// d = d.endOf('quarter')
+// console.log(d.format())
+
+let d = spacetime('2019-01-01')
+d = d.minus(1, 'quarter')
+console.log(d.format(), 'end')
+
+// let d = spacetime('2017-03-01')
+// d = d.minus(1, 'quarter')
+// d = d.minus(1, 'quarter')
+// d = d.minus(1, 'quarter')
+// d = d.minus(1, 'quarter')
+// console.log(d.format())
+// d = d.add(1, 'quarter')
+// d = d.add(1, 'quarter')
+// d = d.add(1, 'quarter')
+// d = d.add(1, 'quarter')
+// console.log(d.format())

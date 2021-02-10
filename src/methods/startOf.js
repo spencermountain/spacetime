@@ -157,9 +157,10 @@ const endOf = (a, unit) => {
   let s = a.clone()
   unit = fns.normalize(unit)
   if (units[unit]) {
+    // go to beginning, go to next one, step back 1ms
     s = units[unit](s) // startof
     s = s.add(1, unit)
-    s = s.subtract(1, 'milliseconds')
+    s = s.subtract(1, 'millisecond')
     return s
   }
   return s

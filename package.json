@@ -41,7 +41,6 @@
   "devDependencies": {
     "@babel/core": "7.12.13",
     "@babel/preset-env": "7.12.13",
-    "amble": "1.2.0",
     "codecov": "3.8.1",
     "nyc": "^15.1.0",
     "rollup": "2.38.4",

@@ -53,6 +53,10 @@ const addMethods = (SpaceTime) => {
     }
     let old = this.clone()
     unit = fns.normalize(unit)
+    if (unit === 'millisecond') {
+      s.epoch += num
+      return s
+    }
     // support 'fortnight' alias
     if (unit === 'fortnight') {
       num *= 2
@@ -64,7 +68,7 @@ const addMethods = (SpaceTime) => {
     } else if (unit === 'week') {
       s.epoch += ms.day * (num * 7)
     } else if (unit === 'quarter' || unit === 'season') {
-      s.epoch += ms.month * (num * 3.1) //go a little too-far
+      s.epoch += ms.month * (num * 3)
     } else if (unit === 'quarterhour') {
       s.epoch += ms.minute * 15 * num
     }
@@ -109,6 +113,22 @@ const addMethods = (SpaceTime) => {
         want.date = old.date() + num
       }
     }
+    // ensure a quarter is 3 months over
+    else if (unit === 'quarter') {
+      want.month = old.month() + num * 3
+      want.year = old.year()
+      if (want.month < 0) {
+        //TODO: support longer ranges here
+        want.month = 12 + want.month
+        want.year -= 1
+      }
+      if (want.month >= 12) {
+        want.month -= 12
+        want.year += 1
+      }
+      want.date = old.date()
+      // console.log(want)
+    }
     //ensure year has changed (leap-years)
     else if (unit === 'year') {
       let wantYear = old.year() + num
@@ -133,7 +153,9 @@ const addMethods = (SpaceTime) => {
         want.date = max
       }
     }
-    walkTo(s, want)
+    if (Object.keys(want).length > 1) {
+      walkTo(s, want)
+    }
     return s
   }
 
