@@ -61,6 +61,8 @@ export interface Spacetime {
 
   /** list all dates up to a certain time */
   every: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
+  /** list all dates up to a certain time */
+  every: (end: Spacetime | string, unit: TimeUnit) => Spacetime[]
 
   /** list all dates up to a certain time */
   each: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
@@ -69,19 +71,21 @@ export interface Spacetime {
   last: (unit: TimeUnit) => Spacetime
 
   /** pass-in a spacetime object or date input and see if it takes-place after your spacetime date/time */
-  isAfter: (other: Spacetime | Date) => boolean
+  isAfter: (date: Spacetime | Date) => boolean
 
   /** pass-in a spacetime object or date input and see if it takes-place before your spacetime date/time */
-  isBefore: (other: Spacetime | Date) => boolean
+  isBefore: (date: Spacetime | Date) => boolean
 
   /** is this date on the exact same millisecond as another */
-  isEqual: (other: Spacetime | Date) => boolean
+  isEqual: (date: Spacetime | Date) => boolean
 
   /** is this date between these start and end dates? */
   isBetween: (start: Spacetime | Date, end: Spacetime | Date, isInclusive?: boolean) => boolean
 
   /** detect if two date/times are the same day, week, or year, etc */
-  isSame: (other: Spacetime | Date, unit: TimeUnit, tzSensitive?: boolean) => boolean
+  isSame: (date: Spacetime | Date, unit: TimeUnit, tzSensitive?: boolean) => boolean
+  /** detect if two date/times are the same day, week, or year, etc */
+  isSame: (unit: TimeUnit, date: Spacetime | Date, tzSensitive?: boolean) => boolean
 
   /** given a date and a unit, count how many of them you'd need to make the dates equal */
   diff(value: Spacetime | ParsableDate, unit: TimeUnit): number

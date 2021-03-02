@@ -104,6 +104,12 @@ const methods = {
   },
   //get each week/month/day between a -> b
   every: function (unit, to) {
+    // allow swapping these params:
+    if (typeof unit === 'object' && typeof to === 'string') {
+      let tmp = to
+      to = unit
+      unit = tmp
+    }
     return every(this, unit, to)
   },
   isAwake: function () {

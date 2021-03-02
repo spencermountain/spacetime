@@ -9,6 +9,9 @@ This project follows semVer, where:
 
 <!-- ### [unreleased] 
 - **[change]** - support more alt day formats like `.day('mo')`
+- **[change]** - allow `.week()` to return 53 
+- **[change]** - support swapped-parameters for `.each()`
+- **[change]** - support swapped-parameters for `.isSame()`
 -->
 
 ### v6.12.5 [Feb 2021]

@@ -36,6 +36,12 @@ const addMethods = (SpaceTime) => {
     if (!unit) {
       return null
     }
+    // support swapped params
+    if (typeof b === 'string' && typeof unit === 'object') {
+      let tmp = b
+      b = unit
+      unit = tmp
+    }
     if (typeof b === 'string' || typeof b === 'number') {
       b = new SpaceTime(b, this.timezone.name)
     }

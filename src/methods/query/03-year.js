@@ -82,7 +82,7 @@ const methods = {
     let skipWeeks = this.month() * 4
     tmp.epoch += ms.week * skipWeeks
     i += skipWeeks
-    for (; i < 52; i++) {
+    for (; i <= 52; i++) {
       if (tmp.epoch > thisOne) {
         return i + toAdd
       }
