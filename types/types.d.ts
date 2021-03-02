@@ -211,6 +211,11 @@ export interface Spacetime {
   /** set the day of the week as an integer, starting on sunday (day-0). Also accepts names like 'wednesday', or 'thurs' */
   day(value: number | string): Spacetime
 
+  /** get the day of the week as lower-case string */
+  dayName(): string
+  /** set the day of the week */
+  dayName(value: string): Spacetime
+
   /** get whether the time is am or pm */
   ampm(): string
   /** set whether the time is am or pm */

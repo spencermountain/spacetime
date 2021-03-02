@@ -8,6 +8,7 @@ This project follows semVer, where:
 -->
 
 <!-- ### [unreleased] 
+- **[change]** - support more alt day formats like `.day('mo')`
 -->
 
 ### v6.12.5 [Feb 2021]

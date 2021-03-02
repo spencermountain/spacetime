@@ -9,7 +9,16 @@ module.exports = {
     longDays = i18n.long || longDays
   },
   aliases: {
+    mo: 1,
+    tu: 2,
+    we: 3,
+    th: 4,
+    fr: 5,
+    sa: 6,
+    su: 7,
     tues: 2,
+    weds: 3,
+    wedn: 3,
     thur: 4,
     thurs: 4
   }
