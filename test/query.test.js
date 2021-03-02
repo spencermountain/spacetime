@@ -43,7 +43,7 @@ test('get-weeks', (t) => {
 
   s = s.month('december')
   s = s.date(29)
-  t.equal(s.week(), 52, '.weeks()3')
+  t.equal(s.week(), 53, '.weeks()3') //maybe change
   t.end()
 })
 
