@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.13.0 Apache 2.0 */
+/* spencermountain/spacetime 6.13.1 Apache 2.0 */
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -3439,7 +3439,12 @@ var methods$2 = {
   date: function date(num) {
     if (num !== undefined) {
       var s = this.clone();
-      s.epoch = set.date(s, num);
+      num = parseInt(num, 10);
+
+      if (num) {
+        s.epoch = set.date(s, num);
+      }
+
       return s;
     }
 
@@ -4398,7 +4403,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.13.0';
+var _version = '6.13.1';
 
 var main = function main(input, tz, options) {
   return new spacetime(input, tz, options);

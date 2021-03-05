@@ -13,7 +13,10 @@ spacetime.extend(require('./plugins/week-math/plugin.js'))
 //   console.log(d.format(), d.week())
 // })
 
-console.log(spacetime().isSame('year', spacetime.now()))
+let num = 10.5
+let s = spacetime(null).date(num)
+console.log(s.format())
+// console.log(spacetime().isSame('year', spacetime.now()))
 
 // bug:
 // console.log(spacetime('2022-01-03').week())

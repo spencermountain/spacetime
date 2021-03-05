@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.13.0 Apache 2.0 */
+/* spencermountain/spacetime 6.13.1 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -3445,7 +3445,12 @@
     date: function date(num) {
       if (num !== undefined) {
         var s = this.clone();
-        s.epoch = set.date(s, num);
+        num = parseInt(num, 10);
+
+        if (num) {
+          s.epoch = set.date(s, num);
+        }
+
         return s;
       }
 
@@ -4404,7 +4409,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.13.0';
+  var _version = '6.13.1';
 
   var main = function main(input, tz, options) {
     return new spacetime(input, tz, options);
