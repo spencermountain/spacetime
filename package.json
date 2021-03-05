@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "6.13.0",
+  "version": "6.13.1",
   "description": "figure-out dates across timezones",
   "main": "builds/spacetime.js",
   "unpkg": "builds/spacetime.min.js",
@@ -52,7 +52,7 @@
     "rollup-plugin-terser": "7.0.2",
     "shelljs": "0.8.4",
     "tap-dancer": "0.3.1",
-    "tape": "5.2.1",
+    "tape": "5.2.2",
     "timekeeper": "2.2.0"
   },
   "license": "Apache-2.0"

@@ -140,6 +140,25 @@ test('add fortnight', (t) => {
   t.equal(a.iso(), b.iso(), 'fortnight')
   t.end()
 })
+
+test('test floats as inputs', (t) => {
+  let num = 0.5
+  let s = spacetime(null)
+  s = s.date(num)
+  s = s.hour(num)
+  s = s.day(num)
+  s = s.minute(num)
+  s = s.year(num)
+  s = s.second(num)
+  s = s.add(num, 'hours')
+  s = s.add(num, 'days')
+  s = s.add(num, 'years')
+  s = s.add(num, 'months')
+  s = s.minus(num, 'quarter')
+  t.ok(!s.isEqual(spacetime.now()), 'float-input')
+  t.end()
+})
+
 test('apostrophe year', (t) => {
   let s = spacetime().year("'97").startOf('year')
   t.equal(s.format('iso-short'), '1997-01-01', "'97")

@@ -7,7 +7,10 @@ const methods = {
   date: function (num) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.date(s, num)
+      num = parseInt(num, 10)
+      if (num) {
+        s.epoch = set.date(s, num)
+      }
       return s
     }
     return this.d.getDate()
