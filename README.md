@@ -71,7 +71,7 @@ d.format('nice')
   </div>
   <div>
     <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
-    • <a href="https://github.com/spencermountain/spacetime-informal">spacetime-informal</a>
+    • <a href="https://github.com/spencermountain/timezone-soft">timezone-soft</a>
     • <a href="https://github.com/spencermountain/spacetime-daylight">spacetime-daylight</a>
   </div>
   <div>
@@ -209,7 +209,7 @@ s = s.goto('Australia/Brisbane')
 
 this is the safest way to declare a timezone, using an [IANA name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
-if you want to support more relaxed timezone names like `'EST'`, `Eastern time`, use [spacetime-informal](https://github.com/spencermountain/spacetime-informal/)
+if you want to support more relaxed timezone names like `'EST'`, `Eastern time`, use [timezone-soft](https://github.com/spencermountain/timezone-soft/)
 
 ```js
 s = s.goto('Jamaica') // "America/Jamaica"
