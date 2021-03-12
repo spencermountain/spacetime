@@ -325,7 +325,7 @@ module.exports = {
   },
   'america/catamarca': {
     offset: -3,
-    hem: 'n'
+    hem: 's'
   },
   'america/cayenne': {
     offset: -3,
@@ -508,7 +508,7 @@ module.exports = {
   },
   'america/jujuy': {
     offset: -3,
-    hem: 'n'
+    hem: 's'
   },
   'america/juneau': {
     offset: -8,
@@ -583,7 +583,7 @@ module.exports = {
   },
   'america/mendoza': {
     offset: -3,
-    hem: 'n'
+    hem: 's'
   },
   'america/menominee': {
     offset: -5,
@@ -2068,7 +2068,7 @@ module.exports = {
   },
   'pacific/port_moresby': {
     offset: 10,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/rarotonga': {
     offset: -10,
