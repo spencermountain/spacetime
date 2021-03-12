@@ -45,7 +45,7 @@ module.exports = {
   },
   'africa/brazzaville': {
     offset: 1,
-    hem: 'n'
+    hem: 's'
   },
   'africa/bujumbura': {
     offset: 2,
@@ -216,8 +216,7 @@ module.exports = {
   },
   'africa/windhoek': {
     offset: 1,
-    hem: 's',
-    dst: '04/02:01->09/03:03'
+    hem: 's'
   },
   'america/adak': {
     offset: -9,
