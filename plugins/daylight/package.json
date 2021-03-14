@@ -9,7 +9,7 @@
   "scripts": {
     "watch": "amble ./scratch.js",
     "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
-    "build": "rollup -c"
+    "build": "rollup -c --silent"
   },
   "repository": {
     "type": "git",
@@ -28,13 +28,6 @@
     "@babel/core": "7.11.0",
     "@babel/preset-env": "7.11.0",
     "amble": "1.1.0",
-    "rollup": "2.23.0",
-    "rollup-plugin-babel": "4.4.0",
-    "rollup-plugin-commonjs": "10.1.0",
-    "rollup-plugin-filesize-check": "0.0.1",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "5.2.0",
-    "rollup-plugin-terser": "6.1.0",
     "spacetime": "6.6.1",
     "tap-dancer": "0.2.0",
     "tape": "5.0.1"

@@ -7,7 +7,8 @@
   "sideEffects": false,
   "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-week-of-month",
   "scripts": {
-    "test": "TESTENV=dev tape ./week.test.js | tap-dancer  --color always"
+    "test": "TESTENV=dev tape ./week.test.js | tap-dancer  --color always",
+    "build": "rollup -c --silent"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,6 @@
     "singleQuote": true,
     "printWidth": 100
   },
-  "dependencies": {},
   "devDependencies": {
     "tap-dancer": "0.3.1",
     "tape": "5.0.1"

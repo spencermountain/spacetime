@@ -22,7 +22,6 @@ export default [
       {
         file: 'builds/spacetime-ticks.js',
         format: 'umd',
-        sourcemap: true,
         name: 'spacetime-ticks'
       }
     ],

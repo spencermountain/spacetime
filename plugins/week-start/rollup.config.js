@@ -23,7 +23,7 @@ export default [
         babelrc: false,
         presets: ['@babel/preset-env']
       }),
-      sizeCheck({ expect: 92, warn: 10 })
+      sizeCheck({ expect: 147, warn: 10 })
     ]
   },
   {
@@ -45,12 +45,12 @@ export default [
         babelrc: false,
         presets: ['@babel/preset-env']
       }),
-      sizeCheck({ expect: 95, warn: 10 })
+      sizeCheck({ expect: 159, warn: 10 })
     ]
   },
   {
     input: 'src/index.js',
-    output: [{ banner: banner, file: `builds/${name}.mjs`, format: 'umd', name: 'weekStart' }],
+    output: [{ banner: banner, file: `builds/${name}.min.js`, format: 'umd', name: 'weekStart' }],
     plugins: [
       resolve(),
       json(),
@@ -60,7 +60,7 @@ export default [
         presets: ['@babel/preset-env']
       }),
       terser(),
-      sizeCheck({ expect: 45, warn: 10 })
+      sizeCheck({ expect: 79, warn: 10 })
     ]
   }
 ]

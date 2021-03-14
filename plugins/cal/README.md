@@ -29,6 +29,10 @@ Thats's all.
 
 <img width="327" alt="image" src="https://user-images.githubusercontent.com/399657/111079058-a9b0d580-84ce-11eb-82be-99357fe2605a.png">
 
+if you want to just try it, you can run:
+```
+npx spacetime-cal
+```
 
 <!-- spacer -->
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>

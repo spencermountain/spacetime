@@ -8,12 +8,13 @@ import { version } from './package.json'
 
 console.log('\n 📦  - running rollup..\n')
 
-const banner = '/* spencermountain/spacetime-daylight ' + version + ' MIT */'
+let name = 'spacetime-week-of-month'
+const banner = `/* spencermountain/${name} ` + version + ' Apache 2.0 */'
 
 export default [
   {
     input: 'src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime-daylight.mjs', format: 'esm' }],
+    output: [{ banner: banner, file: `builds/${name}.mjs`, format: 'esm' }],
     plugins: [
       resolve(),
       json(),
@@ -22,7 +23,7 @@ export default [
         babelrc: false,
         presets: ['@babel/preset-env']
       }),
-      sizeCheck({ expect: 132, warn: 10 })
+      sizeCheck({ expect: 1, warn: 10 })
     ]
   },
   {
@@ -30,10 +31,10 @@ export default [
     output: [
       {
         banner: banner,
-        file: 'builds/spacetime-daylight.js',
+        file: `builds/${name}.js`,
         format: 'umd',
         sourcemap: false,
-        name: 'spacetime'
+        name: 'weekOfMonth'
       }
     ],
     plugins: [
@@ -44,19 +45,12 @@ export default [
         babelrc: false,
         presets: ['@babel/preset-env']
       }),
-      sizeCheck({ expect: 134, warn: 10 })
+      sizeCheck({ expect: 1, warn: 10 })
     ]
   },
   {
     input: 'src/index.js',
-    output: [
-      {
-        banner: banner,
-        file: 'builds/spacetime-daylight.min.js',
-        format: 'umd',
-        name: 'spacetime'
-      }
-    ],
+    output: [{ banner: banner, file: `builds/${name}.min.js`, format: 'umd', name: 'weekOfMonth' }],
     plugins: [
       resolve(),
       json(),
@@ -66,7 +60,7 @@ export default [
         presets: ['@babel/preset-env']
       }),
       terser(),
-      sizeCheck({ expect: 95, warn: 10 })
+      sizeCheck({ expect: 1, warn: 10 })
     ]
   }
 ]

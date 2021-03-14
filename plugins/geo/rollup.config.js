@@ -8,12 +8,12 @@ import { version } from './package.json'
 
 console.log('\n 📦  - running rollup..\n')
 
-const banner = '/* spencermountain/spacetime-daylight ' + version + ' MIT */'
+const banner = '/* spencermountain/spacetime-geo ' + version + ' MIT */'
 
 export default [
   {
     input: 'src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime-daylight.mjs', format: 'esm' }],
+    output: [{ banner: banner, file: 'builds/spacetime-geo.mjs', format: 'esm' }],
     plugins: [
       resolve(),
       json(),
@@ -22,7 +22,7 @@ export default [
         babelrc: false,
         presets: ['@babel/preset-env']
       }),
-      sizeCheck({ expect: 132, warn: 10 })
+      sizeCheck({ expect: 109, warn: 10 })
     ]
   },
   {
@@ -30,10 +30,10 @@ export default [
     output: [
       {
         banner: banner,
-        file: 'builds/spacetime-daylight.js',
+        file: 'builds/spacetime-geo.js',
         format: 'umd',
         sourcemap: false,
-        name: 'spacetime'
+        name: 'spacetimeGeo'
       }
     ],
     plugins: [
@@ -44,7 +44,7 @@ export default [
         babelrc: false,
         presets: ['@babel/preset-env']
       }),
-      sizeCheck({ expect: 134, warn: 10 })
+      sizeCheck({ expect: 109, warn: 10 })
     ]
   },
   {
@@ -52,9 +52,9 @@ export default [
     output: [
       {
         banner: banner,
-        file: 'builds/spacetime-daylight.min.js',
+        file: 'builds/spacetime-geo.min.js',
         format: 'umd',
-        name: 'spacetime'
+        name: 'spacetimeGeo'
       }
     ],
     plugins: [
@@ -66,7 +66,7 @@ export default [
         presets: ['@babel/preset-env']
       }),
       terser(),
-      sizeCheck({ expect: 95, warn: 10 })
+      sizeCheck({ expect: 109, warn: 10 })
     ]
   }
 ]

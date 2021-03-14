@@ -8,7 +8,7 @@
   "scripts": {
     "watch": "amble ./scratch.js",
     "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
-    "build": "node ./scripts/build.js"
+    "build": "rollup -c --silent"
   },
   "repository": {
     "type": "git",
@@ -25,9 +25,6 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "amble": "0.0.7",
-    "babelify": "10.0.0",
-    "browserify": "16.3.0",
-    "derequire": "^2.0.6",
     "shelljs": "0.8.3",
     "spacetime": "5.9.1",
     "tap-dancer": "0.2.0",
