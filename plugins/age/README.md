@@ -12,7 +12,7 @@
     </a>
   </div>
   <div align="center">
-    <code>npm i spacetime-age</code>
+    <code>npm i space-age</code>
   </div>
   <sub>
     by
@@ -20,6 +20,31 @@
   </sub>
 </div>
 <p></p>
+
+command-line api:
+```bash
+npx space-age may 18 1984
+
+npx space-age may 1st 1984 --months
+```
+
+javascript api:
+```js
+const spacetime = require('spacetime')
+spacetime.extend(require('space-age'))
+
+// set a birthday
+let s = spacetime('march 28 1986')
+s.age()
+// 35
+
+// get your age in months, weeks
+s.age('days')
+// 12,770
+
+s.age('months')
+// 441
+```
 
 
 MIT

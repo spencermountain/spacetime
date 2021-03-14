@@ -8,12 +8,12 @@ import { version } from './package.json'
 
 console.log('\n 📦  - running rollup..\n')
 
-const banner = '/* spencermountain/spacetime-daylight ' + version + ' MIT */'
+const banner = '/* spencermountain/space-age ' + version + ' MIT */'
 
 export default [
   {
     input: 'src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime-daylight.mjs', format: 'esm' }],
+    output: [{ banner: banner, file: 'builds/space-age.mjs', format: 'esm' }],
     plugins: [
       resolve(),
       json(),
@@ -30,10 +30,10 @@ export default [
     output: [
       {
         banner: banner,
-        file: 'builds/spacetime-daylight.js',
+        file: 'builds/space-age.js',
         format: 'umd',
         sourcemap: false,
-        name: 'spacetime'
+        name: 'spaceAge'
       }
     ],
     plugins: [
@@ -52,9 +52,9 @@ export default [
     output: [
       {
         banner: banner,
-        file: 'builds/spacetime-daylight.min.js',
+        file: 'builds/space-age.min.js',
         format: 'umd',
-        name: 'spacetime'
+        name: 'spaceAge'
       }
     ],
     plugins: [
