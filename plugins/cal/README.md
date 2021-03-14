@@ -30,5 +30,22 @@ Thats's all.
 <img width="327" alt="image" src="https://user-images.githubusercontent.com/399657/111079058-a9b0d580-84ce-11eb-82be-99357fe2605a.png">
 
 
+<!-- spacer -->
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+Unix applications have a real aesthetic - here's how you can get the weeks to start on a Monday, using `cal` [¹](http://hints.macworld.com/article.php?story=20040625094428394)- 
+```bash
+cal | awk '{ print " "$0; getline; print " Mo Tu We Th Fr Sa Su"; \
+getline; if (substr($0,1,2) == " 1") print "                    1 "; \
+do { prevline=$0; if (getline == 0) exit; print " " \
+substr(prevline,4,17) " " substr($0,1,2) " "; } while (1) }'
+```
+
+i mean,
+```bash
+spacetime-cal --monday
+```
+
+Built with [spacetime](https://github.com/spencermountain/spacetime), [compromise-dates](https://github.com/spencermountain/compromise/tree/master/plugins/dates), and [Ink](https://github.com/vadimdemedes/ink).
 
 MIT
