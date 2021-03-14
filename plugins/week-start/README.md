@@ -1,15 +1,15 @@
 <div align="center">
   <div>
-    <h2>spacetime-week</h2>
+    <h2>spacetime-week-start</h2>
   </div>
   <div>
     calculate the start of a week
   </div>
-  <a href="https://npmjs.org/package/spacetime-week">
-    <img src="https://img.shields.io/npm/v/spacetime-week.svg?style=flat-square" />
+  <a href="https://npmjs.org/package/spacetime-week-start">
+    <img src="https://img.shields.io/npm/v/spacetime-week-start.svg?style=flat-square" />
   </a>
-  <a href="https://unpkg.com/spacetime/builds/spacetime-week.min.js">
-    <img src="https://badge-size.herokuapp.com/spencermountain/spacetime-week/master/builds/spacetime-week.min.js" />
+  <a href="https://unpkg.com/spacetime/builds/spacetime-week-start.min.js">
+    <img src="https://badge-size.herokuapp.com/spencermountain/spacetime-week-start/master/builds/spacetime-week-start.min.js" />
   </a>
   <div>
     <sup>
@@ -45,10 +45,10 @@ Main function `weekStart` determines when week start in the current time zone or
 - if you write as argument different type as string, `null`, `undefined` or supply no argument at all it returns first day of weeek for current time zone
 - it uses `spacetime` library to determine current time zone only and rest is distinct for searching first day of week
 
-`npm i spacetime-week`
+`npm i spacetime-week-start`
 
 ```js
-const s = require('spacetime-week')
+const s = require('spacetime-week-start')
 
 console.log('#1: ', s.weekStart());
 console.log('#2: ', s.weekStart(12));

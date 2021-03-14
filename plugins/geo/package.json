@@ -4,6 +4,7 @@
   "description": "determine a timezone from a lat/lng",
   "main": "./builds/spacetime-geo.js",
   "unpkg": "./builds/spacetime-geo.js",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-geo",
   "scripts": {
     "watch": "amble ./scratch.js",
     "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
@@ -11,17 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spencermountain/spacetime-geo.git"
+    "url": "git+https://github.com/spencermountain/spacetime.git"
   },
   "keywords": [
     "timezone"
   ],
   "author": "spencermountain@gmail.com",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/spencermountain/spacetime-geo/issues"
-  },
-  "homepage": "https://github.com/spencermountain/spacetime-geo#readme",
   "dependencies": {
     "@babel/preset-env": "^7.5.5",
     "tz-lookup": "6.1.23"
@@ -36,5 +32,6 @@
     "spacetime": "5.9.1",
     "tap-dancer": "0.2.0",
     "tape": "4.11.0"
-  }
+  },
+  "license": "MIT"
 }

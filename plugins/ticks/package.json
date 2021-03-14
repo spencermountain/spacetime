@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spencermountain/frown.git"
+    "url": "git+https://github.com/spencermountain/spacetime.git"
   },
   "bugs": {
-    "url": "https://github.com/spencermountain/frown/issues"
+    "url": "https://github.com/spencermountain/spacetime/issues"
   },
-  "homepage": "https://github.com/spencermountain/frown#readme",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-ticks",
   "peerDependencies": {
     "spacetime": "^6.1.0"
   },

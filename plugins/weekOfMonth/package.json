@@ -5,6 +5,7 @@
   "main": "./src/index.js",
   "unpkg": "./src/index.js",
   "sideEffects": false,
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-week-of-month",
   "scripts": {
     "test": "TESTENV=dev tape ./week.test.js | tap-dancer  --color always"
   },
