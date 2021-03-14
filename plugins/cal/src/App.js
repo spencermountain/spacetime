@@ -1,22 +1,27 @@
 const React = require('react')
 const { Text, Box } = require('ink')
-const spacetime = require('spacetime')
 const importJsx = require('import-jsx')
 const Month = importJsx('./Month')
 
 const App = (input) => {
-	let { str, opts } = input
-	let s = spacetime(str)
-	if (s.isValid() === false) {
-		s = spacetime.now().month(str)
+	let { start, opts } = input
+	let s = start
+	let months = [s]
+	for (let i = 1; i < opts.months; i += 1) {
+		s = s.add(1, 'month')
+		months.push(s)
 	}
-	if (s.isValid() === false) {
-		console.log(`Error: Couldn\'t parse input '${str}'\n`)
-		s = spacetime.now()
-	}
+	let quarters = [months.slice(0, 3), months.slice(3, 6), months.slice(6, 9), months.slice(9, 12)]
+	quarters = quarters.filter((a) => a.length > 0)
 	return (
-		<Box height={10} flexDirection="row">
-			<Month start={s} />
+		<Box minHeight={10} flexDirection="col">
+			{quarters.map((q, k) => (
+				<Box key={k} flexDirection="row">
+					{q.map((m, i) => (
+						<Month key={i} start={m} />
+					))}
+				</Box>
+			))}
 		</Box>
 	)
 }

@@ -4,7 +4,7 @@ const React = require('react')
 const importJsx = require('import-jsx')
 const { render } = require('ink')
 const minimist = require('minimist')
-// const meow = require('meow')
+const parseDate = require('./parseStr')
 
 const App = importJsx('./src/App')
 
@@ -13,16 +13,34 @@ const defaults = {
 	months: 1
 }
 
-const aliases = {
+const alias = {
 	h: 'help',
 	d: 'date',
 	month: 'date',
-	m: 'months'
+	m: 'months',
+	q: 'quarter',
+	y: 'year'
 }
 
-let opts = minimist(process.argv.slice(2), aliases)
+let opts = minimist(process.argv.slice(2), { alias: alias })
 let str = opts._.join(' ')
-opts = Object.assign({}, opts, defaults)
+opts = Object.assign({}, defaults, opts)
 delete opts._
 
-render(React.createElement(App, { str, opts }))
+let res = parseDate(str)
+
+if (opts.quarter) {
+	opts.months = 3
+	res.start = res.start.startOf('quarter')
+}
+if (opts.year) {
+	opts.months = 12
+	res.start = res.start.startOf('year')
+}
+
+let data = {
+	start: res.start,
+	end: res.end,
+	opts: opts
+}
+render(React.createElement(App, data))
