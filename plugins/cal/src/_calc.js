@@ -16,6 +16,15 @@ const calculate = function (date) {
 			return weeks
 		}
 	}
+	// // format them
+	// weeks = weeks.map((arr) => {
+	// 	return arr.map((d) => {
+	// 		return {
+	// 			date: d.date(),
+	// 			isWeekend: false
+	// 		}
+	// 	})
+	// })
 	return weeks
 }
 module.exports = calculate
