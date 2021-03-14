@@ -4,6 +4,11 @@
 	"description": "a CLI calendar",
 	"main": "cli.js",
 	"bin": "cli.js",
+	"homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-cal",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/spencermountain/spacetime.git"
+	},
 	"engines": {
 		"node": ">=10"
 	},
