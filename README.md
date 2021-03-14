@@ -12,26 +12,62 @@
   <a href="https://bundlephobia.com/result?p=spacetime@latest">
     <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/builds/spacetime.min.js" />
   </a>
-  <hr/>
 </div>
 
-Isn't it weird how we can all do some math in our head, but not date-math?
+<!-- spacer -->
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-and worse, there is no real *calculator* to use for date-math.
+*Isn't it weird how we can do math in our head, but not **date math***?
 
-i usually end up 
+* *how many days until the end of the year?*
+* *what time was it, 11 hours ago?*
+* *is it lunchtime in france?*
+  
+and worse - there is no real ***calculator***.
+
+*people end up asking google, and going to weird websites.*
+
+<img height="10px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+<div align="center"><sub>that's bad.</sub></div>
+
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+<b>spacetime</b> is working hard to be a date-calculator:
+<img height="10px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<sub>It's very small, it's very handy.</sub>
+
 ```js
+let s = spacetime.now()
 
+s.diff(s.endOf('year'), 'days')
+// 292
+
+s.minus(11, 'hours').time()
+// 6:50am
+
+s = s.now('Europe/Paris')
+s.isAfter(s.time('11:00am'))
+// true 🥐
 ```
 
----
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+<div align="center">
+  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221814-05ed1680-ffb8-11e9-8b6b-c7528d163871.png"/>
+</div>
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 - calculate time in remote timezones
 - support **daylight savings**, **leap years**, and **hemispheres**
-- [Moment-like](https://beta.observablehq.com/@spencermountain/spacetime-api) 💘 API (but immutable!)
+- [Moment-like API](https://beta.observablehq.com/@spencermountain/spacetime-api) *(but immutable)*
 - Orient time by quarter, season, month, week..
-- _Zero Dependencies_ - (no [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl))
-- **only 43KB**.
+- _Zero Dependencies_ - (no *[Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)*)
+- weighs about 40kb.
+- has a cool *[plugin thing](https://observablehq.com/@spencermountain/spacetime)*.
+
+<!-- spacer -->
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 ```html
 <script src="https://unpkg.com/spacetime"></script>
@@ -45,6 +81,40 @@ i usually end up
   //'1:20pm'
 </script>
 ```
+<!-- spacer -->
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+
+<div align="center">
+  <h3>
+    <a href="https://beta.observablehq.com/@spencermountain/spacetime">
+      Demo
+    </a>
+    &nbsp; &nbsp; • &nbsp; &nbsp;
+    <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
+      Full API
+    </a>
+  </h3>
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+  <div>
+    <img width="550" src="https://user-images.githubusercontent.com/399657/50862221-1d904a00-1369-11e9-891c-5f4e9fbb9ec0.gif" />
+  </div>
+
+  <img height="40px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+  <!-- <div>
+    <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
+    • <a href="https://github.com/spencermountain/timezone-soft">timezone-soft</a>
+    • <a href="https://github.com/spencermountain/spacetime-daylight">spacetime-daylight</a>
+  </div>
+  <div>
+    <a href="https://github.com/spencermountain/sometime">spacetime-calendar</a>
+    • <a href="https://github.com/spencermountain/spacetime-week">spacetime-week</a>
+  </div> -->
+</div>
+
+
 
 `npm install spacetime`
 
@@ -57,42 +127,24 @@ d.isAsleep()
 //true
 ```
 
-Or with Typescript
-
+<sub><i>typescript / babel / deno:</i></sub>
 ```ts
 import spacetime from 'spacetime'
 let d = spacetime.now()
 d.format('nice')
 //'Apr 1st, 4:32pm'
 ```
-<a href="https://github.com/spencermountain/spacetime/wiki/Typescript">typescript docs</a>
 
-<div align="center">
-  <h3>
-    <a href="https://beta.observablehq.com/@spencermountain/spacetime">
-      Demo
-    </a>
-    &nbsp; &nbsp; • &nbsp; &nbsp;
-    <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
-      Full API
-    </a>
-  </h3>
-  <div>
-    <img width="550" src="https://user-images.githubusercontent.com/399657/50862221-1d904a00-1369-11e9-891c-5f4e9fbb9ec0.gif" />
-  </div>
-  <div>
-    <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
-    • <a href="https://github.com/spencermountain/timezone-soft">timezone-soft</a>
-    • <a href="https://github.com/spencermountain/spacetime-daylight">spacetime-daylight</a>
-  </div>
-  <div>
-    <a href="https://github.com/spencermountain/sometime">spacetime-calendar</a>
-    • <a href="https://github.com/spencermountain/spacetime-week">spacetime-week</a>
-  </div>
+<div align="right">
+  <a href="https://github.com/spencermountain/spacetime/wiki/Typescript">ts docs</a>
 </div>
 
-### [Date Inputs:](https://github.com/spencermountain/spacetime/wiki/Input)
 
+<img height="40px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+
+### Date Inputs:
+we can parse *[all the basic stuff](https://github.com/spencermountain/spacetime/wiki/Input)*, and some fancy stuff:
 ```js
 //epoch
 s = spacetime(1489520157124)
@@ -117,8 +169,10 @@ s = spacetime.today() // This morning
 s = spacetime.tomorrow() // Tomorrow morning
 ```
 
-### Get & Set dates:
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
+### Get & Set dates:
+you can whip things around, but stay intuitive
 ```js
 s.date() // 14
 s.year() // 2017
@@ -161,6 +215,10 @@ s.isValid() // Sept 32nd → false
 s.isAwake() // it's between 8am → 10pm
 s.json() // get values in every unit as key-val object
 ```
+if it's ***9am on tuesday***, and you <i>add a week</i>, it will still be 9am on tuesday.
+... even if some crazy DST-changes happen.
+
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 ### Comparisons:
 
@@ -185,50 +243,33 @@ s.diff(d, 'month') // 0
 let before = spacetime([2018, 3, 28])
 let now = spacetime([2017, 3, 28]) //one year later
 now.since(before)
-/* {
-    diff: {
-      years: 0,
-      months: 11,
-      days: 30,
-      hours: 23,
-      minutes: 59,
-      seconds: 59
-    },
-    rounded: 'in 12 months',
-    qualified: 'in almost 12 months',
-    precise: 'in 11 months, 30 days'
-  }
-*/
+// {diff: { months: 11, days: 30, ...},  rounded: 'in 12 months'  }
 ```
-all comparisons are computed with timezone sensitivity - *8am EST is before 8am PST*.
+all comparisons are done with sensitivity of timezone - ***8am EST*** is < ***8am PST***.
 
-it's sometimes confusing how `.diff()` and `.since()` are different:
-
-```js
-spacetime('January 1 2017').diff('December 30 2016', 'year')
-// returns 1
-spacetime('January 1 2017').since('December 31 2016').diff
-// returns {years:0, months:0, days:1}
-```
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 ### Timezones:
 
+the best way to describe a timezone is an [IANA code](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones):
 ```js
 // Roll into a new timezone, at the same moment
 s = s.goto('Australia/Brisbane')
 ```
 
-this is the safest way to declare a timezone, using an [IANA name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
-if you want to support more relaxed timezone names like `'EST'`, `Eastern time`, use [timezone-soft](https://github.com/spencermountain/timezone-soft/)
+if you want to support relaxed timezone names like `'EST'`, `Eastern time`, use [timezone-soft](https://github.com/spencermountain/timezone-soft/)
 
 ```js
-s = s.goto('Jamaica') // "America/Jamaica"
+spacetime.extend(require('timezone-soft'))
+
+s = s.goto('milwaukee') // 'America/Chicago'
 s = s.goto('-7h') // UTC-7
 s = s.goto('GMT+8') // -8h!
 // (these should be used with some caution)
 ```
 
+this is, *as far as I know,* the easiest way to play-around with timezones, and their DST-changes:
 ```js
 //list timezones by their current time
 spacetime.whereIts('8:30pm', '9:30pm') // ['America/Winnipeg', 'America/Yellowknife'... ]
@@ -244,15 +285,21 @@ s.isDST() // True
 //list all timezones
 spacetime.timezones()
 ```
+you can flip-around the world pretty quick.
 
-if you want to refer to the current computer's local tz, you can use `.goto(null)`
+spacetime will use your local timezone, by default:
+
+`.goto(null)` will pluck your current tz safely from your browser or computer. 
 ```js
 spacetime().time('4:30pm').goto('Europe/Paris').goto(null).time()
 // 4:30pm
 ```
 
-### [Date Formatting](https://github.com/spencermountain/spacetime/wiki/Formatting):
 
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+### Date Formatting:
+it's *[a pretty-sensible process](https://github.com/spencermountain/spacetime/wiki/Formatting)* to create nice-looking dates:
 ```js
 // Date + time formatting
 s.format('time') // '5:01am'
@@ -270,6 +317,13 @@ s.format('{time}{ampm} sharp') // '2:30pm sharp'
 //if you prefer, you can also use unix-formatting
 s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
 ```
+
+<!-- spacer -->
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/399657/68221814-05ed1680-ffb8-11e9-8b6b-c7528d163871.png"/>
+</div>
+
 
 ## Limitations & caveats
 
@@ -304,7 +358,15 @@ Add 10 minutes at `1:55am`, and a spacetime diff may show `-50mins`. Within an h
 
 Springtime DST changes are generally smoother than Fall ones. 
 
-## Options
+<!-- spacer -->
+<div align="center">
+  <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+</div>
+<div align="center">
+  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221632-b9094000-ffb7-11e9-99e0-b48edd6cdf8a.png"/>
+</div>
+
+### Config:
 
 #### Ambiguity warnings:
 
@@ -434,17 +496,23 @@ s.dayName()
 //saturday
 ```
 
-### See also:
-
-- [Luxon](https://moment.github.io/luxon/) - a small library from the clever moment people
-- [date-fns](https://date-fns.org/) - an battle-hardened client-side Date utility
-- [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) - some pretty weird, but [mostly-supported](https://caniuse.com/#feat=internationalization) in-browser date utilities
-
-Thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
-
+<!-- spacer -->
 <div align="center">
-  <div>Made with caution and patience</div>
-  <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a></div>
+  <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 </div>
+<div align="center">
+  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
+</div>
+
+#### See also:
+
+- [luxon](https://moment.github.io/luxon/) - a small library from the clever moment people
+- [date-fns](https://date-fns.org/) - an battle-hardened client-side Date utility
+- [sugarjs/dates](https://sugarjs.com/dates/) - well-made date fns + timezone math
+- [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) - some  *[sorta-green](https://caniuse.com/#feat=internationalization)* in-browser date utilities
+
+thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
+
+
 
 Apache 2.0
