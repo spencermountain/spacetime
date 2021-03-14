@@ -2,6 +2,7 @@
 const calculate = function (date) {
 	let start = date.startOf('month')
 	let monday = start.startOf('week') //.minus(1, 'second')
+
 	let weeks = []
 	let d = monday
 	for (let w = 0; w < 6; w += 1) {

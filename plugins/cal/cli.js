@@ -5,11 +5,10 @@ const importJsx = require('import-jsx')
 const { render } = require('ink')
 const minimist = require('minimist')
 const parseDate = require('./parseStr')
-
 const App = importJsx('./src/App')
+const Help = importJsx('./src/_help')
 
 const defaults = {
-	// timezone: null
 	months: 1
 }
 
@@ -38,9 +37,29 @@ if (opts.year) {
 	res.start = res.start.startOf('year')
 }
 
+if (opts.sunday) {
+	res.start = res.start.weekStart('sunday')
+}
+if (opts.monday) {
+	res.start = res.start.weekStart('monday')
+}
+if (opts.saturday) {
+	res.start = res.start.weekStart('saturday')
+}
+if (opts.friday) {
+	res.start = res.start.weekStart('friday')
+}
+
 let data = {
 	start: res.start,
 	end: res.end,
 	opts: opts
 }
-render(React.createElement(App, data))
+
+if (opts.help) {
+	render(React.createElement(Help))
+	// process.exit()
+	// return
+} else {
+	render(React.createElement(App, data))
+}

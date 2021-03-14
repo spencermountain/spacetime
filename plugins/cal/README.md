@@ -46,6 +46,8 @@ i mean,
 spacetime-cal --monday
 ```
 
+### Options
+
 Built with [spacetime](https://github.com/spencermountain/spacetime), [compromise-dates](https://github.com/spencermountain/compromise/tree/master/plugins/dates), and [Ink](https://github.com/vadimdemedes/ink).
 
 MIT
