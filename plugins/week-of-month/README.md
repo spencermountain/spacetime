@@ -25,9 +25,12 @@ Broadly, we think of a month as having 4 weeks, but when people say 'the 1st wee
 
 The **1st week of May** is defined as the first week *with a Thursday* in it. 
 
-This means that ***May 2nd*** is the ***5th week*** of April.
-<img width="602" alt="image" src="https://user-images.githubusercontent.com/399657/111074760-fab6ce80-84ba-11eb-9e88-875c485f9f8a.png">
-and March 30th and 31st
+This means that first 3 days of October are in the ***5th week of September***:
+![image](https://user-images.githubusercontent.com/399657/111084979-93654280-84eb-11eb-8853-923c516a3032.png)
+
+
+and the last 3 days of June, will be the **1st week of July**.
+![image](https://user-images.githubusercontent.com/399657/111084924-3a95aa00-84eb-11eb-9afd-33418a8dd1e7.png)
 
 
 This is a spacetime plugin to calculate this, for a given day.

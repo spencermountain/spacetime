@@ -15,6 +15,17 @@
   <hr/>
 </div>
 
+Isn't it weird how we can all do some math in our head, but not date-math?
+
+and worse, there is no real *calculator* to use for date-math.
+
+i usually end up 
+```js
+
+```
+
+---
+
 - calculate time in remote timezones
 - support **daylight savings**, **leap years**, and **hemispheres**
 - [Moment-like](https://beta.observablehq.com/@spencermountain/spacetime-api) 💘 API (but immutable!)
