@@ -37,7 +37,7 @@ npx spacetime-cal
 <!-- spacer -->
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-Unix applications have a real aesthetic - here's how you can get the weeks to start on a Monday, using `cal` [¹](http://hints.macworld.com/article.php?story=20040625094428394)- 
+Unix applications have a real aesthetic - here's how you can get the weeks to start on a Monday, using `cal` [¹](http://hints.macworld.com/article.php?story=20040625094428394)
 ```bash
 cal | awk '{ print " "$0; getline; print " Mo Tu We Th Fr Sa Su"; \
 getline; if (substr($0,1,2) == " 1") print "                    1 "; \
@@ -52,6 +52,6 @@ spacetime-cal --monday
 
 ### Options
 
-Built with [spacetime](https://github.com/spencermountain/spacetime), [compromise-dates](https://github.com/spencermountain/compromise/tree/master/plugins/dates), and [Ink](https://github.com/vadimdemedes/ink).
+Built with [Ink](https://github.com/vadimdemedes/ink), [spacetime](https://github.com/spencermountain/spacetime), and [compromise-dates](https://github.com/spencermountain/compromise/tree/master/plugins/dates)
 
 MIT

@@ -6,17 +6,16 @@
   "bin": {
     "space-age": "cli.js"
   },
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-age",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/space-age",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spencermountain/spacetime.git"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=8"
   },
   "scripts": {
-    "test": "",
-    "watch": "amble ./cli.js"
+    "test": ""
   },
   "prettier": {
     "trailingComma": "none",

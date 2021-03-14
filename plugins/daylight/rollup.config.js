@@ -33,7 +33,7 @@ export default [
         file: 'builds/spacetime-daylight.js',
         format: 'umd',
         sourcemap: false,
-        name: 'spacetime'
+        name: 'spacetimeDaylight'
       }
     ],
     plugins: [
@@ -54,7 +54,7 @@ export default [
         banner: banner,
         file: 'builds/spacetime-daylight.min.js',
         format: 'umd',
-        name: 'spacetime'
+        name: 'spacetimeDaylight'
       }
     ],
     plugins: [

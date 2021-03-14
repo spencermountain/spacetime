@@ -103,16 +103,7 @@ s.isAfter(s.time('11:00am'))
 
   <img height="40px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-  <!-- <div>
-    <a href="https://github.com/spencermountain/spacetime-geo">spacetime-geo</a>
-    • <a href="https://github.com/spencermountain/timezone-soft">timezone-soft</a>
-    • <a href="https://github.com/spencermountain/spacetime-daylight">spacetime-daylight</a>
-  </div>
-  <div>
-    <a href="https://github.com/spencermountain/sometime">spacetime-calendar</a>
-    • <a href="https://github.com/spencermountain/spacetime-week">spacetime-week</a>
-  </div> -->
-</div>
+ </div>
 
 
 
@@ -139,8 +130,22 @@ d.format('nice')
   <a href="https://github.com/spencermountain/spacetime/wiki/Typescript">ts docs</a>
 </div>
 
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<img height="40px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+ plugins:
+ <div align="center">
+    <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/geo">spacetime-geo</a>
+    • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/daylight">spacetime-daylight</a>
+    • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/age">spacetime-age</a>
+  </div>
+  <div align="center">
+    <a href="https://github.com/spencermountain/somehow-calendar">somehow-calendar</a>
+    • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/week-of-month">week-of-month</a>
+    • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/week-start">week-start</a>
+  </div> 
+
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 
 ### Date Inputs:

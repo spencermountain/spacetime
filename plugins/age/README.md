@@ -21,14 +21,9 @@
 </div>
 <p></p>
 
-command-line api:
-```bash
-npx space-age may 18 1984
+a spacetime plugin to reckon a person's age, in any unit, given their birthday.
 
-npx space-age may 1st 1984 --months
-```
-
-javascript api:
+### javascript api:
 ```js
 const spacetime = require('spacetime')
 spacetime.extend(require('space-age'))
@@ -45,6 +40,14 @@ s.age('days')
 s.age('months')
 // 441
 ```
+
+### command-line api:
+```bash
+npx space-age may 18 1984
+
+npx space-age may 1st 1984 --months
+```
+or you can install it locally with `npm i -g space-age`
 
 
 MIT
