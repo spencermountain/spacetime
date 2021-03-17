@@ -2141,5 +2141,90 @@ module.exports = {
   'etc/zulu': {
     offset: 0,
     hem: 'n'
+  },
+
+  'america/argentina/la_rioja': {
+    offset: -3,
+    hem: 's'
+  },
+  'america/argentina/rio_gallegos': {
+    offset: -3,
+    hem: 's'
+  },
+  'america/argentina/salta': {
+    offset: -3,
+    hem: 's'
+  },
+  'america/argentina/san_juan': {
+    offset: -3,
+    hem: 's'
+  },
+  'america/argentina/san_luis': {
+    offset: -3,
+    hem: 's'
+  },
+  'america/argentina/tucuman': {
+    offset: -3,
+    hem: 's'
+  },
+  'america/argentina/ushuaia': {
+    offset: -3,
+    hem: 's'
+  },
+
+  'america/indiana/knox': {
+    offset: -5,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
+  },
+  'america/indiana/tell_city': {
+    offset: -5,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
+  },
+  'america/north_dakota/beulah': {
+    offset: -5,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
+  },
+  'america/north_dakota/center': {
+    offset: -5,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
+  },
+  'america/north_dakota/new_salem': {
+    offset: -5,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
+  },
+  'america/indiana/marengo': {
+    offset: -4,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
+  },
+  'america/indiana/petersburg': {
+    offset: -4,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
+  },
+  'america/indiana/vevay': {
+    offset: -4,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
+  },
+  'america/indiana/vincennes': {
+    offset: -4,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
+  },
+  'america/indiana/winamac': {
+    offset: -4,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
+  },
+  'america/kentucky/monticello': {
+    offset: -4,
+    hem: 'n',
+    dst: '03/14:02->11/07:02'
   }
 }

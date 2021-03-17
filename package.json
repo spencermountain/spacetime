@@ -37,13 +37,12 @@
     "singleQuote": true,
     "printWidth": 100
   },
-  "dependencies": {},
   "devDependencies": {
-    "@babel/core": "7.13.8",
-    "@babel/preset-env": "7.13.9",
+    "@babel/core": "7.13.10",
+    "@babel/preset-env": "7.13.10",
     "codecov": "3.8.1",
     "nyc": "^15.1.0",
-    "rollup": "2.40.0",
+    "rollup": "2.41.4",
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-filesize-check": "0.0.1",

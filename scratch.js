@@ -1,5 +1,6 @@
 const spacetime = require('./src/index')
-spacetime.extend(require('./plugins/age/src/index.js'))
+// spacetime.extend(require('./plugins/age/src/index.js'))
 
-let s = spacetime('may 17 1984')
-console.log(s.age('months'))
+let s = spacetime.now('america/indiana/marengo')
+console.log(s.time())
+console.log(s.timezone())

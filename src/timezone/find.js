@@ -31,11 +31,11 @@ const lookupTz = (str, zones) => {
     console.error("Timezone must be a string - recieved: '", str, "'\n")
   }
   let tz = str.trim()
-  let split = str.split('/')
+  // let split = str.split('/')
   //support long timezones like 'America/Argentina/Rio_Gallegos'
-  if (split.length > 2 && zones.hasOwnProperty(tz) === false) {
-    tz = split[0] + '/' + split[1]
-  }
+  // if (split.length > 2 && zones.hasOwnProperty(tz) === false) {
+  //   tz = split[0] + '/' + split[1]
+  // }
   tz = tz.toLowerCase()
   if (zones.hasOwnProperty(tz) === true) {
     return tz
