@@ -15,10 +15,6 @@ module.exports = {
     offset: 1,
     hem: 'n'
   },
-  'africa/asmara': {
-    offset: 3,
-    hem: 'n'
-  },
   'africa/asmera': {
     offset: 3,
     hem: 'n'
@@ -202,10 +198,6 @@ module.exports = {
     offset: 0,
     hem: 'n'
   },
-  'africa/timbuktu': {
-    offset: 0,
-    hem: 'n'
-  },
   'africa/tripoli': {
     offset: 2,
     hem: 'n'
@@ -252,15 +244,6 @@ module.exports = {
     offset: -4,
     hem: 's',
     dst: '03/27:24->10/03:00'
-  },
-  'america/atikokan': {
-    offset: -5,
-    hem: 'n'
-  },
-  'america/atka': {
-    offset: -9,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
   },
   'america/bahia': {
     offset: -3,
@@ -409,19 +392,9 @@ module.exports = {
     offset: -6,
     hem: 'n'
   },
-  'america/ensenada': {
-    offset: -7,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
-  },
   'america/fort_nelson': {
     offset: -7,
     hem: 'n'
-  },
-  'america/fort_wayne': {
-    offset: -4,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
   },
   'america/fortaleza': {
     offset: -3,
@@ -518,11 +491,6 @@ module.exports = {
     offset: -4,
     hem: 'n',
     dst: '03/12:03->11/05:01'
-  },
-  'america/knox_in': {
-    offset: -5,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
   },
   'america/kralendijk': {
     offset: -4,
@@ -656,11 +624,6 @@ module.exports = {
     offset: -2,
     hem: 'n'
   },
-  'america/nuuk': {
-    offset: -3,
-    hem: 'n',
-    dst: '03/27:22->10/30:23'
-  },
   'america/north_dakota': {
     offset: -5,
     hem: 'n',
@@ -695,10 +658,6 @@ module.exports = {
   },
   'america/port_of_spain': {
     offset: -4,
-    hem: 'n'
-  },
-  'america/porto_acre': {
-    offset: -5,
     hem: 'n'
   },
   'america/porto_velho': {
@@ -740,10 +699,6 @@ module.exports = {
     offset: -5,
     hem: 's'
   },
-  'america/rosario': {
-    offset: -3,
-    hem: 'n'
-  },
   'america/santa_isabel': {
     offset: -7,
     hem: 'n',
@@ -770,11 +725,6 @@ module.exports = {
     offset: 0,
     hem: 'n',
     dst: '03/28:00->10/31:01'
-  },
-  'america/shiprock': {
-    offset: -6,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
   },
   'america/sitka': {
     offset: -8,
@@ -843,10 +793,6 @@ module.exports = {
     hem: 'n',
     dst: '03/14:02->11/07:02'
   },
-  'america/virgin': {
-    offset: -4,
-    hem: 'n'
-  },
   'america/whitehorse': {
     offset: -7,
     hem: 'n',
@@ -903,11 +849,6 @@ module.exports = {
     offset: -3,
     hem: 's'
   },
-  'antarctica/south_pole': {
-    offset: 12,
-    hem: 's',
-    dst: '04/04:03->09/26:02'
-  },
   'antarctica/syowa': {
     offset: 3,
     hem: 's'
@@ -952,10 +893,6 @@ module.exports = {
     hem: 'n'
   },
   'asia/ashgabat': {
-    offset: 5,
-    hem: 'n'
-  },
-  'asia/ashkhabad': {
     offset: 5,
     hem: 'n'
   },
@@ -1008,20 +945,8 @@ module.exports = {
     offset: 8,
     hem: 'n'
   },
-  'asia/chongqing': {
-    offset: 8,
-    hem: 'n'
-  },
-  'asia/chungking': {
-    offset: 8,
-    hem: 'n'
-  },
   'asia/colombo': {
     offset: 5.5,
-    hem: 'n'
-  },
-  'asia/dacca': {
-    offset: 6,
     hem: 'n'
   },
   'asia/damascus': {
@@ -1055,18 +980,10 @@ module.exports = {
     hem: 'n',
     dst: '03/27:00->10/30:01'
   },
-  'asia/harbin': {
-    offset: 8,
-    hem: 'n'
-  },
   'asia/hebron': {
     offset: 3,
     hem: 'n',
     dst: '03/27:00->10/30:01'
-  },
-  'asia/ho_chi_minh': {
-    offset: 7,
-    hem: 'n'
   },
   'asia/hong_kong': {
     offset: 8,
@@ -1078,10 +995,6 @@ module.exports = {
   },
   'asia/irkutsk': {
     offset: 8,
-    hem: 'n'
-  },
-  'asia/istanbul': {
-    offset: 3,
     hem: 'n'
   },
   'asia/jakarta': {
@@ -1109,24 +1022,12 @@ module.exports = {
     offset: 5,
     hem: 'n'
   },
-  'asia/kashgar': {
-    offset: 6,
-    hem: 'n'
-  },
-  'asia/kathmandu': {
-    offset: 5.75,
-    hem: 'n'
-  },
   'asia/katmandu': {
     offset: 5.75,
     hem: 'n'
   },
   'asia/khandyga': {
     offset: 9,
-    hem: 'n'
-  },
-  'asia/kolkata': {
-    offset: 5.5,
     hem: 'n'
   },
   'asia/krasnoyarsk': {
@@ -1143,10 +1044,6 @@ module.exports = {
   },
   'asia/kuwait': {
     offset: 3,
-    hem: 'n'
-  },
-  'asia/macao': {
-    offset: 8,
     hem: 'n'
   },
   'asia/macau': {
@@ -1218,10 +1115,6 @@ module.exports = {
     offset: 6.5,
     hem: 'n'
   },
-  'asia/yangon': {
-    offset: 6.5,
-    hem: 'n'
-  },
   'asia/riyadh': {
     offset: 3,
     hem: 'n'
@@ -1271,15 +1164,6 @@ module.exports = {
     hem: 'n',
     dst: '03/22:00->09/21:24'
   },
-  'asia/tel_aviv': {
-    offset: 3,
-    hem: 'n',
-    dst: '03/26:02->10/31:02'
-  },
-  'asia/thimbu': {
-    offset: 6,
-    hem: 'n'
-  },
   'asia/thimphu': {
     offset: 6,
     hem: 'n'
@@ -1292,18 +1176,9 @@ module.exports = {
     offset: 7,
     hem: 'n'
   },
-  'asia/ujung_pandang': {
-    offset: 8,
-    hem: 'n'
-  },
   'asia/ulaanbaatar': {
     offset: 8,
     hem: 'n'
-  },
-  'asia/ulan_bator': {
-    offset: 8,
-    hem: 'n',
-    dst: '03/25:03->09/29:23'
   },
   'asia/urumqi': {
     offset: 6,
@@ -1357,16 +1232,6 @@ module.exports = {
     hem: 'n',
     dst: '03/28:01->10/31:02'
   },
-  'atlantic/faroe': {
-    offset: 1,
-    hem: 'n',
-    dst: '03/28:01->10/31:02'
-  },
-  'atlantic/jan_mayen': {
-    offset: 2,
-    hem: 'n',
-    dst: '03/28:02->10/31:03'
-  },
   'atlantic/madeira': {
     offset: 1,
     hem: 'n',
@@ -1388,11 +1253,6 @@ module.exports = {
     offset: -3,
     hem: 's'
   },
-  'australia/act': {
-    offset: 10,
-    hem: 's',
-    dst: '04/04:03->10/03:02'
-  },
   'australia/adelaide': {
     offset: 9.5,
     hem: 's',
@@ -1404,11 +1264,6 @@ module.exports = {
   },
   'australia/broken_hill': {
     offset: 9.5,
-    hem: 's',
-    dst: '04/04:03->10/03:02'
-  },
-  'australia/canberra': {
-    offset: 10,
     hem: 's',
     dst: '04/04:03->10/03:02'
   },
@@ -1430,11 +1285,6 @@ module.exports = {
     hem: 's',
     dst: '04/04:03->10/03:02'
   },
-  'australia/lhi': {
-    offset: 10.5,
-    hem: 's',
-    dst: '04/04:01->10/03:02'
-  },
   'australia/lindeman': {
     offset: 10,
     hem: 's'
@@ -1449,120 +1299,14 @@ module.exports = {
     hem: 's',
     dst: '04/04:03->10/03:02'
   },
-  'australia/nsw': {
-    offset: 10,
-    hem: 's',
-    dst: '04/04:03->10/03:02'
-  },
-  'australia/north': {
-    offset: 9.5,
-    hem: 's'
-  },
   'australia/perth': {
     offset: 8,
     hem: 's'
-  },
-  'australia/queensland': {
-    offset: 10,
-    hem: 's'
-  },
-  'australia/south': {
-    offset: 9.5,
-    hem: 's',
-    dst: '04/04:03->10/03:02'
   },
   'australia/sydney': {
     offset: 10,
     hem: 's',
     dst: '04/04:03->10/03:02'
-  },
-  'australia/tasmania': {
-    offset: 10,
-    hem: 's',
-    dst: '04/04:03->10/03:02'
-  },
-  'australia/victoria': {
-    offset: 10,
-    hem: 's',
-    dst: '04/04:03->10/03:02'
-  },
-  'australia/west': {
-    offset: 8,
-    hem: 's'
-  },
-  'australia/yancowinna': {
-    offset: 9.5,
-    hem: 's',
-    dst: '04/04:03->10/03:02'
-  },
-  'brazil/acre': {
-    offset: -5,
-    hem: 's'
-  },
-  'brazil/denoronha': {
-    offset: -2,
-    hem: 's'
-  },
-  'brazil/east': {
-    offset: -3,
-    hem: 's'
-  },
-  'brazil/west': {
-    offset: -4,
-    hem: 's'
-  },
-  'canada/atlantic': {
-    offset: -3,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
-  },
-  'canada/central': {
-    offset: -5,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
-  },
-  'canada/east-saskatchewan': {
-    offset: -6,
-    hem: 'n'
-  },
-  'canada/eastern': {
-    offset: -4,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
-  },
-  'canada/mountain': {
-    offset: -6,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
-  },
-  'canada/newfoundland': {
-    offset: -2.5,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
-  },
-  'canada/pacific': {
-    offset: -7,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
-  },
-  'canada/saskatchewan': {
-    offset: -6,
-    hem: 'n'
-  },
-  'canada/yukon': {
-    offset: -7,
-    hem: 'n',
-    dst: '03/08:02->11/01:01'
-  },
-  'chile/continental': {
-    offset: -4,
-    hem: 's',
-    dst: '04/03:24->09/05:00'
-  },
-  'chile/easterisland': {
-    offset: -6,
-    hem: 's',
-    dst: '04/03:22->09/04:22'
   },
   'europe/amsterdam': {
     offset: 2,
@@ -1582,11 +1326,6 @@ module.exports = {
     offset: 3,
     hem: 'n',
     dst: '03/28:03->10/31:04'
-  },
-  'europe/belfast': {
-    offset: 1,
-    hem: 'n',
-    dst: '03/28:01->10/31:02'
   },
   'europe/belgrade': {
     offset: 2,
@@ -1728,11 +1467,6 @@ module.exports = {
     offset: 3,
     hem: 'n'
   },
-  'europe/nicosia': {
-    offset: 3,
-    hem: 'n',
-    dst: '03/28:03->10/31:04'
-  },
   'europe/oslo': {
     offset: 2,
     hem: 'n',
@@ -1807,11 +1541,6 @@ module.exports = {
   },
   'europe/tirane': {
     offset: 2,
-    hem: 'n',
-    dst: '03/28:02->10/31:03'
-  },
-  'europe/tiraspol': {
-    offset: 3,
     hem: 'n',
     dst: '03/28:02->10/31:03'
   },
@@ -1916,21 +1645,6 @@ module.exports = {
     offset: 4,
     hem: 's'
   },
-  'mexico/bajanorte': {
-    offset: -7,
-    hem: 'n',
-    dst: '03/14:02->11/07:02'
-  },
-  'mexico/bajasur': {
-    offset: -6,
-    hem: 'n',
-    dst: '04/04:02->10/31:02'
-  },
-  'mexico/general': {
-    offset: -5,
-    hem: 'n',
-    dst: '04/04:02->10/31:02'
-  },
   'pacific/apia': {
     offset: 13,
     hem: 's',
@@ -1949,10 +1663,6 @@ module.exports = {
     offset: 12.75,
     hem: 's',
     dst: '04/04:03->04/04:02'
-  },
-  'pacific/chuuk': {
-    offset: 10,
-    hem: 'n'
   },
   'pacific/easter': {
     offset: -6,
@@ -2057,10 +1767,6 @@ module.exports = {
     offset: -8,
     hem: 'n'
   },
-  'pacific/pohnpei': {
-    offset: 11,
-    hem: 'n'
-  },
   'pacific/ponape': {
     offset: 11,
     hem: 'n'
@@ -2075,10 +1781,6 @@ module.exports = {
   },
   'pacific/saipan': {
     offset: 10,
-    hem: 'n'
-  },
-  'pacific/samoa': {
-    offset: -11,
     hem: 'n'
   },
   'pacific/tahiti': {
@@ -2106,27 +1808,7 @@ module.exports = {
     offset: 12,
     hem: 'n'
   },
-  'pacific/yap': {
-    offset: 10,
-    hem: 'n'
-  },
   'etc/gmt': {
-    offset: 0,
-    hem: 'n'
-  },
-  'etc/gmt+0': {
-    offset: 0,
-    hem: 'n'
-  },
-  'etc/gmt-0': {
-    offset: 0,
-    hem: 'n'
-  },
-  'etc/gmt0': {
-    offset: 0,
-    hem: 'n'
-  },
-  'etc/greenwich': {
     offset: 0,
     hem: 'n'
   },
@@ -2134,15 +1816,6 @@ module.exports = {
     offset: 0,
     hem: 'n'
   },
-  'etc/universal': {
-    offset: 0,
-    hem: 'n'
-  },
-  'etc/zulu': {
-    offset: 0,
-    hem: 'n'
-  },
-
   'america/argentina/la_rioja': {
     offset: -3,
     hem: 's'
@@ -2171,7 +1844,6 @@ module.exports = {
     offset: -3,
     hem: 's'
   },
-
   'america/indiana/knox': {
     offset: -5,
     hem: 'n',
