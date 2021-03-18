@@ -4448,6 +4448,18 @@ main.extend = function (obj) {
 main.timezones = function () {
   var s = new spacetime();
   return s.timezones;
+};
+
+main.max = function (tz, options) {
+  var s = new spacetime(null, tz, options);
+  s.epoch = 8640000000000000;
+  return s;
+};
+
+main.min = function (tz, options) {
+  var s = new spacetime(null, tz, options);
+  s.epoch = -8640000000000000;
+  return s;
 }; //find tz by time
 
 

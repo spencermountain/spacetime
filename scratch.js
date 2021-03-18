@@ -19,5 +19,8 @@ const alias = require('/Users/spencer/mountain/spacetime/plugins/better-dst/zone
 // })
 // console.log(Object.keys(zones).length)
 // console.log(JSON.stringify(zones, null, 2))
-let s = spacetime.min()
-console.log(s.iso())
+// let s = spacetime.min()
+// console.log(s.iso())
+
+let d = spacetime('2020-11-01T00:00:00', 'America/Chicago')
+console.log(d.iso())
