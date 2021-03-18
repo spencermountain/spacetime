@@ -1,0 +1,36 @@
+{
+  "name": "spacetime-daylight",
+  "version": "1.3.1",
+  "description": "calculate approximate sunlight times for a given timezone",
+  "main": "builds/spacetime-daylight.js",
+  "unpkg": "builds/spacetime-daylight.min.js",
+  "module": "builds/spacetime-daylight.mjs",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-daylight",
+  "scripts": {
+    "watch": "amble ./scratch.js",
+    "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
+    "build": "rollup -c --silent"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencermountain/spacetime.git"
+  },
+  "keywords": [
+    "sunlight",
+    "timezone"
+  ],
+  "author": "spencermountain@gmail.com",
+  "dependencies": {
+    "spacetime-geo": "1.2.0",
+    "suncalc": "^1.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.11.0",
+    "@babel/preset-env": "7.11.0",
+    "amble": "1.1.0",
+    "spacetime": "6.6.1",
+    "tap-dancer": "0.2.0",
+    "tape": "5.0.1"
+  },
+  "license": "MIT"
+}

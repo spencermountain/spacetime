@@ -85,4 +85,11 @@ export interface SpacetimeStatic extends SpacetimeConstructor {
 
   /** list timezones by their time */
   whereIts: (a: string, b?: string) => string[]
+
+  /** set as earliest-possible date */
+  min: (timezone?: string, options?: SpacetimeConstructorOptions) => Spacetime
+
+  /** set as furthest-possible future date */
+  max: (timezone?: string, options?: SpacetimeConstructorOptions) => Spacetime
+
 }

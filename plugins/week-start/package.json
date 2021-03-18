@@ -1,0 +1,38 @@
+{
+  "name": "spacetime-week-start",
+  "description": "calculate start-of-week",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "unpkg": "builds/spacetime-week.min.js",
+  "licence": "MIT",
+  "author": "Martin Spodniak & Spencer Kelly",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/week-start",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencermountain/spacetime.git"
+  },
+  "scripts": {
+    "watch": "amble scratch.js",
+    "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
+    "build": "rollup -c --silent"
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  },
+  "devDependencies": {
+    "@babel/core": "7.4.3",
+    "@babel/preset-env": "7.4.3",
+    "amble": "0.0.7",
+    "shelljs": "0.8.3",
+    "tap-dancer": "0.2.0",
+    "tape": "4.10.1",
+    "terser": "3.17.0"
+  },
+  "peerDependencies": {
+    "spacetime": "^5.8.2"
+  }
+}

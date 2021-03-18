@@ -1,32 +1,26 @@
 const spacetime = require('./src/index')
-spacetime.extend(require('./plugins/week-math/plugin.js'))
+// spacetime.extend(require('./plugins/age/src/index.js'))
+let zones = require('/Users/spencer/mountain/spacetime/zonefile/iana.js')
+const alias = require('/Users/spencer/mountain/spacetime/plugins/better-dst/zonefile/aliases.js')
 
-//
-//
-//
-//
-
-// let year = 2020
-// let start = spacetime('dec 1 ' + year)
-// let end = spacetime('jan 20 ' + (year + 1))
-// start.every(end, 'week').forEach((d) => {
-//   console.log(d.format(), d.week())
+// console.log(Object.keys(zones).length)
+// Object.keys(zones).forEach((k) => {
+//   if (alias[k]) {
+//     delete zones[k]
+//     // console.log(k)
+//     // if (zones[alias[k]]) {
+//     // } else {
+//     //   console.log(k, alias[k])
+//     //   console.log()
+//     // }
+//     // return false
+//   }
+//   // return true
 // })
+// console.log(Object.keys(zones).length)
+// console.log(JSON.stringify(zones, null, 2))
+// let s = spacetime.min()
+// console.log(s.iso())
 
-let num = 10.5
-let s = spacetime(null).date(num)
-console.log(s.format())
-// console.log(spacetime().isSame('year', spacetime.now()))
-
-// bug:
-// console.log(spacetime('2022-01-03').week())
-
-/*
-2020-12-07 50
-2020-12-14 51
-2020-12-21 52
-2020-12-28 53
-2021-01-04 2
-2021-01-11 3
-2021-01-18 4
-*/
+let d = spacetime('2020-11-01T00:00:00', 'America/Chicago')
+console.log(d.iso())

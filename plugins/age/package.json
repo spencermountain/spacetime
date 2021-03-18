@@ -1,0 +1,32 @@
+{
+  "name": "space-age",
+  "version": "0.0.1",
+  "description": "a CLI calendar",
+  "main": "cli.js",
+  "bin": {
+    "space-age": "cli.js"
+  },
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/space-age",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencermountain/spacetime.git"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  },
+  "dependencies": {
+    "minimist": "^1.2.5",
+    "spacetime": "^6.13.1"
+  },
+  "license": "MIT"
+}

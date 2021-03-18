@@ -31,7 +31,7 @@ const zeroPad = (str, len = 2) => {
   return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str
 }
 
-const parseLine = line => {
+const parseLine = (line) => {
   let arr = line.split(/ +/)
   let hour = arr[11].replace(/:[0-9:]+/, '')
   let min = arr[11].replace(/[0-9]{1,2}:([0-9]+):/, '$1')
@@ -63,14 +63,11 @@ const parseLine = line => {
   return obj
 }
 
-const parseTz = tz => {
-  let lines = sh
-    .exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`)
-    .toString()
-    .split('\n')
-  lines = lines.filter(l => l)
+const parseTz = (tz) => {
+  let lines = sh.exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n')
+  lines = lines.filter((l) => l)
   if (lines.length !== 0 && lines.length !== 4) {
-    console.error('weird: ' + lines.length + ' lines for ' + tz)
+    // console.error('weird: ' + lines.length + ' lines for ' + tz)
     return null
   }
   if (!lines.length) {
@@ -79,7 +76,7 @@ const parseTz = tz => {
   lines = lines.map(parseLine)
 
   //remove 'end-of' dst changes
-  lines = lines.filter(o => o.min !== '5959' && o.min !== '2959') //urgh :/
+  lines = lines.filter((o) => o.min !== '5959' && o.min !== '2959') //urgh :/
   let a = lines[0]
   let b = lines[1]
   //this weird format i made: "03/26:03->10/29:02"
@@ -93,7 +90,7 @@ const parseTz = tz => {
 const doAll = () => {
   let changes = 0
   let keys = Object.keys(data)
-  keys.forEach(k => {
+  keys.forEach((k) => {
     let obj = parseTz(k)
     if (obj) {
       //compare offsets

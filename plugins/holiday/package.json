@@ -1,0 +1,42 @@
+{
+  "name": "spacetime-holiday",
+  "description": "reckoning of common holiday dates ",
+  "version": "0.1.0",
+  "main": "builds/spacetime-holiday.js",
+  "unpkg": "builds/spacetime-holiday.min.js",
+  "module": "./builds/spacetime-holiday.mjs",
+  "type": "commonjs",
+  "author": "Spencer Kelly",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-holiday",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencermountain/spacetime.git"
+  },
+  "scripts": {
+    "watch": "amble scratch.js",
+    "build": "rollup -c --silent",
+    "test": "TESTENV=dev tape ./tests/**/*.test.js | tap-dancer",
+    "testb": "TESTENV=prod tape ./tests/**/*.test.js | tap-dancer"
+  },
+  "files": [
+    "builds/"
+  ],
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  },
+  "peerDependencies": {
+    "spacetime": "^6.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.12.9",
+    "@babel/preset-env": "7.12.7",
+    "amble": "1.2.0",
+    "tap-dancer": "0.3.1",
+    "tape": "5.0.1"
+  },
+  "licence": "MIT"
+}

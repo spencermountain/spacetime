@@ -1,25 +1,18 @@
 //turn our timezone data into a small-as-possible string
 const fs = require('fs')
-const iana = require('./iana')
+let iana = require('./iana')
+const aliases = require('./aliases')
 const prefixes = require('./_prefixes.js')
 let all = {}
 
-// const addHemisphere = function(res, obj, h) {
-//   Object.keys(obj).forEach((k) => {
-//     let val = obj[k]
-//     let key = val + '|' + h
-//     if (typeof val === 'string') {
-//       let found = iana[val]
-//       key = found.offset + '|' + h
-//     }
-//     res[key] = res[key] || []
-//     res[key].push(k)
-//   })
-//   return res
-// }
+// add aliases in
+Object.keys(aliases).forEach((k) => {
+  let found = iana[aliases[k]]
+  iana[k] = Object.assign({}, found)
+})
 
 //pack iana data into a [o|h] object
-Object.keys(iana).forEach(k => {
+Object.keys(iana).forEach((k) => {
   let o = iana[k]
   let key = o.offset + '|' + o.hem
   if (o.dst) {
@@ -43,7 +36,7 @@ Object.keys(iana).forEach(k => {
 let keys = Object.keys(all)
 keys = keys.sort((a, b) => (a < b ? 1 : -1))
 let result = {}
-keys.forEach(k => {
+keys.forEach((k) => {
   result[k] = all[k].join(',')
 })
 

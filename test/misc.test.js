@@ -185,3 +185,10 @@ test('weird inputs', (t) => {
   t.ok(isArr.isSame(now, 'hour'), 'isArr input')
   t.end()
 })
+
+test('min < max', (t) => {
+  let min = spacetime.min('Canada/Pacific')
+  let max = spacetime.max('Canada/Eastern')
+  t.ok(min.isBefore(max), 'min < max')
+  t.end()
+})

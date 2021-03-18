@@ -44,6 +44,17 @@ main.timezones = function () {
   let s = new Spacetime()
   return s.timezones
 }
+main.max = function (tz, options) {
+  let s = new Spacetime(null, tz, options)
+  s.epoch = 8640000000000000
+  return s
+}
+main.min = function (tz, options) {
+  let s = new Spacetime(null, tz, options)
+  s.epoch = -8640000000000000
+  return s
+}
+
 //find tz by time
 main.whereIts = whereIts
 main.version = version

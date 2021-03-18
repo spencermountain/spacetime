@@ -1,0 +1,56 @@
+{
+	"name": "spacetime-cal",
+	"version": "0.0.1",
+	"description": "a CLI calendar",
+	"main": "cli.js",
+	"bin": {
+		"spacetime-cal": "cli.js",
+		"scal": "cli.js"
+	},
+	"homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-cal",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/spencermountain/spacetime.git"
+	},
+	"engines": {
+		"node": ">=10"
+	},
+	"scripts": {
+		"test": "",
+		"watch": "amble ./cli.js"
+	},
+	"prettier": {
+		"trailingComma": "none",
+		"tabWidth": 2,
+		"semi": false,
+		"singleQuote": true,
+		"printWidth": 100
+	},
+	"babel": {
+		"presets": [
+			"@babel/preset-env",
+			"@babel/preset-react"
+		]
+	},
+	"dependencies": {
+		"compromise": "^13.10.2",
+		"compromise-dates": "^1.5.3",
+		"import-jsx": "^4.0.0",
+		"ink": "^3.0.8",
+		"meow": "^9.0.0",
+		"minimist": "^1.2.5",
+		"react": "^16.14.0",
+		"spacetime": "^6.13.1"
+	},
+	"devDependencies": {
+		"@ava/babel": "^1.0.1",
+		"@babel/preset-env": "^7.13.10",
+		"@babel/preset-react": "^7.12.13",
+		"@babel/register": "^7.13.8",
+		"chalk": "^4.1.0",
+		"eslint-config-xo-react": "^0.24.0",
+		"eslint-plugin-react": "^7.22.0",
+		"eslint-plugin-react-hooks": "^4.2.0"
+	},
+	"license": "MIT"
+}

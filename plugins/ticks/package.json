@@ -1,0 +1,41 @@
+{
+  "name": "spacetime-ticks",
+  "version": "0.2.1",
+  "description": "calculate the best breakpoints between two dates",
+  "main": "src/index.js",
+  "unpkg": "builds/spacetime-ticks.min.js",
+  "module": "builds/spacetime-ticks.mjs",
+  "author": "Spencer Kelly (spencermountain)",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "npm run start",
+    "start": "budo index.js:assets/bundle.js --live",
+    "build:demo": "browserify index.js -t [ babelify --presets [ @babel/preset-env ] ] | derequire > ./assets/bundle.js",
+    "version": "node ./scripts/version.js",
+    "filesize": "node ./scripts/filesize.js",
+    "build": "npm run version && rollup -c && npm run filesize"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencermountain/spacetime.git"
+  },
+  "bugs": {
+    "url": "https://github.com/spencermountain/spacetime/issues"
+  },
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-ticks",
+  "peerDependencies": {
+    "spacetime": "^6.1.0"
+  },
+  "devDependencies": {
+    "budo": "^11.6.3",
+    "derequire": "^2.0.6",
+    "htm": "2.2.1",
+    "somehow": "0.3.1",
+    "somehow-input": "0.0.9",
+    "spacetime": "6.1.0",
+    "spencer-color": "0.1.0",
+    "spencer-css": "1.1.3",
+    "vhtml": "2.1.0"
+  }
+}
