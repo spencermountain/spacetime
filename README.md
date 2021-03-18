@@ -23,7 +23,7 @@
 * *what time was it, 11 hours ago?*
 * *is it lunchtime in france?*
   
-and worse - there is no real ***calculator***.
+and worse - there is no real ***date calculator***.
 
 *people end up asking google, and going to weird websites.*
 
@@ -85,27 +85,6 @@ s.isAfter(s.time('11:00am'))
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 
-<div align="center">
-  <h3>
-    <a href="https://beta.observablehq.com/@spencermountain/spacetime">
-      Demo
-    </a>
-    &nbsp; &nbsp; • &nbsp; &nbsp;
-    <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
-      Full API
-    </a>
-  </h3>
-  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
-  <div>
-    <img width="550" src="https://user-images.githubusercontent.com/399657/50862221-1d904a00-1369-11e9-891c-5f4e9fbb9ec0.gif" />
-  </div>
-
-  <img height="40px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
- </div>
-
-
 
 `npm install spacetime`
 
@@ -130,7 +109,33 @@ d.format('nice')
   <a href="https://github.com/spencermountain/spacetime/wiki/Typescript">ts docs</a>
 </div>
 
+
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+
+<div align="center">
+  <h3>
+    <a href="https://beta.observablehq.com/@spencermountain/spacetime">
+      Demo
+    </a>
+    &nbsp; &nbsp; • &nbsp; &nbsp;
+    <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
+      Full API
+    </a>
+  </h3>
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+  <div>
+    <img width="550" src="https://user-images.githubusercontent.com/399657/50862221-1d904a00-1369-11e9-891c-5f4e9fbb9ec0.gif" />
+  </div>
+
+  <img height="40px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+ </div>
+
+
+
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 
  plugins:
@@ -149,7 +154,7 @@ d.format('nice')
 
 
 ### Date Inputs:
-we can parse *[all the basic stuff](https://github.com/spencermountain/spacetime/wiki/Input)*, and some fancy stuff:
+we can parse *[all the normal stuff](https://github.com/spencermountain/spacetime/wiki/Input)*, and some fancy stuff:
 ```js
 //epoch
 s = spacetime(1489520157124)
@@ -172,7 +177,10 @@ s = spacetime('2017-04-03T08:00:00-0700')
 s = spacetime.now()
 s = spacetime.today() // This morning
 s = spacetime.tomorrow() // Tomorrow morning
+s = spacetime.min() // the earliest-possible date (271,821 bc)
+s = spacetime.max() // the furthest-possible future date (27k years from now)
 ```
+for fancier natural-language inputs, use [compromise-dates](https://github.com/spencermountain/compromise/tree/master/plugins/dates).
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
@@ -221,7 +229,7 @@ s.isAwake() // it's between 8am → 10pm
 s.json() // get values in every unit as key-val object
 ```
 if it's ***9am on tuesday***, and you <i>add a week</i>, it will still be 9am on tuesday.
-... even if some crazy DST-changes happen.
+... even if some crazy changes happen.
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
@@ -274,7 +282,7 @@ s = s.goto('GMT+8') // -8h!
 // (these should be used with some caution)
 ```
 
-this is, *as far as I know,* the easiest way to play-around with timezones, and their DST-changes:
+play-around with timezones, and their DST-changes:
 ```js
 //list timezones by their current time
 spacetime.whereIts('8:30pm', '9:30pm') // ['America/Winnipeg', 'America/Yellowknife'... ]

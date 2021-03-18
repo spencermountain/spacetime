@@ -12,6 +12,7 @@ This project follows semVer, where:
 ### v6.14.0 [March 2021]
 - **[change]** - add missing timezones from indiana and argentina
 - **[change]** - set old timezones as aliases of newer ones
+- **[new]** - add min, max methods
 - update deps, and documentation
   
 ### v6.13.0 [March 2021]

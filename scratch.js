@@ -19,6 +19,5 @@ const alias = require('/Users/spencer/mountain/spacetime/plugins/better-dst/zone
 // })
 // console.log(Object.keys(zones).length)
 // console.log(JSON.stringify(zones, null, 2))
-let s = spacetime.now('canada/eastern')
-console.log(s.time())
-console.log(s.timezone())
+let s = spacetime.min()
+console.log(s.iso())
