@@ -6,6 +6,7 @@ This project follows semVer, where:
 
 
 <!-- ### [unreleased] 
+- **[fix]** - string parsing issue for tue/tues
 -->
 
 

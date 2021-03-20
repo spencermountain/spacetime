@@ -118,6 +118,7 @@ const parseInput = (s, input, givenTz) => {
     s = namedDates[input](s)
     return s
   }
+  // console.log(input)
   //try each text-parse template, use the first good result
   for (let i = 0; i < strFmt.length; i++) {
     let m = input.match(strFmt[i].reg)
