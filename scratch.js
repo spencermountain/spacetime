@@ -1,7 +1,7 @@
 const spacetime = require('./src/index')
-// spacetime.extend(require('./plugins/age/src/index.js'))
-let zones = require('/Users/spencer/mountain/spacetime/zonefile/iana.js')
-const alias = require('/Users/spencer/mountain/spacetime/plugins/better-dst/zonefile/aliases.js')
+spacetime.extend(require('./plugins/age/src/index.js'))
+// let zones = require('/Users/spencer/mountain/spacetime/zonefile/iana.js')
+// const alias = require('/Users/spencer/mountain/spacetime/plugins/better-dst/zonefile/aliases.js')
 
 // console.log(Object.keys(zones).length)
 // Object.keys(zones).forEach((k) => {
@@ -22,5 +22,7 @@ const alias = require('/Users/spencer/mountain/spacetime/plugins/better-dst/zone
 // let s = spacetime.min()
 // console.log(s.iso())
 
-let d = spacetime('2020-11-01T00:00:00', 'America/Chicago')
-console.log(d.iso())
+// let d = spacetime('Tue Mar 16')
+let d = spacetime('Tues Mar 16')
+// d = d.day('wednesday')
+console.log(d.format('nice-day'))
