@@ -17,7 +17,7 @@ const methods = {
   },
 
   //like 'wednesday' (hard!)
-  day: function (input) {
+  day: function (input, goForward) {
     if (input === undefined) {
       return this.d.getDay()
     }
@@ -38,6 +38,12 @@ const methods = {
     //move approx
     let day = this.d.getDay()
     let diff = day - want
+    if (goForward === true && diff > 0) {
+      diff = diff - 7
+    }
+    if (goForward === false && diff < 0) {
+      diff = diff + 7
+    }
     let s = this.subtract(diff, 'days')
     //tighten it back up
     walkTo(s, {

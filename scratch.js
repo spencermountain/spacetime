@@ -1,5 +1,5 @@
 const spacetime = require('./src/index')
-spacetime.extend(require('./plugins/age/src/index.js'))
+spacetime.extend(require('./plugins/dst/src/index.js'))
 // let zones = require('/Users/spencer/mountain/spacetime/zonefile/iana.js')
 // const alias = require('/Users/spencer/mountain/spacetime/plugins/better-dst/zonefile/aliases.js')
 
@@ -22,7 +22,9 @@ spacetime.extend(require('./plugins/age/src/index.js'))
 // let s = spacetime.min()
 // console.log(s.iso())
 
-let d = spacetime('dec 1919')
-// let d = spacetime('Sun Mar 14 15:09:48  +0000  2021')
-// d = d.day('wednesday')
-console.log(d.format('{nice-year} {time} {second}'))
+// let d = spacetime()
+// console.log(d.dst())
+
+let d = spacetime('march 17 2021') //wednesday
+d = d.day('tuesday', false)
+console.log(d.format('nice-day'))

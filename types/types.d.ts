@@ -213,7 +213,7 @@ export interface Spacetime {
   /** get the day of the week as an integer, starting on sunday (day-0) */
   day(): number
   /** set the day of the week as an integer, starting on sunday (day-0). Also accepts names like 'wednesday', or 'thurs' */
-  day(value: number | string): Spacetime
+  day(value: number | string, goForward?: boolean): Spacetime
 
   /** get the day of the week as lower-case string */
   dayName(): string

@@ -192,7 +192,11 @@ s.year() // 2017
 s.season() // Spring
 s = s.hour(5) // Change to 5am
 s = s.date(15) // Change to the 15th
+
 s = s.day('monday') // Change to (this week's) monday
+s = s.day('monday', true) // go forward to monday
+s = s.day('monday', false) // go backward to monday
+
 s = s.month('march') // Change to (this year's) March 1st
 s = s.quarter(2) // Change to April 1st
 s.era() // 'BC'/'AD'
