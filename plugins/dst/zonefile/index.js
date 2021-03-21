@@ -17,7 +17,6 @@ module.exports = [
       abbr: 'IST',
       offset: 5.5
     },
-    dst: {},
     long: '(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi',
     hem: 'n'
   },
@@ -31,7 +30,6 @@ module.exports = [
       name: 'China Standard Time',
       offset: 8
     },
-    dst: {},
     long: '(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi',
     hem: 'n'
   },
@@ -128,7 +126,6 @@ module.exports = [
       abbr: 'AST',
       offset: -4
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -160,7 +157,6 @@ module.exports = [
       abbr: 'GMT',
       offset: 0
     },
-    dst: {},
     long: '(UTC) Coordinated Universal Time',
     hem: 'n'
   },
@@ -198,7 +194,7 @@ module.exports = [
     hem: 'n'
   },
   {
-    name: '',
+    name: 'Central Standard Time',
     dupe: true,
     ids: [
       'America/Indiana',
@@ -282,7 +278,6 @@ module.exports = [
       abbr: 'ART',
       offset: -3
     },
-    dst: {},
     long: '(UTC-03:00) City of Buenos Aires',
     hem: 's'
   },
@@ -335,7 +330,6 @@ module.exports = [
       abbr: 'EAT',
       offset: 3
     },
-    dst: {},
     long: '(UTC+03:00) Nairobi',
     hem: 'n'
   },
@@ -387,7 +381,6 @@ module.exports = [
       name: 'Moscow Standard Time',
       offset: 3
     },
-    dst: {},
     long: '(UTC+03:00) Moscow, St. Petersburg',
     hem: 'n'
   },
@@ -410,7 +403,6 @@ module.exports = [
       name: 'Brasilia Standard Time',
       offset: -3
     },
-    dst: {},
     long: '(UTC-03:00) Brasilia',
     hem: 's'
   },
@@ -483,7 +475,6 @@ module.exports = [
       abbr: 'CAT',
       offset: 2
     },
-    dst: {},
     long: '(UTC+02:00) Windhoek',
     hem: 's'
   },
@@ -497,7 +488,6 @@ module.exports = [
       name: 'Arabian Standard Time',
       offset: 3
     },
-    dst: {},
     long: '(UTC+03:00) Kuwait, Riyadh',
     hem: 'n'
   },
@@ -584,7 +574,6 @@ module.exports = [
       abbr: 'CAT',
       offset: 2
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -604,7 +593,6 @@ module.exports = [
       name: 'Alma-Ata Time',
       offset: 5
     },
-    dst: {},
     long: '(UTC+05:00) Ashgabat, Tashkent',
     hem: 'n'
   },
@@ -675,7 +663,6 @@ module.exports = [
       name: 'Indochina Time',
       offset: 7
     },
-    dst: {},
     long: '(UTC+07:00) Bangkok, Hanoi, Jakarta',
     hem: 'n'
   },
@@ -746,7 +733,6 @@ module.exports = [
       abbr: 'SAST',
       offset: 2
     },
-    dst: {},
     long: '(UTC+02:00) Harare, Pretoria',
     hem: 's'
   },
@@ -760,7 +746,6 @@ module.exports = [
       name: 'Krasnoyarsk Standard Time',
       offset: 7
     },
-    dst: {},
     long: '(UTC+07:00) Krasnoyarsk',
     hem: 'n'
   },
@@ -774,7 +759,6 @@ module.exports = [
       name: 'Yakutsk Standard Time',
       offset: 9
     },
-    dst: {},
     long: '(UTC+09:00) Yakutsk',
     hem: 'n'
   },
@@ -812,7 +796,6 @@ module.exports = [
       name: 'Amazon Standard Time',
       offset: -4
     },
-    dst: {},
     long: '(UTC-04:00) Cuiaba',
     hem: 'n'
   },
@@ -882,7 +865,6 @@ module.exports = [
       abbr: 'GST',
       offset: 4
     },
-    dst: {},
     long: '(UTC+04:00) Abu Dhabi, Muscat',
     hem: 'n'
   },
@@ -896,7 +878,6 @@ module.exports = [
       name: 'Samara Standard Time',
       offset: 4
     },
-    dst: {},
     long: '(UTC+04:00) Izhevsk, Samara',
     hem: 'n'
   },
@@ -910,7 +891,6 @@ module.exports = [
       name: 'Uzbekistan Standard Time',
       offset: 5
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -923,7 +903,6 @@ module.exports = [
       name: 'East Kazakhstan Time',
       offset: 6
     },
-    dst: {},
     long: '(UTC+06:00) Astana',
     hem: 'n'
   },
@@ -937,7 +916,6 @@ module.exports = [
       name: 'Omsk Standard Time',
       offset: 6
     },
-    dst: {},
     long: '(UTC+06:00) Omsk',
     hem: 'n'
   },
@@ -951,7 +929,6 @@ module.exports = [
       abbr: 'WIB',
       offset: 7
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -964,7 +941,6 @@ module.exports = [
       name: 'Ulaanbaatar Standard Time',
       offset: 8
     },
-    dst: {},
     long: '(UTC+08:00) Ulaanbaatar',
     hem: 'n'
   },
@@ -978,7 +954,6 @@ module.exports = [
       abbr: 'MYT',
       offset: 8
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -991,7 +966,6 @@ module.exports = [
       name: 'Korean Standard Time',
       offset: 9
     },
-    dst: {},
     long: '(UTC+09:00) Seoul',
     hem: 'n'
   },
@@ -1034,7 +1008,6 @@ module.exports = [
       name: 'Vladivostok Standard Time',
       offset: 10
     },
-    dst: {},
     long: '(UTC+10:00) Vladivostok',
     hem: 'n'
   },
@@ -1055,7 +1028,6 @@ module.exports = [
       abbr: 'ChST',
       offset: 10
     },
-    dst: {},
     long: '(UTC+10:00) Guam, Port Moresby',
     hem: 'n'
   },
@@ -1069,7 +1041,6 @@ module.exports = [
       name: 'Papua New Guinea Time',
       offset: 11
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1100,7 +1071,6 @@ module.exports = [
       name: 'Marshall Islands Time',
       offset: 12
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1113,7 +1083,6 @@ module.exports = [
       name: 'Samoa Standard Time',
       offset: -11
     },
-    dst: {},
     long: '(UTC+13:00) Samoa',
     hem: 'n'
   },
@@ -1181,7 +1150,6 @@ module.exports = [
       abbr: 'COT',
       offset: -5
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1194,7 +1162,6 @@ module.exports = [
       name: 'Acre Standard Time',
       offset: -5
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1230,7 +1197,6 @@ module.exports = [
       abbr: 'GMT',
       offset: 0
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1276,7 +1242,6 @@ module.exports = [
       abbr: 'EAT',
       offset: 3
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1289,7 +1254,6 @@ module.exports = [
       name: 'Syowa Time',
       offset: 3
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1302,7 +1266,6 @@ module.exports = [
       abbr: 'TRT',
       offset: 3
     },
-    dst: {},
     long: '(UTC+03:00) Istanbul',
     hem: 'n'
   },
@@ -1334,7 +1297,6 @@ module.exports = [
       name: 'Azerbaijan Standard Time',
       offset: 4
     },
-    dst: {},
     long: '(UTC+04:00) Baku',
     hem: 'n'
   },
@@ -1348,7 +1310,6 @@ module.exports = [
       name: 'Georgia Standard Time',
       offset: 4
     },
-    dst: {},
     long: '(UTC+04:00) Tbilisi',
     hem: 'n'
   },
@@ -1362,7 +1323,6 @@ module.exports = [
       name: 'Armenia Standard Time',
       offset: 4
     },
-    dst: {},
     long: '(UTC+04:00) Yerevan',
     hem: 'n'
   },
@@ -1376,7 +1336,6 @@ module.exports = [
       name: 'Seychelles Time',
       offset: 4
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1389,7 +1348,6 @@ module.exports = [
       name: 'Mauritius Standard Time',
       offset: 4
     },
-    dst: {},
     long: '(UTC+04:00) Port Louis',
     hem: 'n'
   },
@@ -1403,7 +1361,6 @@ module.exports = [
       name: 'Réunion Time',
       offset: 4
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1416,7 +1373,6 @@ module.exports = [
       name: 'Afghanistan Time',
       offset: 4.5
     },
-    dst: {},
     long: '(UTC+04:30) Kabul',
     hem: 'n'
   },
@@ -1430,7 +1386,6 @@ module.exports = [
       name: 'Mawson Time',
       offset: 5
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1443,7 +1398,6 @@ module.exports = [
       abbr: 'TMT',
       offset: 5
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1456,7 +1410,6 @@ module.exports = [
       name: 'Tajikistan Time',
       offset: 5
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1469,7 +1422,6 @@ module.exports = [
       name: 'Pakistan Standard Time',
       offset: 5
     },
-    dst: {},
     long: '(UTC+05:00) Islamabad, Karachi',
     hem: 'n'
   },
@@ -1483,7 +1435,6 @@ module.exports = [
       name: 'Yekaterinburg Standard Time',
       offset: 5
     },
-    dst: {},
     long: '(UTC+05:00) Ekaterinburg',
     hem: 'n'
   },
@@ -1497,7 +1448,6 @@ module.exports = [
       name: 'French Southern & Antarctic Time',
       offset: 5
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1510,7 +1460,6 @@ module.exports = [
       name: 'Maldives Time',
       offset: 5
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1523,7 +1472,6 @@ module.exports = [
       name: 'Nepal Time',
       offset: 5.75
     },
-    dst: {},
     long: '(UTC+05:45) Kathmandu',
     hem: 'n'
   },
@@ -1537,7 +1485,6 @@ module.exports = [
       name: 'Vostok Time',
       offset: 6
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1550,7 +1497,6 @@ module.exports = [
       name: 'Kyrgyzstan Time',
       offset: 6
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1563,7 +1509,6 @@ module.exports = [
       name: 'Bangladesh Standard Time',
       offset: 6
     },
-    dst: {},
     long: '(UTC+06:00) Dhaka',
     hem: 'n'
   },
@@ -1577,7 +1522,6 @@ module.exports = [
       abbr: 'BT',
       offset: 6
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1590,7 +1534,6 @@ module.exports = [
       name: 'Indian Ocean Time',
       offset: 6
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1603,7 +1546,6 @@ module.exports = [
       name: 'Myanmar Time',
       offset: 6.5
     },
-    dst: {},
     long: '(UTC+06:30) Yangon (Rangoon)',
     hem: 'n'
   },
@@ -1617,7 +1559,6 @@ module.exports = [
       name: 'Cocos Islands Time',
       offset: 6.5
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1630,7 +1571,6 @@ module.exports = [
       name: 'Davis Time',
       offset: 7
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1643,7 +1583,6 @@ module.exports = [
       name: 'Hovd Standard Time',
       offset: 7
     },
-    dst: {},
     long: '(UTC+07:00) Hovd',
     hem: 'n'
   },
@@ -1657,7 +1596,6 @@ module.exports = [
       name: 'Novosibirsk Standard Time',
       offset: 7
     },
-    dst: {},
     long: '(UTC+07:00) Novosibirsk',
     hem: 'n'
   },
@@ -1671,7 +1609,6 @@ module.exports = [
       name: 'Christmas Island Time',
       offset: 7
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1684,7 +1621,6 @@ module.exports = [
       name: 'Brunei Darussalam Time',
       offset: 8
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1697,7 +1633,6 @@ module.exports = [
       abbr: 'HKT',
       offset: 8
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1710,7 +1645,6 @@ module.exports = [
       name: 'Irkutsk Standard Time',
       offset: 8
     },
-    dst: {},
     long: '(UTC+08:00) Irkutsk',
     hem: 'n'
   },
@@ -1724,7 +1658,6 @@ module.exports = [
       abbr: 'WITA',
       offset: 8
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1737,7 +1670,6 @@ module.exports = [
       name: 'Philippine Standard Time',
       offset: 8
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1750,7 +1682,6 @@ module.exports = [
       abbr: 'SGT',
       offset: 8
     },
-    dst: {},
     long: '(UTC+08:00) Kuala Lumpur, Singapore',
     hem: 's'
   },
@@ -1764,7 +1695,6 @@ module.exports = [
       name: 'Taipei Standard Time',
       offset: 8
     },
-    dst: {},
     long: '(UTC+08:00) Taipei',
     hem: 'n'
   },
@@ -1785,7 +1715,6 @@ module.exports = [
       abbr: 'AWST',
       offset: 8
     },
-    dst: {},
     long: '(UTC+08:00) Perth',
     hem: 's'
   },
@@ -1805,7 +1734,6 @@ module.exports = [
       abbr: 'ACWST',
       offset: 8.75
     },
-    dst: {},
     long: '(UTC+08:45) Eucla',
     hem: 's'
   },
@@ -1819,7 +1747,6 @@ module.exports = [
       name: 'East Timor Time',
       offset: 9
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1832,7 +1759,6 @@ module.exports = [
       abbr: 'WIT',
       offset: 9
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1845,7 +1771,6 @@ module.exports = [
       abbr: 'JST',
       offset: 9
     },
-    dst: {},
     long: '(UTC+09:00) Osaka, Sapporo, Tokyo',
     hem: 'n'
   },
@@ -1859,7 +1784,6 @@ module.exports = [
       name: 'Palau Time',
       offset: 9
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1883,7 +1807,6 @@ module.exports = [
       name: 'Dumont-d’Urville Time',
       offset: 10
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -1896,7 +1819,6 @@ module.exports = [
       name: 'Chuuk Time',
       offset: 10
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1943,7 +1865,6 @@ module.exports = [
       name: 'Magadan Standard Time',
       offset: 11
     },
-    dst: {},
     long: '(UTC+11:00) Magadan',
     hem: 'n'
   },
@@ -1957,7 +1878,6 @@ module.exports = [
       name: 'Sakhalin Standard Time',
       offset: 11
     },
-    dst: {},
     long: '(UTC+11:00) Sakhalin',
     hem: 'n'
   },
@@ -1971,7 +1891,6 @@ module.exports = [
       name: 'Srednekolymsk Standard Time',
       offset: 11
     },
-    dst: {},
     long: '(UTC+11:00) Chokurdakh',
     hem: 'n'
   },
@@ -1985,7 +1904,6 @@ module.exports = [
       name: 'Vanuatu Standard Time',
       offset: 11
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -1998,7 +1916,6 @@ module.exports = [
       name: 'Solomon Islands Time',
       offset: 11
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2011,7 +1928,6 @@ module.exports = [
       name: 'Kosrae Time',
       offset: 11
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2039,7 +1955,6 @@ module.exports = [
       name: 'Ponape Time',
       offset: 11
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2052,7 +1967,6 @@ module.exports = [
       name: 'Anadyr Standard Time',
       offset: 12
     },
-    dst: {},
     long: '(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky',
     hem: 'n'
   },
@@ -2066,7 +1980,6 @@ module.exports = [
       name: 'Petropavlovsk-Kamchatski Standard Time',
       offset: 12
     },
-    dst: {},
     long: '(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky',
     hem: 'n'
   },
@@ -2098,7 +2011,6 @@ module.exports = [
       name: 'Tuvalu Time',
       offset: 12
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2111,7 +2023,6 @@ module.exports = [
       name: 'Nauru Time',
       offset: 12
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2142,7 +2053,6 @@ module.exports = [
       name: 'Gilbert Islands Time',
       offset: 12
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2155,7 +2065,6 @@ module.exports = [
       name: 'Wake Island Time',
       offset: 12
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2168,7 +2077,6 @@ module.exports = [
       name: 'Wallis & Futuna Time',
       offset: 12
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2216,7 +2124,6 @@ module.exports = [
       name: 'Phoenix Islands Time',
       offset: 13
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2229,7 +2136,6 @@ module.exports = [
       name: 'Tokelau Time',
       offset: 13
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2259,7 +2165,6 @@ module.exports = [
       name: 'Line Islands Time',
       offset: 14
     },
-    dst: {},
     long: '(UTC+14:00) Kiritimati Island',
     hem: 'n'
   },
@@ -2273,7 +2178,6 @@ module.exports = [
       name: 'Niue Time',
       offset: -11
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2286,7 +2190,6 @@ module.exports = [
       name: 'Cook Islands Standard Time',
       offset: -10
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2299,7 +2202,6 @@ module.exports = [
       name: 'Tahiti Time',
       offset: -10
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2312,7 +2214,6 @@ module.exports = [
       name: 'Marquesas Time',
       offset: -9.5
     },
-    dst: {},
     long: '(UTC-09:30) Marquesas Islands',
     hem: 'n'
   },
@@ -2344,7 +2245,6 @@ module.exports = [
       name: 'Gambier Time',
       offset: -9
     },
-    dst: {},
     long: '(UTC-09:00) Coordinated Universal Time-09',
     hem: 'n'
   },
@@ -2358,7 +2258,6 @@ module.exports = [
       name: 'Pitcairn Time',
       offset: -8
     },
-    dst: {},
     long: '(UTC-08:00) Coordinated Universal Time-08',
     hem: 'n'
   },
@@ -2424,7 +2323,6 @@ module.exports = [
       abbr: 'ECT',
       offset: -5
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2455,7 +2353,6 @@ module.exports = [
       name: 'Peru Standard Time',
       offset: -5
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -2485,7 +2382,6 @@ module.exports = [
       abbr: 'VET',
       offset: -4
     },
-    dst: {},
     long: '(UTC-04:00) Caracas',
     hem: 'n'
   },
@@ -2499,7 +2395,6 @@ module.exports = [
       abbr: 'GYT',
       offset: -4
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2512,7 +2407,6 @@ module.exports = [
       abbr: 'BOT',
       offset: -4
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -2543,7 +2437,6 @@ module.exports = [
       abbr: 'GFT',
       offset: -3
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2597,7 +2490,6 @@ module.exports = [
       abbr: 'UYT',
       offset: -3
     },
-    dst: {},
     long: '(UTC-03:00) Montevideo',
     hem: 's'
   },
@@ -2611,7 +2503,6 @@ module.exports = [
       abbr: 'SRT',
       offset: -3
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2641,7 +2532,6 @@ module.exports = [
       name: 'Falkland Islands Summer Time',
       offset: -3
     },
-    dst: {},
     hem: 's'
   },
   {
@@ -2654,7 +2544,6 @@ module.exports = [
       name: 'Fernando de Noronha Standard Time',
       offset: -2
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2667,7 +2556,6 @@ module.exports = [
       name: 'South Georgia Time',
       offset: -2
     },
-    dst: {},
     hem: 'n'
   },
   {
@@ -2698,7 +2586,6 @@ module.exports = [
       name: 'Cape Verde Standard Time',
       offset: -1
     },
-    dst: {},
     long: '(UTC-01:00) Cabo Verde Is.',
     hem: 'n'
   }
