@@ -16,6 +16,24 @@ const northAmerica = {
   }
 }
 
+const europe = {
+  // last Sunday in March
+  start: {
+    day: 'sunday',
+    num: 'last',
+    month: 'march'
+    // hour: ()=>{}
+  },
+  // the last Sunday in October.
+  end: {
+    day: 'sunday',
+    num: 'last',
+    month: 'october'
+    // hour: ()=>{}
+  }
+}
+
 module.exports = {
-  northAmerica
+  northAmerica,
+  europe
 }

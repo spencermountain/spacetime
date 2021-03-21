@@ -7,28 +7,27 @@ const spacetime = require('../../../src')
 // 	Fall: last Sunday in October.
 
 let zone = {
-  // ids: ['Europe/Paris'],
-  ids: ['Canada/Toronto'],
+  // last Sunday in March
   start: {
     day: 'sunday',
-    num: 2,
-    month: 'march',
-    hour: 2
+    num: 'last',
+    month: 'march'
+    // hour: ()=>{}
   },
+  // the last Sunday in October.
   end: {
     day: 'sunday',
-    num: 1,
-    month: 'november',
-    hour: 2
+    num: 'last',
+    month: 'october'
+    // hour: ()=>{}
   }
 }
-
 // last sunday of the month, eg
 const findLast = function (s, obj) {
   s = s.endOf('month')
   s = s.day(obj.day, false) //backward
   s = s.hour(obj.hour)
-  return s
+  return s.format('iso')
 }
 
 const findEpoch = function (obj, tz, year) {
