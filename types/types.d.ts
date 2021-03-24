@@ -21,7 +21,7 @@ export interface Spacetime {
   timezones: TimezoneSet
 
   /** move to a new timezone, but at this same moment. Accepts an IANA code or abbreviation */
-  goto: (target: string) => Spacetime
+  goto: (target: string | null) => Spacetime
 
   /** @returns a copy of this object, with no references to the original */
   clone: () => Spacetime
