@@ -17,25 +17,40 @@
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-\*Isn't it weird how we can do math in our head, but not **date math\***?
+Isn't it weird how we can do math in our head, but not **date math**?
 
-- _how many days until the end of the year?_
-- _what time was it, 11 hours ago?_
-- _is it lunchtime in france?_
+<div align="left">
+<div >
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><i>- how many days until the end of the year?</i>
+</div>
+<div >
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><i>-what time was it, 11 hours ago?</i>
+</div>
+<div >
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><i>-is it lunchtime in france?</i>
+</div>
+</div>
+
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 and worse - there is no real **_date calculator_**.
 
-_people end up asking google, and going to weird websites._
+<div align="right"><i >
+people end up asking google, and going to weird websites.
+</i></div>
 
 <img height="10px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 <div align="center"><sub>that's bad.</sub></div>
 
-<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 <b>spacetime</b> is working hard to be a date-calculator:
 <img height="10px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-<sub>It's very small, it's very handy.</sub>
+
+<div >
+  <sub>It's very small, and very handy.</sub>
+</div>
 
 ```js
 let s = spacetime.now()
