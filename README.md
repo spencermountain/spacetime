@@ -17,7 +17,7 @@
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-Isn't it weird how we can do math in our head, but not **date math**?
+Isn't it weird how we can do <i>math</i> in our head, but not <b><i>date math</i></b>?
 
 <div align="left">
 <div >
@@ -35,9 +35,9 @@ Isn't it weird how we can do math in our head, but not **date math**?
 
 and worse - there is no real **_date calculator_**.
 
-<div align="right"><i >
-people end up asking google, and going to weird websites.
-</i></div>
+<div align="center">
+  <sub>people end up asking google, and going to weird websites.</sub>
+</div>
 
 <img height="10px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
@@ -45,8 +45,7 @@ people end up asking google, and going to weird websites.
 
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<b>spacetime</b> is working hard to be a date-calculator:
-<img height="10px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<b>spacetime</b> is a date-calculator,
 
 <div >
   <sub>It's very small, and very handy.</sub>
