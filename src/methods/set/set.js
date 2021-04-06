@@ -104,6 +104,9 @@ module.exports = {
     let h24 = false
     let hour = parseInt(m[1], 10)
     let minute = parseInt(m[2], 10)
+    if (minute >= 60) {
+      minute = 59
+    }
     if (hour > 12) {
       h24 = true
     }
