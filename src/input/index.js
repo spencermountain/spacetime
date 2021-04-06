@@ -110,7 +110,7 @@ const parseInput = (s, input, givenTz) => {
     return s
   }
   //little cleanup..
-  input = input.replace(/\b(mon|tues|wed|wednes|thu|thurs|fri|sat|satur|sun)(day)?\b/i, '')
+  input = input.replace(/\b(mon|tues?|wed|wednes|thur?s?|fri|sat|satur|sun)(day)?\b/i, '')
   input = input.replace(/,/g, '')
   input = input.replace(/ +/g, ' ').trim()
   //try some known-words, like 'now'
@@ -118,6 +118,7 @@ const parseInput = (s, input, givenTz) => {
     s = namedDates[input](s)
     return s
   }
+  // console.log(input)
   //try each text-parse template, use the first good result
   for (let i = 0; i < strFmt.length; i++) {
     let m = input.match(strFmt[i].reg)

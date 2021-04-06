@@ -27,6 +27,16 @@ const confirm = (s, tmp, unit) => {
   return s
 }
 
+// allow specifying setter direction
+const fwdBkwd = function (s, old, goFwd, unit) {
+  if (goFwd === true && s.isBefore(old)) {
+    s = s.add(1, unit)
+  } else if (goFwd === false && s.isAfter(old)) {
+    s = s.minus(1, unit)
+  }
+  return s
+}
+
 module.exports = {
   milliseconds: (s, n) => {
     n = validate(n)
@@ -35,31 +45,28 @@ module.exports = {
     return s.epoch - diff
   },
 
-  seconds: (s, n) => {
+  seconds: (s, n, goFwd) => {
     n = validate(n)
+    let old = s.clone()
     let diff = s.second() - n
     let shift = diff * ms.second
-    return s.epoch - shift
+    s.epoch = s.epoch - shift
+    s = fwdBkwd(s, old, goFwd, 'minute') // specify direction
+    return s.epoch
   },
 
-  minutes: (s, n) => {
+  minutes: (s, n, goFwd) => {
     n = validate(n)
     let old = s.clone()
     let diff = s.minute() - n
     let shift = diff * ms.minute
     s.epoch -= shift
-    // check against a screw-up
-    // if (old.hour() != s.hour()) {
-    //   walkTo(old, {
-    //     minute: n
-    //   })
-    //   return old.epoch
-    // }
     confirm(s, old, 'second')
+    s = fwdBkwd(s, old, goFwd, 'hour') // specify direction
     return s.epoch
   },
 
-  hours: (s, n) => {
+  hours: (s, n, goFwd) => {
     n = validate(n)
     if (n >= 24) {
       n = 24
@@ -86,11 +93,12 @@ module.exports = {
       hour: n
     })
     confirm(s, old, 'minute')
+    s = fwdBkwd(s, old, goFwd, 'day') // specify direction
     return s.epoch
   },
 
-  //support setting time by '4:25pm' - this isn't very-well developed..
-  time: (s, str) => {
+  //support setting time by '4:25pm'
+  time: (s, str, goFwd) => {
     let m = str.match(/([0-9]{1,2})[:h]([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/)
     if (!m) {
       //fallback to support just '2am'
@@ -104,6 +112,9 @@ module.exports = {
     let h24 = false
     let hour = parseInt(m[1], 10)
     let minute = parseInt(m[2], 10)
+    if (minute >= 60) {
+      minute = 59
+    }
     if (hour > 12) {
       h24 = true
     }
@@ -122,14 +133,16 @@ module.exports = {
     m[3] = m[3] || ''
     m[3] = m[3].replace(/:/, '')
     let sec = parseInt(m[3], 10) || 0
+    let old = s.clone()
     s = s.hour(hour)
     s = s.minute(minute)
     s = s.second(sec)
     s = s.millisecond(0)
+    s = fwdBkwd(s, old, goFwd, 'day') // specify direction
     return s.epoch
   },
 
-  date: (s, n) => {
+  date: (s, n, goFwd) => {
     n = validate(n)
     //avoid setting february 31st
     if (n > 28) {
@@ -147,14 +160,16 @@ module.exports = {
     if (n <= 0) {
       n = 1
     }
+    let old = s.clone()
     walkTo(s, {
       date: n
     })
+    s = fwdBkwd(s, old, goFwd, 'month') // specify direction
     return s.epoch
   },
 
   //this one's tricky
-  month: (s, n) => {
+  month: (s, n, goFwd) => {
     if (typeof n === 'string') {
       n = months.mapping()[n.toLowerCase()]
     }
@@ -173,10 +188,12 @@ module.exports = {
       //make it as close as we can..
       date = monthLength[n]
     }
+    let old = s.clone()
     walkTo(s, {
       month: n,
       date
     })
+    s = fwdBkwd(s, old, goFwd, 'year') // specify direction
     return s.epoch
   },
 
@@ -200,8 +217,26 @@ module.exports = {
     })
     return s.epoch
   },
-
-  dayOfYear: (s, n) => {
+  // go to the nth week of the year
+  week: (s, n, goFwd) => {
+    let old = s.clone()
+    n = validate(n)
+    s = s.month(0)
+    s = s.date(1)
+    s = s.day('monday')
+    //first week starts first Thurs in Jan
+    // so mon dec 28th is 1st week
+    // so mon dec 29th is not the week
+    if (s.monthName() === 'december' && s.date() >= 28) {
+      s = s.add(1, 'week')
+    }
+    n -= 1 //1-based
+    s = s.add(n, 'weeks')
+    s = fwdBkwd(s, old, goFwd, 'year') // specify direction
+    return s.epoch
+  },
+  // go to the nth day of the year
+  dayOfYear: (s, n, goFwd) => {
     n = validate(n)
     let old = s.clone()
     n -= 1 //days are 1-based
@@ -213,6 +248,7 @@ module.exports = {
     s = s.startOf('year')
     s = s.add(n, 'day')
     confirm(s, old, 'hour')
+    s = fwdBkwd(s, old, goFwd, 'year') // specify direction
     return s.epoch
   }
 }

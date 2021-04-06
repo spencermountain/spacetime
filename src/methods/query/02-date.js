@@ -4,12 +4,12 @@ const walkTo = require('../set/walk')
 
 const methods = {
   // # day in the month
-  date: function (num) {
+  date: function (num, goFwd) {
     if (num !== undefined) {
       let s = this.clone()
       num = parseInt(num, 10)
       if (num) {
-        s.epoch = set.date(s, num)
+        s.epoch = set.date(s, num, goFwd)
       }
       return s
     }
@@ -17,7 +17,7 @@ const methods = {
   },
 
   //like 'wednesday' (hard!)
-  day: function (input) {
+  day: function (input, goFwd) {
     if (input === undefined) {
       return this.d.getDay()
     }
@@ -38,6 +38,12 @@ const methods = {
     //move approx
     let day = this.d.getDay()
     let diff = day - want
+    if (goFwd === true && diff > 0) {
+      diff = diff - 7
+    }
+    if (goFwd === false && diff < 0) {
+      diff = diff + 7
+    }
     let s = this.subtract(diff, 'days')
     //tighten it back up
     walkTo(s, {
@@ -49,23 +55,13 @@ const methods = {
   },
 
   //these are helpful name-wrappers
-  dayName: function (input) {
+  dayName: function (input, goFwd) {
     if (input === undefined) {
       return days.long()[this.day()]
     }
     let s = this.clone()
-    s = s.day(input)
+    s = s.day(input, goFwd)
     return s
-  },
-
-  //either name or number
-  month: function (input) {
-    if (input !== undefined) {
-      let s = this.clone()
-      s.epoch = set.month(s, input)
-      return s
-    }
-    return this.d.getMonth()
   }
 }
 module.exports = methods

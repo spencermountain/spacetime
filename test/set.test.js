@@ -166,10 +166,17 @@ test('military time format', (t) => {
   t.equal(s.time(), '2:30am', '2h30')
   t.end()
 })
+
 test('add-a-week-bug', (t) => {
   let a = spacetime('2018-10-21').goto('America/Adak').add(1, 'week')
   let b = spacetime('2018-10-22').goto('America/Adak').add(1, 'week')
   t.notEqual(a.format('iso'), b.format('iso'), 'two days are not the same')
   t.equal(a.diff(b, 'day'), 1, 'still one day apart')
+  t.end()
+})
+
+test('set time', (t) => {
+  let a = spacetime('2018-10-21').time('5:00pm').time('3:90pm')
+  t.equal(a.time(), '3:59pm', 'dont overflow minutes in time format')
   t.end()
 })

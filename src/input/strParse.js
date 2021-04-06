@@ -168,6 +168,24 @@ const strFmt = [
       return s
     }
   },
+  // 'Sun Mar 14 15:09:48 +0000 2021'
+  {
+    reg: /^([a-z]+) ([0-9]{1,2})( [0-9:]+)?( \+[0-9]{4})?( [0-9]{4})?$/i,
+    parse: (s, arr) => {
+      let obj = {
+        year: parseYear(arr[5], s._today),
+        month: months[arr[1].toLowerCase()],
+        date: fns.toCardinal(arr[2] || '')
+      }
+      if (hasDate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      walkTo(s, obj)
+      s = parseTime(s, arr[3])
+      return s
+    }
+  },
   //February 2017 (implied date)
   {
     reg: /^([a-z]+) ([0-9]{4})$/i,

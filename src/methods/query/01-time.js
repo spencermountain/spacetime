@@ -10,41 +10,41 @@ const methods = {
     }
     return this.d.getMilliseconds()
   },
-  second: function (num) {
+  second: function (num, goFwd) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.seconds(s, num)
+      s.epoch = set.seconds(s, num, goFwd)
       return s
     }
     return this.d.getSeconds()
   },
-  minute: function (num) {
+  minute: function (num, goFwd) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.minutes(s, num)
+      s.epoch = set.minutes(s, num, goFwd)
       return s
     }
     return this.d.getMinutes()
   },
-  hour: function (num) {
+  hour: function (num, goFwd) {
     let d = this.d
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.hours(s, num)
+      s.epoch = set.hours(s, num, goFwd)
       return s
     }
     return d.getHours()
   },
 
   //'3:30' is 3.5
-  hourFloat: function (num) {
+  hourFloat: function (num, goFwd) {
     if (num !== undefined) {
       let s = this.clone()
       let minute = num % 1
       minute = minute * 60
       let hour = parseInt(num, 10)
-      s.epoch = set.hours(s, hour)
-      s.epoch = set.minutes(s, minute)
+      s.epoch = set.hours(s, hour, goFwd)
+      s.epoch = set.minutes(s, minute, goFwd)
       return s
     }
     let d = this.d
@@ -55,7 +55,7 @@ const methods = {
   },
 
   // hour in 12h format
-  hour12: function (str) {
+  hour12: function (str, goFwd) {
     let d = this.d
     if (str !== undefined) {
       let s = this.clone()
@@ -66,7 +66,7 @@ const methods = {
         if (m[2] === 'pm') {
           hour += 12
         }
-        s.epoch = set.hours(s, hour)
+        s.epoch = set.hours(s, hour, goFwd)
       }
       return s
     }
@@ -82,18 +82,18 @@ const methods = {
   },
 
   //some ambiguity here with 12/24h
-  time: function (str) {
+  time: function (str, goFwd) {
     if (str !== undefined) {
       let s = this.clone()
       str = str.toLowerCase().trim()
-      s.epoch = set.time(s, str)
+      s.epoch = set.time(s, str, goFwd)
       return s
     }
     return `${this.h12()}:${fns.zeroPad(this.minute())}${this.ampm()}`
   },
 
   // either 'am' or 'pm'
-  ampm: function (input) {
+  ampm: function (input, goFwd) {
     let which = 'am'
     let hour = this.hour()
     if (hour >= 12) {
@@ -110,17 +110,17 @@ const methods = {
     if (hour >= 12 && input === 'am') {
       //noon is 12pm
       hour -= 12
-      return s.hour(hour)
+      return s.hour(hour, goFwd)
     }
     if (hour < 12 && input === 'pm') {
       hour += 12
-      return s.hour(hour)
+      return s.hour(hour, goFwd)
     }
     return s
   },
 
   //some hard-coded times of day, like 'noon'
-  dayTime: function (str) {
+  dayTime: function (str, goFwd) {
     if (str !== undefined) {
       const times = {
         morning: '7:00am',
@@ -137,7 +137,7 @@ const methods = {
       str = str || ''
       str = str.toLowerCase()
       if (times.hasOwnProperty(str) === true) {
-        s = s.time(times[str])
+        s = s.time(times[str], goFwd)
       }
       return s
     }
