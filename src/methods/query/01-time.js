@@ -82,11 +82,11 @@ const methods = {
   },
 
   //some ambiguity here with 12/24h
-  time: function (str) {
+  time: function (str, goForward) {
     if (str !== undefined) {
       let s = this.clone()
       str = str.toLowerCase().trim()
-      s.epoch = set.time(s, str)
+      s.epoch = set.time(s, str, goForward)
       return s
     }
     return `${this.h12()}:${fns.zeroPad(this.minute())}${this.ampm()}`

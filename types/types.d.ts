@@ -188,7 +188,7 @@ export interface Spacetime {
   /** get a formatted, 12-hour time, like '11:30pm' */
   time(): number
   /** set a formatted, 12-hour time, like '11:30pm' */
-  time(value: string): Spacetime
+  time(value: string, goForward?: boolean): Spacetime
 
   /** get the week-number of the year (1-52) */
   week(): number

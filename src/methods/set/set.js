@@ -89,8 +89,8 @@ module.exports = {
     return s.epoch
   },
 
-  //support setting time by '4:25pm' - this isn't very-well developed..
-  time: (s, str) => {
+  //support setting time by '4:25pm'
+  time: (s, str, goForward) => {
     let m = str.match(/([0-9]{1,2})[:h]([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/)
     if (!m) {
       //fallback to support just '2am'
@@ -125,10 +125,16 @@ module.exports = {
     m[3] = m[3] || ''
     m[3] = m[3].replace(/:/, '')
     let sec = parseInt(m[3], 10) || 0
+    let old = s.clone()
     s = s.hour(hour)
     s = s.minute(minute)
     s = s.second(sec)
     s = s.millisecond(0)
+    if (goForward === true && s.isBefore(old)) {
+      s = s.add(1, 'day')
+    } else if (goForward === false && s.isAfter(old)) {
+      s = s.minus(1, 'day')
+    }
     return s.epoch
   },
 

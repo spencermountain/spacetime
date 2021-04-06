@@ -25,7 +25,5 @@ spacetime.extend(require('./plugins/dst/src/index.js'))
 // let d = spacetime()
 // console.log(d.dst())
 
-let d = spacetime('march 17 2021') //wednesday
-// d = d.day('tuesday', false)
-// console.log(d.format('nice-day'))
-console.log(d.time('3:82pm'))
+let d = spacetime('march 17 2021').time('3:20pm')
+console.log(d.time('4:22pm', false).format('nice'))
