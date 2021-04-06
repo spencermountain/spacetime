@@ -28,10 +28,10 @@ const confirm = (s, tmp, unit) => {
 }
 
 // allow specifying setter direction
-const fwdBkwd = function (s, old, goForward, unit) {
-  if (goForward === true && s.isBefore(old)) {
+const fwdBkwd = function (s, old, goFwd, unit) {
+  if (goFwd === true && s.isBefore(old)) {
     s = s.add(1, unit)
-  } else if (goForward === false && s.isAfter(old)) {
+  } else if (goFwd === false && s.isAfter(old)) {
     s = s.minus(1, unit)
   }
   return s
@@ -45,26 +45,28 @@ module.exports = {
     return s.epoch - diff
   },
 
-  seconds: (s, n) => {
+  seconds: (s, n, goFwd) => {
     n = validate(n)
+    let old = s.clone()
     let diff = s.second() - n
     let shift = diff * ms.second
-    return s.epoch - shift
+    s.epoch = s.epoch - shift
+    s = fwdBkwd(s, old, goFwd, 'minute') // specify dir
+    return s.epoch
   },
 
-  minutes: (s, n, goForward) => {
+  minutes: (s, n, goFwd) => {
     n = validate(n)
     let old = s.clone()
     let diff = s.minute() - n
     let shift = diff * ms.minute
     s.epoch -= shift
     confirm(s, old, 'second')
-    // set forward/backward direction
-    s = fwdBkwd(s, old, goForward, 'day')
+    s = fwdBkwd(s, old, goFwd, 'hour') // specify dir
     return s.epoch
   },
 
-  hours: (s, n) => {
+  hours: (s, n, goFwd) => {
     n = validate(n)
     if (n >= 24) {
       n = 24
@@ -91,6 +93,7 @@ module.exports = {
       hour: n
     })
     confirm(s, old, 'minute')
+    s = fwdBkwd(s, old, goFwd, 'day') // specify dir
     return s.epoch
   },
 

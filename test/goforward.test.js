@@ -20,3 +20,25 @@ test('goForward [time]', (t) => {
 
   t.end()
 })
+
+test('goForward ', (t) => {
+  let arr = [
+    ['second', '8', '12'],
+    ['minute', '4', '12'],
+    ['hour', '3', '5'][('time', '2:43', '2:52')]
+    // ['','',''],
+    // ['','',''],
+    // ['','',''],
+  ]
+  arr.forEach((a) => {
+    let [fn, before, after] = a
+    let s = spacetime.now()[fn](before)
+    let fwdNull = s[fn](after)
+    t.equal(s.isBefore(fwdNull), true, `[${fn}] fwd-null`)
+    let fwd = s[fn](after, true)
+    t.equal(s.isBefore(fwd), true, `[${fn}] fwd`)
+    let bkwd = s[fn](after, false)
+    t.equal(s.isAfter(bkwd), true, `[${fn}] bkwd`)
+  })
+  t.end()
+})

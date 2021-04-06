@@ -10,27 +10,27 @@ const methods = {
     }
     return this.d.getMilliseconds()
   },
-  second: function (num) {
+  second: function (num, goFwd) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.seconds(s, num)
+      s.epoch = set.seconds(s, num, goFwd)
       return s
     }
     return this.d.getSeconds()
   },
-  minute: function (num, goForward) {
+  minute: function (num, goFwd) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.minutes(s, num, goForward)
+      s.epoch = set.minutes(s, num, goFwd)
       return s
     }
     return this.d.getMinutes()
   },
-  hour: function (num) {
+  hour: function (num, goFwd) {
     let d = this.d
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.hours(s, num)
+      s.epoch = set.hours(s, num, goFwd)
       return s
     }
     return d.getHours()
