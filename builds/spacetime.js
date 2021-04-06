@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.14.0 Apache 2.0 */
+/* spencermountain/spacetime 6.15.0 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -1167,6 +1167,25 @@
       s = parseTime_1(s, arr[4]);
       return s;
     }
+  }, // 'Sun Mar 14 15:09:48 +0000 2021'
+  {
+    reg: /^([a-z]+) ([0-9]{1,2})( [0-9:]+)?( \+[0-9]{4})?( [0-9]{4})?$/i,
+    parse: function parse(s, arr) {
+      var obj = {
+        year: parseYear(arr[5], s._today),
+        month: months[arr[1].toLowerCase()],
+        date: fns.toCardinal(arr[2] || '')
+      };
+
+      if (hasDate_1(obj) === false) {
+        s.epoch = null;
+        return s;
+      }
+
+      walk_1(s, obj);
+      s = parseTime_1(s, arr[3]);
+      return s;
+    }
   }, //February 2017 (implied date)
   {
     reg: /^([a-z]+) ([0-9]{4})$/i,
@@ -1501,14 +1520,15 @@
     } //little cleanup..
 
 
-    input = input.replace(/\b(mon|tues|wed|wednes|thu|thurs|fri|sat|satur|sun)(day)?\b/i, '');
+    input = input.replace(/\b(mon|tues?|wed|wednes|thur?s?|fri|sat|satur|sun)(day)?\b/i, '');
     input = input.replace(/,/g, '');
     input = input.replace(/ +/g, ' ').trim(); //try some known-words, like 'now'
 
     if (namedDates.hasOwnProperty(input) === true) {
       s = namedDates[input](s);
       return s;
-    } //try each text-parse template, use the first good result
+    } // console.log(input)
+    //try each text-parse template, use the first good result
 
 
     for (var i = 0; i < strParse.length; i++) {
@@ -3029,6 +3049,17 @@
     }
 
     return s;
+  }; // allow specifying setter direction
+
+
+  var fwdBkwd = function fwdBkwd(s, old, goFwd, unit) {
+    if (goFwd === true && s.isBefore(old)) {
+      s = s.add(1, unit);
+    } else if (goFwd === false && s.isAfter(old)) {
+      s = s.minus(1, unit);
+    }
+
+    return s;
   };
 
   var set = {
@@ -3039,29 +3070,28 @@
 
       return s.epoch - diff;
     },
-    seconds: function seconds(s, n) {
+    seconds: function seconds(s, n, goFwd) {
       n = validate(n);
+      var old = s.clone();
       var diff = s.second() - n;
       var shift = diff * milliseconds.second;
-      return s.epoch - shift;
+      s.epoch = s.epoch - shift;
+      s = fwdBkwd(s, old, goFwd, 'minute'); // specify direction
+
+      return s.epoch;
     },
-    minutes: function minutes(s, n) {
+    minutes: function minutes(s, n, goFwd) {
       n = validate(n);
       var old = s.clone();
       var diff = s.minute() - n;
       var shift = diff * milliseconds.minute;
-      s.epoch -= shift; // check against a screw-up
-      // if (old.hour() != s.hour()) {
-      //   walkTo(old, {
-      //     minute: n
-      //   })
-      //   return old.epoch
-      // }
-
+      s.epoch -= shift;
       confirm(s, old, 'second');
+      s = fwdBkwd(s, old, goFwd, 'hour'); // specify direction
+
       return s.epoch;
     },
-    hours: function hours(s, n) {
+    hours: function hours(s, n, goFwd) {
       n = validate(n);
 
       if (n >= 24) {
@@ -3094,10 +3124,12 @@
         hour: n
       });
       confirm(s, old, 'minute');
+      s = fwdBkwd(s, old, goFwd, 'day'); // specify direction
+
       return s.epoch;
     },
-    //support setting time by '4:25pm' - this isn't very-well developed..
-    time: function time(s, str) {
+    //support setting time by '4:25pm'
+    time: function time(s, str, goFwd) {
       var m = str.match(/([0-9]{1,2})[:h]([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/);
 
       if (!m) {
@@ -3116,6 +3148,10 @@
       var h24 = false;
       var hour = parseInt(m[1], 10);
       var minute = parseInt(m[2], 10);
+
+      if (minute >= 60) {
+        minute = 59;
+      }
 
       if (hour > 12) {
         h24 = true;
@@ -3138,13 +3174,16 @@
       m[3] = m[3] || '';
       m[3] = m[3].replace(/:/, '');
       var sec = parseInt(m[3], 10) || 0;
+      var old = s.clone();
       s = s.hour(hour);
       s = s.minute(minute);
       s = s.second(sec);
       s = s.millisecond(0);
+      s = fwdBkwd(s, old, goFwd, 'day'); // specify direction
+
       return s.epoch;
     },
-    date: function date(s, n) {
+    date: function date(s, n, goFwd) {
       n = validate(n); //avoid setting february 31st
 
       if (n > 28) {
@@ -3165,13 +3204,16 @@
         n = 1;
       }
 
+      var old = s.clone();
       walk_1(s, {
         date: n
       });
+      s = fwdBkwd(s, old, goFwd, 'month'); // specify direction
+
       return s.epoch;
     },
     //this one's tricky
-    month: function month(s, n) {
+    month: function month(s, n, goFwd) {
       if (typeof n === 'string') {
         n = months$1.mapping()[n.toLowerCase()];
       }
@@ -3193,10 +3235,13 @@
         date = monthLengths_1[n];
       }
 
+      var old = s.clone();
       walk_1(s, {
         month: n,
         date: date
       });
+      s = fwdBkwd(s, old, goFwd, 'year'); // specify direction
+
       return s.epoch;
     },
     year: function year(s, n) {
@@ -3220,7 +3265,29 @@
       });
       return s.epoch;
     },
-    dayOfYear: function dayOfYear(s, n) {
+    // go to the nth week of the year
+    week: function week(s, n, goFwd) {
+      var old = s.clone();
+      n = validate(n);
+      s = s.month(0);
+      s = s.date(1);
+      s = s.day('monday'); //first week starts first Thurs in Jan
+      // so mon dec 28th is 1st week
+      // so mon dec 29th is not the week
+
+      if (s.monthName() === 'december' && s.date() >= 28) {
+        s = s.add(1, 'week');
+      }
+
+      n -= 1; //1-based
+
+      s = s.add(n, 'weeks');
+      s = fwdBkwd(s, old, goFwd, 'year'); // specify direction
+
+      return s.epoch;
+    },
+    // go to the nth day of the year
+    dayOfYear: function dayOfYear(s, n, goFwd) {
       n = validate(n);
       var old = s.clone();
       n -= 1; //days are 1-based
@@ -3234,6 +3301,8 @@
       s = s.startOf('year');
       s = s.add(n, 'day');
       confirm(s, old, 'hour');
+      s = fwdBkwd(s, old, goFwd, 'year'); // specify direction
+
       return s.epoch;
     }
   };
@@ -3248,37 +3317,37 @@
 
       return this.d.getMilliseconds();
     },
-    second: function second(num) {
+    second: function second(num, goFwd) {
       if (num !== undefined) {
         var s = this.clone();
-        s.epoch = set.seconds(s, num);
+        s.epoch = set.seconds(s, num, goFwd);
         return s;
       }
 
       return this.d.getSeconds();
     },
-    minute: function minute(num) {
+    minute: function minute(num, goFwd) {
       if (num !== undefined) {
         var s = this.clone();
-        s.epoch = set.minutes(s, num);
+        s.epoch = set.minutes(s, num, goFwd);
         return s;
       }
 
       return this.d.getMinutes();
     },
-    hour: function hour(num) {
+    hour: function hour(num, goFwd) {
       var d = this.d;
 
       if (num !== undefined) {
         var s = this.clone();
-        s.epoch = set.hours(s, num);
+        s.epoch = set.hours(s, num, goFwd);
         return s;
       }
 
       return d.getHours();
     },
     //'3:30' is 3.5
-    hourFloat: function hourFloat(num) {
+    hourFloat: function hourFloat(num, goFwd) {
       if (num !== undefined) {
         var s = this.clone();
 
@@ -3288,8 +3357,8 @@
 
         var _hour = parseInt(num, 10);
 
-        s.epoch = set.hours(s, _hour);
-        s.epoch = set.minutes(s, _minute);
+        s.epoch = set.hours(s, _hour, goFwd);
+        s.epoch = set.minutes(s, _minute, goFwd);
         return s;
       }
 
@@ -3300,7 +3369,7 @@
       return hour + minute;
     },
     // hour in 12h format
-    hour12: function hour12(str) {
+    hour12: function hour12(str, goFwd) {
       var d = this.d;
 
       if (str !== undefined) {
@@ -3315,7 +3384,7 @@
             hour += 12;
           }
 
-          s.epoch = set.hours(s, hour);
+          s.epoch = set.hours(s, hour, goFwd);
         }
 
         return s;
@@ -3335,18 +3404,18 @@
       return hour12;
     },
     //some ambiguity here with 12/24h
-    time: function time(str) {
+    time: function time(str, goFwd) {
       if (str !== undefined) {
         var s = this.clone();
         str = str.toLowerCase().trim();
-        s.epoch = set.time(s, str);
+        s.epoch = set.time(s, str, goFwd);
         return s;
       }
 
       return "".concat(this.h12(), ":").concat(fns.zeroPad(this.minute())).concat(this.ampm());
     },
     // either 'am' or 'pm'
-    ampm: function ampm(input) {
+    ampm: function ampm(input, goFwd) {
       var which = 'am';
       var hour = this.hour();
 
@@ -3366,18 +3435,18 @@
       if (hour >= 12 && input === 'am') {
         //noon is 12pm
         hour -= 12;
-        return s.hour(hour);
+        return s.hour(hour, goFwd);
       }
 
       if (hour < 12 && input === 'pm') {
         hour += 12;
-        return s.hour(hour);
+        return s.hour(hour, goFwd);
       }
 
       return s;
     },
     //some hard-coded times of day, like 'noon'
-    dayTime: function dayTime(str) {
+    dayTime: function dayTime(str, goFwd) {
       if (str !== undefined) {
         var times = {
           morning: '7:00am',
@@ -3395,7 +3464,7 @@
         str = str.toLowerCase();
 
         if (times.hasOwnProperty(str) === true) {
-          s = s.time(times[str]);
+          s = s.time(times[str], goFwd);
         }
 
         return s;
@@ -3437,13 +3506,13 @@
 
   var methods$2 = {
     // # day in the month
-    date: function date(num) {
+    date: function date(num, goFwd) {
       if (num !== undefined) {
         var s = this.clone();
         num = parseInt(num, 10);
 
         if (num) {
-          s.epoch = set.date(s, num);
+          s.epoch = set.date(s, num, goFwd);
         }
 
         return s;
@@ -3452,7 +3521,7 @@
       return this.d.getDate();
     },
     //like 'wednesday' (hard!)
-    day: function day(input) {
+    day: function day(input, goFwd) {
       if (input === undefined) {
         return this.d.getDay();
       }
@@ -3477,6 +3546,15 @@
 
       var day = this.d.getDay();
       var diff = day - want;
+
+      if (goFwd === true && diff > 0) {
+        diff = diff - 7;
+      }
+
+      if (goFwd === false && diff < 0) {
+        diff = diff + 7;
+      }
+
       var s = this.subtract(diff, 'days'); //tighten it back up
 
       walk_1(s, {
@@ -3487,24 +3565,14 @@
       return s;
     },
     //these are helpful name-wrappers
-    dayName: function dayName(input) {
+    dayName: function dayName(input, goFwd) {
       if (input === undefined) {
         return days["long"]()[this.day()];
       }
 
       var s = this.clone();
-      s = s.day(input);
+      s = s.day(input, goFwd);
       return s;
-    },
-    //either name or number
-    month: function month(input) {
-      if (input !== undefined) {
-        var s = this.clone();
-        s.epoch = set.month(s, input);
-        return s;
-      }
-
-      return this.d.getMonth();
     }
   };
   var _02Date = methods$2;
@@ -3518,10 +3586,10 @@
 
   var methods$1 = {
     // day 0-366
-    dayOfYear: function dayOfYear(num) {
+    dayOfYear: function dayOfYear(num, goFwd) {
       if (num !== undefined) {
         var s = this.clone();
-        s.epoch = set.dayOfYear(s, num);
+        s.epoch = set.dayOfYear(s, num, goFwd);
         return s;
       } //days since newyears - jan 1st is 1, jan 2nd is 2...
 
@@ -3546,24 +3614,12 @@
       return sum + this.d.getDate();
     },
     //since the start of the year
-    week: function week(num) {
+    week: function week(num, goFwd) {
       // week-setter
       if (num !== undefined) {
         var s = this.clone();
-        s = s.month(0);
-        s = s.date(1);
-        s = s.day('monday');
-        s = clearMinutes(s); //first week starts first Thurs in Jan
-        // so mon dec 28th is 1st week
-        // so mon dec 29th is not the week
-
-        if (s.monthName() === 'december' && s.date() >= 28) {
-          s = s.add(1, 'week');
-        }
-
-        num -= 1; //1-based
-
-        s = s.add(num, 'weeks');
+        s.epoch = set.week(this, num, goFwd);
+        s = clearMinutes(s);
         return s;
       } //find-out which week it is
 
@@ -3608,18 +3664,28 @@
 
       return 52;
     },
-    //'january'
-    monthName: function monthName(input) {
-      if (input === undefined) {
-        return months$1["long"]()[this.month()];
+    //either name or number
+    month: function month(input, goFwd) {
+      if (input !== undefined) {
+        var s = this.clone();
+        s.epoch = set.month(s, input, goFwd);
+        return s;
       }
 
-      var s = this.clone();
-      s = s.month(input);
-      return s;
+      return this.d.getMonth();
+    },
+    //'january'
+    monthName: function monthName(input, goFwd) {
+      if (input !== undefined) {
+        var s = this.clone();
+        s = s.month(input, goFwd);
+        return s;
+      }
+
+      return months$1["long"]()[this.month()];
     },
     //q1, q2, q3, q4
-    quarter: function quarter(num) {
+    quarter: function quarter(num, goFwd) {
       if (num !== undefined) {
         if (typeof num === 'string') {
           num = num.replace(/^q/i, '');
@@ -3629,8 +3695,8 @@
         if (quarters[num]) {
           var s = this.clone();
           var _month = quarters[num][0];
-          s = s.month(_month);
-          s = s.date(1);
+          s = s.month(_month, goFwd);
+          s = s.date(1, goFwd);
           s = s.startOf('day');
           return s;
         }
@@ -3647,7 +3713,7 @@
       return 4;
     },
     //spring, summer, winter, fall
-    season: function season(input) {
+    season: function season(input, goFwd) {
       var hem = 'north';
 
       if (this.hemisphere() === 'South') {
@@ -3659,7 +3725,7 @@
 
         for (var i = 0; i < seasons[hem].length; i++) {
           if (input === seasons[hem][i][0]) {
-            s = s.month(seasons[hem][i][1]);
+            s = s.month(seasons[hem][i][1], goFwd);
             s = s.date(1);
             s = s.startOf('day');
           }
@@ -4404,7 +4470,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.14.0';
+  var _version = '6.15.0';
 
   var main = function main(input, tz, options) {
     return new spacetime(input, tz, options);

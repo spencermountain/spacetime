@@ -158,27 +158,27 @@ export interface Spacetime {
   /** get the current number of seconds (0-59) */
   second(): number
   /** set the current number of seconds (0-59) */
-  second(value: number): Spacetime
+  second(value: number, goForward?: boolean): Spacetime
 
   /** get the current number of minutes (0-59) */
   minute(): number
   /** set the current number of minutes (0-59) */
-  minute(value: number): Spacetime
+  minute(value: number, goForward?: boolean): Spacetime
 
   /** get the current hour, in 24 time (0-23). */
   hour(): number
   /** set the current hour, in 24 time (0-23). also accepts/parses '3pm' */
-  hour(value: number | string): Spacetime
+  hour(value: number | string, goForward?: boolean): Spacetime
 
   /** get the day-number of the month (1- max31) */
   date(): number
   /** set the day-number of the month (1- max31) */
-  date(value: number): Spacetime
+  date(value: number, goForward?: boolean): Spacetime
 
   /** get the zero-based month-number (0-11). */
   month(): number
   /** set the zero-based month-number (0-11). Also accepts 'June', or 'oct'. */
-  month(value: string | number): Spacetime
+  month(value: string | number, goForward?: boolean): Spacetime
 
   /** get the 4-digit year as an integer */
   year(): number
@@ -193,22 +193,22 @@ export interface Spacetime {
   /** get the week-number of the year (1-52) */
   week(): number
   /** set the week-number of the year (1-52) */
-  week(value: number): Spacetime
+  week(value: number, goForward?: boolean): Spacetime
 
   /** get the fiscal-quarter (1-4) */
   quarter(): number
   /** set the fiscal-quarter (1-4) */
-  quarter(value: number): Spacetime
+  quarter(value: number, goForward?: boolean): Spacetime
 
   /** get the name of the season, spring/summer/fall/autumn/winter */
   season(): string
   /** set the name of the season, spring/summer/fall/autumn/winter */
-  season(value: string): Spacetime
+  season(value: string, goForward?: boolean): Spacetime
 
   /** get the hour + minute in decimal form, so '3:30am' is 3.5 */
   hourFloat(): number
   /** set the hour + minute in decimal form, so '3:30am' is 3.5 */
-  hourFloat(value: number): Spacetime
+  hourFloat(value: number, goForward?: boolean): Spacetime
 
   /** get the day of the week as an integer, starting on sunday (day-0) */
   day(): number
@@ -223,17 +223,17 @@ export interface Spacetime {
   /** get whether the time is am or pm */
   ampm(): string
   /** set whether the time is am or pm */
-  ampm(value: string): Spacetime
+  ampm(value: string, goForward?: boolean): Spacetime
 
   /** get the general time-of-day, like 'afternoon' */
   dayTime(): string
   /** set the general time-of-day, like 'afternoon' */
-  dayTime(value: string): Spacetime
+  dayTime(value: string, goForward?: boolean): Spacetime
 
   /** get the current month as a string, like 'april' */
   monthName(): string
   /** set the current month as a string, like 'april' */
-  monthName(value: string): Spacetime
+  monthName(value: string, goForward?: boolean): Spacetime
 
   /** the day number, between 0-6, that the week starts on. (Sunday is 0).  Also accepts 'sunday' */
   weekStart(value: number | string): Spacetime

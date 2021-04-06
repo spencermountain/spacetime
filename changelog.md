@@ -4,34 +4,42 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
-
-<!-- ### [unreleased] 
+<!-- ### [unreleased]
 - **[fix]** - string parsing issue for tue/tues
 - **[new]** - add direction param to .day() method
 -->
 
+### v6.15.0 [April 2021]
+
+- **[fix]** - .time('4:88') now has ceiling of 59m
+- **[new]** - add goFwd params to all (appropriate) setter methods
 
 ### v6.14.0 [March 2021]
+
 - **[change]** - add missing timezones from indiana and argentina
 - **[change]** - set old timezones as aliases of newer ones
 - **[new]** - add min, max methods
 - **[change]** - comment-out tests that were failing in some timezones
 - update deps, and documentation
-  
+
 ### v6.13.0 [March 2021]
+
 - **[change]** - support more alt day formats like `.day('mo')`
-- **[change]** - allow `.week()` to return 53 
+- **[change]** - allow `.week()` to return 53
 - **[change]** - support swapped-parameters for `.each()`
 - **[change]** - support swapped-parameters for `.isSame()`
 - update deps
 
 ### v6.12.5 [Feb 2021]
+
 - **[fix]** - add/minus by quarter issue
 
 ### v6.12.4 [Feb 2021]
+
 - **[fix]** - typescript issue
 
 ### v6.12.3 [Feb 2021]
+
 - **[fix]** - fix .every() >= issue
 - **[fix]** - fix today-passthrough in some date formats
 - **[change]** - use updated DST changes (171 changes)
@@ -40,54 +48,61 @@ This project follows semVer, where:
 - update deps
 
 ### v6.12.2 [Dec 2020]
+
 - **[change]** - support i18n titlecase config (thanks Kayla)
 - **[fix]** - endOf('season') issue
 - **[fix]** - fix character escaping issue in unixFmt method #207
-update deps
-
+  update deps
 
 ### v6.12.1 [Dec 2020]
+
 - **[new]** - support for '97 year format
 - **[change]** - support `13h00` time format
 - **[change]** - support `09.13.2013` and `13.09.2013` formats
 - **[fix]** - `.add()` issue sometimes effecting quarter/season
 
 ### v6.12.0 [Dec 2020]
+
 - **[new]** - support period-seperated short-iso format
 - **[new]** - support fortnight in add/remove methods
 - **[new]** - support 'tues' 'thurs' in day() method
 - **[new]** - support '2002-06' truncated iso input
 
 ### v6.11.0 [Nov 2020]
+
 - **[change]** - support 6-digit millisecond, and lowercase iso
 - **[change]** - first week of year must start > dec 29th
 - **[fix]** - typescript fixes
 - update deps
- 
+
 ### v6.10.1 [Nov 2020]
+
 - **[fix]** - keep yukon dst changes (for now!) #243
 - **[fix]** - support new-zealand time in '13h' format #242
 - update deps
-  
+
 ### v6.10.0 [Nov 2020]
+
 - **[fix]** - support whitespace between time and am/pm (thanks Andy!)
 - **[change]** - make empty array + obj equal to null inputs #240
 - **[change]** - update timezones
 - **[change]** - remove Yukon DST pre-emtively
 
-
 ### v6.9.0 [Nov 2020]
+
 - **[fix]** - dst-change issues like #236
 - **[fix]** - inc/dec year issue on exact nye millisecond
 - **[change]** support parsing quarter-names as input - 'q2 2001'
 - **[change]** support parsing season-names as input - 'fall 2001'
 
 ### v6.8.0 [Oct 2020]
+
 - **[fix]** major DST issue #182 (thanks Boris!)
- 
+
 ### v6.7.0 [Oct 2020]
+
 - **[fix]** add missing timezones `America/Fort_Nelson`, `Asia/Qostanay`, and `America/Nuuk`
-- **[fix]**  comparison issue #231 effecting `.isSame()` and `.since()` accross different timezones
+- **[fix]** comparison issue #231 effecting `.isSame()` and `.since()` accross different timezones
 
 ### v6.6.4
 
