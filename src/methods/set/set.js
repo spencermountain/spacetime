@@ -51,7 +51,7 @@ module.exports = {
     let diff = s.second() - n
     let shift = diff * ms.second
     s.epoch = s.epoch - shift
-    s = fwdBkwd(s, old, goFwd, 'minute') // specify dir
+    s = fwdBkwd(s, old, goFwd, 'minute') // specify direction
     return s.epoch
   },
 
@@ -62,7 +62,7 @@ module.exports = {
     let shift = diff * ms.minute
     s.epoch -= shift
     confirm(s, old, 'second')
-    s = fwdBkwd(s, old, goFwd, 'hour') // specify dir
+    s = fwdBkwd(s, old, goFwd, 'hour') // specify direction
     return s.epoch
   },
 
@@ -169,7 +169,7 @@ module.exports = {
   },
 
   //this one's tricky
-  month: (s, n) => {
+  month: (s, n, goFwd) => {
     if (typeof n === 'string') {
       n = months.mapping()[n.toLowerCase()]
     }
@@ -188,10 +188,12 @@ module.exports = {
       //make it as close as we can..
       date = monthLength[n]
     }
+    let old = s.clone()
     walkTo(s, {
       month: n,
       date
     })
+    s = fwdBkwd(s, old, goFwd, 'year') // specify direction
     return s.epoch
   },
 
@@ -215,8 +217,26 @@ module.exports = {
     })
     return s.epoch
   },
-
-  dayOfYear: (s, n) => {
+  // go to the nth week of the year
+  week: (s, n, goFwd) => {
+    let old = s.clone()
+    n = validate(n)
+    s = s.month(0)
+    s = s.date(1)
+    s = s.day('monday')
+    //first week starts first Thurs in Jan
+    // so mon dec 28th is 1st week
+    // so mon dec 29th is not the week
+    if (s.monthName() === 'december' && s.date() >= 28) {
+      s = s.add(1, 'week')
+    }
+    n -= 1 //1-based
+    s = s.add(n, 'weeks')
+    s = fwdBkwd(s, old, goFwd, 'year') // specify direction
+    return s.epoch
+  },
+  // go to the nth day of the year
+  dayOfYear: (s, n, goFwd) => {
     n = validate(n)
     let old = s.clone()
     n -= 1 //days are 1-based
@@ -228,6 +248,7 @@ module.exports = {
     s = s.startOf('year')
     s = s.add(n, 'day')
     confirm(s, old, 'hour')
+    s = fwdBkwd(s, old, goFwd, 'year') // specify direction
     return s.epoch
   }
 }

@@ -33,20 +33,32 @@ test('goForward ', (t) => {
     ['ampm', 'am', 'pm'],
     ['dayTime', 'breakfast', 'dinner'],
     ['day', 2, 3],
-    ['dayName', 'wednesday', 'thurs']
-    // ['','',''],
-    // ['','',''],
-    // ['','',''],
+    ['dayName', 'wednesday', 'thurs'],
+    ['dayOfYear', 23, 24],
+    ['week', 23, 24],
+    ['month', 3, 6],
+    ['monthName', 'june', 'sept'],
+    ['quarter', 'q2', 'q4'],
+    ['season', 'spring', 'fall']
   ]
   arr.forEach((a) => {
-    let [fn, before, after] = a
-    let s = spacetime.now()[fn](before)
-    let fwdNull = s[fn](after)
-    t.equal(s.isBefore(fwdNull), true, `[${fn}] fwd-null`)
-    let fwd = s[fn](after, true)
+    let fn = a[0]
+    let s = spacetime.now()[fn](a[1])
+    // normal after
+    let after = s[fn](a[2])
+    t.equal(s.isBefore(after), true, `[${fn}] fwd-null`)
+    // after-true
+    let fwd = s[fn](a[2], true)
     t.equal(s.isBefore(fwd), true, `[${fn}] fwd`)
-    let bkwd = s[fn](after, false)
+    // after-false (skip back)
+    let bkwd = s[fn](a[2], false)
     t.equal(s.isAfter(bkwd), true, `[${fn}] bkwd`)
+
+    // after->before (definetly)
+    let before = after[fn](a[1], false)
+    t.equal(before.isBefore(after), true, `[${fn}] go-back-true`)
+    let notBefore = after[fn](a[1], true)
+    t.equal(notBefore.isBefore(after), false, `[${fn}] go-back-false`)
   })
   t.end()
 })

@@ -13,10 +13,10 @@ const clearMinutes = (s) => {
 
 const methods = {
   // day 0-366
-  dayOfYear: function (num) {
+  dayOfYear: function (num, goFwd) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.dayOfYear(s, num)
+      s.epoch = set.dayOfYear(s, num, goFwd)
       return s
     }
     //days since newyears - jan 1st is 1, jan 2nd is 2...
@@ -38,22 +38,12 @@ const methods = {
   },
 
   //since the start of the year
-  week: function (num) {
+  week: function (num, goFwd) {
     // week-setter
     if (num !== undefined) {
       let s = this.clone()
-      s = s.month(0)
-      s = s.date(1)
-      s = s.day('monday')
+      s.epoch = set.week(this, num, goFwd)
       s = clearMinutes(s)
-      //first week starts first Thurs in Jan
-      // so mon dec 28th is 1st week
-      // so mon dec 29th is not the week
-      if (s.monthName() === 'december' && s.date() >= 28) {
-        s = s.add(1, 'week')
-      }
-      num -= 1 //1-based
-      s = s.add(num, 'weeks')
       return s
     }
     //find-out which week it is
@@ -91,26 +81,26 @@ const methods = {
     return 52
   },
   //either name or number
-  month: function (input) {
+  month: function (input, goFwd) {
     if (input !== undefined) {
       let s = this.clone()
-      s.epoch = set.month(s, input)
+      s.epoch = set.month(s, input, goFwd)
       return s
     }
     return this.d.getMonth()
   },
   //'january'
-  monthName: function (input) {
-    if (input === undefined) {
-      return months.long()[this.month()]
+  monthName: function (input, goFwd) {
+    if (input !== undefined) {
+      let s = this.clone()
+      s = s.month(input, goFwd)
+      return s
     }
-    let s = this.clone()
-    s = s.month(input)
-    return s
+    return months.long()[this.month()]
   },
 
   //q1, q2, q3, q4
-  quarter: function (num) {
+  quarter: function (num, goFwd) {
     if (num !== undefined) {
       if (typeof num === 'string') {
         num = num.replace(/^q/i, '')
@@ -119,8 +109,8 @@ const methods = {
       if (quarters[num]) {
         let s = this.clone()
         let month = quarters[num][0]
-        s = s.month(month)
-        s = s.date(1)
+        s = s.month(month, goFwd)
+        s = s.date(1, goFwd)
         s = s.startOf('day')
         return s
       }
@@ -135,7 +125,7 @@ const methods = {
   },
 
   //spring, summer, winter, fall
-  season: function (input) {
+  season: function (input, goFwd) {
     let hem = 'north'
     if (this.hemisphere() === 'South') {
       hem = 'south'
@@ -144,7 +134,7 @@ const methods = {
       let s = this.clone()
       for (let i = 0; i < seasons[hem].length; i++) {
         if (input === seasons[hem][i][0]) {
-          s = s.month(seasons[hem][i][1])
+          s = s.month(seasons[hem][i][1], goFwd)
           s = s.date(1)
           s = s.startOf('day')
         }
