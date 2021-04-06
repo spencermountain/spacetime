@@ -18,10 +18,10 @@ const methods = {
     }
     return this.d.getSeconds()
   },
-  minute: function (num) {
+  minute: function (num, goForward) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.minutes(s, num)
+      s.epoch = set.minutes(s, num, goForward)
       return s
     }
     return this.d.getMinutes()

@@ -90,7 +90,15 @@ const methods = {
     }
     return 52
   },
-
+  //either name or number
+  month: function (input) {
+    if (input !== undefined) {
+      let s = this.clone()
+      s.epoch = set.month(s, input)
+      return s
+    }
+    return this.d.getMonth()
+  },
   //'january'
   monthName: function (input) {
     if (input === undefined) {

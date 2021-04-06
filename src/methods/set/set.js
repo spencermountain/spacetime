@@ -27,6 +27,16 @@ const confirm = (s, tmp, unit) => {
   return s
 }
 
+// allow specifying setter direction
+const fwdBkwd = function (s, old, goForward, unit) {
+  if (goForward === true && s.isBefore(old)) {
+    s = s.add(1, unit)
+  } else if (goForward === false && s.isAfter(old)) {
+    s = s.minus(1, unit)
+  }
+  return s
+}
+
 module.exports = {
   milliseconds: (s, n) => {
     n = validate(n)
@@ -42,20 +52,15 @@ module.exports = {
     return s.epoch - shift
   },
 
-  minutes: (s, n) => {
+  minutes: (s, n, goForward) => {
     n = validate(n)
     let old = s.clone()
     let diff = s.minute() - n
     let shift = diff * ms.minute
     s.epoch -= shift
-    // check against a screw-up
-    // if (old.hour() != s.hour()) {
-    //   walkTo(old, {
-    //     minute: n
-    //   })
-    //   return old.epoch
-    // }
     confirm(s, old, 'second')
+    // set forward/backward direction
+    s = fwdBkwd(s, old, goForward, 'day')
     return s.epoch
   },
 
@@ -130,11 +135,8 @@ module.exports = {
     s = s.minute(minute)
     s = s.second(sec)
     s = s.millisecond(0)
-    if (goForward === true && s.isBefore(old)) {
-      s = s.add(1, 'day')
-    } else if (goForward === false && s.isAfter(old)) {
-      s = s.minus(1, 'day')
-    }
+    // set forward/backward direction
+    s = fwdBkwd(s, old, goForward, 'day')
     return s.epoch
   },
 

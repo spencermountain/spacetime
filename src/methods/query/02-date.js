@@ -55,23 +55,13 @@ const methods = {
   },
 
   //these are helpful name-wrappers
-  dayName: function (input) {
+  dayName: function (input, goForward) {
     if (input === undefined) {
       return days.long()[this.day()]
     }
     let s = this.clone()
-    s = s.day(input)
+    s = s.day(input, goForward)
     return s
-  },
-
-  //either name or number
-  month: function (input) {
-    if (input !== undefined) {
-      let s = this.clone()
-      s.epoch = set.month(s, input)
-      return s
-    }
-    return this.d.getMonth()
   }
 }
 module.exports = methods
