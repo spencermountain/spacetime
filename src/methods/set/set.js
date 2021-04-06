@@ -93,12 +93,12 @@ module.exports = {
       hour: n
     })
     confirm(s, old, 'minute')
-    s = fwdBkwd(s, old, goFwd, 'day') // specify dir
+    s = fwdBkwd(s, old, goFwd, 'day') // specify direction
     return s.epoch
   },
 
   //support setting time by '4:25pm'
-  time: (s, str, goForward) => {
+  time: (s, str, goFwd) => {
     let m = str.match(/([0-9]{1,2})[:h]([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/)
     if (!m) {
       //fallback to support just '2am'
@@ -138,12 +138,11 @@ module.exports = {
     s = s.minute(minute)
     s = s.second(sec)
     s = s.millisecond(0)
-    // set forward/backward direction
-    s = fwdBkwd(s, old, goForward, 'day')
+    s = fwdBkwd(s, old, goFwd, 'day') // specify direction
     return s.epoch
   },
 
-  date: (s, n) => {
+  date: (s, n, goFwd) => {
     n = validate(n)
     //avoid setting february 31st
     if (n > 28) {
@@ -161,9 +160,11 @@ module.exports = {
     if (n <= 0) {
       n = 1
     }
+    let old = s.clone()
     walkTo(s, {
       date: n
     })
+    s = fwdBkwd(s, old, goFwd, 'month') // specify direction
     return s.epoch
   },
 

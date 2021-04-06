@@ -25,7 +25,15 @@ test('goForward ', (t) => {
   let arr = [
     ['second', '8', '12'],
     ['minute', '4', '12'],
-    ['hour', '3', '5'][('time', '2:43', '2:52')]
+    ['hour', '3', '5'],
+    ['time', '2:43', '2:52'],
+    ['date', '3', '5'],
+    ['hourFloat', '3.5', '3.7'],
+    ['hour12', '9pm', '10pm'],
+    ['ampm', 'am', 'pm'],
+    ['dayTime', 'breakfast', 'dinner'],
+    ['day', 2, 3],
+    ['dayName', 'wednesday', 'thurs']
     // ['','',''],
     // ['','',''],
     // ['','',''],
