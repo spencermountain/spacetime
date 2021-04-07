@@ -5,12 +5,16 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- ### [unreleased]
-- **[fix]** - string parsing issue for tue/tues
-- **[new]** - add direction param to .day() method
 -->
+
+### v6.15.1 [April 2021]
+
+- **[fix]** - Fix pacific/chatham iana DST change time (thanks Michael!)
+- update deps
 
 ### v6.15.0 [April 2021]
 
+- **[fix]** - string parsing issue for tue/tues
 - **[fix]** - .time('4:88') now has ceiling of 59m
 - **[new]** - add goFwd params to all (appropriate) setter methods
 

@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.15.0 Apache 2.0 */
+/* spencermountain/spacetime 6.15.1 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -185,7 +185,7 @@
   	"12|s|04/04:03->09/26:02": "12/mcmurdo,11/auckland,12/south_pole",
   	"12|s|01/17:03->11/14:02": "11/fiji",
   	"12|n": "2/anadyr,2/kamchatka,2/srednekolymsk,11/funafuti,11/kwajalein,11/majuro,11/nauru,11/tarawa,11/wake,11/wallis",
-  	"12.75|s|04/04:03->04/04:02": "11/chatham",
+  	"12.75|s|04/04:03->09/26:02": "11/chatham",
   	"11|s|04/04:03->10/03:02": "12/macquarie",
   	"11|s": "11/bougainville",
   	"11|n": "2/magadan,2/sakhalin,11/efate,11/guadalcanal,11/kosrae,11/noumea,11/ponape,11/pohnpei",
@@ -4470,7 +4470,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.15.0';
+  var _version = '6.15.1';
 
   var main = function main(input, tz, options) {
     return new spacetime(input, tz, options);
