@@ -1662,7 +1662,7 @@ module.exports = {
   'pacific/chatham': {
     offset: 12.75,
     hem: 's',
-    dst: '04/04:03->04/04:02'
+    dst: '04/04:03->09/26:02'
   },
   'pacific/easter': {
     offset: -6,
