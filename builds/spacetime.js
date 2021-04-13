@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.15.1 Apache 2.0 */
+/* spencermountain/spacetime 6.15.2 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -4067,7 +4067,7 @@
 
       if (milliseconds[unit]) {
         s.epoch += milliseconds[unit] * num;
-      } else if (unit === 'week') {
+      } else if (unit === 'week' || unit === 'weekend') {
         s.epoch += milliseconds.day * (num * 7);
       } else if (unit === 'quarter' || unit === 'season') {
         s.epoch += milliseconds.month * (num * 3);
@@ -4103,6 +4103,10 @@
         if (sum <= 28 && sum > 1) {
           want.date = sum;
         }
+      }
+
+      if (unit === 'weekend' && s.dayName() !== 'saturday') {
+        s = s.day('saturday', true); //ensure it's saturday
       } //support 25-hour day-changes on dst-changes
       else if (unit === 'date') {
           if (num < 0) {
@@ -4470,7 +4474,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.15.1';
+  var _version = '6.15.2';
 
   var main = function main(input, tz, options) {
     return new spacetime(input, tz, options);

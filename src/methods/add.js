@@ -65,7 +65,7 @@ const addMethods = (SpaceTime) => {
     //move forward by the estimated milliseconds (rough)
     if (ms[unit]) {
       s.epoch += ms[unit] * num
-    } else if (unit === 'week') {
+    } else if (unit === 'week' || unit === 'weekend') {
       s.epoch += ms.day * (num * 7)
     } else if (unit === 'quarter' || unit === 'season') {
       s.epoch += ms.month * (num * 3)
@@ -97,6 +97,9 @@ const addMethods = (SpaceTime) => {
       if (sum <= 28 && sum > 1) {
         want.date = sum
       }
+    }
+    if (unit === 'weekend' && s.dayName() !== 'saturday') {
+      s = s.day('saturday', true) //ensure it's saturday
     }
     //support 25-hour day-changes on dst-changes
     else if (unit === 'date') {

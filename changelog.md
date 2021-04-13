@@ -7,6 +7,11 @@ This project follows semVer, where:
 <!-- ### [unreleased]
 -->
 
+### v6.15.2 [April 2021]
+
+- **[fix]** - .add(n, 'weekend')
+- update deps
+
 ### v6.15.1 [April 2021]
 
 - **[fix]** - Fix pacific/chatham iana DST change time (thanks Michael!)
