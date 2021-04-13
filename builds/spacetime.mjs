@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.15.1 Apache 2.0 */
+/* spencermountain/spacetime 6.15.2 Apache 2.0 */
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -4061,7 +4061,7 @@ var addMethods$3 = function addMethods(SpaceTime) {
 
     if (milliseconds[unit]) {
       s.epoch += milliseconds[unit] * num;
-    } else if (unit === 'week') {
+    } else if (unit === 'week' || unit === 'weekend') {
       s.epoch += milliseconds.day * (num * 7);
     } else if (unit === 'quarter' || unit === 'season') {
       s.epoch += milliseconds.month * (num * 3);
@@ -4097,6 +4097,10 @@ var addMethods$3 = function addMethods(SpaceTime) {
       if (sum <= 28 && sum > 1) {
         want.date = sum;
       }
+    }
+
+    if (unit === 'weekend' && s.dayName() !== 'saturday') {
+      s = s.day('saturday', true); //ensure it's saturday
     } //support 25-hour day-changes on dst-changes
     else if (unit === 'date') {
         if (num < 0) {
@@ -4464,7 +4468,7 @@ var whereIts = function whereIts(a, b) {
 
 var whereIts_1 = whereIts;
 
-var _version = '6.15.1';
+var _version = '6.15.2';
 
 var main = function main(input, tz, options) {
   return new spacetime(input, tz, options);
