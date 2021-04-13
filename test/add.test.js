@@ -129,6 +129,14 @@ test('new-years-eve', (t) => {
   t.end()
 })
 
+test('add-weekend', (t) => {
+  let d = spacetime('2021-04-17')
+  d = d.add(1, 'weekend')
+  t.equal(d.dayName(), 'saturday', 'is saturday')
+  t.equal(d.format('iso-short'), '2021-04-24', 'is ahead')
+  t.end()
+})
+
 test('year-tricky', (t) => {
   let s = spacetime(1451667600000, 'Canada/Eastern') //jan 1 2016 (leap year)
   t.equal(s.year(), 2016, 'year1')
