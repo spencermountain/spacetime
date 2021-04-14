@@ -5,6 +5,25 @@ const parseTime = require('./parseTime')
 const dayExists = require('./_dayExists')
 const fns = require('../../fns')
 
+const quarters = {
+  q1: 0,
+  q2: 3,
+  q3: 6,
+  q4: 9
+}
+
+const seasons = {
+  spring: 2,
+  summer: 5,
+  fall: 8,
+  autumn: 8,
+  winter: 11
+  // ['spring', 2, 1], //spring march 1
+  // ['summer', 5, 1], //june 1
+  // ['fall', 8, 1], //sept 1
+  // ['autumn', 8, 1], //sept 1
+  // ['winter', 11, 1] //dec 1
+}
 const parseYear = (str = '', today) => {
   let year = parseInt(str.trim(), 10)
   // use a given year from options.today
@@ -29,7 +48,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       parseOffset(s, arr[5], givenTz, options)
       // walkTo(s, obj)
@@ -54,7 +73,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       // walkTo(s, obj)
       obj = Object.assign(obj, parseTime(s, arr[4]))
@@ -81,7 +100,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       // walkTo(s, obj)
       obj = Object.assign(obj, parseTime(s, arr[4]))
@@ -101,7 +120,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       parseOffset(s, arr[5], givenTz, options)
       // walkTo(s, obj)
@@ -123,7 +142,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       // walkTo(s, obj)
       obj = Object.assign(obj, parseTime(s, arr[4]))
@@ -144,7 +163,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       // walkTo(s, obj)
       obj = Object.assign(obj, parseTime(s, arr[4]))
@@ -167,7 +186,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       // walkTo(s, obj)
       obj = Object.assign(obj, parseTime(s, arr[4]))
@@ -186,7 +205,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       // walkTo(s, obj)
       obj = Object.assign(obj, parseTime(s, arr[4]))
@@ -207,7 +226,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       // walkTo(s, obj)
       obj = Object.assign(obj, parseTime(s, arr[4]))
@@ -231,7 +250,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       // walkTo(s, obj)
       obj = Object.assign(obj, parseTime(s, arr[4]))
@@ -243,15 +262,18 @@ const strFmt = [
     // 'q2 2002'
     reg: /^(q[0-9])( of)?( [0-9]{4})?/i,
     parse: (s, arr) => {
-      let quarter = arr[1] || ''
-      s = s.quarter(quarter)
-      let q = arr[3] || ''
-      if (q) {
-        q = q.trim()
-        // s = s.year(year)
+      let obj = { date: 1 }
+      let q = arr[1] || ''
+      q = q.trim()
+
+      if (quarters[q] !== undefined) {
+        obj.month = quarters[q]
       }
-      return { quarter: q }
-      // return s
+      // s = s.quarter(quarter)
+      if (arr[3]) {
+        obj.year = Number(arr[3]) || undefined
+      }
+      return obj
     }
   },
   {
@@ -259,13 +281,14 @@ const strFmt = [
     reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?/i,
     parse: (s, arr) => {
       let season = arr[1] || ''
-      s = s.season(season)
+      let m = seasons[season]
+      // s = s.season(season)
       let year = arr[3] || ''
       if (year) {
         year = year.trim()
         // s = s.year(year)
       }
-      return { year: year }
+      return { year: year, month: m }
       // return s
     }
   },
@@ -287,7 +310,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       // walkTo(s, obj)
       obj = Object.assign(obj, parseTime(s, arr[4]))
@@ -311,7 +334,7 @@ const strFmt = [
       }
       if (dayExists(obj) === false) {
         s.epoch = null
-        return s
+        return null
       }
       // walkTo(s, obj)
       obj = Object.assign(obj, parseTime(s, arr[4]))
