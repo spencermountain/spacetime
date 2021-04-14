@@ -1,4 +1,4 @@
-const walkTo = require('../../methods/set/walk')
+// const walkTo = require('../../methods/set/walk')
 const months = require('../../data/months').mapping()
 const parseOffset = require('./parseOffset')
 const parseTime = require('./parseTime')
@@ -32,9 +32,10 @@ const strFmt = [
         return s
       }
       parseOffset(s, arr[5], givenTz, options)
-      walkTo(s, obj)
-      s = parseTime(s, arr[4])
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
   //iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
@@ -55,9 +56,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s, arr[4])
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      // return s
+      return obj
     }
   },
   //mm/dd/yyyy - uk/canada "6/28/2019, 12:26:14 PM"
@@ -81,9 +83,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s, arr[4])
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
   // '2012-06' last attempt at iso-like format
@@ -101,9 +104,10 @@ const strFmt = [
         return s
       }
       parseOffset(s, arr[5], givenTz, options)
-      walkTo(s, obj)
-      s = parseTime(s, arr[4])
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
   //common british format - "25-feb-2015"
@@ -121,9 +125,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s, arr[4])
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
   //alt short format - "feb-25-2015"
@@ -141,9 +146,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s, arr[4])
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
 
@@ -163,9 +169,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s, arr[4])
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
   // 'Sun Mar 14 15:09:48 +0000 2021'
@@ -181,9 +188,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s, arr[3])
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
   //February 2017 (implied date)
@@ -201,9 +209,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s, arr[4])
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
   //Long "25 Mar 2015"
@@ -224,9 +233,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s, arr[4])
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
   {
@@ -235,12 +245,13 @@ const strFmt = [
     parse: (s, arr) => {
       let quarter = arr[1] || ''
       s = s.quarter(quarter)
-      let year = arr[3] || ''
-      if (year) {
-        year = year.trim()
-        s = s.year(year)
+      let q = arr[3] || ''
+      if (q) {
+        q = q.trim()
+        // s = s.year(year)
       }
-      return s
+      return { quarter: q }
+      // return s
     }
   },
   {
@@ -252,9 +263,10 @@ const strFmt = [
       let year = arr[3] || ''
       if (year) {
         year = year.trim()
-        s = s.year(year)
+        // s = s.year(year)
       }
-      return s
+      return { year: year }
+      // return s
     }
   },
   {
@@ -277,9 +289,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s)
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
   {
@@ -300,9 +313,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s)
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   },
   {
@@ -325,9 +339,10 @@ const strFmt = [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
-      s = parseTime(s)
-      return s
+      // walkTo(s, obj)
+      obj = Object.assign(obj, parseTime(s, arr[4]))
+      return obj
+      // return s
     }
   }
 ]
