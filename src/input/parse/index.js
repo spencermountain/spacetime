@@ -6,12 +6,7 @@ const parseString = function (s, input, givenTz) {
     if (m) {
       // console.log(parsers[i].reg)
       let res = parsers[i].parse(s, m, givenTz)
-      // console.log(res)
       if (res !== null && res.isValid()) {
-        // res = Object.assign({}, zeros, res)
-        // console.log(res)
-        // &
-        // walkTo(s, res)
         return res
       }
     }

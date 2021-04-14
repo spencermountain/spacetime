@@ -1,19 +1,21 @@
 const walkTo = require('../../methods/set/walk')
 const months = require('../../data/months').mapping()
-const parseOffset = require('./parseOffset')
-const parseTime = require('./parseTime')
-const hasDate = require('./_dayExists')
+const validate = require('./validate')
 const fns = require('../../fns')
 
-const parseYear = (str = '', today) => {
-  let year = parseInt(str.trim(), 10)
-  // use a given year from options.today
-  if (!year && today) {
-    year = today.year
+const parse = {
+  offset: require('./parseOffset'),
+  time: require('./parseTime'),
+  year: (str = '', today) => {
+    let year = parseInt(str.trim(), 10)
+    // use a given year from options.today
+    if (!year && today) {
+      year = today.year
+    }
+    // fallback to this year
+    year = year || new Date().getFullYear()
+    return year
   }
-  // fallback to this year
-  year = year || new Date().getFullYear()
-  return year
 }
 
 const strFmt = [
@@ -27,13 +29,13 @@ const strFmt = [
         month,
         date: arr[3]
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
-      parseOffset(s, arr[5])
+      parse.offset(s, arr[5])
       walkTo(s, obj)
-      s = parseTime(s, arr[4])
+      s = parse.time(s, arr[4])
       return s
     }
   },
@@ -51,12 +53,12 @@ const strFmt = [
         obj.date = parseInt(arr[2], 10)
         obj.month = parseInt(arr[3], 10) - 1
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s, arr[4])
+      s = parse.time(s, arr[4])
       return s
     }
   },
@@ -71,18 +73,18 @@ const strFmt = [
         date = parseInt(arr[1], 10)
         month = parseInt(arr[2], 10) - 1
       }
-      let year = parseYear(arr[3], s._today) || new Date().getFullYear()
+      let year = parse.year(arr[3], s._today) || new Date().getFullYear()
       let obj = {
         year,
         month,
         date
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s, arr[4])
+      s = parse.time(s, arr[4])
       return s
     }
   },
@@ -96,13 +98,13 @@ const strFmt = [
         month,
         date: 1
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
-      parseOffset(s, arr[5])
+      parse.offset(s, arr[5])
       walkTo(s, obj)
-      s = parseTime(s, arr[4])
+      s = parse.time(s, arr[4])
       return s
     }
   },
@@ -111,18 +113,18 @@ const strFmt = [
     reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
     parse: (s, arr) => {
       let month = months[arr[2].toLowerCase()]
-      let year = parseYear(arr[3], s._today)
+      let year = parse.year(arr[3], s._today)
       let obj = {
         year,
         month,
         date: fns.toCardinal(arr[1] || '')
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s, arr[4])
+      s = parse.time(s, arr[4])
       return s
     }
   },
@@ -131,18 +133,18 @@ const strFmt = [
     reg: /^([a-z]+)[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/i,
     parse: (s, arr) => {
       let month = months[arr[1].toLowerCase()]
-      let year = parseYear(arr[3], s._today)
+      let year = parse.year(arr[3], s._today)
       let obj = {
         year,
         month,
         date: fns.toCardinal(arr[2] || '')
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s, arr[4])
+      s = parse.time(s, arr[4])
       return s
     }
   },
@@ -153,18 +155,18 @@ const strFmt = [
     reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
     parse: (s, arr) => {
       let month = months[arr[1].toLowerCase()]
-      let year = parseYear(arr[3], s._today)
+      let year = parse.year(arr[3], s._today)
       let obj = {
         year,
         month,
         date: fns.toCardinal(arr[2] || '')
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s, arr[4])
+      s = parse.time(s, arr[4])
       return s
     }
   },
@@ -173,16 +175,16 @@ const strFmt = [
     reg: /^([a-z]+) ([0-9]{1,2})( [0-9:]+)?( \+[0-9]{4})?( [0-9]{4})?$/i,
     parse: (s, arr) => {
       let obj = {
-        year: parseYear(arr[5], s._today),
+        year: parse.year(arr[5], s._today),
         month: months[arr[1].toLowerCase()],
         date: fns.toCardinal(arr[2] || '')
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s, arr[3])
+      s = parse.time(s, arr[3])
       return s
     }
   },
@@ -191,18 +193,18 @@ const strFmt = [
     reg: /^([a-z]+) ([0-9]{4})$/i,
     parse: (s, arr) => {
       let month = months[arr[1].toLowerCase()]
-      let year = parseYear(arr[2], s._today)
+      let year = parse.year(arr[2], s._today)
       let obj = {
         year,
         month,
         date: s._today.date || 1
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s, arr[4])
+      s = parse.time(s, arr[4])
       return s
     }
   },
@@ -214,18 +216,18 @@ const strFmt = [
       if (!month) {
         return null
       }
-      let year = parseYear(arr[3], s._today)
+      let year = parse.year(arr[3], s._today)
       let obj = {
         year,
         month,
         date: fns.toCardinal(arr[1])
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s, arr[4])
+      s = parse.time(s, arr[4])
       return s
     }
   },
@@ -240,7 +242,7 @@ const strFmt = [
         month: month,
         year: Number(g.year)
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
@@ -292,12 +294,12 @@ const strFmt = [
         month: d.getMonth(),
         date: d.getDate()
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s)
+      s = parse.time(s)
       return s
     }
   },
@@ -315,12 +317,12 @@ const strFmt = [
         month: d.getMonth(),
         date: d.getDate()
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s)
+      s = parse.time(s)
       return s
     }
   },
@@ -329,7 +331,7 @@ const strFmt = [
     reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
     parse: (s, arr) => {
       let today = s._today
-      let year = parseYear(arr[0], today)
+      let year = parse.year(arr[0], today)
       let d = new Date()
       // using today's date, but a new month is awkward.
       if (today.month && !today.date) {
@@ -340,12 +342,12 @@ const strFmt = [
         month: today.month || d.getMonth(),
         date: today.date || d.getDate()
       }
-      if (hasDate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s)
+      s = parse.time(s)
       return s
     }
   }
