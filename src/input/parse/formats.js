@@ -1,9 +1,9 @@
-const walkTo = require('../methods/set/walk')
-const months = require('../data/months').mapping()
+const walkTo = require('../../methods/set/walk')
+const months = require('../../data/months').mapping()
 const parseOffset = require('./parseOffset')
 const parseTime = require('./parseTime')
-const hasDate = require('./hasDate')
-const fns = require('../fns')
+const dayExists = require('./_dayExists')
+const fns = require('../../fns')
 
 const parseYear = (str = '', today) => {
   let year = parseInt(str.trim(), 10)
@@ -27,7 +27,7 @@ const strFmt = [
         month,
         date: arr[3]
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -51,7 +51,7 @@ const strFmt = [
         obj.date = parseInt(arr[2], 10)
         obj.month = parseInt(arr[3], 10) - 1
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -77,7 +77,7 @@ const strFmt = [
         month,
         date
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -96,7 +96,7 @@ const strFmt = [
         month,
         date: 1
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -117,7 +117,7 @@ const strFmt = [
         month,
         date: fns.toCardinal(arr[1] || '')
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -137,7 +137,7 @@ const strFmt = [
         month,
         date: fns.toCardinal(arr[2] || '')
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -159,7 +159,7 @@ const strFmt = [
         month,
         date: fns.toCardinal(arr[2] || '')
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -177,7 +177,7 @@ const strFmt = [
         month: months[arr[1].toLowerCase()],
         date: fns.toCardinal(arr[2] || '')
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -197,7 +197,7 @@ const strFmt = [
         month,
         date: s._today.date || 1
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -220,7 +220,7 @@ const strFmt = [
         month,
         date: fns.toCardinal(arr[1])
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -273,7 +273,7 @@ const strFmt = [
         month: d.getMonth(),
         date: d.getDate()
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -296,7 +296,7 @@ const strFmt = [
         month: d.getMonth(),
         date: d.getDate()
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
@@ -321,7 +321,7 @@ const strFmt = [
         month: today.month || d.getMonth(),
         date: today.date || d.getDate()
       }
-      if (hasDate(obj) === false) {
+      if (dayExists(obj) === false) {
         s.epoch = null
         return s
       }
