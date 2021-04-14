@@ -1,14 +1,5 @@
-const parsers = require('./formats')
-const walkTo = require('../../methods/set/walk')
-
-const zeros = {
-  hour: 0,
-  minute: 0,
-  second: 0,
-  millisecond: 0
-}
-
 const parseString = function (s, input, givenTz) {
+  let parsers = s.parsers || []
   //try each text-parse template, use the first good result
   for (let i = 0; i < parsers.length; i++) {
     let m = input.match(parsers[i].reg)
@@ -16,12 +7,12 @@ const parseString = function (s, input, givenTz) {
       // console.log(parsers[i].reg)
       let res = parsers[i].parse(s, m, givenTz)
       // console.log(res)
-      if (res !== null) {
-        res = Object.assign({}, zeros, res)
+      if (res !== null && res.isValid()) {
+        // res = Object.assign({}, zeros, res)
         // console.log(res)
-        // && res.isValid()) {
-        walkTo(s, res)
-        return s
+        // &
+        // walkTo(s, res)
+        return res
       }
     }
   }

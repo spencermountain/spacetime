@@ -16,50 +16,32 @@ const parseTime = (s, str = '') => {
       // fix overflow issue with milliseconds, if input is longer than standard (e.g. 2017-08-06T09:00:00.123456Z)
       arr[4] = parseInt(`${arr[4]}`.substring(0, 3), 10)
     }
-    // s = s.hour(h)
-    // s = s.minute(m)
-    // s = s.seconds(arr[3] || 0)
-    // s = s.millisecond(arr[4] || 0)
+    s = s.hour(h)
+    s = s.minute(m)
+    s = s.seconds(arr[3] || 0)
+    s = s.millisecond(arr[4] || 0)
     //parse-out am/pm
     let ampm = str.match(/[\b0-9](am|pm)\b/)
-    if (ampm !== null && ampm[1] === 'pm') {
-      // s = s.ampm(ampm[1])
-      h += 12
+    if (ampm !== null && ampm[1]) {
+      s = s.ampm(ampm[1])
     }
-    return {
-      hour: h,
-      minute: m,
-      second: arr[3] || 0,
-      millisecond: arr[4] || 0
-    }
+    return s
   }
-
   //try an informal form - 5pm (no minutes)
   arr = str.match(/([0-9]+) ?(am|pm)/)
   if (arr !== null && arr[1]) {
     let h = Number(arr[1])
     //validate it a little..
-    if (h < 12 && h > 1) {
-      if (arr[2] !== null && arr[2] === 'pm') {
-        // s = s.ampm(ampm[1])
-        h += 12
-      }
-      // return s.startOf('day')
-      // s = s.hour(arr[1] || 0)
-      // s = s.ampm(arr[2])
-      // s = s.startOf('hour')
-      return {
-        hour: arr[1] || 0,
-        minute: 0,
-        second: 0,
-        millisecond: 0
-      }
+    if (h > 12 || h < 1) {
+      return s.startOf('day')
     }
-    // return s
+    s = s.hour(arr[1] || 0)
+    s = s.ampm(arr[2])
+    s = s.startOf('hour')
+    return s
   }
   //no time info found, use start-of-day
-  // s = s.startOf('day')
-  return { hour: 0, minute: 0, second: 0, millisecond: 0 }
-  // return s
+  s = s.startOf('day')
+  return s
 }
 module.exports = parseTime

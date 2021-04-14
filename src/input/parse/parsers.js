@@ -1,29 +1,10 @@
-// const walkTo = require('../../methods/set/walk')
+const walkTo = require('../../methods/set/walk')
 const months = require('../../data/months').mapping()
 const parseOffset = require('./parseOffset')
 const parseTime = require('./parseTime')
-const dayExists = require('./_dayExists')
+const hasDate = require('./_dayExists')
 const fns = require('../../fns')
 
-const quarters = {
-  q1: 0,
-  q2: 3,
-  q3: 6,
-  q4: 9
-}
-
-const seasons = {
-  spring: 2,
-  summer: 5,
-  fall: 8,
-  autumn: 8,
-  winter: 11
-  // ['spring', 2, 1], //spring march 1
-  // ['summer', 5, 1], //june 1
-  // ['fall', 8, 1], //sept 1
-  // ['autumn', 8, 1], //sept 1
-  // ['winter', 11, 1] //dec 1
-}
 const parseYear = (str = '', today) => {
   let year = parseInt(str.trim(), 10)
   // use a given year from options.today
@@ -46,15 +27,14 @@ const strFmt = [
         month,
         date: arr[3]
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
       parseOffset(s, arr[5], givenTz, options)
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
     }
   },
   //iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
@@ -71,14 +51,13 @@ const strFmt = [
         obj.date = parseInt(arr[2], 10)
         obj.month = parseInt(arr[3], 10) - 1
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      // return s
-      return obj
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
     }
   },
   //mm/dd/yyyy - uk/canada "6/28/2019, 12:26:14 PM"
@@ -98,14 +77,13 @@ const strFmt = [
         month,
         date
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
     }
   },
   // '2012-06' last attempt at iso-like format
@@ -118,15 +96,14 @@ const strFmt = [
         month,
         date: 1
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
       parseOffset(s, arr[5], givenTz, options)
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
     }
   },
   //common british format - "25-feb-2015"
@@ -140,14 +117,13 @@ const strFmt = [
         month,
         date: fns.toCardinal(arr[1] || '')
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
     }
   },
   //alt short format - "feb-25-2015"
@@ -161,14 +137,13 @@ const strFmt = [
         month,
         date: fns.toCardinal(arr[2] || '')
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
     }
   },
 
@@ -184,14 +159,13 @@ const strFmt = [
         month,
         date: fns.toCardinal(arr[2] || '')
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
     }
   },
   // 'Sun Mar 14 15:09:48 +0000 2021'
@@ -203,14 +177,13 @@ const strFmt = [
         month: months[arr[1].toLowerCase()],
         date: fns.toCardinal(arr[2] || '')
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s, arr[3])
+      return s
     }
   },
   //February 2017 (implied date)
@@ -224,14 +197,13 @@ const strFmt = [
         month,
         date: s._today.date || 1
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
     }
   },
   //Long "25 Mar 2015"
@@ -248,32 +220,27 @@ const strFmt = [
         month,
         date: fns.toCardinal(arr[1])
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s, arr[4])
+      return s
     }
   },
   {
     // 'q2 2002'
     reg: /^(q[0-9])( of)?( [0-9]{4})?/i,
     parse: (s, arr) => {
-      let obj = { date: 1 }
-      let q = arr[1] || ''
-      q = q.trim()
-
-      if (quarters[q] !== undefined) {
-        obj.month = quarters[q]
+      let quarter = arr[1] || ''
+      s = s.quarter(quarter)
+      let year = arr[3] || ''
+      if (year) {
+        year = year.trim()
+        s = s.year(year)
       }
-      // s = s.quarter(quarter)
-      if (arr[3]) {
-        obj.year = Number(arr[3]) || undefined
-      }
-      return obj
+      return s
     }
   },
   {
@@ -281,15 +248,13 @@ const strFmt = [
     reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?/i,
     parse: (s, arr) => {
       let season = arr[1] || ''
-      let m = seasons[season]
-      // s = s.season(season)
+      s = s.season(season)
       let year = arr[3] || ''
       if (year) {
         year = year.trim()
-        // s = s.year(year)
+        s = s.year(year)
       }
-      return { year: year, month: m }
-      // return s
+      return s
     }
   },
   {
@@ -308,14 +273,13 @@ const strFmt = [
         month: d.getMonth(),
         date: d.getDate()
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s)
+      return s
     }
   },
   {
@@ -332,14 +296,13 @@ const strFmt = [
         month: d.getMonth(),
         date: d.getDate()
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
-        return null
+        return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s)
+      return s
     }
   },
   {
@@ -358,14 +321,13 @@ const strFmt = [
         month: today.month || d.getMonth(),
         date: today.date || d.getDate()
       }
-      if (dayExists(obj) === false) {
+      if (hasDate(obj) === false) {
         s.epoch = null
         return s
       }
-      // walkTo(s, obj)
-      obj = Object.assign(obj, parseTime(s, arr[4]))
-      return obj
-      // return s
+      walkTo(s, obj)
+      s = parseTime(s)
+      return s
     }
   }
 ]
