@@ -19,7 +19,7 @@ const defaults = {
 }
 
 //find the epoch from different input styles
-const parseInput = (s, input, givenTz) => {
+const parseInput = (s, input) => {
   let today = s._today || defaults
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
@@ -71,6 +71,6 @@ const parseInput = (s, input, givenTz) => {
     return s
   }
   //try each text-parse template, use the first good result
-  return parseString(s, input, givenTz)
+  return parseString(s, input)
 }
 module.exports = parseInput
