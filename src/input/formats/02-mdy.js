@@ -8,7 +8,7 @@ module.exports = [
   // =====
   //mm/dd/yyyy - uk/canada "6/28/2019, 12:26:14 PM"
   {
-    reg: /^([0-9]{1,2})[\-\/.]([0-9]{1,2})[\-\/.]?([0-9]{4})?,?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
+    reg: /^([0-9]{1,2})[\-\/.]([0-9]{1,2})[\-\/.]?([0-9]{4})?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
     parse: (s, arr) => {
       let month = parseInt(arr[1], 10) - 1
       let date = parseInt(arr[2], 10)
@@ -33,7 +33,7 @@ module.exports = [
   },
   //alt short format - "feb-25-2015"
   {
-    reg: /^([a-z]+)[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/i,
+    reg: /^([a-z]+)[\-\/ ]([0-9]{1,2})[\-\/ ]?([0-9]{4}|'[0-9]{2})?$/i,
     parse: (s, arr) => {
       let obj = {
         year: parseYear(arr[3], s._today),
@@ -53,7 +53,7 @@ module.exports = [
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {
-    reg: /^([a-z]+) ([0-9]{1,2}),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
+    reg: /^([a-z]+) ([0-9]{1,2})( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
     parse: (s, arr) => {
       let obj = {
         year: parseYear(arr[3], s._today),
