@@ -5,15 +5,33 @@ module.exports = [
   // =====
   // no dates
   // =====
+
+  // '2012-06' month-only
+  {
+    reg: /^([0-9]{4})[\-\/]([0-9]{2})$/i,
+    parse: (s, m) => {
+      let obj = {
+        year: m[1],
+        month: parseInt(m[2], 10) - 1,
+        date: 1
+      }
+      if (validate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      walkTo(s, obj)
+      s = parseTime(s, m[4])
+      return s
+    }
+  },
+
   //February 2017 (implied date)
   {
     reg: /^([a-z]+) ([0-9]{4})$/i,
     parse: (s, arr) => {
-      let month = parseMonth(arr[1])
-      let year = parseYear(arr[2], s._today)
       let obj = {
-        year,
-        month,
+        year: parseYear(arr[2], s._today),
+        month: parseMonth(arr[1]),
         date: s._today.date || 1
       }
       if (validate(obj) === false) {
@@ -59,14 +77,11 @@ module.exports = [
     reg: /^[0-9,]+ ?b\.?c\.?$/i,
     parse: (s, arr) => {
       let str = arr[0] || ''
-      //make negative-year
+      //make year-negative
       str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1')
-      //remove commas
-      str = str.replace(/,/g, '')
-      let year = parseInt(str.trim(), 10)
       let d = new Date()
       let obj = {
-        year,
+        year: parseInt(str.trim(), 10),
         month: d.getMonth(),
         date: d.getDate()
       }
@@ -86,10 +101,9 @@ module.exports = [
       let str = arr[0] || ''
       //remove commas
       str = str.replace(/,/g, '')
-      let year = parseInt(str.trim(), 10)
       let d = new Date()
       let obj = {
-        year,
+        year: parseInt(str.trim(), 10),
         month: d.getMonth(),
         date: d.getDate()
       }
@@ -107,14 +121,13 @@ module.exports = [
     reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
     parse: (s, arr) => {
       let today = s._today
-      let year = parseYear(arr[0], today)
-      let d = new Date()
       // using today's date, but a new month is awkward.
       if (today.month && !today.date) {
         today.date = 1
       }
+      let d = new Date()
       let obj = {
-        year,
+        year: parseYear(arr[0], today),
         month: today.month || d.getMonth(),
         date: today.date || d.getDate()
       }

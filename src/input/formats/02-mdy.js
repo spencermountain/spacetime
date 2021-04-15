@@ -17,11 +17,10 @@ module.exports = [
         date = parseInt(arr[1], 10)
         month = parseInt(arr[2], 10) - 1
       }
-      let year = parseYear(arr[3], s._today) || new Date().getFullYear()
       let obj = {
-        year,
+        date,
         month,
-        date
+        year: parseYear(arr[3], s._today) || new Date().getFullYear()
       }
       if (validate(obj) === false) {
         s.epoch = null
@@ -36,11 +35,9 @@ module.exports = [
   {
     reg: /^([a-z]+)[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/i,
     parse: (s, arr) => {
-      let month = parseMonth(arr[1])
-      let year = parseYear(arr[3], s._today)
       let obj = {
-        year,
-        month,
+        year: parseYear(arr[3], s._today),
+        month: parseMonth(arr[1]),
         date: fns.toCardinal(arr[2] || '')
       }
       if (validate(obj) === false) {
@@ -58,11 +55,9 @@ module.exports = [
   {
     reg: /^([a-z]+) ([0-9]{1,2}),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
     parse: (s, arr) => {
-      let month = parseMonth(arr[1])
-      let year = parseYear(arr[3], s._today)
       let obj = {
-        year,
-        month,
+        year: parseYear(arr[3], s._today),
+        month: parseMonth(arr[1]),
         date: fns.toCardinal(arr[2] || '')
       }
       if (validate(obj) === false) {

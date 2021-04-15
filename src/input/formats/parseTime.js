@@ -1,6 +1,8 @@
 const parseTime = (s, str = '') => {
-  str = str.replace(/^\s+/, '').toLowerCase() //trim
-  //formal time formats - 04:30.23
+  // remove all whitespace
+  str = str.replace(/^\s+/, '').toLowerCase()
+
+  //formal time format - 04:30.23
   let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/)
   if (arr !== null) {
     //validate it a little
@@ -27,6 +29,7 @@ const parseTime = (s, str = '') => {
     }
     return s
   }
+
   //try an informal form - 5pm (no minutes)
   arr = str.match(/([0-9]+) ?(am|pm)/)
   if (arr !== null && arr[1]) {
@@ -40,6 +43,7 @@ const parseTime = (s, str = '') => {
     s = s.startOf('hour')
     return s
   }
+
   //no time info found, use start-of-day
   s = s.startOf('day')
   return s

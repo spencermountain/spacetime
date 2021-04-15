@@ -10,11 +10,9 @@ module.exports = [
   {
     reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
     parse: (s, arr) => {
-      let month = parseMonth(arr[2])
-      let year = parseYear(arr[3], s._today)
       let obj = {
-        year,
-        month,
+        year: parseYear(arr[3], s._today),
+        month: parseMonth(arr[2]),
         date: fns.toCardinal(arr[1] || '')
       }
       if (validate(obj) === false) {
@@ -30,17 +28,12 @@ module.exports = [
   {
     reg: /^([0-9]{1,2})([a-z]+),?( [0-9]{4})?,? ?([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
     parse: (s, arr) => {
-      let month = parseMonth(arr[2])
-      if (!month) {
-        return null
-      }
-      let year = parseYear(arr[3], s._today)
       let obj = {
-        year,
-        month,
+        year: parseYear(arr[3], s._today),
+        month: parseMonth(arr[2]),
         date: fns.toCardinal(arr[1])
       }
-      if (validate(obj) === false) {
+      if (!obj.month || validate(obj) === false) {
         s.epoch = null
         return s
       }
@@ -53,10 +46,9 @@ module.exports = [
   {
     reg: /^([0-9]{1,2})[\. -/]([a-z]+)[\. -/]([0-9]{4})?$/i,
     parse: (s, m) => {
-      let month = parseMonth(m[2])
       let obj = {
         date: Number(m[1]),
-        month: month,
+        month: parseMonth(m[2]),
         year: Number(m[3])
       }
       if (validate(obj) === false) {
