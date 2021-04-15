@@ -7,6 +7,10 @@ This project follows semVer, where:
 <!-- ### [unreleased]
 -->
 
+### v6.15.3 [April 2021]
+
+- **[change]** - improvements to date-sting parsers
+
 ### v6.15.2 [April 2021]
 
 - **[fix]** - .add(n, 'weekend')

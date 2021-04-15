@@ -2,7 +2,6 @@ const quickOffset = require('./timezone/quick')
 const findTz = require('./timezone/find')
 const handleInput = require('./input')
 const methods = require('./methods')
-const parsers = require('./input/formats')
 let timezones = require('../zonefile/unpack')
 
 //fake timezone-support, for fakers (es5 class)
@@ -27,11 +26,11 @@ const SpaceTime = function (input, tz, options = {}) {
     this._today = options.today
   }
   // dunno if this is a good idea, or not
-  Object.defineProperty(this, 'parsers', {
-    enumerable: false,
-    writable: true,
-    value: parsers
-  })
+  // Object.defineProperty(this, 'parsers', {
+  //   enumerable: false,
+  //   writable: true,
+  //   value: parsers
+  // })
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object

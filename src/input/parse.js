@@ -1,5 +1,7 @@
+const parsers = require('./formats')
+
 const parseString = function (s, input, givenTz) {
-  let parsers = s.parsers || []
+  // let parsers = s.parsers || []
   //try each text-parse template, use the first good result
   for (let i = 0; i < parsers.length; i++) {
     let m = input.match(parsers[i].reg)
