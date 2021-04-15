@@ -7,6 +7,12 @@ This project follows semVer, where:
 <!-- ### [unreleased]
 -->
 
+### v6.16.0 [April 2021]
+
+- **[change]** - improvements to date-sting parsers
+- **[change]** - drop ie11 polyfills in min.js build
+- **[change]** - minify and stop compiling esm build
+
 ### v6.15.2 [April 2021]
 
 - **[fix]** - .add(n, 'weekend')

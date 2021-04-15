@@ -60,9 +60,7 @@ export interface Spacetime {
   round: (unit: TimeUnit) => Spacetime
 
   /** list all dates up to a certain time */
-  every: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
-  /** list all dates up to a certain time */
-  every: (end: Spacetime | string, unit: TimeUnit) => Spacetime[]
+  every: (unit: Spacetime | string| TimeUnit, end: Spacetime | string| TimeUnit) => Spacetime[]
 
   /** list all dates up to a certain time */
   each: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
@@ -83,9 +81,7 @@ export interface Spacetime {
   isBetween: (start: Spacetime | Date, end: Spacetime | Date, isInclusive?: boolean) => boolean
 
   /** detect if two date/times are the same day, week, or year, etc */
-  isSame: (date: Spacetime | Date, unit: TimeUnit, tzSensitive?: boolean) => boolean
-  /** detect if two date/times are the same day, week, or year, etc */
-  isSame: (unit: TimeUnit, date: Spacetime | Date, tzSensitive?: boolean) => boolean
+  isSame: (date: Spacetime | Date | TimeUnit, unit: Spacetime | Date | TimeUnit, tzSensitive?: boolean) => boolean
 
   /** given a date and a unit, count how many of them you'd need to make the dates equal */
   diff(value: Spacetime | ParsableDate, unit: TimeUnit): number

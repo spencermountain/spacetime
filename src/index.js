@@ -34,7 +34,7 @@ main.yesterday = (tz, options) => {
   s = setToday(s)
   return s.subtract(1, 'day').startOf('day')
 }
-main.extend = function (obj) {
+main.extend = function (obj = {}) {
   Object.keys(obj).forEach((k) => {
     Spacetime.prototype[k] = obj[k]
   })

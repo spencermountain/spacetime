@@ -25,6 +25,12 @@ const SpaceTime = function (input, tz, options = {}) {
   if (options.today !== undefined) {
     this._today = options.today
   }
+  // dunno if this is a good idea, or not
+  // Object.defineProperty(this, 'parsers', {
+  //   enumerable: false,
+  //   writable: true,
+  //   value: parsers
+  // })
   //add getter/setters
   Object.defineProperty(this, 'd', {
     //return a js date object
@@ -50,7 +56,7 @@ const SpaceTime = function (input, tz, options = {}) {
     }
   })
   //parse the various formats
-  let tmp = handleInput(this, input, tz, options)
+  let tmp = handleInput(this, input)
   this.epoch = tmp.epoch
 }
 
@@ -64,7 +70,8 @@ SpaceTime.prototype.clone = function () {
   return new SpaceTime(this.epoch, this.tz, {
     silent: this.silent,
     weekStart: this._weekStart,
-    today: this._today
+    today: this._today,
+    parsers: this.parsers
   })
 }
 
