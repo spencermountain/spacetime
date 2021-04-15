@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "6.15.2",
+  "version": "6.16.0",
   "description": "figure-out dates across timezones",
   "main": "builds/spacetime.js",
   "unpkg": "builds/spacetime.min.js",
@@ -21,6 +21,11 @@
     "codecov": "npm run coverage && codecov -t 411de6c7-82d2-41e9-a1cc-9096cdab6c72",
     "lint": "eslint ./src --ext .js"
   },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "maintained node versions"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/spencermountain/spacetime.git"
