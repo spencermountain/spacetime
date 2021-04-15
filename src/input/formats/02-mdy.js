@@ -1,7 +1,6 @@
 const walkTo = require('../../methods/set/walk')
-const months = require('../../data/months').mapping()
 const fns = require('../../fns')
-const parse = require('./_parsers')
+const { validate, parseTime, parseYear, parseMonth } = require('./_parsers')
 
 module.exports = [
   // =====
@@ -18,18 +17,18 @@ module.exports = [
         date = parseInt(arr[1], 10)
         month = parseInt(arr[2], 10) - 1
       }
-      let year = parse.year(arr[3], s._today) || new Date().getFullYear()
+      let year = parseYear(arr[3], s._today) || new Date().getFullYear()
       let obj = {
         year,
         month,
         date
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parse.time(s, arr[4])
+      s = parseTime(s, arr[4])
       return s
     }
   },
@@ -37,19 +36,19 @@ module.exports = [
   {
     reg: /^([a-z]+)[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/i,
     parse: (s, arr) => {
-      let month = months[arr[1].toLowerCase()]
-      let year = parse.year(arr[3], s._today)
+      let month = parseMonth(arr[1])
+      let year = parseYear(arr[3], s._today)
       let obj = {
         year,
         month,
         date: fns.toCardinal(arr[2] || '')
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parse.time(s, arr[4])
+      s = parseTime(s, arr[4])
       return s
     }
   },
@@ -59,19 +58,19 @@ module.exports = [
   {
     reg: /^([a-z]+) ([0-9]{1,2}),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
     parse: (s, arr) => {
-      let month = months[arr[1].toLowerCase()]
-      let year = parse.year(arr[3], s._today)
+      let month = parseMonth(arr[1])
+      let year = parseYear(arr[3], s._today)
       let obj = {
         year,
         month,
         date: fns.toCardinal(arr[2] || '')
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parse.time(s, arr[4])
+      s = parseTime(s, arr[4])
       return s
     }
   },
@@ -80,16 +79,16 @@ module.exports = [
     reg: /^([a-z]+) ([0-9]{1,2})( [0-9:]+)?( \+[0-9]{4})?( [0-9]{4})?$/i,
     parse: (s, arr) => {
       let obj = {
-        year: parse.year(arr[5], s._today),
-        month: months[arr[1].toLowerCase()],
+        year: parseYear(arr[5], s._today),
+        month: parseMonth(arr[1]),
         date: fns.toCardinal(arr[2] || '')
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parse.time(s, arr[3])
+      s = parseTime(s, arr[3])
       return s
     }
   }

@@ -1,5 +1,5 @@
 const walkTo = require('../../methods/set/walk')
-const parse = require('./_parsers')
+const { validate, parseTime, parseOffset } = require('./_parsers')
 
 module.exports = [
   // =====
@@ -15,13 +15,13 @@ module.exports = [
         month,
         date: arr[3]
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
-      parse.offset(s, arr[5])
+      parseOffset(s, arr[5])
       walkTo(s, obj)
-      s = parse.time(s, arr[4])
+      s = parseTime(s, arr[4])
       return s
     }
   },
@@ -39,12 +39,12 @@ module.exports = [
         obj.date = parseInt(arr[2], 10)
         obj.month = parseInt(arr[3], 10) - 1
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parse.time(s, arr[4])
+      s = parseTime(s, arr[4])
       return s
     }
   },
@@ -58,13 +58,13 @@ module.exports = [
         month,
         date: 1
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
-      parse.offset(s, arr[5])
+      parseOffset(s, arr[5])
       walkTo(s, obj)
-      s = parse.time(s, arr[4])
+      s = parseTime(s, arr[4])
       return s
     }
   }

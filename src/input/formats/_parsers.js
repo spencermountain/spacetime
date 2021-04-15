@@ -1,5 +1,6 @@
 const monthLengths = require('../../data/monthLengths')
 const isLeapYear = require('../../fns').isLeapYear
+const months = require('../../data/months').mapping()
 
 //given a month, return whether day number exists in it
 const validate = (obj) => {
@@ -23,19 +24,27 @@ const validate = (obj) => {
   return false
 }
 
+const parseYear = (str = '', today) => {
+  let year = parseInt(str.trim(), 10)
+  // use a given year from options.today
+  if (!year && today) {
+    year = today.year
+  }
+  // fallback to this year
+  year = year || new Date().getFullYear()
+  return year
+}
+
+const parseMonth = function (str) {
+  str = str.toLowerCase().trim()
+  return months[str]
+}
+
 const parsers = {
-  offset: require('./parseOffset'),
-  time: require('./parseTime'),
-  year: (str = '', today) => {
-    let year = parseInt(str.trim(), 10)
-    // use a given year from options.today
-    if (!year && today) {
-      year = today.year
-    }
-    // fallback to this year
-    year = year || new Date().getFullYear()
-    return year
-  },
+  parseOffset: require('./parseOffset'),
+  parseTime: require('./parseTime'),
+  parseYear: parseYear,
+  parseMonth: parseMonth,
   validate: validate
 }
 

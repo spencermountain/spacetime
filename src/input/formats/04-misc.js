@@ -1,6 +1,5 @@
 const walkTo = require('../../methods/set/walk')
-const months = require('../../data/months').mapping()
-const parse = require('./_parsers')
+const { validate, parseTime, parseYear, parseMonth } = require('./_parsers')
 
 module.exports = [
   // =====
@@ -10,19 +9,19 @@ module.exports = [
   {
     reg: /^([a-z]+) ([0-9]{4})$/i,
     parse: (s, arr) => {
-      let month = months[arr[1].toLowerCase()]
-      let year = parse.year(arr[2], s._today)
+      let month = parseMonth(arr[1])
+      let year = parseYear(arr[2], s._today)
       let obj = {
         year,
         month,
         date: s._today.date || 1
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parse.time(s, arr[4])
+      s = parseTime(s, arr[4])
       return s
     }
   },
@@ -71,12 +70,12 @@ module.exports = [
         month: d.getMonth(),
         date: d.getDate()
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parse.time(s)
+      s = parseTime(s)
       return s
     }
   },
@@ -94,12 +93,12 @@ module.exports = [
         month: d.getMonth(),
         date: d.getDate()
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parse.time(s)
+      s = parseTime(s)
       return s
     }
   },
@@ -108,7 +107,7 @@ module.exports = [
     reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
     parse: (s, arr) => {
       let today = s._today
-      let year = parse.year(arr[0], today)
+      let year = parseYear(arr[0], today)
       let d = new Date()
       // using today's date, but a new month is awkward.
       if (today.month && !today.date) {
@@ -119,12 +118,12 @@ module.exports = [
         month: today.month || d.getMonth(),
         date: today.date || d.getDate()
       }
-      if (parse.validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parse.time(s)
+      s = parseTime(s)
       return s
     }
   }
