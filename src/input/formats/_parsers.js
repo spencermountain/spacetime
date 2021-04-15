@@ -22,4 +22,21 @@ const validate = (obj) => {
   }
   return false
 }
-module.exports = validate
+
+const parsers = {
+  offset: require('./parseOffset'),
+  time: require('./parseTime'),
+  year: (str = '', today) => {
+    let year = parseInt(str.trim(), 10)
+    // use a given year from options.today
+    if (!year && today) {
+      year = today.year
+    }
+    // fallback to this year
+    year = year || new Date().getFullYear()
+    return year
+  },
+  validate: validate
+}
+
+module.exports = parsers

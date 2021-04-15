@@ -288,14 +288,23 @@ test('time-inputs', (t) => {
   t.end()
 })
 
-test('inplicit-years', (t) => {
+test('implicit-years', (t) => {
   let year = new Date().getFullYear()
   t.equal(
     spacetime('sunday April 3rd').format('numeric'),
-    spacetime('April 3rd ' + year).format('numeric')
+    spacetime('April 3rd ' + year).format('numeric'),
+    'apr 3'
   )
-  t.equal(spacetime('3rd June').format('numeric'), spacetime('3rd June ' + year).format('numeric'))
-  t.equal(spacetime('03/28').format('numeric'), spacetime('03/28/' + year).format('numeric'))
+  t.equal(
+    spacetime('3rd June').format('numeric'),
+    spacetime('3rd June ' + year).format('numeric'),
+    '3rd june'
+  )
+  t.equal(
+    spacetime('03/28').format('numeric'),
+    spacetime('03/28/' + year).format('numeric'),
+    '03/28'
+  )
   t.end()
 })
 

@@ -2,7 +2,7 @@ const quickOffset = require('./timezone/quick')
 const findTz = require('./timezone/find')
 const handleInput = require('./input')
 const methods = require('./methods')
-const parsers = require('./input/parse/parsers')
+const parsers = require('./input/formats')
 let timezones = require('../zonefile/unpack')
 
 //fake timezone-support, for fakers (es5 class)
