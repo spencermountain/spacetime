@@ -78,6 +78,9 @@ const mapping = {
   mm: (s) => pad(s.minute()),
   s: (s) => s.second(),
   ss: (s) => pad(s.second()),
+
+  //milliseconds
+  SSS: (s)=>pad(s.millisecond(),3),
   //milliseconds in the day
   A: (s) => s.epoch - s.startOf('day').epoch,
   //timezone
