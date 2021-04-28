@@ -154,6 +154,13 @@ test('offset formatting', (t) => {
   t.end()
 })
 
+test('test millisecond', (t)=>{
+  const date = spacetime('1990-03-22T06:20:30.020+11:30')
+  t.equal(date.format('millisecond'),'20','Millisecond in format')
+  t.equal(date.format('millisecond-pad'),'020','Millisecond with pad in format')
+  t.equal(date.unixFmt('SSS'),'020','Millisecond with pad in unix')
+  t.end()
+})
 /* FIXME failing test
 test('unix-fmt-padding', t => {
   let d = spacetime({

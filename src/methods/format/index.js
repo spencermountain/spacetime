@@ -70,6 +70,8 @@ const format = {
   'minute-pad': (s) => fns.zeroPad(s.minute()),
   second: (s) => s.second(),
   'second-pad': (s) => fns.zeroPad(s.second()),
+  millisecond: (s)=> s.millisecond(),
+  'millisecond-pad': (s)=> fns.zeroPad(s.millisecond(),3),
 
   ampm: (s) => s.ampm(),
   quarter: (s) => 'Q' + s.quarter(),

@@ -40,6 +40,7 @@ export type Format =
   | 'minute-pad'
   | 'second'
   | 'second-pad'
+  | 'millisecond'
   | 'ampm'
   | 'quarter'
   | 'season'
