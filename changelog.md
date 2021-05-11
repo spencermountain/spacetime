@@ -7,6 +7,11 @@ This project follows semVer, where:
 <!-- ### [unreleased]
 -->
 
+### v6.16.1 [April 2021]
+
+- **[new]** - add millisecond pad #283
+- update deps
+
 ### v6.16.0 [April 2021]
 
 - **[change]** - improvements to date-sting parsers
