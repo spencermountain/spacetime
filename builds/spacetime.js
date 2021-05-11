@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.16.0 Apache 2.0 */
+/* spencermountain/spacetime 6.16.1 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -1658,6 +1658,8 @@
     'minute-pad': s => fns.zeroPad(s.minute()),
     second: s => s.second(),
     'second-pad': s => fns.zeroPad(s.second()),
+    millisecond: s => s.millisecond(),
+    'millisecond-pad': s => fns.zeroPad(s.millisecond(), 3),
     ampm: s => s.ampm(),
     quarter: s => 'Q' + s.quarter(),
     season: s => s.season(),
@@ -1847,6 +1849,8 @@
     mm: s => pad(s.minute()),
     s: s => s.second(),
     ss: s => pad(s.second()),
+    //milliseconds
+    SSS: s => pad(s.millisecond(), 3),
     //milliseconds in the day
     A: s => s.epoch - s.startOf('day').epoch,
     //timezone
@@ -4248,7 +4252,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.16.0';
+  var _version = '6.16.1';
 
   const main = (input, tz, options) => new spacetime(input, tz, options); // set all properties of a given 'today' object
 

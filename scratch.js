@@ -36,3 +36,6 @@ let a = spacetime('2020-01-01 2pm', 'Canada/Eastern')
 console.log(a.format('iso'))
 // d = d.add(1, 'weekend')
 // console.log(d.format('nice-day'))
+
+let tzs = spacetime.whereIts('9:00am', '11:00am')
+console.log(tzs.length)
