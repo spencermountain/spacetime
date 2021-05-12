@@ -3,7 +3,7 @@ import { TimeUnit, Format } from './constraints'
 /** a date/timezone object */
 export interface Spacetime {
   /**
-   * @deprecated use toLocalDate. This is an implementation detail that was not intended for external use
+   * @deprecated use toNativeDate. This is an implementation detail that was not intended for external use
    * @returns the date as a native date object
    */
   d: Date
@@ -26,8 +26,14 @@ export interface Spacetime {
   /** @returns a copy of this object, with no references to the original */
   clone: () => Spacetime
 
-  /** @returns the native Date object at the same epoch */
+  /**
+   * @deprecated use toNativeDate()
+   * @returns the native Date object at the same epoch
+   */
   toLocalDate(): Date
+
+  /** @returns the native Date object at the same epoch */
+  toNativeDate(): Date
 
   /** @returns a bunch of meta-data about your current timezone */
   timezone: () => TimezoneMeta
@@ -60,7 +66,7 @@ export interface Spacetime {
   round: (unit: TimeUnit) => Spacetime
 
   /** list all dates up to a certain time */
-  every: (unit: Spacetime | string| TimeUnit, end: Spacetime | string| TimeUnit) => Spacetime[]
+  every: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit) => Spacetime[]
 
   /** list all dates up to a certain time */
   each: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
@@ -81,7 +87,11 @@ export interface Spacetime {
   isBetween: (start: Spacetime | Date, end: Spacetime | Date, isInclusive?: boolean) => boolean
 
   /** detect if two date/times are the same day, week, or year, etc */
-  isSame: (date: Spacetime | Date | TimeUnit, unit: Spacetime | Date | TimeUnit, tzSensitive?: boolean) => boolean
+  isSame: (
+    date: Spacetime | Date | TimeUnit,
+    unit: Spacetime | Date | TimeUnit,
+    tzSensitive?: boolean
+  ) => boolean
 
   /** given a date and a unit, count how many of them you'd need to make the dates equal */
   diff(value: Spacetime | ParsableDate, unit: TimeUnit): number
