@@ -75,8 +75,18 @@ SpaceTime.prototype.clone = function () {
   })
 }
 
-//return native date object at the same epoch
+/**
+ * @deprecated use toNativeDate()
+ * @returns native date object at the same epoch
+ */
 SpaceTime.prototype.toLocalDate = function () {
+  return this.toNativeDate()
+}
+
+/**
+ * @returns native date object at the same epoch
+ */
+SpaceTime.prototype.toNativeDate = function () {
   return new Date(this.epoch)
 }
 

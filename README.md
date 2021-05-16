@@ -190,6 +190,10 @@ s = spacetime.today() // This morning
 s = spacetime.tomorrow() // Tomorrow morning
 s = spacetime.min() // the earliest-possible date (271,821 bc)
 s = spacetime.max() // the furthest-possible future date (27k years from now)
+
+// To get the native Date object back
+// NOTE: this returns the date in the local browsers timezone
+jsDate = spacetimeDate.toNativeDate()
 ```
 
 for fancier natural-language inputs, use [compromise-dates](https://github.com/spencermountain/compromise/tree/master/plugins/dates).
