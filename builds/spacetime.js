@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.16.1 Apache 2.0 */
+/* spencermountain/spacetime 6.16.2 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -487,7 +487,7 @@
       const absOffset = Math.abs(offset);
       const hours = exports.zeroPad(parseInt('' + absOffset, 10));
       const minutes = exports.zeroPad(absOffset % 1 * 60);
-      return "".concat(sign).concat(hours).concat(delimiter).concat(minutes);
+      return `${sign}${hours}${delimiter}${minutes}`;
     };
   });
   fns.isLeapYear;
@@ -936,7 +936,7 @@
 
       if (arr[4] > 999) {
         // fix overflow issue with milliseconds, if input is longer than standard (e.g. 2017-08-06T09:00:00.123456Z)
-        arr[4] = parseInt("".concat(arr[4]).substring(0, 3), 10);
+        arr[4] = parseInt(`${arr[4]}`.substring(0, 3), 10);
       }
 
       s = s.hour(h);
@@ -944,7 +944,7 @@
       s = s.seconds(arr[3] || 0);
       s = s.millisecond(arr[4] || 0); //parse-out am/pm
 
-      let ampm = str.match(/[\b0-9](am|pm)\b/);
+      let ampm = str.match(/[\b0-9] ?(am|pm)\b/);
 
       if (ampm !== null && ampm[1]) {
         s = s.ampm(ampm[1]);
@@ -1629,7 +1629,7 @@
       let year = s.year();
 
       if (year > 0) {
-        return "'".concat(String(s.year()).substr(2, 4));
+        return `'${String(s.year()).substr(2, 4)}`;
       }
 
       year = Math.abs(year);
@@ -1649,7 +1649,7 @@
       return str;
     },
     time: s => s.time(),
-    'time-24': s => "".concat(s.hour24(), ":").concat(fns.zeroPad(s.minute())),
+    'time-24': s => `${s.hour24()}:${fns.zeroPad(s.minute())}`,
     hour: s => s.hour12(),
     'hour-pad': s => fns.zeroPad(s.hour12()),
     'hour-24': s => s.hour24(),
@@ -1667,13 +1667,13 @@
     json: s => s.json(),
     timezone: s => s.timezone().name,
     offset: s => _offset(s),
-    numeric: s => "".concat(s.year(), "/").concat(fns.zeroPad(s.month() + 1), "/").concat(fns.zeroPad(s.date())),
+    numeric: s => `${s.year()}/${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`,
     // yyyy/mm/dd
-    'numeric-us': s => "".concat(fns.zeroPad(s.month() + 1), "/").concat(fns.zeroPad(s.date()), "/").concat(s.year()),
+    'numeric-us': s => `${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}/${s.year()}`,
     // mm/dd/yyyy
-    'numeric-uk': s => "".concat(fns.zeroPad(s.date()), "/").concat(fns.zeroPad(s.month() + 1), "/").concat(s.year()),
+    'numeric-uk': s => `${fns.zeroPad(s.date())}/${fns.zeroPad(s.month() + 1)}/${s.year()}`,
     //dd/mm/yyyy
-    'mm/dd': s => "".concat(fns.zeroPad(s.month() + 1), "/").concat(fns.zeroPad(s.date())),
+    'mm/dd': s => `${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`,
     //mm/dd
     // ... https://en.wikipedia.org/wiki/ISO_8601 ;(((
     iso: s => {
@@ -1686,24 +1686,24 @@
       let second = fns.zeroPad(s.second());
       let ms = fns.zeroPad(s.millisecond(), 3);
       let offset = _offset(s);
-      return "".concat(year, "-").concat(month, "-").concat(date, "T").concat(hour, ":").concat(minute, ":").concat(second, ".").concat(ms).concat(offset); //2018-03-09T08:50:00.000-05:00
+      return `${year}-${month}-${date}T${hour}:${minute}:${second}.${ms}${offset}`; //2018-03-09T08:50:00.000-05:00
     },
     'iso-short': s => {
       let month = fns.zeroPad(s.month() + 1); //1-based months
 
       let date = fns.zeroPad(s.date());
-      return "".concat(s.year(), "-").concat(month, "-").concat(date); //2017-02-15
+      return `${s.year()}-${month}-${date}`; //2017-02-15
     },
     'iso-utc': s => {
       return new Date(s.epoch).toISOString(); //2017-03-08T19:45:28.367Z
     },
     //i made these up
-    nice: s => "".concat(months$1.short()[s.month()], " ").concat(fns.ordinal(s.date()), ", ").concat(s.time()),
-    'nice-24': s => "".concat(months$1.short()[s.month()], " ").concat(fns.ordinal(s.date()), ", ").concat(s.hour24(), ":").concat(fns.zeroPad(s.minute())),
-    'nice-year': s => "".concat(months$1.short()[s.month()], " ").concat(fns.ordinal(s.date()), ", ").concat(s.year()),
-    'nice-day': s => "".concat(days.short()[s.day()], " ").concat(applyCaseFormat(months$1.short()[s.month()]), " ").concat(fns.ordinal(s.date())),
-    'nice-full': s => "".concat(s.dayName(), " ").concat(applyCaseFormat(s.monthName()), " ").concat(fns.ordinal(s.date()), ", ").concat(s.time()),
-    'nice-full-24': s => "".concat(s.dayName(), " ").concat(applyCaseFormat(s.monthName()), " ").concat(fns.ordinal(s.date()), ", ").concat(s.hour24(), ":").concat(fns.zeroPad(s.minute()))
+    nice: s => `${months$1.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.time()}`,
+    'nice-24': s => `${months$1.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.hour24()}:${fns.zeroPad(s.minute())}`,
+    'nice-year': s => `${months$1.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.year()}`,
+    'nice-day': s => `${days.short()[s.day()]} ${applyCaseFormat(months$1.short()[s.month()])} ${fns.ordinal(s.date())}`,
+    'nice-full': s => `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(s.date())}, ${s.time()}`,
+    'nice-full-24': s => `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(s.date())}, ${s.hour24()}:${fns.zeroPad(s.minute())}`
   }; //aliases
 
   const aliases = {
@@ -1887,14 +1887,14 @@
 
   const escapeChars = function (arr) {
     for (let i = 0; i < arr.length; i += 1) {
-      if (arr[i] === "'") {
+      if (arr[i] === `'`) {
         // greedy-search for next apostrophe
         for (let o = i + 1; o < arr.length; o += 1) {
           if (arr[o]) {
             arr[i] += arr[o];
           }
 
-          if (arr[o] === "'") {
+          if (arr[o] === `'`) {
             arr[o] = null;
             break;
           }
@@ -1925,8 +1925,8 @@
 
     arr = arr.filter(ch => ch);
     arr = arr.map(str => {
-      if (str === "''") {
-        str = "'";
+      if (str === `''`) {
+        str = `'`;
       }
 
       return str;
@@ -2298,6 +2298,8 @@
     ['summer', 11, 1] //dec 1
     ]
   };
+  seasons.north;
+  seasons.south;
 
   var quarters = [null, [0, 1], //jan 1
   [3, 1], //apr 1
@@ -3191,7 +3193,7 @@
         return s;
       }
 
-      return "".concat(this.h12(), ":").concat(fns.zeroPad(this.minute())).concat(this.ampm());
+      return `${this.h12()}:${fns.zeroPad(this.minute())}${this.ampm()}`;
     },
     // either 'am' or 'pm'
     ampm: function (input, goFwd) {
@@ -4196,10 +4198,22 @@
       today: this._today,
       parsers: this.parsers
     });
-  }; //return native date object at the same epoch
+  };
+  /**
+   * @deprecated use toNativeDate()
+   * @returns native date object at the same epoch
+   */
 
 
   SpaceTime.prototype.toLocalDate = function () {
+    return this.toNativeDate();
+  };
+  /**
+   * @returns native date object at the same epoch
+   */
+
+
+  SpaceTime.prototype.toNativeDate = function () {
     return new Date(this.epoch);
   }; //append more methods
 
@@ -4252,7 +4266,7 @@
 
   var whereIts_1 = whereIts;
 
-  var _version = '6.16.1';
+  var _version = '6.16.2';
 
   const main = (input, tz, options) => new spacetime(input, tz, options); // set all properties of a given 'today' object
 
