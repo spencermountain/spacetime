@@ -909,7 +909,7 @@ module.exports = {
     hem: 'n'
   },
   'asia/baku': {
-    offset: 5,
+    offset: 4,
     hem: 'n'
   },
   'asia/bangkok': {
