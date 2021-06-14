@@ -7,7 +7,7 @@ This project follows semVer, where:
 <!-- ### [unreleased]
 -->
 
-### v6.16.1 [April 2021]
+### v6.16.1 [May 2021]
 
 - **[new]** - add millisecond pad #283
 - update deps
