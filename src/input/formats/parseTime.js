@@ -1,7 +1,6 @@
 const parseTime = (s, str = '') => {
   // remove all whitespace
   str = str.replace(/^\s+/, '').toLowerCase()
-
   //formal time format - 04:30.23
   let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/)
   if (arr !== null) {
@@ -23,7 +22,7 @@ const parseTime = (s, str = '') => {
     s = s.seconds(arr[3] || 0)
     s = s.millisecond(arr[4] || 0)
     //parse-out am/pm
-    let ampm = str.match(/[\b0-9](am|pm)\b/)
+    let ampm = str.match(/[\b0-9] ?(am|pm)\b/)
     if (ampm !== null && ampm[1]) {
       s = s.ampm(ampm[1])
     }

@@ -7,6 +7,12 @@ This project follows semVer, where:
 <!-- ### [unreleased]
 -->
 
+### v6.16.2 [June 2021]
+
+- **[fix]** - offset for `asia/baku` #292
+- **[fix]** - date-parser for #291
+- update deps
+
 ### v6.16.1 [May 2021]
 
 - **[new]** - add millisecond pad #283
