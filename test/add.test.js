@@ -106,6 +106,10 @@ test('day-tricky', (t) => {
   d = d.add(7, 'days')
   t.equal(d.format('nice-day'), 'Mon Nov 11th', 'add days over dst-change')
 
+  d = spacetime('2021-10-31T00:00:00.000', 'Europe/London')
+  d = d.add(1, 'day')
+  t.equal(d.format('iso-utc'), '2021-11-01T00:00:00.000Z', 'add 1 day over dst-change')
+
   // add day over month-change
   let s = spacetime('Oct 31 2020', 'Canada/Eastern')
   s = s.add(2, 'day')

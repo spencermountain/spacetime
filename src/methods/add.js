@@ -34,7 +34,7 @@ const dstAwareUnits = {
   season: true,
   month: true,
   week: true,
-  day: true
+  date: true
 }
 
 const keepDate = {
