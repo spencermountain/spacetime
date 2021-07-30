@@ -243,6 +243,9 @@ export interface Spacetime {
 
   /** the day number, between 0-6, that the week starts on. (Sunday is 0).  Also accepts 'sunday' */
   weekStart(value: number | string): Spacetime
+
+  /** returns the amount of days the current month has (December => 31, June => 30, ...) */
+  daysThisMonth: () => number
 }
 
 export interface TimezoneMeta {
