@@ -39,7 +39,7 @@ export interface Spacetime {
   timezone: () => TimezoneMeta
 
   /** output nicely-formatted strings */
-  format: (format: Format) => string | object
+  format: (format: Format) => string
 
   /** output formatted string using unix formatting code (yyyy.MM.dd h:mm a) */
   unixFmt: (format: string) => string
@@ -243,6 +243,9 @@ export interface Spacetime {
 
   /** the day number, between 0-6, that the week starts on. (Sunday is 0).  Also accepts 'sunday' */
   weekStart(value: number | string): Spacetime
+
+  /** returns the amount of days the current month has (December => 31, June => 30, ...) */
+  daysInMonth: () => number
 }
 
 export interface TimezoneMeta {

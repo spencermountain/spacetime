@@ -138,9 +138,11 @@ const addMethods = (SpaceTime) => {
       let wantYear = old.year() + num
       let haveYear = s.year()
       if (haveYear < wantYear) {
-        s.epoch += ms.day
+        let toAdd = Math.floor(num / 4) || 1 //approx num of leap-days
+        s.epoch += Math.abs(ms.day * toAdd)
       } else if (haveYear > wantYear) {
-        s.epoch += ms.day
+        let toAdd = Math.floor(num / 4) || 1 //approx num of leap-days
+        s.epoch += ms.day * toAdd
       }
     }
     //these are easier

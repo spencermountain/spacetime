@@ -86,10 +86,11 @@ test('bc-year-formatting', (t) => {
 
   s = spacetime('July 27th, 2018')
   s = s.minus(2020, 'years')
-  t.equal(s.year(), -1, '-1')
-  t.equal(s.format('year'), '1 BC', '1bc')
+  t.equal(s.year(), -2, '-2')
+  t.equal(s.format('year'), '2 BC', '2bc')
   t.equal(s.monthName(), 'july', 'still july')
   t.equal(s.date(), 27, 'still july 27')
+  t.equal(s.format('iso-short'), '-0002-07-27', '-0002-07-27')
 
   t.end()
 })
@@ -154,11 +155,11 @@ test('offset formatting', (t) => {
   t.end()
 })
 
-test('test millisecond', (t)=>{
+test('test millisecond', (t) => {
   const date = spacetime('1990-03-22T06:20:30.020+11:30')
-  t.equal(date.format('millisecond'),'20','Millisecond in format')
-  t.equal(date.format('millisecond-pad'),'020','Millisecond with pad in format')
-  t.equal(date.unixFmt('SSS'),'020','Millisecond with pad in unix')
+  t.equal(date.format('millisecond'), '20', 'Millisecond in format')
+  t.equal(date.format('millisecond-pad'), '020', 'Millisecond with pad in format')
+  t.equal(date.unixFmt('SSS'), '020', 'Millisecond with pad in unix')
   t.end()
 })
 /* FIXME failing test

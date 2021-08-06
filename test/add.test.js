@@ -141,6 +141,13 @@ test('add-weekend', (t) => {
   t.end()
 })
 
+test('add-30-years', (t) => {
+  let d = spacetime('2000-01-01 00:00:00')
+  d = d.add(30, 'year')
+  t.equal(d.format('iso-short'), '2030-01-01', 'plus 30 years')
+  t.end()
+})
+
 test('year-tricky', (t) => {
   let s = spacetime(1451667600000, 'Canada/Eastern') //jan 1 2016 (leap year)
   t.equal(s.year(), 2016, 'year1')

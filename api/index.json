@@ -183,6 +183,10 @@
     "weekStart": {
       "doc": "change the starting of the week (default is monday)",
       "out": "clone"
+    },
+    "daysInMonth": {
+      "doc": "returns the amount of days the current month has (December => 31, June => 30, ...)",
+      "out": "Number"
     }
   }
 }
