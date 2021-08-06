@@ -123,7 +123,7 @@ const methods = {
   isAsleep: function () {
     return !this.isAwake()
   },
-  daysThisMonth: function () {
+  daysInMonth: function () {
     switch (this.month()) {
       case 0:
         return 31
@@ -150,7 +150,7 @@ const methods = {
       case 11:
         return 31
       default:
-        throw new Error("Invalid Month state.")
+        throw new Error('Invalid Month state.')
     }
   },
   //pretty-printing

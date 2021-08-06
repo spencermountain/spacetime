@@ -7,6 +7,12 @@ This project follows semVer, where:
 <!-- ### [unreleased]
 -->
 
+### v6.16.3 [Aug 2021]
+
+- **[new]** - .daysInMonth() method (thanks m1212e!)
+- **[fix]** - typescript fixes (thanks Adam!)
+- **[change]** - replace deprecated timezone aliases (thanks Michael!)
+
 ### v6.16.2 [June 2021]
 
 - **[fix]** - offset for `asia/baku` #292

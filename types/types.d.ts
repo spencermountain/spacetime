@@ -245,7 +245,7 @@ export interface Spacetime {
   weekStart(value: number | string): Spacetime
 
   /** returns the amount of days the current month has (December => 31, June => 30, ...) */
-  daysThisMonth: () => number
+  daysInMonth: () => number
 }
 
 export interface TimezoneMeta {
