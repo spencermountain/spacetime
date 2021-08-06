@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 6.16.2 Apache 2.0 */
+/* spencermountain/spacetime 6.16.3 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -1647,6 +1647,16 @@
     }
 
     return str;
+  }; // iso-year padding
+
+
+  const padYear = num => {
+    if (num >= 0) {
+      return fns.zeroPad(num, 4);
+    } else {
+      num = Math.abs(num);
+      return '-' + fns.zeroPad(num, 4);
+    }
   };
 
   const format$1 = {
@@ -1742,7 +1752,8 @@
       let month = fns.zeroPad(s.month() + 1); //1-based months
 
       let date = fns.zeroPad(s.date());
-      return `${s.year()}-${month}-${date}`; //2017-02-15
+      let year = padYear(s.year());
+      return `${year}-${month}-${date}`; //2017-02-15
     },
     'iso-utc': s => {
       return new Date(s.epoch).toISOString(); //2017-03-08T19:45:28.367Z
@@ -4055,9 +4066,13 @@
         let haveYear = s.year();
 
         if (haveYear < wantYear) {
-          s.epoch += ms.day;
+          let toAdd = Math.floor(num / 4) || 1; //approx num of leap-days
+
+          s.epoch += Math.abs(ms.day * toAdd);
         } else if (haveYear > wantYear) {
-          s.epoch += ms.day;
+          let toAdd = Math.floor(num / 4) || 1; //approx num of leap-days
+
+          s.epoch += ms.day * toAdd;
         }
       } //these are easier
       else if (unit === 'decade') {
@@ -4412,7 +4427,7 @@
 
   var whereIts_1 = whereIts$1;
 
-  var _version = '6.16.2';
+  var _version = '6.16.3';
 
   var whereIts = whereIts_1;
 
