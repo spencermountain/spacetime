@@ -9,7 +9,16 @@ const applyCaseFormat = (str) => {
     return fns.titleCase(str)
   }
   return str
+}
 
+// iso-year padding
+const padYear = (num) => {
+  if (num >= 0) {
+    return fns.zeroPad(num, 4)
+  } else {
+    num = Math.abs(num)
+    return '-' + fns.zeroPad(num, 4)
+  }
 }
 
 const format = {
@@ -70,8 +79,8 @@ const format = {
   'minute-pad': (s) => fns.zeroPad(s.minute()),
   second: (s) => s.second(),
   'second-pad': (s) => fns.zeroPad(s.second()),
-  millisecond: (s)=> s.millisecond(),
-  'millisecond-pad': (s)=> fns.zeroPad(s.millisecond(),3),
+  millisecond: (s) => s.millisecond(),
+  'millisecond-pad': (s) => fns.zeroPad(s.millisecond(), 3),
 
   ampm: (s) => s.ampm(),
   quarter: (s) => 'Q' + s.quarter(),
@@ -101,7 +110,8 @@ const format = {
   'iso-short': (s) => {
     let month = fns.zeroPad(s.month() + 1) //1-based months
     let date = fns.zeroPad(s.date())
-    return `${s.year()}-${month}-${date}` //2017-02-15
+    let year = padYear(s.year())
+    return `${year}-${month}-${date}` //2017-02-15
   },
   'iso-utc': (s) => {
     return new Date(s.epoch).toISOString() //2017-03-08T19:45:28.367Z
@@ -109,14 +119,21 @@ const format = {
 
   //i made these up
   nice: (s) => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.time()}`,
-  'nice-24': (s) => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.hour24()}:${fns.zeroPad(s.minute())}`,
+  'nice-24': (s) =>
+    `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.hour24()}:${fns.zeroPad(
+      s.minute()
+    )}`,
   'nice-year': (s) => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.year()}`,
   'nice-day': (s) =>
-    `${days.short()[s.day()]} ${applyCaseFormat(months.short()[s.month()])} ${fns.ordinal(s.date())}`,
+    `${days.short()[s.day()]} ${applyCaseFormat(months.short()[s.month()])} ${fns.ordinal(
+      s.date()
+    )}`,
   'nice-full': (s) =>
     `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(s.date())}, ${s.time()}`,
   'nice-full-24': (s) =>
-    `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(s.date())}, ${s.hour24()}:${fns.zeroPad(s.minute())}`
+    `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(
+      s.date()
+    )}, ${s.hour24()}:${fns.zeroPad(s.minute())}`
 }
 //aliases
 const aliases = {

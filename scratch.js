@@ -3,13 +3,16 @@ spacetime.extend(require('./plugins/dst/src/index.js'))
 // let zones = require('/Users/spencer/mountain/spacetime/zonefile/iana.js')
 // const alias = require('/Users/spencer/mountain/spacetime/plugins/better-dst/zonefile/aliases.js')
 
-let str = spacetime('Sunday, May 30 1:00 PM').format()
-// 'Sun May 30 2021 13:00:00 GMT-0400 (Eastern Daylight Time)'
-// let str=spacetime('Sunday, May 30 1:00 PM').toLocalDate().toString()
-// // 'Sun May 30 2021 01:00:00 GMT-0400 (Eastern Daylight Time)'
-// let str=spacetime('Sunday, May 30 1:00 pm').toLocalDate().toString()
-// // 'Sun May 30 2021 01:00:00 GMT-0400 (Eastern Daylight Time)'
-// let str=spacetime('Sunday, May 30 1:00pm').toLocalDate().toString()
-// // 'Sun May 30 2021 13:00:00 GMT-0400 (Eastern Daylight Time)'
+// let date = spacetime('2000-01-01 00:00:00')
+// date = date.add(30, 'year')
+// console.log(date.format())
 
-console.log(str)
+// let nye = spacetime(`2022-01-01T00:00:00.000Z`)
+// console.log(nye.format('iso-short'))
+// nye = nye.minus(1, 'year')
+// console.log(nye.format('iso-short'))
+
+let s = spacetime('July 27th, 2018')
+s = s.minus(2020, 'years')
+// t.equal(s.year(), -1, '-1')
+console.log(s.format('iso-short'))

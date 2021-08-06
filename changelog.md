@@ -10,8 +10,12 @@ This project follows semVer, where:
 ### v6.16.3 [Aug 2021]
 
 - **[new]** - .daysInMonth() method (thanks m1212e!)
-- **[fix]** - typescript fixes (thanks Adam!)
 - **[change]** - replace deprecated timezone aliases (thanks Michael!)
+- **[change]** - date/day naming inconsistency in add method (thanks Andy!)
+- **[fix]** - typescript fixes (thanks Adam!)
+- **[fix]** - many-year add issue #235
+- **[fix]** - iso format year-padding for BC years
+- update deps
 
 ### v6.16.2 [June 2021]
 
