@@ -306,4 +306,4 @@ export interface TimezoneSet {
   }
 }
 
-export type ParsableDate = Date | number | Array<number> | string
+export type ParsableDate = Spacetime | Date | number | Array<number> | string
