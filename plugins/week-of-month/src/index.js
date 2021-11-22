@@ -38,5 +38,18 @@ module.exports = {
     let num = thurs.weekOfMonth()
 
     return { num, month }
+  },
+  firstWeek: function () {
+    return getFirstWeek(this.clone())
+  },
+  lastSunday: function () {
+    let s = this.endOf('month') //last day
+    // if it's after thursday
+    if (s.day() > 4) {
+      return s.endOf('week')
+    }
+    // else, the previous sunday
+    s = s.minus(1, 'week')
+    return s.endOf('week')
   }
 }
