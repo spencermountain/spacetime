@@ -978,12 +978,12 @@ module.exports = {
   'asia/gaza': {
     offset: 3,
     hem: 'n',
-    dst: '03/27:00->10/30:01'
+    dst: '03/27:00->10/29:01'
   },
   'asia/hebron': {
     offset: 3,
     hem: 'n',
-    dst: '03/27:00->10/30:01'
+    dst: '03/27:00->10/29:01'
   },
   'asia/hong_kong': {
     offset: 8,

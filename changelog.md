@@ -7,6 +7,11 @@ This project follows semVer, where:
 <!-- ### [unreleased]
 -->
 
+### v6.16.4 [Nov 2021]
+- **[fix]** - ISO fmt parsing #310
+- **[update]** - gaza, hebron dst date change
+- update deps
+
 ### v6.16.3 [Aug 2021]
 
 - **[new]** - .daysInMonth() method (thanks m1212e!)

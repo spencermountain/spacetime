@@ -12,7 +12,7 @@ let zones = [
   'america/thunder_bay',
   'america/nassau',
   'asia/famagusta',
-  'america/indianapolis',
+  // 'america/indianapolis',
   'america/tijuana', //11/01:02  -7hrs
   'mexico/bajanorte', //11/01:02  -7hrs
   'america/havana',
