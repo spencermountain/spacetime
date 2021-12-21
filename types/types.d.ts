@@ -291,11 +291,13 @@ export interface Diff {
 }
 
 export interface Since {
+  diff: Diff
   rounded: string
   qualified: string
   precise: string
-  abbreviated: string
-  diff: Diff
+  abbreviated: string[]
+  iso: string
+  direction: 'past' | 'present' | 'future'
 }
 
 /** set where the key is tz database name in lowercase, eg, 'america/denver' */

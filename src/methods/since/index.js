@@ -17,11 +17,11 @@ const since = (start, end) => {
       precise: 'now',
       abbreviated: [],
       iso: 'P0Y0M0DT0H0M0S',
-      tense: 'present',
+      direction: 'present',
     }
   }
   let precise
-  let tense = 'future'
+  let direction = 'future'
 
   let { rounded, qualified, englishValues, abbreviated } = soften(diff)
 
@@ -32,7 +32,7 @@ const since = (start, end) => {
     rounded += ' ago'
     qualified += ' ago'
     precise += ' ago'
-    tense = 'past'
+    direction = 'past'
   } else {
     rounded = 'in ' + rounded
     qualified = 'in ' + qualified
@@ -46,9 +46,9 @@ const since = (start, end) => {
     rounded,
     qualified,
     precise,
-    tense,
     abbreviated,
-    iso
+    iso,
+    direction,
   }
 }
 

@@ -16,4 +16,3 @@ let weeks = []
 let end = start.endOf('week')
 let week = start.every('day', end)
 console.log(week[0].format('nice-day'))
-*/

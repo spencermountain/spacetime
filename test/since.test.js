@@ -20,7 +20,8 @@ test('since()', (t) => {
       qualified: '1 year ago',
       precise: '1 year, 1 month ago',
       abbreviated: ['1y', '1m', '1d', '1h', '1m', '1s'],
-      iso: 'P1y1m1d1h1m1s'
+      iso: 'P1Y1M1DT1H1M1S',
+      direction: 'past'
     },
     'simple-ago'
   )
@@ -40,7 +41,8 @@ test('since()', (t) => {
       qualified: 'in 1 year',
       precise: 'in 1 year, 1 month',
       abbreviated: ['1y', '1m', '1d', '1h', '1m', '1s'],
-      iso: 'P1y1m1d1h1m1s'
+      iso: 'P1Y1M1DT1H1M1S',
+      direction: 'future'
     },
     'simple-in'
   )
@@ -60,7 +62,8 @@ test('since()', (t) => {
       qualified: 'now',
       precise: 'now',
       abbreviated: [],
-      iso: 'P0Y0M0DT0H0M0S'
+      iso: 'P0Y0M0DT0H0M0S',
+      direction: 'present'
     },
     'same'
   )
@@ -85,7 +88,8 @@ test('since()', (t) => {
       qualified: 'in almost 2 years',
       precise: 'in 1 year, 11 months',
       abbreviated: ['1y', '11m'],
-      iso: 'P1Y0M0DT0H11M0S'
+      iso: 'P1Y11M0DT0H0M0S',
+      direction: 'future',
     },
     'almost'
   )
@@ -105,7 +109,8 @@ test('since()', (t) => {
       qualified: 'in over 2 months',
       precise: 'in 2 months, 11 days',
       abbreviated: ['2m', '11d'],
-      iso: 'P0Y2M11DT0H0M0S'
+      iso: 'P0Y2M11DT0H0M0S',
+      direction: 'future'
     },
     'over'
   )
@@ -125,7 +130,8 @@ test('since()', (t) => {
       qualified: 'in 1 year',
       precise: 'in 1 year, 1 second',
       abbreviated: ['1y', '1s'],
-      iso: 'P1Y0M0DT0H0M1S'
+      iso: 'P1Y0M0DT0H0M1S',
+      direction: 'future'
     },
     'precise'
   )
@@ -145,7 +151,8 @@ test('since()', (t) => {
       qualified: 'in 2 seconds',
       precise: 'in 2 seconds',
       abbreviated: ['2s'],
-      iso: 'P0Y0M0DT0H0M2S'
+      iso: 'P0Y0M0DT0H0M2S',
+      direction: 'future'
     },
     'seconds'
   )
@@ -224,7 +231,8 @@ test('since calculation involves month addition and subtraction', (t) => {
     qualified: 'almost 11 hours ago',
     precise: '10 hours, 59 minutes ago',
     abbreviated: ['10h', '59m', '10s'],
-    iso: 'P10h59m10s',
+    iso: 'P0Y0M0DT10H59M10S',
+    direction: 'past'
   })
 
   prev = spacetime('2019-08-31T12:00:00.0Z')
@@ -243,7 +251,8 @@ test('since calculation involves month addition and subtraction', (t) => {
     qualified: '23 hours ago',
     precise: '23 hours ago',
     abbreviated: ['23h'],
-    iso: '23h',
+    iso: 'P0Y0M0DT23H0M0S',
+    direction: 'past'
   })
 
   t.end()
