@@ -6,6 +6,14 @@
   "bin": {
     "space-age": "cli.js"
   },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./cli.js",
+      "default": "./cli.js"
+    }
+  },
   "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/space-age",
   "repository": {
     "type": "git",
@@ -26,7 +34,7 @@
   },
   "dependencies": {
     "minimist": "^1.2.5",
-    "spacetime": "^6.13.1"
+    "spacetime": "6.16.3"
   },
   "license": "MIT"
 }

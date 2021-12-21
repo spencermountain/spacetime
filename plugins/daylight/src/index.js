@@ -1,7 +1,7 @@
-const sunCalc = require('suncalc')
-const spacetimeGeo = require('spacetime-geo')
-const sunPosition = require('./sunPosition')
-const { solstice } = require('./solstices') //equinox
+import sunCalc from 'suncalc'
+import spacetimeGeo from 'spacetime-geo'
+import sunPosition from './sunPosition.js'
+import solstice from './solstices.js' //equinox
 
 const setFrom = function (s, time) {
   let d = new Date(time)

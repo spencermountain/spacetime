@@ -27,8 +27,8 @@ it bundles-in the [spacetime-geo](https://github.com/spencermountain/spacetime-g
 ### sunrise/sunset
 
 ```js
-const spacetime = require('spacetime')
-const daylight = require('spacetime-daylight')
+import spacetime from 'spacetime'
+import daylight from 'spacetime-daylight'
 spacetime.extend(daylight)
 
 let d = spacetime('June 5th 3:30pm', 'Canada/Eastern')

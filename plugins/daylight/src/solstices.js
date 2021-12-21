@@ -51,4 +51,4 @@ const solstice = function (s) {
 //     winter: null,
 //   }
 // }
-export default { solstice: solstice }
+export default solstice

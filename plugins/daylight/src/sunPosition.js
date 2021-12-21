@@ -1,5 +1,5 @@
-const sunCalc = require('suncalc')
-const spacetimeGeo = require('spacetime-geo')
+import sunCalc from 'suncalc'
+import spacetimeGeo from 'spacetime-geo'
 
 function toDegree(radians) {
   var pi = Math.PI
