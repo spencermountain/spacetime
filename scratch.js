@@ -1,7 +1,7 @@
 const spacetime = require('./src/index')
 // spacetime.extend(require('./plugins/dst/src/index.js'))
 
-let s = spacetime('June 8th 1918', 'Etc/Greenwich')//.time('1:00pm')
+let s = spacetime('2017-10-03T08:00:00+0000', 'Etc/GMT+0')//.time('1:00pm')
 s.debug()
 console.log(s.format('iso'))
 //  '1918-06-08T13:00:00.000+05:30'
