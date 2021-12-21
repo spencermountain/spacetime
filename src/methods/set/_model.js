@@ -1,5 +1,5 @@
-const monthLength = require('../../data/monthLengths')
-const isLeapYear = require('../../fns').isLeapYear
+import monthLength from '../../data/monthLengths.js'
+import { isLeapYear } from '../../fns.js'
 
 const getMonthLength = function (month, year) {
   if (month === 1 && isLeapYear(year)) {
@@ -68,8 +68,6 @@ const rollDaysUp = (want, old, sum) => {
   return want
 }
 
-module.exports = {
-  months: rollMonth,
-  days: rollDaysUp,
-  daysBack: rollDaysDown
-}
+export const months = rollMonth
+export const days = rollDaysUp
+export const daysBack = rollDaysDown

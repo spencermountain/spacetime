@@ -53,4 +53,4 @@ const parseOffset = (s, offset) => {
   }
   return s
 }
-module.exports = parseOffset
+export default parseOffset

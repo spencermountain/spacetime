@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 const useOldTz = require('./lib/useOldTz')
 
 // 2am is skipped

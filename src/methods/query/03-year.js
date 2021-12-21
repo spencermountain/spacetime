@@ -1,8 +1,8 @@
-const set = require('../set/set')
-const months = require('../../data/months')
-const quarters = require('../../data/quarters')
-const seasons = require('../../data/seasons')
-const ms = require('../../data/milliseconds')
+import { dayOfYear as _dayOfYear, week as _week, month as _month, year as _year } from '../set/set.js'
+import { long } from '../../data/months.js'
+import quarters from '../../data/quarters.js'
+import seasons from '../../data/seasons.js'
+import ms from '../../data/milliseconds.js'
 
 const clearMinutes = (s) => {
   s = s.minute(0)
@@ -16,7 +16,7 @@ const methods = {
   dayOfYear: function (num, goFwd) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.dayOfYear(s, num, goFwd)
+      s.epoch = _dayOfYear(s, num, goFwd)
       return s
     }
     //days since newyears - jan 1st is 1, jan 2nd is 2...
@@ -42,7 +42,7 @@ const methods = {
     // week-setter
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.week(this, num, goFwd)
+      s.epoch = _week(this, num, goFwd)
       s = clearMinutes(s)
       return s
     }
@@ -84,7 +84,7 @@ const methods = {
   month: function (input, goFwd) {
     if (input !== undefined) {
       let s = this.clone()
-      s.epoch = set.month(s, input, goFwd)
+      s.epoch = _month(s, input, goFwd)
       return s
     }
     return this.d.getMonth()
@@ -96,7 +96,7 @@ const methods = {
       s = s.month(input, goFwd)
       return s
     }
-    return months.long()[this.month()]
+    return long()[this.month()]
   },
 
   //q1, q2, q3, q4
@@ -154,7 +154,7 @@ const methods = {
   year: function (num) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.year(s, num)
+      s.epoch = _year(s, num)
       return s
     }
     return this.d.getFullYear()
@@ -169,11 +169,11 @@ const methods = {
       let year = s.d.getFullYear()
       //make '1992' into 1992bc..
       if (str === 'bc' && year > 0) {
-        s.epoch = set.year(s, year * -1)
+        s.epoch = _year(s, year * -1)
       }
       //make '1992bc' into '1992'
       if (str === 'ad' && year < 0) {
-        s.epoch = set.year(s, year * -1)
+        s.epoch = _year(s, year * -1)
       }
       return s
     }
@@ -273,4 +273,4 @@ const methods = {
     return num
   }
 }
-module.exports = methods
+export default methods

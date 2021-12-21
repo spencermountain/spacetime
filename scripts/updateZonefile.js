@@ -1,7 +1,7 @@
-const sh = require('shelljs')
-sh.config.silent = true
-const data = require('../zonefile/iana')
-const fs = require('fs')
+import { config, exec } from 'shelljs'
+config.silent = true
+import data from '../zonefile/iana'
+import { writeFileSync } from 'fs'
 const year = new Date().getFullYear()
 // /usr/share/zoneinfo only stores changes, and will use the most-recent change
 // see /usr/share/zoneinfo/Africa/Algiers - has changes scheduled for 2038
@@ -64,7 +64,7 @@ const parseLine = (line) => {
 }
 
 const parseTz = (tz) => {
-  let lines = sh.exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n')
+  let lines = exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n')
   lines = lines.filter((l) => l)
   if (lines.length !== 0 && lines.length !== 4) {
     // console.error('weird: ' + lines.length + ' lines for ' + tz)
@@ -111,7 +111,7 @@ const doAll = () => {
     }
   })
   console.log('\n\nmade ' + changes + ' changes to ' + keys.length + ' timezones')
-  fs.writeFileSync('./zonefile.' + year + '.json', JSON.stringify(data, null, 2))
+  writeFileSync('./zonefile.' + year + '.json', JSON.stringify(data, null, 2))
 }
 doAll()
 // console.log(parseTz('Europe/Berlin'))

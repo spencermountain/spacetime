@@ -24,7 +24,7 @@ const calculatePoint = function (s, lat, lng, field) {
   return setFrom(s, res[field])
 }
 
-module.exports = {
+export default {
   //depend on this plugin
   in: spacetimeGeo.in,
   point: spacetimeGeo.point,

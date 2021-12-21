@@ -16,4 +16,4 @@ const inSummerTime = (epoch, start, end, summerOffset, winterOffset) => {
   return epoch >= startUtc && epoch < endUtc
 }
 
-module.exports = inSummerTime
+export default inSummerTime

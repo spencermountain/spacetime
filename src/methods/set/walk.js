@@ -1,4 +1,4 @@
-const ms = require('../../data/milliseconds')
+import ms from '../../data/milliseconds.js'
 
 //basically, step-forward/backward until js Date object says we're there.
 const walk = (s, n, fn, unit, previous) => {
@@ -127,4 +127,4 @@ const walkTo = (s, wants) => {
   return
 }
 
-module.exports = walkTo
+export default walkTo

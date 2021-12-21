@@ -22,4 +22,4 @@ const sunPosition = function (s, lat, lng) {
     altitude: toDegree(res.altitude),
   }
 }
-module.exports = sunPosition
+export default sunPosition

@@ -1,4 +1,4 @@
-const Spacetime = require('./spacetime')
+import Spacetime from './spacetime.js'
 // const timezones = require('../data');
 
 const whereIts = (a, b) => {
@@ -35,4 +35,4 @@ const whereIts = (a, b) => {
   })
   return tzs
 }
-module.exports = whereIts
+export default whereIts

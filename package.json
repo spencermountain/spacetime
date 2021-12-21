@@ -6,7 +6,15 @@
   "unpkg": "builds/spacetime.min.js",
   "module": "builds/spacetime.mjs",
   "types": "types/index.d.ts",
+  "type": "module",
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "require": "./builds/spacetime.js",
+      "import": "./builds/spacetime.mjs",
+      "default": "./builds/spacetime.mjs"
+    }
+  },
   "scripts": {
     "build": "npm run version && rollup -c --silent",
     "build:tz": "node ./scripts/updateZonefile.js",

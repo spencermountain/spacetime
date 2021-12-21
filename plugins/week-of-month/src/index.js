@@ -11,7 +11,7 @@ const getFirstWeek = function (s) {
   return start
 }
 
-module.exports = {
+export default {
   weekOfMonth: function (n) {
     let start = getFirstWeek(this.clone())
     // week-setter

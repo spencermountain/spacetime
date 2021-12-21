@@ -53,4 +53,4 @@ const findTz = function (geo, b) {
   }
   return this.goto(tz)
 }
-module.exports = findTz
+export default findTz

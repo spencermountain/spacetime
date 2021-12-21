@@ -1,6 +1,6 @@
 //these are offsets with dst off
 //https://github.com/substack/timezone-name-offsets
-module.exports = {
+export default {
   'Africa/Abidjan': 0,
   'Africa/Accra': 0,
   'Africa/Addis_Ababa': 180,

@@ -10,4 +10,4 @@ const changeTz = (s) => {
   s.timezones = timezones
   return s
 }
-module.exports = changeTz
+export default changeTz

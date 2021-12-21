@@ -1,8 +1,8 @@
-const walkTo = require('../../methods/set/walk')
-const fns = require('../../fns')
-const { validate, parseTime, parseYear, parseMonth } = require('./_parsers')
+import walkTo from '../../methods/set/walk.js'
+import { toCardinal } from '../../fns.js'
+import { validate, parseTime, parseYear, parseMonth } from './_parsers.js'
 
-module.exports = [
+export default [
   // =====
   //  m-d-y
   // =====
@@ -38,7 +38,7 @@ module.exports = [
       let obj = {
         year: parseYear(arr[3], s._today),
         month: parseMonth(arr[1]),
-        date: fns.toCardinal(arr[2] || '')
+        date: toCardinal(arr[2] || '')
       }
       if (validate(obj) === false) {
         s.epoch = null
@@ -58,7 +58,7 @@ module.exports = [
       let obj = {
         year: parseYear(arr[3], s._today),
         month: parseMonth(arr[1]),
-        date: fns.toCardinal(arr[2] || '')
+        date: toCardinal(arr[2] || '')
       }
       if (validate(obj) === false) {
         s.epoch = null
@@ -76,7 +76,7 @@ module.exports = [
       let obj = {
         year: parseYear(arr[5], s._today),
         month: parseMonth(arr[1]),
-        date: fns.toCardinal(arr[2] || '')
+        date: toCardinal(arr[2] || '')
       }
       if (validate(obj) === false) {
         s.epoch = null

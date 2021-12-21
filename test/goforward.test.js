@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 test('goForward [time]', (t) => {
   let d = spacetime('march 17 2021').time('3:20pm')

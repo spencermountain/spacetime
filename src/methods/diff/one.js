@@ -24,4 +24,4 @@ const diffOne = (a, b, unit) => {
   }
 }
 
-module.exports = diffOne
+export default diffOne

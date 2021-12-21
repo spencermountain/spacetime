@@ -36,4 +36,4 @@ let dates = {
   'chinese new year': [feb, 16],
   diwali: [nov, 7]
 }
-module.exports = dates
+export default dates

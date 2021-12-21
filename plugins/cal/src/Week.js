@@ -24,4 +24,4 @@ const Week = function (input) {
 		</Box>
 	)
 }
-module.exports = Week
+export default Week

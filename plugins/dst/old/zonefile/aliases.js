@@ -2,7 +2,7 @@
 // cldraliases from timezonenames
 // https://github.com/mj1856/timezonenames
 
-module.exports = {
+export default {
   'africa/asmara': 'africa/asmera',
   'africa/timbuktu': 'africa/bamako',
   'america/argentina/buenos_aires': 'america/buenos_aires',

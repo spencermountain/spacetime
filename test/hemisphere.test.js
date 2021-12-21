@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 const june = 1401660600207 //june 1, 6:10pm
 const jan = 1515368004641 //january 7th, 6:30pm

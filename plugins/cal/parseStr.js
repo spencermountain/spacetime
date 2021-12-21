@@ -11,4 +11,4 @@ const parseDate = function (str) {
 	}
 	return { start: s, end: null }
 }
-module.exports = parseDate
+export default parseDate

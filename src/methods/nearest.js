@@ -1,10 +1,10 @@
-const fns = require('../fns')
+import { normalize } from '../fns.js'
 
 //round to either current, or +1 of this unit
 const nearest = (s, unit) => {
   //how far have we gone?
   let prog = s.progress()
-  unit = fns.normalize(unit)
+  unit = normalize(unit)
   //fix camel-case for this one
   if (unit === 'quarterhour') {
     unit = 'quarterHour'
@@ -21,4 +21,4 @@ const nearest = (s, unit) => {
   }
   return s
 }
-module.exports = nearest
+export default nearest

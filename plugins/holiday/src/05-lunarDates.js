@@ -25,4 +25,4 @@ const lunarDates = function (str, normal, year, tz) {
   }
   return null
 }
-module.exports = lunarDates
+export default lunarDates

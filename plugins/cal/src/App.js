@@ -26,4 +26,4 @@ const App = (input) => {
 	)
 }
 
-module.exports = App
+export default App

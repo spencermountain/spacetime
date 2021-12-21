@@ -1,4 +1,4 @@
-const reduceTo = function(arr, n) {
+const reduceTo = function (arr, n) {
   if (arr.length <= n || arr.length <= 5) {
     return arr
   }
@@ -13,4 +13,4 @@ const reduceTo = function(arr, n) {
   }
   return arr
 }
-module.exports = reduceTo
+export default reduceTo

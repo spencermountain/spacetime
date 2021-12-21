@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 test('every-unit', (t) => {
   let start = spacetime('April 6th 2019', 'Europe/Paris')

@@ -1,7 +1,7 @@
 const find = require('./findTz')
 const point = require('./point')
 
-module.exports = {
+export default {
   in: find,
   point: point,
 }

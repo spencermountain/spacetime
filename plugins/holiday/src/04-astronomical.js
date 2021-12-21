@@ -17,4 +17,4 @@ const astroDates = function (str, normal, year, tz) {
 
   return null
 }
-module.exports = astroDates
+export default astroDates

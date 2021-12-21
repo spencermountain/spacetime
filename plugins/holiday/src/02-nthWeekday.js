@@ -30,4 +30,4 @@ const fixedDates = function (str, normal, year, tz) {
 
   return null
 }
-module.exports = fixedDates
+export default fixedDates

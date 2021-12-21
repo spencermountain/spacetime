@@ -1,5 +1,5 @@
-let test = require('tape')
-let spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 test('to-from utc-format', (t) => {
   let arr = [

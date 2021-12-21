@@ -1,7 +1,7 @@
-const fns = require('../fns')
+import { normalize } from '../fns.js'
 const units = ['year', 'season', 'quarter', 'month', 'week', 'day', 'quarterHour', 'hour', 'minute']
 
-const doUnit = function(s, k) {
+const doUnit = function (s, k) {
   let start = s.clone().startOf(k)
   let end = s.clone().endOf(k)
   let duration = end.epoch - start.epoch
@@ -12,7 +12,7 @@ const doUnit = function(s, k) {
 //how far it is along, from 0-1
 const progress = (s, unit) => {
   if (unit) {
-    unit = fns.normalize(unit)
+    unit = normalize(unit)
     return doUnit(s, unit)
   }
   let obj = {}
@@ -22,4 +22,4 @@ const progress = (s, unit) => {
   return obj
 }
 
-module.exports = progress
+export default progress

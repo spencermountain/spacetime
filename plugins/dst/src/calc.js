@@ -57,4 +57,4 @@ const calc = function (id, year) {
     end: findEpoch(zone.end, id, year)
   }
 }
-module.exports = calc
+export default calc

@@ -9,4 +9,4 @@ const normalize = function (str) {
   return str
 }
 
-module.exports = normalize
+export default normalize

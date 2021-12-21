@@ -1,7 +1,7 @@
-const seasons = require('../data/seasons')
-const quarters = require('../data/quarters')
-const walkTo = require('./set/walk')
-const fns = require('../fns')
+import seasons from '../data/seasons.js'
+import quarters from '../data/quarters.js'
+import walkTo from './set/walk.js'
+import { normalize } from '../fns.js'
 
 const units = {
   minute: (s) => {
@@ -141,7 +141,7 @@ units.date = units.day
 
 const startOf = (a, unit) => {
   let s = a.clone()
-  unit = fns.normalize(unit)
+  unit = normalize(unit)
   if (units[unit]) {
     return units[unit](s)
   }
@@ -155,7 +155,7 @@ const startOf = (a, unit) => {
 //piggy-backs off startOf
 const endOf = (a, unit) => {
   let s = a.clone()
-  unit = fns.normalize(unit)
+  unit = normalize(unit)
   if (units[unit]) {
     // go to beginning, go to next one, step back 1ms
     s = units[unit](s) // startof
@@ -165,7 +165,7 @@ const endOf = (a, unit) => {
   }
   return s
 }
-module.exports = {
+export {
   startOf,
   endOf
 }

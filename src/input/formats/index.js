@@ -1,6 +1,6 @@
-module.exports = [].concat(
-  require('./01-ymd'),
-  require('./02-mdy'),
-  require('./03-dmy'),
-  require('./04-misc')
-)
+import ymd from './01-ymd.js'
+import mdy from './02-mdy.js'
+import dmy from './03-dmy.js'
+import misc from './04-misc.js'
+
+export default [].concat(ymd, mdy, dmy, misc)

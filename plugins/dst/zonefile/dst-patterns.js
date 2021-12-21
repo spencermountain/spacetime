@@ -1,6 +1,6 @@
 const patterns = require('./patterns')
 
-module.exports = [
+export default [
   // north america
   {
     name: 'Eastern Time',

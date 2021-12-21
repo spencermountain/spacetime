@@ -7,5 +7,5 @@ if (typeof process !== undefined && typeof module !== undefined) {
     spacetimeHoliday = require('../src')
   }
 
-  module.exports = spacetimeHoliday
+  export default spacetimeHoliday
 }

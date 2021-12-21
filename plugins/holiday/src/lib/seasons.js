@@ -125,7 +125,7 @@ const exceptions = {
 
 const winter20th = [2080, 2084, 2088, 2092, 2096]
 
-const calcSeasons = function(year) {
+const calcSeasons = function (year) {
   // most common defaults
   let res = {
     spring: 'March 20 ' + year,
@@ -151,4 +151,4 @@ const calcSeasons = function(year) {
   }
   return res
 }
-module.exports = calcSeasons
+export default calcSeasons

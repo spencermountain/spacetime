@@ -109,7 +109,7 @@ function getWeekStart(country = '') {
   }
 }
 
-module.exports = {
+export default {
   getWeekStart,
   setWeekStart
 }

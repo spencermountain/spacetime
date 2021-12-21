@@ -1,7 +1,7 @@
 /* eslint no-unused-vars: "off" */
-const test = require('tape')
-const spacetime = require('./lib')
-const useOldTz = require('./lib/useOldTz')
+import test from 'tape'
+import spacetime from './lib/index.js'
+import useOldTz from './lib/useOldTz.js'
 const day0 = spacetime.now()
 const today = day0.format('nice')
 

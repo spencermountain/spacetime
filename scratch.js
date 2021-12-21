@@ -1,4 +1,4 @@
-const spacetime = require('./src/index')
+import spacetime from './src/index.js'
 // spacetime.extend(require('./plugins/dst/src/index.js'))
 
 let a = spacetime('2017-10-03T08:00:00+0000', 'Etc/GMT+0')//.time('1:00pm')
@@ -16,3 +16,5 @@ let weeks = []
 let end = start.endOf('week')
 let week = start.every('day', end)
 console.log(week[0].format('nice-day'))
+
+*/

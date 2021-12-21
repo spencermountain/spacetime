@@ -1,6 +1,6 @@
-const Spacetime = require('./spacetime')
-const whereIts = require('./whereIts')
-const version = require('../_version')
+import Spacetime from './spacetime.js'
+import whereIts from './whereIts.js'
+import version from '../_version.js'
 
 const main = (input, tz, options) => new Spacetime(input, tz, options)
 
@@ -61,4 +61,4 @@ main.version = version
 
 //aliases:
 main.plugin = main.extend
-module.exports = main
+export default main

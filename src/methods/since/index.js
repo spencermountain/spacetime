@@ -1,12 +1,12 @@
-const fns = require('../../fns')
-const toISO = require('./_iso')
-const getDiff = require('./getDiff')
-const soften = require('./soften')
+import { beADate } from '../../fns.js'
+import toISO from './_iso.js'
+import getDiff from './getDiff.js'
+import soften from './soften.js'
 //by spencermountain + Shaun Grady
 
 //create the human-readable diff between the two dates
 const since = (start, end) => {
-  end = fns.beADate(end, start)
+  end = beADate(end, start)
   const diff = getDiff(start, end)
   const isNow = Object.keys(diff).every((u) => !diff[u])
   if (isNow === true) {
@@ -52,4 +52,4 @@ const since = (start, end) => {
   }
 }
 
-module.exports = since
+export default since

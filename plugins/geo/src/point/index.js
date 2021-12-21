@@ -1,6 +1,6 @@
 const points = require('./IANA-points')
 //
-const point = function() {
+const point = function () {
   let tz = this.timezone().name
   if (points.hasOwnProperty(tz) === false) {
     console.warn('Unable to find location for timezone ' + tz)
@@ -12,4 +12,4 @@ const point = function() {
     lng: parseFloat(arr[1])
   }
 }
-module.exports = point
+export default point

@@ -45,4 +45,4 @@ const spacetimeHoliday = function (str, year, tz) {
 
   return null
 }
-module.exports = spacetimeHoliday
+export default spacetimeHoliday

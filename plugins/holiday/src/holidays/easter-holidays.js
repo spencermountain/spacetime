@@ -21,4 +21,4 @@ dates['easter sunday'] = dates.easter
 dates['pentecost'] = dates['whit sunday']
 dates['whitsun'] = dates['whit sunday']
 
-module.exports = dates
+export default dates

@@ -33,7 +33,7 @@ const europe = {
   }
 }
 
-module.exports = {
+export default {
   northAmerica,
   europe
 }

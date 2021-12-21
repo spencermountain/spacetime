@@ -28,4 +28,4 @@ const calculate = function (date) {
 	// })
 	return weeks
 }
-module.exports = calculate
+export default calculate

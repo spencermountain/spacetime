@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 test('test daysInMonth() on all months', (t) => {
   let d = spacetime('January 12, 2016')

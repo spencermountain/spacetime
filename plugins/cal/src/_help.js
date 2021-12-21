@@ -28,4 +28,4 @@ const Help = function () {
 		</Box>
 	)
 }
-module.exports = Help
+export default Help

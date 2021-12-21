@@ -1,10 +1,10 @@
-const iana = require('./iana')
+import iana from './iana.js'
 // const whitelist = require('./whitelist');
 const whitelist = Object.keys(iana)
-const fs = require('fs')
-const path = require('path')
-const sh = require('shelljs')
-sh.config.silent = true
+import { writeFileSync } from 'fs'
+import { join } from 'path'
+import { config, exec } from 'shelljs'
+config.silent = true
 //this script mines /usr/share/zoneinfo files for the dates that dst changes for each tz
 //i'm assuming theres no copyright on these things
 
@@ -49,7 +49,7 @@ const fetchZone = (tz) => {
     tz,
     o: iana[tz]
   }
-  let lines = sh.exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n')
+  let lines = exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n')
   lines
     .filter((str) => str)
     .forEach((str) => {
@@ -128,8 +128,8 @@ const doAll = () => {
 
   let stuff = JSON.stringify(all, null, 2)
 
-  let src = path.join(__dirname, `../../data/zonefile.json`)
-  fs.writeFileSync(src, stuff, 'utf8')
+  let src = join(__dirname, `../../data/zonefile.json`)
+  writeFileSync(src, stuff, 'utf8')
   console.log('done!')
 }
 

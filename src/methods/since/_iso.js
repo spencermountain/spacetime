@@ -25,4 +25,4 @@ const toISO = function (diff) {
   iso += fmt(diff.seconds) + 'S'
   return iso
 }
-module.exports = toISO
+export default toISO

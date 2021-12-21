@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 const defaultSettings = {
   days: {
@@ -22,7 +22,7 @@ const defaultSettings = {
       'november',
       'december'
     ]
-  }, 
+  },
   useTitleCase: true
 }
 

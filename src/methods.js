@@ -1,16 +1,16 @@
-const format = require('./methods/format')
-const unixFmt = require('./methods/format/unixFmt')
-const progress = require('./methods/progress')
-const nearest = require('./methods/nearest')
-const diff = require('./methods/diff')
-const since = require('./methods/since')
-const ends = require('./methods/startOf')
-const every = require('./methods/every')
-const timezone = require('./timezone/index')
-const findTz = require('./timezone/find')
-const handleInput = require('./input')
-const fns = require('./fns')
-const days = require('./data/days')
+import format from './methods/format/index.js'
+import unixFmt from './methods/format/unixFmt.js'
+import progress from './methods/progress.js'
+import nearest from './methods/nearest.js'
+import diff from './methods/diff/index.js'
+import since from './methods/since/index.js'
+import { startOf as _startOf, endOf as _endOf } from './methods/startOf.js'
+import every from './methods/every.js'
+import timezone from './timezone/index.js'
+import findTz from './timezone/find.js'
+import handleInput from './input/index.js'
+import { isLeapYear } from './fns.js'
+import { short, long } from './data/days.js'
 const units = [
   'century',
   'decade',
@@ -56,14 +56,14 @@ const methods = {
     return unixFmt(this, fmt)
   },
   startOf: function (unit) {
-    return ends.startOf(this, unit)
+    return _startOf(this, unit)
   },
   endOf: function (unit) {
-    return ends.endOf(this, unit)
+    return _endOf(this, unit)
   },
   leapYear: function () {
     let year = this.year()
-    return fns.isLeapYear(year)
+    return isLeapYear(year)
   },
   progress: function (unit) {
     return progress(this, unit)
@@ -195,9 +195,9 @@ const methods = {
     if (typeof input === 'string') {
       // accept 'wednesday'
       input = input.toLowerCase().trim()
-      let num = days.short().indexOf(input)
+      let num = short().indexOf(input)
       if (num === -1) {
-        num = days.long().indexOf(input)
+        num = long().indexOf(input)
       }
       if (num === -1) {
         num = 1 //go back to default
@@ -213,4 +213,4 @@ const methods = {
 methods.inDST = methods.isDST
 methods.round = methods.nearest
 methods.each = methods.every
-module.exports = methods
+export default methods

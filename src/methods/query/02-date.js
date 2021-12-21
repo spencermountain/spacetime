@@ -1,6 +1,6 @@
-const set = require('../set/set')
-const days = require('../../data/days')
-const walkTo = require('../set/walk')
+import { date as _date } from '../set/set.js'
+import { aliases, short, long } from '../../data/days.js'
+import walkTo from '../set/walk.js'
 
 const methods = {
   // # day in the month
@@ -9,7 +9,7 @@ const methods = {
       let s = this.clone()
       num = parseInt(num, 10)
       if (num) {
-        s.epoch = set.date(s, num, goFwd)
+        s.epoch = _date(s, num, goFwd)
       }
       return s
     }
@@ -26,12 +26,12 @@ const methods = {
     // accept 'wednesday'
     if (typeof input === 'string') {
       input = input.toLowerCase()
-      if (days.aliases.hasOwnProperty(input)) {
-        want = days.aliases[input]
+      if (aliases.hasOwnProperty(input)) {
+        want = aliases[input]
       } else {
-        want = days.short().indexOf(input)
+        want = short().indexOf(input)
         if (want === -1) {
-          want = days.long().indexOf(input)
+          want = long().indexOf(input)
         }
       }
     }
@@ -57,11 +57,11 @@ const methods = {
   //these are helpful name-wrappers
   dayName: function (input, goFwd) {
     if (input === undefined) {
-      return days.long()[this.day()]
+      return long()[this.day()]
     }
     let s = this.clone()
     s = s.day(input, goFwd)
     return s
   }
 }
-module.exports = methods
+export default methods

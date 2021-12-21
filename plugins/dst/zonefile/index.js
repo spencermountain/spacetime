@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     name: 'India Time',
     abbr: null,

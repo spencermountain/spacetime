@@ -1,8 +1,8 @@
 //turn our timezone data into a small-as-possible string
-const fs = require('fs')
-let iana = require('./iana')
-const aliases = require('./aliases')
-const prefixes = require('./_prefixes.js')
+import { writeFileSync } from 'fs'
+import iana from './iana.js'
+import aliases from './aliases.js'
+import { indexOf } from './_prefixes.js'
 let all = {}
 
 // add aliases in
@@ -23,7 +23,7 @@ Object.keys(iana).forEach((k) => {
   }
   all[key] = all[key] || []
   let name = k.replace(/(.*?)\//, (a, prefix) => {
-    let index = prefixes.indexOf(prefix)
+    let index = indexOf(prefix)
     if (index !== -1) {
       return index + '/'
     }
@@ -44,4 +44,4 @@ keys.forEach((k) => {
 })
 
 // console.log(result)
-fs.writeFileSync('./zonefile/_build.json', JSON.stringify(result, null, 2))
+writeFileSync('./zonefile/_build.json', JSON.stringify(result, null, 2))

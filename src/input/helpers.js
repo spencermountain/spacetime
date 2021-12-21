@@ -55,7 +55,7 @@ const parseNumber = function (s, input) {
   return s
 }
 
-module.exports = {
+export default {
   parseArray,
   parseObject,
   parseNumber

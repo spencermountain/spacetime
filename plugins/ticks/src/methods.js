@@ -1,7 +1,7 @@
 const reduceTo = require('./_reduce')
 
 //increment by this unit
-const allTicks = function(start, end, unit) {
+const allTicks = function (start, end, unit) {
   let ticks = []
   start = start.add(1, unit)
   start = start.startOf(unit)
@@ -12,7 +12,7 @@ const allTicks = function(start, end, unit) {
   return ticks
 }
 
-const formatTicks = function(arr, fmt, start, end) {
+const formatTicks = function (arr, fmt, start, end) {
   let delta = end.epoch - start.epoch
   return arr.map(s => {
     let percent = (s.epoch - start.epoch) / delta
@@ -90,4 +90,4 @@ const methods = {
     return ticks
   }
 }
-module.exports = methods
+export default methods

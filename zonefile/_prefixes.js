@@ -1,5 +1,5 @@
 //prefixes for iana names..
-module.exports = [
+export default [
   'africa',
   'america',
   'asia',

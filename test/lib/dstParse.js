@@ -19,4 +19,4 @@ const dstParse = (dstChange, num) => {
     minute: 2
   }
 }
-module.exports = dstParse
+export default dstParse

@@ -1,4 +1,4 @@
-const test = require('tape')
+import test from 'tape'
 const spacetime = require('../../src')
 spacetime.plugin(require('./plugin'))
 

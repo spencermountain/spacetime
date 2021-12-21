@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   'africa/abidjan': {
     offset: 0,
     hem: 'n'

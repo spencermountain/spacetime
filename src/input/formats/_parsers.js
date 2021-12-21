@@ -1,6 +1,10 @@
-const monthLengths = require('../../data/monthLengths')
-const isLeapYear = require('../../fns').isLeapYear
-const months = require('../../data/months').mapping()
+import monthLengths from '../../data/monthLengths.js'
+import { isLeapYear } from '../../fns.js'
+import { mapping } from '../../data/months.js'
+let months = mapping()
+
+import parseOffset from './parseOffset.js'
+import parseTime from './parseTime.js'
 
 //given a month, return whether day number exists in it
 const validate = (obj) => {
@@ -49,12 +53,10 @@ const parseMonth = function (str) {
   return months[str]
 }
 
-const parsers = {
-  parseOffset: require('./parseOffset'),
-  parseTime: require('./parseTime'),
-  parseYear: parseYear,
-  parseMonth: parseMonth,
-  validate: validate
+export {
+  parseOffset,
+  parseTime,
+  parseYear,
+  parseMonth,
+  validate
 }
-
-module.exports = parsers

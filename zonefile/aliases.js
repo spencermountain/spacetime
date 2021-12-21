@@ -3,7 +3,7 @@
 // https://github.com/mj1856/timezonenames
 
 // link-name : target
-module.exports = {
+export default {
   'africa/asmera': 'africa/nairobi',
   'africa/timbuktu': 'africa/abidjan',
   'america/atka': 'america/adak',

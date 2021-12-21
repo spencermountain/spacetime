@@ -1,7 +1,8 @@
 let titleCaseEnabled = true
-module.exports = {
-  useTitleCase: () => titleCaseEnabled,
-  set: useTitleCase => {
-    titleCaseEnabled = useTitleCase
-  }
+export function useTitleCase() {
+  return titleCaseEnabled
+}
+
+export function set(useTitleCase) {
+  titleCaseEnabled = useTitleCase
 }

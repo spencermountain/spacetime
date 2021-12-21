@@ -1,8 +1,9 @@
-const fns = require('../fns')
-const { parseArray, parseObject, parseNumber } = require('./helpers')
-const namedDates = require('./named-dates')
-const normalize = require('./normalize')
-const parseString = require('./parse')
+import { isObject, isDate, isArray } from '../fns.js'
+import fns from './helpers.js'
+const { parseArray, parseObject, parseNumber } = fns
+import namedDates from './named-dates.js'
+import normalize from './normalize.js'
+import parseString from './parse.js'
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
 //=========================================
@@ -28,7 +29,7 @@ const parseInput = (s, input) => {
   //set tmp time
   s.epoch = Date.now()
   // overwrite tmp time with 'today' value, if exists
-  if (s._today && fns.isObject(s._today) && Object.keys(s._today).length > 0) {
+  if (s._today && isObject(s._today) && Object.keys(s._today).length > 0) {
     let res = parseObject(s, today, defaults)
     if (res.isValid()) {
       s.epoch = res.epoch
@@ -39,17 +40,17 @@ const parseInput = (s, input) => {
     return s //k, we're good.
   }
   //support input of Date() object
-  if (fns.isDate(input) === true) {
+  if (isDate(input) === true) {
     s.epoch = input.getTime()
     return s
   }
   //support [2016, 03, 01] format
-  if (fns.isArray(input) === true) {
+  if (isArray(input) === true) {
     s = parseArray(s, input, today)
     return s
   }
   //support {year:2016, month:3} format
-  if (fns.isObject(input) === true) {
+  if (isObject(input) === true) {
     //support spacetime object as input
     if (input.epoch) {
       s.epoch = input.epoch
@@ -73,4 +74,4 @@ const parseInput = (s, input) => {
   //try each text-parse template, use the first good result
   return parseString(s, input)
 }
-module.exports = parseInput
+export default parseInput

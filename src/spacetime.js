@@ -1,9 +1,15 @@
-const quickOffset = require('./timezone/quick')
-const findTz = require('./timezone/find')
-const handleInput = require('./input')
-const methods = require('./methods')
-let timezones = require('../zonefile/unpack')
+import quickOffset from './timezone/quick.js'
+import findTz from './timezone/find.js'
+import handleInput from './input/index.js'
+import methods from './methods.js'
+import zones from '../zonefile/unpack.js'
+import queryFns from './methods/query/index.js'
+import addFns from './methods/add.js'
+import sameFns from './methods/same.js'
+import compareFns from './methods/compare.js'
+import i18nFns from './methods/i18n.js'
 
+let timezones = zones
 //fake timezone-support, for fakers (es5 class)
 const SpaceTime = function (input, tz, options = {}) {
   //the holy moment
@@ -91,10 +97,10 @@ SpaceTime.prototype.toNativeDate = function () {
 }
 
 //append more methods
-require('./methods/query')(SpaceTime)
-require('./methods/add')(SpaceTime)
-require('./methods/same')(SpaceTime)
-require('./methods/compare')(SpaceTime)
-require('./methods/i18n')(SpaceTime)
+queryFns(SpaceTime)
+addFns(SpaceTime)
+sameFns(SpaceTime)
+compareFns(SpaceTime)
+i18nFns(SpaceTime)
 
-module.exports = SpaceTime
+export default SpaceTime

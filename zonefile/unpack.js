@@ -1,5 +1,5 @@
-const data = require('./_build.json')
-const prefixes = require('./_prefixes.js')
+import data from './_build.js'
+import prefixes from './_prefixes.js'
 
 let all = {}
 Object.keys(data).forEach((k) => {
@@ -21,7 +21,7 @@ Object.keys(data).forEach((k) => {
   })
 })
 
-all['utc'] = {
+all.utc = {
   offset: 0,
   hem: 'n' //default to northern hemisphere - (sorry!)
 }
@@ -44,4 +44,4 @@ for (let i = -14; i <= 14; i += 0.5) {
   }
 }
 
-module.exports = all
+export default all

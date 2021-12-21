@@ -12,7 +12,7 @@ const oct = 'october'
 const nov = 'november'
 const dec = 'december'
 
-module.exports = {
+export default {
   'new years eve': [dec, 31],
   'new years': [jan, 1],
   'new years day': [jan, 1],

@@ -61,4 +61,4 @@ const parseTime = (s, str = '') => {
   s = s.startOf('day')
   return s
 }
-module.exports = parseTime
+export default parseTime

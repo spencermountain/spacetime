@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 //ST  = winter.   november -> march
 //DST = summer.   march    -> november
 

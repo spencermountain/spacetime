@@ -31,4 +31,4 @@ function getDiff(a, b) {
   }
   return diff
 }
-module.exports = getDiff
+export default getDiff

@@ -1,6 +1,6 @@
 const calc = require('./calc')
 
-module.exports = {
+export default {
   dst: function (year) {
     year = year || this.year()
     let id = this.timezone().name

@@ -1,11 +1,11 @@
-const set = require('../set/set')
-const fns = require('../../fns')
+import { milliseconds, seconds, minutes, hours, time as _time } from '../set/set.js'
+import { zeroPad } from '../../fns.js'
 
 const methods = {
   millisecond: function (num) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.milliseconds(s, num)
+      s.epoch = milliseconds(s, num)
       return s
     }
     return this.d.getMilliseconds()
@@ -13,7 +13,7 @@ const methods = {
   second: function (num, goFwd) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.seconds(s, num, goFwd)
+      s.epoch = seconds(s, num, goFwd)
       return s
     }
     return this.d.getSeconds()
@@ -21,7 +21,7 @@ const methods = {
   minute: function (num, goFwd) {
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.minutes(s, num, goFwd)
+      s.epoch = minutes(s, num, goFwd)
       return s
     }
     return this.d.getMinutes()
@@ -30,7 +30,7 @@ const methods = {
     let d = this.d
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = set.hours(s, num, goFwd)
+      s.epoch = hours(s, num, goFwd)
       return s
     }
     return d.getHours()
@@ -43,8 +43,8 @@ const methods = {
       let minute = num % 1
       minute = minute * 60
       let hour = parseInt(num, 10)
-      s.epoch = set.hours(s, hour, goFwd)
-      s.epoch = set.minutes(s, minute, goFwd)
+      s.epoch = hours(s, hour, goFwd)
+      s.epoch = minutes(s, minute, goFwd)
       return s
     }
     let d = this.d
@@ -66,7 +66,7 @@ const methods = {
         if (m[2] === 'pm') {
           hour += 12
         }
-        s.epoch = set.hours(s, hour, goFwd)
+        s.epoch = hours(s, hour, goFwd)
       }
       return s
     }
@@ -86,10 +86,10 @@ const methods = {
     if (str !== undefined) {
       let s = this.clone()
       str = str.toLowerCase().trim()
-      s.epoch = set.time(s, str, goFwd)
+      s.epoch = _time(s, str, goFwd)
       return s
     }
-    return `${this.h12()}:${fns.zeroPad(this.minute())}${this.ampm()}`
+    return `${this.h12()}:${zeroPad(this.minute())}${this.ampm()}`
   },
 
   // either 'am' or 'pm'
@@ -168,4 +168,4 @@ const methods = {
     return this.format('iso')
   }
 }
-module.exports = methods
+export default methods

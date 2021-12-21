@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   1: ['Africa/Kinshasa', 'Africa/Luanda'],
   2: [
     'Africa/Gaborone',

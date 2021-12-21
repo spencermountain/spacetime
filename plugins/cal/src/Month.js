@@ -45,4 +45,4 @@ const Month = function (input) {
 }
 
 
-module.exports = Month
+export default Month

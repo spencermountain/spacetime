@@ -1,6 +1,6 @@
-const tzs = require('../../zonefile/unpack')
-const guessTz = require('./guessTz')
-const parseOffset = require('./parseOffset')
+import tzs from '../../zonefile/unpack.js'
+import guessTz from './guessTz.js'
+import parseOffset from './parseOffset.js'
 const local = guessTz()
 
 //add all the city names by themselves
@@ -61,4 +61,4 @@ const lookupTz = (str, zones) => {
     "Spacetime: Cannot find timezone named: '" + str + "'. Please enter an IANA timezone id."
   )
 }
-module.exports = lookupTz
+export default lookupTz

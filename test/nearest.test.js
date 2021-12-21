@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 test('nearest', (t) => {
   let s = spacetime('jan 2 2019', 'Canada/Eastern')

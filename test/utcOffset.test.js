@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 //https://en.wikipedia.org/wiki/ISO_8601
 //the zone designator would be "+01:00", "+0100", or simply "+01"

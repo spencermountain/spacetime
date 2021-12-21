@@ -62,4 +62,4 @@ const toSoft = function (diff) {
   })
   return { qualified, rounded, abbreviated, englishValues }
 }
-module.exports = toSoft
+export default toSoft

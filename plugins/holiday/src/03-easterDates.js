@@ -21,4 +21,4 @@ const easterDates = function (str, normal, year, tz) {
   }
   return null
 }
-module.exports = easterDates
+export default easterDates
