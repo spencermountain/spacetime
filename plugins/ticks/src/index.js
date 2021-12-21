@@ -1,6 +1,6 @@
-const spacetime = require('spacetime')
-const methods = require('./methods')
-const version = require('../_version')
+import spacetime from 'spacetime'
+import methods from './methods.js'
+import version from '../_version.js'
 
 const chooseMethod = function (start, end, n = 6) {
   let diff = start.diff(end)

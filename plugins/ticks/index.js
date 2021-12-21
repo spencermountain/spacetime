@@ -1,2 +1,2 @@
-require('./demo/duration')
-require('./demo/custom')
+import lib from './src/index.js'
+export default lib

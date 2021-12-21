@@ -1,5 +1,5 @@
-const fs = require('fs')
-const pkg = require('../package.json')
+import { writeFileSync } from 'fs'
+import { version } from '../package.json'
 
 //set new version number
-fs.writeFileSync('./_version.js', `export default  '${pkg.version}'`)
+writeFileSync('./_version.js', `export default  '${version}'`)

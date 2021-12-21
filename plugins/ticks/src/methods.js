@@ -1,4 +1,4 @@
-const reduceTo = require('./_reduce')
+import reduceTo from './_reduce.js'
 
 //increment by this unit
 const allTicks = function (start, end, unit) {

@@ -1,6 +1,5 @@
-'use strict'
 import test from 'tape'
-const weekStart = require('../src/input/weekStart')
+import { getWeekStart as weekStart } from '../src/input/weekStart.js'
 
 test('week by country returns values, when no or falsy argument is supplied', t => {
   t.notEqual(weekStart(), null)

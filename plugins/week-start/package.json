@@ -4,7 +4,15 @@
   "version": "0.0.1",
   "main": "src/index.js",
   "unpkg": "builds/spacetime-week.min.js",
-  "licence": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "require": "./builds/spacetime-week.js",
+      "import": "./builds/spacetime-week.mjs",
+      "default": "./builds/spacetime-week.mjs"
+    }
+  },
   "author": "Martin Spodniak & Spencer Kelly",
   "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/week-start",
   "repository": {
@@ -34,5 +42,6 @@
   },
   "peerDependencies": {
     "spacetime": "^5.8.2"
-  }
+  },
+  "licence": "MIT"
 }

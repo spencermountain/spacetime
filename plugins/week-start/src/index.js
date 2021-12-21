@@ -1,8 +1,8 @@
-let weekStart = require('./input/weekStart')
+import { getWeekStart } from './input/weekStart.js'
 
 export default {
   weekStart: function (input) {
     input = input || this.timezone().name
-    return weekStart(input)
+    return getWeekStart(input)
   }
 }

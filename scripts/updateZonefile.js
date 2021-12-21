@@ -1,6 +1,6 @@
 import { config, exec } from 'shelljs'
 config.silent = true
-import data from '../zonefile/iana'
+import data from '../zonefile/iana.js'
 import { writeFileSync } from 'fs'
 const year = new Date().getFullYear()
 // /usr/share/zoneinfo only stores changes, and will use the most-recent change
@@ -111,7 +111,7 @@ const doAll = () => {
     }
   })
   console.log('\n\nmade ' + changes + ' changes to ' + keys.length + ' timezones')
-  writeFileSync('./zonefile.' + year + '.json', JSON.stringify(data, null, 2))
+  writeFileSync('./zonefile.' + year + '.js', 'export default ' + JSON.stringify(data, null, 2))
 }
 doAll()
 // console.log(parseTz('Europe/Berlin'))

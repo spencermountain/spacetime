@@ -1,9 +1,11 @@
-const firstDay = require('../data/countries').firstDay();
-const loc = require('../data/countries').locations();
-const iana = require('../../zonefile/iana');
+import c from '../data/countries.js'
+const firstDay = c.firstDay();
+const loc = c.locations();
+
+import iana from '../../zonefile/iana.js'
+import spacetime from 'spacetime'
 // const fs = require('fs');
 
-const spacetime = require('spacetime')
 
 function getCountry(country) {
   for (let day in firstDay) {
@@ -109,7 +111,7 @@ function getWeekStart(country = '') {
   }
 }
 
-export default {
+export {
   getWeekStart,
   setWeekStart
 }

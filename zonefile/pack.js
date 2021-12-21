@@ -2,7 +2,7 @@
 import { writeFileSync } from 'fs'
 import iana from './iana.js'
 import aliases from './aliases.js'
-import { indexOf } from './_prefixes.js'
+import prefixes from './_prefixes.js'
 let all = {}
 
 // add aliases in
@@ -23,7 +23,7 @@ Object.keys(iana).forEach((k) => {
   }
   all[key] = all[key] || []
   let name = k.replace(/(.*?)\//, (a, prefix) => {
-    let index = indexOf(prefix)
+    let index = prefixes.indexOf(prefix)
     if (index !== -1) {
       return index + '/'
     }
@@ -44,4 +44,4 @@ keys.forEach((k) => {
 })
 
 // console.log(result)
-writeFileSync('./zonefile/_build.json', JSON.stringify(result, null, 2))
+writeFileSync('./zonefile/_build.js', 'export default ' + JSON.stringify(result, null, 2))

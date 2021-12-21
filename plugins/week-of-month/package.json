@@ -4,7 +4,14 @@
   "description": "calculate nth week of the month",
   "main": "./src/index.js",
   "unpkg": "./src/index.js",
+  "type": "module",
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "default": "./src/index.js"
+    }
+  },
   "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-week-of-month",
   "scripts": {
     "test": "TESTENV=dev tape ./week.test.js | tap-dancer  --color always",

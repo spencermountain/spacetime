@@ -1,9 +1,9 @@
 import iana from './iana.js'
-// const whitelist = require('./whitelist');
-const whitelist = Object.keys(iana)
 import { writeFileSync } from 'fs'
 import { join } from 'path'
 import { config, exec } from 'shelljs'
+// const whitelist = require('./whitelist');
+const whitelist = Object.keys(iana)
 config.silent = true
 //this script mines /usr/share/zoneinfo files for the dates that dst changes for each tz
 //i'm assuming theres no copyright on these things

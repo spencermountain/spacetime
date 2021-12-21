@@ -9,6 +9,7 @@ This project follows semVer, where:
 - **[change]** - alias old IANA codes to contemporary ones
 - **[change]** - convert to ES-modules, + exports fields
 - **[change]** - make .every() results inclusive of start
+- **[change]** - move cal plugin to repo spencermountain/scal
 - **[new]** - add ISO duration to .since() results  (thanks Adam)
 - **[fix]** - iso-parsing issues #320
 - **[fix]** - typescript issue #305

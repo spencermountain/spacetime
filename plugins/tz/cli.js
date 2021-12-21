@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-const spacetime = require('spacetime')
-const soft = require('timezone-soft')
-
+import spacetime from 'spacetime'
+import soft from 'timezone-soft'
 const help = function () {
   console.log(`\n\n space-age - calculate human age from a birthdate`)
   console.log(`\n    Usage:  \`npx stz boston\``)
@@ -22,15 +21,14 @@ if (res.length === 0) {
   process.exit()
 }
 let tz = res[0]
-
 // are we in standard time, or daylight time?
 let s = spacetime.now(tz.iana)
 let out = `${s.time()}`
 
 if (tz.daylight && s.isDST()) {
-  out += ' ' + tz.daylight.abbrev
+  out += ' ' + tz.daylight.abbr
 } else {
-  out += ' ' + tz.standard.abbrev
+  out += ' ' + tz.standard.abbr
 }
 
 let here = spacetime.now()
