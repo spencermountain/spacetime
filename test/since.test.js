@@ -18,7 +18,8 @@ test('since()', (t) => {
       },
       rounded: '1 year ago',
       qualified: '1 year ago',
-      precise: '1 year, 1 month ago'
+      precise: '1 year, 1 month ago',
+      abbreviated: '1y1m1d1h1m1s'
     },
     'simple-ago'
   )
@@ -36,7 +37,8 @@ test('since()', (t) => {
       },
       rounded: 'in 1 year',
       qualified: 'in 1 year',
-      precise: 'in 1 year, 1 month'
+      precise: 'in 1 year, 1 month',
+      abbreviated: '1y1m1d1h1m1s'
     },
     'simple-in'
   )
@@ -54,7 +56,8 @@ test('since()', (t) => {
       },
       rounded: 'now',
       qualified: 'now',
-      precise: 'now'
+      precise: 'now',
+      abbreviated: 'now'
     },
     'same'
   )
@@ -77,7 +80,8 @@ test('since()', (t) => {
       },
       rounded: 'in 2 years',
       qualified: 'in almost 2 years',
-      precise: 'in 1 year, 11 months'
+      precise: 'in 1 year, 11 months',
+      abbreviated: '1y11m'
     },
     'almost'
   )
@@ -95,7 +99,8 @@ test('since()', (t) => {
       },
       rounded: 'in 2 months',
       qualified: 'in over 2 months',
-      precise: 'in 2 months, 11 days'
+      precise: 'in 2 months, 11 days',
+      abbreviated: '2m11d'
     },
     'over'
   )
@@ -113,7 +118,8 @@ test('since()', (t) => {
       },
       rounded: 'in 1 year',
       qualified: 'in 1 year',
-      precise: 'in 1 year, 1 second'
+      precise: 'in 1 year, 1 second',
+      abbreviated: '1y1s'
     },
     'precise'
   )
@@ -131,7 +137,8 @@ test('since()', (t) => {
       },
       rounded: 'in 2 seconds',
       qualified: 'in 2 seconds',
-      precise: 'in 2 seconds'
+      precise: 'in 2 seconds',
+      abbreviated: '2s'
     },
     'seconds'
   )
@@ -146,6 +153,7 @@ test('since now - default', (t) => {
   t.equal(since.diff.months, -11, '11 months back')
   t.equal(since.diff.seconds, -23, '23 seconds back')
   t.equal(since.precise, 'in 1 year, 11 months', 'precise is good')
+  t.equal(since.abbreviated, '1y11m23s', 'abbreviated is good')
   t.end()
 })
 
@@ -168,6 +176,7 @@ test('supports soft inputs', (t) => {
   t.equal(diff.days, 2, '2 days')
   t.equal(diff.hours, 0, '0 hours')
   t.equal(diff.seconds, 0, '0 seconds')
+  t.equal(obj.abbreviated, '2d', 'abbreviated')
 
   //opposite since logic
   obj = spacetime('April 8th 2018').since('April 10th 2018')
@@ -180,6 +189,7 @@ test('supports soft inputs', (t) => {
   t.equal(diff.days, -2, '2 days')
   t.equal(diff.hours, 0, '0 hours')
   t.equal(diff.seconds, 0, '0 seconds')
+  t.equal(obj.abbreviated, '2d', 'abbreviated')
 
   t.end()
 })
@@ -205,7 +215,8 @@ test('since calculation involves month addition and subtraction', (t) => {
     },
     rounded: '11 hours ago',
     qualified: 'almost 11 hours ago',
-    precise: '10 hours, 59 minutes ago'
+    precise: '10 hours, 59 minutes ago',
+    abbreviated: '10h59m10s'
   })
 
   prev = spacetime('2019-08-31T12:00:00.0Z')
@@ -222,7 +233,8 @@ test('since calculation involves month addition and subtraction', (t) => {
     },
     rounded: '23 hours ago',
     qualified: '23 hours ago',
-    precise: '23 hours ago'
+    precise: '23 hours ago',
+    abbreviated: '23h'
   })
 
   t.end()

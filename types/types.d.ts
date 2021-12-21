@@ -294,6 +294,7 @@ export interface Since {
   rounded: string
   qualified: string
   precise: string
+  abbreviated: string
   diff: Diff
 }
 
