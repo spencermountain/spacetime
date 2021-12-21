@@ -35,7 +35,10 @@ const every = function (start, unit, end) {
     d = d.next(unit)
     unit = 'week'
   } else {
-    d = d.next(unit)
+    let first = d.startOf(unit)
+    if (first.isBefore(start)) {
+      d = d.next(unit)
+    }
   }
   //okay, actually start doing it
   let result = []

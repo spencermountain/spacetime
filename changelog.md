@@ -15,6 +15,7 @@ This project follows semVer, where:
 - **[fix]** - typescript issue #305
 - **[change]** - return 'Etc/GMT' not 'Etc/GMT+0'
 - **[change]** - update deps
+- republish plugins
 -->
 
 ### v6.16.4 [Nov 2021]
