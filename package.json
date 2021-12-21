@@ -43,11 +43,11 @@
     "printWidth": 100
   },
   "devDependencies": {
-    "@babel/core": "7.16.0",
-    "@babel/preset-env": "7.16.4",
+    "@babel/core": "7.16.5",
+    "@babel/preset-env": "7.16.5",
     "codecov": "3.8.3",
     "nyc": "^15.1.0",
-    "rollup": "2.60.1",
+    "rollup": "2.61.1",
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-filesize-check": "0.0.1",

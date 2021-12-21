@@ -17,7 +17,7 @@ const Week = function (input) {
 	return (
 		<Box alignItems="flex-start" flexDirection="row" alignItems="flex-end">
 			{days.map((d, i) => (
-				<Box key={i} width="14%">
+				<Box key={i} width="14%" >
 					{!d.hide && <Text color="grey">{padStr(d.date(), 2)}</Text>}
 				</Box>
 			))}

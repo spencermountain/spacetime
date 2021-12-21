@@ -21,7 +21,7 @@ const Month = function (input) {
 	})
 	// borderStyle="single"
 	return (
-		<Box width={22} flexDirection="col" margin={1}>
+		<Box width={22} flexDirection="col" margin={1} >
 			{/* month title */}
 			<Box alignSelf="center">
 				<Text>{s.format('{month} {year}')}</Text>
@@ -43,4 +43,6 @@ const Month = function (input) {
 		</Box>
 	)
 }
+
+
 module.exports = Month

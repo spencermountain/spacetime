@@ -4,7 +4,13 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
-<!-- ### [unreleased]
+<!-- ### 7.0.0 [Jan 2022]
+- **[change]** - update to 2022 DST dates
+- **[change]** - convert to ES-modules, + exports fields
+- **[change]** - make .every() results inclusive of start
+- **[new]** - add ISO duration to .since() results  (thanks Adam)
+- **[fix]** - iso-parsing issues #320
+- **[fix]** - typescript issue #305
 -->
 
 ### v6.16.4 [Nov 2021]

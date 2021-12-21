@@ -1,4 +1,4 @@
-var tzlookup = require("tz-lookup");
+const tzlookup = require("tz-lookup");
 const points = require('../../src/IANA-points.js')
 
 Object.keys(points).forEach((k) => {

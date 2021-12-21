@@ -2,7 +2,7 @@ let test = require('tape')
 let spacetime = require('./lib')
 
 test('to-from utc-format', (t) => {
-  ;[
+  let arr = [
     '1998-05-01T08:00:00.000Z',
     '1998-05-30T22:00:00.000Z',
     '2017-01-01T08:00:00.000Z',
@@ -29,7 +29,8 @@ test('to-from utc-format', (t) => {
     '-000098-05-04T23:16:19.444Z',
     '-000986-05-01T09:58:23.078-04:00',
     '-002345-05-04T23:12:01.970Z'
-  ].forEach((str) => {
+  ]
+  arr.forEach((str) => {
     let s = spacetime(str)
     let out = s.format('iso')
     t.equal(str, out, 'equal - ' + str)

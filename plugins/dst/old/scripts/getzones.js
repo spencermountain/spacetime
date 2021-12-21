@@ -1,7 +1,7 @@
-const fs = require('fs')
-const path = require('path')
-const sh = require('shelljs')
-let year = 2021
+// const fs = require('fs')
+// const path = require('path')
+// const sh = require('shelljs')
+// let year = 2021
 // let tz = 'australia/melbourne'
 
 const tzs = require('/Users/spencer/mountain/spacetime/zonefile/iana.js')
