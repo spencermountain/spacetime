@@ -18,7 +18,7 @@ let dates = {
   'mardi gras': -47 //(47 days before easter)
 }
 dates['easter sunday'] = dates.easter
-dates['pentecost'] = dates['whit sunday']
-dates['whitsun'] = dates['whit sunday']
+dates.pentecost = dates['whit sunday']
+dates.whitsun = dates['whit sunday']
 
 export default dates

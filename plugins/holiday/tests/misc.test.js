@@ -1,5 +1,5 @@
 import test from 'tape'
-const spacetimeHoliday = require('./_lib')
+import spacetimeHoliday from './_lib.js'
 
 test('fixed-holidays', (t) => {
   let arr = [

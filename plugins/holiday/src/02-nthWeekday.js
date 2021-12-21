@@ -1,5 +1,5 @@
-const spacetime = require('spacetime')
-const calendar = require('./holidays/calendar-holidays')
+import spacetime from 'spacetime'
+import calendar from './holidays/calendar-holidays.js'
 
 // holidays that are the same date every year
 const fixedDates = function (str, normal, year, tz) {
