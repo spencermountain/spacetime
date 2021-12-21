@@ -76,12 +76,14 @@ const since = (start, end) => {
       diff,
       rounded: 'now',
       qualified: 'now',
-      precise: 'now'
+      precise: 'now',
+      abbreviated: 'now'
     }
   }
   let rounded
   let qualified
   let precise
+  let abbreviated = ''
   let englishValues = []
 
   //go through each value and create its text-representation
@@ -90,6 +92,7 @@ const since = (start, end) => {
     if (value === 0) {
       return
     }
+    abbreviated += value + unit[0]
     const englishValue = pluralize(value, unit)
     englishValues.push(englishValue)
     if (!rounded) {
@@ -122,7 +125,8 @@ const since = (start, end) => {
     diff,
     rounded,
     qualified,
-    precise
+    precise,
+    abbreviated
   }
 }
 
