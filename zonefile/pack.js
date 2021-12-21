@@ -8,6 +8,9 @@ let all = {}
 // add aliases in
 Object.keys(aliases).forEach((k) => {
   let found = iana[aliases[k]]
+  if (!found) {
+    console.log('missing', aliases[k])
+  }
   iana[k] = Object.assign({}, found)
 })
 

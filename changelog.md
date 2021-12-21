@@ -6,11 +6,13 @@ This project follows semVer, where:
 
 <!-- ### 7.0.0 [Jan 2022]
 - **[change]** - update to 2022 DST dates
+- **[change]** - alias old IANA codes to contemporary ones
 - **[change]** - convert to ES-modules, + exports fields
 - **[change]** - make .every() results inclusive of start
 - **[new]** - add ISO duration to .since() results  (thanks Adam)
 - **[fix]** - iso-parsing issues #320
 - **[fix]** - typescript issue #305
+- **[change]** - update deps
 -->
 
 ### v6.16.4 [Nov 2021]

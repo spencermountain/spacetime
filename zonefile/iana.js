@@ -405,7 +405,7 @@ module.exports = {
     hem: 'n',
     dst: '03/14:02->11/07:02'
   },
-  'america/godthab': {
+  'america/nuuk': {
     offset: -2,
     hem: 'n',
     dst: '03/27:22->10/30:23'
@@ -933,7 +933,7 @@ module.exports = {
     offset: 8,
     hem: 'n'
   },
-  'asia/calcutta': {
+  'asia/kolkata': {
     offset: 5.5,
     hem: 'n'
   },
@@ -1111,7 +1111,7 @@ module.exports = {
     offset: 6,
     hem: 'n'
   },
-  'asia/rangoon': {
+  'asia/yangon': {
     offset: 6.5,
     hem: 'n'
   },
@@ -1119,7 +1119,7 @@ module.exports = {
     offset: 3,
     hem: 'n'
   },
-  'asia/saigon': {
+  'asia/ho_chi_minh': {
     offset: 7,
     hem: 'n'
   },
@@ -1227,7 +1227,7 @@ module.exports = {
     offset: -1,
     hem: 'n'
   },
-  'atlantic/faeroe': {
+  'atlantic/faroe': {
     offset: 1,
     hem: 'n',
     dst: '03/28:01->10/31:02'
@@ -1767,7 +1767,7 @@ module.exports = {
     offset: -8,
     hem: 'n'
   },
-  'pacific/ponape': {
+  'pacific/pohnpei': {
     offset: 11,
     hem: 'n'
   },
@@ -1796,7 +1796,7 @@ module.exports = {
     hem: 's',
     dst: '01/15:02->11/05:03'
   },
-  'pacific/truk': {
+  'pacific/chuuk': {
     offset: 10,
     hem: 'n'
   },

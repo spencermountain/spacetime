@@ -5,7 +5,8 @@ const parseOffset = (s, offset) => {
   }
   //this is a fancy-move
   if (offset === 'Z' || offset === 'z') {
-    offset = '+0000'
+    s.tz = 'etc/gmt'
+    return s
   }
 
   // according to ISO8601, tz could be hh:mm, hhmm or hh
@@ -28,7 +29,6 @@ const parseOffset = (s, offset) => {
   if (/^[\+-]?[0-9]{4}$/.test(offset)) {
     offset = offset.replace(/30$/, '.5')
   }
-
   num = parseFloat(offset)
 
   //divide by 100 or 10 - , "+0100", "+01"
