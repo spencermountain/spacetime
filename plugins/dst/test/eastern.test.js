@@ -1,6 +1,6 @@
-let test = require('tape')
-const spacetime = require('../../../src')
-const dst = require('../src')
+import test from 'tape'
+import spacetime from 'spacetime'
+import dst from '../src/index.js'
 spacetime.extend(dst)
 
 let tz = 'Canada/Eastern'

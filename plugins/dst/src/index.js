@@ -1,4 +1,4 @@
-const calc = require('./calc')
+import calc from './calc.js'
 
 export default {
   dst: function (year) {

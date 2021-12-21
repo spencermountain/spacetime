@@ -1,4 +1,4 @@
-const points = require('./IANA-points')
+import points from './IANA-points.js'
 //
 const point = function () {
   let tz = this.timezone().name

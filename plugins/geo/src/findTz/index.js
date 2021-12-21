@@ -1,4 +1,4 @@
-const tzlookup = require('tz-lookup')
+import tzlookup from 'tz-lookup'
 
 //.trim() pollyfill
 if (!String.prototype.trim) {
