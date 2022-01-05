@@ -17,9 +17,11 @@ const rollMonth = (want, old) => {
     want.year = old.year() + years
     want.month = want.month % 12
   } else if (want.month < 0) {
-    //decrement year
-    let years = Math.floor(Math.abs(want.month) / 13, 10)
-    years = Math.abs(years) + 1
+    let m = Math.abs(want.month)
+    let years = parseInt(m / 12, 10)
+    if (m % 12 !== 0) {
+      years += 1
+    }
     want.year = old.year() - years
     //ignore extras
     want.month = want.month % 12

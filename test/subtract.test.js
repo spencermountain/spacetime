@@ -79,3 +79,45 @@ test('subtract-rollover', (t) => {
 
   t.end()
 })
+
+
+
+test('month-rollover even', (t) => {
+  const s = spacetime('jan 1 2022')
+
+  let a = s.subtract(0, 'month');
+  t.equal(a.format('iso-short'), '2022-01-01', '0 years even')
+
+  a = s.subtract(12, 'month');
+  t.equal(a.format('iso-short'), '2021-01-01', '1 years even')
+
+  a = s.subtract(24, 'month');
+  t.equal(a.format('iso-short'), '2020-01-01', '2 years even')
+
+  a = s.subtract(36, 'month');
+  t.equal(a.format('iso-short'), '2019-01-01', '3 years even')
+
+  a = s.subtract(48, 'month');
+  t.equal(a.format('iso-short'), '2018-01-01', '4 years even')
+  t.end()
+})
+
+test('month-rollover + 1', (t) => {
+  const s = spacetime('jan 1 2022')
+
+  let a = s.subtract(1, 'month');
+  t.equal(a.format('iso-short'), '2021-12-01', '0 years +1m')
+
+  a = s.subtract(13, 'month');
+  t.equal(a.format('iso-short'), '2020-12-01', '1 years +1m')
+
+  a = s.subtract(25, 'month');
+  t.equal(a.format('iso-short'), '2019-12-01', '2 years +1m')
+
+  a = s.subtract(37, 'month');
+  t.equal(a.format('iso-short'), '2018-12-01', '3 years +1m')
+
+  a = s.subtract(49, 'month');
+  t.equal(a.format('iso-short'), '2017-12-01', '4 years +1m')
+  t.end()
+})

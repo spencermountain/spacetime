@@ -37,13 +37,14 @@ const fwdBkwd = function (s, old, goFwd, unit) {
   return s
 }
 
-export function milliseconds(s, n) {
+const milliseconds = function (s, n) {
   n = validate(n)
   let current = s.millisecond()
   let diff = current - n //milliseconds to shift by
   return s.epoch - diff
 }
-export function seconds(s, n, goFwd) {
+
+const seconds = function (s, n, goFwd) {
   n = validate(n)
   let old = s.clone()
   let diff = s.second() - n
@@ -52,7 +53,8 @@ export function seconds(s, n, goFwd) {
   s = fwdBkwd(s, old, goFwd, 'minute') // specify direction
   return s.epoch
 }
-export function minutes(s, n, goFwd) {
+
+const minutes = function (s, n, goFwd) {
   n = validate(n)
   let old = s.clone()
   let diff = s.minute() - n
@@ -62,7 +64,8 @@ export function minutes(s, n, goFwd) {
   s = fwdBkwd(s, old, goFwd, 'hour') // specify direction
   return s.epoch
 }
-export function hours(s, n, goFwd) {
+
+const hours = function (s, n, goFwd) {
   n = validate(n)
   if (n >= 24) {
     n = 24
@@ -92,7 +95,8 @@ export function hours(s, n, goFwd) {
   s = fwdBkwd(s, old, goFwd, 'day') // specify direction
   return s.epoch
 }
-export function time(s, str, goFwd) {
+
+const time = function (s, str, goFwd) {
   let m = str.match(/([0-9]{1,2})[:h]([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/)
   if (!m) {
     //fallback to support just '2am'
@@ -135,7 +139,8 @@ export function time(s, str, goFwd) {
   s = fwdBkwd(s, old, goFwd, 'day') // specify direction
   return s.epoch
 }
-export function date(s, n, goFwd) {
+
+const date = function (s, n, goFwd) {
   n = validate(n)
   //avoid setting february 31st
   if (n > 28) {
@@ -160,7 +165,8 @@ export function date(s, n, goFwd) {
   s = fwdBkwd(s, old, goFwd, 'month') // specify direction
   return s.epoch
 }
-export function month(s, n, goFwd) {
+
+const month = function (s, n, goFwd) {
   if (typeof n === 'string') {
     n = mapping()[n.toLowerCase()]
   }
@@ -187,7 +193,8 @@ export function month(s, n, goFwd) {
   s = fwdBkwd(s, old, goFwd, 'year') // specify direction
   return s.epoch
 }
-export function year(s, n) {
+
+const year = function (s, n) {
   // support '97
   if (typeof n === 'string' && /^'[0-9]{2}$/.test(n)) {
     n = n.replace(/'/, '').trim()
@@ -207,7 +214,8 @@ export function year(s, n) {
   })
   return s.epoch
 }
-export function week(s, n, goFwd) {
+
+const week = function (s, n, goFwd) {
   let old = s.clone()
   n = validate(n)
   s = s.month(0)
@@ -224,7 +232,8 @@ export function week(s, n, goFwd) {
   s = fwdBkwd(s, old, goFwd, 'year') // specify direction
   return s.epoch
 }
-export function dayOfYear(s, n, goFwd) {
+
+const dayOfYear = function (s, n, goFwd) {
   n = validate(n)
   let old = s.clone()
   n -= 1 //days are 1-based
@@ -238,4 +247,17 @@ export function dayOfYear(s, n, goFwd) {
   confirm(s, old, 'hour')
   s = fwdBkwd(s, old, goFwd, 'year') // specify direction
   return s.epoch
+}
+
+export {
+  milliseconds,
+  seconds,
+  minutes,
+  hours,
+  time,
+  date,
+  month,
+  year,
+  week,
+  dayOfYear,
 }
