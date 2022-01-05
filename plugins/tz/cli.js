@@ -2,7 +2,7 @@
 import spacetime from 'spacetime'
 import soft from 'timezone-soft'
 const help = function () {
-  console.log(`\n\n space-age - calculate human age from a birthdate`)
+  console.log(`\n\n stz - calculate current time in a given location`)
   console.log(`\n    Usage:  \`npx stz boston\``)
   console.log(`\n    Usage:  \`npx stz ACST\``)
   console.log('\n\n')

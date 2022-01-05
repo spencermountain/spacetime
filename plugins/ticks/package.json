@@ -1,6 +1,6 @@
 {
   "name": "spacetime-ticks",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "calculate the best breakpoints between two dates",
   "main": "src/index.js",
   "unpkg": "builds/spacetime-ticks.min.js",

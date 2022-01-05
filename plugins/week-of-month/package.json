@@ -1,6 +1,6 @@
 {
   "name": "spacetime-week-of-month",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "calculate nth week of the month",
   "main": "./src/index.js",
   "unpkg": "./src/index.js",
@@ -29,8 +29,8 @@
     "printWidth": 100
   },
   "devDependencies": {
-    "tap-dancer": "0.3.1",
-    "tape": "5.0.1"
+    "tap-dancer": "0.3.4",
+    "tape": "5.4.0"
   },
   "license": "MIT"
 }

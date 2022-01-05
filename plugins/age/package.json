@@ -1,6 +1,6 @@
 {
   "name": "space-age",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a CLI calendar",
   "main": "cli.js",
   "bin": {

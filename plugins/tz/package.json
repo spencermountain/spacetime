@@ -1,6 +1,6 @@
 {
   "name": "stz",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a CLI timezone calculator",
   "main": "cli.js",
   "type": "module",
