@@ -192,3 +192,11 @@ test('min < max', (t) => {
   t.ok(min.isBefore(max), 'min < max')
   t.end()
 })
+
+test('subtract overflow', (t) => {
+  const s = spacetime.now()
+  const a = s.subtract(25, 'month');
+  const b = s.subtract(13, 'month');
+  t.ok(a.iso() !== b.iso(), 'subtractions not equal')
+  t.end()
+})
