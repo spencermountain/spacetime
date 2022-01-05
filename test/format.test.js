@@ -174,8 +174,16 @@ test('unix-fmt-padding', t => {
   })
   let str = d.format("ww DDD MM d, hh:mm a")
   t.equal('04 027 Jan 27, 04:02 AM', str, 'string is 0-padded')
-
+  
   str = d.format("w D MM d, h:m a")
   t.equal('4 27 Jan 27, 4:2 AM', str, 'string is not-0-padded')
   t.end();
 });*/
+
+test('unix-year-padding', t => {
+  let s = spacetime('sep 1 2022')
+  t.equal(s.unixFmt('yy'), '22', 'non-zero-end')
+  s = spacetime('sep 1 2000')
+  t.equal(s.unixFmt('yy'), '00', 'zero-end')
+  t.end()
+});

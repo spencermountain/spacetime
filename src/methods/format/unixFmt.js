@@ -13,7 +13,7 @@ const mapping = {
   y: (s) => s.year(),
   yy: (s) => {
     //last two chars
-    return parseInt(String(s.year()).substr(2, 4), 10)
+    return pad(Number(String(s.year()).substr(2, 4)))
   },
   yyy: (s) => s.year(),
   yyyy: (s) => s.year(),
