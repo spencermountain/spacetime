@@ -1,6 +1,6 @@
-const spacetime = require('spacetime')
-const calcSeasons = require('./lib/seasons')
-const holidays = require('./holidays/astro-holidays')
+import spacetime from 'spacetime'
+import calcSeasons from './lib/seasons.js'
+import holidays from './holidays/astro-holidays.js'
 
 const astroDates = function (str, normal, year, tz) {
   if (holidays.hasOwnProperty(str) || holidays.hasOwnProperty(normal)) {
@@ -17,4 +17,4 @@ const astroDates = function (str, normal, year, tz) {
 
   return null
 }
-module.exports = astroDates
+export default astroDates

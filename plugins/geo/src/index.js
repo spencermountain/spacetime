@@ -1,7 +1,7 @@
-const find = require('./findTz')
-const point = require('./point')
+import find from './findTz/index.js'
+import point from './point/index.js'
 
-module.exports = {
+export default {
   in: find,
   point: point,
 }

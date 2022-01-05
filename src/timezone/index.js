@@ -1,5 +1,5 @@
-const findTz = require('./find')
-const inSummerTime = require('./summerTime')
+import findTz from './find.js'
+import inSummerTime from './summerTime.js'
 
 const parseDst = dst => {
   if (!dst) {
@@ -79,4 +79,4 @@ const timezone = s => {
   }
   return result
 }
-module.exports = timezone
+export default timezone

@@ -1,9 +1,9 @@
-const test = require('tape')
-const spacetime = require('spacetime')
-const geo = require('../src')
+import test from 'tape'
+import spacetime from 'spacetime'
+import geo from '../src/index.js'
 // const geo = require('../builds/spacetime-geo')
 
-test('test some lat/lngs', function(t) {
+test('test some lat/lngs', function (t) {
   spacetime.extend(geo)
 
   let s = spacetime('june 4 2018', 'Canada/Eastern')

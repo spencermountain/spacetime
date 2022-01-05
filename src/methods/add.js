@@ -1,8 +1,8 @@
-const walkTo = require('./set/walk')
-const ms = require('../data/milliseconds')
-const monthLength = require('../data/monthLengths')
-const model = require('./set/_model')
-const fns = require('../fns')
+import walkTo from './set/walk.js'
+import ms from '../data/milliseconds.js'
+import monthLength from '../data/monthLengths.js'
+import { months, daysBack, days } from './set/_model.js'
+import { normalize } from '../fns.js'
 // this logic is a bit of a mess,
 // but briefly:
 // millisecond-math, and some post-processing covers most-things
@@ -52,7 +52,7 @@ const addMethods = (SpaceTime) => {
       return s //don't bother
     }
     let old = this.clone()
-    unit = fns.normalize(unit)
+    unit = normalize(unit)
     if (unit === 'millisecond') {
       s.epoch += num
       return s
@@ -89,7 +89,7 @@ const addMethods = (SpaceTime) => {
     if (unit === 'month') {
       want.month = old.month() + num
       //month is the one unit we 'model' directly
-      want = model.months(want, old)
+      want = months(want, old)
     }
     //support coercing a week, too
     if (unit === 'week') {
@@ -104,12 +104,12 @@ const addMethods = (SpaceTime) => {
     //support 25-hour day-changes on dst-changes
     else if (unit === 'date') {
       if (num < 0) {
-        want = model.daysBack(want, old, num)
+        want = daysBack(want, old, num)
       } else {
         //specify a naive date number, if it's easy to do...
         let sum = old.date() + num
         // ok, model this one too
-        want = model.days(want, old, sum)
+        want = days(want, old, sum)
       }
       //manually punt it if we haven't moved at all..
       if (num !== 0 && old.isSame(s, 'day')) {
@@ -175,4 +175,4 @@ const addMethods = (SpaceTime) => {
   SpaceTime.prototype.plus = SpaceTime.prototype.add
 }
 
-module.exports = addMethods
+export default addMethods

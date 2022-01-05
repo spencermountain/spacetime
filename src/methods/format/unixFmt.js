@@ -1,5 +1,5 @@
-const pad = require('../../fns').zeroPad
-const formatTimezone = require('../../fns').formatTimezone
+import { zeroPad as pad } from '../../fns.js'
+import { formatTimezone } from '../../fns.js'
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
@@ -13,7 +13,7 @@ const mapping = {
   y: (s) => s.year(),
   yy: (s) => {
     //last two chars
-    return parseInt(String(s.year()).substr(2, 4), 10)
+    return pad(Number(String(s.year()).substr(2, 4)))
   },
   yyy: (s) => s.year(),
   yyyy: (s) => s.year(),
@@ -80,7 +80,7 @@ const mapping = {
   ss: (s) => pad(s.second()),
 
   //milliseconds
-  SSS: (s)=>pad(s.millisecond(),3),
+  SSS: (s) => pad(s.millisecond(), 3),
   //milliseconds in the day
   A: (s) => s.epoch - s.startOf('day').epoch,
   //timezone
@@ -177,4 +177,4 @@ const unixFmt = (s, str) => {
     return txt
   }, '')
 }
-module.exports = unixFmt
+export default unixFmt

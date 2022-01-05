@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 test('isAwake', (t) => {
   let s = spacetime('March 26, 1999 13:42:00', 'Canada/Eastern')
@@ -190,5 +190,13 @@ test('min < max', (t) => {
   let min = spacetime.min('Canada/Pacific')
   let max = spacetime.max('Canada/Eastern')
   t.ok(min.isBefore(max), 'min < max')
+  t.end()
+})
+
+test('subtract overflow', (t) => {
+  const s = spacetime.now()
+  const a = s.subtract(25, 'month');
+  const b = s.subtract(13, 'month');
+  t.ok(a.iso() !== b.iso(), 'subtractions not equal')
   t.end()
 })

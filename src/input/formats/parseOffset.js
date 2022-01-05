@@ -3,10 +3,6 @@ const parseOffset = (s, offset) => {
   if (!offset) {
     return s
   }
-  //this is a fancy-move
-  if (offset === 'Z' || offset === 'z') {
-    offset = '+0000'
-  }
 
   // according to ISO8601, tz could be hh:mm, hhmm or hh
   // so need few more steps before the calculation.
@@ -28,12 +24,16 @@ const parseOffset = (s, offset) => {
   if (/^[\+-]?[0-9]{4}$/.test(offset)) {
     offset = offset.replace(/30$/, '.5')
   }
-
   num = parseFloat(offset)
 
   //divide by 100 or 10 - , "+0100", "+01"
   if (Math.abs(num) > 100) {
     num = num / 100
+  }
+  //this is a fancy-move
+  if (num === 0 || offset === 'Z' || offset === 'z') {
+    s.tz = 'etc/gmt'
+    return s
   }
   //okay, try to match it to a utc timezone
   //remember - this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_(:/)_/¯
@@ -53,4 +53,4 @@ const parseOffset = (s, offset) => {
   }
   return s
 }
-module.exports = parseOffset
+export default parseOffset

@@ -1,9 +1,9 @@
-const spacetime = require('spacetime')
-const fixedDates = require('./01-fixedDates')
-const nthWeekday = require('./02-nthWeekday')
-const easterDates = require('./03-easterDates')
-const astroDates = require('./04-astronomical')
-const lunarDates = require('./05-lunarDates')
+import spacetime from 'spacetime'
+import fixedDates from './01-fixedDates.js'
+import nthWeekday from './02-nthWeekday.js'
+import easterDates from './03-easterDates.js'
+import astroDates from './04-astronomical.js'
+import lunarDates from './05-lunarDates.js'
 const nowYear = spacetime.now().year()
 
 const spacetimeHoliday = function (str, year, tz) {
@@ -45,4 +45,4 @@ const spacetimeHoliday = function (str, year, tz) {
 
   return null
 }
-module.exports = spacetimeHoliday
+export default spacetimeHoliday

@@ -1,4 +1,8 @@
-const methods = Object.assign({}, require('./01-time'), require('./02-date'), require('./03-year'))
+import timeFns from './01-time.js'
+import dateFns from './02-date.js'
+import yearFns from './03-year.js'
+
+const methods = Object.assign({}, timeFns, dateFns, yearFns)
 
 //aliases
 methods.milliseconds = methods.millisecond
@@ -17,4 +21,4 @@ const addMethods = Space => {
   })
 }
 
-module.exports = addMethods
+export default addMethods

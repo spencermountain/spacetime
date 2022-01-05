@@ -1,9 +1,8 @@
-const iana = require('./iana')
+import iana from './iana.js'
+import { writeFileSync } from 'fs'
+import sh from 'shelljs'
 // const whitelist = require('./whitelist');
 const whitelist = Object.keys(iana)
-const fs = require('fs')
-const path = require('path')
-const sh = require('shelljs')
 sh.config.silent = true
 //this script mines /usr/share/zoneinfo files for the dates that dst changes for each tz
 //i'm assuming theres no copyright on these things
@@ -116,8 +115,8 @@ const doAll = () => {
     if (!o.h) {
       delete o.h
     }
-    console.log(o)
-    console.log('\n')
+    // console.log(o)
+    // console.log('\n')
     return h
   }, {})
   console.log('==========\n\n\n')
@@ -128,8 +127,8 @@ const doAll = () => {
 
   let stuff = JSON.stringify(all, null, 2)
 
-  let src = path.join(__dirname, `../../data/zonefile.json`)
-  fs.writeFileSync(src, stuff, 'utf8')
+  let src = `./data/zonefile.json`
+  writeFileSync(src, stuff, 'utf8')
   console.log('done!')
 }
 

@@ -1,8 +1,8 @@
-const sunCalc = require('suncalc')
-const spacetimeGeo = require('spacetime-geo')
+import sunCalc from 'suncalc'
+import spacetimeGeo from 'spacetime-geo'
 
 function toDegree(radians) {
-  var pi = Math.PI
+  let pi = Math.PI
   return radians * (180 / pi)
 }
 
@@ -22,4 +22,4 @@ const sunPosition = function (s, lat, lng) {
     altitude: toDegree(res.altitude),
   }
 }
-module.exports = sunPosition
+export default sunPosition

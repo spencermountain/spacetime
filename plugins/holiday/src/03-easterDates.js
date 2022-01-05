@@ -1,6 +1,6 @@
-const holidays = require('./holidays/easter-holidays')
-const spacetime = require('spacetime')
-const calcEaster = require('./lib/calcEaster')
+import holidays from './holidays/easter-holidays.js'
+import spacetime from 'spacetime'
+import calcEaster from './lib/calcEaster.js'
 
 //calculate any holidays based on easter
 const easterDates = function (str, normal, year, tz) {
@@ -21,4 +21,4 @@ const easterDates = function (str, normal, year, tz) {
   }
   return null
 }
-module.exports = easterDates
+export default easterDates

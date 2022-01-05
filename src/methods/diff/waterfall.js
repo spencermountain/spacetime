@@ -1,4 +1,4 @@
-const diffOne = require('./one')
+import diffOne from './one.js'
 
 // don't do anything too fancy here.
 // 2020 - 2019 may be 1 year, or 0 years
@@ -50,4 +50,4 @@ const diff = function (a, b) {
 
   return obj
 }
-module.exports = diff
+export default diff

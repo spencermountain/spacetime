@@ -1,23 +1,23 @@
-var tzlookup = require('tz-lookup')
+import tzlookup from 'tz-lookup'
 
 //.trim() pollyfill
 if (!String.prototype.trim) {
-  var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
-  String.prototype.trim = function() {
+  const rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
+  String.prototype.trim = function () {
     return this.replace(rtrim, '')
   }
 }
-var isArray = function(hmm) {
+const isArray = function (hmm) {
   return Object.prototype.toString.call(hmm) === '[object Array]'
 }
-var isString = function(hmm) {
+const isString = function (hmm) {
   return typeof hmm === 'string'
 }
 function isObject(hmm) {
   return hmm instanceof Object && hmm.constructor === Object
 }
 
-const findTz = function(geo, b) {
+const findTz = function (geo, b) {
   let lat = null
   let lng = null
   //accept weird formats
@@ -53,4 +53,4 @@ const findTz = function(geo, b) {
   }
   return this.goto(tz)
 }
-module.exports = findTz
+export default findTz

@@ -18,8 +18,8 @@
 this is really just a wrapper of [tz-lookup](https://github.com/darkskyapp/tz-lookup/) by dark-sky - based on [Evan Siroky's](http://www.evansiroky.com/) awesome [boundary-builder](https://github.com/evansiroky/timezone-boundary-builder/) work.
 
 ```js
-const spacetime = require('./src/index')
-const geo = require('spacetime-geo')
+import spacetime from './src/index'
+import geo from 'spacetime-geo'
 //apply the plugin
 spacetime.extend(geo)
 

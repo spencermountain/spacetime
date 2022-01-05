@@ -1,20 +1,20 @@
-const fs = require('fs')
-const path = require('path')
-const sh = require('shelljs')
-let year = 2021
+// const fs = require('fs')
+// const path = require('path')
+// const sh = require('shelljs')
+// let year = 2021
 // let tz = 'australia/melbourne'
 
 const tzs = require('/Users/spencer/mountain/spacetime/zonefile/iana.js')
 let list = Object.keys(tzs)
 
-const titleCase = (str) => {
-  str = str[0].toUpperCase() + str.substr(1)
-  str = str.replace(/\/gmt/, '/GMT')
-  str = str.replace(/[\/_]([a-z])/gi, (s) => {
-    return s.toUpperCase()
-  })
-  return str
-}
+// const titleCase = (str) => {
+//   str = str[0].toUpperCase() + str.substr(1)
+//   str = str.replace(/\/gmt/, '/GMT')
+//   str = str.replace(/[\/_]([a-z])/gi, (s) => {
+//     return s.toUpperCase()
+//   })
+//   return str
+// }
 
 // console.log(list)
 // list.forEach((tz) => {

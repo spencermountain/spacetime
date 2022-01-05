@@ -1,3 +1,21 @@
+// truncate any sub-millisecond values
+const parseMs = function (str = '') {
+  str = String(str)
+  //js does not support sub-millisecond values 
+  // so truncate these - 2021-11-02T19:55:30.087772
+  if (str.length > 3) {
+    str = str.substr(0, 3)
+  } else if (str.length === 1) {
+    // assume ms are zero-padded on the left
+    // but maybe not on the right.
+    // turn '.10' into '.100'
+    str = str + '00'
+  } else if (str.length === 2) {
+    str = str + '0'
+  }
+  return Number(str) || 0
+}
+
 const parseTime = (s, str = '') => {
   // remove all whitespace
   str = str.replace(/^\s+/, '').toLowerCase()
@@ -13,14 +31,10 @@ const parseTime = (s, str = '') => {
     if (arr[2].length < 2 || m < 0 || m > 59) {
       return s.startOf('day')
     }
-    if (arr[4] > 999) {
-      // fix overflow issue with milliseconds, if input is longer than standard (e.g. 2017-08-06T09:00:00.123456Z)
-      arr[4] = parseInt(`${arr[4]}`.substring(0, 3), 10)
-    }
     s = s.hour(h)
     s = s.minute(m)
     s = s.seconds(arr[3] || 0)
-    s = s.millisecond(arr[4] || 0)
+    s = s.millisecond(parseMs(arr[4]))
     //parse-out am/pm
     let ampm = str.match(/[\b0-9] ?(am|pm)\b/)
     if (ampm !== null && ampm[1]) {
@@ -47,4 +61,4 @@ const parseTime = (s, str = '') => {
   s = s.startOf('day')
   return s
 }
-module.exports = parseTime
+export default parseTime

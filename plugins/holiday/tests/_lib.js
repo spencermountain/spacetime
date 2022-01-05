@@ -1,11 +1,12 @@
+import src from '../src/index.js'
+import build from '../builds/spacetime-holiday.mjs'
+let lib = src
+
 if (typeof process !== undefined && typeof module !== undefined) {
-  let spacetimeHoliday
   if (process.env.TESTENV === 'prod') {
     console.warn('== production build test 🚀 ==')
-    spacetimeHoliday = require('../')
-  } else {
-    spacetimeHoliday = require('../src')
+    lib = build
   }
 
-  module.exports = spacetimeHoliday
 }
+export default lib

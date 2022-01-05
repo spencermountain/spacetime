@@ -1,24 +1,24 @@
-const fns = require('../fns')
-const days = require('../data/days')
-const months = require('../data/months')
-const caseFormat = require('../data/caseFormat')
+import { isObject, isBoolean } from '../fns.js'
+import { set } from '../data/days.js'
+import { set as _set } from '../data/months.js'
+import { set as __set } from '../data/caseFormat.js'
 
 
 const addMethods = SpaceTime => {
   const methods = {
     i18n: data => {
       //change the day names
-      if (fns.isObject(data.days)) {
-        days.set(data.days)
+      if (isObject(data.days)) {
+        set(data.days)
       }
       //change the month names
-      if (fns.isObject(data.months)) {
-        months.set(data.months)
+      if (isObject(data.months)) {
+        _set(data.months)
       }
 
       // change the the display style of the month / day names
-      if (fns.isBoolean(data.useTitleCase)) {
-        caseFormat.set(data.useTitleCase)
+      if (isBoolean(data.useTitleCase)) {
+        __set(data.useTitleCase)
       }
     }
   }
@@ -29,4 +29,4 @@ const addMethods = SpaceTime => {
   })
 }
 
-module.exports = addMethods
+export default addMethods

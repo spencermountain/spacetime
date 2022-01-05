@@ -1,7 +1,7 @@
-const sh = require('shelljs')
+import sh from 'shelljs'
 sh.config.silent = true
-const data = require('../zonefile/iana')
-const fs = require('fs')
+import data from '../zonefile/iana.js'
+import { writeFileSync } from 'fs'
 const year = new Date().getFullYear()
 // /usr/share/zoneinfo only stores changes, and will use the most-recent change
 // see /usr/share/zoneinfo/Africa/Algiers - has changes scheduled for 2038
@@ -111,7 +111,7 @@ const doAll = () => {
     }
   })
   console.log('\n\nmade ' + changes + ' changes to ' + keys.length + ' timezones')
-  fs.writeFileSync('./zonefile.' + year + '.json', JSON.stringify(data, null, 2))
+  writeFileSync('./zonefile.' + year + '.js', 'export default ' + JSON.stringify(data, null, 2))
 }
 doAll()
 // console.log(parseTz('Europe/Berlin'))

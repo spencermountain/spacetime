@@ -90,18 +90,18 @@ exports.formatTimezone = (offset, delimiter = '') => {
   return `${sign}${exports.zeroPad(absOffset)}${delimiter}00`
 };
 });
-var fns_1 = fns.isLeapYear;
-var fns_2 = fns.isDate;
-var fns_3 = fns.isArray;
-var fns_4 = fns.isObject;
-var fns_5 = fns.zeroPad;
-var fns_6 = fns.titleCase;
-var fns_7 = fns.ordinal;
-var fns_8 = fns.toCardinal;
-var fns_9 = fns.normalize;
-var fns_10 = fns.getEpoch;
-var fns_11 = fns.beADate;
-var fns_12 = fns.formatTimezone;
+fns.isLeapYear;
+fns.isDate;
+fns.isArray;
+fns.isObject;
+fns.zeroPad;
+fns.titleCase;
+fns.ordinal;
+fns.toCardinal;
+fns.normalize;
+fns.getEpoch;
+fns.beADate;
+fns.formatTimezone;
 
 const zeroPad = fns.zeroPad;
 
@@ -2116,7 +2116,7 @@ const timezone = s => {
 var timezone_1 = timezone;
 
 //the spacetime instance methods (also, the API)
-const methods = {
+const methods$2 = {
   set: function(input$1, tz) {
     let s = this.clone();
     s = input(s, input$1);
@@ -2259,10 +2259,10 @@ const methods = {
   }
 };
 // aliases
-methods.inDST = methods.isDST;
-methods.round = methods.nearest;
-methods.each = methods.every;
-var methods_1 = methods;
+methods$2.inDST = methods$2.isDST;
+methods$2.round = methods$2.nearest;
+methods$2.each = methods$2.every;
+var methods_1 = methods$2;
 
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
@@ -2440,7 +2440,7 @@ var set = {
   }
 };
 
-const methods$1 = {
+const methods$1$1 = {
   millisecond: function(num) {
     if (num !== undefined) {
       let s = this.clone();
@@ -2606,9 +2606,9 @@ const methods$1 = {
     return this.format('iso')
   }
 };
-var _01Time = methods$1;
+var _01Time = methods$1$1;
 
-const methods$2 = {
+const methods$2$1 = {
   // # day in the month
   date: function(num) {
     if (num !== undefined) {
@@ -2667,7 +2667,7 @@ const methods$2 = {
     return this.d.getMonth()
   }
 };
-var _02Date = methods$2;
+var _02Date = methods$2$1;
 
 const clearMinutes = s => {
   s = s.minute(0);
@@ -3276,12 +3276,7 @@ main$1.version = _version;
 main$1.plugin = main$1.extend;
 var src = main$1;
 
-var spacetime$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  'default': src
-});
-
-const reduceTo = function(arr, n) {
+const reduceTo = function (arr, n) {
   if (arr.length <= n || arr.length <= 5) {
     return arr
   }
@@ -3296,10 +3291,10 @@ const reduceTo = function(arr, n) {
   }
   return arr
 };
-var _reduce = reduceTo;
+var reduceTo$1 = reduceTo;
 
 //increment by this unit
-const allTicks = function(start, end, unit) {
+const allTicks = function (start, end, unit) {
   let ticks = [];
   start = start.add(1, unit);
   start = start.startOf(unit);
@@ -3310,7 +3305,7 @@ const allTicks = function(start, end, unit) {
   return ticks
 };
 
-const formatTicks = function(arr, fmt, start, end) {
+const formatTicks = function (arr, fmt, start, end) {
   let delta = end.epoch - start.epoch;
   return arr.map(s => {
     let percent = (s.epoch - start.epoch) / delta;
@@ -3322,10 +3317,10 @@ const formatTicks = function(arr, fmt, start, end) {
   })
 };
 
-const methods$5 = {
+const methods = {
   centuries: (start, end, n) => {
     let ticks = allTicks(start, end, 'century');
-    ticks = _reduce(ticks, n);
+    ticks = reduceTo$1(ticks, n);
     let fmt = '{year}';
     if (start.diff(end, 'year') > 6) {
       fmt = '{year}';
@@ -3335,7 +3330,7 @@ const methods$5 = {
   },
   decades: (start, end, n) => {
     let ticks = allTicks(start, end, 'decade');
-    ticks = _reduce(ticks, n);
+    ticks = reduceTo$1(ticks, n);
     let fmt = '{year}';
     if (start.diff(end, 'year') > 6) {
       fmt = '{year}';
@@ -3345,7 +3340,7 @@ const methods$5 = {
   },
   years: (start, end, n) => {
     let ticks = allTicks(start, end, 'year');
-    ticks = _reduce(ticks, n);
+    ticks = reduceTo$1(ticks, n);
     let fmt = '{month-short} {year-short}';
     if (start.diff(end, 'year') > 6) {
       fmt = '{year}';
@@ -3355,7 +3350,7 @@ const methods$5 = {
   },
   months: (start, end, n) => {
     let ticks = allTicks(start, end, 'month');
-    ticks = _reduce(ticks, n);
+    ticks = reduceTo$1(ticks, n);
     let fmt = '{month-short} {date}';
     if (start.isSame(end, 'year') === false) {
       fmt = '{month-short} {year}';
@@ -3365,14 +3360,14 @@ const methods$5 = {
   },
   days: (start, end, n) => {
     let ticks = allTicks(start, end, 'day');
-    ticks = _reduce(ticks, n);
+    ticks = reduceTo$1(ticks, n);
     let fmt = '{month-short} {date}';
     ticks = formatTicks(ticks, fmt, start, end);
     return ticks
   },
   hours: (start, end, n) => {
     let ticks = allTicks(start, end, 'hour');
-    ticks = _reduce(ticks, n);
+    ticks = reduceTo$1(ticks, n);
     let fmt = '{time}';
     if (start.isSame(end, 'day') === false) {
       fmt = '{day-short} {hour}{ampm}';
@@ -3382,50 +3377,44 @@ const methods$5 = {
   },
   minutes: (start, end, n) => {
     let ticks = allTicks(start, end, 'minute');
-    ticks = _reduce(ticks, n);
+    ticks = reduceTo$1(ticks, n);
     let fmt = '{time}';
     ticks = formatTicks(ticks, fmt, start, end);
     return ticks
   }
 };
-var methods_1$1 = methods$5;
+var methods$1 = methods;
 
-var _version$1 = '0.2.1';
+var version = '0.3.0';
 
-function getCjsExportFromNamespace$1 (n) {
-	return n && n['default'] || n;
-}
-
-var spacetime$2 = getCjsExportFromNamespace$1(spacetime$1);
-
-const chooseMethod = function(start, end, n = 6) {
+const chooseMethod = function (start, end, n = 6) {
   let diff = start.diff(end);
   if (diff.years > 300) {
-    return methods_1$1.centuries(start, end, n)
+    return methods$1.centuries(start, end, n)
   }
   if (diff.years > 30) {
-    return methods_1$1.decades(start, end, n)
+    return methods$1.decades(start, end, n)
   }
   if (diff.years > 3) {
-    return methods_1$1.years(start, end, n)
+    return methods$1.years(start, end, n)
   }
   if (diff.months > 3) {
-    return methods_1$1.months(start, end, n)
+    return methods$1.months(start, end, n)
   }
   if (diff.days > 3) {
-    return methods_1$1.days(start, end, n)
+    return methods$1.days(start, end, n)
   }
   if (diff.hours > 3) {
-    return methods_1$1.hours(start, end, n)
+    return methods$1.hours(start, end, n)
   }
   if (diff.minutes > 3) {
-    return methods_1$1.minutes(start, end, n)
+    return methods$1.minutes(start, end, n)
   }
-  return methods_1$1.months(start, end, n)
+  return methods$1.months(start, end, n)
 };
 
 //flip it around backwards
-const reverseTicks = function(ticks) {
+const reverseTicks = function (ticks) {
   ticks = ticks.map(o => {
     o.value = 1 - o.value;
     return o
@@ -3433,10 +3422,10 @@ const reverseTicks = function(ticks) {
   return ticks.reverse()
 };
 
-const spacetimeTicks = function(start, end, n = 6) {
+const spacetimeTicks = function (start, end, n = 6) {
   let reverse = false;
-  start = spacetime$2(start);
-  end = spacetime$2(end);
+  start = src(start);
+  end = src(end);
   //reverse them, if necessary
   if (start.epoch > end.epoch) {
     reverse = true;
@@ -3455,8 +3444,6 @@ const spacetimeTicks = function(start, end, n = 6) {
   }
   return ticks
 };
-spacetimeTicks.version = _version$1;
+spacetimeTicks.version = version;
 
-var src$1 = spacetimeTicks;
-
-export default src$1;
+export { spacetimeTicks as default };

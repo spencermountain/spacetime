@@ -1,12 +1,12 @@
-const fns = require('../../fns')
-const months = require('../../data/months')
-const days = require('../../data/days')
-const caseFormat = require('../../data/caseFormat')
-const isoOffset = require('./_offset')
+import { titleCase, zeroPad, ordinal } from '../../fns.js'
+import { short } from '../../data/months.js'
+import { short as _short } from '../../data/days.js'
+import { useTitleCase } from '../../data/caseFormat.js'
+import isoOffset from './_offset.js'
 
 const applyCaseFormat = (str) => {
-  if (caseFormat.useTitleCase()) {
-    return fns.titleCase(str)
+  if (useTitleCase()) {
+    return titleCase(str)
   }
   return str
 }
@@ -14,30 +14,30 @@ const applyCaseFormat = (str) => {
 // iso-year padding
 const padYear = (num) => {
   if (num >= 0) {
-    return fns.zeroPad(num, 4)
+    return zeroPad(num, 4)
   } else {
     num = Math.abs(num)
-    return '-' + fns.zeroPad(num, 4)
+    return '-' + zeroPad(num, 4)
   }
 }
 
 const format = {
   day: (s) => applyCaseFormat(s.dayName()),
-  'day-short': (s) => applyCaseFormat(days.short()[s.day()]),
+  'day-short': (s) => applyCaseFormat(_short()[s.day()]),
   'day-number': (s) => s.day(),
-  'day-ordinal': (s) => fns.ordinal(s.day()),
-  'day-pad': (s) => fns.zeroPad(s.day()),
+  'day-ordinal': (s) => ordinal(s.day()),
+  'day-pad': (s) => zeroPad(s.day()),
 
   date: (s) => s.date(),
-  'date-ordinal': (s) => fns.ordinal(s.date()),
-  'date-pad': (s) => fns.zeroPad(s.date()),
+  'date-ordinal': (s) => ordinal(s.date()),
+  'date-pad': (s) => zeroPad(s.date()),
 
   month: (s) => applyCaseFormat(s.monthName()),
-  'month-short': (s) => applyCaseFormat(months.short()[s.month()]),
+  'month-short': (s) => applyCaseFormat(short()[s.month()]),
   'month-number': (s) => s.month(),
-  'month-ordinal': (s) => fns.ordinal(s.month()),
-  'month-pad': (s) => fns.zeroPad(s.month()),
-  'iso-month': (s) => fns.zeroPad(s.month() + 1), //1-based months
+  'month-ordinal': (s) => ordinal(s.month()),
+  'month-pad': (s) => zeroPad(s.month()),
+  'iso-month': (s) => zeroPad(s.month() + 1), //1-based months
 
   year: (s) => {
     let year = s.year()
@@ -58,29 +58,29 @@ const format = {
   'iso-year': (s) => {
     let year = s.year()
     let isNegative = year < 0
-    let str = fns.zeroPad(Math.abs(year), 4) //0-padded
+    let str = zeroPad(Math.abs(year), 4) //0-padded
     if (isNegative) {
       //negative years are for some reason 6-digits ('-00008')
-      str = fns.zeroPad(str, 6)
+      str = zeroPad(str, 6)
       str = '-' + str
     }
     return str
   },
 
   time: (s) => s.time(),
-  'time-24': (s) => `${s.hour24()}:${fns.zeroPad(s.minute())}`,
+  'time-24': (s) => `${s.hour24()}:${zeroPad(s.minute())}`,
 
   hour: (s) => s.hour12(),
-  'hour-pad': (s) => fns.zeroPad(s.hour12()),
+  'hour-pad': (s) => zeroPad(s.hour12()),
   'hour-24': (s) => s.hour24(),
-  'hour-24-pad': (s) => fns.zeroPad(s.hour24()),
+  'hour-24-pad': (s) => zeroPad(s.hour24()),
 
   minute: (s) => s.minute(),
-  'minute-pad': (s) => fns.zeroPad(s.minute()),
+  'minute-pad': (s) => zeroPad(s.minute()),
   second: (s) => s.second(),
-  'second-pad': (s) => fns.zeroPad(s.second()),
+  'second-pad': (s) => zeroPad(s.second()),
   millisecond: (s) => s.millisecond(),
-  'millisecond-pad': (s) => fns.zeroPad(s.millisecond(), 3),
+  'millisecond-pad': (s) => zeroPad(s.millisecond(), 3),
 
   ampm: (s) => s.ampm(),
   quarter: (s) => 'Q' + s.quarter(),
@@ -90,26 +90,26 @@ const format = {
   timezone: (s) => s.timezone().name,
   offset: (s) => isoOffset(s),
 
-  numeric: (s) => `${s.year()}/${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`, // yyyy/mm/dd
-  'numeric-us': (s) => `${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}/${s.year()}`, // mm/dd/yyyy
-  'numeric-uk': (s) => `${fns.zeroPad(s.date())}/${fns.zeroPad(s.month() + 1)}/${s.year()}`, //dd/mm/yyyy
-  'mm/dd': (s) => `${fns.zeroPad(s.month() + 1)}/${fns.zeroPad(s.date())}`, //mm/dd
+  numeric: (s) => `${s.year()}/${zeroPad(s.month() + 1)}/${zeroPad(s.date())}`, // yyyy/mm/dd
+  'numeric-us': (s) => `${zeroPad(s.month() + 1)}/${zeroPad(s.date())}/${s.year()}`, // mm/dd/yyyy
+  'numeric-uk': (s) => `${zeroPad(s.date())}/${zeroPad(s.month() + 1)}/${s.year()}`, //dd/mm/yyyy
+  'mm/dd': (s) => `${zeroPad(s.month() + 1)}/${zeroPad(s.date())}`, //mm/dd
 
   // ... https://en.wikipedia.org/wiki/ISO_8601 ;(((
   iso: (s) => {
     let year = s.format('iso-year')
-    let month = fns.zeroPad(s.month() + 1) //1-based months
-    let date = fns.zeroPad(s.date())
-    let hour = fns.zeroPad(s.h24())
-    let minute = fns.zeroPad(s.minute())
-    let second = fns.zeroPad(s.second())
-    let ms = fns.zeroPad(s.millisecond(), 3)
+    let month = zeroPad(s.month() + 1) //1-based months
+    let date = zeroPad(s.date())
+    let hour = zeroPad(s.h24())
+    let minute = zeroPad(s.minute())
+    let second = zeroPad(s.second())
+    let ms = zeroPad(s.millisecond(), 3)
     let offset = isoOffset(s)
     return `${year}-${month}-${date}T${hour}:${minute}:${second}.${ms}${offset}` //2018-03-09T08:50:00.000-05:00
   },
   'iso-short': (s) => {
-    let month = fns.zeroPad(s.month() + 1) //1-based months
-    let date = fns.zeroPad(s.date())
+    let month = zeroPad(s.month() + 1) //1-based months
+    let date = zeroPad(s.date())
     let year = padYear(s.year())
     return `${year}-${month}-${date}` //2017-02-15
   },
@@ -118,22 +118,22 @@ const format = {
   },
 
   //i made these up
-  nice: (s) => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.time()}`,
+  nice: (s) => `${short()[s.month()]} ${ordinal(s.date())}, ${s.time()}`,
   'nice-24': (s) =>
-    `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.hour24()}:${fns.zeroPad(
+    `${short()[s.month()]} ${ordinal(s.date())}, ${s.hour24()}:${zeroPad(
       s.minute()
     )}`,
-  'nice-year': (s) => `${months.short()[s.month()]} ${fns.ordinal(s.date())}, ${s.year()}`,
+  'nice-year': (s) => `${short()[s.month()]} ${ordinal(s.date())}, ${s.year()}`,
   'nice-day': (s) =>
-    `${days.short()[s.day()]} ${applyCaseFormat(months.short()[s.month()])} ${fns.ordinal(
+    `${_short()[s.day()]} ${applyCaseFormat(short()[s.month()])} ${ordinal(
       s.date()
     )}`,
   'nice-full': (s) =>
-    `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(s.date())}, ${s.time()}`,
+    `${s.dayName()} ${applyCaseFormat(s.monthName())} ${ordinal(s.date())}, ${s.time()}`,
   'nice-full-24': (s) =>
-    `${s.dayName()} ${applyCaseFormat(s.monthName())} ${fns.ordinal(
+    `${s.dayName()} ${applyCaseFormat(s.monthName())} ${ordinal(
       s.date()
-    )}, ${s.hour24()}:${fns.zeroPad(s.minute())}`
+    )}, ${s.hour24()}:${zeroPad(s.minute())}`
 }
 //aliases
 const aliases = {
@@ -197,4 +197,4 @@ const printFormat = (s, str = '') => {
 
   return s.format('iso-short')
 }
-module.exports = printFormat
+export default printFormat

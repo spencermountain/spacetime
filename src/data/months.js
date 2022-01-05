@@ -7,7 +7,7 @@ let shortMonths = [
   'jun',
   'jul',
   'aug',
-  'sept',
+  'sep',
   'oct',
   'nov',
   'dec'
@@ -40,12 +40,10 @@ function buildMapping() {
   return obj
 }
 
-module.exports = {
-  short: () => shortMonths,
-  long: () => longMonths,
-  mapping: () => buildMapping(),
-  set: i18n => {
-    shortMonths = i18n.short || shortMonths
-    longMonths = i18n.long || longMonths
-  }
+export function short() { return shortMonths }
+export function long() { return longMonths }
+export function mapping() { return buildMapping() }
+export function set(i18n) {
+  shortMonths = i18n.short || shortMonths
+  longMonths = i18n.long || longMonths
 }

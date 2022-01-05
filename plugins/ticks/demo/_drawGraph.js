@@ -1,6 +1,6 @@
 const somehow = require('somehow')
 
-const drawGraph = function(ticks, id) {
+const drawGraph = function (ticks, id) {
   let el = document.querySelector(id)
   let w = somehow({
     width: 500,
@@ -15,4 +15,4 @@ const drawGraph = function(ticks, id) {
   // w.xAxis.remove()
   el.innerHTML = w.build()
 }
-module.exports = drawGraph
+export default drawGraph

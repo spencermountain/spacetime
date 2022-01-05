@@ -1,7 +1,7 @@
-const walkTo = require('../../methods/set/walk')
-const { validate, parseTime, parseYear, parseMonth } = require('./_parsers')
+import walkTo from '../../methods/set/walk.js'
+import { validate, parseTime, parseYear, parseMonth } from './_parsers.js'
 
-module.exports = [
+export default [
   // =====
   // no dates
   // =====

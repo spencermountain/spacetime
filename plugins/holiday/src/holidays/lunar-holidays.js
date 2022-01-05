@@ -10,4 +10,4 @@ let dates = {
   muharram: 'sep 12',
   'prophets birthday': 'nov 21'
 }
-module.exports = dates
+export default dates

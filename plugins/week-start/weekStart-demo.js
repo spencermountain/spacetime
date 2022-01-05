@@ -1,4 +1,4 @@
-const weekStart = require('./src/input/weekStart');
+import weekStart from './src/input/weekStart.js';
 
 console.log('#1: ', weekStart());
 console.log('#2: ', weekStart(12));

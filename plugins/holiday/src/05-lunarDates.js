@@ -1,5 +1,5 @@
-const spacetime = require('spacetime')
-const holidays = require('./holidays/lunar-holidays')
+import spacetime from 'spacetime'
+import holidays from './holidays/lunar-holidays.js'
 // (lunar year is 354.36 days)
 const dayDiff = -10.64
 
@@ -25,4 +25,4 @@ const lunarDates = function (str, normal, year, tz) {
   }
   return null
 }
-module.exports = lunarDates
+export default lunarDates

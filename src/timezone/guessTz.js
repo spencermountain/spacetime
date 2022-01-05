@@ -27,4 +27,4 @@ const guessTz = () => {
   return timezone
 }
 //do it once per computer
-module.exports = guessTz
+export default guessTz

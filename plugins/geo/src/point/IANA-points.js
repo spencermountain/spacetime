@@ -1,5 +1,5 @@
 //these are points i chose for each timezone, typically in its most populous location
-module.exports = {
+export default {
   "Pacific/Midway": '28.21,-177.37', //Midway Atoll, United States
   "Pacific/Niue": '-19.06,-169.92', //Alofi, Niue
   "Pacific/Pago_Pago": '-14.28,-170.7', //Pago Pago, Eastern District, American Samoa

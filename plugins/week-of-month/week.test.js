@@ -1,6 +1,7 @@
-const test = require('tape')
-const spacetime = require('../../src')
-spacetime.plugin(require('./plugin'))
+import test from 'tape'
+import spacetime from '../../src/index.js'
+import plugin from './src/index.js'
+spacetime.plugin(plugin)
 
 test('weekOfMonth-getter', (t) => {
   // october 1st starts on a thursday

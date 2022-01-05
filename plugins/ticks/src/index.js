@@ -1,8 +1,8 @@
-const spacetime = require('spacetime')
-const methods = require('./methods')
-const version = require('../_version')
+import spacetime from 'spacetime'
+import methods from './methods.js'
+import version from '../_version.js'
 
-const chooseMethod = function(start, end, n = 6) {
+const chooseMethod = function (start, end, n = 6) {
   let diff = start.diff(end)
   if (diff.years > 300) {
     return methods.centuries(start, end, n)
@@ -29,7 +29,7 @@ const chooseMethod = function(start, end, n = 6) {
 }
 
 //flip it around backwards
-const reverseTicks = function(ticks) {
+const reverseTicks = function (ticks) {
   ticks = ticks.map(o => {
     o.value = 1 - o.value
     return o
@@ -37,7 +37,7 @@ const reverseTicks = function(ticks) {
   return ticks.reverse()
 }
 
-const spacetimeTicks = function(start, end, n = 6) {
+const spacetimeTicks = function (start, end, n = 6) {
   let reverse = false
   start = spacetime(start)
   end = spacetime(end)
@@ -61,4 +61,4 @@ const spacetimeTicks = function(start, end, n = 6) {
 }
 spacetimeTicks.version = version
 
-module.exports = spacetimeTicks
+export default spacetimeTicks

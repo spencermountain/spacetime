@@ -1,8 +1,16 @@
 {
   "name": "stz",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a CLI timezone calculator",
   "main": "cli.js",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./cli.js",
+      "default": "./cli.js"
+    }
+  },
   "bin": {
     "stz": "cli.js"
   },
@@ -26,8 +34,8 @@
   },
   "dependencies": {
     "minimist": "^1.2.5",
-    "spacetime": "^6.13.1",
-    "timezone-soft": "^1.2.0"
+    "spacetime": "6.16.3",
+    "timezone-soft": "1.3.1"
   },
   "license": "MIT"
 }

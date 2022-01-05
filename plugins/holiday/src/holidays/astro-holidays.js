@@ -24,4 +24,4 @@ dates['december solstice'] = dates['winter solistice']
 dates['dec solstice'] = dates['winter solistice']
 dates['yule'] = dates['winter solistice']
 
-module.exports = dates
+export default dates

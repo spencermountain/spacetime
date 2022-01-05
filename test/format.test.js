@@ -1,8 +1,8 @@
-let test = require('tape')
-let spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 test('to-from utc-format', (t) => {
-  ;[
+  let arr = [
     '1998-05-01T08:00:00.000Z',
     '1998-05-30T22:00:00.000Z',
     '2017-01-01T08:00:00.000Z',
@@ -29,7 +29,8 @@ test('to-from utc-format', (t) => {
     '-000098-05-04T23:16:19.444Z',
     '-000986-05-01T09:58:23.078-04:00',
     '-002345-05-04T23:12:01.970Z'
-  ].forEach((str) => {
+  ]
+  arr.forEach((str) => {
     let s = spacetime(str)
     let out = s.format('iso')
     t.equal(str, out, 'equal - ' + str)
@@ -173,8 +174,16 @@ test('unix-fmt-padding', t => {
   })
   let str = d.format("ww DDD MM d, hh:mm a")
   t.equal('04 027 Jan 27, 04:02 AM', str, 'string is 0-padded')
-
+  
   str = d.format("w D MM d, h:m a")
   t.equal('4 27 Jan 27, 4:2 AM', str, 'string is not-0-padded')
   t.end();
 });*/
+
+test('unix-year-padding', t => {
+  let s = spacetime('sep 1 2022')
+  t.equal(s.unixFmt('yy'), '22', 'non-zero-end')
+  s = spacetime('sep 1 2000')
+  t.equal(s.unixFmt('yy'), '00', 'zero-end')
+  t.end()
+});

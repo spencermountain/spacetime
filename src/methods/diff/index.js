@@ -1,5 +1,5 @@
-const fns = require('../../fns')
-const waterfall = require('./waterfall')
+import { beADate, normalize } from '../../fns.js'
+import waterfall from './waterfall.js'
 
 const reverseDiff = function (obj) {
   Object.keys(obj).forEach((k) => {
@@ -12,7 +12,7 @@ const reverseDiff = function (obj) {
 // '1 month' means 28 days in february
 // '1 year' means 366 days in a leap year
 const main = function (a, b, unit) {
-  b = fns.beADate(b, a)
+  b = beADate(b, a)
   //reverse values, if necessary
   let reversed = false
   if (a.isAfter(b)) {
@@ -29,7 +29,7 @@ const main = function (a, b, unit) {
   //return just the requested unit
   if (unit) {
     //make sure it's plural-form
-    unit = fns.normalize(unit)
+    unit = normalize(unit)
     if (/s$/.test(unit) !== true) {
       unit += 's'
     }
@@ -41,4 +41,4 @@ const main = function (a, b, unit) {
   return obj
 }
 
-module.exports = main
+export default main

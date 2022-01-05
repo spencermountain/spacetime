@@ -19,9 +19,9 @@ calculate some sensible break-points between two dates, using the [spacetime](ht
 </a>
 
 ```js
-const spacetimeTicks=require('spacetime-ticks')
+import spacetimeTicks from 'spacetime-ticks'
 
-let ticks=spacetimeTicks('June 5th 1992', 'Oct 4 2002', 5)
+let ticks = spacetimeTicks('June 5th 1992', 'Oct 4 2002', 5)
 // [
 // { label: "1993", epoch: 725864400000, value: 0.055 }
 // { label: "1995", epoch: 788936400000, value: 0.248 }

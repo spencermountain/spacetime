@@ -1,8 +1,8 @@
-let test = require('tape')
-const spacetime = require('spacetime')
-const daylight = require('../src')
-// const daylight = require('../builds/spacetime-daylight')
+import test from 'tape'
+import spacetime from 'spacetime'
+import daylight from '../src/index.js'
 spacetime.extend(daylight)
+// const daylight = require('../builds/spacetime-daylight')
 
 test('day-status-summer', function (t) {
   let s = spacetime('June 26 2018', 'Canada/Eastern')

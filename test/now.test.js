@@ -1,6 +1,6 @@
-const test = require('tape')
-const spacetime = require('./lib')
-const tk = require('timekeeper')
+import test from 'tape'
+import spacetime from './lib/index.js'
+import tk from 'timekeeper'
 
 test('now-is-now', (t) => {
   let time = new Date(1554092400000) // 4:20, april 1st 2019 GMT

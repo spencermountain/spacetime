@@ -1,6 +1,6 @@
-const test = require('tape')
-const spacetime = require('./lib')
-const dstParse = require('./lib/dstParse')
+import test from 'tape'
+import spacetime from './lib/index.js'
+import dstParse from './lib/dstParse.js'
 // some northern hemisphere zones with dst changes
 let zones = [
   'australia/act',

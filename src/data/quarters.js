@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   null,
   [0, 1], //jan 1
   [3, 1], //apr 1

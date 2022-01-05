@@ -43,4 +43,4 @@ let holidays = {
 holidays['turday day'] = holidays.thanksgiving
 holidays['indigenous peoples day'] = holidays['columbus day']
 holidays['mlk day'] = holidays['martin luther king day']
-module.exports = holidays
+export default holidays

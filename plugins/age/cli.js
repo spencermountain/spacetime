@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-const spacetime = require('spacetime')
-spacetime.extend(require('./src'))
-const minimist = require('minimist')
+import spacetime from 'spacetime'
+import minimist from 'minimist'
+import plg from './src/index.js'
+spacetime.extend(plg)
 
 const defaults = {
   unit: 'years'

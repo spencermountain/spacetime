@@ -25,8 +25,9 @@ a spacetime plugin to reckon a person's age, in any unit, given their birthday.
 
 ### javascript api:
 ```js
-const spacetime = require('spacetime')
-spacetime.extend(require('space-age'))
+import spacetime from 'spacetime'
+import plugin from 'space-age'
+spacetime.extend(plugin)
 
 // set a birthday
 let s = spacetime('march 28 1986')

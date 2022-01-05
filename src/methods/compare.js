@@ -1,39 +1,39 @@
-const fns = require('../fns')
+import { beADate, getEpoch } from '../fns.js'
 
 const addMethods = SpaceTime => {
   const methods = {
-    isAfter: function(d) {
-      d = fns.beADate(d, this)
-      let epoch = fns.getEpoch(d)
+    isAfter: function (d) {
+      d = beADate(d, this)
+      let epoch = getEpoch(d)
       if (epoch === null) {
         return null
       }
       return this.epoch > epoch
     },
-    isBefore: function(d) {
-      d = fns.beADate(d, this)
-      let epoch = fns.getEpoch(d)
+    isBefore: function (d) {
+      d = beADate(d, this)
+      let epoch = getEpoch(d)
       if (epoch === null) {
         return null
       }
       return this.epoch < epoch
     },
-    isEqual: function(d) {
-      d = fns.beADate(d, this)
-      let epoch = fns.getEpoch(d)
+    isEqual: function (d) {
+      d = beADate(d, this)
+      let epoch = getEpoch(d)
       if (epoch === null) {
         return null
       }
       return this.epoch === epoch
     },
-    isBetween: function(start, end, isInclusive = false) {
-      start = fns.beADate(start, this)
-      end = fns.beADate(end, this)
-      let startEpoch = fns.getEpoch(start)
+    isBetween: function (start, end, isInclusive = false) {
+      start = beADate(start, this)
+      end = beADate(end, this)
+      let startEpoch = getEpoch(start)
       if (startEpoch === null) {
         return null
       }
-      let endEpoch = fns.getEpoch(end)
+      let endEpoch = getEpoch(end)
       if (endEpoch === null) {
         return null
       }
@@ -50,4 +50,4 @@ const addMethods = SpaceTime => {
   })
 }
 
-module.exports = addMethods
+export default addMethods

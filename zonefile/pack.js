@@ -1,13 +1,16 @@
 //turn our timezone data into a small-as-possible string
-const fs = require('fs')
-let iana = require('./iana')
-const aliases = require('./aliases')
-const prefixes = require('./_prefixes.js')
+import { writeFileSync } from 'fs'
+import iana from './iana.js'
+import aliases from './aliases.js'
+import prefixes from './_prefixes.js'
 let all = {}
 
 // add aliases in
 Object.keys(aliases).forEach((k) => {
   let found = iana[aliases[k]]
+  if (!found) {
+    console.log('missing', aliases[k])
+  }
   iana[k] = Object.assign({}, found)
 })
 
@@ -41,4 +44,4 @@ keys.forEach((k) => {
 })
 
 // console.log(result)
-fs.writeFileSync('./zonefile/_build.json', JSON.stringify(result, null, 2))
+writeFileSync('./zonefile/_build.js', 'export default ' + JSON.stringify(result, null, 2))

@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 test('goForward [time]', (t) => {
   let d = spacetime('march 17 2021').time('3:20pm')
@@ -37,7 +37,7 @@ test('goForward ', (t) => {
     ['dayOfYear', 23, 24],
     ['week', 23, 24],
     ['month', 3, 6],
-    ['monthName', 'june', 'sept'],
+    ['monthName', 'june', 'sep'],
     ['quarter', 'q2', 'q4'],
     ['season', 'spring', 'fall']
   ]

@@ -1,4 +1,4 @@
-const spacetime = require('../../../src')
+import spacetime from '../../../src/index.js'
 // USA:
 // 	Spring: 2nd Sunday in March  - skip 2am.
 // 	Fall: 1st Sunday in November  -  repeat 2am.
@@ -25,8 +25,12 @@ let zone = {
 // last sunday of the month, eg
 const findLast = function (s, obj) {
   s = s.endOf('month')
-  s = s.day(obj.day, false) //backward
-  s = s.hour(obj.hour)
+  if (obj.day !== undefined) {
+    s = s.day(obj.day, false) //backward
+  }
+  if (obj.hour !== undefined) {
+    s = s.hour(obj.hour)
+  }
   return s.format('iso')
 }
 
@@ -57,4 +61,4 @@ const calc = function (id, year) {
     end: findEpoch(zone.end, id, year)
   }
 }
-module.exports = calc
+export default calc

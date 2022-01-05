@@ -1,6 +1,6 @@
-let test = require('tape')
-const spacetime = require('./lib')
-let api = require('../api/index.json')
+import spacetime from './lib/index.js'
+import test from 'tape'
+import api from '../api/index.js'
 
 test('test main methods', (t) => {
   Object.keys(api.main).forEach((k) => {

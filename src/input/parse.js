@@ -1,4 +1,4 @@
-const parsers = require('./formats')
+import parsers from './formats/index.js'
 
 const parseString = function (s, input, givenTz) {
   // let parsers = s.parsers || []
@@ -19,4 +19,4 @@ const parseString = function (s, input, givenTz) {
   s.epoch = null
   return s
 }
-module.exports = parseString
+export default parseString

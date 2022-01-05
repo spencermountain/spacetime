@@ -51,4 +51,4 @@ const solstice = function (s) {
 //     winter: null,
 //   }
 // }
-module.exports = { solstice: solstice }
+export default solstice

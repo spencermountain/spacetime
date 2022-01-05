@@ -1,4 +1,4 @@
-{
+export default {
   "main": {
     "goto": {
       "doc": "move to a new timezone, but at this same moment. Accepts an IANA code or abbreviation",

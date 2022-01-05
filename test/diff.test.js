@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 const numbers = [1, 2, 5, 7, 15, 30, 40, 100, 110]
 const units = ['day', 'week', 'month', 'year']

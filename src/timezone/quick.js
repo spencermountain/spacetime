@@ -1,4 +1,4 @@
-const isSummer = require('./summerTime')
+import isSummer from './summerTime.js'
 
 // this method avoids having to do a full dst-calculation on every operation
 // it reproduces some things in ./index.js, but speeds up spacetime considerably
@@ -26,4 +26,4 @@ const quickOffset = s => {
   }
   return dec
 }
-module.exports = quickOffset
+export default quickOffset

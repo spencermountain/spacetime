@@ -45,4 +45,4 @@ const dates = {
   }
 }
 dates['new years eve'] = dates['new years']
-module.exports = dates
+export default dates

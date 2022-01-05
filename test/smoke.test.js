@@ -1,5 +1,5 @@
-const test = require('tape')
-const spacetime = require('./lib')
+import test from 'tape'
+import spacetime from './lib/index.js'
 
 test('random november time', (t) => {
   let epoch = 1510799750000 //november 15th 9:35pm 2017 EST

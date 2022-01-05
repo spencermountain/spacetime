@@ -1,6 +1,6 @@
 // by John Dyer
 // based on the algorithm by Oudin (1940) from http://www.tondering.dk/claus/cal/easter.php
-const calcEaster = function(year) {
+const calcEaster = function (year) {
   let f = Math.floor,
     // Golden Number - 1
     G = year % 19,
@@ -20,4 +20,4 @@ const calcEaster = function(year) {
   return month + ' ' + date
 }
 
-module.exports = calcEaster
+export default calcEaster

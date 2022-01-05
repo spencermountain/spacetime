@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   'America/Argentina/La_Rioja',
   'America/Argentina/Rio_Gallegos',
   'America/Argentina/Salta',

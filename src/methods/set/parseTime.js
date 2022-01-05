@@ -1,4 +1,4 @@
-const parseTime = function(str) {
+const parseTime = function (str) {
   str = str || ''
   str = str.toLowerCase()
 
@@ -19,4 +19,4 @@ const parseTime = function(str) {
     //is this an ambiguous hour, like '3 oclock'?
   }
 }
-module.exports = parseTime
+export default parseTime
