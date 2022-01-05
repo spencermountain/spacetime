@@ -255,11 +255,11 @@ let firstDay = {
 export default {
   countries: () => {
     let arr = []
-    for (let day in firstDay) {
-      for (let country in firstDay[day]) {
+    Object.keys(firstDay).forEach(day => {
+      Object.keys(firstDay[day]).forEach(country => {
         arr.push(firstDay[day][country])
-      }
-    }
+      })
+    })
     return arr.sort()
   },
   firstDay: () => firstDay,

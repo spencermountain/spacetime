@@ -1,6 +1,5 @@
 import iana from './iana.js'
 import { writeFileSync } from 'fs'
-import { join } from 'path'
 import sh from 'shelljs'
 // const whitelist = require('./whitelist');
 const whitelist = Object.keys(iana)

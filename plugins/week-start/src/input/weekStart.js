@@ -9,19 +9,22 @@ import spacetime from 'spacetime'
 
 function getCountry(country) {
   for (let day in firstDay) {
-    for (let key in firstDay[day]) {
-      if ((key === country) || (firstDay[day][key].
-        indexOf(country) !== -1)) {
-        return { day: day, country: firstDay[day][key] }
+    if (firstDay.hasOwnProperty(day)) {
+      for (let key in firstDay[day]) {
+        if (firstDay[day].hasOwnProperty(key)) {
+          if ((key === country) || (firstDay[day][key].indexOf(country) !== -1)) {
+            return { day: day, country: firstDay[day][key] }
+          }
+        }
       }
     }
   }
   for (let item in loc) {
-    if (loc[item].
-      indexOf(country) !== -1) {
+    if (loc.hasOwnProperty(item) && loc[item].indexOf(country) !== -1) {
       return { day: 'monday', location: country }
     }
   }
+  return {}
 }
 
 function getCurrent(tz) {
@@ -33,22 +36,20 @@ function getCurrent(tz) {
   for (let key in iana) {
     if (key === tz) {
       if (!iana[key].ctry && !iana[key].loc) {
-        let country = getCountry(
-          key.substr(0, key.indexOf('/')))
+        let country = getCountry(key.substr(0, key.indexOf('/')))
         if (country) { return country }
-        country = getCountry(
-          (key.substr(key.indexOf('/') + 1)).
-            replace('_', ' '))
+        country = getCountry((key.substr(key.indexOf('/') + 1)).replace('_', ' '))
         if (country) { return country }
       }
       else if (iana[key].loc) {
-        return getCountry(country)
+        return getCountry(iana[key].loc)
       }
       else if (iana[key].ctry) {
         return getCountry(iana[key].ctry)
       }
     }
   }
+  return null
 }
 
 function setWeekStart(value, newDay) {
@@ -66,14 +67,16 @@ function setWeekStart(value, newDay) {
 
   // check if values are valid
   for (let day in firstDay) {
-    if (day === newDay.toLowerCase()) { a.isDay = true }
-    for (let key in firstDay[day]) {
-      if (firstDay[day][key].indexOf(value.toLowerCase()) !== -1) {
-        a.origin = day;
-        a.assigned = newDay;
-        a.country = firstDay[day][key];
-        a.key = key;
-        a.isCountry = true
+    if (firstDay.hasOwnProperty(day)) {
+      if (day === newDay.toLowerCase()) { a.isDay = true }
+      for (let key in firstDay[day]) {
+        if (firstDay[day][key].indexOf(value.toLowerCase()) !== -1) {
+          a.origin = day;
+          a.assigned = newDay;
+          a.country = firstDay[day][key];
+          a.key = key;
+          a.isCountry = true
+        }
       }
     }
   }
@@ -105,10 +108,11 @@ function getWeekStart(country = '') {
   if (!country) {
     return getCurrent(tz);
   } else if (country) {
-    let firstDay = getCountry((country.toLowerCase()).trim())
-    if (firstDay) { return firstDay }
+    let first = getCountry((country.toLowerCase()).trim())
+    if (first) { return first }
     else { return getWeekStart() }
   }
+  return null
 }
 
 export {

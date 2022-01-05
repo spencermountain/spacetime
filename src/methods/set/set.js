@@ -179,16 +179,16 @@ const month = function (s, n, goFwd) {
     n = 0
   }
 
-  let date = s.date()
+  let d = s.date()
   //there's no 30th of february, etc.
-  if (date > monthLength[n]) {
+  if (d > monthLength[n]) {
     //make it as close as we can..
-    date = monthLength[n]
+    d = monthLength[n]
   }
   let old = s.clone()
   walkTo(s, {
     month: n,
-    date
+    d
   })
   s = fwdBkwd(s, old, goFwd, 'year') // specify direction
   return s.epoch

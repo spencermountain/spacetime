@@ -4,7 +4,8 @@
     "es6": true
   },
   "parserOptions": {
-    "ecmaVersion": 2018
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
   "rules": {
     "no-cond-assign": 2,
@@ -20,7 +21,11 @@
     "no-redeclare": 2,
     "radix": 1,
     "indent": 0,
-    "quotes": [0, "single", "avoid-escape"],
+    "quotes": [
+      0,
+      "single",
+      "avoid-escape"
+    ],
     "no-shadow": 2,
     "no-unused-vars": 1,
     "no-lonely-if": 1,

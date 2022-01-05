@@ -155,7 +155,7 @@ plugins:
     • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/age">spacetime-age</a>
   </div>
   <div align="center">
-    <a href="https://github.com/spencermountain/somehow-calendar">somehow-calendar</a>
+    <a href="https://github.com/spencermountain/scal">spacetime-calendar</a>
     • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/week-of-month">week-of-month</a>
     • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/week-start">week-start</a>
   </div>

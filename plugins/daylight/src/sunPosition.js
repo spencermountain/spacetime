@@ -2,7 +2,7 @@ import sunCalc from 'suncalc'
 import spacetimeGeo from 'spacetime-geo'
 
 function toDegree(radians) {
-  var pi = Math.PI
+  let pi = Math.PI
   return radians * (180 / pi)
 }
 

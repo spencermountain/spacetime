@@ -1,4 +1,3 @@
-/* global Intl */
 //find the implicit iana code for this machine.
 //safely query the Intl object
 //based on - https://bitbucket.org/pellepim/jstimezonedetect/src
