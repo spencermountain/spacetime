@@ -13,6 +13,7 @@ This project follows semVer, where:
 - **[new]** - add ISO duration to .since() results  (thanks Adam)
 - **[fix]** - iso-parsing issues #320
 - **[fix]** - typescript issue #305
+- **[fix]** - subtract months issue #312
 - **[change]** - return 'Etc/GMT' not 'Etc/GMT+0'
 - **[change]** - update deps
 - republish plugins
