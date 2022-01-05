@@ -1,5 +1,5 @@
-import { config, exec } from 'shelljs'
-config.silent = true
+import sh from 'shelljs'
+sh.config.silent = true
 import data from '../zonefile/iana.js'
 import { writeFileSync } from 'fs'
 const year = new Date().getFullYear()
@@ -64,7 +64,7 @@ const parseLine = (line) => {
 }
 
 const parseTz = (tz) => {
-  let lines = exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n')
+  let lines = sh.exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n')
   lines = lines.filter((l) => l)
   if (lines.length !== 0 && lines.length !== 4) {
     // console.error('weird: ' + lines.length + ' lines for ' + tz)

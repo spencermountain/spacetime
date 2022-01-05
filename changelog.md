@@ -4,7 +4,7 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
-<!-- ### 7.0.0 [Jan 2022]
+ ### 7.0.0 [Jan 2022]
 - **[change]** - update to 2022 DST dates
 - **[change]** - alias old IANA codes to contemporary ones
 - **[change]** - convert to ES-modules, + exports fields
@@ -16,7 +16,7 @@ This project follows semVer, where:
 - **[change]** - return 'Etc/GMT' not 'Etc/GMT+0'
 - **[change]** - update deps
 - republish plugins
--->
+
 
 ### v6.16.4 [Nov 2021]
 - **[fix]** - ISO fmt parsing #310
