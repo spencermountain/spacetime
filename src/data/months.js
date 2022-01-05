@@ -7,7 +7,7 @@ let shortMonths = [
   'jun',
   'jul',
   'aug',
-  'sept',
+  'sep',
   'oct',
   'nov',
   'dec'

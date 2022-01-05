@@ -6,9 +6,10 @@ This project follows semVer, where:
 
  ### 7.0.0 [Jan 2022]
 - **[change]** - update to 2022 DST dates
-- **[change]** - alias old IANA codes to contemporary ones
+- **[change]** - return 'Sep' instead of 'Sept' in format('month-short') and 'MMM' #304
 - **[change]** - convert to ES-modules, + exports fields
 - **[change]** - make .every() results inclusive of start
+- **[change]** - alias old IANA codes to contemporary ones
 - **[change]** - move cal plugin to repo spencermountain/scal
 - **[new]** - add ISO duration to .since() results  (thanks Adam)
 - **[fix]** - iso-parsing issues #320
@@ -16,7 +17,7 @@ This project follows semVer, where:
 - **[fix]** - subtract months issue #312
 - **[change]** - return 'Etc/GMT' not 'Etc/GMT+0'
 - **[change]** - update deps
-- republish plugins
+- bump + republish plugins
 
 
 ### v6.16.4 [Nov 2021]

@@ -50,6 +50,9 @@ const parseYear = (str = '', today) => {
 
 const parseMonth = function (str) {
   str = str.toLowerCase().trim()
+  if (str === 'sept') {
+    return months.sep
+  }
   return months[str]
 }
 

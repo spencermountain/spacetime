@@ -37,7 +37,7 @@ test('goForward ', (t) => {
     ['dayOfYear', 23, 24],
     ['week', 23, 24],
     ['month', 3, 6],
-    ['monthName', 'june', 'sept'],
+    ['monthName', 'june', 'sep'],
     ['quarter', 'q2', 'q4'],
     ['season', 'spring', 'fall']
   ]
