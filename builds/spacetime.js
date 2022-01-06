@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.0.0 Apache 2.0 */
+/* spencermountain/spacetime 7.0.1 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -211,7 +211,6 @@
 
   var zones = all;
 
-  /* global Intl */
   //find the implicit iana code for this machine.
   //safely query the Intl object
   //based on - https://bitbucket.org/pellepim/jstimezonedetect/src
@@ -735,7 +734,7 @@
     'jun',
     'jul',
     'aug',
-    'sept',
+    'sep',
     'oct',
     'nov',
     'dec'
@@ -944,6 +943,9 @@
 
   const parseMonth = function (str) {
     str = str.toLowerCase().trim();
+    if (str === 'sept') {
+      return months$1.sep
+    }
     return months$1[str]
   };
 
@@ -1424,12 +1426,13 @@
   };
 
   let titleCaseEnabled = true;
+
   function useTitleCase() {
     return titleCaseEnabled
   }
 
-  function set(useTitleCase) {
-    titleCaseEnabled = useTitleCase;
+  function set(val) {
+    titleCaseEnabled = val;
   }
 
   // create the timezone offset part of an iso timestamp
@@ -1650,7 +1653,7 @@
     y: (s) => s.year(),
     yy: (s) => {
       //last two chars
-      return parseInt(String(s.year()).substr(2, 4), 10)
+      return zeroPad(Number(String(s.year()).substr(2, 4)))
     },
     yyy: (s) => s.year(),
     yyyy: (s) => s.year(),
@@ -2867,16 +2870,16 @@
       n = 0;
     }
 
-    let date = s.date();
+    let d = s.date();
     //there's no 30th of february, etc.
-    if (date > monthLength[n]) {
+    if (d > monthLength[n]) {
       //make it as close as we can..
-      date = monthLength[n];
+      d = monthLength[n];
     }
     let old = s.clone();
     walkTo$1(s, {
       month: n,
-      date
+      d
     });
     s = fwdBkwd(s, old, goFwd, 'year'); // specify direction
     return s.epoch
@@ -3986,7 +3989,7 @@
   };
   var whereIts$1 = whereIts;
 
-  var version = '7.0.0';
+  var version = '7.0.1';
 
   const main = (input, tz, options) => new Spacetime(input, tz, options);
 

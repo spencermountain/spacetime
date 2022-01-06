@@ -4,6 +4,9 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
+ ### 7.0.1 [Jan 2022]
+- **[fix]** - esm build path
+
  ### 7.0.0 [Jan 2022]
 - **[change]** - update to 2022 DST dates
 - **[change]** - return 'Sep' instead of 'Sept' in format('month-short') and 'MMM' #304
@@ -15,6 +18,7 @@ This project follows semVer, where:
 - **[fix]** - iso-parsing issues #320
 - **[fix]** - typescript issue #305
 - **[fix]** - subtract months issue #312
+- **[fix]** - unix 'yy' format issue #302
 - **[change]** - return 'Etc/GMT' not 'Etc/GMT+0'
 - **[change]** - update deps
 - bump + republish plugins
