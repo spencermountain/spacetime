@@ -4,6 +4,9 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
+ ### 7.0.2 [Jan 2022]
+- **[fix]** - another esm build path #316
+
  ### 7.0.1 [Jan 2022]
 - **[fix]** - esm build path
 
