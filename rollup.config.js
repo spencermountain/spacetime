@@ -20,7 +20,7 @@ export default [
     output: [
       {
         banner: banner,
-        file: 'builds/spacetime.js',
+        file: 'builds/spacetime.cjs',
         format: 'umd',
         sourcemap: false,
         name: 'spacetime'
