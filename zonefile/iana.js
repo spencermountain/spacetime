@@ -15,6 +15,10 @@ export default {
     "offset": 1,
     "hem": "n"
   },
+  "africa/asmara": {
+    "offset": 3,
+    "hem": "n"
+  },
   "africa/asmera": {
     "offset": 3,
     "hem": "n"
