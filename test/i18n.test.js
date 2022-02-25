@@ -116,7 +116,6 @@ test('i18n', (t) => {
   t.equal(a.format('month'), 'Enero', 'es: month')
 
   t.equal(a.format('time'), '12:00 a. m.', 'es: am')
-  console.log('A => ', a.format('time'))
 
   //reset them, for the other tests
   a.i18n(defaultSettings)
