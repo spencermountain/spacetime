@@ -1,4 +1,5 @@
 import { milliseconds, seconds, minutes, hours, time as _time } from '../set/set.js'
+import { am, pm } from '../../data/ampm.js'
 import { zeroPad } from '../../fns.js'
 
 const methods = {
@@ -94,10 +95,12 @@ const methods = {
 
   // either 'am' or 'pm'
   ampm: function (input, goFwd) {
-    let which = 'am'
+    // let which = 'am'
+    let which = am()
     let hour = this.hour()
     if (hour >= 12) {
-      which = 'pm'
+      // which = 'pm'
+      which = pm()
     }
     if (typeof input !== 'string') {
       return which
