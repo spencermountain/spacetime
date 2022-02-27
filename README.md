@@ -530,6 +530,10 @@ a.i18n({
     long: [...],
     short: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
   },
+  ampm: {
+    am: ' a. m.',
+    pm: ' a. m.'
+  },
   useTitleCase: true // automatically in .format()
 });
 a.format('day') //'Sábado'

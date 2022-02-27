@@ -23,7 +23,11 @@ const defaultSettings = {
       'december'
     ]
   },
-  useTitleCase: true
+  useTitleCase: true,
+  ampm: {
+    am: 'am',
+    pm: 'pm'
+  }
 }
 
 test('i18n useTitleCase is false', (t) => {
@@ -99,6 +103,10 @@ test('i18n', (t) => {
         'noviembre',
         'diciembre'
       ]
+    },
+      ampm: {
+        am: ' a. m.',
+        pm: ' p. m.'
     }
   })
 
@@ -106,6 +114,8 @@ test('i18n', (t) => {
   t.equal(a.format('day'), 'Sábado', 'es: day')
   t.equal(a.format('month-short'), 'Ene', 'es: month-short')
   t.equal(a.format('month'), 'Enero', 'es: month')
+
+  t.equal(a.format('time'), '12:00 a. m.', 'es: am')
 
   //reset them, for the other tests
   a.i18n(defaultSettings)
