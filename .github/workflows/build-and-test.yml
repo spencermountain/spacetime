@@ -35,6 +35,6 @@ jobs:
           npm run pack
           npm run build
           npm run testb
-          npm run test:types
+          # npm run test:types
         env:
           CI: true

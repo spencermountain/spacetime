@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.1.0 Apache 2.0 */
+/* spencermountain/spacetime 7.1.1 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -770,7 +770,7 @@
   function short$1() { return shortMonths }
   function long$1() { return longMonths }
   function mapping$1() { return buildMapping() }
-  function set$2(i18n) {
+  function set$3(i18n) {
     shortMonths = i18n.short || shortMonths;
     longMonths = i18n.long || longMonths;
   }
@@ -1406,7 +1406,7 @@
 
   function short() { return shortDays }
   function long() { return longDays }
-  function set$1(i18n) {
+  function set$2(i18n) {
     shortDays = i18n.short || shortDays;
     longDays = i18n.long || longDays;
   }
@@ -1431,7 +1431,7 @@
     return titleCaseEnabled
   }
 
-  function set(val) {
+  function set$1(val) {
     titleCaseEnabled = val;
   }
 
@@ -2940,6 +2940,16 @@
     return s.epoch
   };
 
+  let morning = 'am';
+  let evening = 'pm';
+
+  function am() { return morning }
+  function pm() { return evening }
+  function set(i18n) {
+      morning = i18n.am || morning;
+      evening = i18n.pm || evening;
+  }
+
   const methods$3 = {
     millisecond: function (num) {
       if (num !== undefined) {
@@ -3033,10 +3043,12 @@
 
     // either 'am' or 'pm'
     ampm: function (input, goFwd) {
-      let which = 'am';
+      // let which = 'am'
+      let which = am();
       let hour = this.hour();
       if (hour >= 12) {
-        which = 'pm';
+        // which = 'pm'
+        which = pm();
       }
       if (typeof input !== 'string') {
         return which
@@ -3833,16 +3845,21 @@
       i18n: data => {
         //change the day names
         if (isObject(data.days)) {
-          set$1(data.days);
+          set$2(data.days);
         }
         //change the month names
         if (isObject(data.months)) {
-          set$2(data.months);
+          set$3(data.months);
         }
 
         // change the the display style of the month / day names
         if (isBoolean(data.useTitleCase)) {
-          set(data.useTitleCase);
+          set$1(data.useTitleCase);
+        }
+
+        //change am and pm strings
+        if (isObject(data.ampm)) {
+          set(data.ampm);
         }
       }
     };
@@ -3863,7 +3880,7 @@
     //the shift for the given timezone
     this.tz = findTz(tz, timezones);
     //whether to output warnings to console
-    this.silent = options.silent || true;
+    this.silent = typeof options.silent !== 'undefined' ? options.silent : true;
     // favour british interpretation of 02/02/2018, etc
     this.british = options.dmy || options.british;
 
@@ -3989,7 +4006,7 @@
   };
   var whereIts$1 = whereIts;
 
-  var version = '7.1.0';
+  var version = '7.1.1';
 
   const main = (input, tz, options) => new Spacetime(input, tz, options);
 
