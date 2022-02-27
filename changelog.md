@@ -4,6 +4,12 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
+ ### 7.1.1 [Feb 2022]
+- **[new]** - support custom i18n strings for am/pm
+- **[new]** - more alias support for deprecated iana codes
+- **[fix]** - for silent/verbose mode
+- update deps
+
  ### 7.1.0 [Jan 2022]
  - **[change]** - rename cjs build to .cjs [#319](https://github.com/spencermountain/spacetime/issues/319)
 
