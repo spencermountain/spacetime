@@ -17,7 +17,7 @@ const SpaceTime = function (input, tz, options = {}) {
   //the shift for the given timezone
   this.tz = findTz(tz, timezones)
   //whether to output warnings to console
-  this.silent = typeof options.silent != 'undefined' ? options.silent : true
+  this.silent = typeof options.silent !== 'undefined' ? options.silent : true
   // favour british interpretation of 02/02/2018, etc
   this.british = options.dmy || options.british
 
