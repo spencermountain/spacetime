@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "7.1.1",
+  "version": "7.1.2",
   "description": "figure-out dates across timezones",
   "main": "src/index.js",
   "unpkg": "builds/spacetime.min.js",
@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "build": "npm run version && rollup -c --silent",
+    "build": "npm run pack && npm run version && rollup -c --silent",
     "build:tz": "node ./scripts/updateZonefile.js",
     "pack": "node ./zonefile/pack.js",
     "version": "node ./scripts/version.js",

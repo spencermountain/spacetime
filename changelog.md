@@ -4,6 +4,9 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
+ ### 7.1.2 [Feb 2022]
+ - **[fix]** - add more deprecated iana codes
+
  ### 7.1.1 [Feb 2022]
 - **[new]** - support custom i18n strings for am/pm
 - **[new]** - more alias support for deprecated iana codes
