@@ -15,7 +15,7 @@
     }
   },
   "author": "Spencer Kelly",
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-holiday",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/holiday",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spencermountain/spacetime.git"
