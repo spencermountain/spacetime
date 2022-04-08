@@ -114,11 +114,20 @@ export interface Spacetime {
   /** does this time exist on the gregorian/javascript calendar? */
   isValid: () => boolean
 
-  /** which century is it? */
-  century: () => number
-
   /** which decade is it? */
   decade: () => number
+  /** set the current decade */
+  decade: (decade: string | number) => Spacetime
+
+  /** which century is it? */
+  century: () => number
+  /** set the current century */
+  century: (century: string | number) => Spacetime
+
+  /** which millenium is it? */
+  millenium: () => number
+  /** set the current millenium */
+  millenium: (millenium: string | number) => Spacetime
 
   /** pretty-print the date to the console, for nicer debugging */
   log: () => string
@@ -175,6 +184,16 @@ export interface Spacetime {
   hour(): number
   /** set the current hour, in 24 time (0-23). also accepts/parses '3pm' */
   hour(value: number | string, goForward?: boolean): Spacetime
+
+  /** get the current hour, in 12-hour format (0-11). */
+  hour12(): number
+  /** set the current hour, in 12-hour format (0-11). also accepts/parses '3pm' */
+  hour12(value: number | string, goForward?: boolean): Spacetime
+
+  /** get the date/time as ISO 8601 */
+  iso(): number
+  /** set the date/time/offset from a ISO 8601 string */
+  iso(iso: string): Spacetime
 
   /** get the day-number of the month (1- max31) */
   date(): number
