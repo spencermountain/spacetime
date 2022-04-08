@@ -226,6 +226,11 @@ export interface Spacetime {
   /** set the day of the week */
   dayName(value: string, goForward?: boolean): Spacetime
 
+  /** get the day as an integer 1-365 */
+  dayOfYear(): string
+  /** set the day of the year */
+  dayOfYear(value: number, goForward?: boolean): Spacetime
+
   /** get whether the time is am or pm */
   ampm(): string
   /** set whether the time is am or pm */
