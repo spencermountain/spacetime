@@ -982,12 +982,12 @@ export default {
   "asia/gaza": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/26:00->10/28:01"
+    "dst": "03/27:00->10/28:01"
   },
   "asia/hebron": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/26:00->10/28:01"
+    "dst": "03/27:00->10/28:01"
   },
   "asia/hong_kong": {
     "offset": 8,
