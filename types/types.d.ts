@@ -192,7 +192,7 @@ export interface Spacetime {
   year(value: number): Spacetime
 
   /** get a formatted, 12-hour time, like '11:30pm' */
-  time(): number
+  time(): string
   /** set a formatted, 12-hour time, like '11:30pm' */
   time(value: string, goForward?: boolean): Spacetime
 
