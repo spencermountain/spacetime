@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "minimist": "^1.2.5",
-    "spacetime": "6.16.3"
+    "spacetime": ">=6.3.0"
   },
   "license": "MIT"
 }

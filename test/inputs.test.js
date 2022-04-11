@@ -359,3 +359,15 @@ test('iso-truncated', (t) => {
   t.equal(s.format(), '2012-07-01', 'iso-truncated')
   t.end()
 })
+
+test('month-idioms', (t) => {
+  let d = spacetime('december 3rd')
+  d = d.month('sept')
+  t.equal(d.format('{month}'), 'September', 'sept')
+
+  d = spacetime('december 3rd')
+  d = d.month('sep')
+  t.equal(d.format('{month}'), 'September', 'sep')
+
+  t.end()
+})

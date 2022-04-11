@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.1.2 Apache 2.0 */
+/* spencermountain/spacetime 7.1.3 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -79,7 +79,7 @@
     "3|n|03/27:03->10/30:04": "2/famagusta,2/nicosia,8/athens,8/bucharest,8/helsinki,8/kiev,8/mariehamn,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye,8/nicosia",
     "3|n|03/27:02->10/30:03": "8/chisinau,8/tiraspol",
     "3|n|03/27:00->10/29:24": "2/beirut",
-    "3|n|03/26:00->10/28:01": "2/gaza,2/hebron",
+    "3|n|03/27:00->10/28:01": "2/gaza,2/hebron",
     "3|n|03/25:02->10/30:02": "2/jerusalem,2/tel_aviv,israel",
     "3|n|03/25:00->10/27:24": "2/damascus",
     "3|n|02/25:00->10/28:01": "2/amman",
@@ -2859,6 +2859,9 @@
 
   const month = function (s, n, goFwd) {
     if (typeof n === 'string') {
+      if (n === 'sept') {
+        n = 'sep';
+      }
       n = mapping$1()[n.toLowerCase()];
     }
     n = validate(n);
@@ -4006,7 +4009,7 @@
   };
   var whereIts$1 = whereIts;
 
-  var version = '7.1.2';
+  var version = '7.1.3';
 
   const main = (input, tz, options) => new Spacetime(input, tz, options);
 

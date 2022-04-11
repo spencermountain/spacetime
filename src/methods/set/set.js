@@ -168,6 +168,9 @@ const date = function (s, n, goFwd) {
 
 const month = function (s, n, goFwd) {
   if (typeof n === 'string') {
+    if (n === 'sept') {
+      n = 'sep'
+    }
     n = mapping()[n.toLowerCase()]
   }
   n = validate(n)

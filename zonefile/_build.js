@@ -24,7 +24,7 @@ export default {
   "3|n|03/27:03->10/30:04": "2/famagusta,2/nicosia,8/athens,8/bucharest,8/helsinki,8/kiev,8/mariehamn,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye,8/nicosia",
   "3|n|03/27:02->10/30:03": "8/chisinau,8/tiraspol",
   "3|n|03/27:00->10/29:24": "2/beirut",
-  "3|n|03/26:00->10/28:01": "2/gaza,2/hebron",
+  "3|n|03/27:00->10/28:01": "2/gaza,2/hebron",
   "3|n|03/25:02->10/30:02": "2/jerusalem,2/tel_aviv,israel",
   "3|n|03/25:00->10/27:24": "2/damascus",
   "3|n|02/25:00->10/28:01": "2/amman",
