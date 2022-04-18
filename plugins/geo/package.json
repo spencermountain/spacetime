@@ -8,7 +8,7 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "require": "./builds/spacetime-geo.js",
+      "require": "./builds/spacetime-geo.cjs",
       "import": "./builds/spacetime-geo.mjs",
       "default": "./builds/spacetime-geo.mjs"
     }

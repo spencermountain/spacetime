@@ -1,56 +1,58 @@
-/* spencermountain/spacetime-week-of-month 0.0.1 Apache 2.0 */
+/* spencermountain/spacetime-week-of-month 0.1.0 Apache 2.0 */
 // the first week of a month includes a thursday, in that month
 // (leap days do not effect week-ordering!)
-var getFirstWeek = function getFirstWeek(s) {
-  var month = s.month();
-  var start = s.date(1);
+const getFirstWeek = function (s) {
+  let month = s.month();
+  let start = s.date(1);
   start = start.startOf('week');
-  var thu = start.add(3, 'days');
-
+  let thu = start.add(3, 'days');
   if (thu.month() !== month) {
     start = start.add(1, 'week');
   }
-
-  return start;
+  return start
 };
 
-var src = {
-  weekOfMonth: function weekOfMonth(n) {
-    var start = getFirstWeek(this.clone()); // week-setter
-
+var index = {
+  weekOfMonth: function (n) {
+    let start = getFirstWeek(this.clone());
+    // week-setter
     if (n !== undefined) {
-      return start.add(n, 'weeks');
-    } // week-getter
-
-
-    var num = 0;
-    var end = start.endOf('week');
-
-    for (var i = 0; i < 5; i += 1) {
+      return start.add(n, 'weeks')
+    }
+    // week-getter
+    let num = 0;
+    let end = start.endOf('week');
+    for (let i = 0; i < 5; i += 1) {
       if (end.isAfter(this)) {
-        return num + 1;
+        return num + 1
       }
-
       end = end.add(1, 'week');
       num += 1;
     }
-
-    return num + 1;
+    return num + 1
   },
-  whichWeek: function whichWeek() {
-    var s = this.startOf('week'); // it's always in the same month that it's thursday is...
+  whichWeek: function () {
+    let s = this.startOf('week');
+    // it's always in the same month that it's thursday is...
+    let thurs = s.add(3, 'days');
+    let month = thurs.monthName();
+    let num = thurs.weekOfMonth();
 
-    var thurs = s.add(3, 'days');
-    var month = thurs.monthName();
-    var num = thurs.weekOfMonth();
-    return {
-      num: num,
-      month: month
-    };
+    return { num, month }
+  },
+  firstWeek: function () {
+    return getFirstWeek(this.clone())
+  },
+  lastSunday: function () {
+    let s = this.endOf('month'); //last day
+    // if it's after thursday
+    if (s.day() > 4) {
+      return s.endOf('week')
+    }
+    // else, the previous sunday
+    s = s.minus(1, 'week');
+    return s.endOf('week')
   }
 };
-var src_1 = src.weekOfMonth;
-var src_2 = src.whichWeek;
 
-export default src;
-export { src_1 as weekOfMonth, src_2 as whichWeek };
+export { index as default };

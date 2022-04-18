@@ -14,40 +14,16 @@ export default [
   {
     input: 'src/index.js',
     output: [{ banner: banner, file: `builds/${name}.mjs`, format: 'esm' }],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      sizeCheck({ expect: 147, warn: 10 })
-    ]
+    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 147, warn: 10 })]
   },
   {
     input: 'src/index.js',
-    output: [
-      {
-        banner: banner,
-        file: `builds/${name}.js`,
-        format: 'umd',
-        sourcemap: false,
-        name: 'weekStart'
-      }
-    ],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      sizeCheck({ expect: 159, warn: 10 })
-    ]
+    output: [{ banner: banner, file: `builds/${name}.cjs`, format: 'umd', sourcemap: false, name: 'weekStart' }],
+    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 159, warn: 10 })]
   },
   {
     input: 'src/index.js',
     output: [{ banner: banner, file: `builds/${name}.min.js`, format: 'umd', name: 'weekStart' }],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      terser(),
-      sizeCheck({ expect: 79, warn: 10 })
-    ]
+    plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 79, warn: 10 })]
   }
 ]

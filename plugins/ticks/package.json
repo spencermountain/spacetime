@@ -9,7 +9,7 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "require": "./builds/spacetime-ticks.js",
+      "require": "./builds/spacetime-ticks.cjs",
       "import": "./builds/spacetime-ticks.mjs",
       "default": "./builds/spacetime-ticks.mjs"
     }

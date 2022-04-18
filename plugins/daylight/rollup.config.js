@@ -13,47 +13,16 @@ export default [
   {
     input: 'src/index.js',
     output: [{ banner: banner, file: 'builds/spacetime-daylight.mjs', format: 'esm' }],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      sizeCheck({ expect: 132, warn: 10 })
-    ]
+    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 132, warn: 10 })]
   },
   {
     input: 'src/index.js',
-    output: [
-      {
-        banner: banner,
-        file: 'builds/spacetime-daylight.js',
-        format: 'umd',
-        sourcemap: false,
-        name: 'spacetimeDaylight'
-      }
-    ],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      sizeCheck({ expect: 134, warn: 10 })
-    ]
+    output: [{ banner: banner, file: 'builds/spacetime-daylight.cjs', format: 'umd', sourcemap: false, name: 'spacetimeDaylight' }],
+    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 134, warn: 10 })]
   },
   {
     input: 'src/index.js',
-    output: [
-      {
-        banner: banner,
-        file: 'builds/spacetime-daylight.min.js',
-        format: 'umd',
-        name: 'spacetimeDaylight'
-      }
-    ],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      terser(),
-      sizeCheck({ expect: 95, warn: 10 })
-    ]
+    output: [{ banner: banner, file: 'builds/spacetime-daylight.min.js', format: 'umd', name: 'spacetimeDaylight' }],
+    plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 95, warn: 10 })]
   }
 ]
