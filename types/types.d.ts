@@ -1,4 +1,4 @@
-import { TimeUnit, Format } from './constraints'
+import { TimeUnit, Format, I18nOptions } from './constraints'
 
 /** a date/timezone object */
 export interface Spacetime {
@@ -115,19 +115,19 @@ export interface Spacetime {
   isValid: () => boolean
 
   /** which decade is it? */
-  decade: () => number
+  decade(): number
   /** set the current decade */
-  decade: (decade: string | number) => Spacetime
+  decade(decade: string | number): Spacetime
 
   /** which century is it? */
-  century: () => number
+  century(): number
   /** set the current century */
-  century: (century: string | number) => Spacetime
+  century(century: string | number): Spacetime
 
   /** which millenium is it? */
-  millenium: () => number
+  millenium(): number
   /** set the current millenium */
-  millenium: (millenium: string | number) => Spacetime
+  millenium(millenium: string | number): Spacetime
 
   /** pretty-print the date to the console, for nicer debugging */
   log: () => string
@@ -270,6 +270,9 @@ export interface Spacetime {
 
   /** returns the amount of days the current month has (December => 31, June => 30, ...) */
   daysInMonth: () => number
+
+  /** format dates using non-english words */
+  i18n: (newWords: I18nOptions) => Spacetime
 }
 
 export interface TimezoneMeta {

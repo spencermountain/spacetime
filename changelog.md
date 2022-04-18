@@ -9,6 +9,10 @@ This project follows semVer, where:
 
  -->
 
+ ### 7.1.4 [April 2022]
+ - **[fix]** - typescript fix
+ - update dependencies
+
  ### 7.1.3 [April 2022]
  - **[fix]** - typescript fixes
  - **[change]** - update asia/gaza and asia/hebron dst times

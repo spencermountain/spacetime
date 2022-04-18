@@ -60,3 +60,24 @@ export type Format =
   | 'nice-day'
   | 'nice-full'
   | string
+
+
+export interface I18nOptions {
+  /** Alternatives to Monday, Tuesday..*/
+  days?: {
+    short: string[],
+    long: string[],
+  }
+  /** Alternatives to Jan, Feb..*/
+  months?: {
+    short: string[],
+    long: string[],
+  }
+  /** Alternatives to am, pm*/
+  ampm?: {
+    am: string,
+    pm: string,
+  }
+  /** Default dayname formatting */
+  useTitleCase?: boolean
+}

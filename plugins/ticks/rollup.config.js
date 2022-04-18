@@ -6,43 +6,17 @@ import resolve from 'rollup-plugin-node-resolve'
 export default [
   {
     input: 'src/index.js',
-    output: [
-      {
-        file: 'builds/spacetime-ticks.mjs',
-        format: 'esm'
-      }
-    ],
+    output: [{ file: 'builds/spacetime-ticks.mjs', format: 'esm' }],
     plugins: [resolve(), json(), commonjs()]
   },
   {
     input: 'src/index.js',
-    output: [
-      {
-        file: 'builds/spacetime-ticks.js',
-        format: 'umd',
-        name: 'spacetime-ticks'
-      }
-    ],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs()
-    ]
+    output: [{ file: 'builds/spacetime-ticks.cjs', format: 'umd', name: 'spacetime-ticks' }],
+    plugins: [resolve(), json(), commonjs()]
   },
   {
     input: 'src/index.js',
-    output: [
-      {
-        file: 'builds/spacetime-ticks.min.js',
-        format: 'umd',
-        name: 'spacetime-ticks'
-      }
-    ],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      terser()
-    ]
+    output: [{ file: 'builds/spacetime-ticks.min.js', format: 'umd', name: 'spacetime-ticks' }],
+    plugins: [resolve(), json(), commonjs(), terser()]
   }
 ]

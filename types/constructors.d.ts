@@ -93,3 +93,4 @@ export interface SpacetimeStatic extends SpacetimeConstructor {
   max: (timezone?: string, options?: SpacetimeConstructorOptions) => Spacetime
 
 }
+

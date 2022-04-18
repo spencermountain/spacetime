@@ -521,7 +521,8 @@ this format is more common in [britain, and south america](https://en.wikipedia.
 #### Custom languages:
 
 ```js
-a.i18n({
+let s = spacetime.now()
+s.i18n({
   days: {
     long: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
     short: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb']
@@ -536,7 +537,7 @@ a.i18n({
   },
   useTitleCase: true // automatically in .format()
 });
-a.format('day') //'Sábado'
+s.format('day') //'Sábado'
 ```
 
 #### Configure start of week:

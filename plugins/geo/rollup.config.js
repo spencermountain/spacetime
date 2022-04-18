@@ -13,47 +13,16 @@ export default [
   {
     input: 'src/index.js',
     output: [{ banner: banner, file: 'builds/spacetime-geo.mjs', format: 'esm' }],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      sizeCheck({ expect: 109, warn: 10 })
-    ]
+    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 109, warn: 10 })]
   },
   {
     input: 'src/index.js',
-    output: [
-      {
-        banner: banner,
-        file: 'builds/spacetime-geo.js',
-        format: 'umd',
-        sourcemap: false,
-        name: 'spacetimeGeo'
-      }
-    ],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      sizeCheck({ expect: 109, warn: 10 })
-    ]
+    output: [{ banner: banner, file: 'builds/spacetime-geo.cjs', format: 'umd', sourcemap: false, name: 'spacetimeGeo' }],
+    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 109, warn: 10 })]
   },
   {
     input: 'src/index.js',
-    output: [
-      {
-        banner: banner,
-        file: 'builds/spacetime-geo.min.js',
-        format: 'umd',
-        name: 'spacetimeGeo'
-      }
-    ],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      terser(),
-      sizeCheck({ expect: 109, warn: 10 })
-    ]
+    output: [{ banner: banner, file: 'builds/spacetime-geo.min.js', format: 'umd', name: 'spacetimeGeo' }],
+    plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 109, warn: 10 })]
   }
 ]
