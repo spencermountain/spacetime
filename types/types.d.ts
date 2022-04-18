@@ -1,4 +1,4 @@
-import { TimeUnit, Format } from './constraints'
+import { TimeUnit, Format, I18nOptions } from './constraints'
 
 /** a date/timezone object */
 export interface Spacetime {
@@ -270,6 +270,9 @@ export interface Spacetime {
 
   /** returns the amount of days the current month has (December => 31, June => 30, ...) */
   daysInMonth: () => number
+
+  /** format dates using non-english words */
+  i18n: (newWords: I18nOptions) => Spacetime
 }
 
 export interface TimezoneMeta {

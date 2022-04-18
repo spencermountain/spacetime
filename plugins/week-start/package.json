@@ -1,7 +1,7 @@
 {
   "name": "spacetime-week-start",
   "description": "calculate start-of-week",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "src/index.js",
   "unpkg": "builds/spacetime-week-start.min.js",
   "type": "module",

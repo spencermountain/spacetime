@@ -1,7 +1,7 @@
 {
   "name": "spacetime-holiday",
   "description": "reckoning of common holiday dates ",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "main": "builds/spacetime-holiday.cjs",
   "unpkg": "builds/spacetime-holiday.min.js",
   "module": "./builds/spacetime-holiday.mjs",

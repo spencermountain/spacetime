@@ -1,6 +1,6 @@
 {
   "name": "spacetime-daylight",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "calculate approximate sunlight times for a given timezone",
   "main": "builds/spacetime-daylight.mjs",
   "unpkg": "builds/spacetime-daylight.min.js",

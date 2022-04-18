@@ -1,15 +1,22 @@
+// const spacetime = require('./builds/spacetime.cjs')
 import spacetime from './src/index.js'
-// spacetime.extend(require('./plugins/dst/src/index.js'))
 
-let d = spacetime.now()
+// spacetime.extend(require('./plugins/holiday'))
 
-let obj = { month: 3, date: 8, year: 2022 }
-
-// obj = { month: 9, date: 22, year: 2022 }
-let time = `6:40 PM`
-let date = spacetime(obj).time('1:35 PM').iso()
-// d = d.time('1:35 PM')
-// d = d.month('febr')
-// console.log(d.format('{month}'))
-// spacetime({ month: 'sept' }).debug()
-console.log(date)
+let s = spacetime.now()
+s.i18n({
+  days: {
+    long: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+    short: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb']
+  },
+  months: {
+    long: [],
+    short: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+  },
+  ampm: {
+    am: ' a. m.',
+    pm: ' a. m.'
+  },
+  useTitleCase: true // automatically in .format()
+});
+console.log(s.format('day')) //'Sábado'
