@@ -367,7 +367,6 @@ export default {
   "america/dawson": {
     "offset": -7,
     "hem": "n",
-    "dst": "03/08:02->11/01:01"
   },
   "america/dawson_creek": {
     "offset": -7,
@@ -830,7 +829,6 @@ export default {
   "america/whitehorse": {
     "offset": -7,
     "hem": "n",
-    "dst": "03/08:02->11/01:01"
   },
   "america/winnipeg": {
     "offset": -5,
