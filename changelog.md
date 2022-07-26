@@ -10,7 +10,9 @@ This project follows semVer, where:
  -->
 
  ### 7.1.4 [April 2022]
- - **[fix]** - typescript fix
+ - **[fix]** - export .cjs format for plugins in es5
+ - **[fix]** - typescript fix #338 
+ - **[fix]** - typescript fix #336
  - update dependencies
 
  ### 7.1.3 [April 2022]

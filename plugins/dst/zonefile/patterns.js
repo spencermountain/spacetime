@@ -16,7 +16,7 @@ const northAmerica = {
   }
 }
 
-const europe = {
+const eu = {
   // last Sunday in March
   start: {
     day: 'sunday',
@@ -35,5 +35,5 @@ const europe = {
 
 export default {
   northAmerica,
-  europe
+  eu
 }
