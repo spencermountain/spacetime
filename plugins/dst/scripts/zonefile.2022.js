@@ -303,7 +303,6 @@ export default {
   "america/campo_grande": {
     "offset": -4,
     "hem": "s",
-    "dst": "02/16:24->11/03:00"
   },
   "america/cancun": {
     "offset": -5,
@@ -356,7 +355,6 @@ export default {
   "america/cuiaba": {
     "offset": -4,
     "hem": "s",
-    "dst": "02/16:24->11/03:00"
   },
   "america/curacao": {
     "offset": -4,
