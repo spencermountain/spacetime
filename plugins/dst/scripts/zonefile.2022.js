@@ -464,7 +464,8 @@ export default {
   "america/havana": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:00->11/06:01"
+    "dst": "03/13:00->11/06:01",
+    "pattern": "cuba"
   },
   "america/hermosillo": {
     "offset": -7,
@@ -854,8 +855,10 @@ export default {
   },
   "antarctica/casey": {
     "offset": 8,
+    "hours": 3,//changes to +11h
     "hem": "s",
-    "dst": "03/08:01->10/04:00"
+    "dst": "03/08:01->10/04:00",
+    "pattern": "ant"
   },
   "antarctica/davis": {
     "offset": 7,
@@ -882,9 +885,8 @@ export default {
     "pattern": "nz"
   },
   "antarctica/palmer": {
-    "offset": -4,
+    "offset": -3,
     "hem": "s",
-    "dst": "05/13:23->08/13:01"
   },
   "antarctica/rothera": {
     "offset": -3,
@@ -897,7 +899,8 @@ export default {
   "antarctica/troll": {
     "offset": 2,
     "hem": "s",
-    "dst": "03/27:02->10/30:02"
+    "dst": "03/27:02->10/30:02",
+    "pattern": "troll"
   },
   "antarctica/vostok": {
     "offset": 6,
@@ -920,7 +923,8 @@ export default {
   "asia/amman": {
     "offset": 3,
     "hem": "n",
-    "dst": "02/25:00->10/28:01"
+    "dst": "02/25:00->10/28:01",
+    "pattern": "jord"
   },
   "asia/anadyr": {
     "offset": 12,

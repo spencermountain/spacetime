@@ -2,163 +2,44 @@ let zones = {
 
   // the second Sunday of March -> first Sunday of November
   // (From 1987 to 2006)
-  usa: {
-    start: {
-      day: 'sunday',
-      num: 2,
-      month: 'mar',
-      hour: 2
-    },
-    end: {
-      day: 'sunday',
-      num: 1,
-      month: 'nov',
-      hour: 2
-    }
-  },
+  usa: '2nd-sun-mar-2h|1st-sun-nov-2h',
 
   // European Union zone
   // last Sunday in March -> the last Sunday in October.
-  eu1: {
-    start: {
-      day: 'sunday',
-      num: 'last',
-      month: 'mar',
-      hour: 1
-    },
-    end: {
-      day: 'sunday',
-      num: 'last',
-      month: 'oct',
-      hour: 2
-    }
-  },
+  eu1: 'last-sun-mar-1h|last-sun-oct-2h',
 
   // australia
   // first Sunday in April -> first Sunday in October
-  aus: {
-    start: {
-      day: 'sunday',
-      num: 1,
-      month: 'apr',
-      hour: 3
-    },
-    end: {
-      day: 'sunday',
-      num: 1,
-      month: 'oct',
-      hour: 2
-    }
-  },
+  aus: '1st-sun-apr-3h|1st-sun-oct-2h',
 
   // mexico
   // First Sunday in April -> Last Sunday in October
-  mexico: {
-    start: {
-      day: 'sunday',
-      num: 1,
-      month: 'apr',
-      hour: 2
-    },
-    end: {
-      day: 'sunday',
-      num: 'last',
-      month: 'oct',
-      hour: 2
-    }
-  },
+  mexico: '1st-sun-apr-2h|last-sun-oct-2h',
   // new Zealand, antarctica 
   // Last Sunday in September -> First Sunday in April
-  nz: {
-    start: {
-      day: 'sunday',
-      num: 'last',
-      month: 'sep',
-      hour: 3
-    },
-    end: {
-      day: 'sunday',
-      num: 1,
-      month: 'apr',
-      hour: 2
-    }
-  },
+  nz: 'last-sun-sep-3h|1st-sun-apr-2h',
   //palestine
-  pal: {
-    start: {
-      day: 'sunday',
-      num: 'last',
-      month: 'mar',
-      hour: 0
-    },
-    end: {
-      day: 'friday',
-      num: 'last',
-      month: 'oct',
-      hour: 1
-    }
-  },
+  pal: 'last-sun-mar-0h|last-fri-oct-1h',
   // paraguay
-  // _ Sunday in March -> _ Sunday in October
-  par: {
-    start: {
-      day: 'sunday',
-      num: 'last',
-      month: 'mar',
-      hour: 0
-    },
-    end: {
-      day: 'sunday',
-      num: 1,
-      month: 'oct',
-      hour: 0
-    },
-  },
-  green: {
-    start: {
-      day: 'saturday',
-      num: 'last',
-      month: 'mar',
-      hour: 22
-    },
-    end: {
-      day: 'saturday',
-      num: 'last',
-      month: 'oct',
-      hour: 23
-    }
-  },
+  par: 'last-sun-mar-0h|1st-sun-oct-0h',
+  //greenland
+  green: 'last-sat-mar-22h|last-sat-oct-23h',
   //cuba
   //Second Sunday in March -> first Sunday of november
-  cuba: {
-    start: {
-      day: 'sunday',
-      num: 2,
-      month: 'mar',
-      hour: 0
-    },
-    end: {
-      day: 'sunday',
-      num: 1,
-      month: 'nov',
-      hour: 1
-    },
-  },
+  cuba: '2nd-sun-mar-0h|1st-sun-nov-1h',
   //chile
-  chile: {
-    start: {
-      day: 'sunday',
-      num: 1,
-      month: 'apr',
-      hour: 0
-    },
-    end: {
-      day: 'sunday',
-      num: 1,
-      month: 'sep',
-      hour: 0
-    },
-  },
+  chile: '1st-sun-apr-0h|1st-sun-sep-0h',
+
+  // antarctica
+  //casey
+  ant: '2nd-sun-mar-0h|1st-sun-oct-0h',
+  // troll
+  troll: '3rd-sun-mar-1h|last-sun-oct-3h',
+
+  //jordan
+  // amman
+  jord: 'last-fri-mar-0h|last-fri-oct-1h',
+
 }
 // add different EU starting hours
 //(greenland)
