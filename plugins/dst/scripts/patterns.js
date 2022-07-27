@@ -6,11 +6,19 @@ let zones = {
 
   // European Union zone
   // last Sunday in March -> the last Sunday in October.
+  eu0: 'last-sun-mar-0h|last-sun-oct-1h',
   eu1: 'last-sun-mar-1h|last-sun-oct-2h',
+  eu2: 'last-sun-mar-2h|last-sun-oct-3h',
+  eu3: 'last-sun-mar-3h|last-sun-oct-4h',
 
   // australia
   // first Sunday in April -> first Sunday in October
   aus: '1st-sun-apr-3h|1st-sun-oct-2h',
+  //lord howe australia
+  lhow: '1st-sun-apr-2h|1st-sun-oct-2h',
+  // new zealand
+  chat: '1st-sun-apr-3.45h|1st-sun-oct-2.45h',
+
 
   // mexico
   // First Sunday in April -> Last Sunday in October
@@ -40,20 +48,25 @@ let zones = {
   // amman
   jord: 'last-fri-mar-0h|last-fri-oct-1h',
 
+  // lebanon
+  leb: 'last-sun-mar-0h|last-sun-oct-1h',
+
+  // syria
+  syr: 'last-fri-mar-0h|last-fri-oct-0h',
+
+  //israel
+  isr: 'last-fri-mar-2h|last-sun-oct-2h',
+  // iran
+  //appears to be hardcoded for mar-22 & sep 22
+  // (ending this year)
+
+  // chile
+  //easter island
+  east: '1st-sat-apr-22h|1st-sat-sep-22h',
+  //fiji
+  fiji: '2nd-sun-jan-3h|2nd-sun-nov-2h'
+
 }
-// add different EU starting hours
-//(greenland)
-zones.eu0 = {
-  start: Object.assign({}, zones.eu1.start, { hour: 0 }),
-  end: Object.assign({}, zones.eu1.end, { hour: 1 }),
-}
-zones.eu2 = {
-  start: Object.assign({}, zones.eu1.start, { hour: 2 }),
-  end: Object.assign({}, zones.eu1.end, { hour: 3 }),
-}
-zones.eu3 = {
-  start: Object.assign({}, zones.eu1.start, { hour: 3 }),
-  end: Object.assign({}, zones.eu1.end, { hour: 4 }),
-}
+
 
 export default zones

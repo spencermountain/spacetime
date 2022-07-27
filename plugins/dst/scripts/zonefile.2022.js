@@ -969,7 +969,8 @@ export default {
   "asia/beirut": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:00->10/29:24"
+    "dst": "03/27:00->10/30:00",
+    "pattern": "leb"
   },
   "asia/bishkek": {
     "offset": 6,
@@ -998,7 +999,8 @@ export default {
   "asia/damascus": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/25:00->10/27:24"
+    "dst": "03/25:00->10/28:00",
+    "pattern": "syr"
   },
   "asia/dhaka": {
     "offset": 6,
@@ -1057,7 +1059,8 @@ export default {
   "asia/jerusalem": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/25:02->10/30:02"
+    "dst": "03/25:02->10/30:02",
+    "pattern": "isr"
   },
   "asia/kabul": {
     "offset": 4.5,
@@ -1212,7 +1215,7 @@ export default {
   "asia/tehran": {
     "offset": 4.5,
     "hem": "n",
-    "dst": "03/22:00->09/21:24"
+    // "dst": "03/22:00->09/22:00", //(ending soon)
   },
   "asia/thimphu": {
     "offset": 6,
@@ -1351,7 +1354,8 @@ export default {
   "australia/lord_howe": {
     "offset": 10.5,
     "hem": "s",
-    "dst": "04/03:01->10/02:02"
+    "dst": "04/03:02->10/02:02",
+    "pattern": "lhow"
   },
   "australia/melbourne": {
     "offset": 10,
@@ -1758,7 +1762,6 @@ export default {
   "pacific/apia": {
     "offset": 13,
     "hem": "s",
-    "dst": "04/04:04->09/26:03"
   },
   "pacific/auckland": {
     "offset": 12,
@@ -1773,12 +1776,14 @@ export default {
   "pacific/chatham": {
     "offset": 12.75,
     "hem": "s",
-    "dst": "04/03:03->04/03:02"
+    "dst": "04/03:03->04/03:02",
+    "pattern": "chat"
   },
   "pacific/easter": {
     "offset": -6,
     "hem": "s",
-    "dst": "04/02:22->09/03:22"
+    "dst": "04/02:22->09/03:22",
+    "pattern": "east"
   },
   "pacific/efate": {
     "offset": 11,
@@ -1795,7 +1800,8 @@ export default {
   "pacific/fiji": {
     "offset": 12,
     "hem": "s",
-    "dst": "01/17:03->11/14:02"
+    "dst": "01/17:03->11/14:02",
+    "pattern": "fiji"
   },
   "pacific/funafuti": {
     "offset": 12,
@@ -1906,7 +1912,6 @@ export default {
   "pacific/tongatapu": {
     "offset": 13,
     "hem": "s",
-    "dst": "01/15:02->11/05:03"
   },
   "pacific/chuuk": {
     "offset": 10,
