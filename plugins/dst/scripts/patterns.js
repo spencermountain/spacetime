@@ -29,9 +29,9 @@ let zones = {
   troll: '3rd-sun-mar-1h|last-sun-oct-3h',
 
   //jordan
-  jord: 'last-fri-mar-0h|last-fri-oct-1h',
+  jord: 'last-fri-feb-0h|last-fri-oct-1h',
   // lebanon
-  leb: 'last-sun-mar-0h|last-sun-oct-1h',
+  leb: 'last-sun-mar-0h|last-sun-oct-0h',
   // syria
   syr: 'last-fri-mar-0h|last-fri-oct-0h',
   //israel

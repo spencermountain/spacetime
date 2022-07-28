@@ -45,6 +45,8 @@ Object.keys(zones).forEach(k => {
     let dst = `${pad(start.getMonth() + 1)}/${pad(start.getDate())}:${pad(pattern.start.hour)}->`
     dst += `${pad(end.getMonth() + 1)}/${pad(end.getDate())}:${pad(pattern.end.hour)}`
 
+
+
     // console.log(k, pattern)
     if (dst !== zones[k].dst) {
       console.log('\n', k)
