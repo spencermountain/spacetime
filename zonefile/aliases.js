@@ -9,6 +9,8 @@ export default {
   'america/atka': 'america/adak',
   'america/coral_harbour': 'america/atikokan',
 
+  'pacific/enderbury': 'pacific/kanton',
+
   // argentina
   'america/argentina/comodrivadavia': 'america/catamarca',
   'america/argentina/buenos_aires': 'america/buenos_aires',

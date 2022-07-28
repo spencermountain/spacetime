@@ -1771,7 +1771,7 @@ export default {
     "offset": 11,
     "hem": "n"
   },
-  "pacific/enderbury": {
+  "pacific/kanton": {
     "offset": 13,
     "hem": "n"
   },
