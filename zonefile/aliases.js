@@ -4,7 +4,6 @@
 
 // link-name : target
 export default {
-  'africa/asmara': 'africa/nairobi',
   'africa/asmera': 'africa/nairobi',
   'africa/timbuktu': 'africa/abidjan',
   'america/atka': 'america/adak',
@@ -128,7 +127,7 @@ export default {
   'us/aleutian': 'america/adak',
   'us/arizona': 'america/phoenix',
   'us/central': 'america/chicago',
-  'us/east-indiana': 'america/indiana/indianapolis',
+  'us/east-indiana': 'america/indianapolis',
   'us/eastern': 'america/new_york',
   'us/hawaii': 'pacific/honolulu',
   'us/indiana-starke': 'america/indiana/knox',

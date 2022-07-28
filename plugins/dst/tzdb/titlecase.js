@@ -21,12 +21,3 @@ Object.keys(zone).forEach(k => {
     console.log(tz)
   }
 })
-// Africa/Dar_Es_Salaam
-// Africa/Porto-novo
-// America/Blanc-sablon
-// America/Port-au-Prince
-// America/Port_of_Spain
-// Europe/Isle_of_Man
-// Antarctica/DumontDUrville
-// Antarctica/McMurdo
-// Asia/Ust-Nera

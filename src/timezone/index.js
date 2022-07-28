@@ -8,18 +8,18 @@ const parseDst = dst => {
   return dst.split('->')
 }
 
-
+//iana codes are case-sensitive, technically
 const titleCase = str => {
   str = str[0].toUpperCase() + str.substr(1)
-  str = str.replace(/\/gmt/, '/GMT')
   str = str.replace(/[\/_]([a-z])/gi, s => {
     return s.toUpperCase()
   })
   str = str.replace(/_of_/i, '_of_')
-  str = str.replace(/\/Dumontdurville/i, '/DumontDUrville')
-  str = str.replace(/\/Ust-nera/i, '/Ust-Nera')
-  str = str.replace(/\/Mcmurdo/i, '/McMurdo')
-  str = str.replace(/\/Port-au-prince/i, '/Port-au-Prince')
+  str = str.replace(/\/gmt$/i, '/GMT')
+  str = str.replace(/\/Dumontdurville$/i, '/DumontDUrville')
+  str = str.replace(/\/Ust-nera$/i, '/Ust-Nera')
+  str = str.replace(/\/Mcmurdo$/i, '/McMurdo')
+  str = str.replace(/\/Port-au-prince$/i, '/Port-au-Prince')
   return str
 }
 

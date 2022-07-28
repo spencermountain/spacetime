@@ -19,10 +19,6 @@ export default {
     "offset": 3,
     "hem": "n"
   },
-  "africa/asmera": {
-    "offset": 3,
-    "hem": "n"
-  },
   "africa/bamako": {
     "offset": 0,
     "hem": "n"
@@ -616,12 +612,6 @@ export default {
   "america/montevideo": {
     "offset": -3,
     "hem": "s"
-  },
-  "america/montreal": {
-    "offset": -4,
-    "hem": "n",
-    "dst": "03/13:02->11/06:02",
-    "pattern": "usa"
   },
   "america/montserrat": {
     "offset": -4,
@@ -1325,12 +1315,6 @@ export default {
     "dst": "04/03:03->10/02:02",
     "pattern": "aus"
   },
-  "australia/currie": {
-    "offset": 10,
-    "hem": "s",
-    "dst": "04/03:03->10/02:02",
-    "pattern": "aus"
-  },
   "australia/darwin": {
     "offset": 9.5,
     "hem": "s"
@@ -1822,10 +1806,6 @@ export default {
     "hem": "n"
   },
   "pacific/honolulu": {
-    "offset": -10,
-    "hem": "n"
-  },
-  "pacific/johnston": {
     "offset": -10,
     "hem": "n"
   },
