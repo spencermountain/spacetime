@@ -33,10 +33,9 @@ const fromJSDate = function (obj, year) {
 const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 
-const fromSpace = function (obj, year) {
-  let s = spacetime.now().year(year).startOf('year')
+const fromSpace = function (obj, tz, year) {
+  let s = spacetime.now(tz).year(year).startOf('year')
   s = s.month(months[obj.month - 1])
-  // console.log(s.format('nice-day'))
   s = s.startOf('month')
   s = s.day(days[obj.day], true)
   if (obj.num === 2) {
@@ -47,7 +46,7 @@ const fromSpace = function (obj, year) {
     s = s.endOf('month')
     s = s.day(obj.day, false)//roll backward
   }
-  // s = s.hour(obj.hour , true)
+  s = s.hour(obj.hour)
   return s
 }
 export { fromJSDate, fromSpace }

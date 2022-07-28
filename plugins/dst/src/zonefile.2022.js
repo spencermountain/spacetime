@@ -58,6 +58,8 @@ export default {
   "africa/casablanca": {
     "offset": 1,
     "hem": "n",
+    "dst": "03/27:03->04/08:02",
+    "pattern": "saha"
   },
   "africa/ceuta": {
     "offset": 2,
@@ -88,6 +90,8 @@ export default {
   "africa/el_aaiun": {
     "offset": 1,
     "hem": "n",
+    "dst": "03/27:03->04/08:02",
+    "pattern": "saha"
   },
   "africa/freetown": {
     "offset": 0,
@@ -1213,7 +1217,7 @@ export default {
     "hem": "n"
   },
   "asia/tehran": {
-    "offset": 4.5,
+    "offset": 3.5,
     "hem": "n",
     // "dst": "03/22:00->09/22:00", //(ending soon)
   },

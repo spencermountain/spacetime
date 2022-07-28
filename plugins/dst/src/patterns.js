@@ -39,6 +39,10 @@ let zones = {
   //palestine
   pal: 'last-sun-mar-0h|last-fri-oct-1h',
 
+  // el aaiun
+  //this one seems to be on arabic calendar?
+  saha: 'last-sun-mar-3h|1st-sun-may-2h',
+
   // paraguay
   par: 'last-sun-mar-0h|1st-sun-oct-0h',
   //cuba
