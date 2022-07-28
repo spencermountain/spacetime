@@ -10,6 +10,7 @@ export default {
   'america/coral_harbour': 'america/atikokan',
 
   'pacific/enderbury': 'pacific/kanton',
+  'asia/volgograd': 'europe/volgograd',
 
   // argentina
   'america/argentina/comodrivadavia': 'america/catamarca',

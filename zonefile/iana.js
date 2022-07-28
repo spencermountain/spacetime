@@ -1581,10 +1581,6 @@ export default {
     "offset": 4,
     "hem": "n"
   },
-  "asia/volgograd": {
-    "offset": 4,
-    "hem": "n"
-  },
   "europe/warsaw": {
     "offset": 2,
     "hem": "n",
@@ -1679,6 +1675,14 @@ export default {
   },
   "pacific/enderbury": {
     "offset": 13,
+    "hem": "n"
+  },
+  "pacific/kanton": {
+    "offset": 13,
+    "hem": "n"
+  },
+  "america/atikokan": {
+    "offset": -5,
     "hem": "n"
   },
   "pacific/fakaofo": {

@@ -13,7 +13,6 @@ rows.forEach(str => {
   let [id] = str.split(/,/g)
   data[id] = true
 })
-
 Object.keys(zone).forEach(k => {
   let s = spacetime.now(k)
   let tz = s.timezone().name
