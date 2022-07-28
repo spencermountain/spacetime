@@ -1,8 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-
-const dir = path.dirname(fileURLToPath(import.meta.url))
+const dir = path.dirname(fileURLToPath(import.meta.url)) // eslint-disable-line
 
 // https://timezonedb.com/files/TimeZoneDB.csv.zip
 let rows = fs.readFileSync(dir + '/time_zone.csv').toString().split(/\n/g)
@@ -22,6 +21,7 @@ rows.forEach(str => {
 })
 delete data['Pacific/Apia']
 delete data['Asia/Tehran']
+delete data['Pacific/Fiji']
 delete data['Africa/Juba'] //no longer dst
 //aliases
 delete data['America/Kentucky/Louisville']

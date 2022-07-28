@@ -4,9 +4,9 @@ import zone from '../src/zonefile.2022.js'
 
 
 import patterns from '../src/patterns.js'
-import { fromJSDate, fromSpace } from '../src/calc.js'
+import { fromSpace } from '../src/calc.js'
 
-let year = 2022
+let year = 2021
 // let k = 'America/Toronto'
 Object.keys(data).forEach(k => {
   let [start, end] = data[k][year]

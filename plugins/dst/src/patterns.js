@@ -35,6 +35,7 @@ let zones = {
   // syria
   syr: 'last-fri-mar-0h|last-fri-oct-0h',
   //israel
+  // Start: Last Friday before April 2 -> The Sunday between Rosh Hashana and Yom Kippur
   isr: 'last-fri-mar-2h|last-sun-oct-2h',
   //palestine
   pal: 'last-sun-mar-0h|last-fri-oct-1h',
