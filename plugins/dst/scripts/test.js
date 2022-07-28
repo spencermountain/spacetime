@@ -1,8 +1,8 @@
 import zones from './zonefile.2022.js'
 import patterns from './patterns.js'
 // import spacetime from '../../../src/index.js'
-
-
+// let zones = {
+// }
 const calculate = function (obj, year) {
   let d = new Date([year, obj.month, 1])
   let currentDay = d.getDay()
@@ -19,7 +19,7 @@ const calculate = function (obj, year) {
     return d
   }
   if (obj.num === 3) {
-    d.setDate(d.getDate() + 7)
+    d.setDate(d.getDate() + 14)
     return d
   }
   if (obj.num === 'last') {

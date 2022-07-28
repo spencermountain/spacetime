@@ -857,7 +857,7 @@ export default {
     "offset": 8,
     "hours": 3,//changes to +11h
     "hem": "s",
-    "dst": "03/08:01->10/04:00",
+    "dst": "03/13:00->10/02:00",
     "pattern": "ant"
   },
   "antarctica/davis": {
@@ -899,7 +899,7 @@ export default {
   "antarctica/troll": {
     "offset": 2,
     "hem": "s",
-    "dst": "03/27:02->10/30:02",
+    "dst": "03/20:01->10/30:03",
     "pattern": "troll"
   },
   "antarctica/vostok": {
@@ -1776,7 +1776,7 @@ export default {
   "pacific/chatham": {
     "offset": 12.75,
     "hem": "s",
-    "dst": "04/03:03->04/03:02",
+    "dst": "04/03:03->09/25:02",
     "pattern": "chat"
   },
   "pacific/easter": {
