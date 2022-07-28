@@ -1800,7 +1800,7 @@ export default {
   "pacific/fiji": {
     "offset": 12,
     "hem": "s",
-    "dst": "01/17:03->11/13:02",
+    "dst": "01/16:03->11/13:02",//use next year's
     "pattern": "fiji"
   },
   "pacific/funafuti": {
