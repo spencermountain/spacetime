@@ -3,5 +3,5 @@ import spacetime from './src/index.js'
 
 // spacetime.extend(require('./plugins/holiday'))
 
-let s = spacetime.now('America/Port-au-Prince')
+let s = spacetime.now('Etc/GMT+7')
 console.log(s.timezone()) //'Sábado'

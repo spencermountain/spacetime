@@ -15,6 +15,7 @@ test('titlecase', (t) => {
     'Europe/Zagreb',
     'America/Bahia_Banderas',
     'Asia/Kuching',
+    'Etc/GMT+7',
   ]
   arr.forEach(tz => {
     let s = spacetime.now(tz)

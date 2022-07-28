@@ -15,7 +15,7 @@ const titleCase = str => {
     return s.toUpperCase()
   })
   str = str.replace(/_of_/i, '_of_')
-  str = str.replace(/\/gmt$/i, '/GMT')
+  str = str.replace(/\/gmt/i, '/GMT')
   str = str.replace(/\/Dumontdurville$/i, '/DumontDUrville')
   str = str.replace(/\/Ust-nera$/i, '/Ust-Nera')
   str = str.replace(/\/Mcmurdo$/i, '/McMurdo')
