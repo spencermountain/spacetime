@@ -8,6 +8,8 @@ export default {
   'africa/asmera': 'africa/nairobi',
   'africa/timbuktu': 'africa/abidjan',
   'america/atka': 'america/adak',
+  'america/coral_harbour': 'america/atikokan',
+
   // argentina
   'america/argentina/comodrivadavia': 'america/catamarca',
   'america/argentina/buenos_aires': 'america/buenos_aires',
@@ -17,7 +19,6 @@ export default {
   'america/argentina/mendoza': 'america/mendoza',
   'america/argentina/rosario': 'america/cordoba',
 
-  'america/atikokan': 'america/coral_harbour',
   'america/ensenada': 'america/tijuana',
   'america/fort_wayne': 'america/indianapolis',
   'america/godthab': 'america/nuuk',

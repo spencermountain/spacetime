@@ -341,7 +341,7 @@ export default {
     "dst": "04/03:02->10/30:02",
     "pattern": "mex"
   },
-  "america/coral_harbour": {
+  "america/atikokan": {
     "offset": -5,
     "hem": "n"
   },
@@ -730,12 +730,6 @@ export default {
   "america/rio_branco": {
     "offset": -5,
     "hem": "s"
-  },
-  "america/santa_isabel": {
-    "offset": -7,
-    "hem": "n",
-    "dst": "03/13:02->11/06:02",
-    "pattern": "usa"
   },
   "america/santarem": {
     "offset": -3,
