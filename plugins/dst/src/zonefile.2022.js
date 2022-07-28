@@ -1062,7 +1062,7 @@ export default {
     "offset": 5,
     "hem": "n"
   },
-  "asia/katmandu": {
+  "asia/kathmandu": {
     "offset": 5.75,
     "hem": "n"
   },
@@ -1666,10 +1666,6 @@ export default {
     "pattern": "eu3"
   },
   "europe/volgograd": {
-    "offset": 4,
-    "hem": "n"
-  },
-  "asia/volgograd": {
     "offset": 4,
     "hem": "n"
   },

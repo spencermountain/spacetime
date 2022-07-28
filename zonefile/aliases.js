@@ -45,7 +45,7 @@ export default {
   'asia/harbin': 'asia/shanghai',
   'asia/istanbul': 'europe/istanbul',
   'asia/kashgar': 'asia/urumqi',
-  'asia/kathmandu': 'asia/katmandu',
+  'asia/katmandu': 'asia/kathmandu',
   'asia/macao': 'asia/macau',
   'asia/rangoon': 'asia/yangon',
   'asia/saigon': 'asia/ho_chi_minh',

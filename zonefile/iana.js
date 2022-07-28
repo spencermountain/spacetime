@@ -1026,7 +1026,7 @@ export default {
     "offset": 5,
     "hem": "n"
   },
-  "asia/katmandu": {
+  "asia/kathmandu": {
     "offset": 5.75,
     "hem": "n"
   },
