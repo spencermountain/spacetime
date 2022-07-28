@@ -740,7 +740,7 @@ export default {
   "america/santiago": {
     "offset": -4,
     "hem": "s",
-    "dst": "04/02:24->09/04:00",
+    "dst": "04/03:00->09/04:00",
     "pattern": "chile"
   },
   "america/santo_domingo": {
@@ -1800,7 +1800,7 @@ export default {
   "pacific/fiji": {
     "offset": 12,
     "hem": "s",
-    "dst": "01/17:03->11/14:02",
+    "dst": "01/17:03->11/13:02",
     "pattern": "fiji"
   },
   "pacific/funafuti": {

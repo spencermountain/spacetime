@@ -5,7 +5,7 @@
 let zones = {
   usa: '2nd-sun-mar-2h|1st-sun-nov-2h',// (From 1987 to 2006)
   // mexico
-  mexico: '1st-sun-apr-2h|last-sun-oct-2h',
+  mex: '1st-sun-apr-2h|last-sun-oct-2h',
 
   // European Union zone
   eu0: 'last-sun-mar-0h|last-sun-oct-1h',
@@ -48,7 +48,7 @@ let zones = {
   //easter island
   east: '1st-sat-apr-22h|1st-sat-sep-22h',
   //fiji
-  fiji: '2nd-sun-jan-3h|2nd-sun-nov-2h',
+  fiji: '3rd-sun-jan-3h|2nd-sun-nov-2h',
 
 }
 const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
@@ -79,5 +79,5 @@ Object.keys(zones).forEach(k => {
     end: parse(end),
   }
 })
-console.log(zones)
+
 export default zones
