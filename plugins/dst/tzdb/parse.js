@@ -19,12 +19,13 @@ rows.forEach(str => {
   data[id][year] = data[id][year] || []
   data[id][year].push(epoch)
 })
-delete data['Pacific/Apia']
-delete data['Asia/Tehran']
-delete data['Pacific/Fiji']
-delete data['Africa/Juba'] //no longer dst
-//aliases
-delete data['America/Kentucky/Louisville']
-delete data['America/Indiana/Indianapolis']
+// delete data['Pacific/Apia']
+// delete data['Asia/Tehran']
+// delete data['Pacific/Fiji']
+// delete data['Africa/Juba'] //no longer dst
+// //aliases
+// delete data['America/Kentucky/Louisville']
+// delete data['America/Indiana/Indianapolis']
 
 export default data
+// console.log(data)
