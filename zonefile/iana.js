@@ -816,7 +816,7 @@ export default {
   "antarctica/casey": {
     "offset": 8,
     "hem": "s",
-    "dst": "03/08:01->10/04:00"
+    "dst": "03/13:01->10/02:00"
   },
   "antarctica/davis": {
     "offset": 7,
@@ -855,7 +855,7 @@ export default {
   "antarctica/troll": {
     "offset": 2,
     "hem": "s",
-    "dst": "03/27:02->10/30:02"
+    "dst": "03/20:01->10/30:03"
   },
   "antarctica/vostok": {
     "offset": 6,
@@ -1656,7 +1656,7 @@ export default {
   "pacific/chatham": {
     "offset": 12.75,
     "hem": "s",
-    "dst": "04/03:03->04/03:02"
+    "dst": "04/03:03->09/24:02"
   },
   "pacific/easter": {
     "offset": -6,
