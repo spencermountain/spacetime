@@ -298,8 +298,7 @@ export default {
   },
   "america/campo_grande": {
     "offset": -4,
-    "hem": "s",
-    "dst": "02/16:24->11/03:00"
+    "hem": "s"
   },
   "america/cancun": {
     "offset": -5,
@@ -349,8 +348,7 @@ export default {
   },
   "america/cuiaba": {
     "offset": -4,
-    "hem": "s",
-    "dst": "02/16:24->11/03:00"
+    "hem": "s"
   },
   "america/curacao": {
     "offset": -4,
@@ -362,8 +360,7 @@ export default {
   },
   "america/dawson": {
     "offset": -7,
-    "hem": "n",
-    "dst": "03/08:02->11/01:01"
+    "hem": "n"
   },
   "america/dawson_creek": {
     "offset": -7,
@@ -799,8 +796,7 @@ export default {
   },
   "america/whitehorse": {
     "offset": -7,
-    "hem": "n",
-    "dst": "03/08:02->11/01:01"
+    "hem": "n"
   },
   "america/winnipeg": {
     "offset": -5,
@@ -845,9 +841,8 @@ export default {
     "dst": "04/03:03->09/25:02"
   },
   "antarctica/palmer": {
-    "offset": -4,
+    "offset": -3,
     "hem": "s",
-    "dst": "05/13:23->08/13:01"
   },
   "antarctica/rothera": {
     "offset": -3,
@@ -1648,7 +1643,6 @@ export default {
   "pacific/apia": {
     "offset": 13,
     "hem": "s",
-    "dst": "04/04:04->09/26:03"
   },
   "pacific/auckland": {
     "offset": 12,
@@ -1801,8 +1795,7 @@ export default {
   },
   "pacific/tongatapu": {
     "offset": 13,
-    "hem": "s",
-    "dst": "01/15:02->11/05:03"
+    "hem": "s"
   },
   "pacific/chuuk": {
     "offset": 10,
