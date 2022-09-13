@@ -23,6 +23,7 @@ test('random november time', (t) => {
     ['Africa/Cairo', 'Thu 4:35am'],
     ['Asia/Kathmandu', 'Thu 8:20am'],
     ['Europe/Paris', 'Thu 3:35am'],
+    ['Europe/Kiev', 'Thu 4:35am'], // Alias to "Europe/Kyiv"
     ['America/Winnipeg', 'Wed 8:35pm'],
     ['America/Edmonton', 'Wed 7:35pm'],
     ['Africa/Khartoum', 'Thu 4:35am']
@@ -48,6 +49,7 @@ test('random march time', (t) => {
     ['America/Resolute', 'Mar 13 2018 22:55:50'],
     ['Asia/Gaza', 'Mar 14 2018 05:55:50'],
     ['Europe/Minsk', 'Mar 14 2018 06:55:50'],
+    ['Europe/Kiev', 'Mar 14 2018 05:55:50'], // Alias to "Europe/Kyiv"
     ['Europe/Rome', 'Mar 14 2018 04:55:50'],
     ['Europe/Zagreb', 'Mar 14 2018 04:55:50'],
     ['Indian/Mahe', 'Mar 14 2018 07:55:50'],
@@ -79,6 +81,7 @@ test('random july time', (t) => {
     ['America/Belize', 'Jul 17 7:55am'],
     ['America/Detroit', 'Jul 17 9:55am'],
     ['Australia/Currie', 'Jul 17 11:55pm'],
+    ['Europe/Kiev', 'Jul 17 4:55pm'], // Alias to "Europe/Kyiv"
     ['Europe/Zagreb', 'Jul 17 3:55pm'],
     ['America/Caracas', 'Jul 17 9:55am'],
     ['Asia/Karachi', 'Jul 17 6:55pm']
@@ -106,6 +109,7 @@ test('random january time', (t) => {
     ['Asia/Barnaul', 'Jan 29 7:09pm'],
     ['Asia/Urumqi', 'Jan 29 6:09pm'],
     ['Asia/Tbilisi', 'Jan 29 4:09pm'],
+    ['Europe/Kiev', 'Jan 29 2:09pm'], // Alias to "Europe/Kyiv"
     ['Pacific/Pohnpei', 'Jan 29 11:09pm']
   ]
   arr.forEach((a) => {
