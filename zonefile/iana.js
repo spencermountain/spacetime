@@ -1423,6 +1423,11 @@ export default {
     "hem": "n",
     "dst": "03/27:03->10/30:04"
   },
+  "europe/kyiv": {
+    "offset": 3,
+    "hem": "n",
+    "dst": "03/27:03->10/30:04"
+  },
   "europe/lisbon": {
     "offset": 1,
     "hem": "n",
