@@ -4,10 +4,14 @@
 
 // link-name : target
 export default {
-  'africa/asmara': 'africa/nairobi',
   'africa/asmera': 'africa/nairobi',
   'africa/timbuktu': 'africa/abidjan',
   'america/atka': 'america/adak',
+  'america/coral_harbour': 'america/atikokan',
+
+  'pacific/enderbury': 'pacific/kanton',
+  'asia/volgograd': 'europe/volgograd',
+
   // argentina
   'america/argentina/comodrivadavia': 'america/catamarca',
   'america/argentina/buenos_aires': 'america/buenos_aires',
@@ -17,12 +21,14 @@ export default {
   'america/argentina/mendoza': 'america/mendoza',
   'america/argentina/rosario': 'america/cordoba',
 
-  'america/atikokan': 'america/coral_harbour',
   'america/ensenada': 'america/tijuana',
   'america/fort_wayne': 'america/indianapolis',
   'america/godthab': 'america/nuuk',
+  'america/indiana': 'america/indianapolis',
   'america/indiana/indianapolis': 'america/indianapolis',
+  'america/kentucky': 'america/louisville',
   'america/kentucky/louisville': 'america/louisville',
+  'america/north_dakota': 'america/boise',
   'america/knox_in': 'america/indiana/knox',
   'america/montreal': 'america/toronto',
   'america/porto_acre': 'america/rio_branco',
@@ -39,7 +45,7 @@ export default {
   'asia/harbin': 'asia/shanghai',
   'asia/istanbul': 'europe/istanbul',
   'asia/kashgar': 'asia/urumqi',
-  'asia/kathmandu': 'asia/katmandu',
+  'asia/katmandu': 'asia/kathmandu',
   'asia/macao': 'asia/macau',
   'asia/rangoon': 'asia/yangon',
   'asia/saigon': 'asia/ho_chi_minh',
@@ -124,7 +130,7 @@ export default {
   'us/aleutian': 'america/adak',
   'us/arizona': 'america/phoenix',
   'us/central': 'america/chicago',
-  'us/east-indiana': 'america/indiana/indianapolis',
+  'us/east-indiana': 'america/indianapolis',
   'us/eastern': 'america/new_york',
   'us/hawaii': 'pacific/honolulu',
   'us/indiana-starke': 'america/indiana/knox',
@@ -136,4 +142,6 @@ export default {
   'utc': 'etc/utc',
   'w-su': 'europe/moscow',
   'zulu': 'etc/utc',
+
+  'europe/kiev': 'europe/kyiv'
 }

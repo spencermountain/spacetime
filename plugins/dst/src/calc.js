@@ -1,64 +1,52 @@
 import spacetime from '../../../src/index.js'
-// USA:
-// 	Spring: 2nd Sunday in March  - skip 2am.
-// 	Fall: 1st Sunday in November  -  repeat 2am.
-// EU:
-// 	Spring: last Sunday in March.
-// 	Fall: last Sunday in October.
 
-let zone = {
-  // last Sunday in March
-  start: {
-    day: 'sunday',
-    num: 'last',
-    month: 'march'
-    // hour: ()=>{}
-  },
-  // the last Sunday in October.
-  end: {
-    day: 'sunday',
-    num: 'last',
-    month: 'october'
-    // hour: ()=>{}
+const fromJSDate = function (obj, year) {
+  let d = new Date([year, obj.month, 1])
+  let currentDay = d.getDay()
+  // set to the right day eg 'monday'
+  if (currentDay !== obj.day) {
+    let distance = (obj.day + 7 - currentDay) % 7;
+    d.setDate(1 + distance)
   }
-}
-// last sunday of the month, eg
-const findLast = function (s, obj) {
-  s = s.endOf('month')
-  if (obj.day !== undefined) {
-    s = s.day(obj.day, false) //backward
+  if (obj.num === 1) {
+    return d
   }
-  if (obj.hour !== undefined) {
-    s = s.hour(obj.hour)
+  if (obj.num === 2) {
+    d.setDate(d.getDate() + 7)
+    return d
   }
-  return s.format('iso')
-}
-
-const findEpoch = function (obj, tz, year) {
-  let s = spacetime.now(tz)
-  s = s.year(year).month(obj.month).startOf('month')
-  // compute 'last'
+  if (obj.num === 3) {
+    d.setDate(d.getDate() + 14)
+    return d
+  }
   if (obj.num === 'last') {
-    return findLast(s, obj)
+    // get the last sunday in the month
+    let m = d.getMonth()
+    while (d.getMonth() === m) {
+      d.setDate(d.getDate() + 7)
+    }
+    d.setDate(d.getDate() - 7)
   }
-  // otherwise, compute nth
-  s = s.day(obj.day, true) //1st
-  s = s.add(obj.num - 1, 'week')
+  return d
+}
+
+const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+
+const fromSpace = function (obj, tz, year) {
+  let s = spacetime.now(tz).year(year).startOf('year')
+  s = s.month(months[obj.month - 1])
+  s = s.startOf('month')
+  s = s.day(days[obj.day], true)
+  if (obj.num === 2) {
+    s = s.add(1, 'week')
+  } else if (obj.num === 3) {
+    s = s.add(2, 'week')
+  } else if (obj.num === 'last') {
+    s = s.endOf('month')
+    s = s.day(obj.day, false)//roll backward
+  }
   s = s.hour(obj.hour)
-  // s = s.minus(1, 'second')
-  return s.format('iso')
+  return s
 }
-
-// 2020	  -  Sunday, March 8, 2:00am	  -  	Sunday, November 1, 2:00 am
-// 2021	  -  Sunday, March 14, 2:00am	  -  	Sunday, November 7, 2:00 am
-// 2022	  -  Sunday, March 13, 2:00am	  -  	Sunday, November 6, 2:00 am
-// 2023	  -  Sunday, March 12, 2:00am	  -  	Sunday, November 5, 2:00 am
-// 2024	  -  Sunday, March 10, 2:00am	  -  	Sunday, November 3, 2:00 am
-
-const calc = function (id, year) {
-  return {
-    start: findEpoch(zone.start, id, year),
-    end: findEpoch(zone.end, id, year)
-  }
-}
-export default calc
+export { fromJSDate, fromSpace }
