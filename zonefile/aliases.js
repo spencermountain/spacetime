@@ -142,4 +142,6 @@ export default {
   'utc': 'etc/utc',
   'w-su': 'europe/moscow',
   'zulu': 'etc/utc',
+
+  'europe/kiev': 'europe/kyiv'
 }

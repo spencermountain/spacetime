@@ -715,7 +715,7 @@ export default {
   "america/santiago": {
     "offset": -4,
     "hem": "s",
-    "dst": "04/02:24->09/04:00"
+    "dst": "04/02:24->09/11:00"
   },
   "america/santo_domingo": {
     "offset": -4,
@@ -1418,11 +1418,6 @@ export default {
     "offset": 3,
     "hem": "n"
   },
-  "europe/kiev": {
-    "offset": 3,
-    "hem": "n",
-    "dst": "03/27:03->10/30:04"
-  },
   "europe/kyiv": {
     "offset": 3,
     "hem": "n",
@@ -1672,7 +1667,7 @@ export default {
   "pacific/easter": {
     "offset": -6,
     "hem": "s",
-    "dst": "04/02:22->09/03:22"
+    "dst": "04/02:22->09/10:22"
   },
   "pacific/efate": {
     "offset": 11,
