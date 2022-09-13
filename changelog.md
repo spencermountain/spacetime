@@ -5,9 +5,14 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- 
- ### 7.1.3 [April 2022]
+ ### 7.2.0 [Sep 2022]
 
  -->
+ ### 7.2.0 [Sep 2022]
+ - **[update]** - Kiev/Kyiv alias
+ - **[update]** - chile DST change
+ - **[fix]** - antarctic dst times
+ - update dependencies
 
  ### 7.1.4 [April 2022]
  - **[fix]** - export .cjs format for plugins in es5
