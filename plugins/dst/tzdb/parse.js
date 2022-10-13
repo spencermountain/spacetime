@@ -28,4 +28,4 @@ rows.forEach(str => {
 // delete data['America/Indiana/Indianapolis']
 
 export default data
-// console.log(data)
+console.log(data)
