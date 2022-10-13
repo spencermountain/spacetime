@@ -40,10 +40,10 @@ const addMonths = function (months, year) {
 const toWeekDay = function (obj, year) {
   let day = getDay(year, obj.month, 1)
   let want = obj.day
+  // console.log(want)
   let diff = 0
   for (let i = 0; i < 7; i += 1) {
     if (day === want) {
-      // console.log('add', diff, 'days')
       return diff //* DAY
     }
     day += 1
@@ -58,25 +58,41 @@ const toRightWeek = function (num) {
     return 0
   }
   if (num === 'last') {
-    return 3 //* 7 * DAY//fixme
-    // num = -1
+    console.log('fixme')
+    return 3
   }
   let addWeeks = num - 1
   return addWeeks //* 7// * DAY
 }
 
+const lastWeekday = function (epoch, obj, year) {
+  // console.log('last weekday')
+  // go to next month
+  let days = monthLengths[obj.month + 1] || 31
+  epoch += days * DAY
+  // go to the day
+  days = toWeekDay(obj, year)
+  // back a week
+  days -= 7
+  epoch += days * DAY
+  return epoch
+}
+
 const calc = function (obj, year, offset) {
   let epoch = byYear[String(year)]
-
   // go to the correct month
   epoch += addMonths(obj.month, year)
-  // go to the correct day
-  let days = toWeekDay(obj, year)
-  epoch += days * DAY
-  // // go to the correct week
-  let weeks = toRightWeek(obj.num)
-  epoch += weeks * 7 * DAY
-  // // go to the correct hour
+  if (obj.num === 'last') {
+    epoch = lastWeekday(epoch, obj, year)
+  } else {
+    // go to the correct day
+    let days = toWeekDay(obj, year)
+    epoch += days * DAY
+    // go to the correct week
+    let weeks = toRightWeek(obj.num, obj)
+    epoch += weeks * 7 * DAY
+  }
+  // go to the correct hour
   epoch += (obj.hour || 0) * HOUR
   // go to the correct offset
   epoch -= offset * 60 * 60 * 1000
