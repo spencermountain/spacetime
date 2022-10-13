@@ -13,6 +13,7 @@ rows.forEach(str => {
   let d = new Date(epoch)
   let year = d.getFullYear()
   if (!want.has(year)) {
+    // if (year > 1970 && year < 2030) {
     return
   }
   data[id] = data[id] || {}

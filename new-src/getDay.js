@@ -66,15 +66,16 @@ const leap_code = function (year) {
 }
 
 // which day of the week is it?
-const getDay = function (obj) {
-  let yc = year_code(obj.year);
-  let mc = month_code(obj.month);
-  let cc = century_code(obj.year);
-  let dc = obj.date;
-  let lc = leap_code(obj.year);
+const getDay = function (year, month, date) {
+  let yc = year_code(year);
+  let mc = month_code(month);
+  let cc = century_code(year);
+  let dc = date;
+  let lc = leap_code(year);
   // (Year Code + Month Code + Century Code + Date Number - Leap Year Code) mod 7
   let day = (yc + mc + cc + dc + lc) % 7;
-  return DAYS[day]
+  return day
+  // return DAYS[day]
 }
 export default getDay
 

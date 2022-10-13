@@ -86,3 +86,4 @@ Object.keys(zones).forEach(k => {
 })
 
 export default zones
+// console.log(zones)

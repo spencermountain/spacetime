@@ -34,11 +34,11 @@ const byDateObj = function (obj, year, offset) {
 const calcPattern = function (obj, year, offset) {
   let d = byDateObj(obj, year)
   // offset *= 60
-  console.log(d.getTimezoneOffset() / 60, offset)
+  // console.log(d.getTimezoneOffset() / 60, offset)
   let bias = d.getTimezoneOffset() || 0
   bias *= 60 * 1000
 
-  offset = offset * 60 * 60 * 1000
+  // offset = offset * 60 * 60 * 1000
   // console.log('offset', offset)
   let epoch = d.getTime()
   return epoch + bias
