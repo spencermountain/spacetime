@@ -1,15 +1,15 @@
 // determine current day (mon, tues)
 // using 'Key-Value Method' from - https://artofmemory.com/blog/how-to-calculate-the-day-of-the-week/
 
-const DAYS = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
+// const DAYS = [
+//   'Sunday',
+//   'Monday',
+//   'Tuesday',
+//   'Wednesday',
+//   'Thursday',
+//   'Friday',
+//   'Saturday',
+// ];
 
 const month_code = function (n) {
   let month_codes = [

@@ -1,4 +1,4 @@
-import byYear from './data/byYear.js'
+import byYear from '../data/byYear.js'
 import getDay from './getDay.js'
 
 const HOUR = 1000 * 60 * 60
@@ -64,7 +64,6 @@ const toRightWeek = function (num, day, month) {
     for (let i = 0; i < 5; i += 1) {
       days += 7
       if (days + day >= max) {
-        console.log('add days:', days - 7)
         return days - 7 //went too far
       }
     }
@@ -75,28 +74,11 @@ const toRightWeek = function (num, day, month) {
   return days // * DAY
 }
 
-// const lastWeekday = function (epoch, obj, year) {
-//   // go to next month
-//   let days = monthLengths[obj.month + 1] || 31
-//   epoch += days * DAY
-//   console.log(new Date(epoch))
-//   // go to the day
-//   days = toWeekDay(obj, year)
-//   epoch += days * DAY
-//   console.log(new Date(epoch))
-//   // back a week
-//   epoch -= 7 * DAY
-//   console.log(new Date(epoch))
-//   return epoch
-// }
 
 const calc = function (obj, year, offset) {
   let epoch = byYear[String(year)]
   // go to the correct month
   epoch += addMonths(obj.month, year)
-  // if (obj.num === 'last') {
-  //   epoch = lastWeekday(epoch, obj, year)
-  // } else {
   // go to the correct day
   let days = toWeekDay(obj, year)
   epoch += days * DAY
