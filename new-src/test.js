@@ -45,12 +45,13 @@ const isCorrect = function (tz, year) {
   return false
 }
 
-// const tz = 'America/Los_Angeles'
-// const tz = 'America/Toronto'
-const tz = 'Europe/Zaporozhye'
-// const tz = 'Europe/Sofia'
-// const tz = 'Asia/Hebron'
-// const tz = 'Australia/Adelaide'
+let tz = ''
+tz = 'America/Los_Angeles'
+tz = 'America/Toronto'
+tz = 'Europe/Zaporozhye'
+// tz = 'Europe/Sofia'
+// tz = 'Asia/Hebron'
+// tz = 'Australia/Adelaide'
 // const year = 2023
 // for (let i = 2021; i < 2024; i += 1) {
 //   console.log(i)
@@ -58,17 +59,17 @@ const tz = 'Europe/Zaporozhye'
 // }
 isCorrect(tz, 2022)
 
-// let year = 2022
-// let good = 0
-// let bad = 0
-// Object.keys(zones).forEach(k => {
-//   if (zones[k].pattern) {
-//     if (isCorrect(k, year)) {
-//       good += 1
-//     } else {
-//       bad += 1
-//     }
-//   }
-// })
-// console.log(good)
-// console.log(bad)
+let year = 2022
+let good = 0
+let bad = 0
+Object.keys(zones).forEach(k => {
+  if (zones[k].pattern) {
+    if (isCorrect(k, year)) {
+      good += 1
+    } else {
+      bad += 1
+    }
+  }
+})
+console.log(good)
+console.log(bad)
