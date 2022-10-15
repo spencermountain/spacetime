@@ -1,5 +1,6 @@
-import byYear from '../data/byYear.js'
+import yearStart from './yearStart.js'
 import getDay from './getDay.js'
+import isLeapYear from './isLeap.js'
 
 const HOUR = 1000 * 60 * 60
 const DAY = HOUR * 24
@@ -18,11 +19,6 @@ const monthLengths = [
   30, //November - 30 days
   31, //December - 31 days
 ];
-
-//https://www.timeanddate.com/date/leapyear.html
-const isLeapYear = function (year) {
-  return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-};
 
 const addMonths = function (months, year) {
   let ms = 0
@@ -75,7 +71,7 @@ const toRightWeek = function (num, day, month) {
 
 
 const calc = function (obj, year, offset) {
-  let epoch = byYear[String(year)]
+  let epoch = yearStart(year)
   // go to the correct month
   epoch += addMonths(obj.month, year)
   // go to the correct day
