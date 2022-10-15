@@ -8,30 +8,21 @@ const skip = {
   'Pacific/Chatham': true,
   'Pacific/Fiji': true,
   'Pacific/Norfolk': true,
+  'Africa/Juba': true, //one-off dst change in 2021
+  'Pacific/Apia': true, //one-off dst change in 2021
 }
 
-test('all zones 2022', (t) => {
-  let year = 2022
-  Object.keys(zones).forEach(tz => {
-    let changes = getDst(tz, year)
-    if (tzdb[tz] && !skip[tz]) {
-      let fromDb = tzdb[tz][String(year)] || []
-      t.equal(changes.start, fromDb[0], '[start] ' + tz)
-      t.equal(changes.end, fromDb[1], '[end] ' + tz)
-    }
-  })
+test('all zones', (t) => {
+  for (let year = 2021; year < 2024; year += 1) {
+    Object.keys(zones).forEach(tz => {
+      let changes = getDst(tz, year)
+      if (tzdb[tz] && !skip[tz]) {
+        let fromDb = tzdb[tz][String(year)] || []
+        t.equal(changes.start, fromDb[0], `[start] ${year} ${tz}`)
+        t.equal(changes.end, fromDb[1], `[end]  ${year} ${tz}`)
+      }
+    })
+  }
   t.end()
 })
 
-test('all zones 2023', (t) => {
-  let year = 2023
-  Object.keys(zones).forEach(tz => {
-    let changes = getDst(tz, year)
-    if (tzdb[tz] && !skip[tz]) {
-      let fromDb = tzdb[tz][String(year)] || []
-      t.equal(changes.start, fromDb[0], '[start] ' + tz)
-      t.equal(changes.end, fromDb[1], '[end] ' + tz)
-    }
-  })
-  t.end()
-})
