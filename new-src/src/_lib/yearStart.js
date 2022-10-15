@@ -3,7 +3,7 @@ import { YEAR, LEAPYEAR } from './millis.js'
 
 
 // get UTC epoch for jan 1
-const getEpoch = function (year) {
+const getStart = function (year) {
   let n = 0
   for (let y = 1970; y < year; y += 1) {
     if (isLeap(y)) {
@@ -16,21 +16,22 @@ const getEpoch = function (year) {
 }
 
 const getYear = function (epoch) {
-  // if (epoch < 0) {
-  // }
-
   let e = 0
   let year = 1970
-  while (e < epoch) {
-    e += YEAR
-    if (e > epoch) {
-      return year
+  while (e <= epoch) {
+    if (isLeap(year)) {
+      e += LEAPYEAR
+    } else {
+      e += YEAR
     }
     year += 1
+    console.log(year, e)
   }
-  return year
+  return { start: e, year }
 }
-export { getEpoch, getYear }
+
+export { getStart, getYear }
 
 // console.log(getYear(1514764824000) === 2018)
-// console.log(getYear(1546300800000))
+let num = 347159200000
+console.log(getYear(num).start < num)

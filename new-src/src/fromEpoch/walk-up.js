@@ -1,4 +1,10 @@
-const walkUp = function (epoch, year) {
+import { getYear } from '../_lib/yearStart.js'
+import { SEC, MIN, HOUR, DAY } from '../_lib/millis.js'
+
+
+const walkUp = function (end) {
+  let { start, year } = getYear(end)
+  let epoch = start
   let cal = {
     year,
     month: 1,
@@ -7,5 +13,8 @@ const walkUp = function (epoch, year) {
     second: 0,
     millisecond: 0
   }
+  let diff = end - epoch;
+  let days = diff / DAY;
+  console.log(days)
 }
 export default walkUp
