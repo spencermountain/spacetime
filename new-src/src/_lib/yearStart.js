@@ -1,15 +1,15 @@
 import isLeap from './isLeap.js'
-const leap = 31622400000
-const nonLeap = 31536000000
+import { YEAR, LEAPYEAR } from './millis.js'
+
 
 // get UTC epoch for jan 1
 const getEpoch = function (year) {
   let n = 0
   for (let y = 1970; y < year; y += 1) {
     if (isLeap(y)) {
-      n += leap
+      n += LEAPYEAR
     } else {
-      n += nonLeap
+      n += YEAR
     }
   }
   return n
@@ -22,7 +22,7 @@ const getYear = function (epoch) {
   let e = 0
   let year = 1970
   while (e < epoch) {
-    e += nonLeap
+    e += YEAR
     if (e > epoch) {
       return year
     }

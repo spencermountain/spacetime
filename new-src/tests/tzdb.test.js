@@ -1,5 +1,5 @@
 import test from 'tape'
-import getDst from '../dst/index.js'
+import getDst from '../src/dst/index.js'
 import tzdb from '../tzdb/index.js'
 import zones from '../data/zonefile.2022.js'
 
