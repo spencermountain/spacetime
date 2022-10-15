@@ -1,5 +1,5 @@
 import test from 'tape'
-import yearStart from '../dst/yearStart.js'
+import { getYear, getEpoch } from '../src/_lib/yearStart.js'
 
 // jan 1 utc
 let years = [
@@ -69,7 +69,15 @@ let years = [
 test('get jan-1 epochs', (t) => {
   years.forEach(a => {
     let year = Number(a[0])
-    t.equal(yearStart(year), a[1], year)
+    t.equal(getEpoch(year), a[1], '[getEpoch] ' + year)
+  })
+  t.end()
+})
+
+test('get jan-1 epochs', (t) => {
+  years.forEach(a => {
+    let epoch = a[1] + 50000 //+50s
+    t.equal(getYear(epoch), Number(a[0]), '[getYear] ' + a[0])
   })
   t.end()
 })

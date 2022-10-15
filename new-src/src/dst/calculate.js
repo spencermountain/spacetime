@@ -1,6 +1,6 @@
-import yearStart from './yearStart.js'
-import getDay from './getDay.js'
-import isLeapYear from './isLeap.js'
+import { getEpoch } from '../_lib/yearStart.js'
+import getDay from '../_lib/getDay.js'
+import isLeapYear from '../_lib/isLeap.js'
 
 const HOUR = 1000 * 60 * 60
 const DAY = HOUR * 24
@@ -71,7 +71,7 @@ const toRightWeek = function (num, day, month) {
 
 
 const calc = function (obj, year, offset) {
-  let epoch = yearStart(year)
+  let epoch = getEpoch(year)
   // go to the correct month
   epoch += addMonths(obj.month, year)
   // go to the correct day
