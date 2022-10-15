@@ -32,4 +32,4 @@ export default data
 
 
 // console.log(data['Pacific/Fiji'])
-// console.log(data['Asia/Tehran'])
+// console.log(data['Asia/Jerusalem'])
