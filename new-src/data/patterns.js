@@ -16,17 +16,17 @@ let zones = {
   green: 'last-sat-mar-22h|last-sat-oct-23h',
 
   // australia
-  aus: '1st-sun-apr-3h|1st-sun-oct-2h',
+  aus: '1st-sun-apr-1h|1st-sun-oct-2h',
   //lord howe australia
-  lhow: '1st-sun-apr-2h|1st-sun-oct-2h',
+  lhow: '1st-sun-apr-0.5h|1st-sun-oct-2h',
   // new zealand
-  chat: '1st-sun-apr-3h|last-sun-sep-2h', //technically 3:45h -> 2:45h
+  chat: '1st-sun-apr-2h|last-sun-sep-2h', //technically 3:45h -> 2:45h
   // new Zealand, antarctica 
-  nz: '1st-sun-apr-3h|last-sun-sep-2h',
+  nz: '1st-sun-apr-1h|last-sun-sep-2h',
   // casey - antarctica
   ant: '2nd-sun-mar-0h|1st-sun-oct-0h',
   // troll - antarctica
-  troll: '3rd-sun-mar-1h|last-sun-oct-3h',
+  troll: 'last-sun-mar-2h|last-sun-oct-3h',
 
   //jordan
   jord: 'last-fri-feb-0h|last-fri-oct-1h',
@@ -45,15 +45,17 @@ let zones = {
   saha: 'last-sun-mar-3h|1st-sun-may-2h',
 
   // paraguay
-  par: 'last-sun-mar-0h|1st-sun-oct-0h',
+  par: 'last-sat-mar-22h|1st-sun-oct-0h',
   //cuba
   cuba: '2nd-sun-mar-0h|1st-sun-nov-1h',
   //chile
-  chile: '1st-sun-apr-0h|1st-sun-sep-0h',
+  chile: '1st-sat-apr-22h|1st-sun-sep-0h',
   //easter island
-  east: '1st-sat-apr-22h|1st-sat-sep-22h',
+  east: '1st-sat-apr-20h|1st-sat-sep-22h',
   //fiji
   fiji: '3rd-sun-jan-3h|2nd-sun-nov-2h',
+  // iran
+  iran: '4th-mon-march-0h|3rd-fri-sep-0h',//arabic calendar?
 
 }
 const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']

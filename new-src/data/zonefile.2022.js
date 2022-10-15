@@ -1132,7 +1132,8 @@ export default {
   },
   "Asia/Tehran": {
     "offset": 3.5,
-    "hem": "n"
+    "hem": "n",
+    "pattern": "iran"//ending in 2022
   },
   "Asia/Thimphu": {
     "offset": 6,

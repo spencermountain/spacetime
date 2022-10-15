@@ -40,7 +40,6 @@ const addMonths = function (months, year) {
 const toWeekDay = function (obj, year) {
   let day = getDay(year, obj.month, 1)
   let want = obj.day
-  // console.log(want)
   let diff = 0
   for (let i = 0; i < 7; i += 1) {
     if (day === want) {

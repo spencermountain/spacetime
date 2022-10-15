@@ -19,7 +19,7 @@
     "pack": "node ./zonefile/pack.js",
     "version": "node ./scripts/version.js",
     "watch": "amble ./scratch.js",
-    "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer  --color always",
+    "test": "TESTENV=dev tape ./new-src/**/*.test.js | tap-dancer  --color always",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer  --color always",
     "test:types": "ts-node ./test/types/index.ts | tap-dancer  --color always",
     "coverage": "nyc -r lcov -n 'src/**/*' -n 'plugins/**/*' npm run coverage:tests",

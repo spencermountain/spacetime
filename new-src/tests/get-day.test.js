@@ -1,5 +1,5 @@
 import test from 'tape'
-import getDay from '../src/getDay.js'
+import getDay from '../dst/getDay.js'
 const DAYS = [
   'Sunday',
   'Monday',
