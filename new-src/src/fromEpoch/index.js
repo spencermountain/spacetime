@@ -1,6 +1,6 @@
 import getDst from '../dst/index.js'
 import { getYear } from '../_lib/yearStart.js'
-import walk from './walk.js'
+import walkUp from './walk-up.js'
 
 const fromEpoch = function (epoch, tz) {
   let year = getYear(epoch)
@@ -10,7 +10,7 @@ const fromEpoch = function (epoch, tz) {
   if (dst.start && epoch >= dst.start && epoch < dst.end) {
     offset += 1
   }
-  let cal = walk(epoch, year)
+  let cal = walkUp(epoch, year)
   console.log(dst)
 }
 export default fromEpoch

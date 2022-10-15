@@ -1,4 +1,4 @@
-const walk = function (epoch, year) {
+const walkUp = function (epoch, year) {
   let cal = {
     year,
     month: 1,
@@ -8,4 +8,4 @@ const walk = function (epoch, year) {
     millisecond: 0
   }
 }
-export default walk
+export default walkUp

@@ -1,7 +1,7 @@
 import test from 'tape'
 import getDst from '../src/dst/index.js'
 import tzdb from '../tzdb/index.js'
-import zones from '../data/zonefile.2022.js'
+import zones from '../tz/zonefile.2022.js'
 
 const skip = {
   'Antarctica/Macquarie': true,

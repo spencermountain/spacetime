@@ -1,6 +1,6 @@
-import patterns from '../../data/patterns.js'
-import zones from '../../data/zonefile.2022.js'
-import misc from '../../data/misc.js'
+import patterns from '../../tz/patterns.js'
+import zones from '../../tz/zonefile.2022.js'
+import misc from '../../tz/misc.js'
 import calc from './calculate.js'
 const hour = 1000 * 60 * -60
 
