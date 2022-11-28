@@ -8,7 +8,7 @@ sh.config.silent = true
 //i'm assuming theres no copyright on these things
 
 //change this to generate a new one
-const year = new Date().getFullYear()
+const year = 2023 //new Date().getFullYear()
 
 const parseLine = (str) => {
   let meta = {}

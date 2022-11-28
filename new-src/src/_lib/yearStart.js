@@ -25,7 +25,6 @@ const getYear = function (epoch) {
       e += YEAR
     }
     year += 1
-    console.log(year, e)
   }
   return { start: e, year }
 }
