@@ -8,6 +8,10 @@ This project follows semVer, where:
  ### 7.2.0 [Sep 2022]
 
  -->
+ ### 7.2.1 [Dec 2022]
+ - **[fix]** - southern hemisphere december season #352
+
+
  ### 7.2.0 [Sep 2022]
  - **[update]** - Kiev/Kyiv alias
  - **[update]** - chile DST change

@@ -13,6 +13,20 @@ export type TimeUnit =
   | 'decade'
   | 'century'
   | 'date'
+  | 'milliseconds' //plural forms
+  | 'seconds'
+  | 'minutes'
+  | 'quarterHours'
+  | 'hours'
+  | 'days'
+  | 'weeks'
+  | 'months'
+  | 'quarters'
+  | 'seasons'
+  | 'years'
+  | 'decades'
+  | 'centuries'
+  | 'dates'
 
 export type Format =
   | 'day'
