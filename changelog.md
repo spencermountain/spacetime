@@ -8,6 +8,13 @@ This project follows semVer, where:
  ### 7.2.0 [Sep 2022]
 
  -->
+ 
+ ### 7.3.0 [Dec 2022]
+ - **[update]** - 2023 DST changes
+ - **[fix]** - southern hemisphere december season #352
+ - **[fix]** - Yakutsk timezone
+
+
  ### 7.2.0 [Sep 2022]
  - **[update]** - Kiev/Kyiv alias
  - **[update]** - chile DST change

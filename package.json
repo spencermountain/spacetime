@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "7.2.0",
+  "version": "7.3.0",
   "description": "figure-out dates across timezones",
   "main": "src/index.js",
   "unpkg": "builds/spacetime.min.js",
@@ -19,7 +19,7 @@
     "pack": "node ./zonefile/pack.js",
     "version": "node ./scripts/version.js",
     "watch": "amble ./scratch.js",
-    "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer  --color always",
+    "test": "tape ./test/**/*.test.js | tap-dancer  --color always",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer  --color always",
     "test:types": "ts-node ./test/types/index.ts | tap-dancer  --color always",
     "coverage": "nyc -r lcov -n 'src/**/*' -n 'plugins/**/*' npm run coverage:tests",
@@ -56,7 +56,7 @@
     "rollup-plugin-terser": "7.0.2",
     "shelljs": "0.8.5",
     "tap-dancer": "0.3.4",
-    "tape": "5.6.0",
+    "tape": "5.6.1",
     "timekeeper": "2.2.0"
   },
   "license": "Apache-2.0"

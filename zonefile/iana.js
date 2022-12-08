@@ -58,12 +58,12 @@ export default {
   "africa/casablanca": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:03->05/08:02"
+    "dst": "03/19:03->04/30:02"
   },
   "africa/ceuta": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "africa/conakry": {
     "offset": 0,
@@ -88,7 +88,7 @@ export default {
   "africa/el_aaiun": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:03->05/08:02"
+    "dst": "03/19:03->04/30:02"
   },
   "africa/freetown": {
     "offset": 0,
@@ -217,12 +217,12 @@ export default {
   "america/adak": {
     "offset": -9,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/anchorage": {
     "offset": -8,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/anguilla": {
     "offset": -4,
@@ -247,7 +247,7 @@ export default {
   "america/asuncion": {
     "offset": -4,
     "hem": "s",
-    "dst": "03/26:24->10/02:00"
+    "dst": "03/25:24->10/01:00"
   },
   "america/bahia": {
     "offset": -3,
@@ -285,7 +285,7 @@ export default {
   "america/boise": {
     "offset": -6,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/buenos_aires": {
     "offset": -3,
@@ -294,7 +294,7 @@ export default {
   "america/cambridge_bay": {
     "offset": -6,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/campo_grande": {
     "offset": -4,
@@ -323,7 +323,7 @@ export default {
   "america/chicago": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/chihuahua": {
     "offset": -6,
@@ -369,12 +369,12 @@ export default {
   "america/denver": {
     "offset": -6,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/detroit": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/dominica": {
     "offset": -4,
@@ -383,7 +383,7 @@ export default {
   "america/edmonton": {
     "offset": -6,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/eirunepe": {
     "offset": -5,
@@ -404,22 +404,22 @@ export default {
   "america/glace_bay": {
     "offset": -3,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/nuuk": {
     "offset": -2,
     "hem": "n",
-    "dst": "03/26:22->10/29:23"
+    "dst": "03/25:22->10/28:23"
   },
   "america/goose_bay": {
     "offset": -3,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/grand_turk": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/grenada": {
     "offset": -4,
@@ -444,12 +444,12 @@ export default {
   "america/halifax": {
     "offset": -3,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/havana": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:00->11/06:01"
+    "dst": "03/12:00->11/05:01"
   },
   "america/hermosillo": {
     "offset": -7,
@@ -463,17 +463,17 @@ export default {
   "america/indianapolis": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/inuvik": {
     "offset": -6,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/iqaluit": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/jamaica": {
     "offset": -5,
@@ -486,7 +486,7 @@ export default {
   "america/juneau": {
     "offset": -8,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/kentucky": {
     "offset": -4,
@@ -508,12 +508,12 @@ export default {
   "america/los_angeles": {
     "offset": -7,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/louisville": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/lower_princes": {
     "offset": -4,
@@ -542,7 +542,7 @@ export default {
   "america/matamoros": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/mazatlan": {
     "offset": -6,
@@ -556,7 +556,7 @@ export default {
   "america/menominee": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/merida": {
     "offset": -5,
@@ -566,7 +566,7 @@ export default {
   "america/metlakatla": {
     "offset": -8,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/mexico_city": {
     "offset": -5,
@@ -576,12 +576,12 @@ export default {
   "america/miquelon": {
     "offset": -2,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/moncton": {
     "offset": -3,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/monterrey": {
     "offset": -5,
@@ -595,7 +595,7 @@ export default {
   "america/montreal": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/montserrat": {
     "offset": -4,
@@ -604,22 +604,22 @@ export default {
   "america/nassau": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/new_york": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/nipigon": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/nome": {
     "offset": -8,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/noronha": {
     "offset": -2,
@@ -642,7 +642,7 @@ export default {
   "america/pangnirtung": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/paramaribo": {
     "offset": -3,
@@ -655,7 +655,7 @@ export default {
   "america/port-au-prince": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/port_of_spain": {
     "offset": -4,
@@ -676,12 +676,12 @@ export default {
   "america/rainy_river": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/rankin_inlet": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/recife": {
     "offset": -3,
@@ -694,7 +694,7 @@ export default {
   "america/resolute": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/rio_branco": {
     "offset": -5,
@@ -703,7 +703,7 @@ export default {
   "america/santa_isabel": {
     "offset": -7,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/santarem": {
     "offset": -3,
@@ -712,7 +712,7 @@ export default {
   "america/santiago": {
     "offset": -4,
     "hem": "s",
-    "dst": "04/02:24->09/11:00"
+    "dst": "04/01:24->09/03:00"
   },
   "america/santo_domingo": {
     "offset": -4,
@@ -725,12 +725,12 @@ export default {
   "america/scoresbysund": {
     "offset": 0,
     "hem": "n",
-    "dst": "03/27:00->10/30:01"
+    "dst": "03/26:00->10/29:01"
   },
   "america/sitka": {
     "offset": -8,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/st_barthelemy": {
     "offset": -4,
@@ -739,7 +739,7 @@ export default {
   "america/st_johns": {
     "offset": -2.5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/st_kitts": {
     "offset": -4,
@@ -768,22 +768,22 @@ export default {
   "america/thule": {
     "offset": -3,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/thunder_bay": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/tijuana": {
     "offset": -7,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/toronto": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/tortola": {
     "offset": -4,
@@ -792,7 +792,7 @@ export default {
   "america/vancouver": {
     "offset": -7,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/whitehorse": {
     "offset": -7,
@@ -801,17 +801,17 @@ export default {
   "america/winnipeg": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/yakutat": {
     "offset": -8,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/yellowknife": {
     "offset": -6,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "antarctica/casey": {
     "offset": 8,
@@ -829,7 +829,7 @@ export default {
   "antarctica/macquarie": {
     "offset": 11,
     "hem": "s",
-    "dst": "04/03:03->10/02:02"
+    "dst": "04/02:03->10/01:02"
   },
   "antarctica/mawson": {
     "offset": 5,
@@ -838,11 +838,11 @@ export default {
   "antarctica/mcmurdo": {
     "offset": 12,
     "hem": "s",
-    "dst": "04/03:03->09/25:02"
+    "dst": "04/02:03->09/24:02"
   },
   "antarctica/palmer": {
     "offset": -3,
-    "hem": "s",
+    "hem": "s"
   },
   "antarctica/rothera": {
     "offset": -3,
@@ -855,7 +855,7 @@ export default {
   "antarctica/troll": {
     "offset": 2,
     "hem": "s",
-    "dst": "03/20:01->10/30:03"
+    "dst": "03/26:02->10/29:02"
   },
   "antarctica/vostok": {
     "offset": 6,
@@ -864,7 +864,7 @@ export default {
   "arctic/longyearbyen": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "asia/aden": {
     "offset": 3,
@@ -922,7 +922,7 @@ export default {
   "asia/beirut": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:00->10/29:24"
+    "dst": "03/26:00->10/28:24"
   },
   "asia/bishkek": {
     "offset": 6,
@@ -972,17 +972,17 @@ export default {
   "asia/famagusta": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "asia/gaza": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:00->10/28:01"
+    "dst": "03/25:02->10/28:02"
   },
   "asia/hebron": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:00->10/28:01"
+    "dst": "03/25:02->10/28:02"
   },
   "asia/hong_kong": {
     "offset": 8,
@@ -1007,7 +1007,7 @@ export default {
   "asia/jerusalem": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/25:02->10/30:02"
+    "dst": "03/24:02->10/29:02"
   },
   "asia/kabul": {
     "offset": 4.5,
@@ -1068,7 +1068,7 @@ export default {
   "asia/nicosia": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "asia/novokuznetsk": {
     "offset": 7,
@@ -1196,7 +1196,7 @@ export default {
     "hem": "n"
   },
   "asia/yakutsk": {
-    "offset": 10,
+    "offset": 9,
     "hem": "n"
   },
   "asia/yekaterinburg": {
@@ -1210,17 +1210,17 @@ export default {
   "atlantic/azores": {
     "offset": 0,
     "hem": "n",
-    "dst": "03/27:00->10/30:01"
+    "dst": "03/26:00->10/29:01"
   },
   "atlantic/bermuda": {
     "offset": -3,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "atlantic/canary": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:01->10/30:02"
+    "dst": "03/26:01->10/29:02"
   },
   "atlantic/cape_verde": {
     "offset": -1,
@@ -1229,12 +1229,12 @@ export default {
   "atlantic/faroe": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:01->10/30:02"
+    "dst": "03/26:01->10/29:02"
   },
   "atlantic/madeira": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:01->10/30:02"
+    "dst": "03/26:01->10/29:02"
   },
   "atlantic/reykjavik": {
     "offset": 0,
@@ -1255,7 +1255,7 @@ export default {
   "australia/adelaide": {
     "offset": 9.5,
     "hem": "s",
-    "dst": "04/03:03->10/02:02"
+    "dst": "04/02:03->10/01:02"
   },
   "australia/brisbane": {
     "offset": 10,
@@ -1264,12 +1264,12 @@ export default {
   "australia/broken_hill": {
     "offset": 9.5,
     "hem": "s",
-    "dst": "04/03:03->10/02:02"
+    "dst": "04/02:03->10/01:02"
   },
   "australia/currie": {
     "offset": 10,
     "hem": "s",
-    "dst": "04/03:03->10/02:02"
+    "dst": "04/02:03->10/01:02"
   },
   "australia/darwin": {
     "offset": 9.5,
@@ -1282,7 +1282,7 @@ export default {
   "australia/hobart": {
     "offset": 10,
     "hem": "s",
-    "dst": "04/03:03->10/02:02"
+    "dst": "04/02:03->10/01:02"
   },
   "australia/lindeman": {
     "offset": 10,
@@ -1291,12 +1291,12 @@ export default {
   "australia/lord_howe": {
     "offset": 10.5,
     "hem": "s",
-    "dst": "04/03:01->10/02:02"
+    "dst": "04/02:01->10/01:02"
   },
   "australia/melbourne": {
     "offset": 10,
     "hem": "s",
-    "dst": "04/03:03->10/02:02"
+    "dst": "04/02:03->10/01:02"
   },
   "australia/perth": {
     "offset": 8,
@@ -1305,17 +1305,17 @@ export default {
   "australia/sydney": {
     "offset": 10,
     "hem": "s",
-    "dst": "04/03:03->10/02:02"
+    "dst": "04/02:03->10/01:02"
   },
   "europe/amsterdam": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/andorra": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/astrakhan": {
     "offset": 4,
@@ -1324,77 +1324,77 @@ export default {
   "europe/athens": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/belgrade": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/berlin": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/bratislava": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/brussels": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/bucharest": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/budapest": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/busingen": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/chisinau": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/copenhagen": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/dublin": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:01->10/30:02"
+    "dst": "03/26:01->10/29:02"
   },
   "europe/gibraltar": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/guernsey": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:01->10/30:02"
+    "dst": "03/26:01->10/29:02"
   },
   "europe/helsinki": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/isle_of_man": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:01->10/30:02"
+    "dst": "03/26:01->10/29:02"
   },
   "europe/istanbul": {
     "offset": 3,
@@ -1403,7 +1403,7 @@ export default {
   "europe/jersey": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:01->10/30:02"
+    "dst": "03/26:01->10/29:02"
   },
   "europe/kaliningrad": {
     "offset": 2,
@@ -1416,42 +1416,42 @@ export default {
   "europe/kyiv": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/lisbon": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:01->10/30:02"
+    "dst": "03/26:01->10/29:02"
   },
   "europe/ljubljana": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/london": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/27:01->10/30:02"
+    "dst": "03/26:01->10/29:02"
   },
   "europe/luxembourg": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/madrid": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/malta": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/mariehamn": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/minsk": {
     "offset": 3,
@@ -1460,7 +1460,7 @@ export default {
   "europe/monaco": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/moscow": {
     "offset": 3,
@@ -1469,32 +1469,32 @@ export default {
   "europe/oslo": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/paris": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/podgorica": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/prague": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/riga": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/rome": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/samara": {
     "offset": 4,
@@ -1507,12 +1507,12 @@ export default {
   "europe/san_marino": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/sarajevo": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/simferopol": {
     "offset": 3,
@@ -1521,27 +1521,27 @@ export default {
   "europe/skopje": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/sofia": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/stockholm": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/tallinn": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/tirane": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/ulyanovsk": {
     "offset": 4,
@@ -1550,27 +1550,27 @@ export default {
   "europe/uzhgorod": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/vaduz": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/vatican": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/vienna": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/vilnius": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/volgograd": {
     "offset": 4,
@@ -1579,22 +1579,22 @@ export default {
   "europe/warsaw": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/zagreb": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "europe/zaporozhye": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/27:03->10/30:04"
+    "dst": "03/26:03->10/29:04"
   },
   "europe/zurich": {
     "offset": 2,
     "hem": "n",
-    "dst": "03/27:02->10/30:03"
+    "dst": "03/26:02->10/29:03"
   },
   "indian/antananarivo": {
     "offset": 3,
@@ -1642,12 +1642,12 @@ export default {
   },
   "pacific/apia": {
     "offset": 13,
-    "hem": "s",
+    "hem": "s"
   },
   "pacific/auckland": {
     "offset": 12,
     "hem": "s",
-    "dst": "04/03:03->09/25:02"
+    "dst": "04/02:03->09/24:02"
   },
   "pacific/bougainville": {
     "offset": 11,
@@ -1656,12 +1656,12 @@ export default {
   "pacific/chatham": {
     "offset": 12.75,
     "hem": "s",
-    "dst": "04/03:03->09/24:02"
+    "dst": "04/02:03->04/02:02"
   },
   "pacific/easter": {
     "offset": -6,
     "hem": "s",
-    "dst": "04/02:22->09/10:22"
+    "dst": "04/01:22->09/02:22"
   },
   "pacific/efate": {
     "offset": 11,
@@ -1751,7 +1751,7 @@ export default {
   "pacific/norfolk": {
     "offset": 11.5,
     "hem": "n",
-    "dst": "04/03:03->10/02:02"
+    "dst": "04/02:03->10/01:02"
   },
   "pacific/noumea": {
     "offset": 11,
@@ -1848,56 +1848,56 @@ export default {
   "america/indiana/knox": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/indiana/tell_city": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/north_dakota/beulah": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/north_dakota/center": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/north_dakota/new_salem": {
     "offset": -5,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/indiana/marengo": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/indiana/petersburg": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/indiana/vevay": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/indiana/vincennes": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/indiana/winamac": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/kentucky/monticello": {
     "offset": -4,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   }
 }

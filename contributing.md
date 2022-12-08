@@ -8,6 +8,7 @@ We promise to avoid pedantic or cosmetic disputes!
 
 - [fork](https://help.github.com/articles/fork-a-repo/) the repository
 - [clone](https://help.github.com/articles/cloning-a-repository/) it to your computer
+- set environment variable `TESTENV=dev` or `TESTENV=prod` in .env file
 
 ```bash
 cd spacetime
