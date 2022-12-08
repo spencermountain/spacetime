@@ -1196,7 +1196,7 @@ export default {
     "hem": "n"
   },
   "asia/yakutsk": {
-    "offset": 10,
+    "offset": 9,
     "hem": "n"
   },
   "asia/yekaterinburg": {

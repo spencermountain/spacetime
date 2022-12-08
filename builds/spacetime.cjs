@@ -3313,7 +3313,7 @@
       if (this.hemisphere() === 'South') {
         hem = 'south';
       }
-      if (input !== undefined) {
+      if (input !== undefined) {    // setter
         let s = this.clone();
         for (let i = 0; i < seasons[hem].length; i++) {
           if (input === seasons[hem][i][0]) {
@@ -3330,7 +3330,7 @@
           return seasons[hem][i][0]
         }
       }
-      return 'winter'
+      return hem === 'north' ? 'winter' : 'summer'
     },
 
     //the year number

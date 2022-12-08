@@ -1,6 +1,6 @@
 export default {
   "9|s": "2/dili,2/jayapura",
-  "9|n": "2/chita,2/khandyga,2/pyongyang,2/seoul,2/tokyo,11/palau,japan,rok",
+  "9|n": "2/chita,2/khandyga,2/pyongyang,2/seoul,2/tokyo,2/yakutsk,11/palau,japan,rok",
   "9.5|s|04/03:03->10/02:02": "4/adelaide,4/broken_hill,4/south,4/yancowinna",
   "9.5|s": "4/darwin,4/north",
   "8|s|03/13:01->10/02:00": "12/casey",
@@ -50,7 +50,7 @@ export default {
   "11.5|n|04/03:03->10/02:02": "11/norfolk",
   "10|s|04/03:03->10/02:02": "4/currie,4/hobart,4/melbourne,4/sydney,4/act,4/canberra,4/nsw,4/tasmania,4/victoria",
   "10|s": "12/dumontdurville,4/brisbane,4/lindeman,11/port_moresby,4/queensland",
-  "10|n": "2/ust-nera,2/vladivostok,2/yakutsk,11/guam,11/saipan,11/chuuk,11/truk,11/yap",
+  "10|n": "2/ust-nera,2/vladivostok,11/guam,11/saipan,11/chuuk,11/truk,11/yap",
   "10.5|s|04/03:01->10/02:02": "4/lord_howe,4/lhi",
   "0|n|03/27:00->10/30:01": "1/scoresbysund,3/azores",
   "0|n": "0/abidjan,0/accra,0/bamako,0/banjul,0/bissau,0/conakry,0/dakar,0/freetown,0/lome,0/monrovia,0/nouakchott,0/ouagadougou,0/sao_tome,1/danmarkshavn,3/reykjavik,3/st_helena,13/gmt,13/utc,0/timbuktu,13/greenwich,13/uct,13/universal,13/zulu,gmt-0,gmt+0,gmt0,greenwich,iceland,uct,universal,utc,zulu",
