@@ -61,3 +61,11 @@ test('set season - north', (t) => {
 
   t.end()
 })
+
+test('season - south', (t) => {
+  let s = spacetime('nov 11 2022', 'australia/adelaide')
+  t.equal(s.season(), 'spring', 'south-spring')
+  s = s.add(4, 'weeks')
+  t.equal(s.season(), 'summer', 'south-summer')
+  t.end()
+})
