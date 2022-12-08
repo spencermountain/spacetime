@@ -5,7 +5,5 @@ import { now, fromEpoch } from './new-src/src/index.js'
 // import tzdb from './new-src/tzdb/index.js'
 // import zones from './new-src/data/zonefile.2022.js'
 
-// let tz = 'Pacific/Galapagos'
-let tz = 'Europe/Oslo'
-console.log(now(tz))
-console.log(spacetime(tz).format('{nice-day} {time}'))
+let s = spacetime.now('Etc/GMT+7')
+console.log(s.timezone()) //'Sábado'
