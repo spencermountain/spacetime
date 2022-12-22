@@ -315,6 +315,7 @@ export interface Diff {
   seconds: number
   weeks: number
   years: number
+  quarters: number
 }
 
 export interface Since {
