@@ -104,7 +104,7 @@ test('start-end are idempodent', (t) => {
 })
 
 test('startof is idempodent', (t) => {
-  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season']
+  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season', 'second']
   units.forEach((unit) => {
     let a = spacetime('2020-06-01').startOf(unit)
     let b = a.clone()
@@ -117,7 +117,7 @@ test('startof is idempodent', (t) => {
 })
 
 test('endof is idempodent', (t) => {
-  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season']
+  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season', 'second']
   units.forEach((unit) => {
     let a = spacetime('2020-06-01').endOf(unit)
     let b = a.clone()
@@ -130,7 +130,7 @@ test('endof is idempodent', (t) => {
 })
 
 test('startof + minus = startof', (t) => {
-  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season']
+  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season', 'second']
   units.forEach((unit) => {
     let s = spacetime('2020-10-01').startOf(unit)
     s = s.minus(1, unit)

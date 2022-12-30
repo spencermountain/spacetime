@@ -83,6 +83,7 @@ const format = {
   'millisecond-pad': (s) => zeroPad(s.millisecond(), 3),
 
   ampm: (s) => s.ampm(),
+  AMPM: (s) => s.ampm().toUpperCase(),
   quarter: (s) => 'Q' + s.quarter(),
   season: (s) => s.season(),
   era: (s) => s.era(),
@@ -172,7 +173,7 @@ const printFormat = (s, str = '') => {
     let out = format[str](s) || ''
     if (str !== 'json') {
       out = String(out)
-      if (str !== 'ampm') {
+      if (str.toLowerCase() !== 'ampm') {
         out = applyCaseFormat(out)
       }
     }
@@ -185,7 +186,7 @@ const printFormat = (s, str = '') => {
       fmt = fmt.toLowerCase().trim()
       if (format.hasOwnProperty(fmt)) {
         let out = String(format[fmt](s))
-        if (fmt !== 'ampm') {
+        if (fmt.toLowerCase() !== 'ampm') {
           return applyCaseFormat(out)
         }
         return out

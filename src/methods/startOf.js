@@ -4,6 +4,12 @@ import walkTo from './set/walk.js'
 import { normalize } from '../fns.js'
 
 const units = {
+  second: (s) => {
+    walkTo(s, {
+      millisecond: 0
+    })
+    return s
+  },
   minute: (s) => {
     walkTo(s, {
       second: 0,

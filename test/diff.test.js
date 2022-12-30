@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 const numbers = [1, 2, 5, 7, 15, 30, 40, 100, 110]
-const units = ['day', 'week', 'month', 'year']
+const units = ['day', 'week', 'month', 'quarter', 'year']
 
 test('simple-diff', (t) => {
   let a = spacetime('March 26, 1999 20:42:00', 'Canada/Eastern')

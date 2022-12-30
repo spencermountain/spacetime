@@ -37,6 +37,10 @@ const diff = function (a, b) {
   tmp = a.add(obj.months, 'month')
   obj.months += diffOne(tmp, b, 'month')
 
+  // there's always 4 quarters in a year...
+  obj.quarters = obj.years * 4
+  obj.quarters += parseInt((obj.months % 12) / 3, 10)
+
   // there's always atleast 52 weeks in a year..
   // (month * 4) isn't as close
   obj.weeks = obj.years * 52
