@@ -48,7 +48,7 @@
   "devDependencies": {
     "codecov": "3.8.3",
     "nyc": "^15.1.0",
-    "rollup": "2.79.0",
+    "rollup": "3.9.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-filesize-check": "0.0.1",
     "rollup-plugin-json": "^4.0.0",
