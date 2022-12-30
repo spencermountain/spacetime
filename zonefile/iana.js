@@ -256,7 +256,6 @@ export default {
   "america/bahia_banderas": {
     "offset": -5,
     "hem": "n",
-    "dst": "04/03:02->10/30:02"
   },
   "america/barbados": {
     "offset": -4,
@@ -328,7 +327,6 @@ export default {
   "america/chihuahua": {
     "offset": -6,
     "hem": "n",
-    "dst": "04/03:02->10/30:02"
   },
   "america/coral_harbour": {
     "offset": -5,
@@ -546,8 +544,7 @@ export default {
   },
   "america/mazatlan": {
     "offset": -6,
-    "hem": "n",
-    "dst": "04/03:02->10/30:02"
+    "hem": "n"
   },
   "america/mendoza": {
     "offset": -3,
@@ -560,8 +557,7 @@ export default {
   },
   "america/merida": {
     "offset": -5,
-    "hem": "n",
-    "dst": "04/03:02->10/30:02"
+    "hem": "n"
   },
   "america/metlakatla": {
     "offset": -8,
@@ -570,8 +566,7 @@ export default {
   },
   "america/mexico_city": {
     "offset": -5,
-    "hem": "n",
-    "dst": "04/03:02->10/30:02"
+    "hem": "n"
   },
   "america/miquelon": {
     "offset": -2,
@@ -586,7 +581,6 @@ export default {
   "america/monterrey": {
     "offset": -5,
     "hem": "n",
-    "dst": "04/03:02->10/30:02"
   },
   "america/montevideo": {
     "offset": -3,
@@ -633,7 +627,7 @@ export default {
   "america/ojinaga": {
     "offset": -6,
     "hem": "n",
-    "dst": "03/13:02->11/06:02"
+    "dst": "03/12:02->11/05:02"
   },
   "america/panama": {
     "offset": -5,
@@ -877,7 +871,6 @@ export default {
   "asia/amman": {
     "offset": 3,
     "hem": "n",
-    "dst": "02/25:00->10/28:01"
   },
   "asia/anadyr": {
     "offset": 12,
@@ -950,8 +943,7 @@ export default {
   },
   "asia/damascus": {
     "offset": 3,
-    "hem": "n",
-    "dst": "03/25:00->10/27:24"
+    "hem": "n"
   },
   "asia/dhaka": {
     "offset": 6,
@@ -1685,8 +1677,7 @@ export default {
   },
   "pacific/fiji": {
     "offset": 12,
-    "hem": "s",
-    "dst": "01/17:03->11/14:02"
+    "hem": "s"
   },
   "pacific/funafuti": {
     "offset": 12,

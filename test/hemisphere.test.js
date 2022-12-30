@@ -15,7 +15,7 @@ test('toronto/Santiago same in june', (t) => {
   t.equal(false, b.timezone().current.isDST, 'santiago not dst')
   t.equal('South', b.hemisphere(), 'santiago in south')
 
-  t.ok(a.format('nice'), b.format('nice'), 'same-calendar-time')
+  t.ok(a.format('nice'), b.format('nice'), 'same-calendar-time1')
   t.end()
 })
 
@@ -36,14 +36,14 @@ test('toronto/Santiago -2hrs in january', (t) => {
 test('northern-hemisphere spring-ahead', (t) => {
   //regina is always -6, mexico city goes -5 in the summer (dst+1)
   //so both are -6 in january
-  let jan1 = spacetime('January 21, 2017 20:42:00', 'America/Mexico_City')
+  let jan1 = spacetime('January 21, 2017 20:42:00', 'America/menominee')
   let jan2 = jan1.clone().goto('America/Regina')
-  t.equal(jan1.format('nice'), jan2.format('nice'), 'same-calendar-time')
+  t.equal(jan1.format('nice'), jan2.format('nice'), 'same-calendar-time2')
   t.equal(false, jan1.isDST(), 'Mexico_City-not-dst-in-january')
   t.equal(false, jan2.isDST(), 'Regina-never-dst')
 
   //not the same in september
-  let sep1 = spacetime('September 21, 2017 20:42:00', 'America/Mexico_City')
+  let sep1 = spacetime('September 21, 2017 20:42:00', 'America/menominee')
   let sep2 = jan1.clone().goto('America/Regina')
   t.notEqual(sep1.format('nice'), sep2.format('nice'), 'not-same-calendar-time-anymore')
   t.equal(true, sep1.isDST(), 'Mexico_City-is-dst-in-sep')
