@@ -38,5 +38,5 @@ const getYear = function (epoch) {
 export { getStart, getYear }
 
 // console.log(getYear(1514764824000) === 2018)
-let num = 347159200000
-console.log(getYear(num).start < num)
+// let num = 347159200000
+// console.log(getYear(num).start < num)

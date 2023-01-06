@@ -14,10 +14,7 @@ const getDst = function (tz, year) {
     let [start, end] = misc[pattern][String(year)]
     return { start, end }
   }
-  let obj = patterns[pattern]
-  if (!obj) {
-    return {}
-  }
+
   let changes = []
 
   // get epoch for 01/01
@@ -27,34 +24,37 @@ const getDst = function (tz, year) {
     epoch: yearStart,
     cal: {
       year,
-      month: 0,
+      month: 1,
       date: 1,
       hour: 0,
       minute: 0,
     }
   })
-
+  let obj = patterns[pattern]
+  if (!obj) {
+    return changes
+  }
   // get epoch for spring dst change
-  let startEpoch = calc(obj.start, year, offset)
+  let res = calc(obj.start, year, offset)
   changes.push({
-    epoch: startEpoch - hour,
+    epoch: res.epoch - hour,
     cal: {
       year,
-      month: obj.start.month,
-      date: obj.start.num,
+      month: res.month,
+      date: res.date,
       hour: obj.start.hour,
       minute: 0,
     }
   })
 
   // get epoch for fall dst change
-  let endEpoch = calc(obj.end, year, offset)
+  res = calc(obj.end, year, offset)
   changes.push({
-    epoch: endEpoch,
+    epoch: res.epoch,
     cal: {
       year,
-      month: obj.end.month,
-      date: obj.end.num,
+      month: res.month,
+      date: res.date,
       hour: obj.end.hour,
       minute: 0,
     }

@@ -49,5 +49,8 @@ export default {
   fallbackTz: guessTz() || 'Etc/Utc',
 
   // <15% of the world lives in the Southern Hemisphere
-  fallbackHemisphere: 'n'
+  fallbackHemisphere: 'n',
+
+  // assumed year in 'march 12th'
+  fallbackYear: 2023
 }

@@ -57,22 +57,26 @@ const toRightWeek = function (num, day, month) {
 
 
 const calc = function (obj, year, offset) {
+  let date = 1
+  let month = obj.month
   let epoch = getStart(year)
   // go to the correct month
   epoch += addMonths(obj.month, year)
   // go to the correct day
   let days = toWeekDay(obj, year)
+  date += days
   epoch += days * DAY
   // go to the correct week
   days = toRightWeek(obj.num, days, obj.month)
   epoch += days * DAY
-  // }
+  date += days
   // go to the correct hour
   epoch += (obj.hour || 0) * HOUR
   // go to the correct offset
   epoch -= offset * 60 * 60 * 1000
   // console.log(new Date(epoch))
-  return epoch
+
+  return { epoch, month, date }
 }
 // 2nd tuesday
 // console.log(calc({ month: 10, day: 2, num: 2, hour: 2 }, 2022))

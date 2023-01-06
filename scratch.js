@@ -1,9 +1,6 @@
-import spacetime from './src/index.js'
-import { now, fromEpoch } from './new-src/src/index.js'
+// import structure from './newer/changes/build.js'
+import byYear from './newer/changes/by-year.js'
 
-// import getDst from './new-src/dst/index.js'
-// import tzdb from './new-src/tzdb/index.js'
-// import zones from './new-src/data/zonefile.2022.js'
+console.log(byYear('America/Toronto', 2022))
 
-let s = spacetime.now('Etc/GMT+7')
-console.log(s.timezone()) //'Sábado'
+// console.dir(structure[ 'America/Toronto'], { depth: 5 })
