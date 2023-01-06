@@ -9,6 +9,13 @@ This project follows semVer, where:
 
  -->
  
+ ### 7.4.0 [Dec 2022]
+ - **[update]** - 2023 DST changes for mexico
+ - **[update]** - 2023 DST changes for jordan
+ - **[update]** - 2023 DST changes for fiji
+ - **[update]** - missing seconds, quarters methods #360 #359
+ - **[new]** - {AMPM} uppercase fmt
+
  ### 7.3.0 [Dec 2022]
  - **[update]** - 2023 DST changes
  - **[fix]** - southern hemisphere december season #352

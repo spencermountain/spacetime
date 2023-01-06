@@ -12,19 +12,18 @@ let zones = [
   'america/thunder_bay',
   'america/nassau',
   'asia/famagusta',
-  // 'america/indianapolis',
-  'america/tijuana', //11/01:02  -7hrs
-  'mexico/bajanorte', //11/01:02  -7hrs
-  'america/havana',
+  'america/indianapolis',
+  'america/menominee',
+  // 'america/tijuana', //11/01:02  -7hrs
+  // 'mexico/bajanorte', //11/01:02  -7hrs
+  // 'america/havana',
   'america/indiana',
   'america/kentucky',
   'america/north_dakota',
   'america/scoresbysund',
-  'asia/amman',
   'asia/gaza',
   'asia/hebron',
   'atlantic/azores',
-  'asia/damascus', //10/29:24
   'asia/beirut', //10/24:24
   'asia/tehran' //09/20:24
 ]
