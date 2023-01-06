@@ -16,6 +16,7 @@ const getDst = function (tz, year) {
   if (!obj) {
     return {}
   }
+  console.log(obj)
   let changes = {
     start: calc(obj.start, year, offset),
     end: calc(obj.end, year, offset),
@@ -26,3 +27,5 @@ const getDst = function (tz, year) {
 }
 
 export default getDst
+
+console.log(getDst('America/Toronto', 2023))
