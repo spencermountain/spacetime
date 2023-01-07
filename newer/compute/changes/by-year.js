@@ -1,6 +1,6 @@
-import patterns from '../zonefile/patterns.js'
-import zones from '../zonefile/zonefile.2022.js'
-import misc from '../zonefile/misc.js'
+import patterns from '../../zonefile/patterns.js'
+import zones from '../../zonefile/zonefile.2022.js'
+import misc from '../../zonefile/misc.js'
 import calc from './calculate.js'
 import { getStart } from './_lib/yearStart.js'
 

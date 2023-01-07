@@ -25,18 +25,18 @@ const getYear = function (epoch) {
   let e = 0
   let year = 1970
   while (e <= epoch) {
+    let size = YEAR
     if (isLeap(year)) {
-      e += LEAPYEAR
-    } else {
-      e += YEAR
+      size = LEAPYEAR
     }
+    let tmp = e + size
+    if (tmp > epoch) {
+      break
+    }
+    e = tmp
     year += 1
   }
   return { start: e, year }
 }
 
 export { getStart, getYear }
-
-// console.log(getYear(1514764824000) === 2018)
-// let num = 347159200000
-// console.log(getYear(num).start < num)

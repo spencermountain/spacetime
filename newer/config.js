@@ -52,5 +52,12 @@ export default {
   fallbackHemisphere: 'n',
 
   // assumed year in 'march 12th'
-  fallbackYear: 2023
+  fallbackYear: 2023,
+
+  // assume the british interpretation of 02/02/2018, etc
+  preferDMY: false,
+
+  // this should be the only call to js Date
+  now: () => new Date().getTime()
+
 }
