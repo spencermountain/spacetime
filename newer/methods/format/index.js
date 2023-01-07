@@ -14,7 +14,7 @@ let methods = {
 
 // format methods
 let deriv = [
-  ['iso', '{iso-year}-{month-pad}-{date-pad}T{hour-24-pad}:{minute-pad}:{second-pad}.{millisecond-pad}{offset}'],
+  ['iso', '{iso-year}-{month-pad}-{date-pad}T{hour-24-pad}:{minute-pad}:{second-pad}.{millisecond-pad}'],//{offset}
   ['iso-short', '{year}-{month-pad}-{date-pad}'],
   ['time', '{hour-12}:{minute-pad}{ampm}'],
 ]

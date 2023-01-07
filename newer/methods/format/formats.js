@@ -15,32 +15,24 @@ const formats = {
   'date-pad': (c) => zeroPad(c.date),
 
   // month: (c) => titleCase(c.monthName()),
-  'month-short': (c) => titleCase(short()[c.month]),
+  // 'month-short': (c) => titleCase(short()[c.month]),
   'month-number': (c) => c.month,
   'month-ordinal': (c) => ordinal(c.month),
   'month-pad': (c) => zeroPad(c.month),
   'iso-month': (c) => zeroPad(c.month + 1), //1-based months
 
-  year: (c) => {
-    let y = c.year
-    return y > 0 ? y : `${Math.abs(y)} BC`
-  },
+  year: (c) => c.year > 0 ? c.year : `${Math.abs(c.year)} BC`,
   'year-short': (c) => {
-    let year = c.year
-    if (year > 0) {
-      return `'${String(c.year).substr(2, 4)}`
+    let y = c.year
+    if (y > 0) {
+      return `'${String(y).substr(2, 4)}`
     }
-    year = Math.abs(year)
-    return year + ' BC'
+    return Math.abs(y) + ' BC'
   },
   'iso-year': (c) => {
-    let year = c.year
-    let isNegative = year < 0
-    let str = zeroPad(Math.abs(year), 4) //0-padded
-    if (isNegative) {
-      //negative years are for some reason 6-digits ('-00008')
-      str = zeroPad(str, 6)
-      str = '-' + str
+    let str = zeroPad(Math.abs(c.year), 4) //0-padded
+    if (c.year < 0) {
+      str = '-' + zeroPad(str, 6)  //negative years are for some reason 6-digits ('-00008')
     }
     return str
   },

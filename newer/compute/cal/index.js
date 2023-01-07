@@ -44,7 +44,7 @@ const getTime = function (ms) {
 
 const computeCal = function (want, tz) {
   // get Jan 1 of the year
-  let { start, year } = getYear(want)
+  let { start, year } = getYear(want, tz)
   let epoch = start
   let cal = {
     year,

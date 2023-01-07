@@ -2,9 +2,8 @@ import patterns from '../../zonefile/patterns.js'
 import zones from '../../zonefile/zonefile.2022.js'
 import misc from '../../zonefile/misc.js'
 import calc from './calculate.js'
-import { getStart } from './_lib/yearStart.js'
-
-const hour = 1000 * 60 * -60
+import { getStart } from '../_lib/yearStart.js'
+import { HOUR } from '../_lib/millis.js'
 
 // calculate DST times, for this timezone
 const getDst = function (tz, year) {
@@ -19,7 +18,7 @@ const getDst = function (tz, year) {
 
   // get epoch for 01/01
   let yearStart = getStart(year)
-  yearStart += (offset * hour)
+  yearStart += (offset * HOUR)
   changes.push({
     epoch: yearStart,
     cal: {
@@ -37,7 +36,7 @@ const getDst = function (tz, year) {
   // get epoch for spring dst change
   let res = calc(obj.start, year, offset)
   changes.push({
-    epoch: res.epoch - hour,
+    epoch: res.epoch - HOUR,
     cal: {
       year,
       month: res.month,

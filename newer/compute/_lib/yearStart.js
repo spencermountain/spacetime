@@ -1,5 +1,7 @@
 import isLeap from './isLeap.js'
 import { YEAR, LEAPYEAR } from './millis.js'
+import zoneFile from '../../zonefile/zonefile.2022.js'
+import { HOUR } from './millis.js'
 
 let memo = {}
 
@@ -21,7 +23,7 @@ const getStart = function (year) {
   return n
 }
 
-const getYear = function (epoch) {
+const getYear = function (epoch, tz) {
   let e = 0
   let year = 1970
   while (e <= epoch) {
@@ -35,6 +37,11 @@ const getYear = function (epoch) {
     }
     e = tmp
     year += 1
+  }
+  // apply timezone offset to it
+  if (tz && zoneFile.hasOwnProperty(tz)) {
+    let offset = zoneFile[tz].offset || 0
+    e += offset * HOUR
   }
   return { start: e, year }
 }

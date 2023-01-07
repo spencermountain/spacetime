@@ -20,7 +20,7 @@ const parse = function (input) {
   // epoch input
   if (isNumber(input)) {
     // if the given epoch is really small, they've probably given seconds and not milliseconds
-    if (config.minimumEpoch && input < config.minimumEpoch) {
+    if (config.minimumEpoch && input < config.minimumEpoch && input > 0) {
       input *= 1000
     }
     return input

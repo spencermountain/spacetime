@@ -1,8 +1,8 @@
-import { getStart } from './_lib/yearStart.js'
-import getDay from './_lib/getDay.js'
-import isLeapYear from './_lib/isLeap.js'
-import { HOUR, DAY } from './_lib/millis.js'
-import MONTHS from './_lib/months.js'
+import { getStart } from '../_lib/yearStart.js'
+import getDay from '../_lib/getDay.js'
+import isLeapYear from '../_lib/isLeap.js'
+import { HOUR, DAY } from '../_lib/millis.js'
+import MONTHS from '../_lib/months.js'
 
 const monthLengths = MONTHS.map(o => o.len)
 
