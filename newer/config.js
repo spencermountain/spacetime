@@ -58,6 +58,13 @@ export default {
   preferDMY: false,
 
   // this should be the only call to js Date
-  now: () => new Date().getTime()
+  now: () => new Date().getTime(),
+
+  // if the given epoch is really small, they've probably given seconds and not milliseconds
+  // anything below this number is likely (but not necessarily) a mistaken input.
+  // set as null to disable
+  // - all years below 1985 map to the first 6 days of January 1970 (0.5 billion)
+  // - all years below 2049 map to January 1970 (2.5 billion)
+  minimumEpoch: 2500000000 // 2.5 billion
 
 }

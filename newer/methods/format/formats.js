@@ -1,6 +1,8 @@
 import { titleCase, zeroPad, ordinal } from './_fns.js'
+import config from '../../config.js'
 
-const fns = {
+
+const formats = {
 
   // day: (c) => titleCase(s.dayName()),
   // 'day-short': (c) => titleCase(_short()[s.day()]),
@@ -46,8 +48,8 @@ const fns = {
   time: (c) => c.time(),
   'time-24': (c) => `${c.hour}:${zeroPad(c.minute)}`,
 
-  // hour: (c) => c.hour12,
-  // 'hour-pad': (c) => zeroPad(c.hour12()),
+  hour: (c) => c.hour % 12,
+  'hour-pad': (c) => zeroPad(c.hour % 12),
   'hour-24': (c) => c.hour,
   'hour-24-pad': (c) => zeroPad(c.hour),
 
@@ -58,17 +60,48 @@ const fns = {
   ms: (c) => c.ms,
   millisecond: (c) => c.ms,
   'millisecond-pad': (c) => zeroPad(c.ms, 3),
-}
 
-const format = function (cal, str) {
-  let sections = /\{(.+?)\}/g
-  str = str.replace(sections, (_, name) => {
-    name = name.toLowerCase().trim()
-    if (fns.hasOwnProperty(name)) {
-      return fns[name](cal)
+  ampm: (c) => c.hour < 12 ? 'am' : 'pm',
+  AMPM: (c) => c.hour < 12 ? 'AM' : 'PM',
+  quarter: (c) => {
+    if (c.month < 3) {
+      return 'Q1'
+    } else if (c.month < 6) {
+      return 'Q2'
+    } else if (c.month < 9) {
+      return 'Q3'
     }
-    return `{${name}}`
-  })
-  return str
+    return 'Q4'
+  }
+
 }
-export default format
+// aliases
+const aliases = {
+  'hour-12': 'hour',
+  'hour-12-pad': 'hour-pad',
+  'day-name': 'day',
+  'month-name': 'month',
+  'iso 8601': 'iso',
+  'time-h24': 'time-24',
+  'time-12': 'time',
+  'time-h12': 'time',
+  tz: 'timezone',
+  'day-num': 'day-number',
+  'month-num': 'month-number',
+  'month-iso': 'iso-month',
+  'year-iso': 'iso-year',
+  'nice-short': 'nice',
+  'nice-short-24': 'nice-24',
+  mdy: 'numeric-us',
+  dmy: 'numeric-uk',
+  ymd: 'numeric',
+  'yyyy/mm/dd': 'numeric',
+  'mm/dd/yyyy': 'numeric-us',
+  'dd/mm/yyyy': 'numeric-us',
+  'little-endian': 'numeric-uk',
+  'big-endian': 'numeric',
+  'day-nice': 'nice-day'
+}
+Object.keys(aliases).forEach((k) => (formats[k] = formats[aliases[k]]))
+
+export default formats

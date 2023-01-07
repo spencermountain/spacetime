@@ -60,7 +60,6 @@ const computeCal = function (want, tz) {
 
   // compute month, date
   let resDate = getDate(daysDiff, year)
-  console.log(resDate)
   Object.assign(cal, resDate)
 
   // compute hour, min, sec..

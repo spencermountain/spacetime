@@ -1,17 +1,28 @@
 import getCal from '../../compute/cal/index.js'
-import format from './format.js'
-let methods = {}
+import replace from './replace.js'
+import formats from './formats.js'
+
+let methods = {
+  format: function (fmt) {
+    let cal = getCal(this.epoch, this.tz)
+    if (fmt && formats.hasOwnProperty(fmt)) {
+      return formats[fmt](cal)
+    }
+    return replace(cal, fmt)
+  }
+}
 
 // format methods
-let formats = [
+let deriv = [
   ['iso', '{iso-year}-{month-pad}-{date-pad}T{hour-24-pad}:{minute-pad}:{second-pad}.{millisecond-pad}{offset}'],
   ['iso-short', '{year}-{month-pad}-{date-pad}'],
+  ['time', '{hour-12}:{minute-pad}{ampm}'],
 ]
-formats.forEach(a => {
+deriv.forEach(a => {
   let [fn, fmt] = a
   methods[fn] = function () {
     let cal = getCal(this.epoch, this.tz)
-    return format(cal, fmt)
+    return replace(cal, fmt)
   }
 })
 
