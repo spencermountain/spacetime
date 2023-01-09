@@ -1,29 +1,24 @@
 import spacetime from './newer/index.js'
 import { getStart } from './newer/compute/_lib/yearStart.js'
 import zones from './newer/zonefile/zonefile.2022.js'
-// Object.keys(zones).forEach(k => {
-//   if (zones[k].dst) {
-//     zones[k].offset -= 1
-//   }
-// })
-// console.log(JSON.stringify(zones, null, 2))
-
-// import structure from './newer/changes/build.js'
-// import byYear from './newer/changes/by-year.js'
-// console.log(byYear('America/Toronto', 2022))
+import { DateTime } from "luxon";
 
 
-// let s = spacetime(1674455138750, "America/Vancouver")
-// let cal = { year: 2023, month: 1, date: 22, hour: 22, minute: 25, second: 39 }
-// console.log(s.hour())
-// console.log(s.iso())
+let arr = [
+  // [2004, "America/Vancouver", 1041408000000],
+  [1971, "Europe/Paris", 31532400000],
+  [1973, "America/Vancouver", 63100800000],
+  // [1980, "America/Vancouver", 315561600000],
+  // [2005, "America/Vancouver", 1072944000000]
+]
 
-// console.log(getStart(2023, "Europe/Kirov"))
-// console.log(getStart(2023, "Europe/London"))
-// console.log(getStart(2023, "Europe/London"))
-// console.log(getStart(2023, "America/Chicago"))
+arr.forEach(a => {
+  let [year, tz, epoch] = a
 
-let tz = "America/Recife"
-let n = getStart(2023, tz)
-let s = spacetime(n, tz)
-console.log(s.iso())
+  let n = getStart(year, tz)
+  console.log(n)
+  console.log(n === epoch, `year-start ${year} ${tz}`)
+  console.log('have', DateTime.fromMillis(n).setZone(tz).toISO())
+  console.log('want', DateTime.fromMillis(epoch).setZone(tz).toISO(), '\n')
+
+})

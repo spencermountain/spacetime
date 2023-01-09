@@ -3,23 +3,38 @@ import { YEAR, LEAPYEAR } from './millis.js'
 import zoneFile from '../../zonefile/zonefile.2022.js'
 import { HOUR } from './millis.js'
 
-let memo = {}
 
+const utcStart = function (year) {
+  let epoch = 0
+  // count up from 1970
+  if (year > 1970) {
+    for (let y = 1970; y < year; y += 1) {
+      if (isLeap(y)) {
+        epoch += LEAPYEAR
+      } else {
+        epoch += YEAR
+      }
+    }
+  } else {
+    // count down from 1970
+    let y = 1970
+    while (y > year) {
+      y -= 1
+      if (isLeap(y)) {
+        epoch -= LEAPYEAR
+      } else {
+        epoch -= YEAR
+      }
+    }
+  }
+  return epoch
+}
+
+// 31536000000-31532400000
+// 31536000000-31564800000
 // get UTC epoch for jan 1
 const getStart = function (year, tz) {
-  // only calculate this once
-  if (memo.hasOwnProperty(year)) {
-    return memo[year]
-  }
-  let epoch = 0
-  for (let y = 1970; y < year; y += 1) {
-    if (isLeap(y)) {
-      epoch += LEAPYEAR
-    } else {
-      epoch += YEAR
-    }
-    memo[year] = epoch
-  }
+  let epoch = utcStart(year)
   // apply timezone offset to it
   if (tz && zoneFile.hasOwnProperty(tz)) {
     let offset = zoneFile[tz].offset || 0
