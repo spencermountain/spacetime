@@ -52,14 +52,14 @@ export default {
     "hem": "n"
   },
   "Africa/Casablanca": {
-    "offset": 1,
+    "offset": 0,
     "hem": "n",
-    "pattern": "saha"
+    "dst": "saha"
   },
   "Africa/Ceuta": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Africa/Conakry": {
     "offset": 0,
@@ -82,9 +82,9 @@ export default {
     "hem": "n"
   },
   "Africa/El_Aaiun": {
-    "offset": 1,
+    "offset": 0,
     "hem": "n",
-    "pattern": "saha"
+    "dst": "saha"
   },
   "Africa/Freetown": {
     "offset": 0,
@@ -211,14 +211,14 @@ export default {
     "hem": "s"
   },
   "America/Adak": {
-    "offset": -9,
+    "offset": -10,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Anchorage": {
-    "offset": -8,
+    "offset": -9,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Anguilla": {
     "offset": -4,
@@ -241,18 +241,18 @@ export default {
     "hem": "n"
   },
   "America/Asuncion": {
-    "offset": -4,
+    "offset": -5,
     "hem": "s",
-    "pattern": "par"
+    "dst": "par"
   },
   "America/Bahia": {
     "offset": -3,
     "hem": "n"
   },
   "America/Bahia_Banderas": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "mex"
+    "dst": "mex"
   },
   "America/Barbados": {
     "offset": -4,
@@ -279,18 +279,18 @@ export default {
     "hem": "n"
   },
   "America/Boise": {
-    "offset": -6,
+    "offset": -7,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Buenos_Aires": {
     "offset": -3,
     "hem": "s"
   },
   "America/Cambridge_Bay": {
-    "offset": -6,
+    "offset": -7,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Campo_Grande": {
     "offset": -4,
@@ -317,14 +317,14 @@ export default {
     "hem": "n"
   },
   "America/Chicago": {
-    "offset": -5,
-    "hem": "n",
-    "pattern": "usa"
-  },
-  "America/Chihuahua": {
     "offset": -6,
     "hem": "n",
-    "pattern": "mex"
+    "dst": "usa"
+  },
+  "America/Chihuahua": {
+    "offset": -7,
+    "hem": "n",
+    "dst": "mex"
   },
   "America/Atikokan": {
     "offset": -5,
@@ -363,23 +363,23 @@ export default {
     "hem": "n"
   },
   "America/Denver": {
-    "offset": -6,
+    "offset": -7,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Detroit": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Dominica": {
     "offset": -4,
     "hem": "n"
   },
   "America/Edmonton": {
-    "offset": -6,
+    "offset": -7,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Eirunepe": {
     "offset": -5,
@@ -398,24 +398,24 @@ export default {
     "hem": "s"
   },
   "America/Glace_Bay": {
-    "offset": -3,
-    "hem": "n",
-    "pattern": "usa"
-  },
-  "America/Nuuk": {
-    "offset": -2,
-    "hem": "n",
-    "pattern": "green"
-  },
-  "America/Goose_Bay": {
-    "offset": -3,
-    "hem": "n",
-    "pattern": "usa"
-  },
-  "America/Grand_Turk": {
     "offset": -4,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
+  },
+  "America/Nuuk": {
+    "offset": -3,
+    "hem": "n",
+    "dst": "green"
+  },
+  "America/Goose_Bay": {
+    "offset": -4,
+    "hem": "n",
+    "dst": "usa"
+  },
+  "America/Grand_Turk": {
+    "offset": -5,
+    "hem": "n",
+    "dst": "usa"
   },
   "America/Grenada": {
     "offset": -4,
@@ -438,33 +438,33 @@ export default {
     "hem": "n"
   },
   "America/Halifax": {
-    "offset": -3,
-    "hem": "n",
-    "pattern": "usa"
-  },
-  "America/Havana": {
     "offset": -4,
     "hem": "n",
-    "pattern": "cuba"
+    "dst": "usa"
+  },
+  "America/Havana": {
+    "offset": -5,
+    "hem": "n",
+    "dst": "cuba"
   },
   "America/Hermosillo": {
     "offset": -7,
     "hem": "n"
   },
   "America/Indianapolis": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Inuvik": {
-    "offset": -6,
+    "offset": -7,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Iqaluit": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Jamaica": {
     "offset": -5,
@@ -475,9 +475,9 @@ export default {
     "hem": "s"
   },
   "America/Juneau": {
-    "offset": -8,
+    "offset": -9,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Kralendijk": {
     "offset": -4,
@@ -492,14 +492,14 @@ export default {
     "hem": "s"
   },
   "America/Los_Angeles": {
-    "offset": -7,
+    "offset": -8,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Louisville": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Lower_Princes": {
     "offset": -4,
@@ -526,53 +526,53 @@ export default {
     "hem": "n"
   },
   "America/Matamoros": {
-    "offset": -5,
-    "hem": "n",
-    "pattern": "usa"
-  },
-  "America/Mazatlan": {
     "offset": -6,
     "hem": "n",
-    "pattern": "mex"
+    "dst": "usa"
+  },
+  "America/Mazatlan": {
+    "offset": -7,
+    "hem": "n",
+    "dst": "mex"
   },
   "America/Mendoza": {
     "offset": -3,
     "hem": "s"
   },
   "America/Menominee": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Merida": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "mex"
+    "dst": "mex"
   },
   "America/Metlakatla": {
-    "offset": -8,
+    "offset": -9,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Mexico_City": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "mex"
+    "dst": "mex"
   },
   "America/Miquelon": {
-    "offset": -2,
-    "hem": "n",
-    "pattern": "usa"
-  },
-  "America/Moncton": {
     "offset": -3,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
+  },
+  "America/Moncton": {
+    "offset": -4,
+    "hem": "n",
+    "dst": "usa"
   },
   "America/Monterrey": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "mex"
+    "dst": "mex"
   },
   "America/Montevideo": {
     "offset": -3,
@@ -583,42 +583,42 @@ export default {
     "hem": "n"
   },
   "America/Nassau": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/New_York": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Nipigon": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Nome": {
-    "offset": -8,
+    "offset": -9,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Noronha": {
     "offset": -2,
     "hem": "n"
   },
   "America/Ojinaga": {
-    "offset": -6,
+    "offset": -7,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Panama": {
     "offset": -5,
     "hem": "n"
   },
   "America/Pangnirtung": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Paramaribo": {
     "offset": -3,
@@ -629,9 +629,9 @@ export default {
     "hem": "n"
   },
   "America/Port-au-prince": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Port_Of_Spain": {
     "offset": -4,
@@ -650,14 +650,14 @@ export default {
     "hem": "s"
   },
   "America/Rainy_River": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Rankin_Inlet": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Recife": {
     "offset": -3,
@@ -668,9 +668,9 @@ export default {
     "hem": "n"
   },
   "America/Resolute": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Rio_Branco": {
     "offset": -5,
@@ -681,9 +681,9 @@ export default {
     "hem": "n"
   },
   "America/Santiago": {
-    "offset": -4,
+    "offset": -5,
     "hem": "s",
-    "pattern": "chile"
+    "dst": "chile"
   },
   "America/Santo_Domingo": {
     "offset": -4,
@@ -694,23 +694,23 @@ export default {
     "hem": "s"
   },
   "America/Scoresbysund": {
-    "offset": 0,
+    "offset": -1,
     "hem": "n",
-    "pattern": "eu0"
+    "dst": "eu0"
   },
   "America/Sitka": {
-    "offset": -8,
+    "offset": -9,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/St_Barthelemy": {
     "offset": -4,
     "hem": "n"
   },
   "America/St_Johns": {
-    "offset": -2.5,
+    "offset": -3.5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/St_Kitts": {
     "offset": -4,
@@ -737,58 +737,58 @@ export default {
     "hem": "n"
   },
   "America/Thule": {
-    "offset": -3,
+    "offset": -4,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Thunder_Bay": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Tijuana": {
-    "offset": -7,
+    "offset": -8,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Toronto": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Tortola": {
     "offset": -4,
     "hem": "n"
   },
   "America/Vancouver": {
-    "offset": -7,
+    "offset": -8,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Whitehorse": {
     "offset": -7,
     "hem": "n"
   },
   "America/Winnipeg": {
-    "offset": -5,
-    "hem": "n",
-    "pattern": "usa"
-  },
-  "America/Yakutat": {
-    "offset": -8,
-    "hem": "n",
-    "pattern": "usa"
-  },
-  "America/Yellowknife": {
     "offset": -6,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
+  },
+  "America/Yakutat": {
+    "offset": -9,
+    "hem": "n",
+    "dst": "usa"
+  },
+  "America/Yellowknife": {
+    "offset": -7,
+    "hem": "n",
+    "dst": "usa"
   },
   "Antarctica/Casey": {
-    "offset": 8,
+    "offset": 7,
     "hours": 3,
     "hem": "s",
-    "pattern": "ant"
+    "dst": "ant"
   },
   "Antarctica/Davis": {
     "offset": 7,
@@ -799,18 +799,18 @@ export default {
     "hem": "s"
   },
   "Antarctica/Macquarie": {
-    "offset": 11,
+    "offset": 10,
     "hem": "s",
-    "pattern": "aus"
+    "dst": "aus"
   },
   "Antarctica/Mawson": {
     "offset": 5,
     "hem": "s"
   },
   "Antarctica/Mcmurdo": {
-    "offset": 12,
+    "offset": 11,
     "hem": "s",
-    "pattern": "nz"
+    "dst": "nz"
   },
   "Antarctica/Palmer": {
     "offset": -3,
@@ -825,18 +825,18 @@ export default {
     "hem": "s"
   },
   "Antarctica/Troll": {
-    "offset": 2,
+    "offset": 1,
     "hem": "s",
-    "pattern": "troll"
+    "dst": "troll"
   },
   "Antarctica/Vostok": {
     "offset": 6,
     "hem": "s"
   },
   "Arctic/Longyearbyen": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Asia/Aden": {
     "offset": 3,
@@ -847,9 +847,9 @@ export default {
     "hem": "n"
   },
   "Asia/Amman": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "jord"
+    "dst": "jord"
   },
   "Asia/Anadyr": {
     "offset": 12,
@@ -892,9 +892,9 @@ export default {
     "hem": "n"
   },
   "Asia/Beirut": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "leb"
+    "dst": "leb"
   },
   "Asia/Bishkek": {
     "offset": 6,
@@ -921,9 +921,9 @@ export default {
     "hem": "n"
   },
   "Asia/Damascus": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "syr"
+    "dst": "syr"
   },
   "Asia/Dhaka": {
     "offset": 6,
@@ -942,19 +942,19 @@ export default {
     "hem": "n"
   },
   "Asia/Famagusta": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu3"
+    "dst": "eu3"
   },
   "Asia/Gaza": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "pal"
+    "dst": "pal"
   },
   "Asia/Hebron": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "pal"
+    "dst": "pal"
   },
   "Asia/Hong_Kong": {
     "offset": 8,
@@ -977,9 +977,9 @@ export default {
     "hem": "s"
   },
   "Asia/Jerusalem": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "isr"
+    "dst": "isr"
   },
   "Asia/Kabul": {
     "offset": 4.5,
@@ -1038,9 +1038,9 @@ export default {
     "hem": "n"
   },
   "Asia/Nicosia": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu3"
+    "dst": "eu3"
   },
   "Asia/Novokuznetsk": {
     "offset": 7,
@@ -1131,9 +1131,9 @@ export default {
     "hem": "n"
   },
   "Asia/Tehran": {
-    "offset": 3.5,
+    "offset": 2.5,
     "hem": "n",
-    "pattern": "iran"//ending in 2022
+    "dst": "iran"
   },
   "Asia/Thimphu": {
     "offset": 6,
@@ -1180,33 +1180,33 @@ export default {
     "hem": "n"
   },
   "Atlantic/Azores": {
-    "offset": 0,
+    "offset": -1,
     "hem": "n",
-    "pattern": "eu0"
+    "dst": "eu0"
   },
   "Atlantic/Bermuda": {
-    "offset": -3,
+    "offset": -4,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "Atlantic/Canary": {
-    "offset": 1,
+    "offset": 0,
     "hem": "n",
-    "pattern": "eu1"
+    "dst": "eu1"
   },
   "Atlantic/Cape_Verde": {
     "offset": -1,
     "hem": "n"
   },
   "Atlantic/Faroe": {
-    "offset": 1,
+    "offset": 0,
     "hem": "n",
-    "pattern": "eu1"
+    "dst": "eu1"
   },
   "Atlantic/Madeira": {
-    "offset": 1,
+    "offset": 0,
     "hem": "n",
-    "pattern": "eu1"
+    "dst": "eu1"
   },
   "Atlantic/Reykjavik": {
     "offset": 0,
@@ -1225,18 +1225,18 @@ export default {
     "hem": "s"
   },
   "Australia/Adelaide": {
-    "offset": 9.5,
+    "offset": 8.5,
     "hem": "s",
-    "pattern": "aus"
+    "dst": "aus"
   },
   "Australia/Brisbane": {
     "offset": 10,
     "hem": "s"
   },
   "Australia/Broken_Hill": {
-    "offset": 9.5,
+    "offset": 8.5,
     "hem": "s",
-    "pattern": "aus"
+    "dst": "aus"
   },
   "Australia/Darwin": {
     "offset": 9.5,
@@ -1247,130 +1247,130 @@ export default {
     "hem": "s"
   },
   "Australia/Hobart": {
-    "offset": 10,
+    "offset": 9,
     "hem": "s",
-    "pattern": "aus"
+    "dst": "aus"
   },
   "Australia/Lindeman": {
     "offset": 10,
     "hem": "s"
   },
   "Australia/Lord_Howe": {
-    "offset": 10.5,
+    "offset": 9.5,
     "hem": "s",
-    "pattern": "lhow"
+    "dst": "lhow"
   },
   "Australia/Melbourne": {
-    "offset": 10,
+    "offset": 9,
     "hem": "s",
-    "pattern": "aus"
+    "dst": "aus"
   },
   "Australia/Perth": {
     "offset": 8,
     "hem": "s"
   },
   "Australia/Sydney": {
-    "offset": 10,
+    "offset": 9,
     "hem": "s",
-    "pattern": "aus"
+    "dst": "aus"
   },
   "Europe/Amsterdam": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Andorra": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Astrakhan": {
     "offset": 4,
     "hem": "n"
   },
   "Europe/Athens": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu3"
+    "dst": "eu3"
   },
   "Europe/Belgrade": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Berlin": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Bratislava": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Brussels": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Bucharest": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu3"
+    "dst": "eu3"
   },
   "Europe/Budapest": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Busingen": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Chisinau": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Copenhagen": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Dublin": {
-    "offset": 1,
+    "offset": 0,
     "hem": "n",
-    "pattern": "eu1"
+    "dst": "eu1"
   },
   "Europe/Gibraltar": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Guernsey": {
-    "offset": 1,
+    "offset": 0,
     "hem": "n",
-    "pattern": "eu1"
+    "dst": "eu1"
   },
   "Europe/Helsinki": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu3"
+    "dst": "eu3"
   },
   "Europe/Isle_Of_Man": {
-    "offset": 1,
+    "offset": 0,
     "hem": "n",
-    "pattern": "eu1"
+    "dst": "eu1"
   },
   "Europe/Istanbul": {
     "offset": 3,
     "hem": "n"
   },
   "Europe/Jersey": {
-    "offset": 1,
+    "offset": 0,
     "hem": "n",
-    "pattern": "eu1"
+    "dst": "eu1"
   },
   "Europe/Kaliningrad": {
     "offset": 2,
@@ -1381,87 +1381,87 @@ export default {
     "hem": "n"
   },
   "Europe/Kiev": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu3"
+    "dst": "eu3"
   },
   "Europe/Lisbon": {
-    "offset": 1,
+    "offset": 0,
     "hem": "n",
-    "pattern": "eu1"
+    "dst": "eu1"
   },
   "Europe/Ljubljana": {
-    "offset": 2,
-    "hem": "n",
-    "pattern": "eu2"
-  },
-  "Europe/London": {
     "offset": 1,
     "hem": "n",
-    "pattern": "eu1"
+    "dst": "eu2"
+  },
+  "Europe/London": {
+    "offset": 0,
+    "hem": "n",
+    "dst": "eu1"
   },
   "Europe/Luxembourg": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Madrid": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Malta": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Mariehamn": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu3"
+    "dst": "eu3"
   },
   "Europe/Minsk": {
     "offset": 3,
     "hem": "n"
   },
   "Europe/Monaco": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Moscow": {
     "offset": 3,
     "hem": "n"
   },
   "Europe/Oslo": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Paris": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Podgorica": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Prague": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Riga": {
-    "offset": 3,
-    "hem": "n",
-    "pattern": "eu3"
-  },
-  "Europe/Rome": {
     "offset": 2,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu3"
+  },
+  "Europe/Rome": {
+    "offset": 1,
+    "hem": "n",
+    "dst": "eu2"
   },
   "Europe/Samara": {
     "offset": 4,
@@ -1472,96 +1472,96 @@ export default {
     "hem": "n"
   },
   "Europe/San_Marino": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Sarajevo": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Simferopol": {
     "offset": 3,
     "hem": "n"
   },
   "Europe/Skopje": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Sofia": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu3"
+    "dst": "eu3"
   },
   "Europe/Stockholm": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Tallinn": {
-    "offset": 3,
-    "hem": "n",
-    "pattern": "eu3"
-  },
-  "Europe/Tirane": {
     "offset": 2,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu3"
+  },
+  "Europe/Tirane": {
+    "offset": 1,
+    "hem": "n",
+    "dst": "eu2"
   },
   "Europe/Ulyanovsk": {
     "offset": 4,
     "hem": "n"
   },
   "Europe/Uzhgorod": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu3"
+    "dst": "eu3"
   },
   "Europe/Vaduz": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Vatican": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Vienna": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Vilnius": {
-    "offset": 3,
+    "offset": 2,
     "hem": "n",
-    "pattern": "eu3"
+    "dst": "eu3"
   },
   "Europe/Volgograd": {
     "offset": 4,
     "hem": "n"
   },
   "Europe/Warsaw": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Zagreb": {
-    "offset": 2,
+    "offset": 1,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu2"
   },
   "Europe/Zaporozhye": {
-    "offset": 3,
-    "hem": "n",
-    "pattern": "eu3"
-  },
-  "Europe/Zurich": {
     "offset": 2,
     "hem": "n",
-    "pattern": "eu2"
+    "dst": "eu3"
+  },
+  "Europe/Zurich": {
+    "offset": 1,
+    "hem": "n",
+    "dst": "eu2"
   },
   "Indian/Antananarivo": {
     "offset": 3,
@@ -1612,23 +1612,23 @@ export default {
     "hem": "s"
   },
   "Pacific/Auckland": {
-    "offset": 12,
+    "offset": 11,
     "hem": "s",
-    "pattern": "nz"
+    "dst": "nz"
   },
   "Pacific/Bougainville": {
     "offset": 11,
     "hem": "s"
   },
   "Pacific/Chatham": {
-    "offset": 12.75,
+    "offset": 11.75,
     "hem": "s",
-    "pattern": "chat"
+    "dst": "chat"
   },
   "Pacific/Easter": {
-    "offset": -6,
+    "offset": -7,
     "hem": "s",
-    "pattern": "east"
+    "dst": "east"
   },
   "Pacific/Efate": {
     "offset": 11,
@@ -1643,9 +1643,9 @@ export default {
     "hem": "n"
   },
   "Pacific/Fiji": {
-    "offset": 12,
+    "offset": 11,
     "hem": "s",
-    "pattern": "fiji"
+    "dst": "fiji"
   },
   "Pacific/Funafuti": {
     "offset": 12,
@@ -1704,9 +1704,9 @@ export default {
     "hem": "n"
   },
   "Pacific/Norfolk": {
-    "offset": 11.5,
+    "offset": 10.5,
     "hem": "n",
-    "pattern": "aus"
+    "dst": "aus"
   },
   "Pacific/Noumea": {
     "offset": 11,
@@ -1801,58 +1801,58 @@ export default {
     "hem": "s"
   },
   "America/Indiana/Knox": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Indiana/Tell_City": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/North_Dakota/Beulah": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/North_Dakota/Center": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/North_Dakota/New_Salem": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Indiana/Marengo": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Indiana/Petersburg": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Indiana/Vevay": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Indiana/Vincennes": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Indiana/Winamac": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   },
   "America/Kentucky/Monticello": {
-    "offset": -4,
+    "offset": -5,
     "hem": "n",
-    "pattern": "usa"
+    "dst": "usa"
   }
 }
