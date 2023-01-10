@@ -2,7 +2,12 @@ import isLeap from './isLeap.js'
 import { YEAR, LEAPYEAR } from './millis.js'
 import zoneFile from '../../zonefile/zonefile.2022.js'
 import { HOUR } from './millis.js'
-
+// Object.keys(zoneFile).forEach(k => {
+//   if (zoneFile[k].hem === 's' && zoneFile[k].dst) {
+//     zoneFile[k].offset += 1
+//   }
+// })
+// console.log(JSON.stringify(zoneFile, null, 2))
 
 const utcStart = function (year) {
   let epoch = 0
@@ -30,14 +35,18 @@ const utcStart = function (year) {
   return epoch
 }
 
-// 31536000000-31532400000
-// 31536000000-31564800000
 // get UTC epoch for jan 1
 const getStart = function (year, tz) {
   let epoch = utcStart(year)
   // apply timezone offset to it
   if (tz && zoneFile.hasOwnProperty(tz)) {
-    let offset = zoneFile[tz].offset || 0
+    let zone = zoneFile[tz]
+    let offset = zone.offset || 0
+    // are we in DST on Jan 1st?
+    // some zones in southern hemisphere
+    if (zone.hem === 's' && zone.dst) {
+      offset += zone.change || 1
+    }
     epoch -= offset * HOUR
   }
   return epoch

@@ -241,7 +241,7 @@ export default {
     "hem": "n"
   },
   "America/Asuncion": {
-    "offset": -5,
+    "offset": -4,
     "hem": "s",
     "dst": "par"
   },
@@ -681,7 +681,7 @@ export default {
     "hem": "n"
   },
   "America/Santiago": {
-    "offset": -5,
+    "offset": -4,
     "hem": "s",
     "dst": "chile"
   },
@@ -785,7 +785,7 @@ export default {
     "dst": "usa"
   },
   "Antarctica/Casey": {
-    "offset": 7,
+    "offset": 8,
     "hours": 3,
     "hem": "s",
     "dst": "ant"
@@ -799,7 +799,7 @@ export default {
     "hem": "s"
   },
   "Antarctica/Macquarie": {
-    "offset": 10,
+    "offset": 11,
     "hem": "s",
     "dst": "aus"
   },
@@ -808,7 +808,7 @@ export default {
     "hem": "s"
   },
   "Antarctica/Mcmurdo": {
-    "offset": 11,
+    "offset": 12,
     "hem": "s",
     "dst": "nz"
   },
@@ -825,7 +825,7 @@ export default {
     "hem": "s"
   },
   "Antarctica/Troll": {
-    "offset": 1,
+    "offset": 2,
     "hem": "s",
     "dst": "troll"
   },
@@ -1131,7 +1131,7 @@ export default {
     "hem": "n"
   },
   "Asia/Tehran": {
-    "offset": 2.5,
+    "offset": 3.5,
     "hem": "n",
     "dst": "iran"
   },
@@ -1225,7 +1225,7 @@ export default {
     "hem": "s"
   },
   "Australia/Adelaide": {
-    "offset": 8.5,
+    "offset": 9.5,
     "hem": "s",
     "dst": "aus"
   },
@@ -1234,7 +1234,7 @@ export default {
     "hem": "s"
   },
   "Australia/Broken_Hill": {
-    "offset": 8.5,
+    "offset": 9.5,
     "hem": "s",
     "dst": "aus"
   },
@@ -1247,7 +1247,7 @@ export default {
     "hem": "s"
   },
   "Australia/Hobart": {
-    "offset": 9,
+    "offset": 10,
     "hem": "s",
     "dst": "aus"
   },
@@ -1256,12 +1256,13 @@ export default {
     "hem": "s"
   },
   "Australia/Lord_Howe": {
-    "offset": 9.5,
+    "offset": 10.5,
+    "change": 0.5,
     "hem": "s",
     "dst": "lhow"
   },
   "Australia/Melbourne": {
-    "offset": 9,
+    "offset": 10,
     "hem": "s",
     "dst": "aus"
   },
@@ -1270,7 +1271,7 @@ export default {
     "hem": "s"
   },
   "Australia/Sydney": {
-    "offset": 9,
+    "offset": 10,
     "hem": "s",
     "dst": "aus"
   },
@@ -1612,7 +1613,7 @@ export default {
     "hem": "s"
   },
   "Pacific/Auckland": {
-    "offset": 11,
+    "offset": 12,
     "hem": "s",
     "dst": "nz"
   },
@@ -1621,12 +1622,12 @@ export default {
     "hem": "s"
   },
   "Pacific/Chatham": {
-    "offset": 11.75,
+    "offset": 12.75,
     "hem": "s",
     "dst": "chat"
   },
   "Pacific/Easter": {
-    "offset": -7,
+    "offset": -6,
     "hem": "s",
     "dst": "east"
   },
@@ -1643,7 +1644,7 @@ export default {
     "hem": "n"
   },
   "Pacific/Fiji": {
-    "offset": 11,
+    "offset": 12,
     "hem": "s",
     "dst": "fiji"
   },
