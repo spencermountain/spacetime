@@ -14,6 +14,8 @@ test('paris jan 1st epochs', (t) => {
     let year = 1968 + i
     let epoch = getStart(year, tz)
     t.equal(epoch, paris[i], `paris ${year}`)
+    // let iso = spacetime(paris[i]).format('{iso-short}')
+    // t.equal(iso, `${year}-01-01`, `paris iso ${year}`)
   }
   t.end()
 })

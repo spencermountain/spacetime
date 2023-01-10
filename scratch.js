@@ -19,11 +19,7 @@ let arr = [
 
 arr.forEach(a => {
   let [year, tz, epoch] = a
-
   let n = getStart(year, tz)
-  console.log(n)
-  console.log(n === epoch, `year-start ${year} ${tz}`)
-  console.log('have', DateTime.fromMillis(n).setZone(tz).toISO())
-  console.log('want', DateTime.fromMillis(epoch).setZone(tz).toISO(), '\n')
-
+  let iso = spacetime(n).format('{iso}')
+  console.log(iso)
 })

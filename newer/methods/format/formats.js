@@ -20,6 +20,8 @@ const formats = {
   'month-ordinal': (c) => ordinal(c.month),
   'month-pad': (c) => zeroPad(c.month),
   'iso-month': (c) => zeroPad(c.month + 1), //1-based months
+  'iso-short': (c) => `${c.year}-${zeroPad(c.month)}-${zeroPad(c.date)}`,
+  'iso': (c) => `${c.year}-${zeroPad(c.month)}-${zeroPad(c.date)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.ms, 3)}`,
 
   year: (c) => c.year > 0 ? c.year : `${Math.abs(c.year)} BC`,
   'year-short': (c) => {
