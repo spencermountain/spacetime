@@ -4,11 +4,11 @@ let list = Object.keys(zones)
 import { getStart } from '../../newer/compute/_lib/yearStart.js'
 
 
-const hit = function (year) {
-  // let tz = list[Math.floor(Math.random() * list.length)]
-  let tz = 'Pacific/Auckland'
-  // let year = Math.floor(2023 + (Math.random() * 15))
-  // let year = 2005
+const hit = function () {
+  let tz = list[Math.floor(Math.random() * list.length)]
+  // let tz = 'Pacific/Auckland'
+  let year = Math.floor(2020 + (Math.random() * 4))
+  // let year = 20
   let epoch = DateTime.fromObject({ year, }).setZone(tz, { keepCalendarTime: true }).startOf('year').toMillis()
 
   return [year, tz, epoch]
