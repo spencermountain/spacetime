@@ -61,4 +61,35 @@ let lisbon = {
     [1667100000000, "2022-10-30T03:20:00.000", "Europe/Lisbon"],
   ]
 }
-export { toronto, lisbon }
+
+let melbourne = {
+  spring: [
+    [1270305000000, "2010-04-04T01:30:00.000", "Australia/Melbourne"],
+    [1270306200000, "2010-04-04T01:50:00.000", "Australia/Melbourne"],
+    [1270307400000, "2010-04-04T02:10:00.000", "Australia/Melbourne"],
+    [1270308600000, "2010-04-04T02:30:00.000", "Australia/Melbourne"],
+    [1270309800000, "2010-04-04T02:50:00.000", "Australia/Melbourne"],
+    // repeat 2am
+    [1270311000000, "2010-04-04T02:10:00.000", "Australia/Melbourne"],
+    [1270312200000, "2010-04-04T02:30:00.000", "Australia/Melbourne"],
+    [1270313400000, "2010-04-04T02:50:00.000", "Australia/Melbourne"],
+    [1270314600000, "2010-04-04T03:10:00.000", "Australia/Melbourne"],
+    [1270315800000, "2010-04-04T03:30:00.000", "Australia/Melbourne"],
+    [1270317000000, "2010-04-04T03:50:00.000", "Australia/Melbourne"],
+    [1270318200000, "2010-04-04T04:10:00.000", "Australia/Melbourne"],
+  ],
+  fall: [
+    [1286028600000, "2010-10-03T00:10:00.000", "Australia/Melbourne"],
+    [1286029800000, "2010-10-03T00:30:00.000", "Australia/Melbourne"],
+    [1286031000000, "2010-10-03T00:50:00.000", "Australia/Melbourne"],
+    [1286032200000, "2010-10-03T01:10:00.000", "Australia/Melbourne"],
+    [1286033400000, "2010-10-03T01:30:00.000", "Australia/Melbourne"],
+    [1286034600000, "2010-10-03T01:50:00.000", "Australia/Melbourne"],
+    // (skip 2am)
+    [1286035800000, "2010-10-03T03:10:00.000", "Australia/Melbourne"],
+    [1286037000000, "2010-10-03T03:30:00.000", "Australia/Melbourne"],
+    [1286038200000, "2010-10-03T03:50:00.000", "Australia/Melbourne"],
+    [1286039400000, "2010-10-03T04:10:00.000", "Australia/Melbourne"]
+  ]
+}
+export { toronto, lisbon, melbourne }

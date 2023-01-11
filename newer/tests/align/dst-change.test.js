@@ -1,6 +1,6 @@
 import test from 'tape'
 import spacetime from '../../src/index.js'
-import { toronto, lisbon } from './times/dst-changes.js'
+import { toronto, lisbon, melbourne } from './times/dst-changes.js'
 
 
 test('toronto spring dst ', (t) => {
@@ -35,6 +35,23 @@ test('lisbon fall dst ', (t) => {
     let [epoch, iso, tz] = a
     let str = spacetime(epoch, tz).iso()
     t.equal(str, iso, `lisbon-fall-dst - ${iso}`)
+  })
+  t.end()
+})
+test('melbourne spring dst ', (t) => {
+  melbourne.spring.forEach(a => {
+    let [epoch, iso, tz] = a
+    let str = spacetime(epoch, tz).iso()
+    t.equal(str, iso, `melbourne-spring-dst - ${iso}`)
+  })
+  t.end()
+})
+
+test('melbourne fall dst ', (t) => {
+  melbourne.fall.forEach(a => {
+    let [epoch, iso, tz] = a
+    let str = spacetime(epoch, tz).iso()
+    t.equal(str, iso, `melbourne-fall-dst - ${iso}`)
   })
   t.end()
 })

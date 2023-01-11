@@ -8,9 +8,9 @@ const DAY = 24 * HOUR;
 
 const YEAR = 365 * DAY
 
-let tz = 'Europe/Lisbon'
-// let now = new Date('2022-03-27T00:00:00.000Z').getTime()
-let now = new Date('2022-10-29T23:00:00.000Z').getTime()
+let tz = 'Australia/Melbourne'
+// let now = new Date('2010-04-04T01:00:00.000+10:30').getTime()
+let now = new Date('2010-10-02T23:00:00.000+10:30').getTime()
 const hit = function (i) {
   let epoch = now + (20 * MIN) * i
   let iso = DateTime.fromMillis(epoch).setZone(tz,).toISO({ includeOffset: false, })//{ keepCalendarTime: true }

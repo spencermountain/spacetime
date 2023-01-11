@@ -1,7 +1,7 @@
 import test from 'tape'
 import spacetime from '../../src/index.js'
 import { getYear } from '../../src/compute/_lib/yearStart.js'
-import { misc, vancouver2023, karachi2011, adelaide2021, panama1980, jan1s } from './times/index.js'
+import { misc, vancouver2023, karachi2011, adelaide2021, panama1980, jan1s, } from './times/index.js'
 
 test('karachi 2011 epoch-iso alignments', (t) => {
   karachi2011.forEach(a => {
@@ -29,6 +29,15 @@ test('vancouver epoch-iso alignments', (t) => {
   })
   t.end()
 })
+
+// test('adelaide 2021 epoch-iso alignments', (t) => {
+//   adelaide2021.forEach(a => {
+//     let [epoch, iso, tz] = a
+//     let str = spacetime(epoch, tz).iso()
+//     t.equal(str, iso, iso)
+//   })
+//   t.end()
+// })
 
 // test('random epoch-iso alignments', (t) => {
 //   misc.forEach(a => {
