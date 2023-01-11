@@ -22,10 +22,13 @@ const computeCal = function (epoch, tz) {
     second: 0,
     millisecond: 0
   }
+
+  // kick the epoch back, by our offset
+
+
   // walk the days
   let diff = epoch - start;
   let daysDiff = Math.floor(diff / DAY);
-
   // compute month, date
   let resDate = getDate(daysDiff, year)
   Object.assign(cal, resDate)
@@ -34,24 +37,24 @@ const computeCal = function (epoch, tz) {
   let deltaMs = diff - (daysDiff * DAY)
   let resMins = getTime(deltaMs)
   Object.assign(cal, resMins)
-
   // consult any DST changes
   let changes = getDst(tz, year)
   // find the latest change
   for (let i = changes.length - 1; i >= 0; i -= 1) {
-    // console.log(changes[i].epoch, epoch)
     if (epoch >= changes[i].epoch) {
-      // console.log(changes[i].offset)
       let delta = changes[i].delta
       if (isInt(delta)) {
         cal.hour += delta
+        if (cal.hour === 24) {
+          cal.date += 1 //this sucks
+          cal.hour = 0
+        }
       } else {
-        cal.minute += delta * 60  //TODO: this is sorta weak
+        cal.minute += delta * 60  //TODO: this sucks
       }
       break
     }
   }
-  // console.log(cal)
 
   return cal
 }

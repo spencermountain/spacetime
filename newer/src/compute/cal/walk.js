@@ -1,5 +1,5 @@
 import isLeapYear from '../_lib/isLeap.js'
-import { SEC, MIN, HOUR } from '../_lib/millis.js'
+import { SEC, MIN, HOUR, DAY } from '../_lib/millis.js'
 import MONTHS from '../_lib/months.js'
 
 const monthLengths = MONTHS.map(o => o.len)
