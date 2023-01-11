@@ -24,8 +24,12 @@ const getDst = function (tz, year) {
     memo[tz][year] = []
     return changes
   }
+  if (hem === 's') {
+    // offset += 1
+  }
   // get epoch for spring dst change
   let res = calc(obj.start, year, offset)
+  // console.log(res)
   let delta = hem === 'n' ? change : 0
   changes.push({
     epoch: res.epoch,
@@ -39,6 +43,7 @@ const getDst = function (tz, year) {
     delta,
     offset: offset + delta
   })
+
 
   // get epoch for fall dst change
   res = calc(obj.end, year, offset)
@@ -64,3 +69,4 @@ export default getDst
 
 // console.log(getDst('America/Toronto', 2023))
 // console.log(getDst('Australia/Adelaide', 2023))
+console.log(getDst('Australia/Melbourne', 2010))
