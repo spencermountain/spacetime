@@ -16,11 +16,13 @@ const dim = str => '\x1b[2m' + str + '\x1b[0m'
 
 let arr = [
 
-  [1614496652775, "2021-02-27T23:17:32.775", "America/Vancouver"], // dst off
+  // [1614496652775, "2021-02-27T23:17:32.775", "America/Vancouver"], // dst off
 
-  [1616018072663, "2021-03-17T14:54:32.663", "America/Vancouver"], //dst on
+  // [1616018072663, "2021-03-17T14:54:32.663", "America/Vancouver"], //dst on
 
-  [1638930726826, "2021-12-07T18:32:06.826", "America/Vancouver"], //dst off
+  // [1638930726826, "2021-12-07T18:32:06.826", "America/Vancouver"], //dst off
+
+  [1678605600000, "2023-03-12T03:20:00.000", "America/Toronto"],
 ]
 
 arr.forEach(a => {

@@ -1,6 +1,14 @@
 import { getYear } from '../_lib/yearStart.js'
 import { getDate, getTime } from './walk.js'
-import { DAY } from '../_lib/millis.js'
+import { DAY, HOUR } from '../_lib/millis.js'
+import getDst from '../changes/index.js'
+
+const isFloat = function (n) {
+  return Number(n) === n && n % 1 !== 0;
+}
+const isInt = function (n) {
+  return Number(n) === n && n % 1 === 0;
+}
 
 // take an epoch, return {month, year, date...}
 const computeCal = function (epoch, tz) {
@@ -26,6 +34,21 @@ const computeCal = function (epoch, tz) {
   let deltaMs = diff - (daysDiff * DAY)
   let resMins = getTime(deltaMs)
   Object.assign(cal, resMins)
+
+  // consult any DST changes
+  let changes = getDst(tz, year)
+  // find the latest change
+  for (let i = changes.length - 1; i >= 0; i -= 1) {
+    if (changes[i].epoch <= epoch) {
+      let delta = changes[i].delta
+      if (isInt(delta)) {
+        cal.hour += delta
+      } else {
+        cal.minute += delta * 60  //TODO: this is sorta weak
+      }
+    }
+  }
+
   return cal
 }
 export default computeCal

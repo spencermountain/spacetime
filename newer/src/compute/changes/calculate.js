@@ -48,7 +48,7 @@ const toRightWeek = function (num, day, month) {
         return days - 7 //went too far
       }
     }
-    console.log('fixme')
+    console.log('fixme [toRightWeek]')//eslint-disable-line
     return 3
   }
   let days = (num - 1) * 7
