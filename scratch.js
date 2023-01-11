@@ -1,6 +1,8 @@
 import spacetime from './newer/src/index.js'
 import { getYear } from './newer/src/compute/_lib/yearStart.js'
 import { DateTime } from "luxon";
+import old from './old/index.js'
+
 
 const green = str => '\x1b[32m' + str + '\x1b[0m'
 const red = str => '\x1b[31m' + str + '\x1b[0m'
@@ -13,32 +15,26 @@ const dim = str => '\x1b[2m' + str + '\x1b[0m'
 
 
 let arr = [
-  [1672555409576, "2023-01-01T01:43:29.576", "America/Vancouver"],
-  // [1672560000000, "2023-01-01T00:00:00.000", "America/Vancouver"],
-  // [1672566986654, "2023-01-01T04:56:26.654", "America/Vancouver"],
-  // [1672581460527, "2023-01-01T08:57:40.527", "America/Vancouver"],
-  // [1672591436919, "2023-01-01T11:43:56.919", "America/Vancouver"],
-  // [1673683410797, "2023-01-14T03:03:30.797", "America/Vancouver"],
-  // [1676038536143, "2023-02-10T09:15:36.143", "America/Vancouver"],
-  // [-88802406245, "1967-03-09T23:39:53.755", "Asia/Qatar"],
-  // [-397584747010, "1957-05-27T03:47:32.990", "Indian/Cocos"],
-  // [1529219882083, "2018-06-17T03:18:02.083", "Asia/Dushanbe"],
-  // [1306852593893, "2011-05-31T10:36:33.893", "Asia/Aqtobe"],
-  // [-63162000000, "1967-01-01T00:00:00.000", "Europe/Paris"],
-  // [3007864479, "1970-02-04T14:31:04.479", "America/Inuvik"],
-  // [11912630989, "1970-05-18T17:03:50.989", "Pacific/Pago_Pago"],
+
+  [1614496652775, "2021-02-27T23:17:32.775", "America/Vancouver"], // dst off
+
+  [1616018072663, "2021-03-17T14:54:32.663", "America/Vancouver"], //dst on
+
+  [1638930726826, "2021-12-07T18:32:06.826", "America/Vancouver"], //dst off
 ]
 
 arr.forEach(a => {
   let [epoch, want, tz] = a
-  let { start, year } = getYear(epoch, tz)
-  console.log(year)
-  // let iso = spacetime(epoch, tz).format('{iso}')
-  // console.log(iso === want)
-  // console.log('have: ', cyan(iso))
-  // console.log('want: ', red(want))
-  // let lux = DateTime.fromMillis(start).setZone(tz, { keepCalendarTime: true }).toISO({ includeOffset: false, })
-  // console.log('lux:', lux)
+  // let { start, year } = getYear(epoch, tz)
+  let iso = spacetime(epoch, tz).format('{iso}')
+  console.log(iso === want)
+  console.log('have: ', cyan(iso))
+  console.log('want: ', red(want))
+  let lux = DateTime.fromMillis(epoch).setZone(tz).toISO({})
+  console.log('lux:', lux)
+
+  let s = old(epoch, tz)
+  console.log('spa:', s.iso())
 })
 
 
