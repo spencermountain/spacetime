@@ -1,49 +1,38 @@
-import patterns from '../../zonefile/patterns.js'
-import zones from '../../zonefile/zonefile.2022.js'
-import misc from '../../zonefile/misc.js'
+import patterns from '../../../zonefile/patterns.js'
+import zones from '../../../zonefile/zonefile.2022.js'
+import misc from '../../../zonefile/misc.js'
 import calc from './calculate.js'
 import { getStart } from '../_lib/yearStart.js'
 import { HOUR } from '../_lib/millis.js'
 
 // calculate DST times, for this timezone
 const getDst = function (tz, year) {
-  let { pattern, offset } = zones[tz] || {}
+  let { dst, offset, change } = zones[tz] || {}
+  change = change || 1
   // allow ad-hoc dst settings
-  if (misc.hasOwnProperty(pattern) && misc[pattern][String(year)]) {
-    let [start, end] = misc[pattern][String(year)]
-    return { start, end }
-  }
+  // if (misc.hasOwnProperty(dst) && misc[dst][String(year)]) {
+  //   let [start, end] = misc[dst][String(year)]
+  //   return { start, end }
+  // }
 
   let changes = []
 
-  // get epoch for 01/01
-  let yearStart = getStart(year)
-  yearStart += (offset * HOUR)
-  changes.push({
-    epoch: yearStart,
-    cal: {
-      year,
-      month: 1,
-      date: 1,
-      hour: 0,
-      minute: 0,
-    }
-  })
-  let obj = patterns[pattern]
+  let obj = patterns[dst]
   if (!obj) {
     return changes
   }
   // get epoch for spring dst change
   let res = calc(obj.start, year, offset)
   changes.push({
-    epoch: res.epoch - HOUR,
+    epoch: res.epoch,//- (HOUR * change),
     cal: {
       year,
       month: res.month,
       date: res.date,
       hour: obj.start.hour,
       minute: 0,
-    }
+    },
+    offset: offset + change
   })
 
   // get epoch for fall dst change
@@ -56,11 +45,12 @@ const getDst = function (tz, year) {
       date: res.date,
       hour: obj.end.hour,
       minute: 0,
-    }
+    },
+    offset
   })
   return changes
 }
 
 export default getDst
 
-// console.log(getDst('America/Toronto', 2023))
+console.log(getDst('America/Toronto', 2023))
