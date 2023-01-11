@@ -1,10 +1,7 @@
 import test from 'tape'
 import { getYear } from '../../src/compute/_lib/yearStart.js'
-import misc from './times/misc.js'
-import vancouver2023 from './times/vancouver-2021.js'
-import adelaide2021 from './times/adelaide-2023.js'
-import jan1s from './times/jan-1s.js'
 import spacetime from '../../src/index.js'
+import { misc, vancouver2023, karachi2011, adelaide2021, panama1980, jan1s } from './times/index.js'
 
 test('get Year - misc', (t) => {
   misc.forEach(a => {

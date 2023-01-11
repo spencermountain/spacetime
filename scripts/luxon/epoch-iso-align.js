@@ -8,12 +8,13 @@ const DAY = 24 * HOUR;
 
 const YEAR = 365 * DAY
 
-let now = new Date('1950-01-01').getTime()
+let now = new Date('1980-01-01').getTime()
 const hit = function () {
-  let tz = list[Math.floor(Math.random() * list.length)]
+  // let tz = list[Math.floor(Math.random() * list.length)]
   // let tz = 'Australia/Adelaide'
   // let tz = 'America/Vancouver'
-  let epoch = now + (Math.random() * YEAR * 90)
+  let tz = 'America/Panama'
+  let epoch = now + (Math.random() * YEAR)
   epoch = parseInt(epoch, 10)
   let iso = DateTime.fromMillis(epoch).setZone(tz,).toISO({ includeOffset: false, })//{ keepCalendarTime: true }
   return [epoch, iso, tz]

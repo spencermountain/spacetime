@@ -1,7 +1,6 @@
 import test from 'tape'
 import { getStart } from '../../src/compute/_lib/yearStart.js'
 import jan1s from './times/jan-1s.js'
-import spacetime from '../../src/index.js'
 
 test('paris jan 1st epochs', (t) => {
   let tz = "Europe/Paris"
