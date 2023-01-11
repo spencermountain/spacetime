@@ -1,6 +1,6 @@
 import test from 'tape'
 import { getYear } from '../../src/compute/_lib/yearStart.js'
-import times from './_times.js'
+import times from './times/misc.js'
 import spacetime from '../../src/index.js'
 
 
