@@ -1,25 +1,29 @@
-import spacetime from './newer/index.js'
-import { getStart } from './newer/compute/_lib/yearStart.js'
-import zones from './newer/zonefile/zonefile.2022.js'
+import spacetime from './newer/src/index.js'
+import { getYear } from './newer/src/compute/_lib/yearStart.js'
 import { DateTime } from "luxon";
 
 
+
 let arr = [
-  // [2004, "America/Vancouver", 1041408000000],
-  // [1971, "Europe/Paris", 31532400000],
-  // [1971, "Europe/Paris", 31532400000],
-  // [1972, "Europe/Paris", 63068400000],
-  // [1973, "Europe/Paris", 94690800000],
-  // [1972, "America/Vancouver", 63100800000],
-  // [2024, "Pacific/Auckland", 1704020400000],
-  [2035, "Asia/Tehran", 2051209800000],
-  // [1980, "America/Vancouver", 315561600000],
-  // [2005, "America/Vancouver", 1072944000000]
+  // [1676038536143, "2023-02-10T09:15:36.143", "America/Vancouver"],
+  // [-88802406245, "1967-03-09T23:39:53.755", "Asia/Qatar"],
+  // [-397584747010, "1957-05-27T03:47:32.990", "Indian/Cocos"],
+  // [1529219882083, "2018-06-17T03:18:02.083", "Asia/Dushanbe"],
+  // [1306852593893, "2011-05-31T10:36:33.893", "Asia/Aqtobe"],
+  [-63162000000, "1967-01-01T00:00:00.000", "Europe/Paris"],
 ]
 
 arr.forEach(a => {
-  let [year, tz, epoch] = a
-  let n = getStart(year, tz)
-  let iso = spacetime(n).format('{iso}')
-  console.log(iso)
+  let [epoch, want, tz] = a
+  let { start, year } = getYear(epoch, tz)
+  console.log(year)
+  // let iso = spacetime(start, tz).format('{iso}')
+  // console.log('have: ', iso)
+  // console.log('want: ', want)
+  // console.log(iso === want)
 })
+
+
+
+// let iso = DateTime.fromMillis(-63162000000).setZone("Europe/Paris", { keepCalendarTime: true }).toISO({ includeOffset: false, })
+// console.log()

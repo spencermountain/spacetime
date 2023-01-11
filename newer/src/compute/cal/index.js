@@ -22,7 +22,7 @@ const getDate = function (diffDays, year) {
     res.month += 1
   }
   // add remainder to days
-  res.date = diffDays - total
+  res.date += diffDays - total
   return res
 }
 
@@ -66,7 +66,6 @@ const computeCal = function (want, tz) {
   let deltaMs = diff - (daysDiff * DAY)
   let resMins = getTime(deltaMs)
   Object.assign(cal, resMins)
-
   return cal
 }
 export default computeCal
