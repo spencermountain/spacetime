@@ -21,8 +21,17 @@ let arr = [
   // [1616018072663, "2021-03-17T14:54:32.663", "America/Vancouver"], //dst on
 
   // [1638930726826, "2021-12-07T18:32:06.826", "America/Vancouver"], //dst off
+  // [1678605600000, "2023-03-12T03:20:00.000", "America/Toronto"],
+  // [1699165200000, "2023-11-05T01:20:00.000", "America/Toronto"],
 
-  [1678605600000, "2023-03-12T03:20:00.000", "America/Toronto"],
+  [1699159200000, "2023-11-05T00:40:00.000", "America/Toronto"],
+
+
+  // [1699161600000, "2023-11-05T01:20:00.000", "America/Toronto"],
+  // [1699162800000, "2023-11-05T01:40:00.000", "America/Toronto"],
+  // // (repeat 1am)
+  // [1699164000000, "2023-11-05T01:00:00.000", "America/Toronto"],
+  // [1699165200000, "2023-11-05T01:20:00.000", "America/Toronto"],
 ]
 
 arr.forEach(a => {
@@ -32,11 +41,13 @@ arr.forEach(a => {
   console.log(iso === want)
   console.log('have: ', cyan(iso))
   console.log('want: ', red(want))
-  let lux = DateTime.fromMillis(epoch).setZone(tz).toISO({})
-  console.log('lux:', lux)
+  // let lux = DateTime.fromMillis(epoch).setZone(tz).toISO({})
+  // console.log('lux:', lux)
 
-  let s = old(epoch, tz)
-  console.log('spa:', s.iso())
+  // let s = old(epoch, tz)
+  // console.log('spa:', s.iso())
 })
 
+// let lux = DateTime.fromMillis(1699167600000).setZone("America/Toronto").plus({ hour: -2 })
+// console.log(lux.toMillis({}), lux.toISO({}))
 

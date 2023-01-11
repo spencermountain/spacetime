@@ -21,14 +21,14 @@ test('panama 1980 epoch-iso alignments', (t) => {
   t.end()
 })
 
-// test('vancouver epoch-iso alignments', (t) => {
-//   vancouver2023.forEach(a => {
-//     let [epoch, iso, tz] = a
-//     let str = spacetime(epoch, tz).iso()
-//     t.equal(str, iso, iso)
-//   })
-//   t.end()
-// })
+test('vancouver epoch-iso alignments', (t) => {
+  vancouver2023.forEach(a => {
+    let [epoch, iso, tz] = a
+    let str = spacetime(epoch, tz).iso()
+    t.equal(str, iso, iso)
+  })
+  t.end()
+})
 
 // test('random epoch-iso alignments', (t) => {
 //   misc.forEach(a => {

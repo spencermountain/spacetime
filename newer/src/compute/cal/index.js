@@ -39,15 +39,19 @@ const computeCal = function (epoch, tz) {
   let changes = getDst(tz, year)
   // find the latest change
   for (let i = changes.length - 1; i >= 0; i -= 1) {
-    if (changes[i].epoch <= epoch) {
+    // console.log(changes[i].epoch, epoch)
+    if (epoch >= changes[i].epoch) {
+      // console.log(changes[i].offset)
       let delta = changes[i].delta
       if (isInt(delta)) {
         cal.hour += delta
       } else {
         cal.minute += delta * 60  //TODO: this is sorta weak
       }
+      break
     }
   }
+  // console.log(cal)
 
   return cal
 }

@@ -1,6 +1,7 @@
 import patterns from '../../../zonefile/patterns.js'
 import zones from '../../../zonefile/zonefile.2022.js'
 import calc from './calculate.js'
+import { HOUR } from '../_lib/millis.js'
 
 let memo = {}
 
@@ -27,7 +28,7 @@ const getDst = function (tz, year) {
   let res = calc(obj.start, year, offset)
   let delta = hem === 'n' ? change : 0
   changes.push({
-    epoch: res.epoch,//- (HOUR * change),
+    epoch: res.epoch,
     cal: {
       year,
       month: res.month,
@@ -43,7 +44,7 @@ const getDst = function (tz, year) {
   res = calc(obj.end, year, offset)
   delta = hem === 's' ? change : 0
   changes.push({
-    epoch: res.epoch,
+    epoch: res.epoch - HOUR, //todo fixme
     cal: {
       year,
       month: res.month,
@@ -54,7 +55,6 @@ const getDst = function (tz, year) {
     delta,
     offset: offset + delta
   })
-
   // store it for next time
   memo[tz][year] = changes
   return changes
