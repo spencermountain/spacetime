@@ -23,8 +23,14 @@ const computeCal = function (epoch, tz) {
     millisecond: 0
   }
 
-  // kick the epoch back, by our offset
-
+  // kick the epoch around, according to our DST offset
+  let changes = getDst(tz, year)
+  for (let i = changes.length - 1; i >= 0; i -= 1) {
+    if (epoch >= changes[i].epoch) {
+      epoch += changes[i].delta * HOUR
+      break
+    }
+  }
 
   // walk the days
   let diff = epoch - start;
@@ -38,23 +44,23 @@ const computeCal = function (epoch, tz) {
   let resMins = getTime(deltaMs)
   Object.assign(cal, resMins)
   // consult any DST changes
-  let changes = getDst(tz, year)
-  // find the latest change
-  for (let i = changes.length - 1; i >= 0; i -= 1) {
-    if (epoch >= changes[i].epoch) {
-      let delta = changes[i].delta
-      if (isInt(delta)) {
-        cal.hour += delta
-        if (cal.hour === 24) {
-          cal.date += 1 //this sucks
-          cal.hour = 0
-        }
-      } else {
-        cal.minute += delta * 60  //TODO: this sucks
-      }
-      break
-    }
-  }
+  // let changes = getDst(tz, year)
+  // // find the latest change
+  // for (let i = changes.length - 1; i >= 0; i -= 1) {
+  //   if (epoch >= changes[i].epoch) {
+  //     let delta = changes[i].delta
+  //     if (isInt(delta)) {
+  //       cal.hour += delta
+  //       if (cal.hour === 24) {
+  //         cal.date += 1 //this sucks
+  //         cal.hour = 0
+  //       }
+  //     } else {
+  //       cal.minute += delta * 60  //TODO: this sucks
+  //     }
+  //     break
+  //   }
+  // }
 
   return cal
 }
