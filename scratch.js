@@ -13,8 +13,9 @@ const dim = str => '\x1b[2m' + str + '\x1b[0m'
 
 
 let arr = [
+  [1672555409576, "2023-01-01T01:43:29.576", "America/Vancouver"],
   // [1672560000000, "2023-01-01T00:00:00.000", "America/Vancouver"],
-  [1672566986654, "2023-01-01T04:56:26.654", "America/Vancouver"],
+  // [1672566986654, "2023-01-01T04:56:26.654", "America/Vancouver"],
   // [1672581460527, "2023-01-01T08:57:40.527", "America/Vancouver"],
   // [1672591436919, "2023-01-01T11:43:56.919", "America/Vancouver"],
   // [1673683410797, "2023-01-14T03:03:30.797", "America/Vancouver"],
@@ -30,11 +31,12 @@ let arr = [
 
 arr.forEach(a => {
   let [epoch, want, tz] = a
-  // let { start, year } = getYear(epoch, tz)
-  let iso = spacetime(epoch, tz).format('{iso}')
-  console.log(iso === want)
-  console.log('have: ', cyan(iso))
-  console.log('want: ', red(want))
+  let { start, year } = getYear(epoch, tz)
+  console.log(year)
+  // let iso = spacetime(epoch, tz).format('{iso}')
+  // console.log(iso === want)
+  // console.log('have: ', cyan(iso))
+  // console.log('want: ', red(want))
   // let lux = DateTime.fromMillis(start).setZone(tz, { keepCalendarTime: true }).toISO({ includeOffset: false, })
   // console.log('lux:', lux)
 })

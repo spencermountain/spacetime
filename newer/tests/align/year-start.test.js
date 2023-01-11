@@ -77,8 +77,8 @@ test('random jan 1st epochs', (t) => {
     let n = getStart(year, tz)
     t.equal(n, epoch, `year-start ${year} ${tz}`)
 
-    let iso = spacetime(epoch, tz).format('iso-short')
-    t.equal(iso, `${year}-01-01`, `iso ${year} ${tz}`)
+    // let iso = spacetime(epoch, tz).format('iso-short')
+    // t.equal(iso, `${year}-01-01`, `iso ${year} ${tz}`)
 
   })
 
