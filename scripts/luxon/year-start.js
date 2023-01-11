@@ -1,13 +1,13 @@
 import { DateTime } from "luxon";
 import zones from '../../newer/zonefile/zonefile.2022.js'
 let list = Object.keys(zones)
-import { getStart } from '../../newer/compute/_lib/yearStart.js'
+// import { getStart } from '../../newer/compute/_lib/yearStart.js'
 
 
 const hit = function () {
   let tz = list[Math.floor(Math.random() * list.length)]
   // let tz = 'Pacific/Auckland'
-  let year = Math.floor(2020 + (Math.random() * 4))
+  let year = Math.floor(1960 + (Math.random() * 10))
   // let year = 20
   let epoch = DateTime.fromObject({ year, }).setZone(tz, { keepCalendarTime: true }).startOf('year').toMillis()
 

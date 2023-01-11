@@ -4,8 +4,13 @@ import zoneFile from '../../../zonefile/zonefile.2022.js'
 import { HOUR } from './millis.js'
 
 const MAXOFFSET = -DAY * 2
+const memo = {}
 
 const utcStart = function (year) {
+  // try and compute this only once
+  if (memo.hasOwnProperty(year)) {
+    return memo[year]
+  }
   let epoch = 0
   // count up from 1970
   if (year > 1970) {
@@ -15,6 +20,7 @@ const utcStart = function (year) {
       } else {
         epoch += YEAR
       }
+      memo[y + 1] = epoch
     }
   } else {
     // count down from 1970
@@ -26,6 +32,7 @@ const utcStart = function (year) {
       } else {
         epoch -= YEAR
       }
+      memo[y] = epoch
     }
   }
   return epoch
@@ -53,6 +60,7 @@ const getStart = function (year, tz) {
   return epoch
 }
 
+// from a random epoch, get it's Jan 1st alignment
 const getYear = function (target, tz) {
   let epoch = 0
   // apply timezone offset to it
