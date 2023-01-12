@@ -57,10 +57,10 @@ let arr = [
 // })
 
 
-let input = "2023-11-05T01:23:20.030-05:45"
+let input = "2023-12-25T01:23:20.030-05:45"
 // input = '2012-06'
 // let input = [2020, 7, 23, 4]
-let s = spacetime(input)
+let s = spacetime(input, "America/Vancouver")
 // console.log(s.date())
 console.log(s.iso())
 // let lux = DateTime.fromMillis(out).setZone("America/Toronto")

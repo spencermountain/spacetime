@@ -66,8 +66,25 @@ const formats = {
       return 'Q3'
     }
     return 'Q4'
+  },
+  // turn timezone 5.25 into '+05:15'
+  offset: (c) => {
+    let n = c.offset || 0
+    let out = n <= 0 ? '-' : '+'
+    n = Math.abs(n)
+    // add hour
+    let h = parseInt(n, 10)
+    out += String(h).padStart(2, '0')
+    // add minute
+    let decimal = n % 1
+    if (decimal) {
+      let min = decimal * 60
+      out += ':' + String(min).padStart(2, '0')
+    } else {
+      out += ':00'
+    }
+    return out
   }
-
 }
 // aliases
 const aliases = {
@@ -94,7 +111,7 @@ const aliases = {
   'dd/mm/yyyy': 'numeric-us',
   'little-endian': 'numeric-uk',
   'big-endian': 'numeric',
-  'day-nice': 'nice-day'
+  'day-nice': 'nice-day',
 }
 Object.keys(aliases).forEach((k) => (formats[k] = formats[aliases[k]]))
 

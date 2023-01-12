@@ -10,7 +10,7 @@ export default [
     parse: (m) => {
       let obj = {
         year: parseYear(m[1]),
-        month: parseInt(m[2], 10) - 1,
+        month: parseInt(m[2], 10),
         date: parseDate(m[3])
       }
       obj.offset = parseOffset(m[5])
@@ -24,13 +24,13 @@ export default [
     parse: (m) => {
       let obj = {
         year: parseYear(m[1]),
-        month: parseInt(m[2], 10) - 1,
+        month: parseInt(m[2], 10),
         date: parseDate(m[3])
       }
       if (obj.month >= 12) {
         //support yyyy/dd/mm (weird, but ok)
         obj.date = parseDate(m[2])
-        obj.month = parseInt(m[3], 10) - 1
+        obj.month = parseInt(m[3], 10)
       }
       obj = parseTime(m[4], obj)
       return obj

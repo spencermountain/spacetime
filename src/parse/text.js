@@ -7,7 +7,6 @@ const parseText = function (txt, tz) {
     if (m !== null) {
       // console.log(`reg #${i} - ${formats[i].reg}`)
       let out = formats[i].parse(m)
-      console.log(out)
       return out
     }
   }

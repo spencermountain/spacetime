@@ -8,7 +8,7 @@ export default [
   {
     reg: /^([0-9]{1,2})[-/.]([0-9]{1,2})[-/.]?([0-9]{4})?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2} ?(am|pm|gmt))?$/i,
     parse: (m) => {
-      let month = parseInt(m[1], 10) - 1
+      let month = parseInt(m[1], 10)
       let date = parseDate(m[2])
       //support dd/mm/yyy
       // if (s.british || month >= 12) {

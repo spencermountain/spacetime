@@ -19,4 +19,4 @@ all = topk(all)
 all = all.map(a => {
   return a
 })
-console.log(all)
+// console.log(all)

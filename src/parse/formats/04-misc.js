@@ -11,7 +11,7 @@ export default [
     parse: (m) => {
       let obj = {
         year: parseYear(m[1]),
-        month: parseInt(m[2], 10) - 1,
+        month: parseInt(m[2], 10),
       }
       // s = parseTime(s, m[4])
       return obj

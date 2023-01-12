@@ -1,6 +1,8 @@
 import { getYear } from '../_lib/yearStart.js'
 import { getDate, getTime } from './walk.js'
 import { DAY, HOUR } from '../_lib/millis.js'
+import zoneFile from '../../../zonefile/zonefile.2022.js'
+
 import getDst from '../changes/index.js'
 
 
@@ -14,18 +16,18 @@ const computeCal = function (epoch, tz) {
     date: 1,
     hour: 0,
     second: 0,
-    millisecond: 0
+    millisecond: 0,
+    offset: (zoneFile[tz] || {}).offset || 0
   }
-
   // kick the epoch around, according to our DST offset
   let changes = getDst(tz, year)
   for (let i = changes.length - 1; i >= 0; i -= 1) {
     if (epoch >= changes[i].epoch) {
+      cal.offset = changes[i].offset
       epoch += changes[i].delta * HOUR
       break
     }
   }
-
   // walk the days
   let diff = epoch - start;
   let daysDiff = Math.floor(diff / DAY);
@@ -55,7 +57,6 @@ const computeCal = function (epoch, tz) {
   //     break
   //   }
   // }
-
   return cal
 }
 export default computeCal
