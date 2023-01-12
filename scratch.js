@@ -60,6 +60,6 @@ let arr = [
 // console.log(lux.toMillis({}), lux.toISO({}))
 
 let input = "2023-11-05T01:00:00.000-04:00"
-input = [2022, 2, 18]
+input = [2022, 11, 6, 2]
 let out = spacetime(input).iso()
 console.log(out)

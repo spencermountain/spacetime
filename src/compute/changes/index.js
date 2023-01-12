@@ -39,6 +39,8 @@ const getDst = function (tz, year) {
       date: res.date,
       hour: obj.start.hour,
       minute: 0,
+      second: 0,
+      millisecond: 0,
     },
     delta,
     offset: offset + delta
@@ -56,6 +58,8 @@ const getDst = function (tz, year) {
       date: res.date,
       hour: obj.end.hour,
       minute: 0,
+      second: 0,
+      millisecond: 0,
     },
     delta,
     offset: offset + delta

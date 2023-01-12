@@ -1,7 +1,15 @@
 import { getStart } from '../_lib/yearStart.js'
-// import { DAY, HOUR } from '../_lib/millis.js'
 import getDst from '../changes/index.js'
 import validate from './validate.js'
+
+const NEW_YEAR = {
+  month: 1,
+  date: 1,
+  hour: 0,
+  minute: 0,
+  second: 0,
+  millisecond: 0,
+}
 
 // compare two cal objects
 const isAfter = function (a, b) {
@@ -19,17 +27,24 @@ const isAfter = function (a, b) {
   return true
 }
 
+
 const getEpoch = function (cal, tz) {
   cal = validate(cal)
 
-  // get jan 1st
+  // set our cal to Jan 1 of this year
   let epoch = getStart(cal.year, tz)
-  let changes = getDst(tz, cal.year).reverse()
+  let have = Object.assign({}, NEW_YEAR, { year: cal.year })
 
-  let change = changes.find(c => isAfter(cal, c))
-  console.log(change)
-  // console.log(epoch)
-  // console.log(cal)
+  // consult any DST changes
+  let changes = getDst(tz, cal.year).reverse()
+  let change = changes.find(c => isAfter(cal, c.cal))
+  if (change) {
+    epoch = change.epoch
+    have = Object.assign({}, NEW_YEAR, change.cal, { year: cal.year })
+  }
+
+
+  // console.log(have)
   return epoch
 }
 export default getEpoch
