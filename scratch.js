@@ -59,6 +59,7 @@ let arr = [
 // let lux = DateTime.fromMillis(1699167600000).setZone("America/Toronto").plus({ hour: -2 })
 // console.log(lux.toMillis({}), lux.toISO({}))
 
-let iso = "2023-11-05T01:00:00.000-04:00"
-let out = spacetime(iso).iso()
+let input = "2023-11-05T01:00:00.000-04:00"
+input = [2022, 2, 18]
+let out = spacetime(input).iso()
 console.log(out)

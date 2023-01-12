@@ -3,12 +3,6 @@ import { getDate, getTime } from './walk.js'
 import { DAY, HOUR } from '../_lib/millis.js'
 import getDst from '../changes/index.js'
 
-const isFloat = function (n) {
-  return Number(n) === n && n % 1 !== 0;
-}
-const isInt = function (n) {
-  return Number(n) === n && n % 1 === 0;
-}
 
 // take an epoch, return {month, year, date...}
 const computeCal = function (epoch, tz) {

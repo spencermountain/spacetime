@@ -1,4 +1,8 @@
 import config from '../config.js'
+import getEpoch from '../compute/get-epoch/index.js'
+// order for Array input
+const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
+import parseText from './text.js'
 
 const isNumber = val => {
   return typeof val === 'number' && isFinite(val)
@@ -12,7 +16,11 @@ const isArray = function (arr) {
   return Object.prototype.toString.call(arr) === '[object Array]'
 }
 
-const parse = function (input) {
+const isString = val => {
+  return typeof val === 'string'
+}
+
+const parse = function (input, tz) {
   // null means now
   if (input === null || input === undefined) {
     return config.now()
@@ -25,5 +33,22 @@ const parse = function (input) {
     }
     return input
   }
+  // support ordered array as input [2020, 04, 1] → {year:2020 ...}
+  if (isArray(input)) {
+    let cal = units.reduce((h, k, i) => {
+      h[k] = input[i]
+      return h
+    }, {})
+    return getEpoch(cal, tz)
+  }
+  // given {year:2020 ...}
+  if (isObject(input)) {
+    return getEpoch(input, tz)
+  }
+  // pull-apart ISO formats, etc
+  if (isString(input)) {
+    return parseText(input)
+  }
+  return null
 }
 export default parse
