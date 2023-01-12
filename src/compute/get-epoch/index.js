@@ -1,6 +1,7 @@
 import { getStart } from '../_lib/yearStart.js'
 import getDst from '../changes/index.js'
 import validate from './validate.js'
+import walk from './walk.js'
 
 const NEW_YEAR = {
   month: 1,
@@ -27,15 +28,15 @@ const isAfter = function (a, b) {
   return true
 }
 
-
 const getEpoch = function (cal, tz) {
+  // set secure defaults
   cal = validate(cal)
 
   // set our cal to Jan 1 of this year
   let epoch = getStart(cal.year, tz)
   let have = Object.assign({}, NEW_YEAR, { year: cal.year })
 
-  // consult any DST changes
+  // consult any DST changes this year
   let changes = getDst(tz, cal.year).reverse()
   let change = changes.find(c => isAfter(cal, c.cal))
   if (change) {
@@ -43,8 +44,8 @@ const getEpoch = function (cal, tz) {
     have = Object.assign({}, NEW_YEAR, change.cal, { year: cal.year })
   }
 
-
-  // console.log(have)
+  // step-forward, by milliseconds
+  epoch = walk(epoch, have, cal)
   return epoch
 }
 export default getEpoch

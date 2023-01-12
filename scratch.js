@@ -56,10 +56,11 @@ let arr = [
 //   // console.log('spa:', s.iso())
 // })
 
-// let lux = DateTime.fromMillis(1699167600000).setZone("America/Toronto").plus({ hour: -2 })
-// console.log(lux.toMillis({}), lux.toISO({}))
 
-let input = "2023-11-05T01:00:00.000-04:00"
-input = [2022, 11, 6, 2]
-let out = spacetime(input).iso()
-console.log(out)
+// let input = "2023-11-05T01:00:00.000"
+let input = [2020, 7, 23, 4]
+let s = spacetime(input)
+// console.log(s.date())
+console.log(s.iso())
+// let lux = DateTime.fromMillis(out).setZone("America/Toronto")
+// console.log(lux.toISO({}))

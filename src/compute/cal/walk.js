@@ -1,5 +1,5 @@
 import isLeapYear from '../_lib/isLeap.js'
-import { SEC, MIN, HOUR, DAY } from '../_lib/millis.js'
+import { SECOND, MINUTE, HOUR } from '../_lib/millis.js'
 import MONTHS from '../_lib/months.js'
 
 const monthLengths = MONTHS.map(o => o.len)
@@ -29,11 +29,11 @@ const getTime = function (ms) {
   res.hour = Math.floor(ms / HOUR)
   ms -= res.hour * HOUR
   // get minute
-  res.minute = Math.floor(ms / MIN)
-  ms -= res.minute * MIN
+  res.minute = Math.floor(ms / MINUTE)
+  ms -= res.minute * MINUTE
   // get second
-  res.second = Math.floor(ms / SEC)
-  ms -= res.second * SEC
+  res.second = Math.floor(ms / SECOND)
+  ms -= res.second * SECOND
   // remainder milliseconds
   res.ms = ms
   return res

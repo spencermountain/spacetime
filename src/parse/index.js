@@ -43,11 +43,13 @@ const parse = function (input, tz) {
   }
   // given {year:2020 ...}
   if (isObject(input)) {
-    return getEpoch(input, tz)
+    let cal = Object.assign({}, input)//don't mutate original
+    return getEpoch(cal, tz)
   }
   // pull-apart ISO formats, etc
   if (isString(input)) {
-    return parseText(input)
+    let cal = parseText(input)
+    return getEpoch(cal, tz)
   }
   return null
 }
