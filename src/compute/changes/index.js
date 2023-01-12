@@ -69,4 +69,4 @@ export default getDst
 
 // console.log(getDst('America/Toronto', 2023))
 // console.log(getDst('Australia/Adelaide', 2023))
-console.log(getDst('Australia/Melbourne', 2010))
+// console.log(getDst('Australia/Melbourne', 2010))

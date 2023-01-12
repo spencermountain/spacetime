@@ -1,5 +1,5 @@
 import src from '../../src/index.js'
-import build from '../../builds/spacetime.mjs'
+import build from '../../../builds/spacetime.mjs'
 let lib = src
 //export dev, or compiled lib
 if (typeof process !== undefined && typeof module !== undefined) {

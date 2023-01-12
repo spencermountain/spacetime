@@ -1,7 +1,7 @@
-import spacetime from './newer/src/index.js'
-import { getYear } from './newer/src/compute/_lib/yearStart.js'
+import spacetime from './src/index.js'
+import { getYear } from './src/compute/_lib/yearStart.js'
 import { DateTime } from "luxon";
-import old from './old/index.js'
+import old from './old/src/index.js'
 
 
 const green = str => '\x1b[32m' + str + '\x1b[0m'
@@ -12,6 +12,8 @@ const cyan = str => '\x1b[36m' + str + '\x1b[0m'
 const yellow = str => '\x1b[33m' + str + '\x1b[0m'
 const black = str => '\x1b[30m' + str + '\x1b[0m'
 const dim = str => '\x1b[2m' + str + '\x1b[0m'
+
+
 
 
 let arr = [
@@ -40,20 +42,23 @@ let arr = [
   // [1286037000000, "2010-10-03T03:30:00.000", "Australia/Melbourne"],
 ]
 
-arr.forEach(a => {
-  let [epoch, want, tz] = a
-  // let { start, year } = getYear(epoch, tz)
-  let iso = spacetime(epoch, tz).format('{iso}')
-  console.log(iso === want)
-  console.log('have: ', cyan(iso))
-  console.log('want: ', red(want))
-  // let lux = DateTime.fromMillis(epoch).setZone(tz).toISO({})
-  // console.log('lux:', lux)
+// arr.forEach(a => {
+//   let [epoch, want, tz] = a
+//   // let { start, year } = getYear(epoch, tz)
+//   let iso = spacetime(epoch, tz).format('{iso}')
+//   console.log(iso === want)
+//   console.log('have: ', cyan(iso))
+//   console.log('want: ', red(want))
+//   // let lux = DateTime.fromMillis(epoch).setZone(tz).toISO({})
+//   // console.log('lux:', lux)
 
-  // let s = old(epoch, tz)
-  // console.log('spa:', s.iso())
-})
+//   // let s = old(epoch, tz)
+//   // console.log('spa:', s.iso())
+// })
 
 // let lux = DateTime.fromMillis(1699167600000).setZone("America/Toronto").plus({ hour: -2 })
 // console.log(lux.toMillis({}), lux.toISO({}))
 
+let iso = "2023-11-05T01:00:00.000-04:00"
+let out = spacetime(iso).iso()
+console.log(out)

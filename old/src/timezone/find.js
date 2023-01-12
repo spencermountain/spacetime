@@ -1,4 +1,4 @@
-import tzs from '../../zonefile/unpack.js'
+import tzs from '../zonefile/unpack.js'
 import guessTz from './guessTz.js'
 import parseOffset from './parseOffset.js'
 const local = guessTz()

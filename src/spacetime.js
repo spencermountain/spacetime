@@ -1,6 +1,6 @@
 import config from './config.js'
 import toEpoch from './parse/index.js'
-import methods from './methods/index.js'
+import methods from './api/index.js'
 
 const SpaceTime = function (input, tz) {
   //the holy UNIX moment
