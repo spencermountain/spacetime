@@ -1,5 +1,7 @@
 import config from '../config.js'
 import getEpoch from '../compute/get-epoch/index.js'
+import zoneFile from '../../zonefile/iana.js'
+
 // order for Array input
 const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
 import parseText from './text.js'
@@ -49,6 +51,10 @@ const parse = function (input, tz) {
   // pull-apart ISO formats, etc
   if (isString(input)) {
     let cal = parseText(input)
+    // get offset from ISO, or from given tz
+    if (cal.offset === null || cal.offset === undefined) {
+      cal.offset = (zoneFile[tz] || {}).offset || 0
+    }
     return getEpoch(cal, tz)
   }
   return null

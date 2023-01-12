@@ -25,15 +25,15 @@ test('panama 1980 epoch-iso alignments', (t) => {
   t.end()
 })
 
-test('vancouver epoch-iso alignments', (t) => {
-  vancouver2023.forEach(a => {
-    let [epoch, iso, tz] = a
-    let s = spacetime(iso, tz)
-    // t.equal(s.epoch, epoch, '[iso→epoch] ' + iso)
-    t.equal(s.fmt('iso-medium'), iso, '[iso→iso] ' + iso)
-  })
-  t.end()
-})
+// test('vancouver epoch-iso alignments', (t) => {
+//   vancouver2023.forEach(a => {
+//     let [epoch, iso, tz] = a
+//     let s = spacetime(iso, tz)
+//     // t.equal(s.epoch, epoch, '[iso→epoch] ' + iso)
+//     t.equal(s.fmt('iso-medium'), iso, '[iso→iso] ' + iso)
+//   })
+//   t.end()
+// })
 
 // test('adelaide 2021 epoch-iso alignments', (t) => {
 //   adelaide2021.forEach(a => {

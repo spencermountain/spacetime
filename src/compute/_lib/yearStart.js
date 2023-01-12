@@ -1,6 +1,6 @@
 import isLeap from './isLeap.js'
 import { YEAR, LEAPYEAR, DAY, HOUR } from './millis.js'
-import zoneFile from '../../../zonefile/zonefile.2022.js'
+import zoneFile from '../../../zonefile/iana.js'
 
 const MAXOFFSET = -DAY * 2
 const memo = {}

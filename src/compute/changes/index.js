@@ -1,5 +1,5 @@
 import patterns from '../../../zonefile/patterns.js'
-import zones from '../../../zonefile/zonefile.2022.js'
+import zones from '../../../zonefile/iana.js'
 import calc from './calculate.js'
 import { HOUR } from '../_lib/millis.js'
 

@@ -4,8 +4,11 @@ const reg = /^([+-])?([0-9]{1,2}):?([0-9]{2})?$/
 
 //pull-apart ISO offsets, like "+0100"
 const parseOffset = (str) => {
+  if (!str) {
+    return null
+  }
   // 'Zulu' is 0
-  if (!str || str === 'Z' || str === 'z') {
+  if (str === 'Z' || str === 'z') {
     return 0
   }
   // tokenize it
@@ -27,7 +30,7 @@ const parseOffset = (str) => {
     }
     return offset
   }
-  return 0
+  return null
 
   //okay, try to match it to a utc timezone
   //remember - this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_(:/)_/¯

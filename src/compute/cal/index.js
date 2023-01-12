@@ -1,7 +1,7 @@
 import { getYear } from '../_lib/yearStart.js'
 import { getDate, getTime } from './walk.js'
 import { DAY, HOUR } from '../_lib/millis.js'
-import zoneFile from '../../../zonefile/zonefile.2022.js'
+import zoneFile from '../../../zonefile/iana.js'
 import getDst from '../changes/index.js'
 
 // take an epoch, return {month, year, date...}
