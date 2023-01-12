@@ -13,12 +13,12 @@ const banner = '/* spencermountain/spacetime ' + version + ' Apache 2.0 */'
 
 export default [
   {
-    input: 'newer/src/index.js',
+    input: './src/index.js',
     output: [{ banner: banner, file: 'builds/spacetime.mjs', format: 'esm' }],
     plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 48, warn: 10 })]
   },
   {
-    input: 'newer/src/index.js',
+    input: './src/index.js',
     output: [
       {
         banner: banner,
@@ -36,7 +36,7 @@ export default [
     ]
   },
   {
-    input: 'newer/src/index.js',
+    input: './src/index.js',
     output: [{ banner: banner, file: 'builds/spacetime.min.js', format: 'umd', name: 'spacetime' }],
     plugins: [
       resolve(),

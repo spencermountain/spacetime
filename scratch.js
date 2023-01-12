@@ -23,45 +23,32 @@ let arr = [
   // [1616018072663, "2021-03-17T14:54:32.663", "America/Vancouver"], //dst on
 
   // [1638930726826, "2021-12-07T18:32:06.826", "America/Vancouver"], //dst off
-  // [1678605600000, "2023-03-12T03:20:00.000", "America/Toronto"],
-  // [1699165200000, "2023-11-05T01:20:00.000", "America/Toronto"],
 
-  // [1699159200000, "2023-11-05T00:40:00.000", "America/Toronto"],
-
-
-  [1270308600000, "2010-04-04T02:30:00.000", "Australia/Melbourne"],
-  [1270309800000, "2010-04-04T02:50:00.000", "Australia/Melbourne"],
-  // repeat 2am
-  [1270311000000, "2010-04-04T02:10:00.000", "Australia/Melbourne"],
-  [1270312200000, "2010-04-04T02:30:00.000", "Australia/Melbourne"],
-
-  // [1286033400000, "2010-10-03T01:30:00.000", "Australia/Melbourne"],
-  // [1286034600000, "2010-10-03T01:50:00.000", "Australia/Melbourne"],
-  // // (skip 2am)
-  // [1286035800000, "2010-10-03T03:10:00.000", "Australia/Melbourne"],
-  // [1286037000000, "2010-10-03T03:30:00.000", "Australia/Melbourne"],
+  // [1296227116982, "2011-01-28T20:05:16.982", "Asia/Karachi"],
+  [1296252300577, "2011-01-29T03:05:00.577", "Asia/Karachi"],
+  // [1296287424231, "2011-01-29T12:50:24.231", "Asia/Karachi"],
 ]
 
-// arr.forEach(a => {
-//   let [epoch, want, tz] = a
-//   // let { start, year } = getYear(epoch, tz)
-//   let iso = spacetime(epoch, tz).format('{iso}')
-//   console.log(iso === want)
-//   console.log('have: ', cyan(iso))
-//   console.log('want: ', red(want))
-//   // let lux = DateTime.fromMillis(epoch).setZone(tz).toISO({})
-//   // console.log('lux:', lux)
+arr.forEach(a => {
+  let [epoch, want, tz] = a
+  // let { start, year } = getYear(epoch, tz)
+  let iso = spacetime(want, tz).format('{iso-medium}')
+  console.log(iso === want)
+  console.log('have: ', cyan(iso))
+  console.log('want: ', red(want))
+  // let lux = DateTime.fromMillis(epoch).setZone(tz).toISO({})
+  // console.log('lux:', lux)
 
-//   // let s = old(epoch, tz)
-//   // console.log('spa:', s.iso())
-// })
+  // let s = old(epoch, tz)
+  // console.log('spa:', s.iso())
+})
 
 
-let input = "2023-12-25T01:23:20.030-05:45"
+// let input = "2023-12-25T01:23:20.030-05:45"
 // input = '2012-06'
 // let input = [2020, 7, 23, 4]
-let s = spacetime(input, "America/Vancouver")
+// let s = spacetime(input, "America/Vancouver")
 // console.log(s.date())
-console.log(s.iso())
+// console.log(s.iso())
 // let lux = DateTime.fromMillis(out).setZone("America/Toronto")
 // console.log(lux.toISO({}))

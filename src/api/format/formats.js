@@ -2,7 +2,7 @@ import { titleCase, zeroPad, ordinal } from './_fns.js'
 import config from '../../config.js'
 
 
-const formats = {
+const fmt = {
 
   // day: (c) => titleCase(s.dayName()),
   // 'day-short': (c) => titleCase(_short()[s.day()]),
@@ -21,7 +21,8 @@ const formats = {
   'month-pad': (c) => zeroPad(c.month),
   'iso-month': (c) => zeroPad(c.month + 1), //1-based months
   'iso-short': (c) => `${c.year}-${zeroPad(c.month)}-${zeroPad(c.date)}`,
-  'iso': (c) => `${c.year}-${zeroPad(c.month)}-${zeroPad(c.date)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.ms, 3)}`,
+  'iso-medium': (c) => `${fmt['iso-year'](c)}-${zeroPad(c.month)}-${zeroPad(c.date)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.ms, 3)}`,
+  'iso': (c) => `${fmt['iso-medium'](c)}${fmt.offset(c)}`,
 
   year: (c) => c.year > 0 ? c.year : `${Math.abs(c.year)} BC`,
   'year-short': (c) => {
@@ -113,6 +114,6 @@ const aliases = {
   'big-endian': 'numeric',
   'day-nice': 'nice-day',
 }
-Object.keys(aliases).forEach((k) => (formats[k] = formats[aliases[k]]))
+Object.keys(aliases).forEach((k) => (fmt[k] = fmt[aliases[k]]))
 
-export default formats
+export default fmt

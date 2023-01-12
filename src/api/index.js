@@ -19,4 +19,7 @@ units.forEach(fn => {
 // add format methods
 Object.assign(methods, fmts)
 
+// aliases
+methods.fmt = methods.format
+
 export default methods

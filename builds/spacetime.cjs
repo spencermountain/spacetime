@@ -97,1899 +97,21 @@
 
   };
 
-  const isNumber = val => {
-    return typeof val === 'number' && isFinite(val)
-  };
-
-  const parse$1 = function (input) {
-    // null means now
-    if (input === null || input === undefined) {
-      return config.now()
-    }
-    // epoch input
-    if (isNumber(input)) {
-      // if the given epoch is really small, they've probably given seconds and not milliseconds
-      if (input < config.minimumEpoch && input > 0) {
-        input *= 1000;
-      }
-      return input
-    }
-  };
-  var toEpoch = parse$1;
-
   //https://www.timeanddate.com/date/leapyear.html
   const isLeapYear = function (year) {
     return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
   };
   var isLeapYear$1 = isLeapYear;
 
-  const SEC = 1000;
-  const MIN = 60 * SEC;
-  const HOUR = 60 * MIN;
+  const SECOND = 1000;
+  const MINUTE = 60 * SECOND;
+  const HOUR = 60 * MINUTE;
   const DAY = 24 * HOUR;
 
   const YEAR = 365 * DAY;
   const LEAPYEAR = YEAR + DAY;
 
-  var zones$1 = {
-    "Africa/Abidjan": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Accra": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Addis_Ababa": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Africa/Algiers": {
-      "offset": 1,
-      "hem": "n"
-    },
-    "Africa/Asmara": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Africa/Bamako": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Bangui": {
-      "offset": 1,
-      "hem": "n"
-    },
-    "Africa/Banjul": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Bissau": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Blantyre": {
-      "offset": 2,
-      "hem": "n"
-    },
-    "Africa/Brazzaville": {
-      "offset": 1,
-      "hem": "s"
-    },
-    "Africa/Bujumbura": {
-      "offset": 2,
-      "hem": "n"
-    },
-    "Africa/Cairo": {
-      "offset": 2,
-      "hem": "n"
-    },
-    "Africa/Casablanca": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "saha"
-    },
-    "Africa/Ceuta": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Africa/Conakry": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Dakar": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Dar_Es_Salaam": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Africa/Djibouti": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Africa/Douala": {
-      "offset": 1,
-      "hem": "n"
-    },
-    "Africa/El_Aaiun": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "saha"
-    },
-    "Africa/Freetown": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Gaborone": {
-      "offset": 2,
-      "hem": "s"
-    },
-    "Africa/Harare": {
-      "offset": 2,
-      "hem": "s"
-    },
-    "Africa/Johannesburg": {
-      "offset": 2,
-      "hem": "s"
-    },
-    "Africa/Juba": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Africa/Kampala": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Africa/Khartoum": {
-      "offset": 2,
-      "hem": "n"
-    },
-    "Africa/Kigali": {
-      "offset": 2,
-      "hem": "n"
-    },
-    "Africa/Kinshasa": {
-      "offset": 1,
-      "hem": "s"
-    },
-    "Africa/Lagos": {
-      "offset": 1,
-      "hem": "n"
-    },
-    "Africa/Libreville": {
-      "offset": 1,
-      "hem": "n"
-    },
-    "Africa/Lome": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Luanda": {
-      "offset": 1,
-      "hem": "s"
-    },
-    "Africa/Lubumbashi": {
-      "offset": 2,
-      "hem": "s"
-    },
-    "Africa/Lusaka": {
-      "offset": 2,
-      "hem": "s"
-    },
-    "Africa/Malabo": {
-      "offset": 1,
-      "hem": "n"
-    },
-    "Africa/Maputo": {
-      "offset": 2,
-      "hem": "s"
-    },
-    "Africa/Maseru": {
-      "offset": 2,
-      "hem": "s"
-    },
-    "Africa/Mbabane": {
-      "offset": 2,
-      "hem": "s"
-    },
-    "Africa/Mogadishu": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Africa/Monrovia": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Nairobi": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Africa/Ndjamena": {
-      "offset": 1,
-      "hem": "n"
-    },
-    "Africa/Niamey": {
-      "offset": 1,
-      "hem": "n"
-    },
-    "Africa/Nouakchott": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Ouagadougou": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Porto-novo": {
-      "offset": 1,
-      "hem": "n"
-    },
-    "Africa/Sao_Tome": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Africa/Tripoli": {
-      "offset": 2,
-      "hem": "n"
-    },
-    "Africa/Tunis": {
-      "offset": 1,
-      "hem": "n"
-    },
-    "Africa/Windhoek": {
-      "offset": 1,
-      "hem": "s"
-    },
-    "America/Adak": {
-      "offset": -10,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Anchorage": {
-      "offset": -9,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Anguilla": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Antigua": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Araguaina": {
-      "offset": -3,
-      "hem": "n"
-    },
-    "America/Argentina": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Aruba": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Asuncion": {
-      "offset": -4,
-      "hem": "s",
-      "dst": "par"
-    },
-    "America/Bahia": {
-      "offset": -3,
-      "hem": "n"
-    },
-    "America/Bahia_Banderas": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "mex"
-    },
-    "America/Barbados": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Belem": {
-      "offset": -3,
-      "hem": "n"
-    },
-    "America/Belize": {
-      "offset": -6,
-      "hem": "n"
-    },
-    "America/Blanc-sablon": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Boa_Vista": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Bogota": {
-      "offset": -5,
-      "hem": "n"
-    },
-    "America/Boise": {
-      "offset": -7,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Buenos_Aires": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Cambridge_Bay": {
-      "offset": -7,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Campo_Grande": {
-      "offset": -4,
-      "hem": "s"
-    },
-    "America/Cancun": {
-      "offset": -5,
-      "hem": "n"
-    },
-    "America/Caracas": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Catamarca": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Cayenne": {
-      "offset": -3,
-      "hem": "n"
-    },
-    "America/Cayman": {
-      "offset": -5,
-      "hem": "n"
-    },
-    "America/Chicago": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Chihuahua": {
-      "offset": -7,
-      "hem": "n",
-      "dst": "mex"
-    },
-    "America/Atikokan": {
-      "offset": -5,
-      "hem": "n"
-    },
-    "America/Cordoba": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Costa_Rica": {
-      "offset": -6,
-      "hem": "n"
-    },
-    "America/Creston": {
-      "offset": -7,
-      "hem": "n"
-    },
-    "America/Cuiaba": {
-      "offset": -4,
-      "hem": "s"
-    },
-    "America/Curacao": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Danmarkshavn": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "America/Dawson": {
-      "offset": -7,
-      "hem": "n"
-    },
-    "America/Dawson_Creek": {
-      "offset": -7,
-      "hem": "n"
-    },
-    "America/Denver": {
-      "offset": -7,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Detroit": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Dominica": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Edmonton": {
-      "offset": -7,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Eirunepe": {
-      "offset": -5,
-      "hem": "n"
-    },
-    "America/El_Salvador": {
-      "offset": -6,
-      "hem": "n"
-    },
-    "America/Fort_Nelson": {
-      "offset": -7,
-      "hem": "n"
-    },
-    "America/Fortaleza": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Glace_Bay": {
-      "offset": -4,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Nuuk": {
-      "offset": -3,
-      "hem": "n",
-      "dst": "green"
-    },
-    "America/Goose_Bay": {
-      "offset": -4,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Grand_Turk": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Grenada": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Guadeloupe": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Guatemala": {
-      "offset": -6,
-      "hem": "n"
-    },
-    "America/Guayaquil": {
-      "offset": -5,
-      "hem": "n"
-    },
-    "America/Guyana": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Halifax": {
-      "offset": -4,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Havana": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "cuba"
-    },
-    "America/Hermosillo": {
-      "offset": -7,
-      "hem": "n"
-    },
-    "America/Indianapolis": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Inuvik": {
-      "offset": -7,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Iqaluit": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Jamaica": {
-      "offset": -5,
-      "hem": "n"
-    },
-    "America/Jujuy": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Juneau": {
-      "offset": -9,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Kralendijk": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/La_Paz": {
-      "offset": -4,
-      "hem": "s"
-    },
-    "America/Lima": {
-      "offset": -5,
-      "hem": "s"
-    },
-    "America/Los_Angeles": {
-      "offset": -8,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Louisville": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Lower_Princes": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Maceio": {
-      "offset": -3,
-      "hem": "n"
-    },
-    "America/Managua": {
-      "offset": -6,
-      "hem": "n"
-    },
-    "America/Manaus": {
-      "offset": -4,
-      "hem": "s"
-    },
-    "America/Marigot": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Martinique": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Matamoros": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Mazatlan": {
-      "offset": -7,
-      "hem": "n",
-      "dst": "mex"
-    },
-    "America/Mendoza": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Menominee": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Merida": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "mex"
-    },
-    "America/Metlakatla": {
-      "offset": -9,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Mexico_City": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "mex"
-    },
-    "America/Miquelon": {
-      "offset": -3,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Moncton": {
-      "offset": -4,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Monterrey": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "mex"
-    },
-    "America/Montevideo": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Montserrat": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Nassau": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/New_York": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Nipigon": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Nome": {
-      "offset": -9,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Noronha": {
-      "offset": -2,
-      "hem": "n"
-    },
-    "America/Ojinaga": {
-      "offset": -7,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Panama": {
-      "offset": -5,
-      "hem": "n"
-    },
-    "America/Pangnirtung": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Paramaribo": {
-      "offset": -3,
-      "hem": "n"
-    },
-    "America/Phoenix": {
-      "offset": -7,
-      "hem": "n"
-    },
-    "America/Port-au-prince": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Port_Of_Spain": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Porto_Velho": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Puerto_Rico": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Punta_Arenas": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Rainy_River": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Rankin_Inlet": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Recife": {
-      "offset": -3,
-      "hem": "n"
-    },
-    "America/Regina": {
-      "offset": -6,
-      "hem": "n"
-    },
-    "America/Resolute": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Rio_Branco": {
-      "offset": -5,
-      "hem": "s"
-    },
-    "America/Santarem": {
-      "offset": -3,
-      "hem": "n"
-    },
-    "America/Santiago": {
-      "offset": -4,
-      "hem": "s",
-      "dst": "chile"
-    },
-    "America/Santo_Domingo": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Sao_Paulo": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Scoresbysund": {
-      "offset": -1,
-      "hem": "n",
-      "dst": "eu0"
-    },
-    "America/Sitka": {
-      "offset": -9,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/St_Barthelemy": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/St_Johns": {
-      "offset": -3.5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/St_Kitts": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/St_Lucia": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/St_Thomas": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/St_Vincent": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Swift_Current": {
-      "offset": -6,
-      "hem": "n"
-    },
-    "America/Tegucigalpa": {
-      "offset": -6,
-      "hem": "n"
-    },
-    "America/Thule": {
-      "offset": -4,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Thunder_Bay": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Tijuana": {
-      "offset": -8,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Toronto": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Tortola": {
-      "offset": -4,
-      "hem": "n"
-    },
-    "America/Vancouver": {
-      "offset": -8,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Whitehorse": {
-      "offset": -7,
-      "hem": "n"
-    },
-    "America/Winnipeg": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Yakutat": {
-      "offset": -9,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Yellowknife": {
-      "offset": -7,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "Antarctica/Casey": {
-      "offset": 8,
-      "hours": 3,
-      "hem": "s",
-      "dst": "ant"
-    },
-    "Antarctica/Davis": {
-      "offset": 7,
-      "hem": "s"
-    },
-    "Antarctica/Dumontdurville": {
-      "offset": 10,
-      "hem": "s"
-    },
-    "Antarctica/Macquarie": {
-      "offset": 11,
-      "hem": "s",
-      "dst": "aus"
-    },
-    "Antarctica/Mawson": {
-      "offset": 5,
-      "hem": "s"
-    },
-    "Antarctica/Mcmurdo": {
-      "offset": 12,
-      "hem": "s",
-      "dst": "nz"
-    },
-    "Antarctica/Palmer": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "Antarctica/Rothera": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "Antarctica/Syowa": {
-      "offset": 3,
-      "hem": "s"
-    },
-    "Antarctica/Troll": {
-      "offset": 2,
-      "hem": "s",
-      "dst": "troll"
-    },
-    "Antarctica/Vostok": {
-      "offset": 6,
-      "hem": "s"
-    },
-    "Arctic/Longyearbyen": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Asia/Aden": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Asia/Almaty": {
-      "offset": 6,
-      "hem": "n"
-    },
-    "Asia/Amman": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "jord"
-    },
-    "Asia/Anadyr": {
-      "offset": 12,
-      "hem": "n"
-    },
-    "Asia/Aqtau": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Asia/Aqtobe": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Asia/Ashgabat": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Asia/Atyrau": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Asia/Baghdad": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Asia/Bahrain": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Asia/Baku": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Asia/Bangkok": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Barnaul": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Beirut": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "leb"
-    },
-    "Asia/Bishkek": {
-      "offset": 6,
-      "hem": "n"
-    },
-    "Asia/Brunei": {
-      "offset": 8,
-      "hem": "n"
-    },
-    "Asia/Kolkata": {
-      "offset": 5.5,
-      "hem": "n"
-    },
-    "Asia/Chita": {
-      "offset": 9,
-      "hem": "n"
-    },
-    "Asia/Choibalsan": {
-      "offset": 8,
-      "hem": "n"
-    },
-    "Asia/Colombo": {
-      "offset": 5.5,
-      "hem": "n"
-    },
-    "Asia/Damascus": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "syr"
-    },
-    "Asia/Dhaka": {
-      "offset": 6,
-      "hem": "n"
-    },
-    "Asia/Dili": {
-      "offset": 9,
-      "hem": "s"
-    },
-    "Asia/Dubai": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Asia/Dushanbe": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Asia/Famagusta": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Asia/Gaza": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "pal"
-    },
-    "Asia/Hebron": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "pal"
-    },
-    "Asia/Hong_Kong": {
-      "offset": 8,
-      "hem": "n"
-    },
-    "Asia/Hovd": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Irkutsk": {
-      "offset": 8,
-      "hem": "n"
-    },
-    "Asia/Jakarta": {
-      "offset": 7,
-      "hem": "s"
-    },
-    "Asia/Jayapura": {
-      "offset": 9,
-      "hem": "s"
-    },
-    "Asia/Jerusalem": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "isr"
-    },
-    "Asia/Kabul": {
-      "offset": 4.5,
-      "hem": "n"
-    },
-    "Asia/Kamchatka": {
-      "offset": 12,
-      "hem": "n"
-    },
-    "Asia/Karachi": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Asia/Kathmandu": {
-      "offset": 5.75,
-      "hem": "n"
-    },
-    "Asia/Khandyga": {
-      "offset": 9,
-      "hem": "n"
-    },
-    "Asia/Krasnoyarsk": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Kuala_Lumpur": {
-      "offset": 8,
-      "hem": "s"
-    },
-    "Asia/Kuching": {
-      "offset": 8,
-      "hem": "n"
-    },
-    "Asia/Kuwait": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Asia/Macau": {
-      "offset": 8,
-      "hem": "n"
-    },
-    "Asia/Magadan": {
-      "offset": 11,
-      "hem": "n"
-    },
-    "Asia/Makassar": {
-      "offset": 8,
-      "hem": "s"
-    },
-    "Asia/Manila": {
-      "offset": 8,
-      "hem": "n"
-    },
-    "Asia/Muscat": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Asia/Nicosia": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Asia/Novokuznetsk": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Novosibirsk": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Omsk": {
-      "offset": 6,
-      "hem": "n"
-    },
-    "Asia/Oral": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Asia/Phnom_Penh": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Pontianak": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Pyongyang": {
-      "offset": 9,
-      "hem": "n"
-    },
-    "Asia/Qatar": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Asia/Qyzylorda": {
-      "offset": 6,
-      "hem": "n"
-    },
-    "Asia/Qostanay": {
-      "offset": 6,
-      "hem": "n"
-    },
-    "Asia/Yangon": {
-      "offset": 6.5,
-      "hem": "n"
-    },
-    "Asia/Riyadh": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Asia/Ho_Chi_Minh": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Sakhalin": {
-      "offset": 11,
-      "hem": "n"
-    },
-    "Asia/Samarkand": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Asia/Seoul": {
-      "offset": 9,
-      "hem": "n"
-    },
-    "Asia/Shanghai": {
-      "offset": 8,
-      "hem": "n"
-    },
-    "Asia/Singapore": {
-      "offset": 8,
-      "hem": "s"
-    },
-    "Asia/Srednekolymsk": {
-      "offset": 12,
-      "hem": "n"
-    },
-    "Asia/Taipei": {
-      "offset": 8,
-      "hem": "n"
-    },
-    "Asia/Tashkent": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Asia/Tbilisi": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Asia/Tehran": {
-      "offset": 3.5,
-      "hem": "n",
-      "dst": "iran"
-    },
-    "Asia/Thimphu": {
-      "offset": 6,
-      "hem": "n"
-    },
-    "Asia/Tokyo": {
-      "offset": 9,
-      "hem": "n"
-    },
-    "Asia/Tomsk": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Ulaanbaatar": {
-      "offset": 8,
-      "hem": "n"
-    },
-    "Asia/Urumqi": {
-      "offset": 6,
-      "hem": "n"
-    },
-    "Asia/Ust-nera": {
-      "offset": 10,
-      "hem": "n"
-    },
-    "Asia/Vientiane": {
-      "offset": 7,
-      "hem": "n"
-    },
-    "Asia/Vladivostok": {
-      "offset": 10,
-      "hem": "n"
-    },
-    "Asia/Yakutsk": {
-      "offset": 10,
-      "hem": "n"
-    },
-    "Asia/Yekaterinburg": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Asia/Yerevan": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Atlantic/Azores": {
-      "offset": -1,
-      "hem": "n",
-      "dst": "eu0"
-    },
-    "Atlantic/Bermuda": {
-      "offset": -4,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "Atlantic/Canary": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "eu1"
-    },
-    "Atlantic/Cape_Verde": {
-      "offset": -1,
-      "hem": "n"
-    },
-    "Atlantic/Faroe": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "eu1"
-    },
-    "Atlantic/Madeira": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "eu1"
-    },
-    "Atlantic/Reykjavik": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Atlantic/South_Georgia": {
-      "offset": -2,
-      "hem": "n"
-    },
-    "Atlantic/St_Helena": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Atlantic/Stanley": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "Australia/Adelaide": {
-      "offset": 9.5,
-      "hem": "s",
-      "dst": "aus"
-    },
-    "Australia/Brisbane": {
-      "offset": 10,
-      "hem": "s"
-    },
-    "Australia/Broken_Hill": {
-      "offset": 9.5,
-      "hem": "s",
-      "dst": "aus"
-    },
-    "Australia/Darwin": {
-      "offset": 9.5,
-      "hem": "s"
-    },
-    "Australia/Eucla": {
-      "offset": 8.75,
-      "hem": "s"
-    },
-    "Australia/Hobart": {
-      "offset": 10,
-      "hem": "s",
-      "dst": "aus"
-    },
-    "Australia/Lindeman": {
-      "offset": 10,
-      "hem": "s"
-    },
-    "Australia/Lord_Howe": {
-      "offset": 10.5,
-      "change": 0.5,
-      "hem": "s",
-      "dst": "lhow"
-    },
-    "Australia/Melbourne": {
-      "offset": 10,
-      "hem": "s",
-      "dst": "aus"
-    },
-    "Australia/Perth": {
-      "offset": 8,
-      "hem": "s"
-    },
-    "Australia/Sydney": {
-      "offset": 10,
-      "hem": "s",
-      "dst": "aus"
-    },
-    "Europe/Amsterdam": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Andorra": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Astrakhan": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Europe/Athens": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Belgrade": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Berlin": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Bratislava": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Brussels": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Bucharest": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Budapest": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Busingen": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Chisinau": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Copenhagen": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Dublin": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "eu1"
-    },
-    "Europe/Gibraltar": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Guernsey": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "eu1"
-    },
-    "Europe/Helsinki": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Isle_Of_Man": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "eu1"
-    },
-    "Europe/Istanbul": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Europe/Jersey": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "eu1"
-    },
-    "Europe/Kaliningrad": {
-      "offset": 2,
-      "hem": "n"
-    },
-    "Europe/Kirov": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Europe/Kiev": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Lisbon": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "eu1"
-    },
-    "Europe/Ljubljana": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/London": {
-      "offset": 0,
-      "hem": "n",
-      "dst": "eu1"
-    },
-    "Europe/Luxembourg": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Madrid": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Malta": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Mariehamn": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Minsk": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Europe/Monaco": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Moscow": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Europe/Oslo": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Paris": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Podgorica": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Prague": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Riga": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Rome": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Samara": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Europe/Saratov": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Europe/San_Marino": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Sarajevo": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Simferopol": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Europe/Skopje": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Sofia": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Stockholm": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Tallinn": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Tirane": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Ulyanovsk": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Europe/Uzhgorod": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Vaduz": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Vatican": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Vienna": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Vilnius": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Volgograd": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Europe/Warsaw": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Zagreb": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Europe/Zaporozhye": {
-      "offset": 2,
-      "hem": "n",
-      "dst": "eu3"
-    },
-    "Europe/Zurich": {
-      "offset": 1,
-      "hem": "n",
-      "dst": "eu2"
-    },
-    "Indian/Antananarivo": {
-      "offset": 3,
-      "hem": "s"
-    },
-    "Indian/Chagos": {
-      "offset": 6,
-      "hem": "n"
-    },
-    "Indian/Christmas": {
-      "offset": 7,
-      "hem": "s"
-    },
-    "Indian/Cocos": {
-      "offset": 6.5,
-      "hem": "n"
-    },
-    "Indian/Comoro": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Indian/Kerguelen": {
-      "offset": 5,
-      "hem": "s"
-    },
-    "Indian/Mahe": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Indian/Maldives": {
-      "offset": 5,
-      "hem": "n"
-    },
-    "Indian/Mauritius": {
-      "offset": 4,
-      "hem": "n"
-    },
-    "Indian/Mayotte": {
-      "offset": 3,
-      "hem": "n"
-    },
-    "Indian/Reunion": {
-      "offset": 4,
-      "hem": "s"
-    },
-    "Pacific/Apia": {
-      "offset": 13,
-      "hem": "s"
-    },
-    "Pacific/Auckland": {
-      "offset": 12,
-      "hem": "s",
-      "dst": "nz"
-    },
-    "Pacific/Bougainville": {
-      "offset": 11,
-      "hem": "s"
-    },
-    "Pacific/Chatham": {
-      "offset": 12.75,
-      "hem": "s",
-      "dst": "chat"
-    },
-    "Pacific/Easter": {
-      "offset": -6,
-      "hem": "s",
-      "dst": "east"
-    },
-    "Pacific/Efate": {
-      "offset": 11,
-      "hem": "n"
-    },
-    "Pacific/Kanton": {
-      "offset": 13,
-      "hem": "n"
-    },
-    "Pacific/Fakaofo": {
-      "offset": 13,
-      "hem": "n"
-    },
-    "Pacific/Fiji": {
-      "offset": 12,
-      "hem": "s",
-      "dst": "fiji"
-    },
-    "Pacific/Funafuti": {
-      "offset": 12,
-      "hem": "n"
-    },
-    "Pacific/Galapagos": {
-      "offset": -6,
-      "hem": "n"
-    },
-    "Pacific/Gambier": {
-      "offset": -9,
-      "hem": "n"
-    },
-    "Pacific/Guadalcanal": {
-      "offset": 11,
-      "hem": "n"
-    },
-    "Pacific/Guam": {
-      "offset": 10,
-      "hem": "n"
-    },
-    "Pacific/Honolulu": {
-      "offset": -10,
-      "hem": "n"
-    },
-    "Pacific/Kiritimati": {
-      "offset": 14,
-      "hem": "n"
-    },
-    "Pacific/Kosrae": {
-      "offset": 11,
-      "hem": "n"
-    },
-    "Pacific/Kwajalein": {
-      "offset": 12,
-      "hem": "n"
-    },
-    "Pacific/Majuro": {
-      "offset": 12,
-      "hem": "n"
-    },
-    "Pacific/Marquesas": {
-      "offset": -9.5,
-      "hem": "n"
-    },
-    "Pacific/Midway": {
-      "offset": -11,
-      "hem": "n"
-    },
-    "Pacific/Nauru": {
-      "offset": 12,
-      "hem": "n"
-    },
-    "Pacific/Niue": {
-      "offset": -11,
-      "hem": "n"
-    },
-    "Pacific/Norfolk": {
-      "offset": 10.5,
-      "hem": "n",
-      "dst": "aus"
-    },
-    "Pacific/Noumea": {
-      "offset": 11,
-      "hem": "n"
-    },
-    "Pacific/Pago_Pago": {
-      "offset": -11,
-      "hem": "n"
-    },
-    "Pacific/Palau": {
-      "offset": 9,
-      "hem": "n"
-    },
-    "Pacific/Pitcairn": {
-      "offset": -8,
-      "hem": "n"
-    },
-    "Pacific/Pohnpei": {
-      "offset": 11,
-      "hem": "n"
-    },
-    "Pacific/Port_Moresby": {
-      "offset": 10,
-      "hem": "s"
-    },
-    "Pacific/Rarotonga": {
-      "offset": -10,
-      "hem": "n"
-    },
-    "Pacific/Saipan": {
-      "offset": 10,
-      "hem": "n"
-    },
-    "Pacific/Tahiti": {
-      "offset": -10,
-      "hem": "n"
-    },
-    "Pacific/Tarawa": {
-      "offset": 12,
-      "hem": "n"
-    },
-    "Pacific/Tongatapu": {
-      "offset": 13,
-      "hem": "s"
-    },
-    "Pacific/Chuuk": {
-      "offset": 10,
-      "hem": "n"
-    },
-    "Pacific/Wake": {
-      "offset": 12,
-      "hem": "n"
-    },
-    "Pacific/Wallis": {
-      "offset": 12,
-      "hem": "n"
-    },
-    "Etc/GMT": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "Etc/Utc": {
-      "offset": 0,
-      "hem": "n"
-    },
-    "America/Argentina/La_Rioja": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Argentina/Rio_Gallegos": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Argentina/Salta": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Argentina/San_Juan": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Argentina/San_Luis": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Argentina/Tucuman": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Argentina/Ushuaia": {
-      "offset": -3,
-      "hem": "s"
-    },
-    "America/Indiana/Knox": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Indiana/Tell_City": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/North_Dakota/Beulah": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/North_Dakota/Center": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/North_Dakota/New_Salem": {
-      "offset": -6,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Indiana/Marengo": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Indiana/Petersburg": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Indiana/Vevay": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Indiana/Vincennes": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Indiana/Winamac": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    },
-    "America/Kentucky/Monticello": {
-      "offset": -5,
-      "hem": "n",
-      "dst": "usa"
-    }
-  };
+  var zoneFile = {};
 
   const MAXOFFSET = -DAY * 2;
   const memo$1 = {};
@@ -2028,8 +150,8 @@
 
   const januaryOffset = function (tz) {
     // apply timezone offset to it
-    if (tz && zones$1.hasOwnProperty(tz)) {
-      let zone = zones$1[tz];
+    if (tz && zoneFile.hasOwnProperty(tz)) {
+      let zone = zoneFile[tz];
       let offset = zone.offset || 0;
       // are we in DST on Jan 1st?
       // all 16 southern hemisphere zones w/ DST
@@ -2080,58 +202,6 @@
       }
     }
     return { start: epoch, year }
-  };
-
-  var MONTHS = [
-    { long: 'January', short: 'Jan', len: 31 },
-    { long: 'February', short: 'Feb', len: 28 }, // 29 in a leap year
-    { long: 'March', short: 'Mar', len: 31 },
-    { long: 'April', short: 'Apr', len: 30 },
-    { long: 'May', short: 'May', len: 31 },
-    { long: 'June', short: 'Jun', len: 30 },
-    { long: 'July', short: 'Jul', len: 31 },
-    { long: 'August', short: 'Aug', len: 31 },
-    { long: 'September', short: 'Sep', len: 30 },
-    { long: 'October', short: 'Oct', len: 31 },
-    { long: 'November', short: 'Nov', len: 30 },
-    { long: 'December', short: 'Dec', len: 31 },
-  ];
-
-  const monthLengths$1 = MONTHS.map(o => o.len);
-
-  const getDate = function (diffDays, year) {
-    let res = { month: 1, date: 1 };
-    let total = 0;
-    for (let i = 0; i < MONTHS.length - 1; i += 1) {
-      let inMonth = monthLengths$1[i];
-      if (i === 1 && isLeapYear$1(year)) {
-        inMonth = 29;
-      }
-      if (total + inMonth > diffDays) {
-        break
-      }
-      total += inMonth;
-      res.month += 1;
-    }
-    // add remainder to days
-    res.date += diffDays - total;
-    return res
-  };
-
-  const getTime = function (ms) {
-    let res = { hour: 0, minute: 0, second: 0, ms: 0 };
-    // get hour
-    res.hour = Math.floor(ms / HOUR);
-    ms -= res.hour * HOUR;
-    // get minute
-    res.minute = Math.floor(ms / MIN);
-    ms -= res.minute * MIN;
-    // get second
-    res.second = Math.floor(ms / SEC);
-    ms -= res.second * SEC;
-    // remainder milliseconds
-    res.ms = ms;
-    return res
   };
 
   // these are the folk heuristics that timezones use to set their dst change dates
@@ -2197,7 +267,7 @@
   const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
   const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat',];
 
-  const parse = function (str) {
+  const parse$2 = function (str) {
     let [num, day, month, hour] = str.split(/-/g);
     hour = hour.replace(/h$/, '');
     hour = Number(hour);
@@ -2218,8 +288,8 @@
     let str = zones[k];
     let [start, end] = str.split(/\|/);
     zones[k] = {
-      start: parse(start),
-      end: parse(end),
+      start: parse$2(start),
+      end: parse$2(end),
     };
   });
 
@@ -2316,12 +386,27 @@
   // let cal = { year: 1897, month: 3, date: 14 }
   // let cal = { year: 1969, month: 7, date: 20 }
 
-  const monthLengths = MONTHS.map(o => o.len);
+  var MONTHS = [
+    { long: 'January', short: 'Jan', len: 31 },
+    { long: 'February', short: 'Feb', len: 28 }, // 29 in a leap year
+    { long: 'March', short: 'Mar', len: 31 },
+    { long: 'April', short: 'Apr', len: 30 },
+    { long: 'May', short: 'May', len: 31 },
+    { long: 'June', short: 'Jun', len: 30 },
+    { long: 'July', short: 'Jul', len: 31 },
+    { long: 'August', short: 'Aug', len: 31 },
+    { long: 'September', short: 'Sep', len: 30 },
+    { long: 'October', short: 'Oct', len: 31 },
+    { long: 'November', short: 'Nov', len: 30 },
+    { long: 'December', short: 'Dec', len: 31 },
+  ];
+
+  const monthLengths$1 = MONTHS.map(o => o.len);
 
   const addMonths = function (months, year) {
     let ms = 0;
     for (let i = 0; i < months - 1; i += 1) {
-      let days = monthLengths[i];
+      let days = monthLengths$1[i];
       if (i === 1 && isLeapYear$1(year)) {
         days = 29;
       }
@@ -2352,7 +437,7 @@
       return 0
     }
     if (num === 'last') {
-      let max = monthLengths[month + 1] || 31;
+      let max = monthLengths$1[month + 1] || 31;
       let days = 0;
       for (let i = 0; i < 5; i += 1) {
         days += 7;
@@ -2405,7 +490,7 @@
     }
     memo[tz] = memo[tz] || {};
 
-    let { dst, offset, change, hem } = zones$1[tz] || {};
+    let { dst, offset, change, hem } = zoneFile[tz] || {};
     change = change || 1;
 
     let changes = [];
@@ -2428,6 +513,8 @@
         date: res.date,
         hour: obj.start.hour,
         minute: 0,
+        second: 0,
+        millisecond: 0,
       },
       delta,
       offset: offset + delta
@@ -2445,6 +532,8 @@
         date: res.date,
         hour: obj.end.hour,
         minute: 0,
+        second: 0,
+        millisecond: 0,
       },
       delta,
       offset: offset + delta
@@ -2458,7 +547,724 @@
 
   // console.log(getDst('America/Toronto', 2023))
   // console.log(getDst('Australia/Adelaide', 2023))
-  console.log(getDst('Australia/Melbourne', 2010));
+  // console.log(getDst('Australia/Melbourne', 2010))
+
+  const isFloat = function (n) {
+    return n !== undefined && Number(n) === n && n % 1 !== 0;
+  };
+
+  // ensure we haven't been given any silly numbers
+  const validate = function (cal) {
+    Object.keys(cal).forEach(k => {
+      // no decimals allowed
+      if (isFloat(cal[k])) {
+        cal[k] = parseInt(cal[k], 10);
+      }
+      // no negatives
+      if (cal[k] < 0 && k !== 'year') {
+        cal[k] = 0;
+      }
+    });
+
+    // set defaults
+    cal.month = cal.month || 1; //co-erce any zeros to 1s
+    cal.date = cal.date || 1; // (same)
+    cal.hour = cal.hour || 0;
+    cal.minute = cal.minute || 0;
+    cal.second = cal.second || 0;
+    cal.millisecond = cal.millisecond || 0;
+
+    // range maximums
+    if (cal.month && cal.month > 12) {
+      cal.month = 12;
+    }
+    if (cal.date && MONTHS[cal.month] && cal.date > MONTHS[cal.month].len) {
+      cal.date = MONTHS[cal.month].len;
+    }
+    if (cal.hour && cal.hour > 24) {
+      cal.month = 24;
+    }
+    if (cal.minute && cal.minute > 59) {
+      cal.month = 59;
+    }
+    if (cal.second && cal.second > 59) {
+      cal.second = 59;
+    }
+    if (cal.millisecond && cal.millisecond > 999) {
+      cal.millisecond = 999;
+    }
+    return cal
+  };
+  var validate$1 = validate;
+
+  // compare two cal objects
+  const ensureEqual = function (a, b) {
+    const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
+    for (let i = 0; i < units.length; i += 1) {
+      let unit = units[i];
+      if (a[unit] !== b[unit]) {
+        console.error('\n----\nMis-matched unit in walk:', unit); // eslint-disable-line
+        console.error(a, '\n', b); // eslint-disable-line
+        return false
+      }
+    }
+    //it's the same
+    return true
+  };
+
+  const diffDays = function (from, to) {
+    let diff = 0;
+    // increment months
+    for (let n = from.month; n < to.month; n += 1) {
+      // console.log(`+${months[n - 1].len} for ${months[n - 1].long}`)
+      diff += MONTHS[n - 1].len;
+      if (n === 2 && isLeapYear$1(from.year)) {
+        diff += 1; //add another
+      }
+    }
+    // delta days (can be negative)
+    let days = to.date - from.date;
+    diff += days;
+    return diff
+  };
+
+  // step forward and count milliseconds 
+  // until the two calendar objects meet
+  const walk = function (epoch, from, to) {
+    // console.log(`from: ${from.year}-${from.month}-${from.date}`)
+    // console.log(`  to: ${to.year}-${to.month}-${to.date}`)
+
+    // increment months/days  (we are guaranteed to be in the same year)
+    let diff = diffDays(from, to);
+    epoch += diff * DAY;
+    from.month = to.month;
+    from.date = to.date;
+
+    // add-up remaining hours
+    diff = to.hour - from.hour;
+    epoch += diff * HOUR;
+    from.hour += diff;
+
+    // remaining minutes
+    diff = to.minute - from.minute;
+    epoch += diff * MINUTE;
+    from.minute += diff;
+
+    // add-up remaining seconds
+    diff = to.second - from.second;
+    epoch += diff * SECOND;
+    from.second += diff;
+
+    // add-up remaining milliseconds
+    diff = to.millisecond - from.millisecond;
+    epoch += diff;
+    from.millisecond += diff;
+
+    // make sure we are complete
+    ensureEqual(from, to);
+
+    return epoch
+  };
+  var walk$1 = walk;
+
+  const NEW_YEAR = {
+    month: 1,
+    date: 1,
+    hour: 0,
+    minute: 0,
+    second: 0,
+    millisecond: 0,
+  };
+
+  // compare two cal objects
+  const isAfter = function (a, b) {
+    const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
+    for (let i = 0; i < units.length; i += 1) {
+      let unit = units[i];
+      if (a[unit] > b[unit]) {
+        return true
+      }
+      if (a[unit] < b[unit]) {
+        return false
+      }
+    }
+    //it's the same
+    return true
+  };
+
+  const getEpoch = function (cal, tz) {
+    // set secure defaults
+    cal = validate$1(cal);
+
+    // set our cal to Jan 1 of this year
+    let epoch = getStart(cal.year, tz);
+    let have = Object.assign({}, NEW_YEAR, { year: cal.year });
+
+    // consult any DST changes this year
+    let changes = getDst$1(tz, cal.year).reverse();
+    let change = changes.find(c => isAfter(cal, c.cal));
+    if (change) {
+      epoch = change.epoch;
+      have = Object.assign({}, NEW_YEAR, change.cal, { year: cal.year });
+    }
+
+    // step-forward, by milliseconds
+    epoch = walk$1(epoch, have, cal);
+    return epoch
+  };
+  var getEpoch$1 = getEpoch;
+
+  let mapping = MONTHS.reduce((h, o, i) => {
+    h[o.long.toLowerCase()] = i + 1;
+    h[o.short.toLowerCase()] = i + 1;
+    return h
+  }, {});
+  // add this ones
+  mapping.sept = 9;
+
+  const parseMonth = function (str) {
+    str = str.toLowerCase().trim();
+    return MONTHS[str]
+  };
+  var parseMonth$1 = parseMonth;
+
+  // parse '+05:30' offset according to ISO8601 - 
+  //  could be +hh:mm, +hhmm or +hh
+  const reg = /^([+-])?([0-9]{1,2}):?([0-9]{2})?$/;
+
+  //pull-apart ISO offsets, like "+0100"
+  const parseOffset = (str) => {
+    // 'Zulu' is 0
+    if (!str || str === 'Z' || str === 'z') {
+      return 0
+    }
+    // tokenize it
+    let m = str.match(reg);
+    if (m !== null) {
+      let [, plus, hour, min] = m;
+
+      hour = parseInt(hour || '', 10) || 0;
+      min = parseInt(min || '', 10) || 0;
+
+      // turn minutes into decimal - 30 -> 0.5
+      min = min / 60;
+
+      let offset = hour + min;
+
+      // handle negative
+      if (plus === '-') {
+        offset *= -1;
+      }
+      return offset
+    }
+    return 0
+
+    //okay, try to match it to a utc timezone
+    //remember - this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_(:/)_/¯
+    //https://askubuntu.com/questions/519550/why-is-the-8-timezone-called-gmt-8-in-the-filesystem
+    // num *= -1
+    // return num
+
+    // if (num >= 0) {
+    //   num = '+' + num
+    // }
+    // let tz = 'etc/gmt' + num
+    // let zones = s.timezones
+    // if (zones[tz]) {
+    // log a warning if we're over-writing a given timezone?
+    // console.log('changing timezone to: ' + tz)
+    // s.tz = tz
+    // }
+    // return s
+  };
+  var parseOffset$1 = parseOffset;
+
+  const startOfDay = {
+    hour: 0,
+    minute: 0,
+    second: 0,
+    millisecond: 0,
+  };
+
+  // truncate any sub-millisecond values
+  const parseMs = function (str = '') {
+    str = String(str);
+    //js does not support sub-millisecond values 
+    // so truncate these - 2021-11-02T19:55:30.087772
+    if (str.length > 3) {
+      str = str.substring(0, 3);
+    } else if (str.length === 1) {
+      // assume ms are zero-padded on the left
+      // but maybe not on the right.
+      // turn '.10' into '.100'
+      str = str + '00';
+    } else if (str.length === 2) {
+      str = str + '0';
+    }
+    return Number(str) || 0
+  };
+
+  const parseTime = (str = '', obj) => {
+    obj = Object.assign({}, startOfDay, obj);
+    // remove all whitespace
+    str = str.replace(/^\s+/, '').toLowerCase();
+    //formal time format - 04:30.23
+    let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:.]?([0-9]{1,4})?/);
+    if (arr !== null) {
+      //validate it a little
+      let h = Number(arr[1]);
+      if (h < 0 || h > 24) {
+        return obj
+      }
+      let m = Number(arr[2]); //don't accept '5:3pm'
+      if (arr[2].length < 2 || m < 0 || m > 59) {
+        return obj
+      }
+      obj.hour = h;
+      obj.minute = m;
+      obj.second = Number(arr[3]) || 0;
+      obj.millisecond = parseMs(arr[4]);
+      //parse-out am/pm
+      let ampm = str.match(/[\\b0-9] ?(am|pm)\b/);
+      if (ampm !== null && ampm[1] === 'pm') {
+        obj.hour += 12;
+      }
+      return obj
+    }
+
+    //try an informal form - 5pm (no minutes)
+    arr = str.match(/([0-9]+) ?(am|pm)/);
+    if (arr !== null && arr[1]) {
+      let h = Number(arr[1]);
+      //validate it a little..
+      if (h > 12 || h < 1) {
+        return obj
+      }
+      obj.hour = arr[1] || 0;
+      if (arr[2] === 'pm') {
+        obj.hour += 12;
+      }
+      return obj
+    }
+
+    return obj
+  };
+  var parseTime$1 = parseTime;
+
+  const parseYear = (str = '') => {
+    str = str.trim();
+    // parse '86 shorthand
+    if (/^'[0-9][0-9]$/.test(str) === true) {
+      let num = Number(str.replace(/'/, ''));
+      if (num > 50) {
+        return 1900 + num
+      }
+      return 2000 + num
+    }
+    let year = parseInt(str, 10);
+    // use a given year from options.today
+    // if (!year && today) {
+    //   year = today.year
+    // }
+    // fallback to this year
+    // year = year || new Date().getFullYear()
+    return year
+  };
+
+  var parseYear$1 = parseYear;
+
+  const parseDate = (str = '') => {
+    str = str.trim();
+    // remove padding
+    str = str.replace(/^0+/, '');
+
+    //remove ordinal suffix
+    str = str.replace(/([0-9])(st|nd|rd|th)$/i, '$1');
+
+    let date = parseInt(str, 10);
+
+    return date || 1 // coerce zero to one
+  };
+
+  var parseDate$1 = parseDate;
+
+  var ymd = [
+    // =====
+    //  y-m-d
+    // =====
+    //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
+    {
+      reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9\-+:]+)?$/i,
+      parse: (m) => {
+        let obj = {
+          year: parseYear$1(m[1]),
+          month: parseInt(m[2], 10),
+          date: parseDate$1(m[3])
+        };
+        obj.offset = parseOffset$1(m[5]);
+        obj = parseTime$1(m[4], obj);
+        return obj
+      }
+    },
+    //short-iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
+    {
+      reg: /^([0-9]{4})[-/. ]([0-9]{1,2})[-/. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
+      parse: (m) => {
+        let obj = {
+          year: parseYear$1(m[1]),
+          month: parseInt(m[2], 10),
+          date: parseDate$1(m[3])
+        };
+        if (obj.month >= 12) {
+          //support yyyy/dd/mm (weird, but ok)
+          obj.date = parseDate$1(m[2]);
+          obj.month = parseInt(m[3], 10);
+        }
+        obj = parseTime$1(m[4], obj);
+        return obj
+      }
+    },
+
+    //text-month "2015-feb-25"
+    {
+      reg: /^([0-9]{4})[-/. ]([a-z]+)[-/. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
+      parse: (m) => {
+        let obj = {
+          year: parseYear$1(m[1]),
+          month: parseMonth$1(m[2]),
+          date: parseDate$1(m[3] || '')
+        };
+        obj = parseTime$1(m[4], obj);
+        return obj
+      }
+    }
+  ];
+
+  var mdy = [
+    // =====
+    //  m-d-y
+    // =====
+    //mm/dd/yyyy - uk/canada "6/28/2019, 12:26:14 PM"
+    {
+      reg: /^([0-9]{1,2})[-/.]([0-9]{1,2})[-/.]?([0-9]{4})?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2} ?(am|pm|gmt))?$/i,
+      parse: (m) => {
+        let month = parseInt(m[1], 10);
+        let date = parseDate$1(m[2]);
+        //support dd/mm/yyy
+        // if (s.british || month >= 12) {
+        //   date = parseInt(m[1], 10)
+        //   month = parseInt(m[2], 10) - 1
+        // }
+        let obj = {
+          date,
+          month,
+          year: parseYear$1(m[3])
+        };
+        // s = parseTime(s, m[4])
+        return obj
+      }
+    },
+    //alt short format - "feb-25-2015"
+    {
+      reg: /^([a-z]+)[\-/. ]([0-9]{1,2})[\-/. ]?([0-9]{4}|'[0-9]{2})?( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
+      parse: (m) => {
+        let obj = {
+          year: parseYear$1(m[3]),
+          month: parseMonth$1(m[1]),
+          date: parseDate$1(m[2] || '')
+        };
+        obj = parseTime$1(m[4], obj);
+        return obj
+      }
+    },
+
+    //Long "Mar 25 2015"
+    //February 22, 2017 15:30:00
+    {
+      reg: /^([a-z]+) ([0-9]{1,2})( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
+      parse: (m) => {
+        let obj = {
+          year: parseYear$1(m[3]),
+          month: parseMonth$1(m[1]),
+          date: parseDate$1(m[2] || '')
+        };
+        obj = parseTime$1(m[4], obj);
+        return obj
+      }
+    },
+    // 'Sun Mar 14 15:09:48 +0000 2021'
+    {
+      reg: /^([a-z]+) ([0-9]{1,2})( [0-9:]+)?( \+[0-9]{4})?( [0-9]{4})?$/i,
+      parse: (m) => {
+        let obj = {
+          year: parseYear$1(m[5]),
+          month: parseMonth$1(m[1]),
+          date: parseDate$1(m[2] || '')
+        };
+        obj = parseTime$1(m[4], obj);
+        return obj
+      }
+    }
+  ];
+
+  var dmy = [
+    // =====
+    //  d-m-y
+    // =====
+    //common british format - "25-feb-2015"
+    {
+      reg: /^([0-9]{1,2})[-/]([a-z]+)[-/]?([0-9]{4})?$/i,
+      parse: (m) => {
+        let obj = {
+          year: parseYear$1(m[3]),
+          month: parseMonth$1(m[2]),
+          date: parseDate$1(m[1] || '')
+        };
+        obj = parseTime$1(m[4], obj);
+        return obj
+      }
+    },
+    // "25 Mar 2015"
+    {
+      reg: /^([0-9]{1,2})( [a-z]+)( [0-9]{4}| '[0-9]{2})? ?([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2} ?(am|pm|gmt))?$/i,
+      parse: (m) => {
+        let obj = {
+          year: parseYear$1(m[3]),
+          month: parseMonth$1(m[2]),
+          date: parseDate$1(m[1])
+        };
+        obj = parseTime$1(m[4], obj);
+        return obj
+      }
+    },
+    // 01-jan-2020
+    {
+      reg: /^([0-9]{1,2})[ /]([a-z]+)[ /]([0-9]{4})?( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
+      parse: (m) => {
+        let obj = {
+          date: parseDate$1(m[1]),
+          month: parseMonth$1(m[2]),
+          year: parseYear$1(m[3])
+        };
+        obj = parseTime$1(m[4], obj);
+        return obj
+      }
+    }
+  ];
+
+  var misc = [
+    // =====
+    // no dates
+    // =====
+
+    // '2012-06' month-only
+    {
+      reg: /^([0-9]{4})[-/]([0-9]{2})$/,
+      parse: (m) => {
+        let obj = {
+          year: parseYear$1(m[1]),
+          month: parseInt(m[2], 10),
+        };
+        // s = parseTime(s, m[4])
+        return obj
+      }
+    },
+
+    //February 2017 (implied date)
+    {
+      reg: /^([a-z]+) ([0-9]{4})$/i,
+      parse: (m) => {
+        let obj = {
+          year: parseYear$1(m[2]),
+          month: parseMonth$1(m[1]),
+        };
+        // s = parseTime(s, m[4])
+        return obj
+      }
+    },
+
+    {
+      // 'q2 2002'
+      reg: /^(q[0-9])( of)?( [0-9]{4})?/i,
+      parse: (m) => {
+        m[1] || '';
+        // TODO: 
+        // s = s.quarter(quarter)
+        if (m[3]) {
+          let year = parseYear$1(m[3]);
+          return { year }
+        }
+        return {}
+      }
+    },
+    {
+      // 'summer 2002'
+      reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?/i,
+      parse: (m) => {
+        m[1] || '';
+        // TODO: 
+        // s = s.season(season)
+        if (m[3]) {
+          let year = parseYear$1(m[3]);
+          return { year }
+        }
+        return {}
+      }
+    },
+    {
+      // '200bc'
+      reg: /^[0-9,]+ ?b\.?c\.?$/i,
+      parse: (m) => {
+        let str = m[0] || '';
+        //make year-negative
+        str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1');
+        let obj = {
+          year: parseInt(str.trim(), 10),
+        };
+        return obj
+      }
+    },
+    {
+      // '200ad'
+      reg: /^[0-9,]+ ?(a\.?d\.?|c\.?e\.?)$/i,
+      parse: (m) => {
+        let str = m[0] || '';
+        //remove commas
+        str = str.replace(/,/g, '');
+        let obj = {
+          year: parseInt(str.trim(), 10),
+        };
+        // s = parseTime(s)
+        return obj
+      }
+    },
+    {
+      // '1992'
+      reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
+      parse: (m) => {
+        // TODO: 
+        // let today = s._today
+        // using today's date, but a new month is awkward.
+        // if (today.month && !today.date) {
+        //   today.date = 1
+        // }
+        let obj = {
+          year: parseYear$1(m[0]),
+          // month: today.month || d.getMonth(),
+          // date: today.date || d.getDate()
+        };
+        // s = parseTime(s)
+        return obj
+      }
+    }
+  ];
+
+  var formats$2 = [].concat(ymd, mdy, dmy, misc);
+
+  const parseText = function (txt, tz) {
+    let cal = {};
+    for (let i = 0; i < formats$2.length; i += 1) {
+      let m = txt.match(formats$2[i].reg);
+      if (m !== null) {
+        // console.log(`reg #${i} - ${formats[i].reg}`)
+        let out = formats$2[i].parse(m);
+        return out
+      }
+    }
+    return cal
+  };
+  var parseText$1 = parseText;
+
+  // order for Array input
+  const units$1 = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
+
+  const isNumber = val => {
+    return typeof val === 'number' && isFinite(val)
+  };
+
+  const isObject = val => {
+    return Object.prototype.toString.call(val) === '[object Object]'
+  };
+
+  const isArray = function (arr) {
+    return Object.prototype.toString.call(arr) === '[object Array]'
+  };
+
+  const isString = val => {
+    return typeof val === 'string'
+  };
+
+  const parse = function (input, tz) {
+    // null means now
+    if (input === null || input === undefined) {
+      return config.now()
+    }
+    // epoch input
+    if (isNumber(input)) {
+      // if the given epoch is really small, they've probably given seconds and not milliseconds
+      if (input < config.minimumEpoch && input > 0) {
+        input *= 1000;
+      }
+      return input
+    }
+    // support ordered array as input [2020, 04, 1] → {year:2020 ...}
+    if (isArray(input)) {
+      let cal = units$1.reduce((h, k, i) => {
+        h[k] = input[i];
+        return h
+      }, {});
+      return getEpoch$1(cal, tz)
+    }
+    // given {year:2020 ...}
+    if (isObject(input)) {
+      let cal = Object.assign({}, input);//don't mutate original
+      return getEpoch$1(cal, tz)
+    }
+    // pull-apart ISO formats, etc
+    if (isString(input)) {
+      let cal = parseText$1(input);
+      return getEpoch$1(cal, tz)
+    }
+    return null
+  };
+  var parse$1 = parse;
+
+  const monthLengths = MONTHS.map(o => o.len);
+
+  const getDate = function (diffDays, year) {
+    let res = { month: 1, date: 1 };
+    let total = 0;
+    for (let i = 0; i < MONTHS.length - 1; i += 1) {
+      let inMonth = monthLengths[i];
+      if (i === 1 && isLeapYear$1(year)) {
+        inMonth = 29;
+      }
+      if (total + inMonth > diffDays) {
+        break
+      }
+      total += inMonth;
+      res.month += 1;
+    }
+    // add remainder to days
+    res.date += diffDays - total;
+    return res
+  };
+
+  const getTime = function (ms) {
+    let res = { hour: 0, minute: 0, second: 0, ms: 0 };
+    // get hour
+    res.hour = Math.floor(ms / HOUR);
+    ms -= res.hour * HOUR;
+    // get minute
+    res.minute = Math.floor(ms / MINUTE);
+    ms -= res.minute * MINUTE;
+    // get second
+    res.second = Math.floor(ms / SECOND);
+    ms -= res.second * SECOND;
+    // remainder milliseconds
+    res.ms = ms;
+    return res
+  };
 
   // take an epoch, return {month, year, date...}
   const computeCal = function (epoch, tz) {
@@ -2470,18 +1276,18 @@
       date: 1,
       hour: 0,
       second: 0,
-      millisecond: 0
+      millisecond: 0,
+      offset: (zoneFile[tz] || {}).offset || 0
     };
-
     // kick the epoch around, according to our DST offset
     let changes = getDst$1(tz, year);
     for (let i = changes.length - 1; i >= 0; i -= 1) {
       if (epoch >= changes[i].epoch) {
+        cal.offset = changes[i].offset;
         epoch += changes[i].delta * HOUR;
         break
       }
     }
-
     // walk the days
     let diff = epoch - start;
     let daysDiff = Math.floor(diff / DAY);
@@ -2511,7 +1317,6 @@
     //     break
     //   }
     // }
-
     return cal
   };
   var getCal = computeCal;
@@ -2620,8 +1425,25 @@
         return 'Q3'
       }
       return 'Q4'
+    },
+    // turn timezone 5.25 into '+05:15'
+    offset: (c) => {
+      let n = c.offset || 0;
+      let out = n <= 0 ? '-' : '+';
+      n = Math.abs(n);
+      // add hour
+      let h = parseInt(n, 10);
+      out += String(h).padStart(2, '0');
+      // add minute
+      let decimal = n % 1;
+      if (decimal) {
+        let min = decimal * 60;
+        out += ':' + String(min).padStart(2, '0');
+      } else {
+        out += ':00';
+      }
+      return out
     }
-
   };
   // aliases
   const aliases$1 = {
@@ -2648,7 +1470,7 @@
     'dd/mm/yyyy': 'numeric-us',
     'little-endian': 'numeric-uk',
     'big-endian': 'numeric',
-    'day-nice': 'nice-day'
+    'day-nice': 'nice-day',
   };
   Object.keys(aliases$1).forEach((k) => (formats[k] = formats[aliases$1[k]]));
 
@@ -2679,7 +1501,7 @@
 
   // format methods
   let deriv = [
-    ['iso', '{iso-year}-{month-pad}-{date-pad}T{hour-24-pad}:{minute-pad}:{second-pad}.{millisecond-pad}'],//{offset}
+    ['iso', '{iso-year}-{month-pad}-{date-pad}T{hour-24-pad}:{minute-pad}:{second-pad}.{millisecond-pad}{offset}'],//
     ['time', '{hour-12}:{minute-pad}{ampm}'],
   ];
   deriv.forEach(a => {
@@ -2712,10 +1534,10 @@
   var methods$1 = methods;
 
   const SpaceTime = function (input, tz) {
-    //the holy UNIX moment
-    this.epoch = toEpoch(input);
-    //the shift for the given timezone
+    //the IANA code for the current timezone
     this.tz = tz || config.fallbackTz;
+    //the holy UNIX moment
+    this.epoch = parse$1(input, this.tz);
   };
 
   Object.assign(SpaceTime.prototype, methods$1);
