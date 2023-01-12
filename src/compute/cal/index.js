@@ -2,9 +2,7 @@ import { getYear } from '../_lib/yearStart.js'
 import { getDate, getTime } from './walk.js'
 import { DAY, HOUR } from '../_lib/millis.js'
 import zoneFile from '../../../zonefile/zonefile.2022.js'
-
 import getDst from '../changes/index.js'
-
 
 // take an epoch, return {month, year, date...}
 const computeCal = function (epoch, tz) {
@@ -39,24 +37,6 @@ const computeCal = function (epoch, tz) {
   let deltaMs = diff - (daysDiff * DAY)
   let resMins = getTime(deltaMs)
   Object.assign(cal, resMins)
-  // consult any DST changes
-  // let changes = getDst(tz, year)
-  // // find the latest change
-  // for (let i = changes.length - 1; i >= 0; i -= 1) {
-  //   if (epoch >= changes[i].epoch) {
-  //     let delta = changes[i].delta
-  //     if (isInt(delta)) {
-  //       cal.hour += delta
-  //       if (cal.hour === 24) {
-  //         cal.date += 1 //this sucks
-  //         cal.hour = 0
-  //       }
-  //     } else {
-  //       cal.minute += delta * 60  //TODO: this sucks
-  //     }
-  //     break
-  //   }
-  // }
   return cal
 }
 export default computeCal

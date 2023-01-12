@@ -1,4 +1,5 @@
 import months from '../_lib/months.js'
+import isLeapYear from '../_lib/isLeap.js'
 
 const isFloat = function (n) {
   return n !== undefined && Number(n) === n && n % 1 !== 0;
@@ -29,8 +30,13 @@ const validate = function (cal) {
   if (cal.month && cal.month > 12) {
     cal.month = 12
   }
-  if (cal.date && months[cal.month] && cal.date > months[cal.month].len) {
-    cal.date = months[cal.month].len
+  if (cal.date && months[cal.month - 1] && cal.date > months[cal.month - 1].len) {
+    // check leap
+    if (cal.month === 2 && isLeapYear(cal.year)) {
+      cal.date = 29
+    } else {
+      cal.date = months[cal.month - 1].len
+    }
   }
   if (cal.hour && cal.hour > 24) {
     cal.month = 24
