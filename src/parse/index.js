@@ -1,5 +1,5 @@
 import config from '../config.js'
-import getEpoch from '../compute/get-epoch/index.js'
+import getEpoch from '../compute/epoch/index.js'
 import zoneFile from '../../zonefile/iana.js'
 
 // order for Array input

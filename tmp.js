@@ -1,13 +1,10 @@
+
 import metas from './zonefile/metas.js'
-let all = {}
-Object.keys(metas).forEach(k => {
-  let str = metas[k].std[0] || ''
-  if (metas[k].dst) {
-    str += '|' + metas[k].dst[0]
-  }
-  if (all[str]) {
-    console.log(str)
-  }
-  all[str] = true
+import iana from './zonefile/iana.js'
+let zones = iana
+// let all = {}
+Object.keys(zones).forEach(k => {
+  zones[k].shrt = (metas[k] || []).join('|')
   // console.log(str)
 })
+console.log(JSON.stringify(zones, null, 2))
