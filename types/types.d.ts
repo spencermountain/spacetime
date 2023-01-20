@@ -191,7 +191,7 @@ export interface Spacetime {
   hour12(value: number | string, goForward?: boolean): Spacetime
 
   /** get the date/time as ISO 8601 */
-  iso(): number
+  iso(): string
   /** set the date/time/offset from a ISO 8601 string */
   iso(iso: string): Spacetime
 
