@@ -460,6 +460,7 @@ export default {
   "Asia/Thimbu": '27.47,89.64', //Thimphu, Bhutan
   "Asia/Ujung_Pandang": '-5.15,119.43', //Makassar, Makassar City, South Sulawesi, Indonesia
   "Asia/Ulan_Bator": '47.89,106.91', //Ulaanbaatar, Mongolia
+  "Asia/Famagusta": '35.18,33.36', // Nicosia, Northern Cyprus
   "Atlantic/Faeroe": '62,-7', //Faroe Islands
   "Atlantic/Jan_Mayen": '71.03,-8.29', //Jan Mayen, Svalbard and Jan Mayen
   "Australia/ACT": '-35.28,149.13', //Canberra ACT 2601, Australia
