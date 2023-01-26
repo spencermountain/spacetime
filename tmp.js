@@ -1,10 +1,35 @@
 
-import metas from './zonefile/metas.js'
-import iana from './zonefile/iana.js'
-let zones = iana
-// let all = {}
-Object.keys(zones).forEach(k => {
-  zones[k].shrt = (metas[k] || []).join('|')
-  // console.log(str)
+// dupes:
+// CST|CDT
+// WET|WEST
+// ALMT
+// GMT
+// AMT
+// CST
+// GST
+import zones from '/Users/spencer/mountain/timezone-soft/data/index.js'
+import iana from './src/zonefile/iana.js'
+
+
+let count = 0
+let aliases = {}
+Object.keys(iana).forEach(k => {
+  if (!zones[k]) {
+    let str = k.toLowerCase()
+    let found = Object.keys(zones).find(k2 => {
+      return zones[k2].names.find(s2 => s2 === str)
+    })
+    aliases[k] = found
+  }
 })
-console.log(JSON.stringify(zones, null, 2))
+
+let rest = {}
+Object.keys(iana).forEach(k => {
+  if (!aliases[k]) {
+    rest[k] = iana[k]
+    // console.log(k)
+  }
+})
+
+// console.log(Object.keys(rest).length)
+console.log(JSON.stringify(rest, null, 2))

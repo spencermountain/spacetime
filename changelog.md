@@ -5,8 +5,9 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!-- 
- ### 7.2.0 [Sep 2022]
-
+ ### 8.0.0 [Jan 2022]
+ - **[change]** - return properly titlecased IANA codes
+ - **[change]** - set 100 iana codes as aliases (via tzdb)
  -->
  
  ### 7.4.0 [Dec 2022]

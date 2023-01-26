@@ -2,11 +2,10 @@
 // for example, the US changes:
 // the second Sunday of March -> first Sunday of November
 // http://www.webexhibits.org/daylightsaving/g.html
-let zones = {
+let changes = {
   usa: '2nd-sun-mar-2h|1st-sun-nov-2h',// (From 1987 to 2006)
   // mexico
   mex: '1st-sun-apr-2h|last-sun-oct-2h',
-
   // European Union zone
   eu0: 'last-sun-mar-0h|last-sun-oct-1h',
   eu1: 'last-sun-mar-1h|last-sun-oct-2h',
@@ -14,7 +13,6 @@ let zones = {
   eu3: 'last-sun-mar-3h|last-sun-oct-4h',
   //greenland
   green: 'last-sat-mar-22h|last-sat-oct-23h',
-
   // australia
   aus: '1st-sun-apr-1h|1st-sun-oct-2h',
   //lord howe australia
@@ -27,7 +25,6 @@ let zones = {
   ant: '2nd-sun-mar-0h|1st-sun-oct-0h',
   // troll - antarctica
   troll: 'last-sun-mar-2h|last-sun-oct-3h',
-
   //jordan
   jord: 'last-fri-feb-0h|last-fri-oct-1h',
   // lebanon
@@ -39,11 +36,9 @@ let zones = {
   isr: 'last-fri-mar-2h|last-sun-oct-2h',
   //palestine
   pal: 'last-sun-mar-0h|last-fri-oct-1h',
-
   // el aaiun
   //this one seems to be on arabic calendar?
   saha: 'last-sun-mar-3h|1st-sun-may-2h',
-
   // paraguay
   par: 'last-sat-mar-22h|1st-sun-oct-0h',
   //cuba
@@ -58,8 +53,9 @@ let zones = {
   iran: '4th-mon-march-0h|3rd-fri-sep-0h',//arabic calendar?
 
 }
-const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
-const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat',]
+
+const months = 'jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec'.split('|')
+const days = 'sun|mon|tue|wed|thu|fri|sat'.split('|')
 
 const parse = function (str) {
   let [num, day, month, hour] = str.split(/-/g)
@@ -78,14 +74,13 @@ const parse = function (str) {
   }
 }
 
-Object.keys(zones).forEach(k => {
-  let str = zones[k]
+Object.keys(changes).forEach(k => {
+  let str = changes[k]
   let [start, end] = str.split(/\|/)
-  zones[k] = {
+  changes[k] = {
     start: parse(start),
     end: parse(end),
   }
 })
 
-export default zones
-// console.log(zones)
+export default changes
