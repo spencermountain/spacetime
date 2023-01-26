@@ -12,6 +12,9 @@ const sunPosition = function (s, lat, lng) {
     lat = guess.lat
     lng = guess.lng
   }
+  if (!lat || !lng) {
+    return {}
+  }
   s.in = s.in || spacetimeGeo.in //bolt-on the plugin
   s = s.in(lat, lng)
   let d = new Date(s.epoch)
