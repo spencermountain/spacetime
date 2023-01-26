@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from '../../../src/index.js'
 // import spacetime from 'spacetime'
 import geo from '../src/index.js'
-// const geo = require('../builds/spacetime-geo')
+// import geo from '../builds/spacetime-geo.mjs'
 
 test('test some lat/lngs', function (t) {
   spacetime.extend(geo)

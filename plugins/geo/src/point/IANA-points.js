@@ -504,14 +504,14 @@ export default {
   // missing
   "America/Nuuk": '64.175,-51.735',//greenland
   "America/Punta_arenas": '-53.1517,-71.0891',//argentina
-  "Asia/Atyrau": '47.525/49.834',//khazakhstan
+  "Asia/Atyrau": '47.525,49.834',//khazakhstan
   "Asia/Qostanay": '51.563,62.117',//khazakhstan
   "Asia/Yangon": '16.8413,96.0617',//myanmar
   "Asia/Tomsk": '56.4852,84.9284',//russia
   "Europe/Kirov": '58.5923,49.5759',//russia
   "Europe/Kyiv": '50.4024,30.5313',//ukraine
   "Europe/Saratov": '51.4384,45.7645',//russia
-  "Pacific/Kanton": '-2.8899/171.5944',//pacific
+  "Pacific/Kanton": '-2.8899,171.5944',//pacific
 
   //these are pretty arbitrary and I made them up myself
   "Etc/GMT": '51.5076,-0.1276', //London
