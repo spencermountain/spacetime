@@ -3,11 +3,10 @@ import json from 'rollup-plugin-json'
 import { terser } from 'rollup-plugin-terser'
 import resolve from 'rollup-plugin-node-resolve'
 import sizeCheck from 'rollup-plugin-filesize-check'
-import { version } from './package.json'
-
+import pkg from './package.json' assert { type: "json" };
 console.log('\n 📦  - running rollup..\n')
 
-const banner = '/* spencermountain/spacetime-daylight ' + version + ' MIT */'
+const banner = '/* spencermountain/spacetime-daylight ' + pkg.version + ' MIT */'
 
 export default [
   {

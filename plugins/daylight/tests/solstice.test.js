@@ -1,6 +1,7 @@
 import test from 'tape'
 import spacetime from 'spacetime'
 import daylight from '../src/index.js'
+// import daylight from '../builds/spacetime-daylight.mjs'
 spacetime.extend(daylight)
 
 let winters = [

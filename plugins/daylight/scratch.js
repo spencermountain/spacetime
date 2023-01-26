@@ -7,17 +7,14 @@ import sunlight from './src/index.js'
 spacetime.extend(sunlight)
 
 // let s = spacetime.today('America/Iqaluit').time('3:00am')
-let s = spacetime.today('Canada/Eastern')
+let s = spacetime.today('america/argentina/comodrivadavia')
 // let s = spacetime.today('America/Havana').time('3:00am')
 
 // ---day---
 // let hours = s.every('hour', s.add(1, 'day').time('3:00am'))
-// hours.forEach((d) => {
-//   console.log(d.time() + '   -   ' + d.sunPosition().altitude)
+console.log(s.sunPosition())
 // })
 // ---year--
-let hours = s.every('week', s.add(1, 'year'))
-hours.forEach((d) => {
-  d = d.time('12:01pm')
-  console.log(d.format('') + '   -   ' + d.sunPosition().altitude)
-})
+// let hours = s.every('hour', s.add(1, 'day'))
+
+
