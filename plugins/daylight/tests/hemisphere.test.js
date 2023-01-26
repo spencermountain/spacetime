@@ -1,7 +1,7 @@
 import test from 'tape'
 import spacetime from 'spacetime'
 import daylight from '../src/index.js'
-// const daylight = require('../builds/spacetime-daylight')
+// import daylight from '../builds/spacetime-daylight.mjs'
 spacetime.extend(daylight)
 
 test('southern-hemisphere-opposite', function (t) {

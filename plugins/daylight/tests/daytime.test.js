@@ -1,8 +1,8 @@
 import test from 'tape'
 import spacetime from 'spacetime'
 import daylight from '../src/index.js'
+// import daylight from '../builds/spacetime-daylight.mjs'
 spacetime.extend(daylight)
-// const daylight = require('../builds/spacetime-daylight')
 
 test('day-status-summer', function (t) {
   let s = spacetime('June 26 2018', 'Canada/Eastern')
