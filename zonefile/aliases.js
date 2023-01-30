@@ -109,5 +109,7 @@ export default {
   "Indian/Comoro": "Africa/Nairobi",
   "Indian/Mayotte": "Africa/Nairobi",
   "Pacific/Midway": "Pacific/Pago_Pago",
-  "Pacific/Saipan": "Pacific/Guam"
+  "Pacific/Saipan": "Pacific/Guam",
+  // Intl.DateTimeFormat() can return this
+  "UTC/Unknown": "Etc/Utc"
 }
