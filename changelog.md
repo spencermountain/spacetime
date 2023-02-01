@@ -9,6 +9,9 @@ This project follows semVer, where:
 
  -->
  
+ ### 7.4.1 [Jan 2023]
+ - **[update]** - add etc/unknown timezone for #367
+
  ### 7.4.0 [Dec 2022]
  - **[update]** - 2023 DST changes for mexico
  - **[update]** - 2023 DST changes for jordan
