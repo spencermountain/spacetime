@@ -10,19 +10,19 @@ import compareFns from './methods/compare.js'
 import i18nFns from './methods/i18n.js'
 
 let timezones = zones
-//fake timezone-support, for fakers (es5 class)
+// fake timezone-support, for fakers (es5 class)
 const SpaceTime = function (input, tz, options = {}) {
-  //the holy moment
+  // the holy moment
   this.epoch = null
-  //the shift for the given timezone
+  // the shift for the given timezone
   this.tz = findTz(tz, timezones)
-  //whether to output warnings to console
+  // whether to output warnings to console
   this.silent = typeof options.silent !== 'undefined' ? options.silent : true
   // favour british interpretation of 02/02/2018, etc
   this.british = options.dmy || options.british
 
-  //does the week start on sunday, or monday:
-  this._weekStart = 1 //default to monday
+  // does the week start on sunday, or monday:
+  this._weekStart = 1 // default to monday
   if (options.weekStart !== undefined) {
     this._weekStart = options.weekStart
   }
@@ -37,23 +37,23 @@ const SpaceTime = function (input, tz, options = {}) {
   //   writable: true,
   //   value: parsers
   // })
-  //add getter/setters
+  // add getter/setters
   Object.defineProperty(this, 'd', {
-    //return a js date object
+    // return a js date object
     get: function () {
       let offset = quickOffset(this)
-      //every computer is somewhere- get this computer's built-in offset
+      // every computer is somewhere- get this computer's built-in offset
       let bias = new Date(this.epoch).getTimezoneOffset() || 0
-      //movement
+      // movement
       let shift = bias + offset * 60 //in minutes
       shift = shift * 60 * 1000 //in ms
-      //remove this computer's offset
+      // remove this computer's offset
       let epoch = this.epoch + shift
       let d = new Date(epoch)
       return d
     }
   })
-  //add this data on the object, to allow adding new timezones
+  // add this data on the object, to allow adding new timezones
   Object.defineProperty(this, 'timezones', {
     get: () => timezones,
     set: (obj) => {
@@ -61,12 +61,12 @@ const SpaceTime = function (input, tz, options = {}) {
       return obj
     }
   })
-  //parse the various formats
+  // parse the various formats
   let tmp = handleInput(this, input)
   this.epoch = tmp.epoch
 }
 
-//(add instance methods to prototype)
+// (add instance methods to prototype)
 Object.keys(methods).forEach((k) => {
   SpaceTime.prototype[k] = methods[k]
 })
@@ -96,7 +96,7 @@ SpaceTime.prototype.toNativeDate = function () {
   return new Date(this.epoch)
 }
 
-//append more methods
+// append more methods
 queryFns(SpaceTime)
 addFns(SpaceTime)
 sameFns(SpaceTime)
