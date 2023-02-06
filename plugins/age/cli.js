@@ -55,7 +55,7 @@ if (opts.weeks) {
 
 let num = spacetime(str).age(unit)
 let output = `${num.toLocaleString()}`
-if (unit !== 'years') {
-  output += ` (${unit})`
-}
+
+output += ` (${unit})`
+
 console.log(output)
