@@ -54,7 +54,7 @@ export interface SpacetimeConstructor {
    * @param timezone Optional timezone. If omitted uses the browser timezone.
    * @param options Options for silencing warnings.
    */
-  (parsableDate?: ParsableDate, timezone?: string, options?: SpacetimeConstructorOptions): Spacetime
+  (parsableDate?: ParsableDate | null, timezone?: string, options?: SpacetimeConstructorOptions): Spacetime
 }
 
 export interface SpacetimeStatic extends SpacetimeConstructor {
