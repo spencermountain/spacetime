@@ -21,4 +21,5 @@ aliases.forEach(a => {
   SpaceTime.prototype[a[0]] = SpaceTime.prototype[a[1]]
 })
 
+
 export default SpaceTime
