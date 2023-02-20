@@ -39,7 +39,7 @@ const century_code = function (year) {
   //julian
   if (year < 1752) {
     let c = parseInt(year / 100, 10);
-    return 18 - c % 7;
+    return (18 - c) % 7;
   }
   //gregorian
   let c = parseInt(year / 100, 10);

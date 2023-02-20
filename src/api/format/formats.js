@@ -28,7 +28,7 @@ const fmt = {
   'year-short': (c) => {
     let y = c.year
     if (y > 0) {
-      return `'${String(y).substr(2, 4)}`
+      return `'${String(y).substring(2, 4)}`
     }
     return Math.abs(y) + ' BC'
   },

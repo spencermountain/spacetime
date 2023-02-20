@@ -3,7 +3,7 @@ import set from './setter.js'
 import fmts from './format/index.js'
 
 let methods = {}
-let units = ['year', 'month', 'date', 'hour', 'minute', 'second']
+let units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'day', 'dayName']
 
 // generate all getter/setter function pairs
 units.forEach(fn => {
