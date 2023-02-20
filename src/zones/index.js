@@ -1,5 +1,5 @@
 import pckd from './_pckd.js'
-import aliases from '../../zonefile/aliases.js'
+// import aliases from '../../zonefile/aliases.js'
 
 let zones = {}
 let area = null
@@ -21,10 +21,10 @@ pckd.split('\n').forEach(line => {
 })
 
 // add aliases
-Object.keys(aliases).forEach(k => {
-  zones[k] = zones[aliases[k]]
-  if (!zones[k]) {
-    console.log(k)
-  }
-})
+// Object.keys(aliases).forEach(k => {
+//   zones[k] = zones[aliases[k]]
+//   if (!zones[k]) {
+//     console.log(k)
+//   }
+// })
 export default zones

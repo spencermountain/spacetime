@@ -75,7 +75,6 @@ const calc = function (obj, year, offset) {
   // go to the correct offset
   epoch -= offset * 60 * 60 * 1000
   // console.log(new Date(epoch))
-
   return { epoch, month, date }
 }
 // 2nd tuesday
