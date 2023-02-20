@@ -1,37 +1,30 @@
 import { titleCase, zeroPad, ordinal } from './_fns.js'
-import config from '../../config.js'
+import g from '../getter.js'
 
+import config from '../../config.js'
+let { days, months } = config
 
 const fmt = {
 
-  // day: (c) => titleCase(s.dayName()),
-  // 'day-short': (c) => titleCase(_short()[s.day()]),
-  // 'day-number': (c) => s.day(),
-  // 'day-ordinal': (c) => ordinal(s.day()),
-  // 'day-pad': (c) => zeroPad(s.day()),
+  day: (c) => titleCase(g.dayName(c)),
+  'day-short': (c) => titleCase(days.shortForm[g.day(c)]),
+  'day-number': (c) => g.day(c),
+  'day-ordinal': (c) => ordinal(g.day(c)),
+  'day-pad': (c) => zeroPad(g.day(c)),
 
   date: (c) => c.date,
   'date-ordinal': (c) => ordinal(c.date),
   'date-pad': (c) => zeroPad(c.date),
 
-  // month: (c) => titleCase(c.monthName()),
-  // 'month-short': (c) => titleCase(short()[c.month]),
+  month: (c) => titleCase(g.monthName(c)),
+  'month-short': (c) => titleCase(months.shortForm[c.month - 1]),
   'month-number': (c) => c.month,
   'month-ordinal': (c) => ordinal(c.month),
   'month-pad': (c) => zeroPad(c.month),
   'iso-month': (c) => zeroPad(c.month + 1), //1-based months
-  'iso-short': (c) => `${c.year}-${zeroPad(c.month)}-${zeroPad(c.date)}`,
-  'iso-medium': (c) => `${fmt['iso-year'](c)}-${zeroPad(c.month)}-${zeroPad(c.date)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.ms, 3)}`,
-  'iso': (c) => `${fmt['iso-medium'](c)}${fmt.offset(c)}`,
 
   year: (c) => c.year > 0 ? c.year : `${Math.abs(c.year)} BC`,
-  'year-short': (c) => {
-    let y = c.year
-    if (y > 0) {
-      return `'${String(y).substring(2, 4)}`
-    }
-    return Math.abs(y) + ' BC'
-  },
+  'year-short': (c) => c.year > 0 ? `'${String(c.year).substring(2, 4)}` : Math.abs(c.year) + ' BC',
   'iso-year': (c) => {
     let str = zeroPad(Math.abs(c.year), 4) //0-padded
     if (c.year < 0) {
@@ -40,11 +33,11 @@ const fmt = {
     return str
   },
 
-  time: (c) => c.time(),
-  'time-24': (c) => `${c.hour}:${zeroPad(c.minute)}`,
+  time: (c) => `${g.hour12(c)}:${zeroPad(c.minute)}${g.ampm(c)}`,
+  'time-24': (c) => `${zeroPad(c.hour)}:${zeroPad(c.minute)}`,
 
-  hour: (c) => c.hour % 12,
-  'hour-pad': (c) => zeroPad(c.hour % 12),
+  hour: (c) => g.hour12(c),
+  'hour-pad': (c) => zeroPad(g.hour12(c)),
   'hour-24': (c) => c.hour,
   'hour-24-pad': (c) => zeroPad(c.hour),
 
@@ -56,18 +49,10 @@ const fmt = {
   millisecond: (c) => c.ms,
   'millisecond-pad': (c) => zeroPad(c.ms, 3),
 
-  ampm: (c) => c.hour < 12 ? 'am' : 'pm',
-  AMPM: (c) => c.hour < 12 ? 'AM' : 'PM',
-  quarter: (c) => {
-    if (c.month < 3) {
-      return 'Q1'
-    } else if (c.month < 6) {
-      return 'Q2'
-    } else if (c.month < 9) {
-      return 'Q3'
-    }
-    return 'Q4'
-  },
+  ampm: (c) => g.ampm(c),
+  AMPM: (c) => g.ampm(c).toUpperCase(),
+  quarter: (c) => 'Q' + g.quarter(c),
+
   // turn timezone 5.25 into '+05:15'
   offset: (c) => {
     let n = c.offset || 0
@@ -87,6 +72,12 @@ const fmt = {
     return out
   }
 }
+// compound ones
+fmt['iso-short'] = (c) => `${fmt['iso-year'](c)}-${zeroPad(c.month)}-${zeroPad(c.date)}`
+fmt['iso-medium'] = (c) => `${fmt['iso-short'](c)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.ms, 3)}`
+fmt['iso'] = (c) => `${fmt['iso-medium'](c)}${fmt.offset(c)}`
+
+
 // aliases
 const aliases = {
   'hour-12': 'hour',

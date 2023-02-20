@@ -5,9 +5,7 @@ import old from './old/src/index.js'
 // import { HOUR } from '/Users/spencer/mountain/spacetime/src/compute/_lib/millis.js'
 
 
-let input = "2023-12-22T01:23:20.030-05:45"
-let s = spacetime(input, "America/Vancouver")
-// console.log(s.format('day'))
-console.log(s.dayName())
-s = old(input, "America/Vancouver")
-console.log(s.dayName())
+let input = "2023-12-22T00:30:20.030-05:45"
+let s = spacetime(input)
+
+console.log(s.hourFloat())

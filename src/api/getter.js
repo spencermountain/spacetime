@@ -1,23 +1,49 @@
-import getCal from '../compute/cal/index.js'
 import getDay from '../compute/_lib/getDay.js'
 import config from '../config.js'
 
 let getter = {
-  year: (epoch, tz) => getCal(epoch, tz).year,
-  month: (epoch, tz) => getCal(epoch, tz).month,
-  date: (epoch, tz) => getCal(epoch, tz).date,
-  hour: (epoch, tz) => getCal(epoch, tz).hour,
-  minute: (epoch, tz) => getCal(epoch, tz).minute,
-  second: (epoch, tz) => getCal(epoch, tz).second,
-  day: (epoch, tz) => {
-    let { year, month, date } = getCal(epoch, tz)
-    return getDay(year, month, date)
+  year: (cal) => cal.year,
+  month: (cal) => cal.month,
+  date: (cal) => cal.date,
+  hour: (cal) => cal.hour,
+  minute: (cal) => cal.minute,
+  second: (cal) => cal.second,
+  day: (cal) => getDay(cal.year, cal.month, cal.date),
+  ampm: (cal) => cal.hour < 12 ? 'am' : 'pm',
+  quarter: (cal) => {
+    let m = cal.month
+    if (m < 3) {
+      return 1
+    } else if (m < 6) {
+      return 2
+    } else if (m < 9) {
+      return 3
+    }
+    return 4
   },
+  hour12: (cal) => {
+    let hour = cal.hour
+    if (hour > 12) {
+      return hour - 12
+    }
+    if (hour === 0) {
+      return 12
+    }
+    return hour
+  },
+  hourFloat: (cal) => {
+    let minute = cal.minute
+    minute = minute / 60
+    return cal.hour + minute
+  }
 }
-// am/pm
-getter.ampm = (epoch, tz) => getter.hour(epoch, tz) < 12 ? 'am' : 'pm'
 // wednesday/friday
-getter.dayName = (epoch, tz) => {
-  return config.days.longForm[getter.day(epoch, tz)]
+getter.dayName = (cal) => {
+  let n = getter.day(cal)
+  return config.days.longForm[n]
+}
+getter.monthName = (cal) => {
+  let n = getter.month(cal) - 1
+  return config.months.longForm[n]
 }
 export default getter

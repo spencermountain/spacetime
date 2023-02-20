@@ -9,19 +9,15 @@ let methods = {
       return formats[fmt](cal)
     }
     return replace(cal, fmt)
-  }
+  },
 }
 
-// format methods
-let deriv = [
-  ['iso', '{iso-year}-{month-pad}-{date-pad}T{hour-24-pad}:{minute-pad}:{second-pad}.{millisecond-pad}{offset}'],//
-  ['time', '{hour-12}:{minute-pad}{ampm}'],
-]
-deriv.forEach(a => {
-  let [fn, fmt] = a
+// add extra wrappers for format methods
+let diriv = ['iso', 'time']
+diriv.forEach(fn => {
   methods[fn] = function () {
     let cal = getCal(this.epoch, this.tz)
-    return replace(cal, fmt)
+    return formats[fn](cal)
   }
 })
 

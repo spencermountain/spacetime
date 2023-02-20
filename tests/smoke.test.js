@@ -32,7 +32,7 @@ test('random november time', (t) => {
   arr.forEach((a) => {
     let s = spacetime(epoch, a[0])
     let have = `${s.format('day-short')} ${s.time()}`
-    t.equal(a[1], have, a[0])
+    t.equal(have, a[1], a[0])
   })
   t.end()
 })
@@ -69,7 +69,7 @@ test('random march time', (t) => {
     let have = `${s.format(
       'month-short'
     )} ${s.date()} ${s.year()} ${hour}:${s.minute()}:${s.seconds()}`
-    t.equal(a[1], have, a[0])
+    t.equal(have, a[1], a[0])
   })
   t.end()
 })
@@ -96,7 +96,7 @@ test('random july time', (t) => {
       hour = '0' + hour
     }
     let have = `${s.format('month-short')} ${s.date()} ${s.time()}`
-    t.equal(a[1], have, a[0])
+    t.equal(have, a[1], a[0])
   })
   t.end()
 })
@@ -123,7 +123,7 @@ test('random january time', (t) => {
       hour = '0' + hour
     }
     let have = `${s.format('month-short')} ${s.date()} ${s.time()}`
-    t.equal(a[1], have, a[0])
+    t.equal(have, a[1], a[0])
   })
   t.end()
 })
