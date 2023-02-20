@@ -5,31 +5,29 @@ import { DateTime } from "luxon";
 import { HOUR } from '/Users/spencer/mountain/spacetime/src/compute/_lib/millis.js'
 
 let spring = [
-  [1270305000000, "2010-04-04T01:30:00.000", "Australia/Melbourne"],
-  [1270307400000, "2010-04-04T02:10:00.000", "Australia/Melbourne"],
-  [1270308600000, "2010-04-04T02:30:00.000", "Australia/Melbourne"],
-  [1270309800000, "2010-04-04T02:50:00.000", "Australia/Melbourne"],
-  // repeat 2am
-  [1270311000000, "2010-04-04T02:10:00.000", "Australia/Melbourne"],
-  [1270312200000, "2010-04-04T02:30:00.000", "Australia/Melbourne"],
-  [1270313400000, "2010-04-04T02:50:00.000", "Australia/Melbourne"],
-  [1270314600000, "2010-04-04T03:10:00.000", "Australia/Melbourne"],
-  [1270315800000, "2010-04-04T03:30:00.000", "Australia/Melbourne"],
-  [1270317000000, "2010-04-04T03:50:00.000", "Australia/Melbourne"],
-  [1270318200000, "2010-04-04T04:10:00.000", "Australia/Melbourne"],
+  [1286028600000, "2010-10-03T00:10:00.000", "Australia/Melbourne"],
+  [1286029800000, "2010-10-03T00:30:00.000", "Australia/Melbourne"],
+  [1286031000000, "2010-10-03T00:50:00.000", "Australia/Melbourne"],
+  [1286032200000, "2010-10-03T01:10:00.000", "Australia/Melbourne"],
+  [1286033400000, "2010-10-03T01:30:00.000", "Australia/Melbourne"],
+  [1286034600000, "2010-10-03T01:50:00.000", "Australia/Melbourne"],
+  // (skip 2am)
+  [1286035800000, "2010-10-03T03:10:00.000", "Australia/Melbourne"],
+  [1286037000000, "2010-10-03T03:30:00.000", "Australia/Melbourne"],
+  [1286038200000, "2010-10-03T03:50:00.000", "Australia/Melbourne"],
+  [1286039400000, "2010-10-03T04:10:00.000", "Australia/Melbourne"]
 ]
 
 spring.forEach((a, i) => {
-  if (i === 4) {
-    console.log('**')
+  if (i === 6) {
+    console.log('** ->')
   }
   let [epoch, iso, tz] = a
 
   let s = spacetime(epoch, tz)
-  console.log(s.time())
 
   let lux = DateTime.fromMillis(epoch).setZone(tz)
-  // console.log(lux.toISO({}))
+  console.log(s.time(), lux.toISO({}))
 })
 
 let start = 1270306800000

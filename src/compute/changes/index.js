@@ -66,11 +66,8 @@ const getDst = function (tz, year) {
 
   // reverse dst change for southern-hemisphere
   if (hem === 's') {
-    // changes[0].delta += 1
-    // changes[0].offset += 1
-    // changes[1].delta -= 1
-    // changes[1].offset = 90
     changes[0].epoch += HOUR * 1
+    changes[1].epoch += HOUR * 1
   }
 
   return changes
