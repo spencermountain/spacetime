@@ -1713,40 +1713,10 @@ export default {
     "dst": "usa",
     "shrt": "CST|CDT"
   },
-  "America/Indiana/Marengo": {
-    "offset": -5,
-    "hem": "n",
-    "dst": "usa",
-    "shrt": "EST|EDT"
-  },
   "America/Indiana/Petersburg": {
     "offset": -5,
     "hem": "n",
     "dst": "usa",
     "shrt": "EST|EDT"
   },
-  "America/Indiana/Vevay": {
-    "offset": -5,
-    "hem": "n",
-    "dst": "usa",
-    "shrt": "EST|EDT"
-  },
-  "America/Indiana/Vincennes": {
-    "offset": -5,
-    "hem": "n",
-    "dst": "usa",
-    "shrt": "EST|EDT"
-  },
-  "America/Indiana/Winamac": {
-    "offset": -5,
-    "hem": "n",
-    "dst": "usa",
-    "shrt": "EST|EDT"
-  },
-  "America/Kentucky/Monticello": {
-    "offset": -5,
-    "hem": "n",
-    "dst": "usa",
-    "shrt": "EST|EDT"
-  }
 }

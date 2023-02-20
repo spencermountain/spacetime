@@ -63,9 +63,17 @@ export default {
   "America/Dominica": "America/Puerto_Rico",
   "America/Grenada": "America/Puerto_Rico",
   "America/Guadeloupe": "America/Puerto_Rico",
+  // map all -5 indiana zones to petersburg
   "America/Indianapolis": "America/Indiana/Petersburg",
+  "America/Indiana/Marengo": "America/Indiana/Petersburg",
+  "America/Indiana/Vevay": "America/Indiana/Petersburg",
+  "America/Indiana/Vincennes": "America/Indiana/Petersburg",
+  "America/Indiana/Winamac": "America/Indiana/Petersburg",
+  "America/Indiana/Petersburg": "America/Indiana/Petersburg",
+  "America/Kentucky/Petersburg": "America/Indiana/Petersburg",
+  "America/Louisville": "America/Indiana/Petersburg",
   "America/Kralendijk": "America/Puerto_Rico",
-  "America/Louisville": "America/Kentucky/Monticello",
+
   "America/Lower_Princes": "America/Puerto_Rico",
   "America/Marigot": "America/Puerto_Rico",
   "America/Montserrat": "America/Puerto_Rico",

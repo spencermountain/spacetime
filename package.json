@@ -16,7 +16,7 @@
   "scripts": {
     "build": "rollup -c --silent",
     "build:tz": "node ./scripts/updateZonefile.js",
-    "pack": "node ./zonefile/pack.js",
+    "pack": "node ./scripts/pack.js",
     "version": "node ./scripts/version.js",
     "watch": "amble ./scratch.js",
     "test": "tape ./tests/align/*.test.js | tap-dancer",
