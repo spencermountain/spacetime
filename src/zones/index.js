@@ -1,5 +1,5 @@
 import pckd from './_pckd.js'
-import aliases from '../../zonefile/aliases.js'
+import aliases from './aliases.js'
 
 let zones = {}
 let area = null

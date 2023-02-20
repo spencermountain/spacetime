@@ -13,7 +13,7 @@ test('get Year - misc', (t) => {
 
     // is the epoch-start of the year correct?
     let str = spacetime(start, tz).format('{year}-{month-pad}-{date-pad}')
-    t.equal(str, `${year}-01-01`, `[iso-start] ${tz} - ${iso}`)
+    t.equal(str, `${year}-01-01`, `[year-start-misc] ${tz} - ${iso}`)
   })
   t.end()
 })
@@ -28,7 +28,7 @@ test('get Year - vancouver 2023', (t) => {
 
     // is the epoch-start of the year correct?
     let str = spacetime(start, tz).format('{year}-{month-pad}-{date-pad}')
-    t.equal(str, `${year}-01-01`, `[iso-start] ${tz} - ${iso}`)
+    t.equal(str, `${year}-01-01`, `[year-start-van] ${tz} - ${iso}`)
   })
   t.end()
 })
@@ -43,7 +43,7 @@ test('get Year - adelaide2021 2021', (t) => {
 
     // is the epoch-start of the year correct?
     let str = spacetime(start, tz).format('{year}-{month-pad}-{date-pad}')
-    t.equal(str, `${year}-01-01`, `[iso-start] ${tz} - ${iso}`)
+    t.equal(str, `${year}-01-01`, `[year-start-aus] ${tz} - ${iso}`)
   })
   t.end()
 })
@@ -57,7 +57,7 @@ test('get Year - jan1s', (t) => {
       t.equal(year, want, `[year] ${want} ${tz} `)
       // is the epoch-start of the year correct?
       let str = spacetime(epoch, tz).format('{year}-{month-pad}-{date-pad}')
-      t.equal(str, `${year}-01-01`, `[iso-start] ${want} ${tz}`)
+      t.equal(str, `${year}-01-01`, `[year-start-jan1s] ${want} ${tz}`)
     }
   })
   t.end()
