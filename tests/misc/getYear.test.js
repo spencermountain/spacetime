@@ -1,5 +1,5 @@
 import test from 'tape'
-import { getYear, getStart } from '../../new-src/src/_lib/yearStart.js'
+import { getYear, getStart } from '../../src/compute/_lib/yearStart.js'
 
 // jan 1 utc
 let years = [

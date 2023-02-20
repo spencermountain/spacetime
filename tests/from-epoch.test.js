@@ -1,5 +1,5 @@
 import test from 'tape'
-import spacetime from '../index.js'
+import spacetime from '../src/index.js'
 
 test('random epochs', (t) => {
   let epoch = 1660368702000
