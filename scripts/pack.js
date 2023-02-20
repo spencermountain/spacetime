@@ -1,4 +1,5 @@
 import zones from '../zonefile/iana.js'
+
 import fs from 'fs'
 let last = null
 

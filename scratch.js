@@ -1,52 +1,23 @@
 import spacetime from './src/index.js'
-import { getYear } from './src/compute/_lib/yearStart.js'
+import { getYear, getStart } from './src/compute/_lib/yearStart.js'
 import { DateTime } from "luxon";
-import old from './old/src/index.js'
+// import old from './old/src/index.js'
+import { HOUR } from '/Users/spencer/mountain/spacetime/src/compute/_lib/millis.js'
 
 
-const green = str => '\x1b[32m' + str + '\x1b[0m'
-const red = str => '\x1b[31m' + str + '\x1b[0m'
-const blue = str => '\x1b[34m' + str + '\x1b[0m'
-const magenta = str => '\x1b[35m' + str + '\x1b[0m'
-const cyan = str => '\x1b[36m' + str + '\x1b[0m'
-const yellow = str => '\x1b[33m' + str + '\x1b[0m'
-const black = str => '\x1b[30m' + str + '\x1b[0m'
-const dim = str => '\x1b[2m' + str + '\x1b[0m'
+let [year, tz, epoch] = [2023, "Europe/Berlin", 1672527600000]
+
+let out = getStart(year, tz)
+console.log((out - epoch) / HOUR, 'hours fast')
+console.log(out === epoch)
 
 
-
-
-let arr = [
-
-  // [1614496652775, "2021-02-27T23:17:32.775", "America/Vancouver"], // dst off
-
-  // [1616018072663, "2021-03-17T14:54:32.663", "America/Vancouver"], //dst on
-
-  // [1638930726826, "2021-12-07T18:32:06.826", "America/Vancouver"], //dst off
-
-  [1631405743306, "2021-09-11T17:15:43.306", "America/Vancouver"],
-]
-
-arr.forEach(a => {
-  let [epoch, want, tz] = a
-  // let { start, year } = getYear(epoch, tz)
-  let iso = spacetime(want, tz).format('{iso-medium}')
-  console.log(iso === want)
-  console.log('have: ', cyan(iso))
-  console.log('want: ', red(want))
-  // let lux = DateTime.fromMillis(epoch).setZone(tz).toISO({})
-  // console.log('lux:', lux)
-
-  // let s = old(epoch, tz)
-  // console.log('spa:', s.iso())
-})
+let lux = DateTime.fromMillis(out).setZone(tz)
+console.log(lux.toISO({}))
+// lux = DateTime.fromMillis(epoch).setZone(tz)
+// console.log(lux.toISO({}))
 
 
 // let input = "2023-12-25T01:23:20.030-05:45"
-// input = '2012-06'
-// let input = [2020, 7, 23, 4]
 // let s = spacetime(input, "America/Vancouver")
-// console.log(s.date())
-// console.log(s.iso())
-// let lux = DateTime.fromMillis(out).setZone("America/Toronto")
-// console.log(lux.toISO({}))
+// console.log(s.format('iso-short'))

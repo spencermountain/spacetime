@@ -1,6 +1,7 @@
 import isLeap from './isLeap.js'
 import { YEAR, LEAPYEAR, DAY, HOUR } from './millis.js'
-import zoneFile from '../../../zonefile/iana.js'
+// import zoneFile from '../../../zonefile/iana.js'
+import zoneFile from '../../zones/index.js'
 
 const MAXOFFSET = -DAY * 2
 const memo = {}
@@ -39,7 +40,7 @@ const utcStart = function (year) {
 
 const januaryOffset = function (tz) {
   // apply timezone offset to it
-  if (tz && zoneFile.hasOwnProperty(tz)) {
+  if (tz && zoneFile.hasOwnProperty(tz) && zoneFile[tz]) {
     let zone = zoneFile[tz]
     let offset = zone.offset || 0
     // are we in DST on Jan 1st?
