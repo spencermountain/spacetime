@@ -4,6 +4,8 @@ const startOfDay = {
   second: 0,
   millisecond: 0,
 }
+import parseHour from './hour.js'
+
 
 // truncate any sub-millisecond values
 const parseMs = function (str = '') {
@@ -51,21 +53,11 @@ const parseTime = (str = '', obj) => {
     return obj
   }
 
-  //try an informal form - 5pm (no minutes)
-  arr = str.match(/([0-9]+) ?(am|pm)/)
-  if (arr !== null && arr[1]) {
-    let h = Number(arr[1])
-    //validate it a little..
-    if (h > 12 || h < 1) {
-      return obj
-    }
-    obj.hour = arr[1] || 0
-    if (arr[2] === 'pm') {
-      obj.hour += 12
-    }
-    return obj
+  // parse hour-only times
+  let h = parseHour(str)
+  if (h !== null) {
+    obj.hour = h
   }
-
   return obj
 }
 export default parseTime

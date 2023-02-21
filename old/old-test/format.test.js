@@ -1,5 +1,5 @@
 import test from 'tape'
-import spacetime from './lib/index.js'
+import spacetime from '../src/index.js'
 
 test('to-from utc-format', (t) => {
   let arr = [

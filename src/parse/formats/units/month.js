@@ -1,4 +1,5 @@
 import months from '../../../compute/_lib/months.js'
+import { isNum } from './_lib.js'
 
 let mapping = months.reduce((h, o, i) => {
   h[o.long.toLowerCase()] = i + 1
@@ -8,8 +9,11 @@ let mapping = months.reduce((h, o, i) => {
 // add this ones
 mapping.sept = 9
 
-const parseMonth = function (str) {
-  str = str.toLowerCase().trim()
-  return months[str]
+const parseMonth = function (input) {
+  if (isNum(input)) {
+    return input
+  }
+  input = input.toLowerCase().trim()
+  return mapping[input]
 }
 export default parseMonth

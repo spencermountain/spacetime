@@ -1,5 +1,9 @@
+import { isNum } from './_lib.js'
 
 const parseDate = (str = '') => {
+  if (isNum(str)) {
+    return str
+  }
   str = str.trim()
   // remove padding
   str = str.replace(/^0+/, '')

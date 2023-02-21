@@ -1,5 +1,9 @@
+import { isNum } from './_lib.js'
 
 const parseYear = (str = '') => {
+  if (isNum(str)) {
+    return str
+  }
   str = str.trim()
   // parse '86 shorthand
   if (/^'[0-9][0-9]$/.test(str) === true) {
