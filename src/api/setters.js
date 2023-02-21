@@ -1,6 +1,6 @@
 import Spacetime from '../spacetime.js'
 import getEpoch from '../compute/epoch/index.js'
-import config from '../config.js'
+import getDay from '../compute/_lib/getDay.js'
 import {
   parseMonth,
   parseOffset,
@@ -42,16 +42,43 @@ export default {
     cal.second = Number(input)
     return factory(cal, tz)
   },
+  hourFloat: (input, cal, tz) => {
+    input = Number(input)
+    cal.hour = Math.floor(input)
+    cal.minute = Math.floor((input % 1) * 60)// (0.25 -> 15)
+    return factory(cal, tz)
+  },
+  quarter: (input, cal, tz) => {
+    if (input === 1) {
+      cal.month = 1//jan 1
+    } else if (input === 2) {
+      cal.month = 3//apr 1
+    } else if (input === 3) {
+      cal.month = 6//july 1
+    } else if (input === 4) {
+      cal.month = 9//oct 1
+    }
+    cal.date = 1
+    return factory(cal, tz)
+  },
   ampm: (input, cal, tz) => {
     let h = cal.hour
     let val = parseAmpm(input)
-    if (h < 12 && val === 'pm') {
-      cal.hour += 12
+    if (val === 'am') {
+      h = h > 12 ? h - 12 : h
+    } else if (val === 'pm') {
+      h = h < 12 ? h + 12 : h
     }
-    if (h > 12 && val === 'am') {
-      cal.hour -= 12
-    }
+    cal.hour = h
     return factory(cal, tz)
   },
-  // // day: (cal) => getDay(cal.year, cal.month, cal.date),
+  // eg. 'tues'
+  day: (input, cal, tz) => {
+    let n = parseDate(input)
+    if (n !== null) {
+      let have = getDay(cal.year, cal.month, cal.date)
+      console.log(n, have)
+    }
+    return factory(cal, tz)
+  }
 }

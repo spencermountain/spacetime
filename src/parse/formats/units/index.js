@@ -5,6 +5,7 @@ import parseYear from './year.js'
 import parseDate from './date.js'
 import parseHour from './hour.js'
 import parseAmpm from './ampm.js'
+import parseDay from './day.js'
 
 export {
   parseMonth,
@@ -13,5 +14,6 @@ export {
   parseYear,
   parseDate,
   parseHour,
-  parseAmpm
+  parseAmpm,
+  parseDay
 }

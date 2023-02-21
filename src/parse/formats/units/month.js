@@ -1,13 +1,13 @@
-import months from '../../../compute/_lib/months.js'
+import config from '../../../config.js'
 import { isNum } from './_lib.js'
 
-let mapping = months.reduce((h, o, i) => {
-  h[o.long.toLowerCase()] = i + 1
-  h[o.short.toLowerCase()] = i + 1
-  return h
-}, {})
-// add this ones
-mapping.sept = 9
+let mapping = {}
+config.months.longForm.forEach((str, i) => {
+  mapping[str.toLowerCase()] = i + 1
+  let shrt = config.months.longForm[i] || ''
+  mapping[shrt.toLowerCase()] = i + 1
+})
+mapping.sept = 9//extra
 
 const parseMonth = function (input) {
   if (isNum(input)) {

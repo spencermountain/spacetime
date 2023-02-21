@@ -6,6 +6,7 @@ This project follows semVer, where:
 
 <!-- 
  ### 8.0.0 [Jan 2022]
+ - **[breaking]** - remove .dayName() method (too weird)
  - **[change]** - return properly titlecased IANA codes
  - **[change]** - set 100 iana codes as aliases (via tzdb)
  -->
