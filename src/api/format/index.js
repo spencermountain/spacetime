@@ -5,7 +5,7 @@ import unixFmt from './unix.js'
 
 
 let methods = {
-  format: function (fmt) {
+  format: function (fmt = 'iso-short') {
     let cal = getCal(this.epoch, this.tz)
     if (fmt && formats.hasOwnProperty(fmt)) {
       return formats[fmt](cal)

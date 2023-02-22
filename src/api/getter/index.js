@@ -58,6 +58,9 @@ let getter = {
     }
     return sum
   },
+  week: (cal) => {
+    return null
+  }
 }
 // wednesday/friday
 getter.dayName = (cal) => {

@@ -35,8 +35,8 @@ const mapping = {
   MMMM: (c) => g.monthName(c),
 
   //week
-  w: (c) => s.week(),
-  ww: (c) => zeroPad(s.week()),
+  w: (c) => g.week(c),
+  ww: (c) => zeroPad(g.week(c)),
   //week of month
   // W: (c) => s.week(),
 
