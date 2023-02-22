@@ -1,5 +1,5 @@
-import { titleCase, zeroPad, ordinal } from './_fns.js'
-import g from '../getters.js'
+import { titleCase, zeroPad, ordinal } from './_lib.js'
+import g from '../getter/index.js'
 
 import config from '../../config.js'
 let { days, months } = config

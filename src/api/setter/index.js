@@ -1,6 +1,6 @@
-import Spacetime from '../spacetime.js'
-import getEpoch from '../compute/epoch/index.js'
-import getDay from '../compute/_lib/getDay.js'
+import Spacetime from '../../spacetime.js'
+import getEpoch from '../../compute/epoch/index.js'
+import getDay from '../../compute/_lib/getDay.js'
 import {
   parseMonth,
   parseOffset,
@@ -9,7 +9,7 @@ import {
   parseHour,
   parseYear,
   parseDate
-} from '../parse/formats/units/index.js'
+} from '../../parse/formats/units/index.js'
 
 
 const factory = (cal, tz) => {

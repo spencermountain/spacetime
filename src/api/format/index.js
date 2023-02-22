@@ -1,6 +1,8 @@
 import getCal from '../../compute/cal/index.js'
 import replace from './replace.js'
 import formats from './formats.js'
+import unixFmt from './unix.js'
+
 
 let methods = {
   format: function (fmt) {
@@ -10,6 +12,10 @@ let methods = {
     }
     return replace(cal, fmt)
   },
+  unixFmt: function (fmt) {
+    let cal = getCal(this.epoch, this.tz)
+    return unixFmt(cal, fmt, this.tz)
+  }
 }
 
 // add extra wrappers for format methods

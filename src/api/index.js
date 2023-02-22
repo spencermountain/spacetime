@@ -1,6 +1,8 @@
-import getters from './getters.js'
-import setters from './setters.js'
+import getters from './getter/index.js'
+import setters from './setter/index.js'
 import fmts from './format/index.js'
+import change from './setter/change.js'
+
 import getCal from '../compute/cal/index.js'
 
 let methods = {}
@@ -21,7 +23,7 @@ Object.keys(getters).forEach(fn => {
 })
 
 // add format methods
-Object.assign(methods, fmts)
+Object.assign(methods, fmts, change)
 
 // aliases
 methods.fmt = methods.format
