@@ -1,10 +1,10 @@
 import getters from './getter/index.js'
 import setters from './setter/index.js'
 import fmts from './format/index.js'
-import change from './setter/change.js'
 import Spacetime from '../spacetime.js'
 import getEpoch from '../compute/epoch/index.js'
 import getCal from '../compute/cal/index.js'
+import add from './slide/index.js'
 
 let methods = {}
 
@@ -30,7 +30,7 @@ Object.keys(getters).forEach(fn => {
 
 
 // add format methods
-Object.assign(methods, fmts, change)
+Object.assign(methods, fmts, add)
 
 // aliases
 methods.fmt = methods.format

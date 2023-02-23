@@ -1,5 +1,5 @@
-import Spacetime from '../../../spacetime.js'
-import getEpoch from '../../../compute/epoch/index.js'
+import Spacetime from '../../spacetime.js'
+import getEpoch from '../../compute/epoch/index.js'
 
 const units = ['ms', 'second', 'minute', 'hour', 'date', 'month', 'year']
 const oneBased = { 'day': true, 'month': true }
