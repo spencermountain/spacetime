@@ -7,8 +7,9 @@ This project follows semVer, where:
 <!-- 
  ### 8.0.0 [Jan 2022]
  - **[change]** - return properly titlecased IANA codes
- - **[breaking]** - remove .dayName() method (too weird)
+ - **[breaking]** - remove `.add(1, 'weekend')`
  - **[change]** - set 100 iana codes as aliases (via tzdb)
+ - **[new]** - `.json()` method
  -->
  
  ### 7.4.1 [Jan 2023]

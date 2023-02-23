@@ -133,13 +133,13 @@ test('new-years-eve', (t) => {
   t.end()
 })
 
-test('add-weekend', (t) => {
-  let d = spacetime('2021-04-17')
-  d = d.add(1, 'weekend')
-  t.equal(d.dayName(), 'saturday', 'is saturday')
-  t.equal(d.format('iso-short'), '2021-04-24', 'is ahead')
-  t.end()
-})
+// test('add-weekend', (t) => {
+//   let d = spacetime('2021-04-17')
+//   d = d.add(1, 'weekend')
+//   t.equal(d.dayName(), 'saturday', 'is saturday')
+//   t.equal(d.format('iso-short'), '2021-04-24', 'is ahead')
+//   t.end()
+// })
 
 test('add-30-years', (t) => {
   let d = spacetime('2000-01-01 00:00:00')

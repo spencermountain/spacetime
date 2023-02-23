@@ -80,43 +80,43 @@ test('unix-formatting', (t) => {
   t.end()
 })
 
-// test('bc-year-formatting', (t) => {
-//   let s = spacetime('2,000 BC')
-//   t.equal(s.format('year'), '2000 BC', '2000bc')
-//   t.equal(s.year(), -2000, '-2000')
+test('bc-year-formatting', (t) => {
+  let s = spacetime('2,000 BC')
+  t.equal(s.format('year'), '2000 BC', '2000bc')
+  t.equal(s.year(), -2000, '-2000')
 
-//   s = spacetime('July 27th, 2018')
-//   s = s.minus(2020, 'years')
-//   t.equal(s.year(), -2, '-2')
-//   t.equal(s.format('year'), '2 BC', '2bc')
-//   t.equal(s.monthName(), 'july', 'still july')
-//   t.equal(s.date(), 27, 'still july 27')
-//   t.equal(s.format('iso-short'), '-0002-07-27', '-0002-07-27')
+  s = spacetime('July 27th, 2018')
+  s = s.minus(2020, 'years')
+  t.equal(s.year(), -2, '-2')
+  t.equal(s.format('year'), '2 BC', '2bc')
+  t.equal(s.monthName(), 'july', 'still july')
+  t.equal(s.date(), 27, 'still july 27')
+  t.equal(s.format('iso-short'), '-0002-07-27', '-0002-07-27')
 
-//   t.end()
-// })
+  t.end()
+})
 
-// test('iso-in = iso-out', (t) => {
-//   let str = '2018-07-09T12:59:00.362-07:00'
-//   let minus = spacetime(str)
-//   t.equal(minus.format('iso'), str, 'minus-seven')
+test('iso-in = iso-out', (t) => {
+  let str = '2018-07-09T12:59:00.362-07:00'
+  let minus = spacetime(str)
+  t.equal(minus.format('iso'), str, 'minus-seven')
 
-//   str = '2018-07-09T12:59:00.000+07:00'
-//   let plus = spacetime(str)
-//   t.equal(plus.format('iso'), str, 'plus-seven')
+  str = '2018-07-09T12:59:00.000+07:00'
+  let plus = spacetime(str)
+  t.equal(plus.format('iso'), str, 'plus-seven')
 
-//   str = '2018-07-09T12:59:00.393Z'
-//   let zero = spacetime(str)
-//   t.equal(zero.format('iso'), str, 'zulu')
+  str = '2018-07-09T12:59:00.393Z'
+  let zero = spacetime(str)
+  t.equal(zero.format('iso'), str, 'zulu')
 
-//   t.end()
-// })
+  t.end()
+})
 
-// test('iso-with-fraction-offset', (t) => {
-//   let s = spacetime('June 8th 1918', 'Asia/Calcutta').time('1:00pm')
-//   t.equal(s.format('iso'), '1918-06-08T13:00:00.000+05:30', 'correct offset')
-//   t.end()
-// })
+test('iso-with-fraction-offset', (t) => {
+  let s = spacetime('June 8th 1918', 'Asia/Calcutta').time('1:00pm')
+  t.equal(s.format('iso'), '1918-06-08T13:00:00.000+05:30', 'correct offset')
+  t.end()
+})
 
 // test('hour-pad', (t) => {
 //   let s = spacetime('June 8th 1918', 'Asia/Calcutta').time('1:23pm')
@@ -163,27 +163,27 @@ test('unix-formatting', (t) => {
 //   t.equal(date.unixFmt('SSS'), '020', 'Millisecond with pad in unix')
 //   t.end()
 // })
-// /* FIXME failing test
-// test('unix-fmt-padding', t => {
-//   let d = spacetime({
-//     year: 2017,
-//     month: 'january',
-//     day: 26,
-//     hour: 4,
-//     minute: 2
-//   })
-//   let str = d.format("ww DDD MM d, hh:mm a")
-//   t.equal('04 027 Jan 27, 04:02 AM', str, 'string is 0-padded')
+/* FIXME failing test
+test('unix-fmt-padding', t => {
+  let d = spacetime({
+    year: 2017,
+    month: 'january',
+    day: 26,
+    hour: 4,
+    minute: 2
+  })
+  let str = d.format("ww DDD MM d, hh:mm a")
+  t.equal('04 027 Jan 27, 04:02 AM', str, 'string is 0-padded')
   
-//   str = d.format("w D MM d, h:m a")
-//   t.equal('4 27 Jan 27, 4:2 AM', str, 'string is not-0-padded')
-//   t.end();
-// });*/
+  str = d.format("w D MM d, h:m a")
+  t.equal('4 27 Jan 27, 4:2 AM', str, 'string is not-0-padded')
+  t.end();
+});*/
 
-// test('unix-year-padding', t => {
-//   let s = spacetime('sep 1 2022')
-//   t.equal(s.unixFmt('yy'), '22', 'non-zero-end')
-//   s = spacetime('sep 1 2000')
-//   t.equal(s.unixFmt('yy'), '00', 'zero-end')
-//   t.end()
-// });
+test('unix-year-padding', t => {
+  let s = spacetime('sep 1 2022')
+  t.equal(s.unixFmt('yy'), '22', 'non-zero-end')
+  s = spacetime('sep 1 2000')
+  t.equal(s.unixFmt('yy'), '00', 'zero-end')
+  t.end()
+});

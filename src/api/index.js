@@ -5,6 +5,8 @@ import Spacetime from '../spacetime.js'
 import getEpoch from '../compute/epoch/index.js'
 import getCal from '../compute/cal/index.js'
 import add from './slide/index.js'
+import zones from '../zones/index.js'
+import getDst from '../compute/changes/index.js'
 
 let methods = {}
 
@@ -27,7 +29,7 @@ Object.keys(getters).forEach(fn => {
       return factory(c, tz)
     }
     // getter method
-    return getters[fn](cal)
+    return getters[fn](cal, tz)
   }
 })
 
@@ -47,7 +49,20 @@ methods.time = function (input) {
 methods.clone = function () {
   return new Spacetime(this.epoch, this.tz)
 }
+
+methods.json = function () {
+  let { epoch, tz } = this
+  let out = getCal(epoch, tz)
+  out.epoch = epoch
+  out.tz = tz
+  let z = zones[tz] || {}
+  out.hem = z.hem
+  out.abbrevs = z.shrt
+  out.dst = getDst(tz, out.year)
+  return out
+}
 // aliases
 methods.fmt = methods.format
+methods.text = methods.format
 
 export default methods

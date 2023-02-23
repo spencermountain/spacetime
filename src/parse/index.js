@@ -2,6 +2,8 @@ import config from '../config.js'
 import getEpoch from '../compute/epoch/index.js'
 import zoneFile from '../zones/index.js'
 import findTz from './tz/index.js'
+import { parseMonth } from './formats/units/index.js'
+
 
 // order for Array input
 const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
@@ -45,6 +47,9 @@ const parse = function (input, tz) {
       h[k] = input[i]
       return h
     }, {})
+    if (cal.month) {
+      cal.month = parseMonth(cal.month)
+    }
     return { epoch: getEpoch(cal, tz), tz }
   }
   // given {year:2020 ...}

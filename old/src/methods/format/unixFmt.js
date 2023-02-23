@@ -169,7 +169,7 @@ const unixFmt = (s, str) => {
       txt += mapping[c](s) || ''
     } else {
       // 'unescape'
-      if (/^'.{1,}'$/.test(c)) {
+      if (/^'.+'$/.test(c)) {
         c = c.replace(/'/g, '')
       }
       txt += c

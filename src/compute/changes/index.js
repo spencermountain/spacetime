@@ -69,7 +69,6 @@ const getDst = function (tz, year) {
     changes[0].epoch += HOUR * 1
     changes[1].epoch += HOUR * 1
   }
-
   return changes
 }
 

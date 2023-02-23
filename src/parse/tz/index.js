@@ -1,5 +1,6 @@
 import zones from '../../zones/index.js'
 import aliases from './aliases.js'
+import config from '../../config.js'
 
 let mapping = { z: 'Etc/GMT' }
 Object.keys(zones).forEach(k => {
@@ -17,6 +18,6 @@ const findTz = function (str = '') {
   if (mapping.hasOwnProperty(str)) {
     return mapping[str]
   }
-  return null
+  return config.fallbackTz
 }
 export default findTz

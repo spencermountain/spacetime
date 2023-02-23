@@ -48,6 +48,14 @@ export default {
       n *= 3
       unit = 'month'
     }
+    if (unit === 'decade' || unit === 'decades') {
+      n *= 10
+      unit = 'year'
+    }
+    if (unit === 'century' || unit === 'centuries') {
+      n *= 100
+      unit = 'year'
+    }
     // add a 'tick' unit
     let cal = getCal(epoch, tz)
     cal = tickBy(cal, n, unit)

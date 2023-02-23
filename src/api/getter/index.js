@@ -3,11 +3,10 @@ import config from '../../config.js'
 import months from '../../compute/_lib/months.js'
 import isLeapYear from '../../compute/_lib/isLeap.js'
 
-
 let getter = {
   year: (cal) => cal.year,
-  month: (cal) => cal.month,
-  date: (cal) => cal.date,
+  month: (cal) => cal.month - 1,//javascript uses 0-based months!
+  date: (cal) => cal.date,//1-based dates!
   hour: (cal) => cal.hour,
   minute: (cal) => cal.minute,
   second: (cal) => cal.second,
@@ -68,7 +67,8 @@ getter.dayName = (cal) => {
   return config.days.longForm[n]
 }
 getter.monthName = (cal) => {
-  let n = getter.month(cal) - 1
+  let n = getter.month(cal)
   return config.months.longForm[n]
 }
+
 export default getter

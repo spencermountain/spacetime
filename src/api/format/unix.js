@@ -28,7 +28,7 @@ const mapping = {
   QQQQ: (c) => g.quarter(c),
 
   //month
-  M: (c) => c.month + 1,
+  M: (c) => c.month,
   MM: (c) => zeroPad(c.month),
   MMM: (c) => f['month-short'](c),
   MMMM: (c) => titleCase(g.monthName(c)),
