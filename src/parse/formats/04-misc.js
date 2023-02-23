@@ -65,7 +65,7 @@ export default [
     parse: (m) => {
       let str = m[0] || ''
       //make year-negative
-      str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1')
+      str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1').trim()
       let obj = {
         year: parseInt(str.trim(), 10),
       }

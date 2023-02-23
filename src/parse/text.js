@@ -11,8 +11,10 @@ const parseText = function (txt, tz) {
     let m = txt.match(formats[i].reg)
     if (m !== null) {
       // console.log(`reg #${i} - ${formats[i].reg}`)
-      let out = formats[i].parse(m)
-      return out
+      let res = formats[i].parse(m)
+      if (res) {
+        return res
+      }
     }
   }
   return cal

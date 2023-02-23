@@ -26,6 +26,9 @@ export default [
         month: parseMonth(m[2]),
         date: parseDate(m[1])
       }
+      if (!obj.month) {
+        return null
+      }
       obj = parseTime(m[4], obj)
       return obj
     }

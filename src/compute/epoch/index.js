@@ -2,7 +2,7 @@ import { getStart } from '../_lib/yearStart.js'
 import getDst from '../changes/index.js'
 import validate from './validate.js'
 import walk from './walk.js'
-
+import { YEAR } from '../_lib/millis.js'
 const NEW_YEAR = {
   month: 1,
   date: 1,
@@ -46,6 +46,11 @@ const getEpoch = function (cal, tz) {
 
   // step-forward, by milliseconds
   epoch = walk(epoch, have, cal)
+
+  //there is no year 0, so bc years are off by 1
+  // if (cal.year < 0) {
+  // epoch += YEAR
+  // }
   return epoch
 }
 export default getEpoch
