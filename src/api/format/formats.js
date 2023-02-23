@@ -56,6 +56,9 @@ const fmt = {
   // turn timezone 5.25 into '+05:15'
   offset: (c) => {
     let n = c.offset || 0
+    if (n === 0) {
+      return 'Z'
+    }
     let out = n <= 0 ? '-' : '+'
     n = Math.abs(n)
     // add hour
@@ -77,7 +80,7 @@ fmt['iso-short'] = (c) => `${fmt['iso-year'](c)}-${zeroPad(c.month)}-${zeroPad(c
 fmt['iso-medium'] = (c) => `${fmt['iso-short'](c)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.ms, 3)}`
 fmt['iso'] = (c) => `${fmt['iso-medium'](c)}${fmt.offset(c)}`
 //i made these up
-fmt['nice'] = (c) => `${fmt['month-short'](c)} ${fmt['date-ordinal'](c)} ${fmt['time'](c)}`
+fmt['nice'] = (c) => `${fmt['month-short'](c)} ${fmt['date-ordinal'](c)}, ${fmt['time'](c)}`
 fmt['nice-day'] = (c) => `${fmt['day-short'](c)} ${fmt['month-short'](c)} ${fmt['date-ordinal'](c)}`
 
 

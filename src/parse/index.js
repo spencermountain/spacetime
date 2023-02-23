@@ -1,6 +1,6 @@
 import config from '../config.js'
 import getEpoch from '../compute/epoch/index.js'
-import zoneFile from '../../zonefile/iana.js'
+import zoneFile from '../zones/index.js'
 
 // order for Array input
 const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
@@ -25,7 +25,7 @@ const isString = val => {
 const parse = function (input, tz) {
   // null means now
   if (input === null || input === undefined) {
-    return config.now()
+    return { epoch: config.now(), tz }
   }
   // epoch input
   if (isNumber(input)) {
@@ -33,7 +33,7 @@ const parse = function (input, tz) {
     if (config.minimumEpoch && input < config.minimumEpoch && input > 0) {
       input *= 1000
     }
-    return input
+    return { epoch: input, tz }
   }
   // support ordered array as input [2020, 04, 1] → {year:2020 ...}
   if (isArray(input)) {
@@ -41,12 +41,12 @@ const parse = function (input, tz) {
       h[k] = input[i]
       return h
     }, {})
-    return getEpoch(cal, tz)
+    return { epoch: getEpoch(cal, tz), tz }
   }
   // given {year:2020 ...}
   if (isObject(input)) {
     let cal = Object.assign({}, input)//don't mutate original
-    return getEpoch(cal, tz)
+    return { epoch: getEpoch(cal, tz), tz }
   }
   // pull-apart ISO formats, etc
   if (isString(input)) {
@@ -54,9 +54,13 @@ const parse = function (input, tz) {
     // get offset from ISO, or from given tz
     if (cal.offset === null || cal.offset === undefined) {
       cal.offset = (zoneFile[tz] || {}).offset || 0
+    } else if (!tz) {
+      // generate a tz from the iso-offset
+      let num = cal.offset < 0 ? `+${Math.abs(cal.offset)}` : `+${cal.offset}`
+      tz = `Etc/GMT${num}`
     }
-    return getEpoch(cal, tz)
+    return { epoch: getEpoch(cal, tz), tz }
   }
-  return null
+  return {}
 }
 export default parse

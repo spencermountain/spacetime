@@ -4,7 +4,7 @@ import { isNum } from './_lib.js'
 let mapping = {}
 config.months.longForm.forEach((str, i) => {
   mapping[str.toLowerCase()] = i + 1
-  let shrt = config.months.longForm[i] || ''
+  let shrt = config.months.shortForm[i] || ''
   mapping[shrt.toLowerCase()] = i + 1
 })
 mapping.sept = 9//extra

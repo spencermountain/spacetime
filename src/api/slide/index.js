@@ -18,6 +18,7 @@ const slideUnits = {
   hs: HOUR,
   hour: HOUR,
   hours: HOUR,
+  'quarterhour': MINUTE * 15,
   'quarter-hour': MINUTE * 15,
   'quarter-hours': MINUTE * 15,
 }
