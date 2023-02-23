@@ -105,9 +105,12 @@ America
 	Edmonton,-7,MST|MDT,usa
 	Eirunepe,-5,ACT
 	El_Salvador,-6,CST|CDT
+	Ensenada,-8,PST|PDT,usa
 	Fort_Nelson,-7,MST|MDT
+	Fort_wayne,-5,EST|EDT,usa
 	Fortaleza,-3,BRT,s
 	Glace_Bay,-4,AST|ADT,usa
+	Godthab,-3,WGT|WGST,green
 	Goose_Bay,-4,AST|ADT,usa
 	Grand_Turk,-5,EST|EDT,usa
 	Grenada,-4,AST|ADT
@@ -118,6 +121,8 @@ America
 	Halifax,-4,AST|ADT,usa
 	Havana,-5,HNCU|HECU,cuba
 	Hermosillo,-7,HNPMX|HEPMX
+	Indiana,-5,EST|EDT,usa
+	Indiana/Indianapolis,-5,EST|EDT,usa
 	Indiana/Knox,-6,CST|CDT,usa
 	Indiana/Marengo,-5,EST|EDT,usa
 	Indiana/Petersburg,-5,EST|EDT,usa
@@ -131,7 +136,10 @@ America
 	Jamaica,-5,EST|EDT
 	Jujuy,-3,ART,s
 	Juneau,-9,AKST|AKDT,usa
+	Kentucky,-5,EST|EDT,usa
+	Kentucky/Louisville,-5,EST|EDT,usa
 	Kentucky/Petersburg,-5,EST|EDT,usa
+	Knox_in,-5,EST|EDT,usa
 	Kralendijk,-4,AST|ADT
 	La_Paz,-4,BOT,s
 	Lima,-5,PET,s
@@ -154,6 +162,7 @@ America
 	Moncton,-4,AST|ADT,usa
 	Monterrey,-6,CST|CDT,mex
 	Montevideo,-3,UYT,s
+	Montreal,-5,EST|EDT,usa
 	Montserrat,-4,AST|ADT
 	Nassau,-5,EST|EDT,usa
 	New_York,-5,EST|EDT,usa
@@ -163,6 +172,7 @@ America
 	North_Dakota/Beulah,-6,CST|CDT,usa
 	North_Dakota/Center,-6,CST|CDT,usa
 	North_Dakota/New_Salem,-6,CST|CDT,usa
+	North_dakota,-7,MST|MDT,usa
 	Nuuk,-3,WGT|WGST,green
 	Ojinaga,-7,MST|MDT,usa
 	Panama,-5,EST|EDT
@@ -172,6 +182,7 @@ America
 	Port-au-prince,-5,EST|EDT,usa
 	Port_Of_Spain,-4,AST|ADT
 	Porto_Velho,-4,AMT
+	Porto_acre,-5,ACT,s
 	Puerto_Rico,-4,AST|ADT
 	Punta_Arenas,-3,CLT|CLST,s
 	Rainy_River,-6,CST|CDT,usa
@@ -180,11 +191,14 @@ America
 	Regina,-6,CST|CDT
 	Resolute,-6,CST|CDT,usa
 	Rio_Branco,-5,ACT,s
+	Rosario,-3,ART,s
+	Santa_isabel,-8,PST|PDT,usa
 	Santarem,-3,BRT
 	Santiago,-4,CLT|CLST,chile,s
 	Santo_Domingo,-4,AST|ADT
 	Sao_Paulo,-3,BRT,s
 	Scoresbysund,-1,HNEG|HEEG,eu0
+	Shiprock,-7,MST|MDT,usa
 	Sitka,-9,AKST|AKDT,usa
 	St_Barthelemy,-4,AST|ADT
 	St_Johns,-3.5,HNTN|HETN,usa
@@ -200,6 +214,7 @@ America
 	Toronto,-5,EST|EDT,usa
 	Tortola,-4,AST|ADT
 	Vancouver,-8,PST|PDT,usa
+	Virgin,-4,AST|ADT
 	Whitehorse,-7,MST|MDT
 	Winnipeg,-6,CST|CDT,usa
 	Yakutat,-9,AKST|AKDT,usa
@@ -213,6 +228,7 @@ Antarctica
 	Mcmurdo,12,NZST|NZDT,nz,s
 	Palmer,-3,ART,s
 	Rothera,-3,ART,s
+	South_pole,12,NZST|NZDT,nz,s
 	Syowa,3,AST
 	Troll,2,GMT,troll,s
 	Vostok,6,MSK+4,s
@@ -226,6 +242,7 @@ Asia
 	Aqtau,5,ALMT
 	Aqtobe,5,ALMT
 	Ashgabat,5,TMT
+	Ashkhabad,5,TMT
 	Atyrau,5,ALMT
 	Baghdad,3,AST
 	Bahrain,3,AST
@@ -235,9 +252,13 @@ Asia
 	Beirut,2,EET|EEST,leb
 	Bishkek,6,KGT
 	Brunei,8,BNT
+	Calcutta,5.5,IST
 	Chita,9,YAKT
 	Choibalsan,8,ULAT
+	Chongqing,8,CST
+	Chungking,8,CST
 	Colombo,5.5,IST
+	Dacca,6,BST
 	Damascus,2,EET|EEST,syr
 	Dhaka,6,BST
 	Dili,9,TLT,s
@@ -245,24 +266,29 @@ Asia
 	Dushanbe,5,TJT
 	Famagusta,2,EET|EEST,eu3
 	Gaza,2,EET|EEST,pal
+	Harbin,8,CST
 	Hebron,2,EET|EEST,pal
 	Ho_Chi_Minh,7,ICT
 	Hong_Kong,8,HKT
 	Hovd,7,HOVT
 	Irkutsk,8,IRKT
+	Istanbul,3,TRT
 	Jakarta,7,WIB,s
 	Jayapura,9,WIT,s
 	Jerusalem,2,IST|IDT,isr
 	Kabul,4.5,AFT
 	Kamchatka,12,PETT
 	Karachi,5,PKT
+	Kashgar,8,CST
 	Kathmandu,5.75,NPT
+	Katmandu,5.75,NPT
 	Khandyga,9,YAKT
 	Kolkata,5.5,IST
 	Krasnoyarsk,7,KRAT
 	Kuala_Lumpur,8,MYT,s
 	Kuching,8,MYT
 	Kuwait,3,AST
+	Macao,8,CST
 	Macau,8,CST
 	Magadan,11,MAGT
 	Makassar,8,WITA,s
@@ -279,7 +305,9 @@ Asia
 	Qatar,3,AST
 	Qostanay,6,ALMT
 	Qyzylorda,6,ALMT
+	Rangoon,6.5,MMT
 	Riyadh,3,AST
+	Saigon,7,ICT
 	Sakhalin,11,SAKT
 	Samarkand,5,UZT
 	Seoul,9,KST
@@ -290,10 +318,14 @@ Asia
 	Tashkent,5,UZT
 	Tbilisi,4,GET
 	Tehran,3.5,IRST|IRDT,iran
+	Tel_aviv,2,IST|IDT,isr
+	Thimbu,6,BT
 	Thimphu,6,BT
 	Tokyo,9,JST
 	Tomsk,7,OMST
+	Ujung_pandang,8,WITA,s
 	Ulaanbaatar,8,ULAT
+	Ulan_bator,8,ULAT
 	Urumqi,8,CST
 	Ust-nera,10,VLAT
 	Vientiane,7,ICT
@@ -307,32 +339,76 @@ Atlantic
 	Bermuda,-4,AST|ADT,usa
 	Canary,0,WET|WEST,eu1
 	Cape_Verde,-1,CVT
+	Faeroe,0,WET|WEST,eu1
 	Faroe,0,WET|WEST,eu1
+	Jan_mayen,1,CET|CEST,eu2
 	Madeira,0,WET|WEST,eu1
 	Reykjavik,0,GMT
 	South_Georgia,-2,GST
 	St_Helena,0,GMT
 	Stanley,-3,FKST,s
 Australia
+	Act,10,AEST|AEDT,aus,s
 	Adelaide,9.5,ACST|ACDT,aus,s
 	Brisbane,10,AEST,s
 	Broken_Hill,9.5,ACST|ACDT,aus,s
+	Canberra,10,AEST|AEDT,aus,s
+	Currie,10,AEST|AEDT,aus,s
 	Darwin,9.5,ACST,s
 	Eucla,8.75,ACWST,s
 	Hobart,10,AEST|AEDT,aus,s
+	Lhi,10.5,LHST|LHDT,lhow,s
 	Lindeman,10,AEST,s
 	Lord_Howe,10.5,LHST|LHDT,lhow,s
 	Melbourne,10,AEST|AEDT,aus,s
+	North,9.5,ACST,s
+	Nsw,10,AEST|AEDT,aus,s
 	Perth,8,AWST,s
+	Queensland,10,AEST,s
+	South,9.5,ACST|ACDT,aus,s
 	Sydney,10,AEST|AEDT,aus,s
+	Tasmania,10,AEST|AEDT,aus,s
+	Victoria,10,AEST|AEDT,aus,s
+	West,8,AWST,s
+	Yancowinna,9.5,ACST|ACDT,aus,s
+Brazil
+	Acre,-5,ACT,s
+	Denoronha,-2,FNT
+	East,-3,BRT,s
+	West,-4,AMT,s
+Canada
+	Atlantic,-4,AST|ADT,usa
+	Central,-6,CST|CDT,usa
+	East-saskatchewan,-6,CST|CDT
+	Eastern,-5,EST|EDT,usa
+	Mountain,-7,MST|MDT,usa
+	Newfoundland,-3.5,HNTN|HETN,usa
+	Pacific,-8,PST|PDT,usa
+	Saskatchewan,-6,CST|CDT
+	Yukon,-7,MST|MDT
+Chile
+	Continental,-4,CLT|CLST,chile,s
+	Easterisland,-6,EAST|EASST,east,s
+Cuba
+	,-5,HNCU|HECU,cuba
+Egypt
+	,2,EET|EEST
+Eire
+	,0,GMT|IST,eu1
 Etc
 	GMT,0,GMT
+	Greenwich,0,GMT
+	Uct,0,UTC
+	Universal,0,UTC
+	Unknown,0,UTC
 	Utc,0,UTC
+	Zulu,0,UTC
 Europe
 	Amsterdam,1,CET|CEST,eu2
 	Andorra,1,CET|CEST,eu2
 	Astrakhan,4,MSK
 	Athens,2,EET|EEST,eu3
+	Belfast,0,GMT|BST,eu1
 	Belgrade,1,CET|CEST,eu2
 	Berlin,1,CET|CEST,eu2
 	Bratislava,1,CET|CEST,eu2
@@ -352,6 +428,7 @@ Europe
 	Kaliningrad,2,EET|EEST
 	Kiev,2,EET|EEST,eu3
 	Kirov,3,MSK
+	Kyiv,2,EET|EEST,eu3
 	Lisbon,0,WET|WEST,eu1
 	Ljubljana,1,CET|CEST,eu2
 	London,0,GMT|BST,eu1
@@ -362,6 +439,7 @@ Europe
 	Minsk,3,MSK
 	Monaco,1,CET|CEST,eu2
 	Moscow,3,MSK
+	Nicosia,2,EET|EEST,eu3
 	Oslo,1,CET|CEST,eu2
 	Paris,1,CET|CEST,eu2
 	Podgorica,1,CET|CEST,eu2
@@ -378,6 +456,7 @@ Europe
 	Stockholm,1,CET|CEST,eu2
 	Tallinn,2,EET|EEST,eu3
 	Tirane,1,CET|CEST,eu2
+	Tiraspol,2,EET|EEST,eu2
 	Ulyanovsk,4,MSK
 	Uzhgorod,2,EET|EEST,eu3
 	Vaduz,1,CET|CEST,eu2
@@ -389,6 +468,22 @@ Europe
 	Zagreb,1,CET|CEST,eu2
 	Zaporozhye,2,EET|EEST,eu3
 	Zurich,1,CET|CEST,eu2
+GB
+	,0,GMT|BST,eu1
+Gb-eire
+	,0,GMT|BST,eu1
+Gmt+0
+	,0,GMT
+Gmt-0
+	,0,GMT
+Gmt0
+	,0,GMT
+Greenwich
+	,0,GMT
+Hongkong
+	,8,HKT
+Iceland
+	,0,GMT
 Indian
 	Antananarivo,3,EAT
 	Chagos,6,IOT
@@ -401,6 +496,28 @@ Indian
 	Mauritius,4,MUT
 	Mayotte,3,EAT
 	Reunion,4,RET,s
+Iran
+	,3.5,IRST|IRDT,iran
+Israel
+	,2,IST|IDT,isr
+Jamaica
+	,-5,EST|EDT
+Japan
+	,9,JST
+Kwajalein
+	,12,MHT
+Libya
+	,2,EET|EEST
+Mexico
+	Bajanorte,-8,PST|PDT,usa
+	Bajasur,-7,HNPMX|HEPMX,mex
+	General,-6,CST|CDT,mex
+Navajo
+	,-7,MST|MDT,usa
+Nz
+	,12,NZST|NZDT,nz,s
+Nz-chat
+	,12.75,CHAST|CHADT,chat,s
 Pacific
 	Apia,13,WST|WST,s
 	Auckland,12,NZST|NZDT,nz,s
@@ -417,6 +534,7 @@ Pacific
 	Guadalcanal,11,SBT
 	Guam,10,ChST
 	Honolulu,-10,HAST|HADT
+	Johnston,-10,HAST|HADT
 	Kanton,13,PHOT
 	Kiritimati,14,LINT
 	Kosrae,11,KOST
@@ -432,14 +550,63 @@ Pacific
 	Palau,9,PWT
 	Pitcairn,-8,PST
 	Pohnpei,11,PONT
+	Ponape,11,PONT
 	Port_Moresby,10,PGT,s
 	Rarotonga,-10,CKT
 	Saipan,10,ChST
+	Samoa,-11,SST
 	Tahiti,-10,TAHT
 	Tarawa,12,GILT
 	Tongatapu,13,TOT,s
+	Truk,10,CHUT
 	Wake,12,WAKT
 	Wallis,12,WFT
+	Yap,10,CHUT
+Poland
+	,1,CET|CEST,eu2
+Portugal
+	,0,WET|WEST,eu1
+Prc
+	,8,CST
+Roc
+	,8,CST
+Rok
+	,9,KST
+Singapore
+	,8,SGT,s
+Turkey
+	,3,TRT
 UTC
+	,0,UTC
 	Unknown,0,UTC
+Uct
+	,0,UTC
+Universal
+	,0,UTC
+Us
+	Alaska,-9,AKST|AKDT,usa
+	Aleutian,-10,HST|HDT,usa
+	Arizona,-7,MST|MDT
+	Central,-6,CST|CDT,usa
+	East-indiana,-5,EST|EDT,usa
+	Eastern,-5,EST|EDT,usa
+	Hawaii,-10,HAST|HADT
+	Indiana-starke,-5,EST|EDT,usa
+	Michigan,-5,EST|EDT,usa
+	Mountain,-7,MST|MDT,usa
+	Pacific,-8,PST|PDT,usa
+	Pacific-new,-8,PST|PDT,usa
+	Samoa,-11,SST
+W-su
+	,3,MSK
+Zulu
+	,0,UTC
+america
+	argentina/buenos_aires,-3,ART,s
+	argentina/catamarca,-3,ART,s
+	argentina/comodrivadavia,-3,ART,s
+	argentina/cordoba,-3,ART,s
+	argentina/jujuy,-3,ART,s
+	argentina/mendoza,-3,ART,s
+	argentina/rosario,-3,ART,s
 `

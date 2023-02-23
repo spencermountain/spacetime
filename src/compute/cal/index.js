@@ -3,6 +3,8 @@ import { getDate, getTime } from './walk.js'
 import { DAY, HOUR } from '../_lib/millis.js'
 // import zoneFile from '../../../zonefile/iana.js'
 import zoneFile from '../../zones/index.js'
+import findTz from '../../parse/tz/index.js'
+
 import getDst from '../changes/index.js'
 
 // take an epoch, return {month, year, date...}

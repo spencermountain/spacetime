@@ -1,6 +1,7 @@
 import config from '../config.js'
 import getEpoch from '../compute/epoch/index.js'
 import zoneFile from '../zones/index.js'
+import findTz from './tz/index.js'
 
 // order for Array input
 const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
@@ -23,6 +24,9 @@ const isString = val => {
 }
 
 const parse = function (input, tz) {
+  // reconcile timezone
+  tz = findTz(tz)
+
   // null means now
   if (input === null || input === undefined) {
     return { epoch: config.now(), tz }
@@ -51,13 +55,13 @@ const parse = function (input, tz) {
   // pull-apart ISO formats, etc
   if (isString(input)) {
     let cal = parseText(input)
-    // get offset from ISO, or from given tz
-    if (cal.offset === null || cal.offset === undefined) {
-      cal.offset = (zoneFile[tz] || {}).offset || 0
-    } else if (!tz) {
-      // generate a tz from the iso-offset
-      let num = cal.offset < 0 ? `+${Math.abs(cal.offset)}` : `+${cal.offset}`
-      tz = `Etc/GMT${num}`
+    // replace tz with iso timezone
+    if (cal.offset !== null && cal.offset !== undefined) {
+      if (cal.offset < 0) {
+        tz = `Etc/GMT+${Math.abs(cal.offset)}`
+      } else {
+        tz = `Etc/GMT-${cal.offset}`
+      }
     }
     return { epoch: getEpoch(cal, tz), tz }
   }

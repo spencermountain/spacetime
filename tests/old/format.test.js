@@ -20,15 +20,15 @@ test('to-from utc-format', (t) => {
     '2019-03-13T18:00:00.000-05:30',
     '2019-03-13T18:00:00.000-00:30',
     '2011-01-01T18:00:00.000+00:30',
-    // '1992-03-21T18:00:00.000+11:30',
-    // '1990-03-22T06:20:30.020+11:30',
-    // '1990-03-22T06:20:30.020+11:00',
-    // '1962-03-22T11:11:30.120-11:00',
-    // '0986-05-01T09:58:23.078-04:00',
-    // '0098-05-04T23:16:19.444Z',
-    // '-000098-05-04T23:16:19.444Z',
-    // '-000986-05-01T09:58:23.078-04:00',
-    // '-002345-05-04T23:12:01.970Z'
+    '1992-03-21T18:00:00.000+11:30',
+    '1990-03-22T06:20:30.020+11:30',
+    '1990-03-22T06:20:30.020+11:00',
+    '1962-03-22T11:11:30.120-11:00',
+    '0986-05-01T09:58:23.078-04:00',
+    '0098-05-04T23:16:19.444Z',
+    '-000098-05-04T23:16:19.444Z',
+    '-000986-05-01T09:58:23.078-04:00',
+    '-002345-05-04T23:12:01.970Z'
   ]
   arr.forEach((str) => {
     let s = spacetime(str)
@@ -43,42 +43,42 @@ test('to-from utc-format', (t) => {
   t.end()
 })
 
-// test('unix-formatting', (t) => {
-//   let epoch = 1510850065194
-//   let s = spacetime(epoch, 'Canada/Eastern')
-//   //examples from http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
-//   let arr = [
-//     ['h:mm a', '11:34 AM'],
-//     ['LLL', 'Nov'],
-//     [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.11.16 AD at 11:34:25 Canada/Eastern'],
-//     [`EEE, MMM d, ''yy`, "Thu, Nov 16, '17"],
-//     [`hh 'o''clock' a`, '11 oclock AM'],
-//     ['yyyyy.MMMM.dd GGG hh:mm aaa', '02017.November.16 AD 11:34 AM'],
-//     ['yyyy-MM-ddTHH:mm:ssZ', '2017-11-16T11:34:25-0500'],
-//     ['yyyy-MM-ddTHH:mm:ssZZ', '2017-11-16T11:34:25-0500'],
-//     ['yyyy-MM-ddTHH:mm:ssZZZ', '2017-11-16T11:34:25-0500'],
-//     ['yyyy-MM-ddTHH:mm:ssZZZZ', '2017-11-16T11:34:25-05:00'],
-//     // support spaces
-//     ["HH'h'", '11h'],
-//     ["HH 'h'", '11 h']
-//   ]
-//   arr.forEach((a) => {
-//     t.equal(s.unixFmt(a[0]), a[1], a[0])
-//   })
+test('unix-formatting', (t) => {
+  let epoch = 1510850065194
+  let s = spacetime(epoch, 'Canada/Eastern')
+  //examples from http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
+  let arr = [
+    ['h:mm a', '11:34 AM'],
+    ['LLL', 'Nov'],
+    [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.11.16 AD at 11:34:25 Canada/Eastern'],
+    [`EEE, MMM d, ''yy`, "Thu, Nov 16, '17"],
+    [`hh 'o''clock' a`, '11 oclock AM'],
+    ['yyyyy.MMMM.dd GGG hh:mm aaa', '02017.November.16 AD 11:34 AM'],
+    ['yyyy-MM-ddTHH:mm:ssZ', '2017-11-16T11:34:25-0500'],
+    ['yyyy-MM-ddTHH:mm:ssZZ', '2017-11-16T11:34:25-0500'],
+    ['yyyy-MM-ddTHH:mm:ssZZZ', '2017-11-16T11:34:25-0500'],
+    ['yyyy-MM-ddTHH:mm:ssZZZZ', '2017-11-16T11:34:25-05:00'],
+    // support spaces
+    ["HH'h'", '11h'],
+    ["HH 'h'", '11 h']
+  ]
+  arr.forEach((a) => {
+    t.equal(s.unixFmt(a[0]), a[1], a[0])
+  })
 
-//   //test another date
-//   s = spacetime([2018, 'February', 20], 'Canada/Eastern')
-//   arr = [
-//     ['M', '2'],
-//     ['MM', '02'],
-//     ['MMM', 'Feb'],
-//     ['MMMM', 'February']
-//   ]
-//   arr.forEach((a) => {
-//     t.equal(s.unixFmt(a[0]), a[1], a[0])
-//   })
-//   t.end()
-// })
+  //test another date
+  s = spacetime([2018, 'February', 20], 'Canada/Eastern')
+  arr = [
+    ['M', '2'],
+    ['MM', '02'],
+    ['MMM', 'Feb'],
+    ['MMMM', 'February']
+  ]
+  arr.forEach((a) => {
+    t.equal(s.unixFmt(a[0]), a[1], a[0])
+  })
+  t.end()
+})
 
 // test('bc-year-formatting', (t) => {
 //   let s = spacetime('2,000 BC')
