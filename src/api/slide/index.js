@@ -18,7 +18,10 @@ const slideUnits = {
   hs: HOUR,
   hour: HOUR,
   hours: HOUR,
+  'quarter-hour': MINUTE * 15,
+  'quarter-hours': MINUTE * 15,
 }
+
 
 export default {
 
@@ -26,7 +29,7 @@ export default {
     let { epoch, tz } = this
     // let epoch = add(this.epoch, n, unit)
     if (n === 0 || !unit) {
-      return epoch
+      return new Spacetime(epoch, tz)
     }
     unit = unit.trim().toLowerCase()
     // millisecond-math for these units
@@ -34,6 +37,15 @@ export default {
       let ms = slideUnits[unit]      // how many milliseconds are we adding?
       epoch += ms * n
       return new Spacetime(epoch, tz)
+    }
+    // misc units
+    if (unit === 'week' || unit === 'weeks') {
+      n *= 7
+      unit = 'day'
+    }
+    if (unit === 'quarter' || unit === 'quarters') {
+      n *= 3
+      unit = 'month'
     }
     // add a 'tick' unit
     let cal = getCal(epoch, tz)

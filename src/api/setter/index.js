@@ -11,7 +11,7 @@ import {
   parseDay
 } from '../../parse/formats/units/index.js'
 
-export default {
+let fns = {
   year: (input, cal) => {
     cal.year = parseYear(input)
     return cal
@@ -35,6 +35,9 @@ export default {
   second: (input, cal) => {
     cal.second = Number(input)
     return cal
+  },
+  time: (input, cal) => {
+    return Object.assign(cal, parseTime(input))
   },
   hourFloat: (input, cal) => {
     input = Number(input)
@@ -67,6 +70,45 @@ export default {
     cal.hour = h
     return cal
   },
+  era: (input, cal) => {
+    input = input.toLowerCase().replace(/\./g, '').trim()
+    if (input === 'bc' && cal.year > 0) {
+      cal.year *= -1
+    }
+    return cal
+  },
+
+  // dayOfYear: function (input) {
+  //   let s = this.startOf('year')
+  //   return s.add(input, 'day')
+  // },
+
+  // decade: (cal) => Math.floor(cal.year / 10) * 10,//  eg '1970'
+  // century: (cal) => Math.floor(cal.year / 100) * 100,//  eg '1900'
+  // millenium: (cal) => {
+  //   let num = Math.floor(cal.year / 1000)
+  //   return num >= 0 ? num + 1 : num// millenia are 1-based, in AD
+  // },
+  // eg '1970'
+  decade: function (input, cal) {
+    let r = cal.year % 10
+    cal.year = Number(input) + r
+    return cal
+  },
+  // eg '1900'
+  century: function (input, cal) {
+    let r = cal.year % 100
+    cal.year = Number(input) + r
+    return cal
+  },
+  // eg 1
+  millenium: function (input, cal) {
+    let r = cal.year % 1000
+    let m = Number(input) - 1
+    cal.year = (m * 1000) + r
+    return cal
+  },
+
   startOf: function (unit) {
     let cal = getCal(this.epoch, this.tz)
     return startOf(cal, unit)
@@ -78,3 +120,7 @@ export default {
     return s
   }
 }
+fns.monthName = fns.month
+fns.dayName = fns.day
+fns.hour12 = fns.hour
+export default fns

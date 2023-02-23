@@ -19,7 +19,7 @@ let methods = {
 }
 
 // add extra wrappers for format methods
-let diriv = ['iso', 'time']
+let diriv = ['iso']
 diriv.forEach(fn => {
   methods[fn] = function () {
     let cal = getCal(this.epoch, this.tz)

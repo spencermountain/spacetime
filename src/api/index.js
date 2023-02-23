@@ -15,6 +15,9 @@ const factory = (cal, tz) => {
 
 // generate all getter/setter function pairs
 Object.keys(getters).forEach(fn => {
+  // if (!setters[fn]) {
+  // console.error('no-setter:', fn)
+  // }
   methods[fn] = function (input, dir) {
     let { epoch, tz } = this
     let cal = getCal(epoch, tz)
@@ -28,10 +31,22 @@ Object.keys(getters).forEach(fn => {
   }
 })
 
-
 // add format methods
 Object.assign(methods, fmts, add)
 
+methods.time = function (input) {
+  if (input !== undefined) {
+    let { epoch, tz } = this
+    let cal = getCal(epoch, tz)
+    let c = setters.time(input, cal, tz)
+    return factory(c, tz)
+  }
+  return this.format('time')
+}
+
+methods.clone = function () {
+  return new Spacetime(this.epoch, this.tz)
+}
 // aliases
 methods.fmt = methods.format
 

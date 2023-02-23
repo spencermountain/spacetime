@@ -15,11 +15,11 @@ let getter = {
   ampm: (cal) => cal.hour < 12 ? 'am' : 'pm',
   decade: (cal) => Math.floor(cal.year / 10) * 10,//  eg '1970'
   century: (cal) => Math.floor(cal.year / 100) * 100,//  eg '1900'
-  offset: (cal) => cal.offset * 60,
   millenium: (cal) => {
     let num = Math.floor(cal.year / 1000)
     return num >= 0 ? num + 1 : num// millenia are 1-based, in AD
   },
+  offset: (cal) => cal.offset * 60,
   era: (cal) => cal.year < 0 ? 'BC' : 'AD',
   quarter: (cal) => {
     let m = cal.month

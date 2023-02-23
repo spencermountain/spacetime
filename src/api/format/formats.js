@@ -76,6 +76,9 @@ const fmt = {
 fmt['iso-short'] = (c) => `${fmt['iso-year'](c)}-${zeroPad(c.month)}-${zeroPad(c.date)}`
 fmt['iso-medium'] = (c) => `${fmt['iso-short'](c)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.ms, 3)}`
 fmt['iso'] = (c) => `${fmt['iso-medium'](c)}${fmt.offset(c)}`
+//i made these up
+fmt['nice'] = (c) => `${fmt['month-short'](c)} ${fmt['date-ordinal'](c)} ${fmt['time'](c)}`
+fmt['nice-day'] = (c) => `${fmt['day-short'](c)} ${fmt['month-short'](c)} ${fmt['date-ordinal'](c)}`
 
 
 // aliases
@@ -104,6 +107,7 @@ const aliases = {
   'little-endian': 'numeric-uk',
   'big-endian': 'numeric',
   'day-nice': 'nice-day',
+  // 'nice-day': '{day-short} {month-short} {date-ordinal}'
 }
 Object.keys(aliases).forEach((k) => (fmt[k] = fmt[aliases[k]]))
 
