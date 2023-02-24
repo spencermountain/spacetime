@@ -1,5 +1,5 @@
-import parse from './parse/index.js'
-import methods from './api/index.js'
+import parse from './01-one/parse/index.js'
+import methods from './01-one/api/index.js'
 
 const SpaceTime = function (input, tz) {
   let res = parse(input, tz)

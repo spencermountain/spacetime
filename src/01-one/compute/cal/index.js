@@ -2,8 +2,8 @@ import { getYear } from '../_lib/yearStart.js'
 import { getDate, getTime } from './walk.js'
 import { DAY, HOUR } from '../_lib/millis.js'
 // import zoneFile from '../../../zonefile/iana.js'
-import zoneFile from '../../zones/index.js'
-import findTz from '../../parse/tz/index.js'
+import zoneFile from '../../../02-two/zones/index.js'
+// import findTz from '../../parse/tz/index.js'
 
 import getDst from '../changes/index.js'
 

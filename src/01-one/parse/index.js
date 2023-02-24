@@ -1,6 +1,6 @@
-import config from '../config.js'
+import config from '../../config.js'
 import getEpoch from '../compute/epoch/index.js'
-import zoneFile from '../zones/index.js'
+// import zoneFile from '../../02-two/zones/index.js'
 import findTz from './tz/index.js'
 import { parseMonth } from './formats/units/index.js'
 

@@ -1,6 +1,6 @@
 import test from 'tape'
 import spacetime from '../../src/index.js'
-import { getYear } from '../../src/compute/_lib/yearStart.js'
+import { getYear } from '../../src/01-one/compute/_lib/yearStart.js'
 import { misc, vancouver2023, karachi2011, adelaide2021, panama1980, jan1s } from './times/index.js'
 
 

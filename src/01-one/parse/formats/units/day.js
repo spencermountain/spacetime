@@ -1,4 +1,4 @@
-import config from '../../../config.js'
+import config from '../../../../config.js'
 import { isNum } from './_lib.js'
 
 let mapping = { tues: 2, thur: 4, thurs: 4 }

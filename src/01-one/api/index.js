@@ -1,11 +1,11 @@
 import getters from './getter/index.js'
 import setters from './setter/index.js'
 import fmts from './format/index.js'
-import Spacetime from '../spacetime.js'
+import Spacetime from '../../spacetime.js'
 import getEpoch from '../compute/epoch/index.js'
 import getCal from '../compute/cal/index.js'
 import add from './slide/index.js'
-import zones from '../zones/index.js'
+import zones from '../../02-two/zones/index.js'
 import getDst from '../compute/changes/index.js'
 
 let methods = {}

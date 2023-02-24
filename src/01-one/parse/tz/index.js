@@ -1,6 +1,6 @@
-import zones from '../../zones/index.js'
+import zones from '../../../02-two/zones/index.js'
 import aliases from './aliases.js'
-import config from '../../config.js'
+import config from '../../../config.js'
 
 let mapping = { z: 'Etc/GMT' }
 Object.keys(zones).forEach(k => {

@@ -1,5 +1,5 @@
 import getDay from '../../compute/_lib/getDay.js'
-import config from '../../config.js'
+import config from '../../../config.js'
 import months from '../../compute/_lib/months.js'
 import isLeapYear from '../../compute/_lib/isLeap.js'
 

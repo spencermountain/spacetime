@@ -1,4 +1,4 @@
-import guessTz from './zones/guessTz.js'
+import guessTz from './02-two/zones/guessTz.js'
 
 export default {
 

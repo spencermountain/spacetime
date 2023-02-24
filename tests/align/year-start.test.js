@@ -1,5 +1,5 @@
 import test from 'tape'
-import { getStart } from '../../src/compute/_lib/yearStart.js'
+import { getStart } from '../../src/01-one/compute/_lib/yearStart.js'
 import jan1s from './times/jan-1s.js'
 
 test('paris jan 1st epochs', (t) => {
