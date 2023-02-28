@@ -8,8 +8,8 @@ import old from './old/src/index.js'
 
 let s = spacetime.now()
 console.log(s.time())
-s = s.goto('Europe/paris')
-console.log(s.time())
+// s = s.goto('Europe/paris')
+// console.log(s.time())
 
 // let s = spacetime('July 27th, 2018')
 // s = s.minus(10, 'years')

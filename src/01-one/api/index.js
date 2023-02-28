@@ -5,7 +5,7 @@ import Spacetime from '../../spacetime.js'
 import getEpoch from '../compute/epoch/index.js'
 import getCal from '../compute/cal/index.js'
 import add from './slide/index.js'
-import zones from '../../02-two/zones/index.js'
+import zones from '../../02-two/zones/zones.js'
 import getDst from '../compute/changes/index.js'
 
 let methods = {}
