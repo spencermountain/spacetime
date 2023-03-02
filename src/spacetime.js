@@ -8,7 +8,10 @@ const SpaceTime = function (input, tz) {
   //the IANA code for the current timezone
   this.tz = res.tz
 }
-
+// builder/factory
+SpaceTime.prototype._from = function (input, tz) {
+  return new SpaceTime(input, tz || this.tz)
+}
 Object.assign(SpaceTime.prototype, methods)
 
 // add method aliases

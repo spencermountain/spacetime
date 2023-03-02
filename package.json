@@ -9,8 +9,33 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "require": "./builds/spacetime.cjs",
-      "import": "./src/index.js"
+      "import": "./src/two.js",
+      "require": "./builds/spacetime-two.cjs"
+    },
+    "./one": {
+      "import": "./src/one.js",
+      "require": "./builds/spacetime-one.cjs"
+    },
+    "./two": {
+      "import": "./src/two.js",
+      "require": "./builds/spacetime-two.cjs"
+    },
+    "./three": {
+      "import": "./src/three.js",
+      "require": "./builds/spacetime-three.cjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "one": [
+        "types/one.d.ts"
+      ],
+      "two": [
+        "types/two.d.ts"
+      ],
+      "three": [
+        "types/three.d.ts"
+      ]
     }
   },
   "scripts": {

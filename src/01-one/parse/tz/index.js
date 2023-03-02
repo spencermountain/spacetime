@@ -1,4 +1,4 @@
-import zones from '../../../02-two/zones/zones.js'
+import zones from '../../../02-two/zones/data/index.js'
 import aliases from './aliases.js'
 import config from '../../../config.js'
 
