@@ -9,7 +9,9 @@ This project follows semVer, where:
  - **[change]** - return properly titlecased IANA codes
  - **[breaking]** - remove `.add(1, 'weekend')`
  - **[change]** - set 100 iana codes as aliases (via tzdb)
+ - **[change]** - remove {quarters, weeks} from default diff() result
  - **[new]** - `.json()` method
+ - **[new]** - `.goto(tz, {keepClock:true})` option
  -->
  
  ### 7.4.1 [Jan 2023]

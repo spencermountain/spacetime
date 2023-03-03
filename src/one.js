@@ -8,6 +8,8 @@ const main = (input, tz) => new Spacetime(input, tz)
 main.now = (tz) => new Spacetime(config.now(), tz)
 
 main.today = (tz) => new Spacetime(new Date().getTime(), tz).startOf('day')
+main.tomorrow = (tz) => main.today(tz).add(1, 'day')
+main.yesterday = (tz) => main.today(tz).minus(1, 'day')
 
 main.plugin = function (plg) {
   if (plg.api) {

@@ -42,7 +42,7 @@ test('dont leak milliseconds', (t) => {
     '2018/02/02'
   ]
   inputs.forEach((str) => {
-    t.equal(spacetime(str).isEqual(str), true, str)
+    t.equal(spacetime(str).isEqual(str), true, 'ms-leak ' + str)
   })
   t.end()
 })

@@ -27,7 +27,7 @@ export default [
         month: parseInt(m[2], 10),
         date: parseDate(m[3])
       }
-      if (obj.month >= 12) {
+      if (obj.month > 12) {
         //support yyyy/dd/mm (weird, but ok)
         obj.date = parseDate(m[2])
         obj.month = parseInt(m[3], 10)

@@ -1,18 +1,28 @@
 //increment until dates are the same
 const climb = (a, b, unit) => {
-  let i = 0
-  a = a.clone()
+  // do fast-mode for these units
+  if (unit === 'milliseconds') {
+    return b.epoch - a.epoch
+  }
+  if (unit === 'seconds') {
+    return Math.floor((b.epoch - a.epoch) / 1000)
+  }
+  if (unit === 'minutes') {
+    return Math.floor((b.epoch - a.epoch) / (1000 * 60))
+  }
+
+  // slow-mode for these units
+  let n = 0
   while (a.isBefore(b)) {
     //do proper, expensive increment to catch all-the-tricks
     a = a.add(1, unit)
-    i += 1
+    n += 1
   }
   //oops, we went too-far..
-  // console.log('old', a.iso(), b.iso())
   if (a.isAfter(b, unit)) {
-    i -= 1
+    n -= 1
   }
-  return i
+  return n
 }
 
 // do a thurough +=1 on the unit, until they match

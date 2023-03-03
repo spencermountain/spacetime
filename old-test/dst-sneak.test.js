@@ -1,6 +1,6 @@
 import test from 'tape'
 import spacetime from './_lib.js'
-import useOldTz from './lib/useOldTz.js.js'
+import useOldTz from './lib/useOldTz.js.js.js.js'
 
 // fall dst - Oct 25th 3am
 test('fall-dst-repeats-hour', (t) => {

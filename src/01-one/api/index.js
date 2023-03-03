@@ -6,7 +6,9 @@ import getEpoch from '../compute/epoch/index.js'
 import getCal from '../compute/cal/index.js'
 import add from './slide/index.js'
 import compare from './compare/index.js'
+import diff from './diff/index.js'
 import startOf from './startOf.js'
+import misc from './misc.js'
 import zones from '../../02-two/zones/data/index.js'
 import getDst from '../compute/changes/index.js'
 
@@ -19,9 +21,9 @@ const factory = (cal, tz) => {
 
 // generate all getter/setter function pairs
 Object.keys(getters).forEach(fn => {
-  // if (!setters[fn]) {
-  // console.error('no-setter:', fn)
-  // }
+  if (!setters[fn]) {
+    console.error('no-setter:', fn)
+  }
   methods[fn] = function (input, dir) {
     let { epoch, tz } = this
     let cal = getCal(epoch, tz)
@@ -36,7 +38,7 @@ Object.keys(getters).forEach(fn => {
 })
 
 // add format methods
-Object.assign(methods, fmts, add, compare, startOf)
+Object.assign(methods, fmts, add, compare, startOf, misc, diff)
 
 methods.time = function (input) {
   if (input !== undefined) {
@@ -66,5 +68,7 @@ methods.json = function () {
 // aliases
 methods.fmt = methods.format
 methods.text = methods.format
+methods.leapYear = methods.isLeapYear
+methods.isLeap = methods.isLeapYear
 
 export default methods

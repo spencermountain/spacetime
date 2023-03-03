@@ -19,7 +19,7 @@ const parseYear = (str = '') => {
   //   year = today.year
   // }
   // fallback to this year
-  // year = year || new Date().getFullYear()
+  year = year || new Date().getFullYear()//remove me
   return year
 }
 

@@ -19,18 +19,19 @@ const print = {
 export default {
   isSame: function (b, unit) {
     unit = getUnit(unit)
-    if (this.epoch === b.epoch) {
-      return true
-    }
+    b = this._from(b)
     return print[unit](this) === print[unit](b)
   },
   isBefore: function (b) {
+    b = this._from(b)
     return this.epoch < b.epoch
   },
   isAfter: function (b) {
-    return this.epoch < b.epoch
+    b = this._from(b)
+    return this.epoch > b.epoch
   },
   isEqual: function (b) {
+    b = this._from(b)
     return this.epoch === b.epoch
   },
   isBetween: function (start, end, isInclusive = false) {
@@ -38,13 +39,13 @@ export default {
     end = this._from(end)
     let inside = this.epoch > start.epoch && this.epoch < end.epoch
     if (!inside && isInclusive) {
-      return this.epoch === start.epoch && this.epoch === end.epoch
+      return this.epoch === start.epoch || this.epoch === end.epoch
     }
     return inside
   },
-
   every: function (unit, end) {
     unit = getUnit(unit)
+    end = this._from(end)
     let result = []
     let d = this.clone()
     while (d.isBefore(end)) {
@@ -57,10 +58,13 @@ export default {
   nearest: function (unit) {
     unit = getUnit(unit)
     let before = this.startOf(unit)
-    let after = this.endOf(unit)
-    let down = this.epoch - before.epoch
-    let up = this.epoch - after.epoch
-    console.log(down, up)
-    return this
-  }
+    let next = this.next(unit)
+    let diffDown = this.epoch - before.epoch
+    let diffUp = Math.abs(this.epoch - next.epoch)
+    if (diffUp > diffDown) {
+      return before// go up
+    }
+    return next
+  },
+
 }

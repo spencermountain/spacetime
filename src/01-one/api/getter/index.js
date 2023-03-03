@@ -18,7 +18,7 @@ let getter = {
     let num = Math.floor(cal.year / 1000)
     return num >= 0 ? num + 1 : num// millenia are 1-based, in AD
   },
-  offset: (cal) => cal.offset * 60,
+  // offset: (cal) => cal.offset * 60,
   era: (cal) => cal.year < 0 ? 'BC' : 'AD',
   quarter: (cal) => {
     let m = cal.month
@@ -46,20 +46,20 @@ let getter = {
     minute = minute / 60
     return cal.hour + minute
   },
-  dayOfYear: (cal) => {
-    let sum = cal.date
-    //count the num days in each month
-    for (let i = 0; i < cal.month - 1; i++) {
-      sum += months[i].len
-      if (i === 1 && isLeapYear(cal.year)) {
-        sum += 1// feb 29th
-      }
-    }
-    return sum
-  },
-  week: (cal) => {
-    return null
-  }
+  // dayOfYear: (cal) => {
+  //   let sum = cal.date
+  //   //count the num days in each month
+  //   for (let i = 0; i < cal.month - 1; i++) {
+  //     sum += months[i].len
+  //     if (i === 1 && isLeapYear(cal.year)) {
+  //       sum += 1// feb 29th
+  //     }
+  //   }
+  //   return sum
+  // },
+  // week: (cal) => {
+  //   return null
+  // }
 }
 // wednesday/friday
 getter.dayName = (cal) => {

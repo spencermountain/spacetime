@@ -7,9 +7,14 @@ const SpaceTime = function (input, tz) {
   this.epoch = res.epoch
   //the IANA code for the current timezone
   this.tz = res.tz
+  this.isSpacetime = true
 }
+
 // builder/factory
 SpaceTime.prototype._from = function (input, tz) {
+  if (input && input.isSpacetime === true) {
+    return input.clone()
+  }
   return new SpaceTime(input, tz || this.tz)
 }
 Object.assign(SpaceTime.prototype, methods)
