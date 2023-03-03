@@ -7,7 +7,8 @@ Object.keys(zones).forEach(k => {
   mapping[k.toLowerCase()] = k
 })
 
-const findTz = function (str = '') {
+const findTz = function (str) {
+  str = str || ''
   if (zones.hasOwnProperty(str)) {
     return str
   }
