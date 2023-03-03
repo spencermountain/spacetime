@@ -1,5 +1,8 @@
-import startOf from './startOf.js'
-import getCal from '../../compute/cal/index.js'
+// import startOf from './startOf.js'
+// import getCal from '../../compute/cal/index.js'
+import getDay from '../../compute/_lib/getDay.js'
+import tick from '../slide/tick.js'
+
 import {
   parseMonth,
   parseOffset,
@@ -46,7 +49,7 @@ let fns = {
     return cal
   },
   quarter: (input, cal) => {
-    cal = startOf(cal, 'day')
+    cal = Object.assign(cal, { date: 1, hour: 0, minute: 0, second: 0, millisecond: 0 })
     if (input === 1) {
       cal.month = 1//jan 1
     } else if (input === 2) {
@@ -109,16 +112,22 @@ let fns = {
     return cal
   },
 
-  startOf: function (unit) {
-    let cal = getCal(this.epoch, this.tz)
-    return startOf(cal, unit)
+  // this one is tricky!
+  day: function (n, cal, _tz, fwd) {
+    let day = getDay(cal.year, cal.month, cal.date)
+    if (day === n) {
+      return cal
+    }
+    let diff = n - day
+    // go in a specific direction
+    if (diff < 0 && fwd === true) {
+      diff = 7 + diff
+    } else if (diff > 0 && fwd === false) {
+      diff = diff - 7
+    }
+    return tick(cal, diff, 'date')
   },
-  endOf: function (unit) {
-    let s = this.startOf(unit)
-    s = s.add(1, unit) //go an ounce too far
-    s = s.minus(1, 'millisecond')
-    return s
-  }
+
 }
 fns.monthName = fns.month
 fns.dayName = fns.day

@@ -21,9 +21,18 @@ const roundYear = (c, by) => {
 }
 
 const startMisc = {
-  week: (c) => {
-    c = c.day(config.weekStart)
-    return c
+  quarterHour: (c) => {
+    let m = c.minute
+    if (m >= 45) {
+      c.minute = 45
+    } else if (m >= 30) {
+      c.minute = 30
+    } else if (m >= 15) {
+      c.minute = 15
+    } else {
+      c.minute = 0
+    }
+    return Object.assign(c, { millisecond: 0, second: 0 })
   },
   decade: (c) => roundYear(c, 10),
   century: (c) => roundYear(c, 100),
@@ -38,6 +47,12 @@ export default {
       cal = Object.assign(cal, z[unit])
     } else if (startMisc.hasOwnProperty(unit)) {
       cal = startMisc[unit](cal)
+    }
+    // this one is tricky
+    if (unit === 'week') {
+      let s = this.day(config.weekStart)
+      s = s.startOf('day')
+      cal = getCal(s.epoch, s.tz)
     }
     let epoch = getEpoch(cal, this.tz)
     return this._from(epoch)

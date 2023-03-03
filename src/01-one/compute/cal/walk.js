@@ -24,7 +24,7 @@ const getDate = function (diffDays, year) {
 }
 
 const getTime = function (ms) {
-  let res = { hour: 0, minute: 0, second: 0, ms: 0 }
+  let res = { hour: 0, minute: 0, second: 0, millisecond: 0 }
   // get hour
   res.hour = Math.floor(ms / HOUR)
   ms -= res.hour * HOUR

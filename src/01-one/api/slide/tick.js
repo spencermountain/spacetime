@@ -1,4 +1,5 @@
 import monthLen from '../../compute/_lib/monthLen.js'
+import { getUnit } from '../_units.js'
 
 let assumed = {
   month: 1, //co-erce any zeros to 1s
@@ -56,7 +57,6 @@ const rollFwd = function (cal) {
   return cal
 }
 
-
 const rollBkwd = function (cal) {
   // fix negative months
   while (cal.month < 1) {
@@ -76,23 +76,11 @@ const rollBkwd = function (cal) {
   return cal
 }
 
-const mapping = {
-  date: 'date',
-  dates: 'date',
-  day: 'date',
-  days: 'date',
-  month: 'month',
-  months: 'month',
-  year: 'year',
-  years: 'year',
-}
-
 // do a calendar-walk
 const walk = function (cal, n, unit) {
   cal = Object.assign({}, assumed, cal)
-  if (mapping.hasOwnProperty(unit)) {
-    cal[mapping[unit]] += n
-  }
+  unit = getUnit(unit)
+  cal[unit] += n
   // roll backward
   cal = rollBkwd(cal)
   // roll forward
