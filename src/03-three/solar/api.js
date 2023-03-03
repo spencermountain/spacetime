@@ -1,25 +1,40 @@
 import { getPosition, getTimes } from './suncalc.js'
+import points from './geo-points.js'
 
-let lat = 43.65
-let lng = -79.43
+
+const getPoint = function (tz) {
+  if (!points.hasOwnProperty(tz)) {
+    console.error(`Cannot find tz: '${tz}'`)
+    return null
+  }
+  let [lat, lng] = points[tz]
+  return { lat, lng }
+}
 
 export default {
   sunrise: function () {
-    let r = getTimes(new Date(), lat, lng)
+    let { lat, lng } = getPoint(this.tz)
+    let r = getTimes(this.epoch, lat, lng)
     return this._from(r.sunrise)
   },
   solarNoon: function () {
-    let r = getTimes(new Date(), lat, lng)
+    let { lat, lng } = getPoint(this.tz)
+    let r = getTimes(this.epoch, lat, lng)
     return this._from(r.solarNoon)
   },
   sunset: function () {
-    let r = getTimes(new Date(), lat, lng)
+    let { lat, lng } = getPoint(this.tz)
+    let r = getTimes(this.epoch, lat, lng)
     return this._from(r.sunset)
   },
   dayLength: function () {
     let start = this.sunrise()
     let end = this.sunset()
     return start.diff(end)
+  },
+  sunPosition: function () {
+    let { lat, lng } = getPoint(this.tz)
+    return getPosition(this.epoch, lat, lng)
   },
 
 }

@@ -35,7 +35,7 @@ const getTime = function (ms) {
   res.second = Math.floor(ms / SECOND)
   ms -= res.second * SECOND
   // remainder milliseconds
-  res.ms = ms
+  res.millisecond = ms
   return res
 }
 

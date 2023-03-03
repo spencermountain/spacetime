@@ -5,6 +5,8 @@ import Spacetime from '../../spacetime.js'
 import getEpoch from '../compute/epoch/index.js'
 import getCal from '../compute/cal/index.js'
 import add from './slide/index.js'
+import compare from './compare/index.js'
+import startOf from './startOf.js'
 import zones from '../../02-two/zones/data/index.js'
 import getDst from '../compute/changes/index.js'
 
@@ -34,7 +36,7 @@ Object.keys(getters).forEach(fn => {
 })
 
 // add format methods
-Object.assign(methods, fmts, add)
+Object.assign(methods, fmts, add, compare, startOf)
 
 methods.time = function (input) {
   if (input !== undefined) {
@@ -47,7 +49,7 @@ methods.time = function (input) {
 }
 
 methods.clone = function () {
-  return new Spacetime(this.epoch, this.tz)
+  return this._from(this.epoch, this.tz)
 }
 
 methods.json = function () {

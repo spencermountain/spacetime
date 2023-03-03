@@ -3,7 +3,9 @@
  (c) 2011-2015, Vladimir Agafonkin
  SunCalc is a JavaScript library for calculating sun/moon position and light phases.
  https://github.com/mourner/suncalc
+ edited by @spencermountain to remove unused code and Date dependency
 */
+const sunset_angle = -0.833
 // shortcuts for easier to read formulas
 const PI = Math.PI
 const sin = Math.sin
@@ -19,9 +21,9 @@ const rad = PI / 180
 const dayMs = 1000 * 60 * 60 * 24
 const J1970 = 2440588
 const J2000 = 2451545;
-const toJulian = (date) => date.valueOf() / dayMs - 0.5 + J1970;
+const toJulian = (epoch) => epoch / dayMs - 0.5 + J1970;
 const fromJulian = (j) => (j + 0.5 - J1970) * dayMs;
-const toDays = (date) => toJulian(date) - J2000;
+const toDays = (epoch) => toJulian(epoch) - J2000;
 
 // general calculations for position
 const e = rad * 23.4397; // obliquity of the Earth
@@ -54,28 +56,6 @@ function sunCoords(d) {
   };
 }
 
-// calculates sun position for a given date and latitude/longitude
-const getPosition = function (date, lat, lng) {
-  const lw = rad * -lng
-  const phi = rad * lat
-  const d = toDays(date)
-  const c = sunCoords(d)
-  const H = siderealTime(d, lw) - c.ra;
-  return {
-    azimuth: azimuth(H, phi, c.dec),
-    altitude: altitude(H, phi, c.dec)
-  };
-};
-
-// sun times configuration (angle, morning name, evening name)
-const times = [
-  [-0.833, 'sunrise', 'sunset'],
-  [-0.3, 'sunriseEnd', 'sunsetStart'],
-  [-6, 'dawn', 'dusk'],
-  [-12, 'nauticalDawn', 'nauticalDusk'],
-  [-18, 'nightEnd', 'night'],
-  [6, 'goldenHourEnd', 'goldenHour']
-];
 
 // returns set time for the given sun altitude
 function getSetJ(h, lw, phi, dec, n, M, L) {
@@ -86,35 +66,40 @@ function getSetJ(h, lw, phi, dec, n, M, L) {
 
 // calculates sun times for a given date, latitude/longitude, and, optionally,
 // the observer height (in meters) relative to the horizon
-const getTimes = function (date, lat, lng) {
+const getTimes = function (epoch, lat, lng) {
   const lw = rad * -lng
-  const phi = rad * lat
-  const d = toDays(date)
+  const d = toDays(epoch)
   const n = julianCycle(d, lw)
+  // solar noon calculation
   const ds = approxTransit(0, lw, n)
   const M = solarMeanAnomaly(ds)
   const L = eclipticLongitude(M)
-  const dec = declination(L, 0)
   const Jnoon = solarTransitJ(ds, M, L)
-
-  let result = {
+  // sun rise/set calculation
+  const decl = declination(L, 0)
+  const phi = rad * lat
+  const h0 = sunset_angle * rad;
+  const Jset = getSetJ(h0, lw, phi, decl, n, M, L);
+  const Jrise = Jnoon - (Jset - Jnoon);
+  return {
     solarNoon: fromJulian(Jnoon),
-    nadir: fromJulian(Jnoon - 0.5)
+    sunrise: fromJulian(Jrise),
+    sunset: fromJulian(Jset)
   };
-  for (let i = 0; i < times.length; i += 1) {
-    let time = times[i];
-    let h0 = (time[0]) * rad;
-    let Jset = getSetJ(h0, lw, phi, dec, n, M, L);
-    let Jrise = Jnoon - (Jset - Jnoon);
-    result[time[1]] = fromJulian(Jrise);
-    result[time[2]] = fromJulian(Jset);
-  }
-  return result;
 };
 
 
+// calculates sun position for a given date and latitude/longitude
+const getPosition = function (epoch, lat, lng) {
+  const lw = rad * -lng
+  const phi = rad * lat
+  const d = toDays(epoch)
+  const c = sunCoords(d)
+  const H = siderealTime(d, lw) - c.ra;
+  return {
+    azimuth: azimuth(H, phi, c.dec),
+    altitude: altitude(H, phi, c.dec)
+  };
+};
 
 export { getPosition, getTimes }
-// let lat = 43.65
-// let lng = -79.43
-// console.log(getTimes(new Date(), lat, lng))

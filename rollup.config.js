@@ -13,37 +13,33 @@ const banner = '/* spencermountain/spacetime ' + version + ' Apache 2.0 */'
 
 export default [
   {
-    input: './src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime.mjs', format: 'esm' }],
+    input: './src/one.js',
+    output: [{ banner: banner, file: 'builds/spacetime-one.mjs', format: 'esm' }],
     plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 48, warn: 10 })]
   },
   {
-    input: './src/index.js',
-    output: [
-      {
-        banner: banner,
-        file: 'builds/spacetime.cjs',
-        format: 'umd',
-        sourcemap: false,
-        name: 'spacetime'
-      }
-    ],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      sizeCheck({ expect: 110, warn: 10 })
-    ]
+    input: './src/one.js',
+    output: [{ banner: banner, file: 'builds/spacetime-one.min.js', format: 'umd', sourcemap: false, name: 'spacetime' }],
+    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 110, warn: 10 })]
   },
   {
-    input: './src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime.min.js', format: 'umd', name: 'spacetime' }],
-    plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      terser(),
-      sizeCheck({ expect: 48, warn: 10 })
-    ]
-  }
+    input: './src/two.js',
+    output: [{ banner: banner, file: 'builds/spacetime-two.mjs', format: 'esm' }],
+    plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 48, warn: 10 })]
+  },
+  {
+    input: './src/two.js',
+    output: [{ banner: banner, file: 'builds/spacetime-two.min.js', format: 'umd', sourcemap: false, name: 'spacetime' }],
+    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 110, warn: 10 })]
+  },
+  {
+    input: './src/three.js',
+    output: [{ banner: banner, file: 'builds/spacetime-three.mjs', format: 'esm' }],
+    plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 48, warn: 10 })]
+  },
+  {
+    input: './src/three.js',
+    output: [{ banner: banner, file: 'builds/spacetime-three.min.js', format: 'umd', sourcemap: false, name: 'spacetime' }],
+    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 110, warn: 10 })]
+  },
 ]

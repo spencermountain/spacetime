@@ -44,9 +44,9 @@ const fmt = {
   'minute-pad': (c) => zeroPad(c.minute),
   second: (c) => c.second,
   'second-pad': (c) => zeroPad(c.second),
-  ms: (c) => c.ms,
-  millisecond: (c) => c.ms,
-  'millisecond-pad': (c) => zeroPad(c.ms, 3),
+  ms: (c) => c.millisecond,
+  millisecond: (c) => c.millisecond,
+  'millisecond-pad': (c) => zeroPad(c.millisecond, 3),
 
   ampm: (c) => g.ampm(c),
   AMPM: (c) => g.ampm(c).toUpperCase(),
@@ -76,7 +76,7 @@ const fmt = {
 }
 // compound ones
 fmt['iso-short'] = (c) => `${fmt['iso-year'](c)}-${zeroPad(c.month)}-${zeroPad(c.date)}`
-fmt['iso-medium'] = (c) => `${fmt['iso-short'](c)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.ms, 3)}`
+fmt['iso-medium'] = (c) => `${fmt['iso-short'](c)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.millisecond, 3)}`
 fmt['iso'] = (c) => `${fmt['iso-medium'](c)}${fmt.offset(c)}`
 //i made these up
 fmt['nice'] = (c) => `${fmt['month-short'](c)} ${fmt['date-ordinal'](c)}, ${fmt['time'](c)}`
