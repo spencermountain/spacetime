@@ -1,7 +1,6 @@
 import getCal from '../../compute/cal/index.js'
 import getEpoch from '../../compute/epoch/index.js'
 import { SECOND, MINUTE, HOUR } from '../../compute/_lib/millis.js'
-import Spacetime from '../../../spacetime.js'
 import tickBy from './tick.js'
 
 const slideUnits = {
@@ -30,14 +29,14 @@ export default {
     let { epoch, tz } = this
     // let epoch = add(this.epoch, n, unit)
     if (n === 0 || !unit) {
-      return new Spacetime(epoch, tz)
+      return this._from(epoch, tz)
     }
     unit = unit.trim().toLowerCase()
     // millisecond-math for these units
     if (slideUnits.hasOwnProperty(unit)) {
       let ms = slideUnits[unit]      // how many milliseconds are we adding?
       epoch += ms * n
-      return new Spacetime(epoch, tz)
+      return this._from(epoch, tz)
     }
     // misc units
     if (unit === 'week' || unit === 'weeks') {
@@ -60,7 +59,7 @@ export default {
     let cal = getCal(epoch, tz)
     cal = tickBy(cal, n, unit)
     epoch = getEpoch(cal, tz)
-    return new Spacetime(epoch, tz)
+    return this._from(epoch, tz)
   },
 
   subtract: function (n, unit) {

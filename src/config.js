@@ -37,25 +37,25 @@ export default {
     [9, 1] //Q4 - Oct 1
   ],
 
-  months: {
-    shortForm: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
-    longForm: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
-  },
+  // months: {
+  //   shortForm: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
+  //   longForm: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+  // },
 
-  useTitleCase: true, // automatically in .format()
+  // useTitleCase: true, // automatically in .format()
 
-  // local timezone
-  // if Intl.DateTimeFormat is not supported - fallback to UTC
-  fallbackTz: guessTz() || 'Etc/Utc',
+  // // local timezone
+  // // if Intl.DateTimeFormat is not supported - fallback to UTC
+  // fallbackTz: guessTz() || 'Etc/Utc',
 
-  // <15% of the world lives in the Southern Hemisphere
-  fallbackHemisphere: 'n',
+  // // <15% of the world lives in the Southern Hemisphere
+  // fallbackHemisphere: 'n',
 
-  // assumed year in 'march 12th'
-  fallbackYear: 2023,
+  // // assumed year in 'march 12th'
+  // fallbackYear: 2023,
 
-  // assume the british interpretation of 02/02/2018, etc
-  preferDMY: false,
+  // // assume the british interpretation of 02/02/2018, etc
+  // preferDMY: false,
 
   // this should be the only call to js Date
   now: () => new Date().getTime(),

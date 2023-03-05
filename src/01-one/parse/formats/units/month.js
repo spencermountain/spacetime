@@ -1,10 +1,10 @@
-import config from '../../../../config.js'
+import world from '../../../../world.js'
 import { isNum } from './_lib.js'
 
 let mapping = {}
-config.months.longForm.forEach((str, i) => {
+world.i18n.months.longForm.forEach((str, i) => {
   mapping[str.toLowerCase()] = i + 1
-  let shrt = config.months.shortForm[i] || ''
+  let shrt = world.i18n.months.shortForm[i] || ''
   mapping[shrt.toLowerCase()] = i + 1
 })
 mapping.sept = 9//extra

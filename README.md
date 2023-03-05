@@ -533,7 +533,7 @@ s.i18n({
   },
   ampm: {
     am: ' a. m.',
-    pm: ' a. m.'
+    pm: ' p. m.'
   },
   useTitleCase: true // automatically in .format()
 });

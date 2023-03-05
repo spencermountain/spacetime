@@ -1,7 +1,6 @@
 import getDay from '../../compute/_lib/getDay.js'
-import config from '../../../config.js'
-import months from '../../compute/_lib/months.js'
-import isLeapYear from '../../compute/_lib/isLeap.js'
+// import months from '../../compute/_lib/months.js'
+// import isLeapYear from '../../compute/_lib/isLeap.js'
 
 let getter = {
   year: (cal) => cal.year,
@@ -64,11 +63,11 @@ let getter = {
 // wednesday/friday
 getter.dayName = (cal) => {
   let n = getter.day(cal)
-  return config.days.longForm[n]
+  return this.world.config.days.longForm[n]
 }
 getter.monthName = (cal) => {
   let n = getter.month(cal)
-  return config.months.longForm[n]
+  return this.world.config.months.longForm[n]
 }
 
 export default getter

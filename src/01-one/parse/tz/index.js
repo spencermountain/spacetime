@@ -1,6 +1,7 @@
 import zones from '../../../02-two/zones/data/index.js'
 import aliases from './aliases.js'
-import config from '../../../config.js'
+import world from '../../../world.js'
+import guessTz from '../../../02-two/zones/guessTz.js'
 
 let mapping = { z: 'Etc/GMT' }
 Object.keys(zones).forEach(k => {
@@ -19,6 +20,6 @@ const findTz = function (str) {
   if (mapping.hasOwnProperty(str)) {
     return mapping[str]
   }
-  return config.fallbackTz
+  return guessTz() || world.config.fallbackTz
 }
 export default findTz

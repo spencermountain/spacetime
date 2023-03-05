@@ -1,7 +1,6 @@
 import { getUnit } from './_units.js'
 import getCal from '../compute/cal/index.js'
 import getEpoch from '../compute/epoch/index.js'
-import config from '../../config.js'
 
 
 const add = (a, b) => Object.assign({}, a, b)
@@ -50,7 +49,7 @@ export default {
     }
     // this one is tricky
     if (unit === 'week') {
-      let s = this.day(config.weekStart)
+      let s = this.day(this.world.config.weekStart)
       s = s.startOf('day')
       cal = getCal(s.epoch, s.tz)
     }

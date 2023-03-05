@@ -1,4 +1,4 @@
-import config from '../../config.js'
+import world from '../../world.js'
 import getEpoch from '../compute/epoch/index.js'
 // import zoneFile from '../../02-two/zones/index.js'
 import findTz from './tz/index.js'
@@ -31,12 +31,12 @@ const parse = function (input, tz) {
 
   // null means now
   if (input === null || input === undefined) {
-    return { epoch: config.now(), tz }
+    return { epoch: world.config.now.epoch(), tz }
   }
   // epoch input
   if (isNumber(input)) {
     // if the given epoch is really small, they've probably given seconds and not milliseconds
-    if (config.minimumEpoch && input < config.minimumEpoch && input > 0) {
+    if (world.config.minimumEpoch && input < world.config.minimumEpoch && input > 0) {
       input *= 1000
     }
     return { epoch: input, tz }
@@ -53,7 +53,11 @@ const parse = function (input, tz) {
     return { epoch: getEpoch(cal, tz), tz }
   }
   // given {year:2020 ...}
-  if (isObject(input)) {
+  if (input && isObject(input)) {
+    // interpret a spacetime object as input
+    if (input.isSpacetime === true) {
+      return input.clone()
+    }
     let cal = Object.assign({}, input)//don't mutate original
     return { epoch: getEpoch(cal, tz), tz }
   }

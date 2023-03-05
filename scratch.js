@@ -10,7 +10,8 @@ import old from './old/src/index.js'
 // console.log(a.week())
 // console.log(b.week())
 // let s = spacetime()
-let start = spacetime('jan 21st 2020 2:00am', 'Canada/Pacific') //.add(5, 'minutes')
-// let end = spacetime('jan 21st 2020 2:00pm', 'Canada/Eastern')
-// console.log(start.isSame(end, 'hour'))
-console.log(start.nearest('day').iso())
+let s = spacetime.now()
+s = s.play()
+setInterval(() => {
+  console.log(s.iso())
+}, 500);

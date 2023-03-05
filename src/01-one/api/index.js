@@ -1,7 +1,6 @@
 import getters from './getter/index.js'
 import setters from './setter/index.js'
 import fmts from './format/index.js'
-import Spacetime from '../../spacetime.js'
 import getEpoch from '../compute/epoch/index.js'
 import getCal from '../compute/cal/index.js'
 import add from './slide/index.js'
@@ -14,11 +13,6 @@ import getDst from '../compute/changes/index.js'
 
 let methods = {}
 
-const factory = (cal, tz) => {
-  let epoch = getEpoch(cal, tz)
-  return new Spacetime(epoch, tz)
-}
-
 // generate all getter/setter function pairs
 Object.keys(getters).forEach(fn => {
   if (!setters[fn]) {
@@ -30,7 +24,8 @@ Object.keys(getters).forEach(fn => {
     // setter method
     if (input !== undefined) {
       let c = setters[fn](input, cal, tz, dir)
-      return factory(c, tz)
+      let e = getEpoch(c, tz)
+      return this._from(e, tz)
     }
     // getter method
     return getters[fn](cal, tz)
@@ -45,7 +40,8 @@ methods.time = function (input) {
     let { epoch, tz } = this
     let cal = getCal(epoch, tz)
     let c = setters.time(input, cal, tz)
-    return factory(c, tz)
+    let e = getEpoch(c, tz)
+    return this._from(e, tz)
   }
   return this.format('time')
 }
