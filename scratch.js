@@ -14,4 +14,4 @@ let s = spacetime.now()
 s = s.play()
 setInterval(() => {
   console.log(s.iso())
-}, 500);
+}, 1000);

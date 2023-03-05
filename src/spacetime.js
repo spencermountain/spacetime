@@ -11,12 +11,15 @@ class SpaceTime {
     //the IANA code for the current timezone
     this.tz = res.tz
     this.isSpacetime = true
-    this.started = false
+    this.startEpoch = null
+    this.isRunning = false
     this.world = world
   }
   get epoch() {
-    if (!this.started && this.started !== 0) {
-      return this._epoch
+    // is it in play-mode
+    if (this.isRunning && this.startEpoch !== null) {
+      let ms = this.world.now.epoch() - this.startEpoch
+      return this._epoch + ms
     }
     return this._epoch
   }

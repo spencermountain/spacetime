@@ -3,8 +3,15 @@ export default {
   methods: {},
   now: {
     epoch: () => new Date().getTime(),
-    year: () => new Date().getFullYear,
-    month: () => new Date().getMonth(),
+    cal: () => {
+      let d = new Date()
+      return {
+        epoch: d.getTime(),
+        year: d.getFullYear(),
+        month: d.getMonth(),
+        date: d.getDate(),
+      }
+    }
   },
   i18n: {
     months: {
@@ -37,5 +44,6 @@ export default {
 
     // assume the british interpretation of 02/02/2018, etc
     preferDMY: false,
-  }
+  },
+  zones: {}
 }
