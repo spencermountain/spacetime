@@ -8,5 +8,5 @@ import old from './old/src/index.js'
 // let b = old('2023-01-01')//.minus(0, 'days')
 
 let a = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern')
-a = a.add(15, 'quarters')
+a = a.add(45, 'months')
 console.log(a.iso())
