@@ -7,11 +7,6 @@ import old from './old/src/index.js'
 // let a = spacetime('2023-01-01')//.minus(0, 'days')
 // let b = old('2023-01-01')//.minus(0, 'days')
 
-// console.log(a.week())
-// console.log(b.week())
-// let s = spacetime()
-let s = spacetime.now()
-s = s.play()
-setInterval(() => {
-  console.log(s.iso())
-}, 1000);
+let a = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern')
+a = a.add(15, 'quarters')
+console.log(a.iso())

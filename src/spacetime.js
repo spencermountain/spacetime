@@ -41,6 +41,8 @@ const aliases = [
   ['seconds', 'second'],
   ['minus', 'subtract'],
   ['plus', 'add'],
+  ['isDst', 'inDst'],
+  ['set', '_from'],
 ]
 aliases.forEach(a => {
   SpaceTime.prototype[a[0]] = SpaceTime.prototype[a[1]]

@@ -9,6 +9,7 @@ let getter = {
   hour: (cal) => cal.hour,
   minute: (cal) => cal.minute,
   second: (cal) => cal.second,
+  millisecond: (cal) => cal.millisecond,
   day: (cal) => getDay(cal.year, cal.month, cal.date),
   ampm: (cal) => cal.hour < 12 ? 'am' : 'pm',
   decade: (cal) => Math.floor(cal.year / 10) * 10,//  eg '1970'
@@ -29,6 +30,10 @@ let getter = {
       return 3
     }
     return 4
+  },
+  season: (cal) => {
+  },
+  dayTime: (cal) => {
   },
   hour12: (cal) => {
     let hour = cal.hour
@@ -59,15 +64,16 @@ let getter = {
   // week: (cal) => {
   //   return null
   // }
+
 }
 // wednesday/friday
-getter.dayName = (cal) => {
+getter.dayName = (cal, _tz, world) => {
   let n = getter.day(cal)
-  return this.world.config.days.longForm[n]
+  return world.i18n.days.longForm[n]
 }
-getter.monthName = (cal) => {
+getter.monthName = (cal, _tz, world) => {
   let n = getter.month(cal)
-  return this.world.config.months.longForm[n]
+  return world.i18n.months.longForm[n]
 }
 
 export default getter

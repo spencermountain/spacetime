@@ -31,7 +31,7 @@ const parse = function (input, tz) {
 
   // null means now
   if (input === null || input === undefined) {
-    return { epoch: world.config.now.epoch(), tz }
+    return { epoch: world.now.epoch(), tz }
   }
   // epoch input
   if (isNumber(input)) {

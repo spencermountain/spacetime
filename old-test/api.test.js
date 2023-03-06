@@ -1,6 +1,6 @@
 import spacetime from './_lib.js'
 import test from 'tape'
-import api from '../../api/index.js'
+import api from '../api/index.js'
 
 test('test main methods', (t) => {
   Object.keys(api.main).forEach((k) => {

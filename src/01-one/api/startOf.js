@@ -71,5 +71,8 @@ export default {
     let s = this.next(unit)  // go to next one, step back 1ms
     s = s.subtract(1, 'millisecond')
     return s
+  },
+  progress: function (unit) {
+    return {}
   }
 }

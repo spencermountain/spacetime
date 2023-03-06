@@ -19,7 +19,7 @@ Object.keys(getters).forEach(fn => {
     console.error('no-setter:', fn)
   }
   methods[fn] = function (input, dir) {
-    let { epoch, tz } = this
+    let { epoch, tz, world } = this
     let cal = getCal(epoch, tz)
     // setter method
     if (input !== undefined) {
@@ -28,7 +28,7 @@ Object.keys(getters).forEach(fn => {
       return this._from(e, tz)
     }
     // getter method
-    return getters[fn](cal, tz)
+    return getters[fn](cal, tz, world)
   }
 })
 
@@ -50,6 +50,37 @@ methods.clone = function () {
   return this._from(this.epoch, this.tz)
 }
 
+methods.isValid = function () {
+  let { epoch, tz, world } = this
+  let cal = getCal(epoch, tz)
+  // console.log(cal)
+  return true
+}
+
+methods.hasDst = function () {
+  let { tz, world } = this
+  return world.zones[tz].dst
+}
+methods.isAsleep = function () {
+  return false
+}
+methods.offset = function () {
+  let { epoch, tz } = this
+  let cal = getCal(epoch, tz)
+  return cal.offset
+}
+methods.inDst = function () {
+  let { epoch, tz, world } = this
+  // if it doesn't have dst
+  if (!this.hasDst()) {
+    return false
+  }
+  let cal = getCal(epoch, tz)
+  let res = getDst(tz, cal.year)
+  // console.log(res)
+  return true
+}
+
 methods.json = function () {
   let { epoch, tz } = this
   let out = getCal(epoch, tz)
@@ -66,5 +97,7 @@ methods.fmt = methods.format
 methods.text = methods.format
 methods.leapYear = methods.isLeapYear
 methods.isLeap = methods.isLeapYear
+methods.inDST = methods.inDst
+methods.hasDST = methods.hasDst
 
 export default methods

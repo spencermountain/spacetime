@@ -16,6 +16,9 @@ main.plugin = function (plg) {
   if (plg.api) {
     Object.assign(Spacetime.prototype, plg.api)
   }
+  if (plg.zones) {
+    world.zones = Object.assign(world.zones, plg.zones)
+  }
 }
 main.version = version
 

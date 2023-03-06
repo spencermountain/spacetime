@@ -39,6 +39,10 @@ let fns = {
     cal.second = Number(input)
     return cal
   },
+  millisecond: (input, cal) => {
+    cal.millisecond = Number(input)
+    return cal
+  },
   time: (input, cal) => {
     return Object.assign(cal, parseTime(input))
   },
@@ -61,6 +65,10 @@ let fns = {
     }
     cal.date = 1
     return cal
+  },
+  season: (input, cal) => {
+  },
+  dayTime: (input, cal) => {
   },
   ampm: (input, cal) => {
     let h = cal.hour
