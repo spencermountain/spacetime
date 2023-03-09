@@ -1,7 +1,7 @@
 // import startOf from './startOf.js'
 // import getCal from '../../compute/cal/index.js'
-import getDay from '../../world/methods/getDay.js'
-import tick from '../add/tick.js'
+// import getDay from '../../world/methods/getDay.js'
+// import tick from '../add/tick.js'
 
 import {
   parseMonth,

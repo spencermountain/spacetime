@@ -1,30 +1,31 @@
 import getters from './getter/index.js'
-import setters from './setter/index.js'
-import fmts from './format/index.js'
-import getEpoch from '../compute/epoch/index.js'
-import getCal from '../compute/cal/index.js'
-import add from './add/index.js'
-import compare from './compare/index.js'
-import diff from './diff/index.js'
-import startOf from './startOf.js'
-import misc from './misc.js'
-import zones from '../../02-two/zones/data/index.js'
-import getDst from '../compute/changes/index.js'
+// import setters from './setter/index.js'
+let setters = {}
+// import fmts from './format/index.js'
+// import getEpoch from '../compute/epoch/index.js'
+// import getCal from '../compute/cal/index.js'
+// import add from './add/index.js'
+// import compare from './compare/index.js'
+// import diff from './diff/index.js'
+// import startOf from './startOf.js'
+// import misc from './misc.js'
+// import zones from '../../02-two/zones/data/index.js'
+// import getDst from '../compute/changes/index.js'
 
 let methods = {}
 
-// generate all getter/setter function pairs
+// generate all getter / setter function pairs
 Object.keys(getters).forEach(fn => {
-  if (!setters[fn]) {
-    console.error('no-setter:', fn)
-  }
+  // if (!setters[fn]) {
+  //   console.error('no-setter:', fn)
+  // }
   methods[fn] = function (input, dir) {
     let { epoch, tz, world } = this
-    let cal = getCal(epoch, tz)
+    let cal = world.methods.getCal(epoch, tz, world)
     // setter method
     if (input !== undefined) {
       let c = setters[fn](input, cal, tz, dir)
-      let e = getEpoch(c, tz, world)
+      let e = world.methods.getEpoch(c, tz, world)
       return this._from(e, tz)
     }
     // getter method
@@ -33,14 +34,14 @@ Object.keys(getters).forEach(fn => {
 })
 
 // add format methods
-Object.assign(methods, fmts, add, compare, startOf, misc, diff)
+// Object.assign(methods, fmts, add, compare, startOf, misc, diff)
 
 methods.time = function (input) {
   if (input !== undefined) {
-    let { epoch, tz } = this
-    let cal = getCal(epoch, tz)
+    let { epoch, tz, world } = this
+    let cal = world.methods.getCal(epoch, tz)
     let c = setters.time(input, cal, tz)
-    let e = getEpoch(c, tz, world)
+    let e = world.methods.getEpoch(c, tz, this.world)
     return this._from(e, tz)
   }
   return this.format('time')
@@ -52,7 +53,7 @@ methods.clone = function () {
 
 methods.isValid = function () {
   let { epoch, tz, world } = this
-  let cal = getCal(epoch, tz)
+  let cal = world.methods.getCal(epoch, tz)
   // console.log(cal)
   return true
 }
@@ -65,38 +66,40 @@ methods.isAsleep = function () {
   return false
 }
 methods.offset = function () {
-  let { epoch, tz } = this
-  let cal = getCal(epoch, tz)
+  let { epoch, tz, world } = this
+  let cal = world.methods.getCal(epoch, tz)
   return cal.offset
 }
 methods.inDst = function () {
   let { epoch, tz, world } = this
+  const { getCal, dstChanges } = world.methods
   // if it doesn't have dst
   if (!this.hasDst()) {
     return false
   }
   let cal = getCal(epoch, tz)
-  let res = getDst(tz, cal.year, world)
+  let res = dstChanges(tz, cal.year, world)
   // console.log(res)
   return true
 }
 
 methods.json = function () {
-  let { epoch, tz } = this
+  let { epoch, tz, world } = this
+  const { getCal, dstChanges } = world.methods
   let out = getCal(epoch, tz)
   out.epoch = epoch
   out.tz = tz
-  let z = zones[tz] || {}
+  let z = world.zones[tz] || {}
   out.hem = z.hem
   out.abbrevs = z.shrt
-  out.dst = getDst(tz, out.year)
+  out.dst = dstChanges(tz, out.year)
   return out
 }
 // aliases
 methods.fmt = methods.format
 methods.text = methods.format
-methods.leapYear = methods.isLeapYear
-methods.isLeap = methods.isLeapYear
+// methods.leapYear = methods.isLeapYear
+// methods.isLeap = methods.isLeapYear
 methods.inDST = methods.inDst
 methods.hasDST = methods.hasDst
 

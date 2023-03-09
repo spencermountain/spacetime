@@ -9,7 +9,7 @@ import spacetime from './src/01-one/index.js'
 
 
 let s = spacetime('1999-03-28T21:42:00.000', 'Etc/GMT+132')
-console.log(new Date(s.epoch))
+console.log(s.hour())
 
 
 // let a = spacetime('March 28, 1999 20:42:00')

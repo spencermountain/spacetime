@@ -1,6 +1,6 @@
-import getCal from '../../compute/cal/index.js'
-import getEpoch from '../../compute/epoch/index.js'
-import { SECOND, MINUTE, HOUR } from '../../compute/_lib/millis.js'
+// import getCal from '../../compute/cal/index.js'
+// import getEpoch from '../../compute/epoch/index.js'
+// import { SECOND, MINUTE, HOUR } from '../../compute/_lib/millis.js'
 import tickBy from './tick.js'
 
 const slideUnits = {
