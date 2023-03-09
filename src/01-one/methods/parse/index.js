@@ -34,7 +34,7 @@ const parse = function (input, tz, world) {
 
   // try to pull an tz off end of ISO-string
   if (!tz) {
-    if (cal.offset) {
+    if (cal.offset || cal.offset === 0) {
       let isoTz = world.methods.parseTz(cal.offset, world)
       if (world.zones.hasOwnProperty(isoTz)) {
         tz = isoTz

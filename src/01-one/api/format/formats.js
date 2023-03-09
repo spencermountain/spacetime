@@ -3,17 +3,17 @@ import { titleCase, zeroPad, ordinal } from './_lib.js'
 
 const fmt = {
 
-  day: (s, w) => titleCase(s.dayName()),
-  'day-short': (s, w) => titleCase(s.world.model.days[s.day()].short),
+  day: (s) => titleCase(s.dayName()),
+  'day-short': (s) => titleCase(s.world.model.days[s.day()].short),
   'day-number': (s) => s.day(),
   'day-ordinal': (s) => ordinal(s.day()),
   date: (s) => s.date(),
   'date-ordinal': (s) => ordinal(s.date()),
   month: (s) => titleCase(s.monthName()),
-  'month-short': (s, w) => titleCase(s.world.model.months[s.month()].short),
+  'month-short': (s) => titleCase(s.world.model.months[s.month()].short),
   'month-number': (s) => s.month(),
   'month-ordinal': (s) => ordinal(s.month()),
-  'iso-month': (s) => zeroPad(s.month + 1), //1-based months
+  'iso-month': (s) => zeroPad(s.month() + 1), //1-based months
   year: (s) => {
     let y = s.year()
     return y > 0 ? y : `${Math.abs(y)} BC`
@@ -32,7 +32,7 @@ const fmt = {
   },
 
   // time: (s) => s.time(),
-  'time-24': (s) => `${zeroPad(s.hour24())}:${zeroPad(s.minute())} `,
+  'time-24': (s) => `${zeroPad(s.hour24())}:${zeroPad(s.minute())}`,
 
   hour: (s) => s.hour12(),
   'hour-24': (s) => s.hour24(),
@@ -48,7 +48,7 @@ const fmt = {
 
   // turn timezone 5.25 into '+05:15'
   offset: (s) => {
-    let n = s.offset || 0
+    let n = s.offset() || 0
     if (n === 0) {
       return 'Z'
     }
@@ -69,12 +69,12 @@ const fmt = {
   }
 }
 // compound ones
-fmt['iso-short'] = (c) => `${fmt['iso-year'](c)} -${zeroPad(c.month)} -${zeroPad(c.date)} `
-fmt['iso-medium'] = (c) => `${fmt['iso-short'](c)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.millisecond, 3)} `
-fmt['iso'] = (c) => `${fmt['iso-medium'](c)}${fmt.offset(c)} `
+fmt['iso-short'] = (s) => `${fmt['iso-year'](s)}-${fmt['iso-month'](s)}-${zeroPad(s.date())}`
+fmt['iso-medium'] = (s) => `${fmt['iso-short'](s)}T${zeroPad(s.hour())}:${zeroPad(s.minute())}:${zeroPad(s.second())}.${zeroPad(s.millisecond(), 3)}`
+fmt['iso'] = (c) => `${fmt['iso-medium'](c)}${fmt.offset(c)}`
 //i made these up
-fmt['nice'] = (c) => `${fmt['month-short'](c)} ${fmt['date-ordinal'](c)}, ${fmt['time'](c)} `
-fmt['nice-day'] = (c) => `${fmt['day-short'](c)} ${fmt['month-short'](c)} ${fmt['date-ordinal'](c)} `
+fmt['nice'] = (s) => `${fmt['month-short'](s)} ${fmt['date-ordinal'](s)}, ${fmt['time'](s)}`
+fmt['nice-day'] = (s) => `${fmt['day-short'](s)} ${fmt['month-short'](s)} ${fmt['date-ordinal'](s)}`
 
 // aliases
 const aliases = {
@@ -104,7 +104,7 @@ const aliases = {
 }
 let pads = ['day', 'date', 'month', 'hour', 'minute', 'second', 'hour-24', 'hour-12']
 pads.forEach(k => {
-  fmt[k + '-pad'] = (c, w) => zeroPad(fmt[k](c, w))
+  fmt[k + '-pad'] = (c) => zeroPad(fmt[k](c))
 })
 Object.keys(aliases).forEach((k) => (fmt[k] = fmt[aliases[k]]))
 

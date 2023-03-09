@@ -58,7 +58,7 @@ methods.isAsleep = function () {
 }
 methods.offset = function () {
   let { epoch, tz, world } = this
-  let cal = world.methods.getCal(epoch, tz)
+  let cal = world.methods.getCal(epoch, tz, world)
   return cal.offset
 }
 methods.inDst = function () {
