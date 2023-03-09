@@ -1,18 +1,4 @@
-// import startOf from './startOf.js'
-// import getCal from '../../compute/cal/index.js'
-// import getDay from '../../world/methods/getDay.js'
-// import tick from '../add/tick.js'
-
-import {
-  parseMonth,
-  parseOffset,
-  parseAmpm,
-  parseTime,
-  parseHour,
-  parseYear,
-  parseDate,
-  parseDay
-} from '../../parse/formats/units/index.js'
+import { parseMonth, parseAmpm, parseTime, parseHour, parseYear, parseDate } from '../../methods/parse/text/units/index.js'
 
 let fns = {
   year: (input, cal) => {
@@ -89,11 +75,6 @@ let fns = {
     return cal
   },
 
-  // dayOfYear: function (input) {
-  //   let s = this.startOf('year')
-  //   return s.add(input, 'day')
-  // },
-
   // decade: (cal) => Math.floor(cal.year / 10) * 10,//  eg '1970'
   // century: (cal) => Math.floor(cal.year / 100) * 100,//  eg '1900'
   // millenium: (cal) => {
@@ -120,21 +101,7 @@ let fns = {
     return cal
   },
 
-  // this one is tricky!
-  day: function (n, cal, _tz, fwd) {
-    let day = getDay(cal.year, cal.month, cal.date)
-    if (day === n) {
-      return cal
-    }
-    let diff = n - day
-    // go in a specific direction
-    if (diff < 0 && fwd === true) {
-      diff = 7 + diff
-    } else if (diff > 0 && fwd === false) {
-      diff = diff - 7
-    }
-    return tick(cal, diff, 'date')
-  },
+
 
 }
 fns.monthName = fns.month

@@ -1,24 +1,19 @@
 import getters from './getter/index.js'
-// import setters from './setter/index.js'
-let setters = {}
-// import fmts from './format/index.js'
-// import getEpoch from '../compute/epoch/index.js'
-// import getCal from '../compute/cal/index.js'
-// import add from './add/index.js'
-// import compare from './compare/index.js'
-// import diff from './diff/index.js'
-// import startOf from './startOf.js'
-// import misc from './misc.js'
-// import zones from '../../02-two/zones/data/index.js'
-// import getDst from '../compute/changes/index.js'
+import setters from './setter/index.js'
+import fmts from './format/index.js'
+import add from './add/index.js'
+import compare from './compare/index.js'
+import diff from './diff/index.js'
+import startOf from './startOf.js'
+import misc from './misc.js'
 
 let methods = {}
 
 // generate all getter / setter function pairs
 Object.keys(getters).forEach(fn => {
-  // if (!setters[fn]) {
-  //   console.error('no-setter:', fn)
-  // }
+  if (!setters[fn]) {
+    console.error('no-setter:', fn)
+  }
   methods[fn] = function (input, dir) {
     let { epoch, tz, world } = this
     let cal = world.methods.getCal(epoch, tz, world)
@@ -34,7 +29,7 @@ Object.keys(getters).forEach(fn => {
 })
 
 // add format methods
-// Object.assign(methods, fmts, add, compare, startOf, misc, diff)
+Object.assign(methods, fmts, add, compare, startOf, misc, diff)
 
 methods.time = function (input) {
   if (input !== undefined) {

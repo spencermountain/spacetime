@@ -1,7 +1,7 @@
 import { titleCase, zeroPad, ordinal } from './_lib.js'
 import g from '../getter/index.js'
 import f from './formats.js'
-import getEpoch from '../../compute/epoch/index.js'
+// import getEpoch from '../../compute/epoch/index.js'
 
 // import { formatTimezone } from '../../fns.js'
 //parse this insane unix-time-templating thing, from the 19th century

@@ -1,6 +1,5 @@
 import { getUnit } from '../_units.js'
 import diffOne from './diffOne.js'
-// import waterfall from './waterfall.js'
 
 const units = [
   'milliseconds',
@@ -28,7 +27,7 @@ export default {
     }, {})
   },
   since: function (b, unit) {
-    // unit = getUnit(unit)
+    unit = getUnit(unit)
     return {}
   }
 }

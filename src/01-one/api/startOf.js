@@ -1,6 +1,6 @@
 import { getUnit } from './_units.js'
-import getCal from '../compute/cal/index.js'
-import getEpoch from '../compute/epoch/index.js'
+// import getCal from '../compute/cal/index.js'
+// import getEpoch from '../compute/epoch/index.js'
 
 
 const add = (a, b) => Object.assign({}, a, b)
@@ -40,6 +40,7 @@ const startMisc = {
 
 export default {
   startOf: function (unit) {
+    const { getCal, getEpoch } = this.methods
     unit = getUnit(unit)
     let cal = getCal(this.epoch, this.tz)
     if (z.hasOwnProperty(unit)) {

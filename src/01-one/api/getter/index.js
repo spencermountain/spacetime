@@ -1,7 +1,3 @@
-// import getDay from '../../world/methods/getDay.js'
-// import months from '../../compute/_lib/months.js'
-// import isLeapYear from '../../compute/_lib/isLeap.js'
-
 let getter = {
   year: (cal) => cal.year,
   month: (cal) => cal.month - 1,//javascript uses 0-based months!
@@ -10,7 +6,6 @@ let getter = {
   minute: (cal) => cal.minute,
   second: (cal) => cal.second,
   millisecond: (cal) => cal.millisecond,
-  day: (cal) => getDay(cal.year, cal.month, cal.date),
   ampm: (cal) => cal.hour < 12 ? 'am' : 'pm',
   decade: (cal) => Math.floor(cal.year / 10) * 10,//  eg '1970'
   century: (cal) => Math.floor(cal.year / 100) * 100,//  eg '1900'
@@ -31,10 +26,8 @@ let getter = {
     }
     return 4
   },
-  season: (cal) => {
-  },
-  dayTime: (cal) => {
-  },
+  season: (cal) => { },
+  dayTime: (cal) => { },
   hour12: (cal) => {
     let hour = cal.hour
     if (hour > 12) {
@@ -49,31 +42,7 @@ let getter = {
     let minute = cal.minute
     minute = minute / 60
     return cal.hour + minute
-  },
-  // dayOfYear: (cal) => {
-  //   let sum = cal.date
-  //   //count the num days in each month
-  //   for (let i = 0; i < cal.month - 1; i++) {
-  //     sum += months[i].len
-  //     if (i === 1 && isLeapYear(cal.year)) {
-  //       sum += 1// feb 29th
-  //     }
-  //   }
-  //   return sum
-  // },
-  // week: (cal) => {
-  //   return null
-  // }
-
-}
-// wednesday/friday
-getter.dayName = (cal, _tz, world) => {
-  let n = getter.day(cal)
-  return world.i18n.days.longForm[n]
-}
-getter.monthName = (cal, _tz, world) => {
-  let n = getter.month(cal)
-  return world.i18n.months.longForm[n]
+  }
 }
 
 export default getter

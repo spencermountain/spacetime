@@ -1,4 +1,4 @@
-import getCal from '../../compute/cal/index.js'
+// import getCal from '../../compute/cal/index.js'
 import replace from './replace.js'
 import formats from './formats.js'
 import unixFmt from './unix.js'
@@ -6,15 +6,19 @@ import unixFmt from './unix.js'
 
 let methods = {
   format: function (fmt = 'iso-short') {
-    let cal = getCal(this.epoch, this.tz)
+    const { epoch, tz, world } = this
+    const getCal = world.methods.getCal
+    let cal = getCal(epoch, tz, world)
     if (fmt && formats.hasOwnProperty(fmt)) {
-      return formats[fmt](cal)
+      return formats[fmt](cal, world)
     }
     return replace(cal, fmt)
   },
   unixFmt: function (fmt) {
-    let cal = getCal(this.epoch, this.tz)
-    return unixFmt(cal, fmt, this.tz, this.world)
+    const { epoch, tz, world } = this
+    const getCal = world.methods.getCal
+    let cal = getCal(epoch, tz)
+    return unixFmt(cal, fmt, tz, world)
   }
 }
 
@@ -22,6 +26,7 @@ let methods = {
 let diriv = ['iso']
 diriv.forEach(fn => {
   methods[fn] = function () {
+    const getCal = this.methods.getCal
     let cal = getCal(this.epoch, this.tz)
     return formats[fn](cal)
   }

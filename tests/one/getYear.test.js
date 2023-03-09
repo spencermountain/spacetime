@@ -1,6 +1,6 @@
 import test from 'tape'
 import spacetime from './_lib.js'
-import { getYear, getStart } from '../../src/01-one/compute/_lib/yearStart.js'
+// import { getYear, getStart } from '../../src/01-one/compute/_lib/yearStart.js'
 
 // jan 1 utc
 let years = [
@@ -69,8 +69,8 @@ let years = [
 
 test('get jan-1 epochs', (t) => {
   years.forEach(a => {
-    let year = Number(a[0])
-    t.equal(getStart(year), a[1], '[getEpoch] ' + year)
+    let s = spacetime(`${a[0]}-01-01`, 'Z')
+    t.equal(s.epoch, a[1], '[getEpoch] ' + a[0])
   })
   t.end()
 })
@@ -78,7 +78,8 @@ test('get jan-1 epochs', (t) => {
 test('get jan-1 epochs', (t) => {
   years.forEach(a => {
     let epoch = a[1] + 50000 //+50s
-    t.equal(getYear(epoch).year, Number(a[0]), '[getYear] ' + a[0])
+    let s = spacetime(epoch)
+    t.equal(s.year(), Number(a[0]), '[getYear] ' + a[0])
   })
   t.end()
 })

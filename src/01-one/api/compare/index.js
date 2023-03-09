@@ -1,4 +1,5 @@
 import { getUnit } from '../_units.js'
+
 //make a string, for easy comparison between dates
 const print = {
   millisecond: (s) => s.epoch,

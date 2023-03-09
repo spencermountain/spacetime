@@ -1,40 +1,20 @@
-// import getCal from '../../compute/cal/index.js'
-// import getEpoch from '../../compute/epoch/index.js'
-// import { SECOND, MINUTE, HOUR } from '../../compute/_lib/millis.js'
 import tickBy from './tick.js'
-
-const slideUnits = {
-  ms: 1,
-  milli: 1,
-  millis: 1,
-  millisecond: 1,
-  milliseconds: 1,
-  second: SECOND,
-  seconds: SECOND,
-  minute: MINUTE,
-  minutes: MINUTE,
-  h: HOUR,
-  hs: HOUR,
-  hour: HOUR,
-  hours: HOUR,
-  'quarterhour': MINUTE * 15,
-  'quarter-hour': MINUTE * 15,
-  'quarter-hours': MINUTE * 15,
-}
-
+import { getUnit } from '../_units.js'
 
 export default {
 
   add: function (n, unit) {
     let { epoch, tz, world } = this
+    const { getCal, getEpoch } = this.methods
+    const units = world.model.ms
     // let epoch = add(this.epoch, n, unit)
     if (n === 0 || !unit) {
       return this._from(epoch, tz)
     }
-    unit = unit.trim().toLowerCase()
+    unit = getUnit(unit)
     // millisecond-math for these units
-    if (slideUnits.hasOwnProperty(unit)) {
-      let ms = slideUnits[unit]      // how many milliseconds are we adding?
+    if (units.hasOwnProperty(unit)) {
+      let ms = units[unit]      // how many milliseconds are we adding?
       epoch += ms * n
       return this._from(epoch, tz)
     }
@@ -57,9 +37,9 @@ export default {
     }
     // add a 'tick' unit
     let cal = getCal(epoch, tz)
-    cal = tickBy(cal, n, unit)
-    epoch = getEpoch(cal, tz, world)
-    return this._from(epoch, tz)
+    cal = tickBy(cal, n, unit, world)
+    let e = getEpoch(cal, tz, world)
+    return this._from(e, tz)
   },
 
   subtract: function (n, unit) {

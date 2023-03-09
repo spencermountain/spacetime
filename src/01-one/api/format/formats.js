@@ -1,12 +1,12 @@
 import { titleCase, zeroPad, ordinal } from './_lib.js'
 import g from '../getter/index.js'
-import world from '../../world/world.js'
-let { days, months } = world.i18n
+// import world from '../../world/world.js'
+// let { days, months } = world.i18n
 
 const fmt = {
 
-  day: (c) => titleCase(g.dayName(c)),
-  'day-short': (c) => titleCase(days.shortForm[g.day(c)]),
+  day: (c, w) => titleCase(w.model.days[g.day(c)].shortForm),
+  'day-short': (c, w) => titleCase(w.model.days[g.day(c)].shortForm),
   'day-number': (c) => g.day(c),
   'day-ordinal': (c) => ordinal(g.day(c)),
   'day-pad': (c) => zeroPad(g.day(c)),
