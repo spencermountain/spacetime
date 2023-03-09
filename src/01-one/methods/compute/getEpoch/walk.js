@@ -1,6 +1,6 @@
-import { DAY, HOUR, MINUTE, SECOND } from '../_lib/millis.js'
-import months from '../_lib/months.js'
-import isLeap from '../_lib/isLeap.js'
+// import { DAY, HOUR, MINUTE, SECOND } from '../_lib/millis.js'
+// import months from '../_lib/months.js'
+// import isLeap from '../_lib/isLeap.js'
 
 // compare two cal objects
 const ensureEqual = function (a, b) {
@@ -17,13 +17,15 @@ const ensureEqual = function (a, b) {
   return true
 }
 
-const diffDays = function (from, to) {
+const diffDays = function (from, to, world) {
+  const { isLeapYear } = world.methods
+  const { months } = world.model
   let diff = 0
   // increment months
   for (let n = from.month; n < to.month; n += 1) {
     // console.log(`+${months[n - 1].len} for ${months[n - 1].long}`)
     diff += months[n - 1].len
-    if (n === 2 && isLeap(from.year)) {
+    if (n === 2 && isLeapYear(from.year)) {
       diff += 1 //add another
     }
   }
@@ -35,12 +37,13 @@ const diffDays = function (from, to) {
 
 // step forward and count milliseconds 
 // until the two calendar objects meet
-const walk = function (epoch, from, to) {
+const walk = function (epoch, from, to, world) {
+  const { DAY, HOUR, MINUTE, SECOND } = world.model.ms
   // console.log(`from: ${from.year}-${from.month}-${from.date}`)
   // console.log(`  to: ${to.year}-${to.month}-${to.date}`)
 
   // increment months/days  (we are guaranteed to be in the same year)
-  let diff = diffDays(from, to)
+  let diff = diffDays(from, to, world)
   epoch += diff * DAY
   from.month = to.month
   from.date = to.date

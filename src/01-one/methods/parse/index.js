@@ -1,7 +1,5 @@
-import findTz from '../../../02-two/zones/tz.js'
 import toCal from './toCal.js'
 import isValid from './validate.js'
-
 // import getEpoch from '../compute/epoch/index.js'
 
 
@@ -33,8 +31,6 @@ const parse = function (input, tz, world) {
     throw new Error(`Error: invalid spacetime input: '${input}'`);
   }
 
-  console.log(cal)
-
   // try to pull an tz off end of ISO-string
   if (!tz) {
     if (cal.offset) {
@@ -45,7 +41,9 @@ const parse = function (input, tz, world) {
     }
     tz = tz || world.methods.fallbackTz(world)
   }
-  return { epoch: null, tz }
+  let epoch = world.methods.getEpoch(cal, tz, world)
+
+  return { epoch, tz }
 
 }
 export default parse

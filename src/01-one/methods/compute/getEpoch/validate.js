@@ -1,12 +1,14 @@
-import months from '../_lib/months.js'
-import isLeapYear from '../_lib/isLeap.js'
+// import months from '../compute/_lib/months.js'
+// import isLeapYear from '../compute/_lib/isLeap.js'
 
 const isFloat = function (n) {
   return n !== undefined && Number(n) === n && n % 1 !== 0;
 }
 
 // ensure we haven't been given any silly numbers
-const validate = function (cal) {
+const validate = function (cal, world) {
+  const isLeapYear = world.methods.isLeapYear
+  const months = world.model.months
   Object.keys(cal).forEach(k => {
     // no decimals allowed
     if (isFloat(cal[k])) {
