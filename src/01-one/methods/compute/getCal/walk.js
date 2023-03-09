@@ -1,13 +1,15 @@
-import isLeapYear from '../_lib/isLeap.js'
-import { SECOND, MINUTE, HOUR } from '../_lib/millis.js'
-import MONTHS from '../_lib/months.js'
+// import isLeapYear from '../_lib/isLeap.js'
+// import { SECOND, MINUTE, HOUR } from '../_lib/millis.js'
+// import MONTHS from '../_lib/months.js'
 
-const monthLengths = MONTHS.map(o => o.len)
 
-const getDate = function (diffDays, year) {
+const getDate = function (diffDays, year, world) {
+  const { months } = world.model
+  const { isLeapYear } = world.methods
+  const monthLengths = months.map(o => o.len)
   let res = { month: 1, date: 1 }
   let total = 0
-  for (let i = 0; i < MONTHS.length - 1; i += 1) {
+  for (let i = 0; i < months.length - 1; i += 1) {
     let inMonth = monthLengths[i]
     if (i === 1 && isLeapYear(year)) {
       inMonth = 29
@@ -23,7 +25,8 @@ const getDate = function (diffDays, year) {
   return res
 }
 
-const getTime = function (ms) {
+const getTime = function (ms, world) {
+  const { SECOND, MINUTE, HOUR } = world.model.ms
   let res = { hour: 0, minute: 0, second: 0, millisecond: 0 }
   // get hour
   res.hour = Math.floor(ms / HOUR)

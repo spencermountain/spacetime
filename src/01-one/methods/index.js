@@ -4,6 +4,7 @@ import parseTz from './timezone/parseTz.js'
 import fallbackTz from './timezone/fallbackTz.js'
 import { monthLen, yearStart, getEpoch } from './compute/index.js'
 
+const dstChanges = () => []
 
 export default {
   // from https://www.timeanddate.com/date/leapyear.html
@@ -20,4 +21,5 @@ export default {
 
   yearStart,
   getEpoch,
+  dstChanges
 }

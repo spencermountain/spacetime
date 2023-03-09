@@ -1,18 +1,20 @@
+import getOffset from './getOffset.js'
 
 // from a random epoch, get it's Jan 1st alignment
 const getYear = function (target, tz, world) {
-  console.log(world.model)
+  const { YEAR, DAY } = world.model.ms
+  const MAXOFFSET = DAY * 2
   let epoch = 0
   const isLeapYear = world.methods.isLeapYear
   // apply timezone offset to it
-  epoch -= januaryOffset(tz, world)
+  epoch -= getOffset(tz, world)
   let year = 1970
   // count upwards from 1970
   if (target > MAXOFFSET) {
     while (epoch <= target) {
       let size = YEAR
       if (isLeapYear(year)) {
-        size = LEAPYEAR
+        size = YEAR + DAY
       }
       let tmp = epoch + size
       if (tmp > target) {
@@ -26,7 +28,7 @@ const getYear = function (target, tz, world) {
     while (epoch > target) {
       let size = YEAR
       if (isLeapYear(year)) {
-        size = LEAPYEAR
+        size = YEAR + DAY
       }
       epoch -= size
       year -= 1

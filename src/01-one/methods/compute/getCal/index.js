@@ -1,17 +1,13 @@
-import { getYear } from '../_lib/yearStart.js'
 import { getDate, getTime } from './walk.js'
-import { DAY, HOUR } from '../_lib/millis.js'
-// import zoneFile from '../../../zonefile/iana.js'
-import zoneFile from '../../../../02-two/zones/data/index.js'
-// import findTz from '../../parse/tz/index.js'
-
-import getDst from '../changes/index.js'
 
 // take an epoch, return {month, year, date...}
 const computeCal = function (epoch, tz, world) {
+  const { zones, model, methods } = world
+  const { getYear, dstChanges } = methods
+  const { DAY, HOUR } = model.ms
   // get Jan 1 of the year
   let { start, year } = getYear(epoch, tz, world)
-  let zone = zoneFile[tz] || {}
+  let zone = zones[tz] || {}
   let cal = {
     year,
     month: 1,
@@ -22,7 +18,7 @@ const computeCal = function (epoch, tz, world) {
     offset: zone.offset || 0
   }
   // kick the epoch around, according to our DST offset
-  let changes = getDst(tz, year, world)
+  let changes = dstChanges(tz, year, world)
   if (zone.hem === 's') {
     // southern hemisphere
     for (let i = 0; i < changes.length; i += 1) {
@@ -47,12 +43,12 @@ const computeCal = function (epoch, tz, world) {
   let diff = epoch - start;
   let daysDiff = Math.floor(diff / DAY);
   // compute month, date
-  let resDate = getDate(daysDiff, year)
+  let resDate = getDate(daysDiff, year, world)
   Object.assign(cal, resDate)
 
   // compute hour, min, sec..
   let deltaMs = diff - (daysDiff * DAY)
-  let resMins = getTime(deltaMs)
+  let resMins = getTime(deltaMs, world)
   Object.assign(cal, resMins)
   return cal
 }

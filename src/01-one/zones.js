@@ -1,8 +1,9 @@
-let zones = {
-  'Etc/GMT': { offset: 0, hem: 'n' }
-}
+// ===  spacetime /one doesn't have timezones ==
+// but we can shim-in these Etc ones, which work okay
 
-// generate these sorta-fake timezones for spacetime/one
+let zones = { 'Etc/GMT': { offset: 0, hem: 'n' } }
+
+// generate these sorta-fake timezones 
 for (let i = -14; i <= 14; i += 0.5) {
   let num = i
   if (num > 0) {

@@ -1,7 +1,4 @@
-// import isLeap from './compute/_lib/isLeap.js'
-// import { YEAR, LEAPYEAR, DAY, HOUR } from './compute/_lib/millis.js'
-// import zoneFile from '../../../zonefile/iana.js'
-// import zoneFile from '../../../02-two/zones/data/index.js'
+import getOffset from './getOffset.js'
 
 // const MAXOFFSET = -DAY * 2
 const memo = {}
@@ -40,27 +37,12 @@ const utcStart = function (year, world) {
   return epoch
 }
 
-const januaryOffset = function (tz, world) {
-  const { HOUR } = world.model.ms
-  // apply timezone offset to it
-  let zoneFile = world.zones
-  if (tz && zoneFile.hasOwnProperty(tz) && zoneFile[tz]) {
-    let zone = zoneFile[tz]
-    let offset = zone.offset || 0
-    // are we in DST on Jan 1st?
-    // all 16 southern hemisphere zones w/ DST
-    if (zone.hem === 's' && zone.dst) {
-      offset += zone.change || 1
-    }
-    return offset * HOUR
-  }
-  return 0
-}
+
 
 // get UTC epoch for jan 1
 const yearStart = function (year, tz, world) {
   let epoch = utcStart(year, world)
-  epoch -= januaryOffset(tz, world)
+  epoch -= getOffset(tz, world)
   return epoch
 }
 
