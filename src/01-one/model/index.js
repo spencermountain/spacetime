@@ -1,9 +1,10 @@
+
+
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 const YEAR = 365 * DAY //non-leap
-
 
 export default {
   months: [
@@ -40,8 +41,9 @@ export default {
     SECOND, MINUTE, HOUR, DAY, YEAR
   },
 
-  units: {
-    second: [1, 'second'],
-    decade: [10, 'year'],
-  }
+  // zones
+  // units: {
+  //   second: [1, 'second'],
+  //   decade: [10, 'year'],
+  // }
 }

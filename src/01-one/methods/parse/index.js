@@ -1,4 +1,4 @@
-import findTz from './tz.js'
+import findTz from '../../../02-two/zones/tz.js'
 import toCal from './toCal.js'
 import isValid from './validate.js'
 
@@ -12,7 +12,7 @@ const isNumber = val => {
 
 const parse = function (input, tz, world) {
   // reconcile timezone
-  tz = findTz(tz, world)
+  tz = world.methods.parseTz(tz, world)
 
   // null means now
   if (input === null || input === undefined) {
@@ -33,6 +33,7 @@ const parse = function (input, tz, world) {
     throw new Error(`Error: invalid spacetime input: '${input}'`);
   }
   console.log(cal)
+  return { epoch: null, tz }
 
 }
 export default parse

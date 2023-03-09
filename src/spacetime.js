@@ -1,17 +1,19 @@
-import parse from './01-one/methods/parse/index.js'
-import world from './01-one/world/world.js'
+// import parse from './01-one/methods/parse/index.js'
+// import world from './01-one/world/world.js'
 // import api from './01-one/api/index.js'
+import world from './world.js'
+
 
 class SpaceTime {
   constructor(input, tz) {
-    let res = parse(input, tz, world)
+    // define data
+    Object.defineProperty(this, 'world', { value: world })
+    // generate an epoch, when possible
+    let res = world.methods.parse(input, tz, world)
     //the holy UNIX moment
     this._epoch = res.epoch
     //the IANA code for the current timezone
     this.tz = res.tz
-
-    // define data
-    Object.defineProperty(this, 'world', { value: world })
     // this is handy, too
     Object.defineProperty(this, 'isSpacetime', { value: true })
   }

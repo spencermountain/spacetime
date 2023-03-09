@@ -1,4 +1,8 @@
 import getDay from './getDay.js'
+import parse from './parse/index.js'
+import parseTz from './parseTz.js'
+
+
 
 export default {
   // from https://www.timeanddate.com/date/leapyear.html
@@ -6,6 +10,9 @@ export default {
 
   getDay: (cal) => getDay(cal.year, cal.month, cal.date),
 
-  now: () => new Date().getTime(),
+  // parse input string into epoch
+  parse,
 
+  // determine known timezone
+  parseTz
 }

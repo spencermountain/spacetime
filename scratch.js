@@ -1,4 +1,4 @@
-import spacetime from './src/index.js'
+import spacetime from './src/01-one/index.js'
 // import { DateTime } from "luxon";
 // import old from './old/src/index.js'
 
