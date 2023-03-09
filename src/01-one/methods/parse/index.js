@@ -28,7 +28,8 @@ const parse = function (input, tz, world) {
   let cal = toCal(input, tz, world)
   // throw an error if input creates invalid date
   if (isValid(cal) === false) {
-    throw new Error(`Error: invalid spacetime input: '${input}'`);
+    console.error(`Error: invalid spacetime input: '${input}'`)
+    throw new Error('InvalidDate');
   }
 
   // try to pull an tz off end of ISO-string

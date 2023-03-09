@@ -6,6 +6,7 @@ import compare from './compare/index.js'
 import diff from './diff/index.js'
 import startOf from './startOf.js'
 import misc from './misc.js'
+import { zeroPad } from './format/_lib.js'
 
 let methods = {}
 
@@ -29,7 +30,7 @@ Object.keys(getters).forEach(fn => {
 })
 
 // add format methods
-Object.assign(methods, fmts, add, compare, startOf, misc, diff)
+Object.assign(methods, add, fmts, compare, startOf, misc, diff)
 
 methods.time = function (input) {
   if (input !== undefined) {
@@ -39,19 +40,14 @@ methods.time = function (input) {
     let e = world.methods.getEpoch(c, tz, this.world)
     return this._from(e, tz)
   }
-  return this.format('time')
+  return `${this.hour()}:${zeroPad(this.minute())}${this.ampm()}`
 }
 
 methods.clone = function () {
   return this._from(this.epoch, this.tz)
 }
 
-methods.isValid = function () {
-  let { epoch, tz, world } = this
-  let cal = world.methods.getCal(epoch, tz)
-  // console.log(cal)
-  return true
-}
+methods.isValid = () => true
 
 methods.hasDst = function () {
   let { tz, world } = this

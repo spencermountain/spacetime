@@ -13,7 +13,6 @@ let getter = {
     let num = Math.floor(cal.year / 1000)
     return num >= 0 ? num + 1 : num// millenia are 1-based, in AD
   },
-  // offset: (cal) => cal.offset * 60,
   era: (cal) => cal.year < 0 ? 'BC' : 'AD',
   quarter: (cal) => {
     let m = cal.month
@@ -26,8 +25,6 @@ let getter = {
     }
     return 4
   },
-  season: (cal) => { },
-  dayTime: (cal) => { },
   hour12: (cal) => {
     let hour = cal.hour
     if (hour > 12) {

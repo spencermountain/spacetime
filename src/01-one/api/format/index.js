@@ -1,18 +1,27 @@
-// import getCal from '../../compute/cal/index.js'
-import replace from './replace.js'
-import formats from './formats.js'
+import fmts from './formats.js'
 import unixFmt from './unix.js'
 
+const multiReplace = function (cal, str) {
+  let sections = /\{(.+?)\}/g
+  str = str.replace(sections, (_, name) => {
+    name = name.toLowerCase().trim()
+    if (fmts.hasOwnProperty(name)) {
+      return fmts[name](cal)
+    }
+    return `{${name}}`
+  })
+  return str
+}
 
 let methods = {
   format: function (fmt = 'iso-short') {
     const { epoch, tz, world } = this
     const getCal = world.methods.getCal
     let cal = getCal(epoch, tz, world)
-    if (fmt && formats.hasOwnProperty(fmt)) {
-      return formats[fmt](cal, world)
+    if (fmt && fmts.hasOwnProperty(fmt)) {
+      return fmts[fmt](this)
     }
-    return replace(cal, fmt)
+    return multiReplace(cal, fmt)
   },
   unixFmt: function (fmt) {
     const { epoch, tz, world } = this
@@ -28,7 +37,7 @@ diriv.forEach(fn => {
   methods[fn] = function () {
     const getCal = this.methods.getCal
     let cal = getCal(this.epoch, this.tz)
-    return formats[fn](cal)
+    return fmts[fn](cal)
   }
 })
 
