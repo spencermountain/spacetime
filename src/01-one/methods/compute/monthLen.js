@@ -1,7 +1,7 @@
-import isLeapYear from './compute/_lib/isLeap.js'
-import months from './compute/_lib/months.js'
 
-const monthLen = function (n, year) {
+const monthLen = function (n, year, world) {
+  const { isLeapYear } = world.methods
+  const { months } = world.model
   if (n === 2 && isLeapYear(year)) {
     return 29
   }

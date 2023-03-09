@@ -6,7 +6,6 @@ import model from './model/index.js'
 import zones from './zones.js'
 
 lib.plugin({
-  // world,
   zones,
   model,
   methods,
