@@ -26,7 +26,7 @@ const slideUnits = {
 export default {
 
   add: function (n, unit) {
-    let { epoch, tz } = this
+    let { epoch, tz, world } = this
     // let epoch = add(this.epoch, n, unit)
     if (n === 0 || !unit) {
       return this._from(epoch, tz)
@@ -58,7 +58,7 @@ export default {
     // add a 'tick' unit
     let cal = getCal(epoch, tz)
     cal = tickBy(cal, n, unit)
-    epoch = getEpoch(cal, tz)
+    epoch = getEpoch(cal, tz, world)
     return this._from(epoch, tz)
   },
 

@@ -31,7 +31,7 @@ const mapping = {
   M: (c) => c.month,
   MM: (c) => zeroPad(c.month),
   MMM: (c) => f['month-short'](c),
-  MMMM: (c) => titleCase(g.monthName(c)),
+  MMMM: (c, _tz, world) => titleCase(g.monthName(c, _tz, world)),
 
   //week
   w: (c) => g.week(c),
@@ -83,9 +83,9 @@ const mapping = {
   //milliseconds
   SSS: (c) => zeroPad(c.millisecond, 3),
   //milliseconds into the day
-  A: (c) => {
+  A: (c, tz, world) => {
     let morn = Object.assign({}, c, { hour: 0, minute: 0, second: 0, millisecond: 0 })
-    return getEpoch(c) - getEpoch(morn)
+    return getEpoch(c) - getEpoch(morn, tz, world)
   },
   //timezone
   z: (_, tz) => tz,
@@ -162,7 +162,7 @@ const combineRepeated = function (arr) {
   return arr
 }
 
-const unixFmt = (cal, str, tz) => {
+const unixFmt = (cal, str, tz, world) => {
   let arr = str.split('')
   // support character escaping
   arr = escapeChars(arr)
@@ -170,7 +170,7 @@ const unixFmt = (cal, str, tz) => {
   arr = combineRepeated(arr)
   return arr.reduce((txt, c) => {
     if (mapping[c] !== undefined) {
-      txt += mapping[c](cal, tz) || ''
+      txt += mapping[c](cal, tz, world) || ''
     } else {
       // 'unescape'
       if (/^'.+'$/.test(c)) {

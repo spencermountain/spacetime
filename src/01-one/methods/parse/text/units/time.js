@@ -1,10 +1,11 @@
+import parseHour from './hour.js'
+
 const startOfDay = {
   hour: 0,
   minute: 0,
   second: 0,
   millisecond: 0,
 }
-import parseHour from './hour.js'
 
 
 // truncate any sub-millisecond values

@@ -1,4 +1,4 @@
-import getDay from '../../compute/_lib/getDay.js'
+import getDay from '../../world/methods/getDay.js'
 // import months from '../../compute/_lib/months.js'
 // import isLeapYear from '../../compute/_lib/isLeap.js'
 

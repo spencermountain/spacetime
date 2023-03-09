@@ -14,7 +14,7 @@ let methods = {
   },
   unixFmt: function (fmt) {
     let cal = getCal(this.epoch, this.tz)
-    return unixFmt(cal, fmt, this.tz)
+    return unixFmt(cal, fmt, this.tz, this.world)
   }
 }
 

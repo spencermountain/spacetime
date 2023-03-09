@@ -28,16 +28,16 @@ const isAfter = function (a, b) {
   return true
 }
 
-const getEpoch = function (cal, tz) {
+const getEpoch = function (cal, tz, world) {
   // set secure defaults
   cal = validate(cal)
 
   // set our cal to Jan 1 of this year
-  let epoch = getStart(cal.year, tz)
+  let epoch = getStart(cal.year, tz, world)
   let have = Object.assign({}, NEW_YEAR, { year: cal.year })
 
   // consult any DST changes this year
-  let changes = getDst(tz, cal.year).reverse()
+  let changes = getDst(tz, cal.year, world).reverse()
   let change = changes.find(c => isAfter(cal, c.cal))
   if (change) {
     epoch = change.epoch

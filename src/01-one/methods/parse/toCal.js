@@ -1,17 +1,9 @@
-import world from '../../world.js'
-import getEpoch from '../compute/epoch/index.js'
-// import zoneFile from '../../02-two/zones/index.js'
-import findTz from './tz/index.js'
-import { parseMonth } from './formats/units/index.js'
+import formats from './text/index.js'
+import { parseMonth } from './text/units/index.js'
 
 
 // order for Array input
 const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
-import parseText from './text.js'
-
-const isNumber = val => {
-  return typeof val === 'number' && isFinite(val)
-}
 
 const isObject = val => {
   return Object.prototype.toString.call(val) === '[object Object]'
@@ -25,22 +17,30 @@ const isString = val => {
   return typeof val === 'string'
 }
 
-const parse = function (input, tz) {
-  // reconcile timezone
-  tz = findTz(tz)
 
-  // null means now
-  if (input === null || input === undefined) {
-    return { epoch: world.now.epoch(), tz }
-  }
-  // epoch input
-  if (isNumber(input)) {
-    // if the given epoch is really small, they've probably given seconds and not milliseconds
-    if (world.config.minimumEpoch && input < world.config.minimumEpoch && input > 0) {
-      input *= 1000
+const parseText = function (txt, tz) {
+  let cal = {}
+  // normalize it a bit first
+  txt = txt.toLowerCase()
+  txt = txt.replace(/([0-9])(th|rd|st|nd)\b/, '$1')
+  txt = txt.replace(/\b(mon|tues?|wed|wednes|thur?s?|fri|sat|satur|sun)(day)?\b/i, '')
+  txt = txt.replace(/,/g, '')
+  txt = txt.replace(/ +/g, ' ').trim()
+  txt = txt.trim()
+  for (let i = 0; i < formats.length; i += 1) {
+    let m = txt.match(formats[i].reg)
+    if (m !== null) {
+      // console.log(`reg #${i} - ${formats[i].reg}`)
+      let res = formats[i].parse(m)
+      if (res) {
+        return res
+      }
     }
-    return { epoch: input, tz }
   }
+  return cal
+}
+
+const toCal = function (input, tz, world) {
   // support ordered array as input [2020, 04, 1] → {year:2020 ...}
   if (isArray(input)) {
     let cal = units.reduce((h, k, i) => {
@@ -50,16 +50,16 @@ const parse = function (input, tz) {
     if (cal.month) {
       cal.month = parseMonth(cal.month)
     }
-    return { epoch: getEpoch(cal, tz), tz }
+    return cal
   }
-  // given {year:2020 ...}
+  // object input - given {year:2020 ...}
   if (input && isObject(input)) {
     // interpret a spacetime object as input
     if (input.isSpacetime === true) {
       return input.clone()
     }
     let cal = Object.assign({}, input)//don't mutate original
-    return { epoch: getEpoch(cal, tz), tz }
+    return cal
   }
   // pull-apart ISO formats, etc
   if (isString(input)) {
@@ -72,8 +72,8 @@ const parse = function (input, tz) {
         tz = `Etc/GMT-${cal.offset}`
       }
     }
-    return { epoch: getEpoch(cal, tz), tz }
+    return cal
   }
   return {}
 }
-export default parse
+export default toCal

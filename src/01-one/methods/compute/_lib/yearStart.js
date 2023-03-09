@@ -1,7 +1,7 @@
 import isLeap from './isLeap.js'
 import { YEAR, LEAPYEAR, DAY, HOUR } from './millis.js'
 // import zoneFile from '../../../zonefile/iana.js'
-import zoneFile from '../../../02-two/zones/data/index.js'
+// import zoneFile from '../../../02-two/zones/data/index.js'
 
 const MAXOFFSET = -DAY * 2
 const memo = {}
@@ -38,8 +38,9 @@ const utcStart = function (year) {
   return epoch
 }
 
-const januaryOffset = function (tz) {
+const januaryOffset = function (tz, world) {
   // apply timezone offset to it
+  let zoneFile = world.zones
   if (tz && zoneFile.hasOwnProperty(tz) && zoneFile[tz]) {
     let zone = zoneFile[tz]
     let offset = zone.offset || 0
@@ -54,17 +55,17 @@ const januaryOffset = function (tz) {
 }
 
 // get UTC epoch for jan 1
-const getStart = function (year, tz) {
+const getStart = function (year, tz, world) {
   let epoch = utcStart(year)
-  epoch -= januaryOffset(tz)
+  epoch -= januaryOffset(tz, world)
   return epoch
 }
 
 // from a random epoch, get it's Jan 1st alignment
-const getYear = function (target, tz) {
+const getYear = function (target, tz, world) {
   let epoch = 0
   // apply timezone offset to it
-  epoch -= januaryOffset(tz)
+  epoch -= januaryOffset(tz, world)
   let year = 1970
   // count upwards from 1970
   if (target > MAXOFFSET) {

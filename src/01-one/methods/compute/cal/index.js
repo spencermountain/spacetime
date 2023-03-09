@@ -8,9 +8,9 @@ import zoneFile from '../../../02-two/zones/data/index.js'
 import getDst from '../changes/index.js'
 
 // take an epoch, return {month, year, date...}
-const computeCal = function (epoch, tz) {
+const computeCal = function (epoch, tz, world) {
   // get Jan 1 of the year
-  let { start, year } = getYear(epoch, tz)
+  let { start, year } = getYear(epoch, tz, world)
   let zone = zoneFile[tz] || {}
   let cal = {
     year,
@@ -22,7 +22,7 @@ const computeCal = function (epoch, tz) {
     offset: zone.offset || 0
   }
   // kick the epoch around, according to our DST offset
-  let changes = getDst(tz, year)
+  let changes = getDst(tz, year, world)
   if (zone.hem === 's') {
     // southern hemisphere
     for (let i = 0; i < changes.length; i += 1) {

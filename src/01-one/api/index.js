@@ -24,7 +24,7 @@ Object.keys(getters).forEach(fn => {
     // setter method
     if (input !== undefined) {
       let c = setters[fn](input, cal, tz, dir)
-      let e = getEpoch(c, tz)
+      let e = getEpoch(c, tz, world)
       return this._from(e, tz)
     }
     // getter method
@@ -40,7 +40,7 @@ methods.time = function (input) {
     let { epoch, tz } = this
     let cal = getCal(epoch, tz)
     let c = setters.time(input, cal, tz)
-    let e = getEpoch(c, tz)
+    let e = getEpoch(c, tz, world)
     return this._from(e, tz)
   }
   return this.format('time')
@@ -76,7 +76,7 @@ methods.inDst = function () {
     return false
   }
   let cal = getCal(epoch, tz)
-  let res = getDst(tz, cal.year)
+  let res = getDst(tz, cal.year, world)
   // console.log(res)
   return true
 }

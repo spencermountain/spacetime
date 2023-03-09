@@ -1,19 +1,19 @@
 import patterns from '../../../../zonefile/patterns.js'
-import zones from '../../../../zonefile/iana.js'
+// import zones from '../../../../zonefile/iana.js'
 import calc from './calculate.js'
 import { HOUR } from '../_lib/millis.js'
 
 let memo = {}
 
 // calculate DST times, for this timezone
-const getDst = function (tz, year) {
+const getDst = function (tz, year, world) {
   // try and calculate each tz+year pair only once
   if (memo.hasOwnProperty(tz) && memo[tz].hasOwnProperty(year)) {
     return memo[tz][year]
   }
   memo[tz] = memo[tz] || {}
 
-  let { dst, offset, change, hem } = zones[tz] || {}
+  let { dst, offset, change, hem } = world.zones[tz] || {}
   change = change || 1
 
   let changes = []

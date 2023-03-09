@@ -1,5 +1,5 @@
 import { getStart } from '../_lib/yearStart.js'
-import getDay from '../_lib/getDay.js'
+import getDay from '../../world/methods/getDay.js'
 import isLeapYear from '../_lib/isLeap.js'
 import { HOUR, DAY } from '../_lib/millis.js'
 import MONTHS from '../_lib/months.js'

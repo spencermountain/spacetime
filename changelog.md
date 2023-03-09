@@ -6,9 +6,10 @@ This project follows semVer, where:
 
 <!-- 
  ### 8.0.0 [Jan 2022]
- - **[change]** - return properly titlecased IANA codes
+ - **[breaking]** - throw an error on invalid input 'jan 52nd' eg.
  - **[breaking]** - remove `.add(1, 'weekend')`
  - **[breaking]** - remove `.dayTime()`
+ - **[change]** - return properly titlecased IANA codes
  - **[change]** - set 100 iana codes as aliases (via tzdb)
  - **[change]** - remove {quarters, weeks} from default diff() result
  - **[new]** - `.json()` method

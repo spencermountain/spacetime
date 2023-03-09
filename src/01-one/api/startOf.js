@@ -53,7 +53,7 @@ export default {
       s = s.startOf('day')
       cal = getCal(s.epoch, s.tz)
     }
-    let epoch = getEpoch(cal, this.tz)
+    let epoch = getEpoch(cal, this.tz, this.world)
     return this._from(epoch)
   },
   next: function (unit) {

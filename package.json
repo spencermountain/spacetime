@@ -9,19 +9,19 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "import": "./src/two.js",
+      "import": "./src/index.js",
       "require": "./builds/spacetime-two.cjs"
     },
     "./one": {
-      "import": "./src/one.js",
+      "import": "./src/01-one/index.js",
       "require": "./builds/spacetime-one.cjs"
     },
     "./two": {
-      "import": "./src/two.js",
+      "import": "./src/02-two/index.js",
       "require": "./builds/spacetime-two.cjs"
     },
     "./three": {
-      "import": "./src/three.js",
+      "import": "./src/03-three/index.js",
       "require": "./builds/spacetime-three.cjs"
     }
   },

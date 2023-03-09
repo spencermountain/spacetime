@@ -1,7 +1,7 @@
 import { titleCase, zeroPad, ordinal } from './_lib.js'
 import g from '../getter/index.js'
-import world from '../../../world.js'
-let { days, months } = world.config
+import world from '../../world/world.js'
+let { days, months } = world.i18n
 
 const fmt = {
 
