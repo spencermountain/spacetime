@@ -22,6 +22,9 @@ const isValid = function (cal, tz, world) {
   if (cal.millisecond && cal.millisecond < 0 && cal.millisecond > 1000) {
     return false
   }
+  if (cal.offset && cal.offset < -14 && cal.offset > 14) {
+    return false
+  }
   return true
 }
 export default isValid

@@ -1,6 +1,7 @@
 import getDay from './getDay.js'
 import parse from './parse/index.js'
 import parseTz from './parseTz.js'
+import fallbackTz from './fallbackTz.js'
 
 
 
@@ -14,5 +15,6 @@ export default {
   parse,
 
   // determine known timezone
-  parseTz
+  parseTz,
+  fallbackTz
 }

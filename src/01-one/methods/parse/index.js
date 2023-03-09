@@ -32,7 +32,19 @@ const parse = function (input, tz, world) {
   if (isValid(cal) === false) {
     throw new Error(`Error: invalid spacetime input: '${input}'`);
   }
+
   console.log(cal)
+
+  // try to pull an tz off end of ISO-string
+  if (!tz) {
+    if (cal.offset) {
+      let isoTz = world.methods.parseTz(cal.offset, world)
+      if (world.zones.hasOwnProperty(isoTz)) {
+        tz = isoTz
+      }
+    }
+    tz = tz || world.methods.fallbackTz(world)
+  }
   return { epoch: null, tz }
 
 }
