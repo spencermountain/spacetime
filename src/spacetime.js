@@ -21,7 +21,7 @@ class SpaceTime {
   get epoch() {
     // is it playing?
     if (this.isRunning && this.startEpoch !== null) {
-      let ms = this.world.now.epoch() - this.startEpoch
+      let ms = this.methods.now() - this.startEpoch
       return this._epoch + ms
     }
     return this._epoch

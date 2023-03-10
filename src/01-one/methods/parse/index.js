@@ -14,7 +14,7 @@ const parse = function (input, tz, world) {
 
   // null means now
   if (input === null || input === undefined) {
-    return { epoch: world.now.epoch(), tz }
+    return { epoch: world.methods.now(), tz }
   }
   // epoch input
   if (isNumber(input)) {
@@ -27,7 +27,7 @@ const parse = function (input, tz, world) {
 
   let cal = toCal(input, tz, world)
   // throw an error if input creates invalid date
-  if (isValid(cal) === false) {
+  if (isValid(cal) === false && world.config.throwUnparsedDate) {
     console.error(`Error: invalid spacetime input: '${input}'`)
     throw new Error('InvalidDate');
   }

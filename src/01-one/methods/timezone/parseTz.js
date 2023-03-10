@@ -4,7 +4,7 @@ const isNumber = val => {
 
 // this method is replaced in /two
 const parseTz = function (input, world) {
-  let zones = world.zones || {}
+  let { zones, config } = world
 
   // shim-together a timezone from a numeric offset
   if (isNumber(input) === true) {
@@ -23,6 +23,10 @@ const parseTz = function (input, world) {
   }
   if (input === 'z' || input === 'Z') {
     return 'Etc/GMT'
+  }
+  if (config.throwUnknownTz) {
+    console.error(`Unknown timezone: '${input}'`)
+    throw new Error(`Spacetime: Unknown timezone`);
   }
 
   return null

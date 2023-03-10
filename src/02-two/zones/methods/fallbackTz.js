@@ -19,20 +19,24 @@ const safeIntl = () => {
 }
 
 //do it once per computer
-let tzOfComputer = safeIntl()
+const tzOfComputer = safeIntl()
 
-const findTz = function (str, world) {
-  str = str || ''
-  if (world.zones.hasOwnProperty(str)) {
-    return str
+const fallbackTz = function (world) {
+  // deduce computer timezone?
+  if (world.config.tryLocalTimezone) {
+
+    // use our Intl version, if found
+    if (tzOfComputer && tzOfComputer !== 'Etc/Unknown') {
+      return tzOfComputer
+    }
+    // try the sloppier version
+    const mins = new Date().getTimezoneOffset()// get (current) timezone offset from js Date
+    let h = mins / 60
+    let name = `Etc/GMT${h * -1}`
+    if (world.zones.hasOwnProperty(name)) {
+      return name
+    }
   }
-  str = str.toLowerCase().trim()
-  // if (aliases.hasOwnProperty(str)) {
-  //   return aliases[str]
-  // }
-  // if (mapping.hasOwnProperty(str)) {
-  //   return mapping[str]
-  // }
-  return tzOfComputer || world.config.fallbackTz
+  return world.config.fallbackTz || null
 }
-export default findTz
+export default fallbackTz
