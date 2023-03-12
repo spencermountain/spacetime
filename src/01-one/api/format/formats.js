@@ -4,13 +4,13 @@ import { titleCase, zeroPad, ordinal } from './_lib.js'
 const fmt = {
 
   day: (s) => titleCase(s.dayName()),
-  'day-short': (s) => titleCase(s.world.model.days[s.day()].short),
+  'day-short': (s) => titleCase(s.world.model.days[s.day()].shortForm),
   'day-number': (s) => s.day(),
   'day-ordinal': (s) => ordinal(s.day()),
   date: (s) => s.date(),
   'date-ordinal': (s) => ordinal(s.date()),
   month: (s) => titleCase(s.monthName()),
-  'month-short': (s) => titleCase(s.world.model.months[s.month()].short),
+  'month-short': (s) => s.monthName(),//titleCase(s.world.model.months[s.month()].shortForm),
   'month-number': (s) => s.month(),
   'month-ordinal': (s) => ordinal(s.month()),
   'iso-month': (s) => zeroPad(s.month() + 1), //1-based months
@@ -73,7 +73,7 @@ fmt['iso-short'] = (s) => `${fmt['iso-year'](s)}-${fmt['iso-month'](s)}-${zeroPa
 fmt['iso-medium'] = (s) => `${fmt['iso-short'](s)}T${zeroPad(s.hour())}:${zeroPad(s.minute())}:${zeroPad(s.second())}.${zeroPad(s.millisecond(), 3)}`
 fmt['iso'] = (c) => `${fmt['iso-medium'](c)}${fmt.offset(c)}`
 //i made these up
-fmt['nice'] = (s) => `${fmt['month-short'](s)} ${fmt['date-ordinal'](s)}, ${fmt['time'](s)}`
+fmt['nice'] = (s) => `${fmt['month-short'](s)} ${fmt['date-ordinal'](s)}, ${s.time()}`
 fmt['nice-day'] = (s) => `${fmt['day-short'](s)} ${fmt['month-short'](s)} ${fmt['date-ordinal'](s)}`
 
 // aliases

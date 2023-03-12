@@ -23,5 +23,6 @@ export default {
   getEpoch,
   dstChanges,
   getYear,
-  getCal
+  getCal,
+  monthLen
 }

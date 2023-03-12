@@ -40,9 +40,10 @@ const startMisc = {
 
 export default {
   startOf: function (unit) {
-    const { getCal, getEpoch } = this.methods
+    const { tz, epoch, world } = this
+    const { getCal, getEpoch } = world.methods
     unit = getUnit(unit)
-    let cal = getCal(this.epoch, this.tz)
+    let cal = getCal(epoch, tz, world)
     if (z.hasOwnProperty(unit)) {
       cal = Object.assign(cal, z[unit])
     } else if (startMisc.hasOwnProperty(unit)) {
@@ -52,10 +53,10 @@ export default {
     if (unit === 'week') {
       let s = this.day(this.world.config.weekStart)
       s = s.startOf('day')
-      cal = getCal(s.epoch, s.tz)
+      cal = getCal(s.epoch, s.tz, world)
     }
-    let epoch = getEpoch(cal, this.tz, this.world)
-    return this._from(epoch)
+    let e = getEpoch(cal, this.tz, this.world)
+    return this._from(e)
   },
   next: function (unit) {
     unit = getUnit(unit)

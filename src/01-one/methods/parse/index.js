@@ -14,6 +14,7 @@ const parse = function (input, tz, world) {
 
   // null means now
   if (input === null || input === undefined) {
+    tz = tz || world.methods.fallbackTz(world)
     return { epoch: world.methods.now(), tz }
   }
   // epoch input
@@ -22,6 +23,7 @@ const parse = function (input, tz, world) {
     if (world.config.minimumEpoch && input < world.config.minimumEpoch && input > 0) {
       input *= 1000
     }
+    tz = tz || world.methods.fallbackTz(world)
     return { epoch: input, tz }
   }
 
@@ -29,6 +31,7 @@ const parse = function (input, tz, world) {
   // throw an error if input creates invalid date
   if (isValid(cal) === false && world.config.throwUnparsedDate) {
     console.error(`Error: invalid spacetime input: '${input}'`)
+    console.error(JSON.stringify(cal, null, 2))
     throw new Error('InvalidDate');
   }
 

@@ -9,93 +9,90 @@ import f from './formats.js'
 
 //time-symbols we support
 const mapping = {
-  G: (c) => g.era(c),
-  GG: (c) => g.era(c),
-  GGG: (c) => g.era(c),
-  GGGG: (c) => (g.era(c) === 'AD' ? 'Anno Domini' : 'Before Christ'),
+  G: (s) => s.era(),
+  GG: (s) => s.era(),
+  GGG: (s) => s.era(),
+  GGGG: (s) => (s.era() === 'AD' ? 'Anno Domini' : 'Before Christ'),
   //year
-  y: (c) => c.year,
-  yy: (c) => zeroPad(Number(String(c.year).substring(2, 4))), //last two chars
-  yyy: (c) => c.year,
-  yyyy: (c) => c.year,
-  yyyyy: (c) => '0' + c.year,
-  // u: (c) => {},//extended non-gregorian years
+  y: (s) => s.year(),
+  yy: (s) => zeroPad(Number(String(s.year()).substring(2, 4))), //last two chars
+  yyy: (s) => s.year(),
+  yyyy: (s) => s.year(),
+  yyyyy: (s) => '0' + s.year(),
+  // u: (s) => {},//extended non-gregorian years
 
   //quarter
-  Q: (c) => g.quarter(c),
-  QQ: (c) => g.quarter(c),
-  QQQ: (c) => g.quarter(c),
-  QQQQ: (c) => g.quarter(c),
+  Q: (s) => s.quarter(s),
+  QQ: (s) => s.quarter(s),
+  QQQ: (s) => s.quarter(s),
+  QQQQ: (s) => s.quarter(s),
 
   //month
-  M: (c) => c.month,
-  MM: (c) => zeroPad(c.month),
-  MMM: (c) => f['month-short'](c),
-  MMMM: (c, _tz, world) => titleCase(g.monthName(c, _tz, world)),
+  M: (s) => s.month(),
+  MM: (s) => zeroPad(s.month()),
+  MMM: (s) => s.monthName(),
+  MMMM: (s) => titleCase(s.monthName()),
 
   //week
-  w: (c) => g.week(c),
-  ww: (c) => zeroPad(g.week(c)),
+  w: (s) => s.week(),
+  ww: (s) => zeroPad(s.week()),
   //week of month
-  // W: (c) => s.week(),
+  // W: (s) => s.week(),
 
   //date of month
-  d: (c) => c.date,
-  dd: (c) => zeroPad(c.date),
+  d: (s) => s.date(),
+  dd: (s) => zeroPad(s.date()),
   //date of year
-  D: (c) => g.dayOfYear(c),
-  DD: (c) => zeroPad(g.dayOfYear(c)),
-  DDD: (c) => zeroPad(g.dayOfYear(c), 3),
+  D: (s) => s.dayOfYear(),
+  DD: (s) => zeroPad(s.dayOfYear()),
+  DDD: (s) => zeroPad(s.dayOfYear(), 3),
 
-  // F: (c) => {},//date of week in month
-  // g: (c) => {},//modified julian day
+  // F: (s) => {},//date of week in month
+  // g: (s) => {},//modified julian day
 
   //day
-  E: (c) => f['day-short'](c),
-  EE: (c) => f['day-short'](c),
-  EEE: (c) => f['day-short'](c),
-  EEEE: (c) => f['day'](c),
-  EEEEE: (c) => f['day'](c)[0],
-  e: (c) => f['day'](c),
-  ee: (c) => f['day'](c),
-  eee: (c) => f['day-short'](c),
-  eeee: (c) => f['day'](c),
-  eeeee: (c) => f['day'](c)[0],
+  E: (s) => f['day-short'](s),
+  EE: (s) => f['day-short'](s),
+  EEE: (s) => f['day-short'](s),
+  EEEE: (s) => f['day'](s),
+  EEEEE: (s) => f['day'](s)[0],
+  e: (s) => f['day'](s),
+  ee: (s) => f['day'](s),
+  eee: (s) => f['day-short'](s),
+  eeee: (s) => f['day'](s),
+  eeeee: (s) => f['day'](s)[0],
 
   //am/pm
-  a: (c) => g.ampm(c).toUpperCase(),
-  aa: (c) => g.ampm(c).toUpperCase(),
-  aaa: (c) => g.ampm(c).toUpperCase(),
-  aaaa: (c) => g.ampm(c).toUpperCase(),
+  a: (s) => s.ampm().toUpperCase(),
+  aa: (s) => s.ampm().toUpperCase(),
+  aaa: (s) => s.ampm().toUpperCase(),
+  aaaa: (s) => s.ampm().toUpperCase(),
 
   //hour
-  h: (c) => g.hour12(c),
-  hh: (c) => zeroPad(g.hour12(c)),
-  H: (c) => c.hour,
-  HH: (c) => zeroPad(c.hour),
-  // j: (c) => {},//weird hour format
+  h: (s) => s.hour12(),
+  hh: (s) => zeroPad(s.hour12()),
+  H: (s) => s.hour(),
+  HH: (s) => zeroPad(s.hour()),
+  // j: (s) => {},//weird hour format
 
-  m: (c) => c.minute,
-  mm: (c) => zeroPad(c.minute),
-  s: (c) => c.second,
-  ss: (c) => zeroPad(c.second),
+  m: (s) => s.minute(),
+  mm: (s) => zeroPad(s.minute()),
+  s: (s) => s.second(),
+  ss: (s) => zeroPad(s.second()),
 
   //milliseconds
-  SSS: (c) => zeroPad(c.millisecond, 3),
+  SSS: (s) => zeroPad(s.millisecond(), 3),
   //milliseconds into the day
-  A: (c, tz, world) => {
-    let morn = Object.assign({}, c, { hour: 0, minute: 0, second: 0, millisecond: 0 })
-    return getEpoch(c) - getEpoch(morn, tz, world)
-  },
+  A: (s) => s.epoch - s.startOf('day').epoch,
   //timezone
-  z: (_, tz) => tz,
-  zz: (_, tz) => tz,
-  zzz: (_, tz) => tz,
-  zzzz: (_, tz) => tz,
-  Z: (c) => f.offset(c).replace(/:/, ''),
-  ZZ: (c) => f.offset(c).replace(/:/, ''),
-  ZZZ: (c) => f.offset(c).replace(/:/, ''),
-  ZZZZ: (c) => f.offset(c)
+  z: (s) => s.tz,
+  zz: (s) => s.tz,
+  zzz: (s) => s.tz,
+  zzzz: (s) => s.tz,
+  Z: (s) => f.offset(s).replace(/:/, ''),
+  ZZ: (s) => f.offset(s).replace(/:/, ''),
+  ZZZ: (s) => f.offset(s).replace(/:/, ''),
+  ZZZZ: (s) => f.offset(s)
 }
 
 const addAlias = (char, to, n) => {
@@ -162,18 +159,18 @@ const combineRepeated = function (arr) {
   return arr
 }
 
-const unixFmt = (cal, str, tz, world) => {
+const unixFmt = (s, str) => {
   let arr = str.split('')
   // support character escaping
   arr = escapeChars(arr)
-  //combine 'yyyy' as string.
+  //combine 'yyyy' as strins.
   arr = combineRepeated(arr)
   return arr.reduce((txt, c) => {
     if (mapping[c] !== undefined) {
-      txt += mapping[c](cal, tz, world) || ''
+      txt += String(mapping[c](s) || '')
     } else {
       // 'unescape'
-      if (/^'.+'$/.test(c)) {
+      if (/^'.+'$/.test(s)) {
         c = c.replace(/'/g, '')
       }
       txt += c

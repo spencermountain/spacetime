@@ -23,7 +23,7 @@ const diffDays = function (from, to, world) {
   let diff = 0
   // increment months
   for (let n = from.month; n < to.month; n += 1) {
-    // console.log(`+${months[n - 1].len} for ${months[n - 1].long}`)
+    // console.log(`+${months[n - 1].len} for ${months[n - 1].longForm}`)
     diff += months[n - 1].len
     if (n === 2 && isLeapYear(from.year)) {
       diff += 1 //add another

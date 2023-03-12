@@ -49,13 +49,13 @@ export default {
     const { world } = this
     if (input !== undefined) { }
     let n = this.day()
-    return world.model.days[n].long
+    return world.model.days[n].longForm
   },
-  monthName: (input) => {
+  monthName: function (input) {
     const { world } = this
     if (input !== undefined) { }
-    let n = this.day()
-    return world.model.months[n].long
+    let n = this.month()
+    return world.model.months[n].longForm
   },
   week: function (input) {
     if (input !== undefined) {
@@ -72,8 +72,9 @@ export default {
     return getter.dayOfYear(this)
   },
   daysInMonth: function () {
-    const monthLen = this.methods.monthLen
-    return monthLen(this.month() + 1, this.year())
+    const { world, methods } = this
+    const monthLen = methods.monthLen
+    return monthLen(this.month() + 1, this.year(), world)
   },
   isLeapYear: function () {
     const isLeapYear = this.methods.isLeapYear

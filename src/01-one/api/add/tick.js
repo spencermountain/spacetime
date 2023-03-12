@@ -12,7 +12,7 @@ let assumed = {
 
 const rollDays = function (cal, world) {
   const { monthLen } = world.methods
-  let len = monthLen(cal.month, cal.year)
+  let len = monthLen(cal.month, cal.year, world)
   while (cal.date > len) {
     cal.date -= len
     cal.month += 1
@@ -20,7 +20,7 @@ const rollDays = function (cal, world) {
       cal.year += Math.floor(cal.month / 12)
       cal.month = cal.month % 12
     }
-    len = monthLen(cal.month, cal.year)
+    len = monthLen(cal.month, cal.year, world)
   }
   return cal
 }
@@ -53,7 +53,7 @@ const rollFwd = function (cal, world) {
     // cal.month += 1//one-based
   }
   // now we can do the date+month
-  let len = monthLen(cal.month, cal.year)
+  let len = monthLen(cal.month, cal.year, world)
   if (cal.date > len) {
     cal = rollDays(cal, world)
   }
@@ -73,7 +73,7 @@ const rollBkwd = function (cal, world) {
       cal.year -= 1
       cal.month += 12
     }
-    let len = monthLen(cal.month, cal.year)
+    let len = monthLen(cal.month, cal.year, world)
     cal.date += len
   }
   // return cal

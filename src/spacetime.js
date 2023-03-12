@@ -31,25 +31,11 @@ class SpaceTime {
 // builder/factory
 SpaceTime.prototype._from = function (input, tz) {
   let s = new SpaceTime(input, tz || this.tz)
-  s.started = this.started
-  s.world = this.world
   return s
 }
 // Object.assign(SpaceTime.prototype, api)
 
-// add method aliases
-// const aliases = [
-//   ['hours', 'hour'],
-//   ['minutes', 'minute'],
-//   ['seconds', 'second'],
-//   ['minus', 'subtract'],
-//   ['plus', 'add'],
-//   ['isDst', 'inDst'],
-//   ['set', '_from'],
-// ]
-// aliases.forEach(a => {
-//   SpaceTime.prototype[a[0]] = SpaceTime.prototype[a[1]]
-// })
+
 
 
 export default SpaceTime

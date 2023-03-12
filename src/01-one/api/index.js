@@ -35,7 +35,7 @@ Object.assign(methods, add, fmts, compare, startOf, misc, diff)
 methods.time = function (input) {
   if (input !== undefined) {
     let { epoch, tz, world } = this
-    let cal = world.methods.getCal(epoch, tz)
+    let cal = world.methods.getCal(epoch, tz, world)
     let c = setters.time(input, cal, tz)
     let e = world.methods.getEpoch(c, tz, this.world)
     return this._from(e, tz)
@@ -68,7 +68,7 @@ methods.inDst = function () {
   if (!this.hasDst()) {
     return false
   }
-  let cal = getCal(epoch, tz)
+  let cal = getCal(epoch, tz, world)
   let res = dstChanges(tz, cal.year, world)
   // console.log(res)
   return true
@@ -77,7 +77,7 @@ methods.inDst = function () {
 methods.json = function () {
   let { epoch, tz, world } = this
   const { getCal, dstChanges } = world.methods
-  let out = getCal(epoch, tz)
+  let out = getCal(epoch, tz, world)
   out.epoch = epoch
   out.tz = tz
   let z = world.zones[tz] || {}
@@ -86,12 +86,25 @@ methods.json = function () {
   out.dst = dstChanges(tz, out.year)
   return out
 }
-// aliases
-methods.fmt = methods.format
-methods.text = methods.format
-// methods.leapYear = methods.isLeapYear
-// methods.isLeap = methods.isLeapYear
-methods.inDST = methods.inDst
-methods.hasDST = methods.hasDst
+
+// add method aliases
+const aliases = [
+  ['fmt', 'format'],
+  ['text', 'format'],
+  ['leapYear', 'isLeapYear'],
+  ['isLeap', 'isLeapYear'],
+  ['inDST', 'inDst'],
+  ['hasDST', 'hasDst'],
+  ['hours', 'hour'],
+  ['minutes', 'minute'],
+  ['seconds', 'second'],
+  ['minus', 'subtract'],
+  ['plus', 'add'],
+  ['isDst', 'inDst'],
+  ['set', '_from'],
+]
+aliases.forEach(a => {
+  methods[a[0]] = methods[a[1]]
+})
 
 export default methods

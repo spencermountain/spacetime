@@ -6,28 +6,28 @@ const YEAR = 365 * DAY // (non-leap)
 
 export default {
   months: [
-    { long: 'January', short: 'Jan', len: 31 },
-    { long: 'February', short: 'Feb', len: 28 }, // 29 in a leap year
-    { long: 'March', short: 'Mar', len: 31 },
-    { long: 'April', short: 'Apr', len: 30 },
-    { long: 'May', short: 'May', len: 31 },
-    { long: 'June', short: 'Jun', len: 30 },
-    { long: 'July', short: 'Jul', len: 31 },
-    { long: 'August', short: 'Aug', len: 31 },
-    { long: 'September', short: 'Sep', len: 30 },
-    { long: 'October', short: 'Oct', len: 31 },
-    { long: 'November', short: 'Nov', len: 30 },
-    { long: 'December', short: 'Dec', len: 31 },
+    { longForm: 'january', shortForm: 'jan', len: 31 },
+    { longForm: 'february', shortForm: 'feb', len: 28 }, // 29 in a leap year
+    { longForm: 'march', shortForm: 'mar', len: 31 },
+    { longForm: 'april', shortForm: 'apr', len: 30 },
+    { longForm: 'may', shortForm: 'may', len: 31 },
+    { longForm: 'june', shortForm: 'jun', len: 30 },
+    { longForm: 'july', shortForm: 'jul', len: 31 },
+    { longForm: 'august', shortForm: 'aug', len: 31 },
+    { longForm: 'september', shortForm: 'sep', len: 30 },
+    { longForm: 'october', shortForm: 'oct', len: 31 },
+    { longForm: 'november', shortForm: 'nov', len: 30 },
+    { longForm: 'december', shortForm: 'dec', len: 31 },
   ],
 
   days: [
-    { long: 'sunday', short: 'sun' },
-    { long: 'monday', short: 'mon' },
-    { long: 'tuesday', short: 'tue' },
-    { long: 'wednesday', short: 'wed' },
-    { long: 'thursday', short: 'thu' },
-    { long: 'friday', short: 'fri' },
-    { long: 'saturday', short: 'sat' }
+    { longForm: 'sunday', shortForm: 'sun' },
+    { longForm: 'monday', shortForm: 'mon' },
+    { longForm: 'tuesday', shortForm: 'tue' },
+    { longForm: 'wednesday', shortForm: 'wed' },
+    { longForm: 'thursday', shortForm: 'thu' },
+    { longForm: 'friday', shortForm: 'fri' },
+    { longForm: 'saturday', shortForm: 'sat' }
   ],
 
   time: {

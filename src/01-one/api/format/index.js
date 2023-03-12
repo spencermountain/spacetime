@@ -15,8 +15,8 @@ const multiReplace = function (s, str) {
 
 let methods = {
   format: function (fmt = 'iso-short') {
-    const { epoch, tz, world } = this
-    const getCal = world.methods.getCal
+    // const { epoch, tz, world } = this
+    // const getCal = world.methods.getCal
     // let cal = getCal(epoch, tz, world)
     if (fmt && fmts.hasOwnProperty(fmt)) {
       return fmts[fmt](this)
@@ -24,10 +24,10 @@ let methods = {
     return multiReplace(this, fmt)
   },
   unixFmt: function (fmt) {
-    const { epoch, tz, world } = this
-    const getCal = world.methods.getCal
-    let cal = getCal(epoch, tz, world)
-    return unixFmt(cal, fmt, tz, world)
+    // const { epoch, tz, world } = this
+    // const getCal = world.methods.getCal
+    // let cal = getCal(epoch, tz, world)
+    return unixFmt(this, fmt)
   },
   iso: function () {
     return this.format('iso')
@@ -39,7 +39,7 @@ let methods = {
 // diriv.forEach(fn => {
 //   methods[fn] = function () {
 //     const getCal = this.methods.getCal
-//     let cal = getCal(this.epoch, this.tz)
+//     let cal = getCal(this.epoch, this.tz, this.world)
 //     return fmts[fn](cal)
 //   }
 // })

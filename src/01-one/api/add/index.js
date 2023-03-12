@@ -5,7 +5,7 @@ export default {
 
   add: function (n, unit) {
     let { epoch, tz, world } = this
-    const { getCal, getEpoch } = this.methods
+    const { getCal, getEpoch } = world.methods
     const units = world.model.ms
     // let epoch = add(this.epoch, n, unit)
     if (n === 0 || !unit) {
@@ -36,7 +36,7 @@ export default {
       unit = 'year'
     }
     // add a 'tick' unit
-    let cal = getCal(epoch, tz)
+    let cal = getCal(epoch, tz, world)
     cal = tickBy(cal, n, unit, world)
     let e = getEpoch(cal, tz, world)
     return this._from(e, tz)
