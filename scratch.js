@@ -13,5 +13,6 @@ import spacetime from './src/01-one/index.js'
 
 // let config = { tryLocalTimezone: true, fallbackTz: 'Etc/GMT+9.5' }
 // spacetime.plugin({ config })
-let s = spacetime('2,000 BC')
+// let s = spacetime('2,000 BC')
+let s = spacetime([2022, 2])
 console.log(s.json())

@@ -42,9 +42,12 @@ const parseText = function (txt, tz) {
 
 const toCal = function (input, tz, world) {
   // support ordered array as input [2020, 04, 1] → {year:2020 ...}
-  if (isArray(input)) {
+  if (isArray(input) && input.length) {
     let cal = units.reduce((h, k, i) => {
       h[k] = input[i]
+      if (!h[k]) {
+        h[k] = k === 'month' || k === 'date' ? 1 : 0
+      }
       return h
     }, {})
     if (cal.month) {
