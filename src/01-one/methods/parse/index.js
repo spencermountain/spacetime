@@ -1,33 +1,47 @@
-import toCal from './toCal.js'
 import isValid from './validate.js'
-// import getEpoch from '../compute/epoch/index.js'
+import fromText from './text/index.js'
+import { fromEpoch, fromArray, fromObject } from './formats.js'
 
 
-const isNumber = val => {
-  return typeof val === 'number' && isFinite(val)
+const isNumber = val => typeof val === 'number' && isFinite(val)
+const isObject = val => Object.prototype.toString.call(val) === '[object Object]'
+const isArray = (arr) => Object.prototype.toString.call(arr) === '[object Array]'
+const isString = val => typeof val === 'string'
+
+const guessTz = function (cal) {
+  // replace tz with iso timezone
+  if (cal.offset !== null && cal.offset !== undefined) {
+    if (cal.offset < 0) {
+      return `Etc/GMT+${Math.abs(cal.offset)}`
+    } else {
+      return `Etc/GMT-${cal.offset}`
+    }
+  }
+  return null
 }
 
-
 const parse = function (input, tz, world) {
-  // reconcile timezone
-  tz = world.methods.parseTz(tz, world)
-
-  // null means now
+  // no input means now
   if (input === null || input === undefined) {
-    tz = tz || world.methods.fallbackTz(world)
     return { epoch: world.methods.now(), tz }
   }
-  // epoch input
+  // pull-apart input into calendar object
+  let cal = {}
   if (isNumber(input)) {
-    // if the given epoch is really small, they've probably given seconds and not milliseconds
-    if (world.config.minimumEpoch && input < world.config.minimumEpoch && input > 0) {
-      input *= 1000
+    return fromEpoch(input, tz, world)
+  }
+  if (isArray(input)) {
+    cal = fromArray(input, tz, world)
+  } else if (isObject(input)) {
+    // interpret a spacetime object as input
+    if (input.isSpacetime === true) {
+      return input.clone()
     }
-    tz = tz || world.methods.fallbackTz(world)
-    return { epoch: input, tz }
+    cal = fromObject(input, tz, world)
+  } else if (isString(input)) {
+    cal = fromText(input, tz, world)
   }
 
-  let cal = toCal(input, tz, world)
   // throw an error if input creates invalid date
   if (isValid(cal) === false && world.config.throwUnparsedDate) {
     console.error(`Error: invalid spacetime input: '${input}'`)
@@ -37,16 +51,9 @@ const parse = function (input, tz, world) {
 
   // try to pull an tz off end of ISO-string
   if (!tz) {
-    if (cal.offset || cal.offset === 0) {
-      let isoTz = world.methods.parseTz(cal.offset, world)
-      if (world.zones.hasOwnProperty(isoTz)) {
-        tz = isoTz
-      }
-    }
-    tz = tz || world.methods.fallbackTz(world)
+    tz = guessTz(cal) || world.methods.fallbackTz(world)
   }
   let epoch = world.methods.getEpoch(cal, tz, world)
-
   return { epoch, tz }
 
 }

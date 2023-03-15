@@ -6,6 +6,7 @@ const YEAR = 365 * DAY // (non-leap)
 
 export default {
   months: [
+    null,//1-based months
     { longForm: 'january', shortForm: 'jan', len: 31 },
     { longForm: 'february', shortForm: 'feb', len: 28 }, // 29 in a leap year
     { longForm: 'march', shortForm: 'mar', len: 31 },

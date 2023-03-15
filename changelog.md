@@ -6,14 +6,16 @@ This project follows semVer, where:
 
 <!-- 
  ### 8.0.0 [Jan 2022]
- - **[breaking]** - throw an error on invalid input 'jan 52nd' eg.
+ - **[breaking]** - use 1-based months in object and array inputs
+ - **[breaking]** - throw an error on invalid inputs 'jan 52nd' eg.
+ - **[change]** - return properly titlecased IANA codes
  - **[breaking]** - remove `.add(1, 'weekend')`
  - **[breaking]** - remove `.dayTime()`
- - **[change]** - return properly titlecased IANA codes
  - **[change]** - set 100 iana codes as aliases (via tzdb)
  - **[change]** - remove {quarters, weeks} from default diff() result
  - **[new]** - `.json()` method
  - **[new]** - `.goto(tz, {keepClock:true})` option
+ - **[new]** - allow setting offset manually in input - `spacetime({offset:3})`
  -->
  
  ### 7.4.1 [Jan 2023]

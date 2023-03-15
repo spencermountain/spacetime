@@ -82,7 +82,7 @@ methods.json = function () {
   out.tz = tz
   let z = world.zones[tz] || {}
   out.hem = z.hem
-  out.abbrevs = z.shrt
+  // out.abbrevs = z.shrt
   out.dst = dstChanges(tz, out.year)
   return out
 }
@@ -101,7 +101,7 @@ const aliases = [
   ['minus', 'subtract'],
   ['plus', 'add'],
   ['isDst', 'inDst'],
-  ['set', '_from'],
+  // ['set', '_from'],
 ]
 aliases.forEach(a => {
   methods[a[0]] = methods[a[1]]

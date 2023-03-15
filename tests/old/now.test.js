@@ -1,10 +1,9 @@
 import test from 'tape'
 import spacetime from './_lib.js'
-import tk from 'timekeeper'
+// import tk from 'timekeeper'
 
 test('now-is-now', (t) => {
-  let time = new Date(1554092400000) // 4:20, april 1st 2019 GMT
-  tk.travel(time)
+  spacetime.world.methods.now = () => 1554092400000// 4:20, april 1st 2019 GMT
 
   let d = spacetime(null, 'Etc/GMT')
   t.equal(d.format('nice-short'), 'Apr 1st, 4:20am', 'date object mocked to 4:20')
@@ -23,24 +22,24 @@ test('now-is-now', (t) => {
 
   d = spacetime.yesterday('Etc/GMT')
   t.equal(d.format('nice-short'), 'Mar 31st, 12:00am', 'its march 31st yesterday')
-  tk.reset()
+  // reset
+  spacetime.world.methods.now = () => new Date().getTime()
   t.end()
 })
 
 test('epoch-input', (t) => {
-  let gmt420 = 1554092400000 // 4:20, april 1st 2019 GMT
-  let time = new Date(gmt420)
-  tk.travel(time)
+  spacetime.world.methods.now = () => 1554092400000 // 4:20, april 1st 2019 GMT
 
   let moved = spacetime.now('Etc/GMT') //4:20
   moved = moved.goto('Canada/Eastern')
 
-  let epoch = spacetime(gmt420, 'Canada/Eastern')
+  let epoch = spacetime(1554092400000, 'Canada/Eastern')
   t.equal(moved.format('nice-short'), epoch.format('nice-short'), 'epoch input moves with goto')
 
   let explicit = spacetime([2019, 3, 1, 0, 20], 'Canada/Eastern')
   t.ok(explicit.isSame(epoch, 'minute'), 'explicit inputs==epoch inputs')
 
-  tk.reset()
+  // reset
+  spacetime.world.methods.now = () => new Date().getTime()
   t.end()
 })

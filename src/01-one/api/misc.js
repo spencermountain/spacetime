@@ -72,9 +72,8 @@ export default {
     return getter.dayOfYear(this)
   },
   daysInMonth: function () {
-    const { world, methods } = this
-    const monthLen = methods.monthLen
-    return monthLen(this.month() + 1, this.year(), world)
+    const monthLen = this.world.methods.monthLen
+    return monthLen(this.month(), this.year(), this.world)
   },
   isLeapYear: function () {
     const isLeapYear = this.methods.isLeapYear

@@ -13,12 +13,11 @@ test('set default tz', (t) => {
 })
 
 test('throw errors', (t) => {
-
   let config = { throwUnparsedDate: false, throwUnknownTz: false }
   spacetime.plugin({ config })
   t.doesNotThrow(() => spacetime('foo', 'foobar'), here + 'disable throw')
 
-  let s = spacetime('foo', 'foobar')
+  // let s = spacetime('foo', 'foobar')
 
   t.end()
 })

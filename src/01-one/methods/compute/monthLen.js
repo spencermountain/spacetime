@@ -5,6 +5,6 @@ const monthLen = function (n, year, world) {
   if (n === 2 && isLeapYear(year)) {
     return 29
   }
-  return months[n - 1].len
+  return months[n].len
 }
 export default monthLen

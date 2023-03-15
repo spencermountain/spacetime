@@ -1,7 +1,7 @@
 let getter = {
   year: (cal) => cal.year,
-  month: (cal) => cal.month - 1,//javascript uses 0-based months!
-  date: (cal) => cal.date,//1-based dates!
+  month: (cal) => cal.month,
+  date: (cal) => cal.date,
   hour: (cal) => cal.hour,
   minute: (cal) => cal.minute,
   second: (cal) => cal.second,

@@ -8,12 +8,15 @@ class SpaceTime {
   constructor(input, tz) {
     // define data
     Object.defineProperty(this, 'world', { value: world })
+    const { methods } = world
+    // reconcile timezone
+    tz = methods.parseTz(tz, world)
     // generate an epoch, when possible
-    let res = world.methods.parse(input, tz, world)
+    let res = methods.parse(input, tz, world)
     //the holy UNIX moment
     this._epoch = res.epoch
     //the IANA code for the current timezone
-    this.tz = res.tz
+    this.tz = res.tz || methods.fallbackTz(world)
     // this is handy, too
     Object.defineProperty(this, 'isSpacetime', { value: true })
   }
@@ -32,6 +35,14 @@ class SpaceTime {
 SpaceTime.prototype._from = function (input, tz) {
   let s = new SpaceTime(input, tz || this.tz)
   return s
+}
+SpaceTime.prototype.set = function (input, tz) {
+  const { methods } = world
+  // reconcile timezone
+  tz = methods.parseTz(tz, world)
+  // generate an epoch, when possible
+  let res = methods.parse(input, tz, world)
+  return this._from(res.epoch, res.tz)
 }
 // Object.assign(SpaceTime.prototype, api)
 

@@ -40,7 +40,7 @@ const toRightWeek = function (num, day, month) {
     return 0
   }
   if (num === 'last') {
-    let max = monthLengths[month + 1] || 31
+    let max = monthLengths[month] || 31
     let days = 0
     for (let i = 0; i < 5; i += 1) {
       days += 7
