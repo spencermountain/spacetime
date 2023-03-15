@@ -1,3 +1,5 @@
+import tick from './add/tick.js'
+
 const getter = {
   week: (s) => {
     let start = s.startOf('year').startOf('week')
@@ -40,7 +42,7 @@ export default {
       } else if (diff > 0 && fwd === false) {
         diff = diff - 7
       }
-      return tick(cal, diff, 'date')
+      return tick(cal, diff, 'date', world)
     }
     return world.methods.getDay(cal)
   },
@@ -76,7 +78,7 @@ export default {
     return monthLen(this.month(), this.year(), this.world)
   },
   isLeapYear: function () {
-    const isLeapYear = this.methods.isLeapYear
+    const isLeapYear = this.world.methods.isLeapYear
     return isLeapYear(this.year())
   },
   timezone: function () {
