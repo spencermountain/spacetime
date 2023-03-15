@@ -1,7 +1,7 @@
 import test from 'tape'
 import spacetime from './_lib.js'
 
-test('inputs', (t) => {
+test('inputs-basic', (t) => {
   let a = spacetime([2015, 3, 25])
   let b = spacetime('25 Mar 2015')
   let c = spacetime('Mar 25 2015')
@@ -18,6 +18,8 @@ test('inputs', (t) => {
   t.ok(a.isSame(g, 'hour'), 'g-is-equal')
   t.end()
 })
+
+
 
 test('missing values', (t) => {
   let json = spacetime({ year: 1982, offset: 4 }).json()
