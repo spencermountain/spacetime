@@ -1,6 +1,5 @@
 import isValid from './validate.js'
-import fromText from './text/index.js'
-import { fromEpoch, fromArray, fromObject } from './formats.js'
+import { fromEpoch, fromArray, fromObject, fromText } from './formats.js'
 
 
 const isNumber = val => typeof val === 'number' && isFinite(val)

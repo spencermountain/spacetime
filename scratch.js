@@ -46,6 +46,7 @@ const one = [
   'day',
   'ampm',
   'dayTime',
+
   'monthName',
   'progress',
   'leapYear',
@@ -60,7 +61,8 @@ const one = [
 
 // console.log(spacetime({ year: 1983 }).iso())
 spacetime.world.zones['Foo/Bar'] = { offset: 2 }
-let s = spacetime('4pm', 'Foo/Bar')
+let s = spacetime('12:24:23:748', 'Foo/Bar')
+// one.forEach(k => s[k]())
 // s = s.time('3:21:33pm')
 s.debug()
 // console.log(s.date(12))

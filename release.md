@@ -28,7 +28,7 @@ spacetime().month(1).monthName() //'January'
 
 spacetime().month('jan').month() // 1
 ```
-While a gross change, it is now simply more inline with intuition, and makes the library better, going forward.
+While a gross change, things are now more inline with intuition, and the library gets better, going forward.
 
 ### /one /two /three
 now that package.json exports are widely supported, it makes it much easier to create partial builds. You still `npm install spacetime`, but you can buy-in only as far as you need to:
@@ -38,6 +38,17 @@ now that package.json exports are widely supported, it makes it much easier to c
 * `spacetime/three` 40kb - sunlight calculation, play/pause, holidays
 
 by default, both `require` and `import` use `spacetime/two`. Methods in `spacetime/three` did not exist in spacetime v7.
+
+### Date validity
+Built to be accomodating, v7 would create an invalid date if you asked it to. `'December 32'` would become 'Jan 1'.
+Spacetime is now unwilling to create an invalid date or time. It will now throw an error, on `spacetime('2023-42')`, or `.time('foo')`.
+You can disable this with:
+```js
+// should spacetime crash when it gets an unparsable date?
+spacetime.world.config.throwUnparsedDate = false
+// should spacetime crash when it gets an unknown timezone?
+spacetime.world.config.throwUnknownTz = false
+```
 
 ### Config -> .world
 v7 had a `.plugin()` scheme that allowed making some minor changes and configurations. In v8 we open the barndoor, and allow full and wild abuse of all defaults and assumptions.

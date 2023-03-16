@@ -1,6 +1,9 @@
 import test from 'tape'
 import spacetime from './_lib.js'
 
+// const setNow = () => spacetime.world.methods.now = () => 1678914193206 //march 2023
+// const unSet = () => spacetime.world.methods.now = () => new Date().getTime()
+
 test('inputs-basic', (t) => {
   let a = spacetime([2015, 3, 25])
   let b = spacetime('25 Mar 2015')
@@ -33,8 +36,25 @@ test('missing values', (t) => {
   t.equal(now.year, json.year, 'assume now year')
   t.equal(json.month, 2, 'feb')
   t.equal(json.date, 1, 'feb 1')
+
+  // time-only
+  json = spacetime('3pm').json()
+  t.equal(json.month, now.month, 'now-month')
+  t.equal(json.date, now.date, 'now-date')
+  t.equal(json.hour, 15, 'time-only hour')
+  t.equal(json.minute, 0, 'time-only minute')
+  t.equal(json.second, 0, 'time-only seconds')
+  t.equal(json.millisecond, 0, 'time-only milliseconds')
+  // time-only
+  json = spacetime('12:24:23:748').json()
+  t.equal(json.month, now.month, 'feb')
+  t.equal(json.date, now.date, 'feb 1')
+  t.equal(json.minute, 24, 'time-only minute')
+  t.equal(json.second, 23, 'time-only seconds')
+  t.equal(json.millisecond, 748, 'time-only milliseconds')
   t.end()
 })
+
 
 test('hour-inputs', (t) => {
   let s = spacetime('March 21, 2017 20:42:00')

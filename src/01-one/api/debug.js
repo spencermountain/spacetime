@@ -30,6 +30,7 @@ const serverSide = function (s) {
   console.log(`  │ ${dim('date' + ':').padEnd(14)}  ${cyan(s.format('date-ordinal'))} `)//(${cyan(s.format('day-short'))})
   console.log(`  │ ${dim('time' + ':').padEnd(14)}  ${cyan(s.time())} `)
   console.log(`  │ ${dim('tz' + ':').padEnd(14)}  ${yellow(s.tz)} `)
+  console.log(`  │ ${dim('sec' + ':').padEnd(14)}  ${cyan(s.format('{second-pad}:{millisecond-pad}'))}`)
   console.log('\n')
 }
 
