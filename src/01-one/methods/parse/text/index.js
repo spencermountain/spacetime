@@ -6,7 +6,6 @@ import misc from './04-misc.js'
 const formats = [].concat(ymd, mdy, dmy, misc)
 
 const parseText = function (txt, tz) {
-  let cal = {}
   // normalize it a bit first
   txt = txt.toLowerCase()
   txt = txt.replace(/([0-9])(th|rd|st|nd)\b/, '$1')
@@ -24,6 +23,6 @@ const parseText = function (txt, tz) {
       }
     }
   }
-  return cal
+  return null
 }
 export default parseText

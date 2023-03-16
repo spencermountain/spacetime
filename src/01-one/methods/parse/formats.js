@@ -70,8 +70,10 @@ const fromArray = function (arr, tz, world) {
 
 const fromText = function (txt, tz, world) {
   let obj = parseText(txt, tz)
-  let cal = fillIn(obj, tz, world)
-  return cal
+  if (!obj) {
+    return obj
+  }
+  return fillIn(obj, tz, world)
 }
 
 

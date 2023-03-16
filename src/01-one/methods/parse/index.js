@@ -40,12 +40,16 @@ const parse = function (input, tz, world) {
   } else if (isString(input)) {
     cal = fromText(input, tz, world)
   }
-
   // throw an error if input creates invalid date
-  if (isValid(cal) === false && world.config.throwUnparsedDate) {
-    console.error(`Error: invalid spacetime input: '${input}'`)
-    console.error(JSON.stringify(cal, null, 2))
-    throw new Error('InvalidDate');
+  if (isValid(cal) === false) {
+    if (world.config.throwUnparsedDate) {
+      // console.error(`Error: invalid spacetime input: '${input}'`)
+      // console.error(JSON.stringify(cal, null, 2))
+      let err = new Error('InvalidDate');
+      err.type = 'InvalidDate'
+      throw err
+    }
+    cal = {}
   }
 
   // try to pull an tz off end of ISO-string

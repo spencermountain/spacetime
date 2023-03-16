@@ -60,9 +60,12 @@ const one = [
 // spacetime.now().iso('short') // 1970-01-01
 
 // console.log(spacetime({ year: 1983 }).iso())
-spacetime.world.zones['Foo/Bar'] = { offset: 2 }
-let s = spacetime('12:24:23:748', 'Foo/Bar')
+// spacetime.world.zones['Foo/Bar'] = { offset: 2 }
+
+spacetime.plugin({ config: { throwUnparsedDate: false } })
+let s = spacetime('foo')
+s.debug()
 // one.forEach(k => s[k]())
 // s = s.time('3:21:33pm')
-s.debug()
+// s.debug()
 // console.log(s.date(12))

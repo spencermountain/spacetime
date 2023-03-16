@@ -4,7 +4,7 @@ export default {
   throwUnparsedDate: true,
 
   // should spacetime crash when it gets an unknown timezone?
-  throwUnknownTz: false,
+  throwUnknownTz: true,
 
   // local timezone
   tryLocalTimezone: true,

@@ -1,4 +1,7 @@
 const isValid = function (cal, tz, world) {
+  if (!cal) {
+    return false
+  }
   // required fields
   if (!cal.year && !cal.year === 0) {
     return false
