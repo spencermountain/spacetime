@@ -49,7 +49,8 @@ const parse = function (input, tz, world) {
       err.type = 'InvalidDate'
       throw err
     }
-    cal = {}
+    //fallback to now
+    cal = fromObject({}, tz, world)
   }
 
   // try to pull an tz off end of ISO-string
