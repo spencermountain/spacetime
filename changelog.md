@@ -8,7 +8,9 @@ This project follows semVer, where:
  ### 8.0.0 [Jan 2022]
  - **[breaking]** - use 1-based months in object and array inputs
  - **[breaking]** - throw an error on invalid inputs 'jan 52nd' eg.
+ --- so .isValid() is now deprecated
  - **[change]** - return properly titlecased IANA codes
+ - **[breaking]** - titlecase months results of `.monthName()`
  - **[breaking]** - remove `.add(1, 'weekend')`
  - **[breaking]** - remove `.dayTime()`
  - **[change]** - set 100 iana codes as aliases (via tzdb)

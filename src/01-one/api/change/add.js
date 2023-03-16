@@ -1,4 +1,4 @@
-import tickBy from './tick.js'
+import tickBy from './_tick.js'
 import { getUnit } from '../_units.js'
 
 export default {

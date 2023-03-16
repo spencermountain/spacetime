@@ -74,7 +74,4 @@ export default {
     s = s.subtract(1, 'millisecond')
     return s
   },
-  progress: function (unit) {
-    return {}
-  }
 }

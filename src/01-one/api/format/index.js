@@ -15,18 +15,12 @@ const multiReplace = function (s, str) {
 
 let methods = {
   format: function (fmt = 'iso-short') {
-    // const { epoch, tz, world } = this
-    // const getCal = world.methods.getCal
-    // let cal = getCal(epoch, tz, world)
     if (fmt && fmts.hasOwnProperty(fmt)) {
       return fmts[fmt](this)
     }
     return multiReplace(this, fmt)
   },
   unixFmt: function (fmt) {
-    // const { epoch, tz, world } = this
-    // const getCal = world.methods.getCal
-    // let cal = getCal(epoch, tz, world)
     return unixFmt(this, fmt)
   },
   iso: function () {

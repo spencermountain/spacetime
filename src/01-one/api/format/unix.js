@@ -1,8 +1,5 @@
 import { titleCase, zeroPad, ordinal } from './_lib.js'
-import g from '../getter/index.js'
 import f from './formats.js'
-// import getEpoch from '../../compute/epoch/index.js'
-
 // import { formatTimezone } from '../../fns.js'
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
@@ -22,10 +19,10 @@ const mapping = {
   // u: (s) => {},//extended non-gregorian years
 
   //quarter
-  Q: (s) => s.quarter(s),
-  QQ: (s) => s.quarter(s),
-  QQQ: (s) => s.quarter(s),
-  QQQQ: (s) => s.quarter(s),
+  Q: (s) => s.quarter(),
+  QQ: (s) => s.quarter(),
+  QQQ: (s) => s.quarter(),
+  QQQQ: (s) => s.quarter(),
 
   //month
   M: (s) => s.month(),

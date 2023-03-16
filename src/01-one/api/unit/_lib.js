@@ -18,6 +18,7 @@ const mapping = {
   centuries: 'century',
   millenia: 'millenium',
 }
+
 const order = [
   'millenium',
   'century',

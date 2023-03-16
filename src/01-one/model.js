@@ -7,28 +7,28 @@ const YEAR = 365 * DAY // (non-leap)
 export default {
   months: [
     null,//1-based months
-    { longForm: 'january', shortForm: 'jan', len: 31 },
-    { longForm: 'february', shortForm: 'feb', len: 28 }, // 29 in a leap year
-    { longForm: 'march', shortForm: 'mar', len: 31 },
-    { longForm: 'april', shortForm: 'apr', len: 30 },
-    { longForm: 'may', shortForm: 'may', len: 31 },
-    { longForm: 'june', shortForm: 'jun', len: 30 },
-    { longForm: 'july', shortForm: 'jul', len: 31 },
-    { longForm: 'august', shortForm: 'aug', len: 31 },
-    { longForm: 'september', shortForm: 'sep', len: 30 },
-    { longForm: 'october', shortForm: 'oct', len: 31 },
-    { longForm: 'november', shortForm: 'nov', len: 30 },
-    { longForm: 'december', shortForm: 'dec', len: 31 },
+    { longForm: 'January', shortForm: 'Jan', len: 31 },
+    { longForm: 'February', shortForm: 'Feb', len: 28 }, // 29 in a leap year
+    { longForm: 'March', shortForm: 'Mar', len: 31 },
+    { longForm: 'April', shortForm: 'Apr', len: 30 },
+    { longForm: 'May', shortForm: 'May', len: 31 },
+    { longForm: 'June', shortForm: 'Jun', len: 30 },
+    { longForm: 'July', shortForm: 'Jul', len: 31 },
+    { longForm: 'August', shortForm: 'Aug', len: 31 },
+    { longForm: 'September', shortForm: 'Sep', len: 30 },
+    { longForm: 'October', shortForm: 'Oct', len: 31 },
+    { longForm: 'November', shortForm: 'Nov', len: 30 },
+    { longForm: 'December', shortForm: 'Dec', len: 31 },
   ],
 
   days: [
-    { longForm: 'sunday', shortForm: 'sun' },
-    { longForm: 'monday', shortForm: 'mon' },
-    { longForm: 'tuesday', shortForm: 'tue' },
-    { longForm: 'wednesday', shortForm: 'wed' },
-    { longForm: 'thursday', shortForm: 'thu' },
-    { longForm: 'friday', shortForm: 'fri' },
-    { longForm: 'saturday', shortForm: 'sat' }
+    { longForm: 'Sunday', shortForm: 'Sun' },
+    { longForm: 'Monday', shortForm: 'Mon' },
+    { longForm: 'Tuesday', shortForm: 'Tue' },
+    { longForm: 'Wednesday', shortForm: 'Wed' },
+    { longForm: 'Thursday', shortForm: 'Thu' },
+    { longForm: 'Friday', shortForm: 'Fri' },
+    { longForm: 'Saturday', shortForm: 'Sat' }
   ],
 
   time: {

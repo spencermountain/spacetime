@@ -10,7 +10,6 @@ const climb = (a, b, unit) => {
   if (unit === 'minutes') {
     return Math.floor((b.epoch - a.epoch) / (1000 * 60))
   }
-
   // slow-mode for these units
   let n = 0
   while (a.isBefore(b)) {
