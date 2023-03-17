@@ -2,6 +2,7 @@ import { getDate, getTime } from './walk.js'
 
 // take an epoch, return {month, year, date...}
 const computeCal = function (epoch, tz, world) {
+  console.log('=-=-=-= here -=-=-=-')
   const { zones, model, methods } = world
   const { getYear, dstChanges } = methods
   const { DAY, HOUR } = model.ms

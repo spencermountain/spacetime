@@ -11,11 +11,11 @@ const mapping = {
   GGG: (s) => s.era(),
   GGGG: (s) => (s.era() === 'AD' ? 'Anno Domini' : 'Before Christ'),
   //year
-  y: (s) => s.year(),
+  y: (_, cal) => cal.year,
   yy: (s) => zeroPad(Number(String(s.year()).substring(2, 4))), //last two chars
-  yyy: (s) => s.year(),
-  yyyy: (s) => s.year(),
-  yyyyy: (s) => '0' + s.year(),
+  yyy: (_, cal) => cal.year,
+  yyyy: (_, cal) => cal.year,
+  yyyyy: (_, cal) => '0' + cal.year,
   // u: (s) => {},//extended non-gregorian years
 
   //quarter
@@ -25,8 +25,8 @@ const mapping = {
   QQQQ: (s) => s.quarter(),
 
   //month
-  M: (s) => s.month(),
-  MM: (s) => zeroPad(s.month()),
+  M: (_, cal) => cal.month,
+  MM: (_, cal) => zeroPad(cal.month),
   MMM: (s) => s.monthName(),
   MMMM: (s) => titleCase(s.monthName()),
 
@@ -37,8 +37,8 @@ const mapping = {
   // W: (s) => s.week(),
 
   //date of month
-  d: (s) => s.date(),
-  dd: (s) => zeroPad(s.date()),
+  d: (_, cal) => cal.date,
+  dd: (_, cal) => zeroPad(cal.date),
   //date of year
   D: (s) => s.dayOfYear(),
   DD: (s) => zeroPad(s.dayOfYear()),
@@ -68,14 +68,14 @@ const mapping = {
   //hour
   h: (s) => s.hour12(),
   hh: (s) => zeroPad(s.hour12()),
-  H: (s) => s.hour(),
-  HH: (s) => zeroPad(s.hour()),
+  H: (_, cal) => cal.hour,
+  HH: (_, cal) => zeroPad(cal.hour),
   // j: (s) => {},//weird hour format
 
-  m: (s) => s.minute(),
-  mm: (s) => zeroPad(s.minute()),
-  s: (s) => s.second(),
-  ss: (s) => zeroPad(s.second()),
+  m: (_, cal) => cal.minute,
+  mm: (_, cal) => zeroPad(cal.minute),
+  s: (_, cal) => cal.second,
+  ss: (_, cal) => zeroPad(cal.second),
 
   //milliseconds
   SSS: (s) => zeroPad(s.millisecond(), 3),
@@ -156,7 +156,7 @@ const combineRepeated = function (arr) {
   return arr
 }
 
-const unixFmt = (s, str) => {
+const unixFmt = (s, str, cal) => {
   let arr = str.split('')
   // support character escaping
   arr = escapeChars(arr)
@@ -164,7 +164,7 @@ const unixFmt = (s, str) => {
   arr = combineRepeated(arr)
   return arr.reduce((txt, c) => {
     if (mapping[c] !== undefined) {
-      txt += String(mapping[c](s) || '')
+      txt += String(mapping[c](s, cal) || '')
     } else {
       // 'unescape'
       if (/^'.+'$/.test(s)) {

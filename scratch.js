@@ -64,11 +64,11 @@ const one = [
 
 // spacetime.world.model.days[1].longForm = 'Lundi'
 // console.log(spacetime.world.model.days)
-let s = spacetime.now()
-console.log(s.hour())
+let s = spacetime.now().iso()
+// console.log(s.hour())
 // spacetime.plugin({ model:{} })
 // let s = spacetime.day('wednesday')
-s.debug()
+// s.debug()
 // one.forEach(k => {
 //   console.log(k)
 //   s[k]()
