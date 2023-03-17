@@ -27,8 +27,7 @@ const parseTz = function (input, world) {
     return input // looks good
   }
   if (config.throwUnknownTz) {
-    // console.error(`Unknown timezone: '${input}'`)
-    let err = new Error(`Spacetime: Unknown timezone`);
+    let err = new Error(`Spacetime: Unknown timezone: '${input}'`);
     err.type = 'UnknownTimezone'
     throw err
   }

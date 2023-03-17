@@ -10,28 +10,19 @@ const fmt = {
   date: (_, cal) => cal.date,
   'date-ordinal': (_, cal) => ordinal(cal.date),
   month: (s) => s.monthName(),
-  'month-short': (s) => s.monthName(),//titleCase(s.world.model.months[s.month()].shortForm),
+  'month-short': (s, cal) => s.world.model.months[cal.month].shortForm,
   'month-number': (_, cal) => cal.month,
   'month-ordinal': (_, cal) => ordinal(cal.month),
   'iso-month': (_, cal) => zeroPad(cal.month),
-  year: (_, cal) => {
-    let y = cal.year
-    return y > 0 ? y : `${Math.abs(y)} BC`
-  },
-  'year-short': (_, cal) => {
-    let y = cal.year
-    return y > 0 ? `'${String(y).substring(2, 4)}` : Math.abs(y) + ' BC'
-  },
+  year: (_, cal) => cal.year > 0 ? cal.year : `${Math.abs(cal.year)} BC`,
+  'year-short': (_, cal) => cal.year > 0 ? `'${String(cal.year).substring(2, 4)}` : Math.abs(cal.year) + ' BC',
   'iso-year': (_, cal) => {
-    let y = cal.year
-    let str = zeroPad(Math.abs(y), 4) //0-padded
-    if (y < 0) {
-      str = '-' + zeroPad(str, 6)  //negative years are for some reason 6-digits ('-00008')
+    let str = zeroPad(Math.abs(cal.year), 4) //0-padded
+    if (cal.year < 0) {
+      return '-' + zeroPad(str, 6)  //negative years are for some reason 6-digits ('-00008')
     }
     return str
   },
-
-  // time: (s) => s.time(),
   'time-24': (s) => `${zeroPad(s.hour24())}:${zeroPad(s.minute())}`,
 
   hour: (s) => s.hour12(),
@@ -66,7 +57,8 @@ const fmt = {
       out += ':00'
     }
     return out
-  }
+  },
+  time: (s, cal) => `${s.hour12()}:${String(cal.minute).padStart(2, '0')}${s.ampm()}`,
 }
 // compound ones
 fmt['iso-short'] = (s, cal) => `${fmt['iso-year'](s, cal)}-${zeroPad(cal.month)}-${zeroPad(cal.date)}`
@@ -75,6 +67,7 @@ fmt['iso'] = (s, cal) => `${fmt['iso-medium'](s, cal)}${fmt.offset(s, cal)}`
 //i made these up
 fmt['nice'] = (s, cal) => `${fmt['month-short'](s, cal)} ${fmt['date-ordinal'](s, cal)}, ${s.time()}`
 fmt['nice-day'] = (s, cal) => `${fmt['day-short'](s, cal)} ${fmt['month-short'](s, cal)} ${fmt['date-ordinal'](s, cal)}`
+fmt['iso-utc'] = (s, cal) => s._from(s.epoch, 'Etc/GMT').format('iso')
 
 // aliases
 const aliases = {
@@ -104,7 +97,7 @@ const aliases = {
 }
 let pads = ['day', 'date', 'month', 'hour', 'minute', 'second', 'hour-24', 'hour-12']
 pads.forEach(k => {
-  fmt[k + '-pad'] = (c) => zeroPad(fmt[k](c))
+  fmt[k + '-pad'] = (s, cal) => zeroPad(fmt[k](s, cal))
 })
 Object.keys(aliases).forEach((k) => {
   fmt[k] = fmt[aliases[k]]

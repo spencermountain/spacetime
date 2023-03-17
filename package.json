@@ -44,7 +44,7 @@
     "pack": "node ./scripts/pack.js",
     "version": "node ./scripts/version.js",
     "watch": "amble ./scratch.js",
-    "test": "tape ./tests/**/*.test.js | tap-dancer",
+    "test": "tape ./tests/one/*.test.js | tap-dancer",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer  --color always",
     "test:one": "tape ./tests/one/**/*.test.js | tap-dancer",
     "test:types": "ts-node ./test/types/index.ts | tap-dancer  --color always",

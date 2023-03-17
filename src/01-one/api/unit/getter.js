@@ -45,7 +45,7 @@ let getter = {
   },
   offset: (s) => s.world.methods.getCal(s.epoch, s.tz, s.world).offset,
   monthName: s => s.world.model.months[s.month()].longForm,
-  time: s => `${s.hour12()}:${String(s.minute()).padStart(2, '0')}${s.ampm()}`,
+  time: s => s.format('time')
 }
 
 // console.log(Object.keys(getter))

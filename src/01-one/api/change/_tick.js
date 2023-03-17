@@ -27,30 +27,29 @@ const rollDays = function (cal, world) {
 
 const rollFwd = function (cal, world) {
   const { monthLen } = world.methods
-  // if (cal.millisecond > 999) {
-  //   cal.second += Math.floor(cal.millisecond / 1000)
-  //   cal.millisecond = cal.millisecond % 1000
-  // }
+  if (cal.millisecond > 999) {
+    cal.second += Math.floor(cal.millisecond / 1000)
+    cal.millisecond = cal.millisecond % 1000
+  }
   // // second
-  // if (cal.second > 59) {
-  //   cal.minute += Math.floor(cal.second / 60)
-  //   cal.second = cal.second % 60
-  // }
+  if (cal.second > 59) {
+    cal.minute += Math.floor(cal.second / 60)
+    cal.second = cal.second % 60
+  }
   // // minute
-  // if (cal.minute > 59) {
-  //   cal.hour += Math.floor(cal.minute / 60)
-  //   cal.minute = cal.minute % 60
-  // }
+  if (cal.minute > 59) {
+    cal.hour += Math.floor(cal.minute / 60)
+    cal.minute = cal.minute % 60
+  }
   // hour (1-based)
-  // if (cal.hour > 24) {
-  //   cal.date += Math.floor(cal.hour / 24)
-  //   cal.hour = cal.hour % 24
-  // }
+  if (cal.hour > 24) {
+    cal.date += Math.floor(cal.hour / 24)
+    cal.hour = cal.hour % 24
+  }
   // resolve the month, first
   if (cal.month > 12) {
     cal.year += Math.floor(cal.month / 12)
     cal.month = cal.month % 12
-    // cal.month += 1//one-based
   }
   // now we can do the date+month
   let len = monthLen(cal.month, cal.year, world)
@@ -62,10 +61,22 @@ const rollFwd = function (cal, world) {
 
 const rollBkwd = function (cal, world) {
   const { monthLen } = world.methods
-  // fix negative months
-  while (cal.month < 1) {
-    cal.year -= 1
-    cal.month += 12
+  // fix negatives
+  while (cal.millisecond < 0) {
+    cal.second -= 1
+    cal.millisecond += 1000
+  }
+  while (cal.second < 0) {
+    cal.minute -= 1
+    cal.second += 60
+  }
+  while (cal.minute < 0) {
+    cal.hour -= 1
+    cal.minute += 60
+  }
+  while (cal.hour < 0) {
+    cal.date -= 1
+    cal.hour += 24
   }
   while (cal.date < 1) {
     cal.month -= 1
@@ -76,12 +87,16 @@ const rollBkwd = function (cal, world) {
     let len = monthLen(cal.month, cal.year, world)
     cal.date += len
   }
-  // return cal
+  while (cal.month < 1) {
+    cal.year -= 1
+    cal.month += 12
+  }
   return cal
 }
 
 // do a calendar-walk
 const walk = function (cal, n, unit, world) {
+  // console.log(n, unit)
   cal = Object.assign({}, assumed, cal)
   unit = getUnit(unit)
   cal[unit] += n

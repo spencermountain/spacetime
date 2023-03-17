@@ -64,16 +64,16 @@ export default {
     }
   },
 
-  time: function (input) {
-    if (input !== undefined) {
-      let { epoch, tz, world } = this
-      let cal = world.methods.getCal(epoch, tz, world)
-      let c = setters.time(input, cal, tz)
-      let e = world.methods.getEpoch(c, tz, this.world)
-      return this._from(e, tz)
-    }
-    return `${this.hour()}:${zeroPad(this.minute())}${this.ampm()}`
-  },
+  // time: function (input) {
+  //   if (input !== undefined) {
+  //     let { epoch, tz, world } = this
+  //     let cal = world.methods.getCal(epoch, tz, world)
+  //     let c = setters.time(input, cal, tz)
+  //     let e = world.methods.getEpoch(c, tz, this.world)
+  //     return this._from(e, tz)
+  //   }
+  //   return `${this.hour12()}:${String(this.minute()).padStart(2, '0')}${this.ampm()}`
+  // },
 
   clone: function () {
     return this._from(this.epoch, this.tz)

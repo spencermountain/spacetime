@@ -17,7 +17,6 @@ const parseText = function (txt, tz) {
   txt = txt.replace(/,/g, '')
   txt = txt.replace(/ +/g, ' ').trim()
   txt = txt.trim()
-  console.log(txt)
   for (let i = 0; i < formats.length; i += 1) {
     let m = txt.match(formats[i].reg)
     if (m !== null) {

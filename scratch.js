@@ -64,11 +64,17 @@ const one = [
 
 // spacetime.world.model.days[1].longForm = 'Lundi'
 // console.log(spacetime.world.model.days)
-let s = spacetime.now().iso()
+
+let s = spacetime('2023-01-01T00:00:00.000-07:00')//.time('4:00pm')
+s = s.add(20, 'minute')
+// console.log(s.iso())
+s = s.minus(40, 'minute')
+s = s.add(20, 'minute')
+console.log(s.time())
+
+// let s = spacetime.now()
 // console.log(s.hour())
-// spacetime.plugin({ model:{} })
-// let s = spacetime.day('wednesday')
-// s.debug()
+// console.log(s.format('{iso}'))
 // one.forEach(k => {
 //   console.log(k)
 //   s[k]()
