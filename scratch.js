@@ -5,71 +5,17 @@ import { DateTime } from "luxon";
 
 // spacetime.world.methods.now = () => 1554092400000
 
-
-// main
-const one = [
-  'clone',
-  'format',
-  'isValid',
-  'log',
-  // move
-  'set',
-  'startOf',
-  'endOf',
-  'add',
-  'subtract',
-  'next',
-  'last',
-  'nearest',
-  'every',
-  // compare
-  'isAfter',
-  'isBefore',
-  'isEqual',
-  'isSame',
-  'diff',
-  // getters
-  'millisecond',
-  'second',
-  'minute',
-  'hour',
-  'date',
-  'month',
-  'year',
-
-  'dayOfYear',
-  'time',
-  'week',
-  'quarter',
-  // 'season',
-  'hourFloat',
-  'day',
-  'ampm',
-  // 'dayTime',
-
-  'monthName',
-  'progress',
-  'leapYear',
-  'inDST',
-  'hasDST',
-  'offset',
-  'weekStart',
-  'daysInMonth',
-]
-// spacetime.world.methods.now = ()=> 0
-// spacetime.now().iso('short') // 1970-01-01
-
 // console.log(spacetime({ year: 1983 }).iso())
-// spacetime.world.zones['Foo/Bar'] = { offset: 2 }
 
 // spacetime.world.model.days[1].longForm = 'Lundi'
 // console.log(spacetime.world.model.days)
+// console.log(spacetime.now().day(1).format('day'))
 
-console.log(spacetime([1999, 12, 31]).dayName())
+// console.log(spacetime([1999, 12, 31]).dayName())
 
 let s = spacetime(null, '+05:30')
 // s = s.add(22, 'minute').minus(44, 'minute').add(22, 'minute')
-console.log(s.iso())
+// console.log(s.iso())
 
 
 // let s = spacetime('2021-01-01T00:00:00.000+02:30')
