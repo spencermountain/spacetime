@@ -13,6 +13,7 @@ This project follows semVer, where:
  - **[breaking]** - titlecase months results of `.monthName()`
  - **[breaking]** - remove `.add(1, 'weekend')`
  - **[breaking]** - remove `.dayTime()`
+ - **[breaking]** - remove `.season()`
  - **[change]** - set 100 iana codes as aliases (via tzdb)
  - **[change]** - remove {quarters, weeks} from default diff() result
  - **[new]** - `.json()` method

@@ -40,6 +40,9 @@ export default {
     const { tz, epoch, world } = this
     const { getCal, getEpoch } = world.methods
     unit = getUnit(unit)
+    if (!unit) {
+      return this
+    }
     let cal = getCal(epoch, tz, world)
     if (z.hasOwnProperty(unit)) {
       cal = Object.assign(cal, z[unit])
@@ -48,7 +51,7 @@ export default {
     }
     // this one is tricky
     if (unit === 'week') {
-      let s = this.day(this.world.config.weekStart)
+      let s = this//.day(this.world.config.weekStart)
       s = s.startOf('day')
       cal = getCal(s.epoch, s.tz, world)
     }
@@ -57,16 +60,25 @@ export default {
   },
   next: function (unit) {
     unit = getUnit(unit)
+    if (!unit) {
+      return this
+    }
     let s = this.startOf(unit)
     return s.add(1, unit)
   },
   last: function (unit) {
     unit = getUnit(unit)
+    if (!unit) {
+      return this
+    }
     let s = this.startOf(unit)
     return s.minus(1, unit)
   },
   endOf: function (unit) {
     unit = getUnit(unit)
+    if (!unit) {
+      return this
+    }
     let s = this.next(unit)  // go to next one, step back 1ms
     s = s.subtract(1, 'millisecond')
     return s

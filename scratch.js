@@ -41,11 +41,11 @@ const one = [
   'time',
   'week',
   'quarter',
-  'season',
+  // 'season',
   'hourFloat',
   'day',
   'ampm',
-  'dayTime',
+  // 'dayTime',
 
   'monthName',
   'progress',
@@ -65,11 +65,14 @@ const one = [
 // spacetime.world.model.days[1].longForm = 'Lundi'
 // console.log(spacetime.world.model.days)
 let s = spacetime.now()
-console.log(s.json())
+console.log(s.hour())
 // spacetime.plugin({ model:{} })
 // let s = spacetime.day('wednesday')
 s.debug()
-// one.forEach(k => s[k]())
+// one.forEach(k => {
+//   console.log(k)
+//   s[k]()
+// })
 // s = s.time('3:21:33pm')
 // s.debug()
 // console.log(s.date(12))

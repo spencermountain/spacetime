@@ -102,6 +102,9 @@ export default {
     return true
   },
 
+  weekStart: function () {
+    return this.world.config.weekStart
+  },
   json: function () {
     let { epoch, tz, world } = this
     const { getCal, dstChanges } = world.methods

@@ -20,8 +20,11 @@ const print = {
 }
 
 let methods = {
-  isSame: function (b, unit) {
+  isSame: function (unit, b) {
     unit = getUnit(unit)
+    if (!unit) {
+      return null
+    }
     b = this._from(b)
     return print[unit](this) === print[unit](b)
   },
@@ -48,8 +51,11 @@ let methods = {
   },
   every: function (unit, end) {
     unit = getUnit(unit)
-    end = this._from(end)
+    if (!unit) {
+      return []
+    }
     let result = []
+    end = this._from(end)
     let d = this.clone()
     while (d.isBefore(end)) {
       result.push(d)

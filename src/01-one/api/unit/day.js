@@ -1,4 +1,4 @@
-// import tick from './add/tick.js.js'
+import tick from '../change/_tick.js'
 
 export default {
 

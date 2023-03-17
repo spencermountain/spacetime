@@ -13,6 +13,7 @@ const aliases = {
   'minus': 'subtract',
   'plus': 'add',
   'isDst': 'inDst',
+  'log': 'debug',
   // ['set', '_from'],
   //   fns.monthName = fns.month
   // fns.dayName = fns.day
