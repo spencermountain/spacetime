@@ -1,5 +1,4 @@
-
-import { zeroPad } from './format/_lib.js'
+import { zeroPad } from '../format/_lib.js'
 
 const getter = {
   week: (s) => {

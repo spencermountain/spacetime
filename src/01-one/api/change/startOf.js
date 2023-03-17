@@ -1,7 +1,4 @@
-import { getUnit } from './_units.js'
-// import getCal from '../compute/cal/index.js'
-// import getEpoch from '../compute/epoch/index.js'
-
+import { getUnit } from '../unit/_lib.js'
 
 const add = (a, b) => Object.assign({}, a, b)
 

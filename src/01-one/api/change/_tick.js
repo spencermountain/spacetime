@@ -1,5 +1,5 @@
 // import monthLen from '../../compute/_lib/monthLen.js'
-import { getUnit } from '../_units.js'
+import { getUnit } from '../unit/_lib.js'
 
 let assumed = {
   month: 1, //co-erce any zeros to 1s

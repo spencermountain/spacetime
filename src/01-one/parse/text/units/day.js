@@ -1,4 +1,4 @@
-import model from '../../../../model.js'
+import model from '../../../model.js'
 import { isNum } from './_lib.js'
 
 let mapping = { tues: 2, thur: 4, thurs: 4 }

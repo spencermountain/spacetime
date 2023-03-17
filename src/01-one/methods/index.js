@@ -1,5 +1,5 @@
 import getDay from './compute/getDay.js'
-import parse from './parse/index.js'
+import parse from '../parse/index.js'
 import parseTz from './timezone/parseTz.js'
 import fallbackTz from './timezone/fallbackTz.js'
 import { monthLen, yearStart, getEpoch, getCal, getYear } from './compute/index.js'

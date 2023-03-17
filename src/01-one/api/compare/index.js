@@ -1,4 +1,6 @@
-import { getUnit } from '../_units.js'
+import { getUnit } from '../unit/_lib.js'
+import diff from './diff.js'
+
 
 //make a string, for easy comparison between dates
 const print = {
@@ -17,7 +19,7 @@ const print = {
   century: (s) => s.century(),
 }
 
-export default {
+let methods = {
   isSame: function (b, unit) {
     unit = getUnit(unit)
     b = this._from(b)
@@ -69,3 +71,5 @@ export default {
   },
 
 }
+Object.assign(methods, diff)
+export default methods

@@ -62,8 +62,12 @@ const one = [
 // console.log(spacetime({ year: 1983 }).iso())
 // spacetime.world.zones['Foo/Bar'] = { offset: 2 }
 
-spacetime.plugin({ config: { throwUnparsedDate: false } })
-let s = spacetime('foo')
+// spacetime.world.model.days[1].longForm = 'Lundi'
+// console.log(spacetime.world.model.days)
+let s = spacetime.now()
+console.log(s.json())
+// spacetime.plugin({ model:{} })
+// let s = spacetime.day('wednesday')
 s.debug()
 // one.forEach(k => s[k]())
 // s = s.time('3:21:33pm')

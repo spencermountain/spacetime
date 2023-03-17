@@ -1,6 +1,7 @@
 import getter from './getter.js'
 import setter from './setter.js'
 import dayMethods from './day.js'
+import misc from './misc.js'
 
 
 // getter/setter functions are overloaded
@@ -14,6 +15,6 @@ let methods = Object.keys(getter).reduce((h, unit) => {
   return h
 }, {})
 
-Object.assign(methods, dayMethods)
+Object.assign(methods, dayMethods, misc)
 export default methods
 

@@ -1,5 +1,5 @@
-import { getUnit } from '../_units.js'
-import diffOne from './diff/_diffOne.js'
+import { getUnit } from '../unit/_lib.js'
+import diffOne from './_climb.js'
 
 const units = [
   'milliseconds',

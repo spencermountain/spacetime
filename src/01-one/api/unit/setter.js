@@ -1,4 +1,4 @@
-import { parseMonth, parseAmpm, parseTime, parseHour, parseYear, parseDate, parseOffset } from '../../methods/parse/text/units/index.js'
+import { parseMonth, parseAmpm, parseTime, parseHour, parseYear, parseDate, parseOffset } from '../../parse/text/units/index.js'
 
 const getCal = (s) => {
   return s.world.methods.getCal(s.epoch, s.tz, s.world)

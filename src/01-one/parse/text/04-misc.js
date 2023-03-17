@@ -1,4 +1,4 @@
-import { parseYear, parseMonth, parseTime, parseQuarter } from './units/index.js'
+import { parseYear, parseMonth, parseTime, parseQuarter, parseDay } from './units/index.js'
 
 export default [
   // '2012-06' month-only
@@ -48,6 +48,17 @@ export default [
       if (m[3]) {
         let year = parseYear(m[3])
         return { year }
+      }
+      return {}
+    }
+  },
+  {
+    // 'wednesday'
+    reg: /^(mon|monday|tues?|tuesday|wed|wednesday|thur?|thursday|fri|friday|sat|saturday|sun|sunday)$/i,
+    parse: (m) => {
+      if (m[0]) {
+        let day = parseDay(m[0])
+        return { day }
       }
       return {}
     }
