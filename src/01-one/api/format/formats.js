@@ -67,6 +67,7 @@ fmt['iso'] = (s, cal) => `${fmt['iso-medium'](s, cal)}${fmt.offset(s, cal)}`
 //i made these up
 fmt['nice'] = (s, cal) => `${fmt['month-short'](s, cal)} ${fmt['date-ordinal'](s, cal)}, ${s.time()}`
 fmt['nice-day'] = (s, cal) => `${fmt['day-short'](s, cal)} ${fmt['month-short'](s, cal)} ${fmt['date-ordinal'](s, cal)}`
+fmt['nice-year'] = (s, cal) => `${fmt['month-short'](s, cal)} ${fmt['date-ordinal'](s, cal)}, ${cal.year}`
 fmt['iso-utc'] = (s, cal) => s._from(s.epoch, 'Etc/GMT').format('iso')
 
 // aliases

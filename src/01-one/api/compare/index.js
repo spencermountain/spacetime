@@ -19,8 +19,18 @@ const print = {
   century: (s) => s.century(),
 }
 
+const isObject = function (obj) {
+  return obj && Object.prototype.toString.call(obj) === '[object Object]'
+}
+
 let methods = {
-  isSame: function (unit, b) {
+  isSame: function (b, unit) {
+    // support backwards params
+    if (typeof b === 'string' && isObject(unit) && unit.isSpacetime) {
+      let tmp = b
+      b = unit
+      unit = tmp
+    }
     unit = getUnit(unit)
     if (!unit) {
       return null

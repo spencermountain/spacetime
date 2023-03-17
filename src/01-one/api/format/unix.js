@@ -86,10 +86,10 @@ const mapping = {
   zz: (s) => s.tz,
   zzz: (s) => s.tz,
   zzzz: (s) => s.tz,
-  Z: (s) => f.offset(s).replace(/:/, ''),
-  ZZ: (s) => f.offset(s).replace(/:/, ''),
-  ZZZ: (s) => f.offset(s).replace(/:/, ''),
-  ZZZZ: (s) => f.offset(s)
+  Z: (s) => s.format('offset').replace(/:/, ''),
+  ZZ: (s) => s.format('offset').replace(/:/, ''),
+  ZZZ: (s) => s.format('offset').replace(/:/, ''),
+  ZZZZ: (s) => s.format('offset')
 }
 
 const addAlias = (char, to, n) => {

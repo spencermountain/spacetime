@@ -65,12 +65,16 @@ const one = [
 // spacetime.world.model.days[1].longForm = 'Lundi'
 // console.log(spacetime.world.model.days)
 
-let s = spacetime('2023-01-01T00:00:00.000-07:00')//.time('4:00pm')
-s = s.add(20, 'minute')
+console.log(spacetime([1999, 12, 31]).dayName())
+
+let s = spacetime(null, '+05:30')
+// s = s.add(22, 'minute').minus(44, 'minute').add(22, 'minute')
+console.log(s.iso())
+
+
+// let s = spacetime('2021-01-01T00:00:00.000+02:30')
+// s = s.add(22, 'minute').minus(44, 'minute').add(22, 'minute')
 // console.log(s.iso())
-s = s.minus(40, 'minute')
-s = s.add(20, 'minute')
-console.log(s.time())
 
 // let s = spacetime.now()
 // console.log(s.hour())

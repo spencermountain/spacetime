@@ -31,18 +31,18 @@ const rollFwd = function (cal, world) {
     cal.second += Math.floor(cal.millisecond / 1000)
     cal.millisecond = cal.millisecond % 1000
   }
-  // // second
+  // second
   if (cal.second > 59) {
     cal.minute += Math.floor(cal.second / 60)
     cal.second = cal.second % 60
   }
-  // // minute
+  // minute
   if (cal.minute > 59) {
     cal.hour += Math.floor(cal.minute / 60)
     cal.minute = cal.minute % 60
   }
   // hour (1-based)
-  if (cal.hour > 24) {
+  if (cal.hour > 23) {
     cal.date += Math.floor(cal.hour / 24)
     cal.hour = cal.hour % 24
   }
@@ -96,7 +96,7 @@ const rollBkwd = function (cal, world) {
 
 // do a calendar-walk
 const walk = function (cal, n, unit, world) {
-  // console.log(n, unit)
+  // console.log('====', n, unit, '===')
   cal = Object.assign({}, assumed, cal)
   unit = getUnit(unit)
   cal[unit] += n

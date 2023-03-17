@@ -43,5 +43,6 @@ test('obj-input', (t) => {
     let out = spacetime(obj).format('iso-medium')
     t.equal(out, iso, iso)
   })
+  spacetime.world.methods.now = () => new Date().getTime()
   t.end()
 })

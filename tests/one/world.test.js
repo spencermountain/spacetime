@@ -29,7 +29,7 @@ test('throwUnparsedDate', (t) => {
   t.doesNotThrow(() => spacetime('foo'), here + 'disable date throw')
 
   let s = spacetime('foobar')
-  t.equal(s.isSame('hour'), s.now(), 'now fallback')
+  t.equal(s.isSame('hour', s.now()), true, 'now fallback')
   reset()// reset config
   t.end()
 })

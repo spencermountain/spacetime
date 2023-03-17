@@ -4,6 +4,10 @@
 
 
 const getDate = function (diffDays, year, world) {
+  let res = { month: 1, date: 1 }
+  if (!diffDays) {
+    return res
+  }
   const { months } = world.model
   const { isLeapYear } = world.methods
   const monthLengths = months.map(o => {
@@ -12,12 +16,11 @@ const getDate = function (diffDays, year, world) {
     }
     return o.len
   })
-  let res = { month: 1, date: 1 }
   let total = 0
   for (let i = 1; i < months.length; i += 1) {
     let inMonth = monthLengths[i]
     if (i === 2 && isLeapYear(year)) {
-      inMonth = 29
+      inMonth += 1
     }
     if (total + inMonth > diffDays) {
       break

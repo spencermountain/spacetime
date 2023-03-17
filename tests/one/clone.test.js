@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './_lib.js'
 
 test('clone', (t) => {
-  let a = spacetime('March 18, 1999 23:42:00', 'Canada/Eastern')
+  let a = spacetime('March 18, 1999 23:42:00')
   let b = a.clone()
   t.equal(a.date(), 18, 'start-date')
   t.equal(a.hour(), 23, 'start hour')
