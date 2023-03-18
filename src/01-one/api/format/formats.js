@@ -1,60 +1,45 @@
 import { titleCase, zeroPad, ordinal } from './_lib.js'
-import g from '../getter/index.js'
-import world from '../../../world.js'
-let { days, months } = world.config
+// import g from '../getter/index.js'
 
 const fmt = {
 
-  day: (c) => titleCase(g.dayName(c)),
-  'day-short': (c) => titleCase(days.shortForm[g.day(c)]),
-  'day-number': (c) => g.day(c),
-  'day-ordinal': (c) => ordinal(g.day(c)),
-  'day-pad': (c) => zeroPad(g.day(c)),
-
-  date: (c) => c.date,
-  'date-ordinal': (c) => ordinal(c.date),
-  'date-pad': (c) => zeroPad(c.date),
-
-  month: (c) => titleCase(g.monthName(c)),
-  'month-short': (c) => titleCase(months.shortForm[c.month - 1]),
-  'month-number': (c) => c.month,
-  'month-ordinal': (c) => ordinal(c.month),
-  'month-pad': (c) => zeroPad(c.month),
-  'iso-month': (c) => zeroPad(c.month + 1), //1-based months
-
-  year: (c) => c.year > 0 ? c.year : `${Math.abs(c.year)} BC`,
-  'year-short': (c) => c.year > 0 ? `'${String(c.year).substring(2, 4)}` : Math.abs(c.year) + ' BC',
-  'iso-year': (c) => {
-    let str = zeroPad(Math.abs(c.year), 4) //0-padded
-    if (c.year < 0) {
-      str = '-' + zeroPad(str, 6)  //negative years are for some reason 6-digits ('-00008')
+  day: (s) => titleCase(s.dayName()),
+  'day-short': (s) => titleCase(s.world.model.days[s.day()].shortForm),
+  'day-number': (s) => s.day(),
+  'day-ordinal': (s) => ordinal(s.day()),
+  date: (_, cal) => cal.date,
+  'date-ordinal': (_, cal) => ordinal(cal.date),
+  month: (s) => s.monthName(),
+  'month-short': (s, cal) => s.world.model.months[cal.month].shortForm,
+  'month-number': (_, cal) => cal.month,
+  'month-ordinal': (_, cal) => ordinal(cal.month),
+  'iso-month': (_, cal) => zeroPad(cal.month),
+  year: (_, cal) => cal.year > 0 ? cal.year : `${Math.abs(cal.year)} BC`,
+  'year-short': (_, cal) => cal.year > 0 ? `'${String(cal.year).substring(2, 4)}` : Math.abs(cal.year) + ' BC',
+  'iso-year': (_, cal) => {
+    let str = zeroPad(Math.abs(cal.year), 4) //0-padded
+    if (cal.year < 0) {
+      return '-' + zeroPad(str, 6)  //negative years are for some reason 6-digits ('-00008')
     }
     return str
   },
+  'time-24': (s) => `${zeroPad(s.hour24())}:${zeroPad(s.minute())}`,
 
-  time: (c) => `${g.hour12(c)}:${zeroPad(c.minute)}${g.ampm(c)}`,
-  'time-24': (c) => `${zeroPad(c.hour)}:${zeroPad(c.minute)}`,
+  hour: (s) => s.hour12(),
+  'hour-24': (_, cal) => cal.hour,
+  minute: (_, cal) => cal.minute,
+  second: (_, cal) => cal.second,
+  ms: (_, cal) => cal.millisecond,
+  millisecond: (_, cal) => cal.millisecond,
+  'millisecond-pad': (_, cal) => zeroPad(cal.millisecond, 3),
 
-  hour: (c) => g.hour12(c),
-  'hour-pad': (c) => zeroPad(g.hour12(c)),
-  'hour-24': (c) => c.hour,
-  'hour-24-pad': (c) => zeroPad(c.hour),
-
-  minute: (c) => c.minute,
-  'minute-pad': (c) => zeroPad(c.minute),
-  second: (c) => c.second,
-  'second-pad': (c) => zeroPad(c.second),
-  ms: (c) => c.millisecond,
-  millisecond: (c) => c.millisecond,
-  'millisecond-pad': (c) => zeroPad(c.millisecond, 3),
-
-  ampm: (c) => g.ampm(c),
-  AMPM: (c) => g.ampm(c).toUpperCase(),
-  quarter: (c) => 'Q' + g.quarter(c),
+  ampm: (s) => s.ampm(),
+  AMPM: (s) => s.ampm().toUpperCase(),
+  quarter: (s) => 'Q' + s.quarter(),
 
   // turn timezone 5.25 into '+05:15'
-  offset: (c) => {
-    let n = c.offset || 0
+  offset: (s, cal) => {
+    let n = cal.offset || s.offset() || 0
     if (n === 0) {
       return 'Z'
     }
@@ -72,21 +57,22 @@ const fmt = {
       out += ':00'
     }
     return out
-  }
+  },
+  time: (s, cal) => `${s.hour12()}:${String(cal.minute).padStart(2, '0')}${s.ampm()}`,
 }
 // compound ones
-fmt['iso-short'] = (c) => `${fmt['iso-year'](c)}-${zeroPad(c.month)}-${zeroPad(c.date)}`
-fmt['iso-medium'] = (c) => `${fmt['iso-short'](c)}T${zeroPad(c.hour)}:${zeroPad(c.minute)}:${zeroPad(c.second)}.${zeroPad(c.millisecond, 3)}`
-fmt['iso'] = (c) => `${fmt['iso-medium'](c)}${fmt.offset(c)}`
+fmt['iso-short'] = (s, cal) => `${fmt['iso-year'](s, cal)}-${zeroPad(cal.month)}-${zeroPad(cal.date)}`
+fmt['iso-medium'] = (s, cal) => `${fmt['iso-short'](s, cal)}T${zeroPad(cal.hour)}:${zeroPad(cal.minute)}:${zeroPad(cal.second)}.${zeroPad(cal.millisecond, 3)}`
+fmt['iso'] = (s, cal) => `${fmt['iso-medium'](s, cal)}${fmt.offset(s, cal)}`
 //i made these up
-fmt['nice'] = (c) => `${fmt['month-short'](c)} ${fmt['date-ordinal'](c)}, ${fmt['time'](c)}`
-fmt['nice-day'] = (c) => `${fmt['day-short'](c)} ${fmt['month-short'](c)} ${fmt['date-ordinal'](c)}`
-
+fmt['nice'] = (s, cal) => `${fmt['month-short'](s, cal)} ${fmt['date-ordinal'](s, cal)}, ${s.time()}`
+fmt['nice-day'] = (s, cal) => `${fmt['day-short'](s, cal)} ${fmt['month-short'](s, cal)} ${fmt['date-ordinal'](s, cal)}`
+fmt['nice-year'] = (s, cal) => `${fmt['month-short'](s, cal)} ${fmt['date-ordinal'](s, cal)}, ${cal.year}`
+fmt['iso-utc'] = (s, cal) => s._from(s.epoch, 'Etc/GMT').format('iso')
 
 // aliases
 const aliases = {
   'hour-12': 'hour',
-  'hour-12-pad': 'hour-pad',
   'day-name': 'day',
   'month-name': 'month',
   'iso 8601': 'iso',
@@ -109,8 +95,13 @@ const aliases = {
   'little-endian': 'numeric-uk',
   'big-endian': 'numeric',
   'day-nice': 'nice-day',
-  // 'nice-day': '{day-short} {month-short} {date-ordinal}'
 }
-Object.keys(aliases).forEach((k) => (fmt[k] = fmt[aliases[k]]))
+let pads = ['day', 'date', 'month', 'hour', 'minute', 'second', 'hour-24', 'hour-12']
+pads.forEach(k => {
+  fmt[k + '-pad'] = (s, cal) => zeroPad(fmt[k](s, cal))
+})
+Object.keys(aliases).forEach((k) => {
+  fmt[k] = fmt[aliases[k]]
+})
 
 export default fmt

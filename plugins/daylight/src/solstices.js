@@ -31,15 +31,15 @@ const solstice = function (s) {
   } else {
     found = goBackward(s.epoch)
   }
-  let winter = s.set(found)
+  let winter = s._from(found)
   // ensure it's the right year
   if (winter.year() < s.year()) {
-    winter = winter.set(winter.epoch + oneYear)
+    winter = winter._from(winter.epoch + oneYear)
   }
   if (winter.year() > s.year()) {
-    winter = winter.set(winter.epoch - oneYear)
+    winter = winter._from(winter.epoch - oneYear)
   }
-  let summer = winter.set(winter.epoch - halfYear)
+  let summer = winter._from(winter.epoch - halfYear)
   return {
     winter: winter,
     summer: summer,

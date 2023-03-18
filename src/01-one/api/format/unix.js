@@ -1,101 +1,95 @@
 import { titleCase, zeroPad, ordinal } from './_lib.js'
-import g from '../getter/index.js'
 import f from './formats.js'
-import getEpoch from '../../compute/epoch/index.js'
-
 // import { formatTimezone } from '../../fns.js'
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
 //time-symbols we support
 const mapping = {
-  G: (c) => g.era(c),
-  GG: (c) => g.era(c),
-  GGG: (c) => g.era(c),
-  GGGG: (c) => (g.era(c) === 'AD' ? 'Anno Domini' : 'Before Christ'),
+  G: (s) => s.era(),
+  GG: (s) => s.era(),
+  GGG: (s) => s.era(),
+  GGGG: (s) => (s.era() === 'AD' ? 'Anno Domini' : 'Before Christ'),
   //year
-  y: (c) => c.year,
-  yy: (c) => zeroPad(Number(String(c.year).substring(2, 4))), //last two chars
-  yyy: (c) => c.year,
-  yyyy: (c) => c.year,
-  yyyyy: (c) => '0' + c.year,
-  // u: (c) => {},//extended non-gregorian years
+  y: (_, cal) => cal.year,
+  yy: (s) => zeroPad(Number(String(s.year()).substring(2, 4))), //last two chars
+  yyy: (_, cal) => cal.year,
+  yyyy: (_, cal) => cal.year,
+  yyyyy: (_, cal) => '0' + cal.year,
+  // u: (s) => {},//extended non-gregorian years
 
   //quarter
-  Q: (c) => g.quarter(c),
-  QQ: (c) => g.quarter(c),
-  QQQ: (c) => g.quarter(c),
-  QQQQ: (c) => g.quarter(c),
+  Q: (s) => s.quarter(),
+  QQ: (s) => s.quarter(),
+  QQQ: (s) => s.quarter(),
+  QQQQ: (s) => s.quarter(),
 
   //month
-  M: (c) => c.month,
-  MM: (c) => zeroPad(c.month),
-  MMM: (c) => f['month-short'](c),
-  MMMM: (c) => titleCase(g.monthName(c)),
+  M: (_, cal) => cal.month,
+  MM: (_, cal) => zeroPad(cal.month),
+  MMM: (s) => s.monthName(),
+  MMMM: (s) => titleCase(s.monthName()),
 
   //week
-  w: (c) => g.week(c),
-  ww: (c) => zeroPad(g.week(c)),
+  w: (s) => s.week(),
+  ww: (s) => zeroPad(s.week()),
   //week of month
-  // W: (c) => s.week(),
+  // W: (s) => s.week(),
 
   //date of month
-  d: (c) => c.date,
-  dd: (c) => zeroPad(c.date),
+  d: (_, cal) => cal.date,
+  dd: (_, cal) => zeroPad(cal.date),
   //date of year
-  D: (c) => g.dayOfYear(c),
-  DD: (c) => zeroPad(g.dayOfYear(c)),
-  DDD: (c) => zeroPad(g.dayOfYear(c), 3),
+  D: (s) => s.dayOfYear(),
+  DD: (s) => zeroPad(s.dayOfYear()),
+  DDD: (s) => zeroPad(s.dayOfYear(), 3),
 
-  // F: (c) => {},//date of week in month
-  // g: (c) => {},//modified julian day
+  // F: (s) => {},//date of week in month
+  // g: (s) => {},//modified julian day
 
   //day
-  E: (c) => f['day-short'](c),
-  EE: (c) => f['day-short'](c),
-  EEE: (c) => f['day-short'](c),
-  EEEE: (c) => f['day'](c),
-  EEEEE: (c) => f['day'](c)[0],
-  e: (c) => f['day'](c),
-  ee: (c) => f['day'](c),
-  eee: (c) => f['day-short'](c),
-  eeee: (c) => f['day'](c),
-  eeeee: (c) => f['day'](c)[0],
+  E: (s) => f['day-short'](s),
+  EE: (s) => f['day-short'](s),
+  EEE: (s) => f['day-short'](s),
+  EEEE: (s) => f['day'](s),
+  EEEEE: (s) => f['day'](s)[0],
+  e: (s) => f['day'](s),
+  ee: (s) => f['day'](s),
+  eee: (s) => f['day-short'](s),
+  eeee: (s) => f['day'](s),
+  eeeee: (s) => f['day'](s)[0],
 
   //am/pm
-  a: (c) => g.ampm(c).toUpperCase(),
-  aa: (c) => g.ampm(c).toUpperCase(),
-  aaa: (c) => g.ampm(c).toUpperCase(),
-  aaaa: (c) => g.ampm(c).toUpperCase(),
+  a: (s) => s.ampm().toUpperCase(),
+  aa: (s) => s.ampm().toUpperCase(),
+  aaa: (s) => s.ampm().toUpperCase(),
+  aaaa: (s) => s.ampm().toUpperCase(),
 
   //hour
-  h: (c) => g.hour12(c),
-  hh: (c) => zeroPad(g.hour12(c)),
-  H: (c) => c.hour,
-  HH: (c) => zeroPad(c.hour),
-  // j: (c) => {},//weird hour format
+  h: (s) => s.hour12(),
+  hh: (s) => zeroPad(s.hour12()),
+  H: (_, cal) => cal.hour,
+  HH: (_, cal) => zeroPad(cal.hour),
+  // j: (s) => {},//weird hour format
 
-  m: (c) => c.minute,
-  mm: (c) => zeroPad(c.minute),
-  s: (c) => c.second,
-  ss: (c) => zeroPad(c.second),
+  m: (_, cal) => cal.minute,
+  mm: (_, cal) => zeroPad(cal.minute),
+  s: (_, cal) => cal.second,
+  ss: (_, cal) => zeroPad(cal.second),
 
   //milliseconds
-  SSS: (c) => zeroPad(c.millisecond, 3),
+  SSS: (s) => zeroPad(s.millisecond(), 3),
   //milliseconds into the day
-  A: (c) => {
-    let morn = Object.assign({}, c, { hour: 0, minute: 0, second: 0, millisecond: 0 })
-    return getEpoch(c) - getEpoch(morn)
-  },
+  A: (s) => s.epoch - s.startOf('day').epoch,
   //timezone
-  z: (_, tz) => tz,
-  zz: (_, tz) => tz,
-  zzz: (_, tz) => tz,
-  zzzz: (_, tz) => tz,
-  Z: (c) => f.offset(c).replace(/:/, ''),
-  ZZ: (c) => f.offset(c).replace(/:/, ''),
-  ZZZ: (c) => f.offset(c).replace(/:/, ''),
-  ZZZZ: (c) => f.offset(c)
+  z: (s) => s.tz,
+  zz: (s) => s.tz,
+  zzz: (s) => s.tz,
+  zzzz: (s) => s.tz,
+  Z: (s) => s.format('offset').replace(/:/, ''),
+  ZZ: (s) => s.format('offset').replace(/:/, ''),
+  ZZZ: (s) => s.format('offset').replace(/:/, ''),
+  ZZZZ: (s) => s.format('offset')
 }
 
 const addAlias = (char, to, n) => {
@@ -162,18 +156,18 @@ const combineRepeated = function (arr) {
   return arr
 }
 
-const unixFmt = (cal, str, tz) => {
+const unixFmt = (s, str, cal) => {
   let arr = str.split('')
   // support character escaping
   arr = escapeChars(arr)
-  //combine 'yyyy' as string.
+  //combine 'yyyy' as strins.
   arr = combineRepeated(arr)
   return arr.reduce((txt, c) => {
     if (mapping[c] !== undefined) {
-      txt += mapping[c](cal, tz) || ''
+      txt += String(mapping[c](s, cal) || '')
     } else {
       // 'unescape'
-      if (/^'.+'$/.test(c)) {
+      if (/^'.+'$/.test(s)) {
         c = c.replace(/'/g, '')
       }
       txt += c

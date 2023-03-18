@@ -33,4 +33,4 @@ class Ticker {
 
 export default Ticker
 
-let c = new Ticker(2, () => { console.log('tick') })
+// let c = new Ticker(2, () => { console.log('tick') })

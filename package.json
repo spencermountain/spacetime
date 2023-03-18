@@ -9,19 +9,19 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "import": "./src/two.js",
+      "import": "./src/index.js",
       "require": "./builds/spacetime-two.cjs"
     },
     "./one": {
-      "import": "./src/one.js",
+      "import": "./src/01-one/index.js",
       "require": "./builds/spacetime-one.cjs"
     },
     "./two": {
-      "import": "./src/two.js",
+      "import": "./src/02-two/index.js",
       "require": "./builds/spacetime-two.cjs"
     },
     "./three": {
-      "import": "./src/three.js",
+      "import": "./src/03-three/index.js",
       "require": "./builds/spacetime-three.cjs"
     }
   },
@@ -44,8 +44,9 @@
     "pack": "node ./scripts/pack.js",
     "version": "node ./scripts/version.js",
     "watch": "amble ./scratch.js",
-    "test": "tape ./tests/**/*.test.js | tap-dancer",
+    "test": "tape ./tests/one/*.test.js | tap-dancer",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer  --color always",
+    "test:one": "tape ./tests/one/**/*.test.js | tap-dancer",
     "test:types": "ts-node ./test/types/index.ts | tap-dancer  --color always",
     "coverage": "nyc -r lcov -n 'src/**/*' -n 'plugins/**/*' npm run coverage:tests",
     "coverage:tests": "npm run test",
@@ -72,9 +73,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "codecov": "3.8.3",
-    "eslint-plugin-regexp": "^1.12.0",
-    "nyc": "^15.1.0",
+    "eslint-plugin-regexp": "1.12.0",
     "rollup": "3.9.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-filesize-check": "0.0.1",
@@ -83,8 +82,7 @@
     "rollup-plugin-terser": "7.0.2",
     "shelljs": "0.8.5",
     "tap-dancer": "0.3.4",
-    "tape": "5.6.1",
-    "timekeeper": "2.2.0"
+    "tape": "5.6.1"
   },
   "license": "Apache-2.0"
 }

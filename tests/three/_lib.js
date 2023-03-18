@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import build from '../../builds/spacetime-three.mjs'
-import src from '../../src/three.js'
+import src from '../../src/03-three/index.js'
 let nlp = src
 if (process.env.TESTENV === 'prod') {
   console.warn('== production build test 🚀 ==')

@@ -1,79 +1,64 @@
-import world from '../../world.js'
-import getEpoch from '../compute/epoch/index.js'
-// import zoneFile from '../../02-two/zones/index.js'
-import findTz from './tz/index.js'
-import { parseMonth } from './formats/units/index.js'
+import isValid from './validate.js'
+import { fromEpoch, fromArray, fromObject, fromText } from './formats.js'
 
 
-// order for Array input
-const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
-import parseText from './text.js'
+const isNumber = val => typeof val === 'number' && isFinite(val)
+const isObject = val => Object.prototype.toString.call(val) === '[object Object]'
+const isArray = (arr) => Object.prototype.toString.call(arr) === '[object Array]'
+const isString = val => typeof val === 'string'
 
-const isNumber = val => {
-  return typeof val === 'number' && isFinite(val)
+const guessTz = function (cal) {
+  // replace tz with iso timezone
+  if (cal.offset !== null && cal.offset !== undefined) {
+    if (cal.offset < 0) {
+      return `Etc/GMT+${Math.abs(cal.offset)}`
+    } else {
+      return `Etc/GMT-${cal.offset}`
+    }
+  }
+  return null
 }
 
-const isObject = val => {
-  return Object.prototype.toString.call(val) === '[object Object]'
-}
-
-const isArray = function (arr) {
-  return Object.prototype.toString.call(arr) === '[object Array]'
-}
-
-const isString = val => {
-  return typeof val === 'string'
-}
-
-const parse = function (input, tz) {
-  // reconcile timezone
-  tz = findTz(tz)
-
-  // null means now
+const parse = function (input, tz, world) {
+  // no input means now
   if (input === null || input === undefined) {
-    return { epoch: world.now.epoch(), tz }
+    return { epoch: world.methods.now(), tz }
   }
-  // epoch input
+  // pull-apart input into calendar object
+  let cal = {}
   if (isNumber(input)) {
-    // if the given epoch is really small, they've probably given seconds and not milliseconds
-    if (world.config.minimumEpoch && input < world.config.minimumEpoch && input > 0) {
-      input *= 1000
-    }
-    return { epoch: input, tz }
+    return fromEpoch(input, tz, world)
   }
-  // support ordered array as input [2020, 04, 1] → {year:2020 ...}
   if (isArray(input)) {
-    let cal = units.reduce((h, k, i) => {
-      h[k] = input[i]
-      return h
-    }, {})
-    if (cal.month) {
-      cal.month = parseMonth(cal.month)
-    }
-    return { epoch: getEpoch(cal, tz), tz }
-  }
-  // given {year:2020 ...}
-  if (input && isObject(input)) {
+    cal = fromArray(input, tz, world)
+  } else if (isObject(input)) {
     // interpret a spacetime object as input
     if (input.isSpacetime === true) {
       return input.clone()
     }
-    let cal = Object.assign({}, input)//don't mutate original
-    return { epoch: getEpoch(cal, tz), tz }
+    cal = fromObject(input, tz, world)
+  } else if (isString(input)) {
+    cal = fromText(input, tz, world)
   }
-  // pull-apart ISO formats, etc
-  if (isString(input)) {
-    let cal = parseText(input)
-    // replace tz with iso timezone
-    if (cal.offset !== null && cal.offset !== undefined) {
-      if (cal.offset < 0) {
-        tz = `Etc/GMT+${Math.abs(cal.offset)}`
-      } else {
-        tz = `Etc/GMT-${cal.offset}`
-      }
+  // throw an error if input creates invalid date
+  if (isValid(cal) === false) {
+    if (world.config.throwUnparsedDate) {
+      // console.error(`Error: invalid spacetime input: '${input}'`)
+      // console.error(JSON.stringify(cal, null, 2))
+      let err = new Error('InvalidDate');
+      err.type = 'InvalidDate'
+      throw err
     }
-    return { epoch: getEpoch(cal, tz), tz }
+    //fallback to now
+    cal = fromObject({}, tz, world)
   }
-  return {}
+
+  // try to pull an tz off end of ISO-string
+  if (!tz) {
+    tz = guessTz(cal) || world.methods.fallbackTz(world)
+  }
+  let epoch = world.methods.getEpoch(cal, tz, world)
+  return { epoch, tz }
+
 }
 export default parse

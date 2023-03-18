@@ -1,4 +1,7 @@
-import { getUnit } from '../_units.js'
+import { getUnit } from '../unit/_lib.js'
+import diff from './diff.js'
+
+
 //make a string, for easy comparison between dates
 const print = {
   millisecond: (s) => s.epoch,
@@ -16,9 +19,22 @@ const print = {
   century: (s) => s.century(),
 }
 
-export default {
+const isObject = function (obj) {
+  return obj && Object.prototype.toString.call(obj) === '[object Object]'
+}
+
+let methods = {
   isSame: function (b, unit) {
+    // support backwards params
+    if (typeof b === 'string' && isObject(unit) && unit.isSpacetime) {
+      let tmp = b
+      b = unit
+      unit = tmp
+    }
     unit = getUnit(unit)
+    if (!unit) {
+      return null
+    }
     b = this._from(b)
     return print[unit](this) === print[unit](b)
   },
@@ -45,8 +61,11 @@ export default {
   },
   every: function (unit, end) {
     unit = getUnit(unit)
-    end = this._from(end)
+    if (!unit) {
+      return []
+    }
     let result = []
+    end = this._from(end)
     let d = this.clone()
     while (d.isBefore(end)) {
       result.push(d)
@@ -68,3 +87,5 @@ export default {
   },
 
 }
+Object.assign(methods, diff)
+export default methods
