@@ -1,3 +1,5 @@
+import parseOffset from '../text/units/offset.js'
+
 const isNumber = val => {
   return typeof val === 'number' && isFinite(val)
 }
@@ -8,6 +10,11 @@ const parseTz = function (input, world) {
 
   if (input === null || input === undefined) {
     return null
+  }
+  // parse something like '+05:00'
+  let h = parseOffset(input)
+  if (h || h === 0) {
+    input = h
   }
   // shim-together a timezone from a numeric offset
   if (isNumber(input) === true) {

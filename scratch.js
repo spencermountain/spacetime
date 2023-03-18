@@ -13,7 +13,6 @@ import { DateTime } from "luxon";
 
 // console.log(spacetime([1999, 12, 31]).dayName())
 
-let s = spacetime(null, '+05:30')
 // s = s.add(22, 'minute').minus(44, 'minute').add(22, 'minute')
 // console.log(s.iso())
 
@@ -22,13 +21,5 @@ let s = spacetime(null, '+05:30')
 // s = s.add(22, 'minute').minus(44, 'minute').add(22, 'minute')
 // console.log(s.iso())
 
-// let s = spacetime.now()
-// console.log(s.hour())
-// console.log(s.format('{iso}'))
-// one.forEach(k => {
-//   console.log(k)
-//   s[k]()
-// })
-// s = s.time('3:21:33pm')
-// s.debug()
-// console.log(s.date(12))
+let s = spacetime.now()
+console.log(s.hour())
