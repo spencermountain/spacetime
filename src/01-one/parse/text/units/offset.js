@@ -15,7 +15,6 @@ const parseOffset = (str) => {
   let m = str.match(reg)
   if (m !== null) {
     let [, plus, hour, min] = m
-
     hour = parseInt(hour || '', 10) || 0
     min = parseInt(min || '', 10) || 0
 
@@ -31,23 +30,5 @@ const parseOffset = (str) => {
     return offset
   }
   return null
-
-  //okay, try to match it to a utc timezone
-  //remember - this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_(:/)_/¯
-  //https://askubuntu.com/questions/519550/why-is-the-8-timezone-called-gmt-8-in-the-filesystem
-  // num *= -1
-  // return num
-
-  // if (num >= 0) {
-  //   num = '+' + num
-  // }
-  // let tz = 'etc/gmt' + num
-  // let zones = s.timezones
-  // if (zones[tz]) {
-  // log a warning if we're over-writing a given timezone?
-  // console.log('changing timezone to: ' + tz)
-  // s.tz = tz
-  // }
-  // return s
 }
 export default parseOffset

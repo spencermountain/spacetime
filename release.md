@@ -71,5 +71,26 @@ spacetime.world.model.month[2].shortForm = 'Freb'
 spacetime.world.methods.isLeapYear = ()=> true
 ```
 
+### IANA aliases
+IANA codes are a living spec, and spacetime has an 'inclusionist' policy, trying to support as many variants that appear in the wild.
+This came to bite us when tz metadata changes. We would miss some updates, and some offsets become stale.
+
+To remedy this, we've adopted the system in use at [nodatime](https://nodatime.org/TimeZones) - a small subset of IANA codes, with a larger network of aliases to them.
+
+This may produce unexpected changes:
+```js
+spacetime.now('Africa/Asmara').tz 
+// Africa/Nairobi
+```
+
+If this creates a problem, you can 'reify' any aliases by modifying `spacetime.world.zones`:
+```js
+const world = spacetime.world
+world.zones['Africa/Asmara'] = world.zones['Africa/Nairobi'] // copy it
+
+// now it sticks
+spacetime.now('Africa/Asmara').tz 
+// Africa/Asmara
+```
 
 

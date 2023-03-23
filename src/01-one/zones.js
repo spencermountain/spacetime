@@ -4,7 +4,7 @@
 let zones = { 'Etc/GMT': { offset: 0, hem: 'n' } }
 
 // generate these sorta-fake timezones 
-for (let i = -14; i <= 14; i += 0.5) {
+for (let i = -14; i <= 14; i += 1) {
   let num = i
   if (num > 0) {
     num = '+' + num
@@ -15,11 +15,14 @@ for (let i = -14; i <= 14; i += 0.5) {
     offset: i * -1, //they're negative!
     hem: 'n' //(sorry)
   }
+  // add half-hour increments, too
+  let dec = num < 0 ? 0.5 : -0.5
+  zones[`${name}:30`] = { offset: zones[name].offset + dec, hem: 'n' }
+
   let alias = 'UTC/GMT' + num //this one too, why not.
   zones[alias] = zones[name]
 }
 // these appear sometimes
 zones['Etc/GMT+0'] = zones['Etc/GMT']
 zones['Etc/GMT-0'] = zones['Etc/GMT']
-
 export default zones

@@ -1,5 +1,6 @@
 import test from 'tape'
 import spacetime from './_lib.js'
+const here = '[getYear] '
 // import { getYear, getStart } from '../../src/01-one/compute/_lib/yearStart.js'
 
 // jan 1 utc
@@ -70,7 +71,7 @@ let years = [
 test('get jan-1 epochs', (t) => {
   years.forEach(a => {
     let s = spacetime(`${a[0]}-01-01`, 'Z')
-    t.equal(s.epoch, a[1], '[getEpoch] ' + a[0])
+    t.equal(s.epoch, a[1], here + a[0])
   })
   t.end()
 })
@@ -79,8 +80,22 @@ test('get jan-1 epochs', (t) => {
   years.forEach(a => {
     let epoch = a[1] + 50000 //+50s
     let s = spacetime(epoch)
-    t.equal(s.year(), Number(a[0]), '[getYear] ' + a[0])
+    t.equal(s.year(), Number(a[0]), here + a[0])
   })
+  t.end()
+})
+
+test('2023 start', (t) => {
+  const epoch = 1679578175954//march 2023
+  const w = spacetime.world
+  let jan1 = w.methods.getYear(epoch, 'Etc/GMT+4', w)
+  t.equal(jan1.year, 2023, here + 'right year')
+  t.equal(jan1.start, 1672531200000, here + 'right ms')
+
+  let s = spacetime(epoch, 'Etc/GMT-4')
+  t.equal(s.hour(), 9, here + 'right hour')
+  t.equal(s.time(), '9:29am', here + 'right time')
+  t.equal(s.fmt('iso-short'), '2023-03-23', here + 'right date')
   t.end()
 })
 

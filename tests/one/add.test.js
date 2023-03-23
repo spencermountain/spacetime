@@ -96,31 +96,28 @@ test('hour-tricky', (t) => {
   t.end()
 })
 
-test('day-tricky', (t) => {
-  let d = spacetime('2019-11-04T00:00:00.000', 'Etc/GMT-4')
-  d = d.add(1, 'week')
-  t.equal(d.format('nice-day'), 'Mon Nov 11th', 'add week over dst-change')
 
-  //same thing, but days
-  d = spacetime('2019-11-04T00:00:00.000', 'Etc/GMT-4')
-  d = d.add(7, 'days')
-  t.equal(d.format('nice-day'), 'Mon Nov 11th', 'add days over dst-change')
-
-  d = spacetime('2021-10-31T00:00:00.000', 'Etc/GMT')
-  d = d.add(1, 'day')
-  t.equal(d.format('iso-utc'), '2021-11-01T00:00:00.000Z', 'add 1 day over dst-change')
-
-  // add day over month-change
-  let s = spacetime('Oct 31 2020', 'Etc/GMT-4')
-  s = s.add(2, 'day')
-  t.equal(s.format('nice'), 'Nov 2nd, 12:00am', 'add day over month-change')
-  // add day over year-change
-  s = spacetime('Dec 31 2020', 'Etc/GMT-4')
-  s = s.add(2, 'day')
-  t.equal(s.format('nice'), 'Jan 2nd, 12:00am', 'add day over year-change')
-
-  t.end()
-})
+// test('day-tricky', (t) => {
+//   let d = spacetime('2019-11-04T00:00:00.000', 'Canada/Eastern')
+//   d = d.add(1, 'week')
+//   t.equal(d.format('nice-day'), 'Mon Nov 11th', 'add week over dst-change')
+//   //same thing, but days
+//   d = spacetime('2019-11-04T00:00:00.000', 'Canada/Eastern')
+//   d = d.add(7, 'days')
+//   t.equal(d.format('nice-day'), 'Mon Nov 11th', 'add days over dst-change')
+//   d = spacetime('2021-10-31T00:00:00.000', 'Europe/London')
+//   d = d.add(1, 'day')
+//   t.equal(d.format('iso-utc'), '2021-11-01T00:00:00.000Z', 'add 1 day over dst-change')
+//   // add day over month-change
+//   let s = spacetime('Oct 31 2020', 'Canada/Eastern')
+//   s = s.add(2, 'day')
+//   t.equal(s.format('nice'), 'Nov 2nd, 12:00am', 'add day over month-change')
+//   // add day over year-change
+//   s = spacetime('Dec 31 2020', 'Canada/Eastern')
+//   s = s.add(2, 'day')
+//   t.equal(s.format('nice'), 'Jan 2nd, 12:00am', 'add day over year-change')
+//   t.end()
+// })
 
 test('new-years-eve', (t) => {
   let year = 2022

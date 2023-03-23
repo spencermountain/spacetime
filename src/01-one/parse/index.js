@@ -1,23 +1,12 @@
 import isValid from './validate.js'
 import { fromEpoch, fromArray, fromObject, fromText } from './formats.js'
-
+import parseTz from './timezone/parseTz.js'
 
 const isNumber = val => typeof val === 'number' && isFinite(val)
 const isObject = val => Object.prototype.toString.call(val) === '[object Object]'
 const isArray = (arr) => Object.prototype.toString.call(arr) === '[object Array]'
 const isString = val => typeof val === 'string'
 
-const guessTz = function (cal) {
-  // replace tz with iso timezone
-  if (cal.offset !== null && cal.offset !== undefined) {
-    if (cal.offset < 0) {
-      return `Etc/GMT+${Math.abs(cal.offset)}`
-    } else {
-      return `Etc/GMT-${cal.offset}`
-    }
-  }
-  return null
-}
 
 const parse = function (input, tz, world) {
   // no input means now
@@ -55,10 +44,9 @@ const parse = function (input, tz, world) {
 
   // try to pull an tz off end of ISO-string
   if (!tz) {
-    tz = guessTz(cal) || world.methods.fallbackTz(world)
+    tz = parseTz(cal.offset, world) || world.methods.fallbackTz(world)
   }
   let epoch = world.methods.getEpoch(cal, tz, world)
   return { epoch, tz }
-
 }
 export default parse

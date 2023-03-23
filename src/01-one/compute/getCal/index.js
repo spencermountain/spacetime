@@ -45,9 +45,9 @@ const computeCal = function (epoch, tz, world) {
   // compute month, date
   let resDate = getDate(daysDiff, year, world)
   Object.assign(cal, resDate)
-
   // compute hour, min, sec..
   let deltaMs = diff - (daysDiff * DAY)
+  // console.log(deltaMs / HOUR)
   let resMins = getTime(deltaMs, world)
   Object.assign(cal, resMins)
   return cal
