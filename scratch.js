@@ -12,7 +12,7 @@ import { DateTime } from "luxon";
 
 // console.log(spacetime.now().tz)
 // let jan1 = spacetime.world.methods.getYear(epoch, 'Etc/GMT+4', spacetime.world)
-let s = spacetime('2011-01-01T18:00:00.000+00:30')//.time('4:12pm')
-console.log(s.tz)
+let iso = '2023-01-01T00:00:00.000-07:00'
+let s = spacetime(iso)
 console.log(s.iso())
-// console.log(s.time())
+// console.log(s.unixFmt(`foo 'at' y`))

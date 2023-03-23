@@ -25,4 +25,7 @@ for (let i = -14; i <= 14; i += 1) {
 // these appear sometimes
 zones['Etc/GMT+0'] = zones['Etc/GMT']
 zones['Etc/GMT-0'] = zones['Etc/GMT']
+
+zones['Etc/GMT-0:30'] = { offset: 0.5, hem: 'n' }
+zones['Etc/GMT+0:30'] = { offset: -0.5, hem: 'n' }
 export default zones

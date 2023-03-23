@@ -27,7 +27,7 @@ const mapping = {
   //month
   M: (_, cal) => cal.month,
   MM: (_, cal) => zeroPad(cal.month),
-  MMM: (s) => s.monthName(),
+  MMM: (s, cal) => f['month-short'](s, cal),
   MMMM: (s) => titleCase(s.monthName()),
 
   //week
@@ -167,7 +167,7 @@ const unixFmt = (s, str, cal) => {
       txt += String(mapping[c](s, cal) || '')
     } else {
       // 'unescape'
-      if (/^'.+'$/.test(s)) {
+      if (/^'.+'$/.test(c)) {
         c = c.replace(/'/g, '')
       }
       txt += c

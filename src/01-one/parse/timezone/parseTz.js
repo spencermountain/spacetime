@@ -29,10 +29,10 @@ const parseTz = function (input, world) {
     let n = parseInt(input, 10)
     // support half-hour increments, too
     let min = Math.abs(input) % 1 === 0.5 ? ':30' : ''
-    if (n < 0) {
+    if (input < 0) {
       return `Etc/GMT+${Math.abs(n)}${min}`//reversed
     }
-    return `Etc/GMT${n * -1}${min}`
+    return `Etc/GMT-${n}${min}`
   }
   if (input === 'z' || input === 'Z') {
     return 'Etc/GMT'
