@@ -15,7 +15,7 @@ import { DateTime } from "luxon";
 // let jan1 = spacetime.world.methods.getYear(epoch, 'Etc/GMT+4', spacetime.world)
 // let iso = '2023-01-01T00:00:00.000-07:00'
 let s = spacetime.now()
-let d = s.startOf('month').debug()
+let d = s.startOf('week').debug()
 // s.startOf('week').debug()
-console.log(s.calendar().toAscii())
+// console.log(s.calendar().toAscii())
 // console.log(s.unixFmt(`foo 'at' y`))

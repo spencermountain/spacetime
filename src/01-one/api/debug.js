@@ -2,6 +2,12 @@
 const cyan = str => '\x1b[36m' + str + '\x1b[0m'
 const yellow = str => '\x1b[33m' + str + '\x1b[0m'
 const dim = str => '\x1b[2m' + str + '\x1b[0m'
+const green = str => '\x1b[32m' + str + '\x1b[0m'
+const red = str => '\x1b[31m' + str + '\x1b[0m'
+const blue = str => '\x1b[34m' + str + '\x1b[0m'
+const magenta = str => '\x1b[35m' + str + '\x1b[0m'
+const black = str => '\x1b[30m' + str + '\x1b[0m'
+const italic = str => '\x1b[3m' + str + '\x1b[0m'
 
 const clientSide = function (s) {
   console.log('%c -=-=- ', 'background-color:#6699cc;')
@@ -19,14 +25,11 @@ const clientSide = function (s) {
 
 const serverSide = function (s) {
   console.log('\n')
-  console.log(` ${dim(s.epoch)}  ${cyan(s.format('offset'))}\n`)
-  console.log(`  │ ${dim('year' + ':').padEnd(14)}  ${cyan(s.year())}`)
-  console.log(`  │ ${dim('month' + ':').padEnd(14)}  ${cyan(s.monthName())} (${cyan(s.month())})`)
-  console.log(`  │ ${dim('date' + ':').padEnd(14)}  ${cyan(s.format('date-ordinal'))} `)//(${cyan(s.format('day-short'))})
-  console.log(`  │ ${dim('time' + ':').padEnd(14)}  ${cyan(s.time())} `)
-  console.log(`  │ ${dim('day' + ':').padEnd(14)}  ${cyan(s.dayName())} `)
-  console.log(`  │ ${dim('tz' + ':').padEnd(14)}  ${yellow(s.tz)} `)
-  console.log(`  │ ${dim('sec' + ':').padEnd(14)}  ${cyan(s.format('{second-pad}:{millisecond-pad}'))}`)
+  console.log(`  │${dim(':')} ${cyan(s.monthName())} ${blue(s.format('date-ordinal'))} ${cyan(s.year())}`)// (${cyan(s.month())})
+  console.log(`  │${dim(':')}      ${dim(blue('::'))}${blue(s.dayName())}${dim(blue('::'))}`)//(${cyan(s.format('day-short'))})
+  console.log(`  │${dim(':')}    ${cyan(s.time())}  ${blue(dim(s.format('{second}s {millisecond}ms')))}`)
+  console.log(`  │${dim(':')} ${yellow(s.tz)}  ${yellow(s.format('offset'))}`)
+  console.log(`\n   ${blue(dim(s.epoch))} \n`)
   console.log('\n')
 }
 
