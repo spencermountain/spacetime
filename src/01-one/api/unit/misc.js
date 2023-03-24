@@ -105,7 +105,7 @@ export default {
   weekStart: function () {
     return this.world.config.weekStart
   },
-  json: function () {
+  json: function (opts = {}) {
     let { epoch, tz, world } = this
     const { getCal, dstChanges } = world.methods
     let out = getCal(epoch, tz, world)
@@ -114,7 +114,9 @@ export default {
     let z = world.zones[tz] || {}
     out.hem = z.hem
     // out.abbrevs = z.shrt
-    out.dst = dstChanges(tz, out.year)
+    if (opts.dst !== false) {
+      out.dst = dstChanges(tz, out.year)
+    }
     return out
   }
 }
