@@ -200,6 +200,12 @@ export default {
     "dst": "mex",
     "shrt": "HNPMX|HEPMX"
   },
+  "America/Ciudad_Juarez": {
+    "offset": -7,
+    "hem": "n",
+    "dst": "usa",
+    "shrt": "MDT|MST"
+  },
   "America/Costa_Rica": {
     "offset": -6,
     "hem": "n",
@@ -1719,4 +1725,5 @@ export default {
     "dst": "usa",
     "shrt": "EST|EDT"
   },
+
 }
