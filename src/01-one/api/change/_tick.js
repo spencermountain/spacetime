@@ -50,6 +50,9 @@ const rollFwd = function (cal, world) {
   if (cal.month > 12) {
     cal.year += Math.floor(cal.month / 12)
     cal.month = cal.month % 12
+    if (cal.month === 0) {
+      cal.month = 12
+    }
   }
   // now we can do the date+month
   let len = monthLen(cal.month, cal.year, world)
