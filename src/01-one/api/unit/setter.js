@@ -112,7 +112,14 @@ let fns = {
     return fromCal(s, cal)
   },
   hour12: (s, input, fwd) => {
-    //TODO: 
+    if (typeof input === 'string') {
+      input = parseTime(input).hour
+    } else {
+      input = parseInt(input, 10)
+    }
+    let cal = getCal(s)
+    cal.hour = input
+    return fromCal(s, cal)
   },
   offset: (s, input) => {
     let n = parseOffset(input)

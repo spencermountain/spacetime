@@ -1,5 +1,10 @@
 import tick from '../change/_tick.js'
 
+const fromCal = function (s, cal) {
+  let epoch = s.world.methods.getEpoch(cal, s.tz, s.world)
+  return s._from(epoch, s.tz)
+}
+
 export default {
 
   // this one is tricky!
@@ -19,7 +24,8 @@ export default {
       } else if (diff > 0 && fwd === false) {
         diff = diff - 7
       }
-      return tick(cal, diff, 'date', world)
+      let obj = tick(cal, diff, 'date', world)//untested
+      return fromCal(this, obj)
     }
     return world.methods.getDay(cal)
   },

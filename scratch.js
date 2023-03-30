@@ -21,9 +21,9 @@ import old from './old/src/index.js'
 // s = s.add(1, 'minute').minus(2, 'minute').add(1, 'minute')
 // console.log(s.iso())
 
-let s = spacetime('1999-03-28T20:42:00.000-05:00')
-console.log(s.add(21, 'months'))
+// let s = spacetime('1999-03-28T20:42:00.000-05:00')
+// console.log(s.add(21, 'months'))
 
 // impl: day setter
-// let s = spacetime().now().day('tues')
-// console.log(s.iso())
+let s = spacetime().now().hour12('3pm')
+console.log(s.iso())
