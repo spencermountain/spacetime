@@ -254,7 +254,7 @@ export default {
     "hem": "n"
   },
   "america/bahia_banderas": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
   },
   "america/barbados": {
@@ -543,7 +543,7 @@ export default {
     "dst": "03/12:02->11/05:02"
   },
   "america/mazatlan": {
-    "offset": -6,
+    "offset": -7,
     "hem": "n"
   },
   "america/mendoza": {
@@ -556,7 +556,7 @@ export default {
     "dst": "03/12:02->11/05:02"
   },
   "america/merida": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n"
   },
   "america/metlakatla": {
@@ -565,7 +565,7 @@ export default {
     "dst": "03/12:02->11/05:02"
   },
   "america/mexico_city": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n"
   },
   "america/miquelon": {
@@ -579,7 +579,7 @@ export default {
     "dst": "03/12:02->11/05:02"
   },
   "america/monterrey": {
-    "offset": -5,
+    "offset": -6,
     "hem": "n",
   },
   "america/montevideo": {
