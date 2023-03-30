@@ -46,12 +46,12 @@ test('to-from utc-format', (t) => {
 
 test('unix-formatting', (t) => {
   let epoch = 1510850065194
-  let s = spacetime(epoch, 'Etc/GMT+3')
+  let s = spacetime(epoch, 'Etc/GMT+5')
   //examples from http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
   let arr = [
     ['h:mm a', '11:34 AM'],
     ['LLL', 'Nov'],
-    [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.11.16 AD at 11:34:25 Etc/GMT+3'],
+    [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.11.16 AD at 11:34:25 Etc/GMT+5'],
     [`EEE, MMM d, ''yy`, "Thu, Nov 16, '17"],
     [`hh 'o''clock' a`, '11 oclock AM'],
     ['yyyyy.MMMM.dd GGG hh:mm aaa', '02017.November.16 AD 11:34 AM'],
@@ -173,11 +173,11 @@ test('unix-fmt-padding', t => {
     hour: 4,
     minute: 2
   })
-  let str = d.format("ww DDD MM d, hh:mm a")
-  t.equal('04 027 Jan 27, 04:02 AM', str, here + 'string is 0-padded')
+  let str = d.unixFmt("ww DDD MM d, hh:mm a")
+  t.equal(str, '04 027 01 27, 04:02 AM', here + 'string is 0-padded')
 
-  str = d.format("w D MM d, h:m a")
-  t.equal('4 27 Jan 27, 4:2 AM', str, here + 'string is not-0-padded')
+  str = d.unixFmt("w D MM d, h:m a")
+  t.equal(str, '4 27 01 27, 4:2 AM', here + 'string is not-0-padded')
   t.end();
 });
 

@@ -8,7 +8,7 @@ export default [
 
   // '2012-06' month-only
   {
-    reg: /^([0-9]{4})[\-\/]([0-9]{2})$/i,
+    reg: /^([0-9]{4})[\-/]([0-9]{2})$/,
     parse: (s, m) => {
       let obj = {
         year: m[1],

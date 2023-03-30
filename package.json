@@ -47,6 +47,8 @@
     "test": "tape ./tests/one/*.test.js | tap-dancer",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer  --color always",
     "test:one": "tape ./tests/one/**/*.test.js | tap-dancer",
+    "test:two": "tape ./tests/two/**/*.test.js | tap-dancer",
+    "test:three": "tape ./tests/three/**/*.test.js | tap-dancer",
     "test:types": "ts-node ./test/types/index.ts | tap-dancer  --color always",
     "coverage": "nyc -r lcov -n 'src/**/*' -n 'plugins/**/*' npm run coverage:tests",
     "coverage:tests": "npm run test",

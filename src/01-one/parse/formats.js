@@ -23,26 +23,30 @@ const isNumber = val => {
 
 // 
 const fillIn = function (obj, tz, world) {
-  // assume jan 1?
-  if (isNumber(obj.year)) {
-    return Object.assign({}, jan1, obj)
-  }
-  // if we have any time properties, zero out the rest
-  if (isNumber(obj.hour) || isNumber(obj.minute) || isNumber(obj.second)) {
-    obj.minute = obj.minute || 0
-    obj.second = obj.second || 0
-    obj.millisecond = obj.millisecond || 0
-  }
-  // if there's no year, assume ours
   let now = getNow(tz, world)
+  delete now.offset
+  // if there's no year, assume current
+  if (obj.year === undefined) {
+    obj.year = now.year
+  }
+  // if there's a date, but no month, assume current
+  // if (obj.date && obj.month === undefined) {
+  // obj.month = now.month
+  // }
   // otherwise, assume now, for missing values
-  let cal = Object.assign({}, now, obj)
+  let cal = Object.assign({}, jan1, obj)
   return cal
 }
 
 const fromObject = function (obj, tz, world) {
+  obj = Object.assign({}, obj)
   if (typeof obj.month === 'string') {
     obj.month = parseMonth(obj.month)
+  }
+  // support 'day' alias for 'date'
+  if (obj.date === undefined && obj.day !== undefined) {
+    obj.date = obj.day
+    delete obj.day
   }
   if (typeof obj.date === 'string') {
     obj.date = parseDate(obj.date)

@@ -1,7 +1,7 @@
-// import spacetime from './src/01-one/index.js'
-import spacetime from './src/03-three/index.js'
+import spacetime from './src/01-one/index.js'
+// import spacetime from './src/03-three/index.js'
 import { DateTime } from "luxon";
-// import old from './old/src/index.js'
+import old from './old/src/index.js'
 
 
 
@@ -14,8 +14,8 @@ import { DateTime } from "luxon";
 // console.log(spacetime.now().tz)
 // let jan1 = spacetime.world.methods.getYear(epoch, 'Etc/GMT+4', spacetime.world)
 // let iso = '2023-01-01T00:00:00.000-07:00'
-let s = spacetime.now()
-let d = s.startOf('week').debug()
-// s.startOf('week').debug()
-// console.log(s.calendar().toAscii())
-// console.log(s.unixFmt(`foo 'at' y`))
+
+let str = '1923-11-01T00:00:00.000-07:00'
+let s = spacetime(str)
+s = s.add(1, 'minute').minus(2, 'minute').add(1, 'minute')
+console.log(s.iso())

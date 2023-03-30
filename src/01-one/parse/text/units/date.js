@@ -13,7 +13,8 @@ const parseDate = (str = '') => {
 
   let date = parseInt(str, 10)
 
-  return date || 1 // coerce zero to one
+  // return date || 1 // coerce zero to one
+  return date
 }
 
 export default parseDate
