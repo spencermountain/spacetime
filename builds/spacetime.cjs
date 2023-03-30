@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.4.0 Apache 2.0 */
+/* spencermountain/spacetime 7.4.2 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -73,7 +73,6 @@
     "5.5|n": "2/kolkata,2/colombo,2/calcutta",
     "4|s": "9/reunion",
     "4|n": "2/baku,2/dubai,2/muscat,2/tbilisi,2/yerevan,8/astrakhan,8/samara,8/saratov,8/ulyanovsk,8/volgograd,9/mahe,9/mauritius,2/volgograd",
-    "4.5|n|03/22:00->09/21:24": "2/tehran,iran",
     "4.5|n": "2/kabul",
     "3|s": "12/syowa,9/antananarivo",
     "3|n|03/26:03->10/29:04": "2/famagusta,2/nicosia,8/athens,8/bucharest,8/helsinki,8/kyiv,8/mariehamn,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye,8/nicosia,8/kiev",
@@ -82,6 +81,7 @@
     "3|n|03/25:02->10/28:02": "2/gaza,2/hebron",
     "3|n|03/24:02->10/29:02": "2/jerusalem,2/tel_aviv,israel",
     "3|n": "0/addis_ababa,0/asmara,0/asmera,0/dar_es_salaam,0/djibouti,0/juba,0/kampala,0/mogadishu,0/nairobi,2/aden,2/amman,2/baghdad,2/bahrain,2/damascus,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,9/comoro,9/mayotte,2/istanbul,turkey,w-su",
+    "3.5|n": "2/tehran,iran",
     "2|s|03/26:02->10/29:02": "12/troll",
     "2|s": "0/gaborone,0/harare,0/johannesburg,0/lubumbashi,0/lusaka,0/maputo,0/maseru,0/mbabane",
     "2|n|03/26:02->10/29:03": "0/ceuta,arctic/longyearbyen,8/amsterdam,8/andorra,8/belgrade,8/berlin,8/bratislava,8/brussels,8/budapest,8/busingen,8/copenhagen,8/gibraltar,8/ljubljana,8/luxembourg,8/madrid,8/malta,8/monaco,8/oslo,8/paris,8/podgorica,8/prague,8/rome,8/san_marino,8/sarajevo,8/skopje,8/stockholm,8/tirane,8/vaduz,8/vatican,8/vienna,8/warsaw,8/zagreb,8/zurich,3/jan_mayen,poland",
@@ -113,13 +113,13 @@
     "-8|n|03/12:02->11/05:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat,us/alaska",
     "-8|n": "11/pitcairn",
     "-7|n|03/12:02->11/05:02": "1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,1/ensenada,6/pacific,10/bajanorte,us/pacific-new,us/pacific",
-    "-7|n": "1/creston,1/dawson,1/dawson_creek,1/fort_nelson,1/hermosillo,1/phoenix,1/whitehorse,6/yukon,us/arizona",
+    "-7|n": "1/creston,1/dawson,1/dawson_creek,1/fort_nelson,1/hermosillo,1/mazatlan,1/phoenix,1/whitehorse,6/yukon,10/bajasur,us/arizona",
     "-6|s|04/01:22->09/02:22": "11/easter,7/easterisland",
     "-6|n|03/12:02->11/05:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/north_dakota,1/ojinaga,1/yellowknife,1/shiprock,6/mountain,navajo,us/mountain",
-    "-6|n": "1/belize,1/chihuahua,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/mazatlan,1/regina,1/swift_current,1/tegucigalpa,11/galapagos,6/east-saskatchewan,6/saskatchewan,10/bajasur",
+    "-6|n": "1/bahia_banderas,1/belize,1/chihuahua,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/merida,1/mexico_city,1/monterrey,1/regina,1/swift_current,1/tegucigalpa,11/galapagos,6/east-saskatchewan,6/saskatchewan,10/general",
     "-5|s": "1/lima,1/rio_branco,1/porto_acre,5/acre",
     "-5|n|03/12:02->11/05:02": "1/chicago,1/matamoros,1/menominee,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,1/indiana/knox,1/indiana/tell_city,1/north_dakota/beulah,1/north_dakota/center,1/north_dakota/new_salem,1/knox_in,6/central,us/central,us/indiana-starke",
-    "-5|n": "1/bahia_banderas,1/bogota,1/cancun,1/cayman,1/coral_harbour,1/eirunepe,1/guayaquil,1/jamaica,1/merida,1/mexico_city,1/monterrey,1/panama,1/atikokan,jamaica,10/general",
+    "-5|n": "1/bogota,1/cancun,1/cayman,1/coral_harbour,1/eirunepe,1/guayaquil,1/jamaica,1/panama,1/atikokan,jamaica",
     "-4|s|04/01:24->09/03:00": "1/santiago,7/continental",
     "-4|s|03/25:24->10/01:00": "1/asuncion",
     "-4|s": "1/campo_grande,1/cuiaba,1/la_paz,1/manaus,5/west",
@@ -3851,7 +3851,7 @@
 
   const addMethods = SpaceTime => {
     const methods = {
-      i18n: data => {
+      i18n: function (data) {
         //change the day names
         if (isObject(data.days)) {
           set$2(data.days);
@@ -3870,6 +3870,7 @@
         if (isObject(data.ampm)) {
           set(data.ampm);
         }
+        return this
       }
     };
 
@@ -3882,19 +3883,19 @@
   var i18nFns = addMethods;
 
   let timezones = zones;
-  //fake timezone-support, for fakers (es5 class)
+  // fake timezone-support, for fakers (es5 class)
   const SpaceTime = function (input, tz, options = {}) {
-    //the holy moment
+    // the holy moment
     this.epoch = null;
-    //the shift for the given timezone
+    // the shift for the given timezone
     this.tz = findTz(tz, timezones);
-    //whether to output warnings to console
+    // whether to output warnings to console
     this.silent = typeof options.silent !== 'undefined' ? options.silent : true;
     // favour british interpretation of 02/02/2018, etc
     this.british = options.dmy || options.british;
 
-    //does the week start on sunday, or monday:
-    this._weekStart = 1; //default to monday
+    // does the week start on sunday, or monday:
+    this._weekStart = 1; // default to monday
     if (options.weekStart !== undefined) {
       this._weekStart = options.weekStart;
     }
@@ -3909,23 +3910,23 @@
     //   writable: true,
     //   value: parsers
     // })
-    //add getter/setters
+    // add getter/setters
     Object.defineProperty(this, 'd', {
-      //return a js date object
+      // return a js date object
       get: function () {
         let offset = quickOffset$1(this);
-        //every computer is somewhere- get this computer's built-in offset
+        // every computer is somewhere- get this computer's built-in offset
         let bias = new Date(this.epoch).getTimezoneOffset() || 0;
-        //movement
+        // movement
         let shift = bias + offset * 60; //in minutes
         shift = shift * 60 * 1000; //in ms
-        //remove this computer's offset
+        // remove this computer's offset
         let epoch = this.epoch + shift;
         let d = new Date(epoch);
         return d
       }
     });
-    //add this data on the object, to allow adding new timezones
+    // add this data on the object, to allow adding new timezones
     Object.defineProperty(this, 'timezones', {
       get: () => timezones,
       set: (obj) => {
@@ -3933,12 +3934,12 @@
         return obj
       }
     });
-    //parse the various formats
+    // parse the various formats
     let tmp = handleInput(this, input);
     this.epoch = tmp.epoch;
   };
 
-  //(add instance methods to prototype)
+  // (add instance methods to prototype)
   Object.keys(methods$5).forEach((k) => {
     SpaceTime.prototype[k] = methods$5[k];
   });
@@ -3968,7 +3969,7 @@
     return new Date(this.epoch)
   };
 
-  //append more methods
+  // append more methods
   queryFns(SpaceTime);
   addFns(SpaceTime);
   sameFns(SpaceTime);
@@ -4015,7 +4016,7 @@
   };
   var whereIts$1 = whereIts;
 
-  var version = '7.4.0';
+  var version = '7.4.2';
 
   const main = (input, tz, options) => new Spacetime(input, tz, options);
 

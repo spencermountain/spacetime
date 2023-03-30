@@ -9,6 +9,12 @@ This project follows semVer, where:
 
  -->
  
+ ### 7.4.2 [Mar 2023]
+ - **[change]** - Iran off of dst #379
+ - **[change]** - mexico off of dst #378
+ - **[change]** - allow chaining of .i18() #372
+ - **[change]** - typescript update #373
+
  ### 7.4.1 [Jan 2023]
  - **[update]** - add etc/unknown timezone for #367
 
