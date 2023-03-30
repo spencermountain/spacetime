@@ -1151,9 +1151,8 @@ export default {
     "hem": "n"
   },
   "asia/tehran": {
-    "offset": 4.5,
+    "offset": 3.5,
     "hem": "n",
-    "dst": "03/22:00->09/21:24"
   },
   "asia/thimphu": {
     "offset": 6,
