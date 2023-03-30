@@ -3,7 +3,4 @@ import spacetime from './src/index.js'
 
 // spacetime.extend(require('./plugins/holiday'))
 
-let s = spacetime('nov 11 2022', 'etc/unknown')
-// s = s.add(1, 'centuries')
-console.log(s.format())
-// console.log(s.season()) //'Sábado'
+const assignmentDate = spacetime("2022-11-21T00:00:00.000Z").i18n({}).format("{day-short}, {month-short}, {date}, {year}");

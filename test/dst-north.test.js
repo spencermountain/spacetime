@@ -25,7 +25,7 @@ let zones = [
   'asia/hebron',
   'atlantic/azores',
   'asia/beirut', //10/24:24
-  'asia/tehran' //09/20:24
+  // 'asia/tehran' //09/20:24
 ]
 
 test('north-increment-spring', (t) => {

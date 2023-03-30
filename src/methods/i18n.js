@@ -2,12 +2,12 @@ import { isObject, isBoolean } from '../fns.js'
 import { set as setD } from '../data/days.js'
 import { set as setM } from '../data/months.js'
 import { set as setTcf } from '../data/caseFormat.js'
-import { set as setAmpm} from '../data/ampm.js'
+import { set as setAmpm } from '../data/ampm.js'
 
 
 const addMethods = SpaceTime => {
   const methods = {
-    i18n: data => {
+    i18n: function (data) {
       //change the day names
       if (isObject(data.days)) {
         setD(data.days)
@@ -26,6 +26,7 @@ const addMethods = SpaceTime => {
       if (isObject(data.ampm)) {
         setAmpm(data.ampm)
       }
+      return this
     }
   }
 
