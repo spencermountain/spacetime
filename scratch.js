@@ -25,5 +25,5 @@ import old from './old/src/index.js'
 // console.log(s.add(21, 'months'))
 
 // impl: day setter
-let s = spacetime().now().hour12('3pm')
-console.log(s.iso())
+let s = spacetime({ year: 2019, month: 1, date: 1 })//.endOf('year')
+console.log(s.dayOfYear())

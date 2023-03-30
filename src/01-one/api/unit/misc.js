@@ -4,10 +4,6 @@ const getter = {
   week: (s) => {
     let start = s.startOf('year').startOf('week')
     return start.diff(s, 'week')
-  },
-  dayOfYear: (s) => {
-    let start = s.startOf('year')
-    return start.diff(s, 'day')
   }
 }
 
@@ -15,10 +11,6 @@ const setter = {
   week: (s, input) => {
     let d = s.startOf('year').startOf('week')
     return d.add(input, 'week')
-  },
-  dayOfYear: (s, input) => {
-    let d = s.startOf('year')
-    return d.add(input, 'day')
   }
 }
 
@@ -43,7 +35,8 @@ export default {
       let s = this.startOf('year')
       return s.add(input, 'day')
     }
-    return getter.dayOfYear(this)
+    let start = this.startOf('year')
+    return start.diff(this, 'day') + 1
   },
   daysInMonth: function () {
     const monthLen = this.world.methods.monthLen

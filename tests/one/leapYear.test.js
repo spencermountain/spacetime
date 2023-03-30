@@ -6,29 +6,29 @@ const fmt = (s) => {
 }
 
 test('leapyear-basic', (t) => {
-  let d = spacetime('December 12, 2016 20:42:00', 'Africa/Algiers')
+  let d = spacetime('December 12, 2016 20:42:00')
   t.equal(d.leapYear(), true, '2016-leap')
 
-  d = spacetime('April 12, 2020 10:42:00', 'Canada/Pacific')
+  d = spacetime('April 12, 2020 10:42:00')
   t.equal(d.leapYear(), true, '2020-leap')
 
-  d = spacetime('April 12, 2024 10:42:00', 'Canada/Eastern')
+  d = spacetime('April 12, 2024 10:42:00')
   t.equal(d.leapYear(), true, '2024-leap')
 
-  d = spacetime('April 12, 2018 10:42:00', 'Canada/Eastern')
+  d = spacetime('April 12, 2018 10:42:00')
   t.equal(d.leapYear(), false, '2018-not-leap')
 
-  d = spacetime('April 12, 2019 10:42:00', 'Canada/Pacific')
+  d = spacetime('April 12, 2019 10:42:00')
   t.equal(d.leapYear(), false, '2019-not-leap')
 
-  d = spacetime('April 12, 2023 10:42:00', 'Africa/Algiers')
+  d = spacetime('April 12, 2023 10:42:00')
   t.equal(d.leapYear(), false, '2023-not-leap')
 
   t.end()
 })
 
 test('leapyear-in-add', (t) => {
-  let d = spacetime('December 1, 2000 20:42:00', 'Africa/Algiers')
+  let d = spacetime('December 1, 2000 20:42:00')
   let first = d.clone()
 
   d = d.add(365, 'day')
@@ -51,7 +51,7 @@ test('leapyear-in-add', (t) => {
 })
 
 test('add-1-day-adds-25-hours', (t) => {
-  let d = spacetime(1509858000000, 'Canada/Eastern')
+  let d = spacetime(1509858000000)
   t.equal(d.date(), 5, 'is 5th')
   d = d.add(1, 'date')
   t.equal(d.date(), 6, 'now 6th')
@@ -64,11 +64,11 @@ test('feb-29th-exists', (t) => {
   let leaps = [2004, 2008, 2012, 2016, 2020, 2024]
   leaps.forEach((y) => {
     //feb 28th 11:30pm
-    let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers')
+    let s = spacetime([y, 2, 28, 23, 30])
     s = s.add(1, 'hour')
     t.equal(s.format('nice-short'), 'Feb 29th, 12:30am', 'forward into leapday on ' + y)
     //march 1st 5:30pm
-    s = spacetime([y, 2, 1, 17, 30], 'Canada/Mountain')
+    s = spacetime([y, 3, 1, 17, 30])
     s = s.subtract(1, 'day')
     t.equal(s.format('nice-short'), 'Feb 29th, 5:30pm', 'backward into leapday on ' + y)
   })
@@ -79,11 +79,11 @@ test('feb-29th-doesnt-exist', (t) => {
   let noLeaps = [2005, 2009, 2010, 2011, 2013, 2017, 2019, 2021]
   noLeaps.forEach((y) => {
     //feb 28th 11:30pm
-    let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers')
+    let s = spacetime([y, 2, 28, 23, 30])
     s = s.add(1, 'hour')
     t.equal(s.format('nice-short'), 'Mar 1st, 12:30am', 'no leap on ' + y)
     //march 1st 5:30pm
-    s = spacetime([y, 2, 1, 17, 30], 'Canada/Eastern')
+    s = spacetime([y, 3, 1, 17, 30])
     s = s.subtract(1, 'day')
     t.equal(s.format('nice-short'), 'Feb 28th, 5:30pm', 'backward with no leapday on ' + y)
   })
@@ -110,9 +110,7 @@ test('length of year', (t) => {
   }
   for (let i = 0; i < 15; i++) {
     let year = 2014 + i
-    let s = spacetime({
-      year
-    }).endOf('year')
+    let s = spacetime({ year }).endOf('year')
     t.equal(s.dayOfYear(), right[year], 'year ' + year)
   }
   t.end()
@@ -121,7 +119,7 @@ test('length of year', (t) => {
 test('set feb 29th in leap year', (t) => {
   let s = spacetime.now()
   s = s.year(2020)
-  s = s.month(1)
+  s = s.month(2)
   s = s.date(29)
   t.equal(s.format('iso-short'), '2020-02-29', 'is leap day')
   t.end()
@@ -130,7 +128,7 @@ test('set feb 29th in leap year', (t) => {
 test('set feb 29th in non-leap year', (t) => {
   let s = spacetime.now()
   s = s.year(2019)
-  s = s.month(1)
+  s = s.month(2)
   s = s.date(29)
   t.equal(s.format('iso-short'), '2019-02-28', 'is not leap day')
   t.end()
