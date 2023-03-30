@@ -1029,7 +1029,6 @@ export default {
   "Asia/Tehran": {
     "offset": 3.5,
     "hem": "n",
-    "dst": "iran",
     "shrt": "IRST|IRDT"
   },
   "Asia/Thimphu": {
