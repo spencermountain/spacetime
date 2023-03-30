@@ -30,7 +30,6 @@ const getEpoch = function (cal, tz, world) {
   const { yearStart, dstChanges } = world.methods
   // set secure defaults
   cal = validate(cal, world)
-
   // set our cal to Jan 1 of this year
   let epoch = yearStart(cal.year, tz, world)
   let have = Object.assign({}, NEW_YEAR, { year: cal.year })

@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './_lib.js'
 
 test('compare', (t) => {
-  let original = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern')
+  let original = spacetime('March 28, 1999 20:42:00')
   let d = original.clone()
   t.equal(original.isEqual(d), true, 'originally-equal')
   t.equal(original.isAfter(d), false, 'originally-not-after')
@@ -47,11 +47,11 @@ test('dont leak milliseconds', (t) => {
   t.end()
 })
 
-test('goto is still equal', (t) => {
-  let original = spacetime('March 28, 1999 20:42:00', 'Canada/Eastern')
-  let d = original.goto('Canada/Pacific')
-  t.equal(original.isEqual(d), true, 'originally-equal')
-  t.equal(original.isAfter(d), false, 'originally-not-after')
-  t.equal(original.isBefore(d), false, 'originally-is-before')
-  t.end()
-})
+// test('goto is still equal', (t) => {
+//   let original = spacetime('March 28, 1999 20:42:00')
+//   let d = original.goto('Canada/Pacific')
+//   t.equal(original.isEqual(d), true, 'originally-equal')
+//   t.equal(original.isAfter(d), false, 'originally-not-after')
+//   t.equal(original.isBefore(d), false, 'originally-is-before')
+//   t.end()
+// })

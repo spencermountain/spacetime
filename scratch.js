@@ -15,7 +15,13 @@ import old from './old/src/index.js'
 // let jan1 = spacetime.world.methods.getYear(epoch, 'Etc/GMT+4', spacetime.world)
 // let iso = '2023-01-01T00:00:00.000-07:00'
 
-let str = '1923-11-01T00:00:00.000-07:00'
-let s = spacetime(str)
-s = s.add(1, 'minute').minus(2, 'minute').add(1, 'minute')
-console.log(s.iso())
+// bug 1
+// let str = '1923-11-01T00:00:00.000-07:00'
+// let s = spacetime(str)
+// s = s.add(1, 'minute').minus(2, 'minute').add(1, 'minute')
+// console.log(s.iso())
+
+
+let s = spacetime('March 28, 1999 20:42:00')
+let d = s.date(29)
+console.log(d.iso())

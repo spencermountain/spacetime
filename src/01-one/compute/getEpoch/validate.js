@@ -32,12 +32,12 @@ const validate = function (cal, world) {
   if (cal.month && cal.month > 12) {
     cal.month = 12
   }
-  if (cal.date && months[cal.month - 1] && cal.date > months[cal.month - 1].len) {
+  if (cal.date && months[cal.month] && cal.date > months[cal.month].len) {
     // check leap
     if (cal.month === 2 && isLeapYear(cal.year)) {
       cal.date = 29
     } else {
-      cal.date = months[cal.month - 1].len
+      cal.date = months[cal.month].len
     }
   }
   if (cal.hour && cal.hour > 24) {
