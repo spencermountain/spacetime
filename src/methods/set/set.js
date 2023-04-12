@@ -243,7 +243,11 @@ const dayOfYear = function (s, n, goFwd) {
   if (n <= 0) {
     n = 0
   } else if (n >= 365) {
-    n = 364
+    if (isLeapYear(s.year())) {
+      n = 365
+    } else {
+      n = 364
+    }
   }
   s = s.startOf('year')
   s = s.add(n, 'day')
