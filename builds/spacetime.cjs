@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.4.2 Apache 2.0 */
+/* spencermountain/spacetime 7.4.3 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -2940,7 +2940,11 @@
     if (n <= 0) {
       n = 0;
     } else if (n >= 365) {
-      n = 364;
+      if (isLeapYear(s.year())) {
+        n = 365;
+      } else {
+        n = 364;
+      }
     }
     s = s.startOf('year');
     s = s.add(n, 'day');
@@ -4016,7 +4020,7 @@
   };
   var whereIts$1 = whereIts;
 
-  var version = '7.4.2';
+  var version = '7.4.3';
 
   const main = (input, tz, options) => new Spacetime(input, tz, options);
 

@@ -9,6 +9,9 @@ This project follows semVer, where:
 
  -->
  
+ ### 7.4.3 [April 2023]
+ - **[fix]** - support leap-years in setting dayOfYear() #382
+
  ### 7.4.2 [Mar 2023]
  - **[change]** - Iran off of dst #379
  - **[change]** - mexico off of dst #378
