@@ -3,4 +3,7 @@ import spacetime from './src/index.js'
 
 // spacetime.extend(require('./plugins/holiday'))
 
-const assignmentDate = spacetime("2022-11-21T00:00:00.000Z").i18n({}).format("{day-short}, {month-short}, {date}, {year}");
+let s = spacetime()
+s = s.year(2020)
+s = s.dayOfYear(366);
+console.log(s.json())
