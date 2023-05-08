@@ -53,12 +53,14 @@ const methods = {
     tmp = clearMinutes(tmp)
     tmp = tmp.day('monday')
     //don't go into last-year
-    if (tmp.monthName() === 'december' && tmp.date() >= 28) {
+    if (tmp.month() === 11 && tmp.date()>=25) {
       tmp = tmp.add(1, 'week')
     }
+
     // is first monday the 1st?
     let toAdd = 1
-    if (tmp.date() === 1) {
+    // console.log(tmp.date());
+    if (tmp.date() ===1) {   
       toAdd = 0
     }
     tmp = tmp.minus(1, 'second')
@@ -68,8 +70,13 @@ const methods = {
       return 1
     }
     //speed it up, if we can
+
+    /////////////////////////////////////////////
+
+    /////////////////////////////////////////////
     let i = 0
     let skipWeeks = this.month() * 4
+    // console.log(ms.week+ " "+ skipWeeks);
     tmp.epoch += ms.week * skipWeeks
     i += skipWeeks
     for (; i <= 52; i++) {
