@@ -126,15 +126,15 @@ const methods = {
   dayTime: function (str, goFwd) {
     if (str !== undefined) {
       const times = {
-        morning: '7:00am',
-        breakfast: '7:00am',
-        noon: '12:00am',
-        lunch: '12:00pm',
-        afternoon: '2:00pm',
-        evening: '6:00pm',
-        dinner: '6:00pm',
-        night: '11:00pm',
-        midnight: '23:59pm'
+        morning: '7:00',
+        breakfast: '7:00',
+        noon: '12:00',
+        lunch: '12:00',
+        afternoon: '14:00',
+        evening: '18:00',
+        dinner: '18:00',
+        night: '23:00',
+        midnight: '00:00'
       }
       let s = this.clone()
       str = str || ''
