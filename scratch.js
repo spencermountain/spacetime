@@ -5,8 +5,7 @@ let s = spacetime()
 // s = s.year(2020)
 // s = s.dayOfYear(366);
 // console.log(s.dayTime());
-console.log(s.json())  
+console.log(s.json())
 
-// let d = spacetime('2022/01/01','utc');
-// d = d.every('day','2022/12/31');
-// d.forEach(function (e) {console.log(e.format('iso-short'),e.week())})
+let s = spacetime('03/31/2002', 'America/Denver')
+console.log(s.iso())

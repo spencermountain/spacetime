@@ -1,11 +1,11 @@
 import test from 'tape'
 import spacetime from './lib/index.js'
 
-test('jan 1 is week 1', (t) => {
-  for (let i = 0; i < 125; i += 1) {
-    let d = spacetime((1970 + i) + '/01/01');
-    let iso = d.format('iso-short')
-    t.equal(d.week(), 1, iso + ' week')
+test('jan 1 is always first week', (t) => {
+  for (let year = 1950; year < 2070; year += 1) {
+    let s = spacetime(`${year}-01-01`);
+    t.equal(year, s.year(), year + ' year')
+    t.equal(s.week(), 1, year + ' week')
   }
   t.end()
 })

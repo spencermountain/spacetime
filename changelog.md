@@ -9,6 +9,9 @@ This project follows semVer, where:
 
  -->
  
+ ### 7.4.4 [May 2023]
+ - **[fix]** - .week() results #387
+
  ### 7.4.3 [April 2023]
  - **[fix]** - support leap-years in setting dayOfYear() #382
 

@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.4.3 Apache 2.0 */
+/* spencermountain/spacetime 7.4.4 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -3247,9 +3247,10 @@
       tmp = clearMinutes(tmp);
       tmp = tmp.day('monday');
       //don't go into last-year
-      if (tmp.monthName() === 'december' && tmp.date() >= 28) {
+      if (tmp.month() === 11 && tmp.date() >= 25) {
         tmp = tmp.add(1, 'week');
       }
+
       // is first monday the 1st?
       let toAdd = 1;
       if (tmp.date() === 1) {
@@ -3264,6 +3265,7 @@
       //speed it up, if we can
       let i = 0;
       let skipWeeks = this.month() * 4;
+      // console.log(ms.week+ " "+ skipWeeks);
       tmp.epoch += ms.week * skipWeeks;
       i += skipWeeks;
       for (; i <= 52; i++) {
@@ -4020,7 +4022,7 @@
   };
   var whereIts$1 = whereIts;
 
-  var version = '7.4.3';
+  var version = '7.4.4';
 
   const main = (input, tz, options) => new Spacetime(input, tz, options);
 
