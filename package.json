@@ -9,6 +9,7 @@
   "sideEffects": false,
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "require": "./builds/spacetime.cjs",
       "import": "./src/index.js"
     }
