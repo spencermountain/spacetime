@@ -20,7 +20,7 @@ test('random november time', (t) => {
     ['Asia/Karachi', 'Thu 7:35am'],
     ['America/Toronto', 'Wed 9:35pm'],
     ['America/New_York', 'Wed 9:35pm'],
-    ['Africa/Cairo', 'Thu 4:35am'],
+    ['Africa/Cairo', 'Thu 3:35am'],
     ['Asia/Kathmandu', 'Thu 8:20am'],
     ['Europe/Paris', 'Thu 3:35am'],
     ['Europe/Kiev', 'Thu 4:35am'], // Alias to "Europe/Kyiv"

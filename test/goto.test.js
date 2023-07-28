@@ -50,7 +50,7 @@ test('goto-from-algiers (no-dst-places)', (t) => {
   s = s.goto('Africa/Dakar')
   t.equal(s.format('nice-full'), 'Tuesday March 14th, 9:48pm', 'one-hour-left')
   //one to the right...
-  s = s.goto('Africa/Cairo')
+  s = s.goto('Africa/Bujumbura')
   t.equal(s.format('nice-full'), 'Tuesday March 14th, 11:48pm', 'one-hour-right')
   //two to the right...
   s = s.goto('Asia/Baghdad')
