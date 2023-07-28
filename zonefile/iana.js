@@ -53,12 +53,13 @@ export default {
   },
   "africa/cairo": {
     "offset": 2,
-    "hem": "n"
+    "hem": "n",
+    "dst": "04/28:00->10/26:24"
   },
   "africa/casablanca": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/19:03->04/30:02"
+    "dst": "03/19:03->04/23:02"
   },
   "africa/ceuta": {
     "offset": 2,
@@ -88,7 +89,7 @@ export default {
   "africa/el_aaiun": {
     "offset": 1,
     "hem": "n",
-    "dst": "03/19:03->04/30:02"
+    "dst": "03/19:03->04/23:02"
   },
   "africa/freetown": {
     "offset": 0,
@@ -407,7 +408,7 @@ export default {
   "america/nuuk": {
     "offset": -2,
     "hem": "n",
-    "dst": "03/25:22->10/28:23"
+    "dst": "03/25:22->10/28:24"
   },
   "america/goose_bay": {
     "offset": -3,
@@ -969,12 +970,12 @@ export default {
   "asia/gaza": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/25:02->10/28:02"
+    "dst": "04/29:02->10/28:02"
   },
   "asia/hebron": {
     "offset": 3,
     "hem": "n",
-    "dst": "03/25:02->10/28:02"
+    "dst": "04/29:02->10/28:02"
   },
   "asia/hong_kong": {
     "offset": 8,

@@ -9,6 +9,12 @@ This project follows semVer, where:
 
  -->
  
+ ### 7.4.5 [Jul 2023]
+ - **[fix]** - typescript node16 issue #393
+ - **[update]** - moroccan and palestinian dst dates
+ - **[update]** - africa/cairo is back on DST
+ - **[update]** - deps
+
  ### 7.4.4 [May 2023]
  - **[fix]** - .week() results #387
 
