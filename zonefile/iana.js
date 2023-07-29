@@ -630,6 +630,11 @@ export default {
     "hem": "n",
     "dst": "03/12:02->11/05:02"
   },
+  "america/ciudad_juarez": {
+    "offset": -6,
+    "hem": "n",
+    "dst": "03/12:02->11/05:02"
+  },
   "america/panama": {
     "offset": -5,
     "hem": "n"
