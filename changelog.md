@@ -9,6 +9,10 @@ This project follows semVer, where:
 
  -->
  
+ ### 7.4.6 [Aug 2023]
+ - **[change]** - add new dst for #395
+ - **[update]** - deps
+
  ### 7.4.5 [Jul 2023]
  - **[fix]** - typescript node16 issue #393
  - **[update]** - moroccan and palestinian dst dates
@@ -17,6 +21,7 @@ This project follows semVer, where:
 
  ### 7.4.4 [May 2023]
  - **[fix]** - .week() results #387
+ - **[fix]** - .dayTime() results #388
 
  ### 7.4.3 [April 2023]
  - **[fix]** - support leap-years in setting dayOfYear() #382

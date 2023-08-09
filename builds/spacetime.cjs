@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.4.5 Apache 2.0 */
+/* spencermountain/spacetime 7.4.6 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -116,7 +116,7 @@
     "-7|n|03/12:02->11/05:02": "1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,1/ensenada,6/pacific,10/bajanorte,us/pacific-new,us/pacific",
     "-7|n": "1/creston,1/dawson,1/dawson_creek,1/fort_nelson,1/hermosillo,1/mazatlan,1/phoenix,1/whitehorse,6/yukon,10/bajasur,us/arizona",
     "-6|s|04/01:22->09/02:22": "11/easter,7/easterisland",
-    "-6|n|03/12:02->11/05:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/north_dakota,1/ojinaga,1/yellowknife,1/shiprock,6/mountain,navajo,us/mountain",
+    "-6|n|03/12:02->11/05:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/north_dakota,1/ojinaga,1/ciudad_juarez,1/yellowknife,1/shiprock,6/mountain,navajo,us/mountain",
     "-6|n": "1/bahia_banderas,1/belize,1/chihuahua,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/merida,1/mexico_city,1/monterrey,1/regina,1/swift_current,1/tegucigalpa,11/galapagos,6/east-saskatchewan,6/saskatchewan,10/general",
     "-5|s": "1/lima,1/rio_branco,1/porto_acre,5/acre",
     "-5|n|03/12:02->11/05:02": "1/chicago,1/matamoros,1/menominee,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,1/indiana/knox,1/indiana/tell_city,1/north_dakota/beulah,1/north_dakota/center,1/north_dakota/new_salem,1/knox_in,6/central,us/central,us/indiana-starke",
@@ -4024,7 +4024,7 @@
   };
   var whereIts$1 = whereIts;
 
-  var version = '7.4.5';
+  var version = '7.4.6';
 
   const main = (input, tz, options) => new Spacetime(input, tz, options);
 
