@@ -50,7 +50,7 @@
     "amble": "^1.3.0",
     "codecov": "3.8.3",
     "nyc": "^15.1.0",
-    "rollup": "3.27.0",
+    "rollup": "3.28.1",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-filesize-check": "0.0.2",
     "rollup-plugin-json": "^4.0.0",

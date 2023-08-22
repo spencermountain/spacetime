@@ -1,7 +1,8 @@
 import tzs from '../../zonefile/unpack.js'
 import guessTz from './guessTz.js'
 import parseOffset from './parseOffset.js'
-const local = guessTz()
+
+let local = guessTz()
 
 //add all the city names by themselves
 const cities = Object.keys(tzs).reduce((h, k) => {
@@ -25,6 +26,11 @@ const normalize = (tz) => {
 // try our best to reconcile the timzone to this given string
 const lookupTz = (str, zones) => {
   if (!str) {
+    // guard if Intl response is unsupported (#397)
+    if (!zones.hasOwnProperty(local)) {
+      console.warn(`Unrecognized IANA id '${local}'. Setting fallback tz to UTC.`)
+      local = 'utc'
+    }
     return local
   }
   if (typeof str !== 'string') {

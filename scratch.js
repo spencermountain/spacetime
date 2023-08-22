@@ -7,5 +7,5 @@ let s = spacetime()
 // console.log(s.dayTime());
 console.log(s.json())
 
-let s = spacetime('03/31/2002', 'America/Denver')
-console.log(s.iso())
+// let s = spacetime('03/31/2002', 'America/Denver')
+// console.log(s.iso())
