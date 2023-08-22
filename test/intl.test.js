@@ -18,7 +18,7 @@ test('intl-node ', (t) => {
   t.end()
 })
 
-test('intl-chrome', (t) => {
+test('intl-firefox', (t) => {
   //results of Intl.supportedValuesOf('timeZone') Aug 2023
   let arr = [
     'Africa/Abidjan',

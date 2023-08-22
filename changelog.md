@@ -11,7 +11,7 @@ This project follows semVer, where:
 
 ### 7.4.7 [Aug 2023]
 
-- **[fix]** - guard against non-IANA response in Intl #397
+- **[fix]** - guard against non-IANA responses in Intl #397
 - **[update]** - deps
 
 ### 7.4.6 [Aug 2023]
