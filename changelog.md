@@ -4,93 +4,114 @@ This project follows semVer, where:
 - **[minor]** is a result change
 - **[patch]** is a bugfix
 
-<!-- 
+<!--
  ### 7.2.0 [Sep 2022]
 
  -->
- 
- ### 7.4.6 [Aug 2023]
- - **[change]** - add new dst for #395
- - **[update]** - deps
 
- ### 7.4.5 [Jul 2023]
- - **[fix]** - typescript node16 issue #393
- - **[update]** - moroccan and palestinian dst dates
- - **[update]** - africa/cairo is back on DST
- - **[update]** - deps
+### 7.4.7 [Aug 2023]
 
- ### 7.4.4 [May 2023]
- - **[fix]** - .week() results #387
- - **[fix]** - .dayTime() results #388
+- **[fix]** - guard against non-IANA responses in Intl #397
+- **[update]** - deps
 
- ### 7.4.3 [April 2023]
- - **[fix]** - support leap-years in setting dayOfYear() #382
+### 7.4.6 [Aug 2023]
 
- ### 7.4.2 [Mar 2023]
- - **[change]** - Iran off of dst #379
- - **[change]** - mexico off of dst #378
- - **[change]** - allow chaining of .i18() #372
- - **[change]** - typescript update #373
+- **[change]** - add new dst for #395
+- **[update]** - deps
 
- ### 7.4.1 [Jan 2023]
- - **[update]** - add etc/unknown timezone for #367
+### 7.4.5 [Jul 2023]
 
- ### 7.4.0 [Dec 2022]
- - **[update]** - 2023 DST changes for mexico
- - **[update]** - 2023 DST changes for jordan
- - **[update]** - 2023 DST changes for fiji
- - **[update]** - missing seconds, quarters methods #360 #359
- - **[new]** - {AMPM} uppercase fmt
+- **[fix]** - typescript node16 issue #393
+- **[update]** - moroccan and palestinian dst dates
+- **[update]** - africa/cairo is back on DST
+- **[update]** - deps
 
- ### 7.3.0 [Dec 2022]
- - **[update]** - 2023 DST changes
- - **[fix]** - southern hemisphere december season #352
- - **[fix]** - Yakutsk timezone
+### 7.4.4 [May 2023]
 
+- **[fix]** - .week() results #387
+- **[fix]** - .dayTime() results #388
 
- ### 7.2.0 [Sep 2022]
- - **[update]** - Kiev/Kyiv alias
- - **[update]** - chile DST change
- - **[fix]** - antarctic dst times
- - update dependencies
+### 7.4.3 [April 2023]
 
- ### 7.1.4 [April 2022]
- - **[fix]** - export .cjs format for plugins in es5
- - **[fix]** - typescript fix #338 
- - **[fix]** - typescript fix #336
- - update dependencies
+- **[fix]** - support leap-years in setting dayOfYear() #382
 
- ### 7.1.3 [April 2022]
- - **[fix]** - typescript fixes
- - **[change]** - update asia/gaza and asia/hebron dst times
- - update dependencies
+### 7.4.2 [Mar 2023]
 
- ### 7.1.2 [Feb 2022]
- - **[fix]** -  for asmara issue #328
+- **[change]** - Iran off of dst #379
+- **[change]** - mexico off of dst #378
+- **[change]** - allow chaining of .i18() #372
+- **[change]** - typescript update #373
 
- ### 7.1.1 [Feb 2022]
+### 7.4.1 [Jan 2023]
+
+- **[update]** - add etc/unknown timezone for #367
+
+### 7.4.0 [Dec 2022]
+
+- **[update]** - 2023 DST changes for mexico
+- **[update]** - 2023 DST changes for jordan
+- **[update]** - 2023 DST changes for fiji
+- **[update]** - missing seconds, quarters methods #360 #359
+- **[new]** - {AMPM} uppercase fmt
+
+### 7.3.0 [Dec 2022]
+
+- **[update]** - 2023 DST changes
+- **[fix]** - southern hemisphere december season #352
+- **[fix]** - Yakutsk timezone
+
+### 7.2.0 [Sep 2022]
+
+- **[update]** - Kiev/Kyiv alias
+- **[update]** - chile DST change
+- **[fix]** - antarctic dst times
+- update dependencies
+
+### 7.1.4 [April 2022]
+
+- **[fix]** - export .cjs format for plugins in es5
+- **[fix]** - typescript fix #338
+- **[fix]** - typescript fix #336
+- update dependencies
+
+### 7.1.3 [April 2022]
+
+- **[fix]** - typescript fixes
+- **[change]** - update asia/gaza and asia/hebron dst times
+- update dependencies
+
+### 7.1.2 [Feb 2022]
+
+- **[fix]** - for asmara issue #328
+
+### 7.1.1 [Feb 2022]
+
 - **[new]** - support custom i18n strings for am/pm
 - **[new]** - more alias support for deprecated iana codes
 - **[fix]** - for silent/verbose mode
 - update deps
 
- ### 7.1.0 [Jan 2022]
- - **[change]** - rename cjs build to .cjs [#319](https://github.com/spencermountain/spacetime/issues/319)
+### 7.1.0 [Jan 2022]
 
- ### 7.0.2 [Jan 2022]
+- **[change]** - rename cjs build to .cjs [#319](https://github.com/spencermountain/spacetime/issues/319)
+
+### 7.0.2 [Jan 2022]
+
 - **[fix]** - another esm build path #316
 
- ### 7.0.1 [Jan 2022]
+### 7.0.1 [Jan 2022]
+
 - **[fix]** - esm build path
 
- ### 7.0.0 [Jan 2022]
+### 7.0.0 [Jan 2022]
+
 - **[change]** - update to 2022 DST dates
 - **[change]** - return 'Sep' instead of 'Sept' in format('month-short') and 'MMM' #304
 - **[change]** - convert to ES-modules, + exports fields
 - **[change]** - make .every() results inclusive of start
 - **[change]** - alias old IANA codes to contemporary ones
 - **[change]** - move cal plugin to repo spencermountain/scal
-- **[new]** - add ISO duration to .since() results  (thanks Adam)
+- **[new]** - add ISO duration to .since() results (thanks Adam)
 - **[fix]** - iso-parsing issues #320
 - **[fix]** - typescript issue #305
 - **[fix]** - subtract months issue #312
@@ -99,8 +120,8 @@ This project follows semVer, where:
 - **[change]** - update deps
 - bump + republish plugins
 
-
 ### v6.16.4 [Nov 2021]
+
 - **[fix]** - ISO fmt parsing #310
 - **[update]** - gaza, hebron dst date change
 - update deps
