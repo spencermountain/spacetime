@@ -9,6 +9,10 @@ This project follows semVer, where:
 
  -->
 
+### 7.4.8 [Oct 2023]
+- **[fix]** - fix for reversed-DST in `africa/casablanca` and `africa/el_aaiun` #400
+- **[update]** - deps
+
 ### 7.4.7 [Aug 2023]
 
 - **[fix]** - guard against non-IANA responses in Intl #397
