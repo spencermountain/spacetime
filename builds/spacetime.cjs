@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.4.7 Apache 2.0 */
+/* spencermountain/spacetime 7.4.8 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -87,10 +87,8 @@
     "2|n|04/28:00->10/26:24": "0/cairo,egypt",
     "2|n|03/26:02->10/29:03": "0/ceuta,arctic/longyearbyen,8/amsterdam,8/andorra,8/belgrade,8/berlin,8/bratislava,8/brussels,8/budapest,8/busingen,8/copenhagen,8/gibraltar,8/ljubljana,8/luxembourg,8/madrid,8/malta,8/monaco,8/oslo,8/paris,8/podgorica,8/prague,8/rome,8/san_marino,8/sarajevo,8/skopje,8/stockholm,8/tirane,8/vaduz,8/vatican,8/vienna,8/warsaw,8/zagreb,8/zurich,3/jan_mayen,poland,cet,met",
     "2|n": "0/blantyre,0/bujumbura,0/khartoum,0/kigali,0/tripoli,8/kaliningrad,libya",
-    "1|s|03/19:03->04/23:02": "0/casablanca",
     "1|s": "0/brazzaville,0/kinshasa,0/luanda,0/windhoek",
     "1|n|03/26:01->10/29:02": "3/canary,3/faroe,3/madeira,8/dublin,8/guernsey,8/isle_of_man,8/jersey,8/lisbon,8/london,3/faeroe,eire,8/belfast,gb-eire,gb,portugal,wet",
-    "1|n|03/19:03->04/23:02": "0/el_aaiun",
     "1|n": "0/algiers,0/bangui,0/douala,0/lagos,0/libreville,0/malabo,0/ndjamena,0/niamey,0/porto-novo,0/tunis",
     "14|n": "11/kiritimati",
     "13|s": "11/apia,11/tongatapu",
@@ -107,6 +105,7 @@
     "10|s": "12/dumontdurville,4/brisbane,4/lindeman,11/port_moresby,4/queensland",
     "10|n": "2/ust-nera,2/vladivostok,11/guam,11/saipan,11/chuuk,11/truk,11/yap",
     "10.5|s|04/02:01->10/01:02": "4/lord_howe,4/lhi",
+    "0|s|03/19:03->04/23:02": "0/casablanca,0/el_aaiun",
     "0|n|03/26:00->10/29:01": "1/scoresbysund,3/azores",
     "0|n": "0/abidjan,0/accra,0/bamako,0/banjul,0/bissau,0/conakry,0/dakar,0/freetown,0/lome,0/monrovia,0/nouakchott,0/ouagadougou,0/sao_tome,1/danmarkshavn,3/reykjavik,3/st_helena,13/gmt,13/utc,0/timbuktu,13/greenwich,13/uct,13/universal,13/zulu,gmt-0,gmt+0,gmt0,greenwich,iceland,uct,universal,utc,zulu,13/unknown,factory",
     "-9|n|03/12:02->11/05:02": "1/adak,1/atka,us/aleutian",
@@ -4030,7 +4029,7 @@
   };
   var whereIts$1 = whereIts;
 
-  var version = '7.4.7';
+  var version = '7.4.8';
 
   const main = (input, tz, options) => new Spacetime(input, tz, options);
 
