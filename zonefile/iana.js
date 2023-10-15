@@ -57,8 +57,8 @@ export default {
     "dst": "04/28:00->10/26:24"
   },
   "africa/casablanca": {
-    "offset": 1,
-    "hem": "n",
+    "offset": 0,
+    "hem": "s",
     "dst": "03/19:03->04/23:02"
   },
   "africa/ceuta": {
@@ -87,8 +87,8 @@ export default {
     "hem": "n"
   },
   "africa/el_aaiun": {
-    "offset": 1,
-    "hem": "n",
+    "offset": 0,
+    "hem": "s",
     "dst": "03/19:03->04/23:02"
   },
   "africa/freetown": {
