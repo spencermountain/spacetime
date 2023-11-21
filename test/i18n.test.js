@@ -27,6 +27,14 @@ const defaultSettings = {
   ampm: {
     am: 'am',
     pm: 'pm'
+  },
+  distance: {
+    pastWord: 'past',
+    futureWord: 'future',
+    presentWord: 'present',
+    now: 'now',
+    pastDistance: (value) => `${value} ago`,
+    futureDistance: (value) => `in ${value}`
   }
 }
 
