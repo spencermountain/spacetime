@@ -3,7 +3,8 @@ import { set as setD } from '../data/days.js'
 import { set as setM } from '../data/months.js'
 import { set as setTcf } from '../data/caseFormat.js'
 import { set as setAmpm } from '../data/ampm.js'
-
+import { set as setDistance } from '../data/distance.js'
+import { set as setUnits } from '../data/units.js'
 
 const addMethods = SpaceTime => {
   const methods = {
@@ -17,7 +18,7 @@ const addMethods = SpaceTime => {
         setM(data.months)
       }
 
-      // change the the display style of the month / day names
+      //change the display style of the month / day names
       if (isBoolean(data.useTitleCase)) {
         setTcf(data.useTitleCase)
       }
@@ -26,6 +27,17 @@ const addMethods = SpaceTime => {
       if (isObject(data.ampm)) {
         setAmpm(data.ampm)
       }
+
+      //change distance strings
+      if(isObject(data.distance)){
+        setDistance(data.distance)
+      }
+
+      //change units strings
+      if(isObject(data.units)){
+        setUnits(data.units)
+      }
+
       return this
     }
   }

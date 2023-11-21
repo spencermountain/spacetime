@@ -1,4 +1,12 @@
 //our conceptual 'break-points' for each unit
+import {
+ unitsString,
+} from "../../data/units.js";
+import {
+  almostString,
+  overString
+} from "../../data/distance.js";
+
 const qualifiers = {
   months: {
     almost: 10,
@@ -25,9 +33,9 @@ const qualifiers = {
 // Expects a plural unit arg
 function pluralize(value, unit) {
   if (value === 1) {
-    unit = unit.slice(0, -1)
+    return value + ' ' + unitsString(unit.slice(0, -1))
   }
-  return value + ' ' + unit
+  return value + ' ' + unitsString(unit)
 }
 
 const toSoft = function (diff) {
@@ -54,12 +62,13 @@ const toSoft = function (diff) {
       const nextValue = Math.abs(diff[nextUnit])
       if (nextValue > qualifiers[nextUnit].almost) {
         rounded = pluralize(value + 1, unit)
-        qualified = 'almost ' + rounded
+        qualified = almostString() + ' ' + rounded
       } else if (nextValue > qualifiers[nextUnit].over) {
-        qualified = 'over ' + englishValue
+        qualified = overString() + ' ' + englishValue
       }
     }
   })
+
   return { qualified, rounded, abbreviated, englishValues }
 }
 export default toSoft
