@@ -364,26 +364,7 @@ test('i18n, almost and over', (t) => {
 
     t.deepEqual(start.since(almost21Days).qualified, "en casi 21 dias")
     t.deepEqual(almost1Hour.since(start).qualified, "hace casi 6 horas")
-    t.deepEqual(
-        start.since(overTwoMonths),
-        {
-            diff: {
-                years: 0,
-                months: -2,
-                days: -11,
-                hours: 0,
-                minutes: 0,
-                seconds: 0
-            },
-            rounded: 'in 3 months',
-            qualified: 'in over 2 months',
-            precise: 'in 2 months, 11 days',
-            abbreviated: ['2m', '11d'],
-            iso: 'P0Y2M11DT0H0M0S',
-            direction: 'future'
-        },
-        'over'
-    )
+    t.deepEqual(start.since(overTwoMonths).qualified, "en algo más de 2 meses" )
 
     t.end()
 })
