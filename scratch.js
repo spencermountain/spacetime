@@ -11,3 +11,16 @@ console.log(s.timezone())
 // s = spacetime(null, 'America/Toronto')
 // console.log(s.time())
 // console.log(s.timezone())
+
+/*
+bahia_banderas
+chihuahua
+mazatlan
+merida
+mexico_city
+monterrey
+amman
+damascus
+tehran
+fiji
+*/
