@@ -256,8 +256,7 @@ export default {
   },
   'america/bahia_banderas': {
     offset: -6,
-    hem: 'n',
-    dst: '04/07:02->10/27:02'
+    hem: 'n'
   },
   'america/barbados': {
     offset: -4,
@@ -328,8 +327,7 @@ export default {
   },
   'america/chihuahua': {
     offset: -6,
-    hem: 'n',
-    dst: '04/07:02->10/27:02'
+    hem: 'n'
   },
   'america/coral_harbour': {
     offset: -5,
@@ -547,8 +545,7 @@ export default {
   },
   'america/mazatlan': {
     offset: -7,
-    hem: 'n',
-    dst: '04/07:02->10/27:02'
+    hem: 'n'
   },
   'america/mendoza': {
     offset: -3,
@@ -566,13 +563,11 @@ export default {
   },
   'america/metlakatla': {
     offset: -8,
-    hem: 'n',
-    dst: '03/10:02->11/03:02'
+    hem: 'n'
   },
   'america/mexico_city': {
     offset: -6,
-    hem: 'n',
-    dst: '04/07:02->10/27:02'
+    hem: 'n'
   },
   'america/miquelon': {
     offset: -2,
@@ -586,8 +581,7 @@ export default {
   },
   'america/monterrey': {
     offset: -6,
-    hem: 'n',
-    dst: '04/07:02->10/27:02'
+    hem: 'n'
   },
   'america/montevideo': {
     offset: -3,
