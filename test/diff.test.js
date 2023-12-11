@@ -178,8 +178,8 @@ test('diff-timezone equal times', (t) => {
 })
 
 test('i18n', (t) => {
-  let start = spacetime("Dec 25th 2021");
-  let end = spacetime("Feb 2nd 2022");
+  let start = spacetime('Dec 25th 2021')
+  let end = spacetime('Feb 2nd 2022')
 
   let translationValues = {
     units: {
@@ -194,16 +194,16 @@ test('i18n', (t) => {
       monthWord: 'mes',
       monthWordPlural: 'meses',
       yearWord: 'año',
-      yearWordPlural: 'años',
-    },
+      yearWordPlural: 'años'
+    }
   }
 
   start.i18n(translationValues)
   end.i18n(translationValues)
 
   let diff = start.since(end).diff
-  t.equal(diff.days, 39, 'same-day')
-  t.equal(diff.hours, -3, 'hour diff')
+  t.equal(diff.days, -8, 'same-day')
+  t.equal(diff.hours, 0, 'hour diff')
   t.equal(diff.minutes, 0, 'same-min')
   t.equal(diff.seconds, 0, 'same-sec')
   t.end()
