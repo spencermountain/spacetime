@@ -876,8 +876,7 @@ export default {
   },
   'asia/amman': {
     offset: 3,
-    hem: 'n',
-    dst: '03/01:00->10/25:01'
+    hem: 'n'
   },
   'asia/anadyr': {
     offset: 12,
@@ -950,8 +949,7 @@ export default {
   },
   'asia/damascus': {
     offset: 3,
-    hem: 'n',
-    dst: '03/29:00->10/24:24'
+    hem: 'n'
   },
   'asia/dhaka': {
     offset: 6,
@@ -1160,8 +1158,7 @@ export default {
   },
   'asia/tehran': {
     offset: 3.5,
-    hem: 'n',
-    dst: '03/21:00->09/20:24'
+    hem: 'n'
   },
   'asia/thimphu': {
     offset: 6,
