@@ -13,6 +13,7 @@ This project follows semVer, where:
 
 - **[fix]** - offset in Africa/Cairo #404
 - **[update]** - 2024 DST changes
+- **[change]** - support i18n config in .since() #403
 
 ### 7.4.8 [Oct 2023]
 
