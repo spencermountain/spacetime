@@ -1,8 +1,13 @@
 // const spacetime = require('./builds/spacetime.cjs')
 import spacetime from './src/index.js'
 
-let start = spacetime('Dec 25th 2021')
-let end = spacetime('Feb 2nd 2022')
+let s = spacetime(null, 'Africa/Cairo')
+console.log(s.time())
+console.log(s.timezone())
+s = s.minus(5, 'months')
+console.log(s.time())
+console.log(s.timezone())
 
-let diff = start.since(end)
-console.log(diff)
+// s = spacetime(null, 'America/Toronto')
+// console.log(s.time())
+// console.log(s.timezone())
