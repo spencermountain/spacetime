@@ -1682,8 +1682,7 @@ export default {
   },
   'pacific/fiji': {
     offset: 12,
-    hem: 's',
-    dst: '01/14:03->11/10:02'
+    hem: 's'
   },
   'pacific/funafuti': {
     offset: 12,

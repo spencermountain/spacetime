@@ -40,7 +40,7 @@ export default {
   "13|s": "11/apia,11/tongatapu",
   "13|n": "11/enderbury,11/kanton,11/fakaofo",
   "12|s|04/07:03->09/29:02": "12/mcmurdo,11/auckland,12/south_pole,nz",
-  "12|s|01/14:03->11/10:02": "11/fiji",
+  "12|s": "11/fiji",
   "12|n": "2/anadyr,2/kamchatka,2/srednekolymsk,11/funafuti,11/kwajalein,11/majuro,11/nauru,11/tarawa,11/wake,11/wallis,kwajalein",
   "12.75|s|04/07:03->04/07:02": "11/chatham,nz-chat",
   "11|s|04/07:03->10/06:02": "12/macquarie",
