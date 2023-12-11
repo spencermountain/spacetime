@@ -9,7 +9,14 @@ This project follows semVer, where:
 
  -->
 
+### 7.5.0 [Dec 2023]
+
+- **[fix]** - offset in Africa/Cairo #404
+- **[update]** - 2024 DST changes
+- **[change]** - support i18n config in .since() #403
+
 ### 7.4.8 [Oct 2023]
+
 - **[fix]** - fix for reversed-DST in `africa/casablanca` and `africa/el_aaiun` #400
 - **[update]** - deps
 

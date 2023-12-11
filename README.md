@@ -535,7 +535,31 @@ s.i18n({
     am: ' a. m.',
     pm: ' a. m.'
   },
-  useTitleCase: true // automatically in .format()
+  distance: {
+    past: 'past',
+    future: 'future',
+    present: 'present',
+    now: 'now',
+    almost: 'almost',
+    over: 'over',
+    pastDistance: (value) => `${value} ago`,
+    futureDistance: (value) => `in ${value}`
+  },
+  units: {
+    second: 'second',
+    secondPlural: 'second',
+    minute: 'minute',
+    minutePlural: 'minutes',
+    hour: 'hour',
+    hourPlural: 'hours',
+    day: 'day',
+    dayPlural: 'seconds',
+    month: 'month',
+    monthPlural: 'months',
+    year: 'year',
+    yearPlural: 'years',
+  },
+    useTitleCase: true // automatically in .format()
 });
 s.format('day') //'Sábado'
 ```

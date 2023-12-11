@@ -1,22 +1,26 @@
 // const spacetime = require('./builds/spacetime.cjs')
 import spacetime from './src/index.js'
 
-let s = spacetime('feb 1st 2023', 'Africa/Casablanca')
-console.log(s.timezone().current.offset)
-s = spacetime('apr 1st 2023', 'Africa/Casablanca')
-console.log(s.timezone().current.offset)
-s = spacetime('oct 1st 2023', 'Africa/Casablanca')
-console.log(s.timezone().current.offset)
-
-// s = spacetime.now('Europe/Lisbon')
+let s = spacetime(null, 'pacific/fiji')
+console.log(s.time())
+console.log(s.timezone())
+// s = s.minus(5, 'months')
 // console.log(s.time())
+// console.log(s.timezone())
 
+// s = spacetime(null, 'America/Toronto')
+// console.log(s.time())
+// console.log(s.timezone())
 
-// s = s.year(2020)
-// s = s.dayOfYear(366);
-// console.log(s.dayTime());
-
-// let s = spacetime('03/31/2002', 'America/Denver')
-// console.log(s.iso())
-
-// casablanca is + 1, 0, +1
+/*
+bahia_banderas
+chihuahua
+mazatlan
+merida
+mexico_city
+monterrey
+amman
+damascus
+tehran
+fiji
+*/
