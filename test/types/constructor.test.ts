@@ -1,4 +1,4 @@
-import * as test from 'tape'
+import { default as test } from 'tape'
 import { spacetime } from './spacetime-static'
 import { ParsableDate } from '../../types/types'
 

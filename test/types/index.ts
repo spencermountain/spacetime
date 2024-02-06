@@ -1,11 +1,4 @@
-// a smoke-test for our typescipt typings
-// to run:
-// npm install -g typescript
-// npm install -g ts-node
-// npm install --no-save @types/tape @types/node
-// npm run test:types
-
-import * as test from 'tape'
+import { default as test } from 'tape'
 import { spacetime } from './spacetime-static'
 
 test('typefile smoketest', (t: test.Test) => {
