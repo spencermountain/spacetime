@@ -1,4 +1,4 @@
-import { TimeUnit, Format, I18nOptions } from './constraints'
+import type { TimeUnit, Format, I18nOptions } from './constraints'
 
 /** a date/timezone object */
 export interface Spacetime {
