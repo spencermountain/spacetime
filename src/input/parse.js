@@ -6,7 +6,6 @@ const parseString = function (s, input, givenTz) {
   for (let i = 0; i < parsers.length; i++) {
     let m = input.match(parsers[i].reg)
     if (m) {
-      // console.log(parsers[i].reg)
       let res = parsers[i].parse(s, m, givenTz)
       if (res !== null && res.isValid()) {
         return res

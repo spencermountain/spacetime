@@ -1,6 +1,6 @@
 import walkTo from '../../methods/set/walk.js'
 import { toCardinal } from '../../fns.js'
-import { validate, parseTime, parseYear, parseMonth } from './_parsers.js'
+import { validate, parseTime, parseYear, parseMonth, parseOffset } from './_parsers.js'
 
 export default [
   // =====
@@ -71,19 +71,21 @@ export default [
   },
   // 'Sun Mar 14 15:09:48 +0000 2021'
   {
-    reg: /^([a-z]+) ([0-9]{1,2})( [0-9:]+)?( \+[0-9]{4})?( [0-9]{4})?$/i,
+    reg: /^([a-z]+) ([0-9]{1,2}) ([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2})( \+[0-9]{4})?( [0-9]{4})?$/i,
     parse: (s, arr) => {
+      let [, month, date, time, tz, year] = arr
       let obj = {
-        year: parseYear(arr[5], s._today),
-        month: parseMonth(arr[1]),
-        date: toCardinal(arr[2] || '')
+        year: parseYear(year, s._today),
+        month: parseMonth(month),
+        date: toCardinal(date || '')
       }
       if (validate(obj) === false) {
         s.epoch = null
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s, arr[3])
+      s = parseTime(s, time)
+      s = parseOffset(s, tz)
       return s
     }
   }
