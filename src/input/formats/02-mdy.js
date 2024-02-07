@@ -84,8 +84,8 @@ export default [
         return s
       }
       walkTo(s, obj)
-      s = parseTime(s, time)
       s = parseOffset(s, tz)
+      s = parseTime(s, time)
       return s
     }
   }

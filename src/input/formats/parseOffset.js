@@ -3,7 +3,7 @@ const parseOffset = (s, offset) => {
   if (!offset) {
     return s
   }
-
+  offset = offset.trim().toLowerCase()
   // according to ISO8601, tz could be hh:mm, hhmm or hh
   // so need few more steps before the calculation.
   let num = 0

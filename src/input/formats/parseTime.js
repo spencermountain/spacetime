@@ -1,10 +1,10 @@
 // truncate any sub-millisecond values
 const parseMs = function (str = '') {
   str = String(str)
-  //js does not support sub-millisecond values 
+  //js does not support sub-millisecond values
   // so truncate these - 2021-11-02T19:55:30.087772
   if (str.length > 3) {
-    str = str.substr(0, 3)
+    str = str.substring(0, 3)
   } else if (str.length === 1) {
     // assume ms are zero-padded on the left
     // but maybe not on the right.
@@ -22,19 +22,20 @@ const parseTime = (s, str = '') => {
   //formal time format - 04:30.23
   let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/)
   if (arr !== null) {
+    let [, h, m, sec, ms] = arr
     //validate it a little
-    let h = Number(arr[1])
+    h = Number(h)
     if (h < 0 || h > 24) {
       return s.startOf('day')
     }
-    let m = Number(arr[2]) //don't accept '5:3pm'
+    m = Number(m) //don't accept '5:3pm'
     if (arr[2].length < 2 || m < 0 || m > 59) {
       return s.startOf('day')
     }
     s = s.hour(h)
     s = s.minute(m)
-    s = s.seconds(arr[3] || 0)
-    s = s.millisecond(parseMs(arr[4]))
+    s = s.seconds(sec || 0)
+    s = s.millisecond(parseMs(ms))
     //parse-out am/pm
     let ampm = str.match(/[\b0-9] ?(am|pm)\b/)
     if (ampm !== null && ampm[1]) {
