@@ -1,4 +1,4 @@
-import * as test from 'tape'
+import { default as test } from 'tape'
 import { spacetime } from './spacetime-static'
 
 test('Spacetime base properties exist', (t: test.Test) => {

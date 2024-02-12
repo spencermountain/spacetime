@@ -54,7 +54,7 @@ export default {
   'africa/cairo': {
     offset: 3,
     hem: 'n',
-    dst: '04/28:00->10/26:24'
+    dst: '04/26:00->10/31:24'
   },
   'africa/casablanca': {
     offset: 0,
@@ -563,7 +563,8 @@ export default {
   },
   'america/metlakatla': {
     offset: -8,
-    hem: 'n'
+    hem: 'n',
+    dst: '03/10:02->11/03:02'
   },
   'america/mexico_city': {
     offset: -6,
@@ -633,7 +634,7 @@ export default {
   'america/ciudad_juarez': {
     offset: -6,
     hem: 'n',
-    dst: '03/12:02->11/05:02'
+    dst: '03/10:02->11/03:02'
   },
   'america/panama': {
     offset: -5,
@@ -975,12 +976,12 @@ export default {
   'asia/gaza': {
     offset: 3,
     hem: 'n',
-    dst: '03/31:00->10/25:01'
+    dst: '04/20:02->10/26:02'
   },
   'asia/hebron': {
     offset: 3,
     hem: 'n',
-    dst: '03/31:00->10/25:01'
+    dst: '04/20:02->10/26:02'
   },
   'asia/hong_kong': {
     offset: 8,
@@ -1413,7 +1414,7 @@ export default {
   'europe/kyiv': {
     offset: 3,
     hem: 'n',
-    dst: '03/26:03->10/29:04'
+    dst: '03/31:03->10/27:04'
   },
   'europe/lisbon': {
     offset: 1,
