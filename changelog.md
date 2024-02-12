@@ -9,6 +9,15 @@ This project follows semVer, where:
 
  -->
 
+### 7.6.0 [Feb 2024]
+
+- **[fix]** - leap-year string parse issue
+- **[change]** - typescript export changes #408 #409 (thanks jecraig!)
+- **[update]** - DST date changes for metlakatla, kiev, ciudad_juarez
+- **[update]** - late DST date changes for gaza, hebron
+- **[change]** - update github script
+- **[update]** - deps
+
 ### 7.5.0 [Dec 2023]
 
 - **[fix]** - offset in Africa/Cairo #404

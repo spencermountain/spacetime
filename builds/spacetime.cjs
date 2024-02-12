@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.5.0 Apache 2.0 */
+/* spencermountain/spacetime 7.6.0 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -75,13 +75,12 @@
     "4|n": "2/baku,2/dubai,2/muscat,2/tbilisi,2/yerevan,8/astrakhan,8/samara,8/saratov,8/ulyanovsk,8/volgograd,9/mahe,9/mauritius,2/volgograd",
     "4.5|n": "2/kabul",
     "3|s": "12/syowa,9/antananarivo",
-    "3|n|04/28:00->10/26:24": "0/cairo,egypt",
-    "3|n|03/31:03->10/27:04": "2/famagusta,2/nicosia,8/athens,8/bucharest,8/helsinki,8/mariehamn,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye,8/nicosia,eet",
+    "3|n|04/26:00->10/31:24": "0/cairo,egypt",
+    "3|n|04/20:02->10/26:02": "2/gaza,2/hebron",
+    "3|n|03/31:03->10/27:04": "2/famagusta,2/nicosia,8/athens,8/bucharest,8/helsinki,8/kyiv,8/mariehamn,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye,8/nicosia,8/kiev,eet",
     "3|n|03/31:02->10/27:03": "8/chisinau,8/tiraspol",
     "3|n|03/31:00->10/26:24": "2/beirut",
-    "3|n|03/31:00->10/25:01": "2/gaza,2/hebron",
     "3|n|03/29:02->10/27:02": "2/jerusalem,2/tel_aviv,israel",
-    "3|n|03/26:03->10/29:04": "8/kyiv,8/kiev",
     "3|n": "0/addis_ababa,0/asmara,0/asmera,0/dar_es_salaam,0/djibouti,0/juba,0/kampala,0/mogadishu,0/nairobi,2/aden,2/amman,2/baghdad,2/bahrain,2/damascus,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,9/comoro,9/mayotte,2/istanbul,turkey,w-su",
     "3.5|n": "2/tehran,iran",
     "2|s|03/31:02->10/27:02": "12/troll",
@@ -112,14 +111,13 @@
     "-9|n|03/10:02->11/03:02": "1/adak,1/atka,us/aleutian",
     "-9|n": "11/gambier",
     "-9.5|n": "11/marquesas",
-    "-8|n|03/10:02->11/03:02": "1/anchorage,1/juneau,1/nome,1/sitka,1/yakutat,us/alaska",
-    "-8|n": "1/metlakatla,11/pitcairn",
+    "-8|n|03/10:02->11/03:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat,us/alaska",
+    "-8|n": "11/pitcairn",
     "-7|n|03/10:02->11/03:02": "1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,1/ensenada,6/pacific,10/bajanorte,us/pacific-new,us/pacific",
     "-7|n": "1/creston,1/dawson,1/dawson_creek,1/fort_nelson,1/hermosillo,1/mazatlan,1/phoenix,1/whitehorse,6/yukon,10/bajasur,us/arizona,mst",
     "-6|s|04/06:22->09/07:22": "11/easter,7/easterisland",
     "-6|n|04/07:02->10/27:02": "1/merida",
-    "-6|n|03/12:02->11/05:02": "1/ciudad_juarez",
-    "-6|n|03/10:02->11/03:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/north_dakota,1/ojinaga,1/yellowknife,1/shiprock,6/mountain,navajo,us/mountain",
+    "-6|n|03/10:02->11/03:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/north_dakota,1/ojinaga,1/ciudad_juarez,1/yellowknife,1/shiprock,6/mountain,navajo,us/mountain",
     "-6|n": "1/bahia_banderas,1/belize,1/chihuahua,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/mexico_city,1/monterrey,1/regina,1/swift_current,1/tegucigalpa,11/galapagos,6/east-saskatchewan,6/saskatchewan,10/general",
     "-5|s": "1/lima,1/rio_branco,1/porto_acre,5/acre",
     "-5|n|03/10:02->11/03:02": "1/chicago,1/matamoros,1/menominee,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,1/indiana/knox,1/indiana/tell_city,1/north_dakota/beulah,1/north_dakota/center,1/north_dakota/new_salem,1/knox_in,6/central,us/central,us/indiana-starke",
@@ -779,7 +777,7 @@
     if (!offset) {
       return s
     }
-
+    offset = offset.trim().toLowerCase();
     // according to ISO8601, tz could be hh:mm, hhmm or hh
     // so need few more steps before the calculation.
     let num = 0;
@@ -834,10 +832,10 @@
   // truncate any sub-millisecond values
   const parseMs = function (str = '') {
     str = String(str);
-    //js does not support sub-millisecond values 
+    //js does not support sub-millisecond values
     // so truncate these - 2021-11-02T19:55:30.087772
     if (str.length > 3) {
-      str = str.substr(0, 3);
+      str = str.substring(0, 3);
     } else if (str.length === 1) {
       // assume ms are zero-padded on the left
       // but maybe not on the right.
@@ -855,19 +853,20 @@
     //formal time format - 04:30.23
     let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/);
     if (arr !== null) {
+      let [, h, m, sec, ms] = arr;
       //validate it a little
-      let h = Number(arr[1]);
+      h = Number(h);
       if (h < 0 || h > 24) {
         return s.startOf('day')
       }
-      let m = Number(arr[2]); //don't accept '5:3pm'
+      m = Number(m); //don't accept '5:3pm'
       if (arr[2].length < 2 || m < 0 || m > 59) {
         return s.startOf('day')
       }
       s = s.hour(h);
       s = s.minute(m);
-      s = s.seconds(arr[3] || 0);
-      s = s.millisecond(parseMs(arr[4]));
+      s = s.seconds(sec || 0);
+      s = s.millisecond(parseMs(ms));
       //parse-out am/pm
       let ampm = str.match(/[\b0-9] ?(am|pm)\b/);
       if (ampm !== null && ampm[1]) {
@@ -1084,19 +1083,21 @@
     },
     // 'Sun Mar 14 15:09:48 +0000 2021'
     {
-      reg: /^([a-z]+) ([0-9]{1,2})( [0-9:]+)?( \+[0-9]{4})?( [0-9]{4})?$/i,
+      reg: /^([a-z]+) ([0-9]{1,2}) ([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2})( \+[0-9]{4})?( [0-9]{4})?$/i,
       parse: (s, arr) => {
+        let [, month, date, time, tz, year] = arr;
         let obj = {
-          year: parseYear(arr[5], s._today),
-          month: parseMonth(arr[1]),
-          date: toCardinal(arr[2] || '')
+          year: parseYear(year, s._today),
+          month: parseMonth(month),
+          date: toCardinal(date || '')
         };
         if (validate$1(obj) === false) {
           s.epoch = null;
           return s
         }
         walkTo$1(s, obj);
-        s = parseTime$1(s, arr[3]);
+        s = parseOffset$1(s, tz);
+        s = parseTime$1(s, time);
         return s
       }
     }
@@ -1312,7 +1313,6 @@
     for (let i = 0; i < parsers.length; i++) {
       let m = input.match(parsers[i].reg);
       if (m) {
-        // console.log(parsers[i].reg)
         let res = parsers[i].parse(s, m, givenTz);
         if (res !== null && res.isValid()) {
           return res
@@ -4031,6 +4031,9 @@
     // parse the various formats
     let tmp = handleInput(this, input);
     this.epoch = tmp.epoch;
+    if (tmp.tz) {
+      this.tz = tmp.tz;
+    }
   };
 
   // (add instance methods to prototype)
@@ -4110,7 +4113,7 @@
   };
   var whereIts$1 = whereIts;
 
-  var version = '7.5.0';
+  var version = '7.6.0';
 
   const main = (input, tz, options) => new Spacetime(input, tz, options);
 
