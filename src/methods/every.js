@@ -14,7 +14,7 @@ const isDay = function (unit) {
 
 // return a list of the weeks/months/days between a -> b
 // returns spacetime objects in the timezone of the input
-const every = function (start, unit, end) {
+const every = function (start, unit, end, stepCount = 1) {
   if (!unit || !end) {
     return []
   }
@@ -44,7 +44,7 @@ const every = function (start, unit, end) {
   let result = []
   while (d.isBefore(end)) {
     result.push(d)
-    d = d.add(1, unit)
+    d = d.add(stepCount, unit)
   }
   return result
 }

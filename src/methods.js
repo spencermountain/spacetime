@@ -103,14 +103,14 @@ const methods = {
     return s
   },
   //get each week/month/day between a -> b
-  every: function (unit, to) {
+  every: function (unit, to, stepCount) {
     // allow swapping these params:
     if (typeof unit === 'object' && typeof to === 'string') {
       let tmp = to
       to = unit
       unit = tmp
     }
-    return every(this, unit, to)
+    return every(this, unit, to, stepCount)
   },
   isAwake: function () {
     let hour = this.hour()
