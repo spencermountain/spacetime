@@ -28,7 +28,10 @@ const every = function (start, unit, end, stepCount = 1) {
     start = end
     end = tmp
   }
-
+  //prevent going beyond end if unit/stepCount > than the range
+  if (start.diff(end, unit) < stepCount) {
+    return []
+  }
   //support 'every wednesday'
   let d = start.clone()
   if (isDay(unit)) {

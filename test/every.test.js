@@ -31,8 +31,7 @@ test('step-count', (t) => {
   t.equal(biannualInterval[0].timezone().name, 'Europe/Paris', 'results in right timezone')
 
   let everyFourYears = start.every('years', end, 4)
-  t.equal(everyFourYears.length, 1, 'every four years')
-  t.equal(everyFourYears[0].timezone().name, 'Europe/Paris', 'results in right timezone')
+  t.equal(everyFourYears.length, 0, 'interval/step count too large for range')
 
   t.end()
 })
