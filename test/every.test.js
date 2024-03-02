@@ -18,6 +18,24 @@ test('every-unit', (t) => {
   t.end()
 })
 
+test('step-count', (t) => {
+  let start = spacetime('April 6th 2019', 'Europe/Paris')
+  let end = spacetime('April 20th 2019', 'Europe/Paris').add(3, 'years')
+
+  let biannualInterval = start.every('quarter', end, 2)
+  t.equal(biannualInterval.length, 6, 'every 2 quarters')
+  t.equal(biannualInterval[0].timezone().name, 'Europe/Paris', 'results in right timezone')
+
+  let fortnights = start.every('week', end, 2)
+  t.equal(fortnights.length, 80, 'every fortnight')
+  t.equal(biannualInterval[0].timezone().name, 'Europe/Paris', 'results in right timezone')
+
+  let everyFourYears = start.every('years', end, 4)
+  t.equal(everyFourYears.length, 0, 'interval/step count too large for range')
+
+  t.end()
+})
+
 test('monday-sunday', (t) => {
   let days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
   let start = spacetime('April 8th 2019').startOf('week')

@@ -66,7 +66,7 @@ export interface Spacetime {
   round: (unit: TimeUnit) => Spacetime
 
   /** list all dates up to a certain time */
-  every: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit) => Spacetime[]
+  every: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit, stepCount: number) => Spacetime[]
 
   /** list all dates up to a certain time */
   each: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
