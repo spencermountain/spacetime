@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import format from './methods/format/index.js'
 import unixFmt from './methods/format/unixFmt.js'
 import progress from './methods/progress.js'

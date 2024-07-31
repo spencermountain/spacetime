@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import tzs from '../../zonefile/unpack.js'
 import guessTz from './guessTz.js'
 import parseOffset from './parseOffset.js'
@@ -19,7 +21,7 @@ const normalize = (tz) => {
   tz = tz.replace(/\b(east|west|north|south)ern/g, '$1')
   tz = tz.replace(/\b(africa|america|australia)n/g, '$1')
   tz = tz.replace(/\beuropean/g, 'europe')
-  tz = tz.replace(/\islands/g, 'island')
+  tz = tz.replace(/islands/g, 'island')
   return tz
 }
 

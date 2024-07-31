@@ -1,11 +1,6 @@
 //our conceptual 'break-points' for each unit
-import {
- unitsString,
-} from "../../data/units.js";
-import {
-  almostString,
-  overString
-} from "../../data/distance.js";
+import { unitsString, } from "../../data/units.js";
+import { almostString, overString } from "../../data/distance.js";
 
 const qualifiers = {
   months: {
@@ -53,7 +48,8 @@ const toSoft = function (diff) {
     const englishValue = pluralize(value, unit)
     englishValues.push(englishValue)
     if (!rounded) {
-      rounded = qualified = englishValue
+      rounded = englishValue
+      qualified = englishValue
       if (i > 4) {
         return
       }

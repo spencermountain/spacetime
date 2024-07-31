@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const defaults = {
   year: new Date().getFullYear(),
   month: 0,
