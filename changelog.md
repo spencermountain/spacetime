@@ -9,6 +9,11 @@ This project follows semVer, where:
 
  -->
 
+### 7.6.1 [Feb 2024]
+- **[update]** - minor DST hour changes
+- **[update]** - github actions script
+- **[update]** - dependencies
+
 ### 7.6.0 [Feb 2024]
 
 - **[fix]** - leap-year string parse issue

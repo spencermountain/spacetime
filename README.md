@@ -594,6 +594,7 @@ s.dayName()
 - [date-fns](https://date-fns.org/) - an battle-hardened client-side Date utility
 - [sugarjs/dates](https://sugarjs.com/dates/) - well-made date fns + timezone math
 - [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) - some _[sorta-green](https://caniuse.com/#feat=internationalization)_ in-browser date utilities
+- [BurntSushi/Jiff](https://github.com/BurntSushi/jiff) - Rust/wasm date library
 
 thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
 

@@ -94,7 +94,7 @@ const doAll = () => {
     let obj = parseTz(k)
     if (obj) {
       //compare offsets
-      if (obj.offset !== null && obj.offset !== data[k].o) {
+      if (obj.offset !== null && obj.offset !== data[k].o && data[k].o !== undefined) {
         console.log('\n----offset change ' + k + '----')
         console.log('from: ' + data[k].o)
         console.log('to: ' + obj.offset)
@@ -107,6 +107,8 @@ const doAll = () => {
         console.log('')
         data[k].dst = obj.dst
         changes += 1
+      } else {
+        console.log(k, '👍')
       }
     }
   })
