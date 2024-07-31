@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import findTz from './find.js'
 import inSummerTime from './summerTime.js'
 

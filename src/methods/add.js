@@ -93,7 +93,7 @@ const addMethods = (SpaceTime) => {
     }
     //support coercing a week, too
     if (unit === 'week') {
-      let sum = old.date() + num * 7
+      let sum = old.date() + (num * 7)
       if (sum <= 28 && sum > 1) {
         want.date = sum
       }
@@ -118,12 +118,12 @@ const addMethods = (SpaceTime) => {
     }
     // ensure a quarter is 3 months over
     else if (unit === 'quarter') {
-      want.month = old.month() + num * 3
+      want.month = old.month() + (num * 3)
       want.year = old.year()
       // handle rollover
       if (want.month < 0) {
         let years = Math.floor(want.month / 12)
-        let remainder = want.month + Math.abs(years) * 12
+        let remainder = want.month + (Math.abs(years) * 12)
         want.month = remainder
         want.year += years
       } else if (want.month >= 12) {

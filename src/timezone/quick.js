@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import isSummer from './summerTime.js'
 
 // this method avoids having to do a full dst-calculation on every operation

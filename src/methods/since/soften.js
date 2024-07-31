@@ -1,5 +1,5 @@
 //our conceptual 'break-points' for each unit
-import { unitsString, } from "../../data/units.js";
+import { unitsString } from "../../data/units.js";
 import { almostString, overString } from "../../data/distance.js";
 
 const qualifiers = {

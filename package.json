@@ -26,7 +26,7 @@
     "coverage": "nyc -r lcov -n 'src/**/*' -n 'plugins/**/*' npm run coverage:tests",
     "coverage:tests": "npm run test",
     "codecov": "npm run coverage && codecov -t 411de6c7-82d2-41e9-a1cc-9096cdab6c72",
-    "lint": "eslint ./src --ext .js"
+    "lint": "eslint ./src"
   },
   "repository": {
     "type": "git",
