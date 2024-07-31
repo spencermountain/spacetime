@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import ms from '../../data/milliseconds.js'
 
 //basically, step-forward/backward until js Date object says we're there.

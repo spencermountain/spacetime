@@ -11,7 +11,7 @@
   const toUtc = (dstChange, offset, year) => {
     const [month, rest] = dstChange.split('/');
     const [day, hour] = rest.split(':');
-    return Date.UTC(year, month - 1, day, hour) - offset * MSEC_IN_HOUR
+    return Date.UTC(year, month - 1, day, hour) - (offset * MSEC_IN_HOUR)
   };
 
   // compare epoch with dst change events (in utc)
@@ -24,6 +24,8 @@
   };
 
   var inSummerTime$1 = inSummerTime;
+
+  /* eslint-disable no-console */
 
   // this method avoids having to do a full dst-calculation on every operation
   // it reproduces some things in ./index.js, but speeds up spacetime considerably
@@ -235,8 +237,8 @@
   //do it once per computer
   var guessTz$1 = guessTz;
 
-  const isOffset = /(\-?[0-9]+)h(rs)?/i;
-  const isNumber = /(\-?[0-9]+)/;
+  const isOffset = /(-?[0-9]+)h(rs)?/i;
+  const isNumber = /(-?[0-9]+)/;
   const utcOffset = /utc([\-+]?[0-9]+)/i;
   const gmtOffset = /gmt([\-+]?[0-9]+)/i;
 
@@ -276,6 +278,9 @@
   };
   var parseOffset$3 = parseOffset$2;
 
+  /* eslint-disable no-console */
+
+
   let local = guessTz$1();
 
   //add all the city names by themselves
@@ -293,7 +298,7 @@
     tz = tz.replace(/\b(east|west|north|south)ern/g, '$1');
     tz = tz.replace(/\b(africa|america|australia)n/g, '$1');
     tz = tz.replace(/\beuropean/g, 'europe');
-    tz = tz.replace(/\islands/g, 'island');
+    tz = tz.replace(/islands/g, 'island');
     return tz
   };
 
@@ -432,6 +437,7 @@
     return `${sign}${hours}${delimiter}${minutes}`
   }
 
+  /* eslint-disable no-console */
   const defaults$1 = {
     year: new Date().getFullYear(),
     month: 0,
@@ -573,6 +579,8 @@
     o[k + 's'] = o[k];
   });
   var ms = o;
+
+  /* eslint-disable no-console */
 
   //basically, step-forward/backward until js Date object says we're there.
   const walk = (s, n, fn, unit, previous) => {
@@ -784,7 +792,7 @@
     let num = 0;
 
     // for (+-)hh:mm
-    if (/^[\+-]?[0-9]{2}:[0-9]{2}$/.test(offset)) {
+    if (/^[+-]?[0-9]{2}:[0-9]{2}$/.test(offset)) {
       //support "+01:00"
       if (/:00/.test(offset) === true) {
         offset = offset.replace(/:00/, '');
@@ -796,7 +804,7 @@
     }
 
     // for (+-)hhmm
-    if (/^[\+-]?[0-9]{4}$/.test(offset)) {
+    if (/^[+-]?[0-9]{4}$/.test(offset)) {
       offset = offset.replace(/30$/, '.5');
     }
     num = parseFloat(offset);
@@ -852,7 +860,7 @@
     // remove all whitespace
     str = str.replace(/^\s+/, '').toLowerCase();
     //formal time format - 04:30.23
-    let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:\.]?([0-9]{1,4})?/);
+    let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:.]?([0-9]{1,4})?/);
     if (arr !== null) {
       let [, h, m, sec, ms] = arr;
       //validate it a little
@@ -869,7 +877,7 @@
       s = s.seconds(sec || 0);
       s = s.millisecond(parseMs(ms));
       //parse-out am/pm
-      let ampm = str.match(/[\b0-9] ?(am|pm)\b/);
+      let ampm = str.match(/[0-9] ?(am|pm)\b/);
       if (ampm !== null && ampm[1]) {
         s = s.ampm(ampm[1]);
       }
@@ -954,7 +962,7 @@
     // =====
     //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
     {
-      reg: /^(\-?0?0?[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9\-\+:]+)?$/i,
+      reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9-+:]+)?$/i,
       parse: (s, m) => {
         let obj = {
           year: m[1],
@@ -973,7 +981,7 @@
     },
     //short-iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
     {
-      reg: /^([0-9]{4})[\-\/\. ]([0-9]{1,2})[\-\/\. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
+      reg: /^([0-9]{4})[\-/. ]([0-9]{1,2})[\-/. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
       parse: (s, m) => {
         let obj = {
           year: m[1],
@@ -997,7 +1005,7 @@
 
     //text-month "2015-feb-25"
     {
-      reg: /^([0-9]{4})[\-\/\. ]([a-z]+)[\-\/\. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
+      reg: /^([0-9]{4})[\-/. ]([a-z]+)[\-/. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
       parse: (s, m) => {
         let obj = {
           year: parseYear(m[1], s._today),
@@ -1021,7 +1029,7 @@
     // =====
     //mm/dd/yyyy - uk/canada "6/28/2019, 12:26:14 PM"
     {
-      reg: /^([0-9]{1,2})[\-\/.]([0-9]{1,2})[\-\/.]?([0-9]{4})?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
+      reg: /^([0-9]{1,2})[-/.]([0-9]{1,2})[\-/.]?([0-9]{4})?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2} ?(am|pm|gmt))?$/i,
       parse: (s, arr) => {
         let month = parseInt(arr[1], 10) - 1;
         let date = parseInt(arr[2], 10);
@@ -1046,7 +1054,7 @@
     },
     //alt short format - "feb-25-2015"
     {
-      reg: /^([a-z]+)[\-\/\. ]([0-9]{1,2})[\-\/\. ]?([0-9]{4}|'[0-9]{2})?( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
+      reg: /^([a-z]+)[\-/. ]([0-9]{1,2})[\-/. ]?([0-9]{4}|'[0-9]{2})?( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
       parse: (s, arr) => {
         let obj = {
           year: parseYear(arr[3], s._today),
@@ -1110,7 +1118,7 @@
     // =====
     //common british format - "25-feb-2015"
     {
-      reg: /^([0-9]{1,2})[\-\/]([a-z]+)[\-\/]?([0-9]{4})?$/i,
+      reg: /^([0-9]{1,2})[-/]([a-z]+)[\-/]?([0-9]{4})?$/i,
       parse: (s, m) => {
         let obj = {
           year: parseYear(m[3], s._today),
@@ -1128,7 +1136,7 @@
     },
     // "25 Mar 2015"
     {
-      reg: /^([0-9]{1,2})( [a-z]+)( [0-9]{4}| '[0-9]{2})? ?([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
+      reg: /^([0-9]{1,2})( [a-z]+)( [0-9]{4}| '[0-9]{2})? ?([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2} ?(am|pm|gmt))?$/i,
       parse: (s, m) => {
         let obj = {
           year: parseYear(m[3], s._today),
@@ -1146,7 +1154,7 @@
     },
     // 01-jan-2020
     {
-      reg: /^([0-9]{1,2})[\. -/]([a-z]+)[\. -/]([0-9]{4})?( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
+      reg: /^([0-9]{1,2})[. \-/]([a-z]+)[. \-/]([0-9]{4})?( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
       parse: (s, m) => {
         let obj = {
           date: Number(m[1]),
@@ -1172,7 +1180,7 @@
 
     // '2012-06' month-only
     {
-      reg: /^([0-9]{4})[\-\/]([0-9]{2})$/i,
+      reg: /^([0-9]{4})[\-/]([0-9]{2})$/,
       parse: (s, m) => {
         let obj = {
           year: m[1],
@@ -1307,6 +1315,8 @@
   ];
 
   var parsers = [].concat(ymd, mdy, dmy, misc);
+
+  /* eslint-disable no-console */
 
   const parseString = function (s, input, givenTz) {
     // let parsers = s.parsers || []
@@ -1810,7 +1820,7 @@
         txt += mapping[c](s) || '';
       } else {
         // 'unescape'
-        if (/^'.{1,}'$/.test(c)) {
+        if (/^'.+'$/.test(c)) {
           c = c.replace(/'/g, '');
         }
         txt += c;
@@ -1844,6 +1854,8 @@
   };
 
   var progress$1 = progress;
+
+  /* eslint-disable no-console */
 
   //round to either current, or +1 of this unit
   const nearest = (s, unit) => {
@@ -2169,7 +2181,8 @@
       const englishValue = pluralize(value, unit);
       englishValues.push(englishValue);
       if (!rounded) {
-        rounded = qualified = englishValue;
+        rounded = englishValue;
+        qualified = englishValue;
         if (i > 4) {
           return
         }
@@ -2492,6 +2505,8 @@
   };
   var every$1 = every;
 
+  /* eslint-disable no-console */
+
   const parseDst = dst => {
     if (!dst) {
       return []
@@ -2502,7 +2517,7 @@
   //iana codes are case-sensitive, technically
   const titleCase = str => {
     str = str[0].toUpperCase() + str.substr(1);
-    str = str.replace(/[\/_-]([a-z])/gi, s => {
+    str = str.replace(/[/_-]([a-z])/gi, s => {
       return s.toUpperCase()
     });
     str = str.replace(/_(of|es)_/i, (s) => s.toLowerCase());
@@ -2577,6 +2592,7 @@
   };
   var timezone$1 = timezone;
 
+  /* eslint-disable no-console */
   const units = [
     'century',
     'decade',
@@ -3279,6 +3295,8 @@
   };
   var dateFns = methods$2;
 
+  /* eslint-disable no-console */
+
   const clearMinutes = (s) => {
     s = s.minute(0);
     s = s.second(0);
@@ -3736,7 +3754,7 @@
       }
       //support coercing a week, too
       if (unit === 'week') {
-        let sum = old.date() + num * 7;
+        let sum = old.date() + (num * 7);
         if (sum <= 28 && sum > 1) {
           want.date = sum;
         }
@@ -3761,12 +3779,12 @@
       }
       // ensure a quarter is 3 months over
       else if (unit === 'quarter') {
-        want.month = old.month() + num * 3;
+        want.month = old.month() + (num * 3);
         want.year = old.year();
         // handle rollover
         if (want.month < 0) {
           let years = Math.floor(want.month / 12);
-          let remainder = want.month + Math.abs(years) * 12;
+          let remainder = want.month + (Math.abs(years) * 12);
           want.month = remainder;
           want.year += years;
         } else if (want.month >= 12) {
@@ -4016,7 +4034,7 @@
         // every computer is somewhere- get this computer's built-in offset
         let bias = new Date(this.epoch).getTimezoneOffset() || 0;
         // movement
-        let shift = bias + offset * 60; //in minutes
+        let shift = bias + (offset * 60); //in minutes
         shift = shift * 60 * 1000; //in ms
         // remove this computer's offset
         let epoch = this.epoch + shift;

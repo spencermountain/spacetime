@@ -5,6 +5,8 @@ export default [
   {
     "ignores": ["**/builds/*"],
     "rules": {
+      "regexp/no-misleading-capturing-group": 0, //todo remove this
+      "regexp/no-super-linear-backtracking": 0, //todo remove this, too
       "comma-dangle": [1, "only-multiline"],
       "quotes": [0, "single", "avoid-escape"],
       "max-nested-callbacks": [1, 4],
