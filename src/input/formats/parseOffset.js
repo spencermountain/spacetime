@@ -9,7 +9,7 @@ const parseOffset = (s, offset) => {
   let num = 0
 
   // for (+-)hh:mm
-  if (/^[\+-]?[0-9]{2}:[0-9]{2}$/.test(offset)) {
+  if (/^[+-]?[0-9]{2}:[0-9]{2}$/.test(offset)) {
     //support "+01:00"
     if (/:00/.test(offset) === true) {
       offset = offset.replace(/:00/, '')
@@ -21,7 +21,7 @@ const parseOffset = (s, offset) => {
   }
 
   // for (+-)hhmm
-  if (/^[\+-]?[0-9]{4}$/.test(offset)) {
+  if (/^[+-]?[0-9]{4}$/.test(offset)) {
     offset = offset.replace(/30$/, '.5')
   }
   num = parseFloat(offset)

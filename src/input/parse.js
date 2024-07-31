@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import parsers from './formats/index.js'
 
 const parseString = function (s, input, givenTz) {

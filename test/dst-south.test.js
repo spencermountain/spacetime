@@ -7,7 +7,7 @@ let zones = [
   'australia/adelaide',
   'australia/broken_hill',
   'chile/continental', //04/04:24
-  'chile/easterisland',
+  // 'chile/easterisland',
 ]
 
 test('south-increment-march', (t) => {

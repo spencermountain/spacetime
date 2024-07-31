@@ -4,7 +4,7 @@ const MSEC_IN_HOUR = 60 * 60 * 1000
 const toUtc = (dstChange, offset, year) => {
   const [month, rest] = dstChange.split('/')
   const [day, hour] = rest.split(':')
-  return Date.UTC(year, month - 1, day, hour) - offset * MSEC_IN_HOUR
+  return Date.UTC(year, month - 1, day, hour) - (offset * MSEC_IN_HOUR)
 }
 
 // compare epoch with dst change events (in utc)

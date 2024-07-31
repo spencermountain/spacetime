@@ -1,5 +1,4 @@
-import { zeroPad as pad } from '../../fns.js'
-import { formatTimezone } from '../../fns.js'
+import { formatTimezone, zeroPad as pad } from '../../fns.js'
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
@@ -169,7 +168,7 @@ const unixFmt = (s, str) => {
       txt += mapping[c](s) || ''
     } else {
       // 'unescape'
-      if (/^'.{1,}'$/.test(c)) {
+      if (/^'.+'$/.test(c)) {
         c = c.replace(/'/g, '')
       }
       txt += c

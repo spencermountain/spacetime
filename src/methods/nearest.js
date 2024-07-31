@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { normalize } from '../fns.js'
 
 //round to either current, or +1 of this unit
