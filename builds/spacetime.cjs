@@ -2452,7 +2452,7 @@
 
   // return a list of the weeks/months/days between a -> b
   // returns spacetime objects in the timezone of the input
-  const every = function (start, unit, end) {
+  const every = function (start, unit, end, stepCount = 1) {
     if (!unit || !end) {
       return []
     }
@@ -2466,7 +2466,10 @@
       start = end;
       end = tmp;
     }
-
+    //prevent going beyond end if unit/stepCount > than the range
+    if (start.diff(end, unit) < stepCount) {
+      return []
+    }
     //support 'every wednesday'
     let d = start.clone();
     if (isDay(unit)) {
@@ -2482,7 +2485,7 @@
     let result = [];
     while (d.isBefore(end)) {
       result.push(d);
-      d = d.add(1, unit);
+      d = d.add(stepCount, unit);
     }
     return result
   };
@@ -2665,14 +2668,14 @@
       return s
     },
     //get each week/month/day between a -> b
-    every: function (unit, to) {
+    every: function (unit, to, stepCount) {
       // allow swapping these params:
       if (typeof unit === 'object' && typeof to === 'string') {
         let tmp = to;
         to = unit;
         unit = tmp;
       }
-      return every$1(this, unit, to)
+      return every$1(this, unit, to, stepCount)
     },
     isAwake: function () {
       let hour = this.hour();

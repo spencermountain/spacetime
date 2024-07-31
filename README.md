@@ -6,11 +6,8 @@
   <a href="https://npmjs.org/package/spacetime">
     <img src="https://img.shields.io/npm/v/spacetime.svg?style=flat-square" />
   </a>
-  <a href="https://codecov.io/gh/spencermountain/spacetime">
-    <img src="https://codecov.io/gh/spencermountain/spacetime/branch/master/graph/badge.svg" />
-  </a>
   <a href="https://bundlephobia.com/result?p=spacetime@latest">
-    <img src="https://badge-size.herokuapp.com/spencermountain/spacetime/master/builds/spacetime.min.js" />
+    <img src="https://badgen.net/bundlephobia/min/spacetime" />
   </a>
 </div>
 
