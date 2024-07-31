@@ -10,6 +10,8 @@ This project follows semVer, where:
  -->
 
 ### 7.6.1 [Feb 2024]
+- **[new]** - add stepCount paramater to `.every()` #411
+- **[change]** - readme improvements #412
 - **[update]** - minor DST hour changes
 - **[update]** - github actions script
 - **[update]** - dependencies
