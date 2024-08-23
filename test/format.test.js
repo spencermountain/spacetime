@@ -186,4 +186,20 @@ test('unix-year-padding', t => {
   s = spacetime('sep 1 2000')
   t.equal(s.unixFmt('yy'), '00', 'zero-end')
   t.end()
-});
+})
+
+test('am-pm-variants', (t) => {
+  let s = spacetime('January 1, 2023')
+  s = s.time('4:45pm')
+  let arr = [
+    ['{hour}:{minute}{ampm}', '4:45pm'],
+    ['{hour}:{minute}{AMPM}', '4:45PM'],
+    ['{hour}:{minute}{AMPM }', '4:45PM'],
+    ['{AMPM}', 'PM'],
+  ]
+  arr.forEach((a) => {
+    t.equal(s.format(a[0]), a[1], a[2], a[3])
+  })
+  t.end()
+})
+  
