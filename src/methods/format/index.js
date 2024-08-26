@@ -183,7 +183,10 @@ const printFormat = (s, str = '') => {
   if (str.indexOf('{') !== -1) {
     let sections = /\{(.+?)\}/g
     str = str.replace(sections, (_, fmt) => {
-      fmt = fmt.toLowerCase().trim()
+      fmt = fmt.trim()
+      if (fmt !== 'AMPM') {
+        fmt = fmt.toLowerCase()
+      }
       if (format.hasOwnProperty(fmt)) {
         let out = String(format[fmt](s))
         if (fmt.toLowerCase() !== 'ampm') {
