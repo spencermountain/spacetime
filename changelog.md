@@ -9,6 +9,9 @@ This project follows semVer, where:
 
  -->
 
+### 7.6.2 [Oct 2024]
+- **[fix]** - isEqual null on 1970-01-01 #417
+
 ### 7.6.1 [July 2024]
 - **[new]** - add stepCount paramater to `.every()` #411
 - **[fix]** - eslint update and fixes
