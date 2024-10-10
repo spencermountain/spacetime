@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.6.1 Apache 2.0 */
+/* spencermountain/spacetime 7.6.2 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -415,7 +415,8 @@
     if (isDate(tmp)) {
       return tmp.getTime()
     }
-    if (tmp.epoch) {
+    // support spacetime objects
+    if (tmp.epoch || tmp.epoch === 0) {
       return tmp.epoch
     }
     return null
@@ -4135,7 +4136,7 @@
   };
   var whereIts$1 = whereIts;
 
-  var version = '7.6.1';
+  var version = '7.6.2';
 
   const main = (input, tz, options) => new Spacetime(input, tz, options);
 
