@@ -65,7 +65,8 @@ export function getEpoch(tmp) {
   if (isDate(tmp)) {
     return tmp.getTime()
   }
-  if (tmp.epoch) {
+  // support spacetime objects
+  if (tmp.epoch || tmp.epoch === 0) {
     return tmp.epoch
   }
   return null

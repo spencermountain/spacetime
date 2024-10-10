@@ -55,3 +55,11 @@ test('goto is still equal', (t) => {
   t.equal(original.isBefore(d), false, 'originally-is-before')
   t.end()
 })
+
+test('isEqual always boolean', (t) => {
+  t.equal(spacetime('1970-01-01', 'gmt').isEqual('1970-01-01', 'gmt'), true, 'isequal')
+  t.equal(spacetime('1970-01-02', 'gmt').isEqual('1970-01-02', 'gmt'), true, 'isequal')
+  t.equal(spacetime('1970-01-02', 'gmt').isEqual('1970-01-01', 'gmt'), false, 'isequal')
+  t.equal(spacetime('1970-01-01', 'gmt').isEqual('1970-01-02', 'gmt'), false, 'isequal')
+  t.end()
+})
