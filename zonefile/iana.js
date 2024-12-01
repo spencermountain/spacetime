@@ -406,7 +406,7 @@ export default {
     dst: '03/10:04->11/03:02'
   },
   'america/nuuk': {
-    offset: -2,
+    offset: -1,
     hem: 'n',
     dst: '03/31:01->10/26:24'
   },
