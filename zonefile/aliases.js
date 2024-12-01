@@ -53,6 +53,7 @@ export default {
   'asia/thimbu': 'asia/thimphu',
   'asia/ujung_pandang': 'asia/makassar',
   'asia/ulan_bator': 'asia/ulaanbaatar',
+  'asia/choibalsan': 'asia/ulaanbaatar',
   'atlantic/faeroe': 'atlantic/faroe',
   'atlantic/jan_mayen': 'europe/oslo',
   'australia/act': 'australia/sydney',

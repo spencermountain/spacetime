@@ -2,7 +2,7 @@ import sh from 'shelljs'
 sh.config.silent = true
 import data from '../zonefile/iana.js'
 import { writeFileSync } from 'fs'
-const year = 2024 //new Date().getFullYear()
+const year = 2025 //new Date().getFullYear()
 // /usr/share/zoneinfo only stores changes, and will use the most-recent change
 // see /usr/share/zoneinfo/Africa/Algiers - has changes scheduled for 2038
 

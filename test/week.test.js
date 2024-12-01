@@ -9,3 +9,22 @@ test('jan 1 is always first week', (t) => {
   }
   t.end()
 })
+
+test('week input=output', (t) => {
+  for (let w = 1; w < 52; w += 1) {
+    const date = spacetime.now().week(w);
+    t.equal(date.week(), w, `week ${w}`)
+  }
+
+  let tz = 'africa/addis_ababa'
+  for (let w = 1; w < 52; w += 1) {
+    const date = spacetime.now(tz).week(w);
+    t.equal(date.week(), w, `${tz} week ${w}`)
+  }
+  tz = 'america/chicago'
+  for (let w = 1; w < 52; w += 1) {
+    const date = spacetime.now(tz).week(w);
+    t.equal(date.week(), w, `${tz} week ${w}`)
+  }
+  t.end()
+})
