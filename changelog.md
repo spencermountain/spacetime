@@ -13,7 +13,7 @@ This project follows semVer, where:
 - **[fix]** - .week() issue \#303
 - **[update]** - 2025 DST changes
 - **[update]** - greenland Nuuk DST change \#420
-- **[update]** - alias asia/choibalsan to asia/ulaanbaatar
+- **[update]** - alias choibalsan to ulaanbaatar
 
 
 ### 7.6.2 [Oct 2024]
