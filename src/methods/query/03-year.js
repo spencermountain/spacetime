@@ -63,7 +63,7 @@ const methods = {
     if (tmp.date() === 1) {
       toAdd = 0
     }
-    tmp = tmp.minus(1, 'second')
+    tmp = tmp.minus(2, 'hours')
     const thisOne = this.epoch
     //if the week technically hasn't started yet
     if (tmp.epoch > thisOne) {
@@ -72,7 +72,6 @@ const methods = {
     //speed it up, if we can
     let i = 0
     let skipWeeks = this.month() * 4
-    // console.log(ms.week+ " "+ skipWeeks);
     tmp.epoch += ms.week * skipWeeks
     i += skipWeeks
     for (; i <= 52; i++) {

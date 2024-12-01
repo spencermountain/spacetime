@@ -15,5 +15,16 @@ test('week input=output', (t) => {
     const date = spacetime.now().week(w);
     t.equal(date.week(), w, `week ${w}`)
   }
+
+  let tz = 'africa/addis_ababa'
+  for (let w = 1; w < 52; w += 1) {
+    const date = spacetime.now(tz).week(w);
+    t.equal(date.week(), w, `${tz} week ${w}`)
+  }
+  tz = 'america/chicago'
+  for (let w = 1; w < 52; w += 1) {
+    const date = spacetime.now(tz).week(w);
+    t.equal(date.week(), w, `${tz} week ${w}`)
+  }
   t.end()
 })
