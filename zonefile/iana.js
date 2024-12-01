@@ -940,10 +940,6 @@ export default {
     offset: 9,
     hem: 'n'
   },
-  'asia/choibalsan': {
-    offset: 8,
-    hem: 'n'
-  },
   'asia/colombo': {
     offset: 5.5,
     hem: 'n'
