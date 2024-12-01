@@ -9,7 +9,7 @@ This project follows semVer, where:
 
  -->
 
-### 7.6.2 [Dec 2024]
+### 7.7.0 [Dec 2024]
 - **[fix]** - .week() issue \#303
 - **[update]** - 2025 DST changes
 - **[update]** - greenland Nuuk DST change \#420
