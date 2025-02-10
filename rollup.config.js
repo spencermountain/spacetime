@@ -15,7 +15,7 @@ export default [
   {
     input: 'src/index.js',
     output: [{ banner: banner, file: 'builds/spacetime.mjs', format: 'esm' }],
-    plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 48, warn: 10 })]
+    plugins: [resolve(), json(), terser(), sizeCheck({ expect: 48, warn: 10 })]
   },
   {
     input: 'src/index.js',
