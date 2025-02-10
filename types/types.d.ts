@@ -1,4 +1,4 @@
-import type { TimeUnit, Format, I18nOptions } from './constraints'
+import type { TimeUnit, Format, I18nOptions } from './constraints.js'
 
 /** a date/timezone object */
 export interface Spacetime {
