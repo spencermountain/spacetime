@@ -9,9 +9,14 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
-      "require": "./builds/spacetime.cjs",
-      "import": "./src/index.js"
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./builds/spacetime.mjs"
+      },
+      "require": {
+        "types": "./types/index.d.cts",
+        "default": "./builds/spacetime.cjs"
+      }
     }
   },
   "scripts": {
