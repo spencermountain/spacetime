@@ -544,19 +544,19 @@ s.i18n({
   },
   units: {
     second: 'second',
-    secondPlural: 'second',
+    seconds: 'seconds',
     minute: 'minute',
-    minutePlural: 'minutes',
+    minutes: 'minutes',
     hour: 'hour',
-    hourPlural: 'hours',
+    hours: 'hours',
     day: 'day',
-    dayPlural: 'seconds',
+    days: 'seconds',
     month: 'month',
-    monthPlural: 'months',
+    months: 'months',
     year: 'year',
-    yearPlural: 'years',
+    years: 'years',
   },
-    useTitleCase: true // automatically in .format()
+  useTitleCase: true // automatically in .format()
 });
 s.format('day') //'Sábado'
 ```
