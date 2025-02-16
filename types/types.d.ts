@@ -35,8 +35,10 @@ export interface Spacetime {
   /** @returns the native Date object at the same epoch */
   toNativeDate(): Date
 
-  /** @returns a bunch of meta-data about your current timezone */
-  timezone: () => TimezoneMeta
+  /** @returns a bunch of meta-data about your current timezone  */
+  timezone(): TimezoneMeta
+  /** swap the timezone, but keep the same date-time (if possible) */
+  timezone(tz: String): Spacetime
 
   /** output nicely-formatted strings */
   format: (format: Format) => string

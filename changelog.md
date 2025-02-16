@@ -11,6 +11,8 @@ This project follows semVer, where:
 
 ### 7.8.0 [Feb 2025]
 - **[fix]** - more first .week() issues \#303
+- **[new]** - initial support for Temporal's extended-iso fmt RFC3339
+- **[new]** - support swap timezone via .timezone(tz) \#180
 - **[update]** - dependencies
 
 ### 7.7.0 [Dec 2024]
