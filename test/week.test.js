@@ -44,16 +44,16 @@ test('jan 1 is always first week', (t) => {
 })
 
 
-// test('week input=output more-years', (t) => {
-//   let years = [2024, 2025, 2026, 1984, 1999, 2018, 2022]
-//   years.forEach((year) => {
-//     for (let w = 1; w < 52; w += 1) {
-//       const date = spacetime.now().year(year).week(w);
-//       t.equal(date.week(), w, `year ${year}, week ${w}`)
-//     }
-//   })
-//   t.end()
-// })
+test('week input=output more-years', (t) => {
+  let years = [2024, 2025, 2026, 1984, 1999, 2018, 2022]
+  years.forEach((year) => {
+    for (let w = 1; w < 52; w += 1) {
+      const date = spacetime.now().year(year).week(w);
+      t.equal(date.week(), w, `year ${year}, week ${w}`)
+    }
+  })
+  t.end()
+})
 
 test('week input=output current-uear', (t) => {
   for (let w = 1; w < 52; w += 1) {

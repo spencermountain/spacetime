@@ -232,7 +232,7 @@ const week = function (s, n, goFwd) {
   n -= 1 //1-based
   s = s.add(n, 'weeks')
   s = fwdBkwd(s, old, goFwd, 'year') // specify direction
-  return s.epoch
+  return s
 }
 
 const dayOfYear = function (s, n, goFwd) {

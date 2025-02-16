@@ -10,6 +10,9 @@ const year = 2025
 //   }
 // }
 
-const date = spacetime.now().year(year).week(1);
-console.log(date.iso())
-console.log(date.week()) 
+// const date = spacetime.now().year(year).week(1);
+// console.log(date.iso())
+// console.log(date.week()) 
+
+let date = spacetime('2024-12-30')
+console.log(date.week())
