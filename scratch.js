@@ -14,5 +14,8 @@ const year = 2025
 // console.log(date.iso())
 // console.log(date.week()) 
 
-let date = spacetime('2024-12-30')
-console.log(date.week())
+// 
+let s = spacetime('2014-12-29')
+console.log(s.week(), s.format('iso-short'))
+s = s.week(1)
+console.log(s.week(), s.format('iso-short'))

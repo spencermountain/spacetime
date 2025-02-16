@@ -73,3 +73,15 @@ test('week input=output current-uear', (t) => {
   }
   t.end()
 })
+
+
+test('week 1 stays week 1', (t) => {
+  let iso = '2014-12-29'//monday
+  let s = spacetime(iso)
+  t.equal(s.week(), 1, 'init wk1' + s.format('iso-short'))
+  s = s.week(1)//set it as same week
+  t.equal(s.week(), 1, 'still wk1')
+  t.equal(s.year(), 2014, 'still 2014')
+  t.equal(s.format('iso-short'), iso, 'same-day')
+  t.end()
+})
