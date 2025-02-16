@@ -8,6 +8,7 @@ import since from './methods/since/index.js'
 import { startOf as _startOf, endOf as _endOf } from './methods/startOf.js'
 import every from './methods/every.js'
 import timezone from './timezone/index.js'
+import swapTz from './timezone/swapTz.js'
 import findTz from './timezone/find.js'
 import handleInput from './input/index.js'
 import { isLeapYear } from './fns.js'
@@ -31,11 +32,14 @@ const methods = {
     let s = this.clone()
     s = handleInput(s, input, null)
     if (tz) {
-      this.tz = findTz(tz)
+      s.tz = findTz(tz, s.timezones)
     }
     return s
   },
-  timezone: function () {
+  timezone: function (tz) {
+    if (tz !== undefined) {
+      return swapTz(this, tz)
+    }
     return timezone(this)
   },
   isDST: function () {

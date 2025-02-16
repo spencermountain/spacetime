@@ -145,6 +145,7 @@ const aliases = {
   'time-12': 'time',
   'time-h12': 'time',
   tz: 'timezone',
+  iana: 'timezone',
   'day-num': 'day-number',
   'month-num': 'month-number',
   'month-iso': 'iso-month',
