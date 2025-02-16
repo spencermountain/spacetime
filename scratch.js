@@ -16,6 +16,6 @@ const year = 2025
 
 // 
 let s = spacetime('2014-12-29')
-console.log(s.week(), s.format('iso-short'))
+console.log('before: ', s.week(), s.format('iso-short'))
 s = s.week(1)
-console.log(s.week(), s.format('iso-short'))
+console.log('after:  ', s.week(), s.format('iso-short'))

@@ -221,6 +221,17 @@ const year = function (s, n) {
 const week = function (s, n, goFwd) {
   let old = s.clone()
   n = validate(n)
+
+  // don't set week=1, if we're already week=1 in late december
+  // because this could send us to another year
+  if (n === 1) {
+    if (s.monthName() === 'december' && s.date() >= 29) {
+      if (s.week() === 1) {
+        return s
+      }
+    }
+  }
+
   // get the first week of the year
   s = s.month(0)
   s = s.date(1)
