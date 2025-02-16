@@ -221,13 +221,12 @@ const year = function (s, n) {
 const week = function (s, n, goFwd) {
   let old = s.clone()
   n = validate(n)
+  // get the first week of the year
   s = s.month(0)
   s = s.date(1)
-  s = s.day('monday')
-  //first week starts first Thurs in Jan
-  // so mon dec 28th is 1st week
-  // so mon dec 29th is not the week
-  if (s.monthName() === 'december' && s.date() >= 28) {
+  s = s.day('monday', false)//go backwards to monday
+  // did we go back too far?
+  if (s.monthName() === 'december' && s.date() < 29) {
     s = s.add(1, 'week')
   }
   n -= 1 //1-based
