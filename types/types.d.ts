@@ -139,6 +139,8 @@ export interface Spacetime {
 
   /** return all date units as a key-value map */
   json: () => string
+  /** set the date via JSON object */
+  json(obj: object): Spacetime
 
   /** Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
   progress: (unit?: string) => Progress

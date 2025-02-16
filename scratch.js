@@ -9,5 +9,4 @@ import spacetime from './src/index.js'
 
 
 let s = spacetime('2011-12-03T10:15:30+01:00[Europe/Paris]')
-console.log(s.format('iso'))
-console.log(s)
+console.log(s.format('iso-short'))

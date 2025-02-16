@@ -25,9 +25,10 @@ export default [
       s = parseTime(s, m[4])
       // if iana code in brackets at the end, set the timezone
       if (m[6]) {
+        console.log(m[6])
         let tz = parseTz(m[6])
         if (tz) {
-          s = s.timezone(tz)
+          // s = s.timezone(tz)
         }
       }
       return s
