@@ -23,8 +23,6 @@
     return epoch >= startUtc && epoch < endUtc
   };
 
-  var inSummerTime$1 = inSummerTime;
-
   /* eslint-disable no-console */
 
   // this method avoids having to do a full dst-calculation on every operation
@@ -47,13 +45,12 @@
       dec = jul - 1;
     }
     let split = obj.dst.split('->');
-    let inSummer = inSummerTime$1(s.epoch, split[0], split[1], jul, dec);
+    let inSummer = inSummerTime(s.epoch, split[0], split[1], jul, dec);
     if (inSummer === true) {
       return jul
     }
     return dec
   };
-  var quickOffset$1 = quickOffset;
 
   var data = {
     "9|s": "2/dili,2/jayapura",
@@ -204,8 +201,6 @@
     };
   }
 
-  var zones = all;
-
   //find the implicit iana code for this machine.
   //safely query the Intl object
   //based on - https://bitbucket.org/pellepim/jstimezonedetect/src
@@ -234,8 +229,6 @@
     }
     return timezone
   };
-  //do it once per computer
-  var guessTz$1 = guessTz;
 
   const isOffset = /(-?[0-9]+)h(rs)?/i;
   const isNumber = /(-?[0-9]+)/;
@@ -252,7 +245,7 @@
     return null
   };
 
-  const parseOffset$2 = function (tz) {
+  const parseOffset$1 = function (tz) {
     // '+5hrs'
     let m = tz.match(isOffset);
     if (m !== null) {
@@ -276,15 +269,14 @@
     }
     return null
   };
-  var parseOffset$3 = parseOffset$2;
 
   /* eslint-disable no-console */
 
 
-  let local = guessTz$1();
+  let local = guessTz();
 
   //add all the city names by themselves
-  const cities = Object.keys(zones).reduce((h, k) => {
+  const cities = Object.keys(all).reduce((h, k) => {
     let city = k.split('/')[1] || '';
     city = city.replace(/_/g, ' ');
     h[city] = k;
@@ -292,7 +284,7 @@
   }, {});
 
   //try to match these against iana form
-  const normalize$3 = (tz) => {
+  const normalize$2 = (tz) => {
     tz = tz.replace(/ time/g, '');
     tz = tz.replace(/ (standard|daylight|summer)/g, '');
     tz = tz.replace(/\b(east|west|north|south)ern/g, '$1');
@@ -326,7 +318,7 @@
       return tz
     }
     //lookup more loosely..
-    tz = normalize$3(tz);
+    tz = normalize$2(tz);
     if (zones.hasOwnProperty(tz) === true) {
       return tz
     }
@@ -336,7 +328,7 @@
     }
     // //try to parse '-5h'
     if (/[0-9]/.test(tz) === true) {
-      let id = parseOffset$3(tz);
+      let id = parseOffset$1(tz);
       if (id) {
         return id
       }
@@ -346,7 +338,6 @@
       "Spacetime: Cannot find timezone named: '" + str + "'. Please enter an IANA timezone id."
     )
   };
-  var findTz = lookupTz;
 
   //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
   function isLeapYear(year) { return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0 }
@@ -392,7 +383,7 @@
   }
 
   //used mostly for cleanup of unit names, like 'months'
-  function normalize$2(str = '') {
+  function normalize$1(str = '') {
     str = str.toLowerCase().trim();
     str = str.replace(/ies$/, 'y'); //'centuries'
     str = str.replace(/s$/, '');
@@ -549,7 +540,6 @@
     }
   };
   dates['new years eve'] = dates['new years'];
-  var namedDates = dates;
 
   //little cleanup..
   const normalize = function (str) {
@@ -561,8 +551,6 @@
     str = str.replace(/ +/g, ' ').trim();
     return str
   };
-
-  var normalize$1 = normalize;
 
   let o = {
     millisecond: 1
@@ -579,7 +567,6 @@
   Object.keys(o).forEach(k => {
     o[k + 's'] = o[k];
   });
-  var ms = o;
 
   /* eslint-disable no-console */
 
@@ -593,14 +580,14 @@
     let original = s.epoch;
     //try to get it as close as we can
     let diff = n - current;
-    s.epoch += ms[unit] * diff;
+    s.epoch += o[unit] * diff;
     //DST edge-case: if we are going many days, be a little conservative
     // console.log(unit, diff)
     if (unit === 'day') {
       // s.epoch -= ms.minute
       //but don't push it over a month
       if (Math.abs(diff) > 28 && n < 28) {
-        s.epoch += ms.hour;
+        s.epoch += o.hour;
       }
     }
     // 1st time: oops, did we change previous unit? revert it.
@@ -611,7 +598,7 @@
     }
     //repair it if we've gone too far or something
     //(go by half-steps, just in case)
-    const halfStep = ms[unit] / 2;
+    const halfStep = o[unit] / 2;
     while (s.d[fn]() < n) {
       s.epoch += halfStep;
     }
@@ -628,7 +615,7 @@
   //find the desired date by a increment/check while loop
   const units$4 = {
     year: {
-      valid: (n) => n > -4000 && n < 4000,
+      valid: (n) => n > -4e3 && n < 4000,
       walkTo: (s, n) => walk(s, n, 'getFullYear', 'year', null)
     },
     month: {
@@ -643,17 +630,17 @@
         }
         //try to get it as close as we can..
         let diff = n - current;
-        s.epoch += ms.day * (diff * 28); //special case
+        s.epoch += o.day * (diff * 28); //special case
         //oops, did we change the year? revert it.
         if (startUnit !== s.d.getFullYear()) {
           s.epoch = original;
         }
         //increment by day
         while (s.d.getMonth() < n) {
-          s.epoch += ms.day;
+          s.epoch += o.day;
         }
         while (s.d.getMonth() > n) {
-          s.epoch -= ms.day;
+          s.epoch -= o.day;
         }
       }
     },
@@ -710,8 +697,6 @@
     return
   };
 
-  var walkTo$1 = walkTo;
-
   const monthLengths = [
     31, // January - 31 days
     28, // February - 28 days in a common year and 29 days in leap years
@@ -726,7 +711,6 @@
     30, // November - 30 days
     31 // December - 31 days
   ];
-  var monthLength = monthLengths;
 
   // 28 - feb
   // 30 - april, june, sept, nov
@@ -837,7 +821,6 @@
     }
     return s
   };
-  var parseOffset$1 = parseOffset;
 
   // truncate any sub-millisecond values
   const parseMs = function (str = '') {
@@ -903,14 +886,13 @@
     s = s.startOf('day');
     return s
   };
-  var parseTime$1 = parseTime;
 
   let months$1 = mapping$1();
 
   //given a month, return whether day number exists in it
   const validate$1 = (obj) => {
     //invalid values
-    if (monthLength.hasOwnProperty(obj.month) !== true) {
+    if (monthLengths.hasOwnProperty(obj.month) !== true) {
       return false
     }
     //support leap-year in february
@@ -922,7 +904,7 @@
       }
     }
     //is this date too-big for this month?
-    let max = monthLength[obj.month] || 0;
+    let max = monthLengths[obj.month] || 0;
     if (obj.date <= max) {
       return true
     }
@@ -974,9 +956,9 @@
           s.epoch = null;
           return s
         }
-        parseOffset$1(s, m[5]);
-        walkTo$1(s, obj);
-        s = parseTime$1(s, m[4]);
+        parseOffset(s, m[5]);
+        walkTo(s, obj);
+        s = parseTime(s, m[4]);
         return s
       }
     },
@@ -998,8 +980,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s, m[4]);
+        walkTo(s, obj);
+        s = parseTime(s, m[4]);
         return s
       }
     },
@@ -1017,8 +999,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s, m[4]);
+        walkTo(s, obj);
+        s = parseTime(s, m[4]);
         return s
       }
     }
@@ -1048,8 +1030,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s, arr[4]);
+        walkTo(s, obj);
+        s = parseTime(s, arr[4]);
         return s
       }
     },
@@ -1066,8 +1048,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s, arr[4]);
+        walkTo(s, obj);
+        s = parseTime(s, arr[4]);
         return s
       }
     },
@@ -1086,8 +1068,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s, arr[4]);
+        walkTo(s, obj);
+        s = parseTime(s, arr[4]);
         return s
       }
     },
@@ -1105,9 +1087,9 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseOffset$1(s, tz);
-        s = parseTime$1(s, time);
+        walkTo(s, obj);
+        s = parseOffset(s, tz);
+        s = parseTime(s, time);
         return s
       }
     }
@@ -1130,8 +1112,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s, m[4]);
+        walkTo(s, obj);
+        s = parseTime(s, m[4]);
         return s
       }
     },
@@ -1148,8 +1130,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s, m[4]);
+        walkTo(s, obj);
+        s = parseTime(s, m[4]);
         return s
       }
     },
@@ -1166,9 +1148,9 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
+        walkTo(s, obj);
         s = s.startOf('day');
-        s = parseTime$1(s, m[4]);
+        s = parseTime(s, m[4]);
         return s
       }
     }
@@ -1192,8 +1174,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s, m[4]);
+        walkTo(s, obj);
+        s = parseTime(s, m[4]);
         return s
       }
     },
@@ -1211,8 +1193,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s, arr[4]);
+        walkTo(s, obj);
+        s = parseTime(s, arr[4]);
         return s
       }
     },
@@ -1262,8 +1244,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s);
+        walkTo(s, obj);
+        s = parseTime(s);
         return s
       }
     },
@@ -1284,8 +1266,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s);
+        walkTo(s, obj);
+        s = parseTime(s);
         return s
       }
     },
@@ -1308,8 +1290,8 @@
           s.epoch = null;
           return s
         }
-        walkTo$1(s, obj);
-        s = parseTime$1(s);
+        walkTo(s, obj);
+        s = parseTime(s);
         return s
       }
     }
@@ -1337,7 +1319,6 @@
     s.epoch = null;
     return s
   };
-  var parseString$1 = parseString;
 
   const { parseArray, parseObject, parseNumber } = fns;
   //we have to actually parse these inputs ourselves
@@ -1401,16 +1382,15 @@
       return s
     }
     //little cleanup..
-    input = normalize$1(input);
+    input = normalize(input);
     //try some known-words, like 'now'
-    if (namedDates.hasOwnProperty(input) === true) {
-      s = namedDates[input](s);
+    if (dates.hasOwnProperty(input) === true) {
+      s = dates[input](s);
       return s
     }
     //try each text-parse template, use the first good result
-    return parseString$1(s, input)
+    return parseString(s, input)
   };
-  var handleInput = parseInput;
 
   let shortDays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   let longDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
@@ -1453,8 +1433,6 @@
     let offset = s.timezone().current.offset;
     return !offset ? 'Z' : formatTimezone(offset, ':')
   };
-
-  var isoOffset$1 = isoOffset;
 
   const applyCaseFormat = (str) => {
     if (useTitleCase()) {
@@ -1541,7 +1519,7 @@
     era: (s) => s.era(),
     json: (s) => s.json(),
     timezone: (s) => s.timezone().name,
-    offset: (s) => isoOffset$1(s),
+    offset: (s) => isoOffset(s),
 
     numeric: (s) => `${s.year()}/${zeroPad(s.month() + 1)}/${zeroPad(s.date())}`, // yyyy/mm/dd
     'numeric-us': (s) => `${zeroPad(s.month() + 1)}/${zeroPad(s.date())}/${s.year()}`, // mm/dd/yyyy
@@ -1557,7 +1535,7 @@
       let minute = zeroPad(s.minute());
       let second = zeroPad(s.second());
       let ms = zeroPad(s.millisecond(), 3);
-      let offset = isoOffset$1(s);
+      let offset = isoOffset(s);
       return `${year}-${month}-${date}T${hour}:${minute}:${second}.${ms}${offset}` //2018-03-09T08:50:00.000-05:00
     },
     'iso-short': (s) => {
@@ -1635,7 +1613,10 @@
     if (str.indexOf('{') !== -1) {
       let sections = /\{(.+?)\}/g;
       str = str.replace(sections, (_, fmt) => {
-        fmt = fmt.toLowerCase().trim();
+        fmt = fmt.trim();
+        if (fmt !== 'AMPM') {
+          fmt = fmt.toLowerCase();
+        }
         if (format.hasOwnProperty(fmt)) {
           let out = String(format[fmt](s));
           if (fmt.toLowerCase() !== 'ampm') {
@@ -1650,7 +1631,6 @@
 
     return s.format('iso-short')
   };
-  var format$1 = printFormat;
 
   //parse this insane unix-time-templating thing, from the 19th century
   //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
@@ -1829,7 +1809,6 @@
       return txt
     }, '')
   };
-  var unixFmt$1 = unixFmt;
 
   const units$3 = ['year', 'season', 'quarter', 'month', 'week', 'day', 'quarterHour', 'hour', 'minute'];
 
@@ -1844,7 +1823,7 @@
   //how far it is along, from 0-1
   const progress = (s, unit) => {
     if (unit) {
-      unit = normalize$2(unit);
+      unit = normalize$1(unit);
       return doUnit(s, unit)
     }
     let obj = {};
@@ -1854,15 +1833,13 @@
     return obj
   };
 
-  var progress$1 = progress;
-
   /* eslint-disable no-console */
 
   //round to either current, or +1 of this unit
   const nearest = (s, unit) => {
     //how far have we gone?
     let prog = s.progress();
-    unit = normalize$2(unit);
+    unit = normalize$1(unit);
     //fix camel-case for this one
     if (unit === 'quarterhour') {
       unit = 'quarterHour';
@@ -1879,7 +1856,6 @@
     }
     return s
   };
-  var nearest$1 = nearest;
 
   //increment until dates are the same
   const climb = (a, b, unit) => {
@@ -1907,8 +1883,6 @@
     }
   };
 
-  var diffOne$1 = diffOne;
-
   // don't do anything too fancy here.
   // 2020 - 2019 may be 1 year, or 0 years
   // - '1 year difference' means 366 days during a leap year
@@ -1925,7 +1899,7 @@
   // use a waterfall-method for computing a diff of any 'pre-knowable' units
   // compute years, then compute months, etc..
   // ... then ms-math for any very-small units
-  const diff$1 = function (a, b) {
+  const diff = function (a, b) {
     // an hour is always the same # of milliseconds
     // so these units can be 'pre-calculated'
     let msDiff = b.epoch - a.epoch;
@@ -1944,7 +1918,7 @@
     //there's always 12 months in a year...
     obj.months = obj.years * 12;
     tmp = a.add(obj.months, 'month');
-    obj.months += diffOne$1(tmp, b, 'month');
+    obj.months += diffOne(tmp, b, 'month');
 
     // there's always 4 quarters in a year...
     obj.quarters = obj.years * 4;
@@ -1954,16 +1928,15 @@
     // (month * 4) isn't as close
     obj.weeks = obj.years * 52;
     tmp = a.add(obj.weeks, 'week');
-    obj.weeks += diffOne$1(tmp, b, 'week');
+    obj.weeks += diffOne(tmp, b, 'week');
 
     // there's always atleast 7 days in a week
     obj.days = obj.weeks * 7;
     tmp = a.add(obj.days, 'day');
-    obj.days += diffOne$1(tmp, b, 'day');
+    obj.days += diffOne(tmp, b, 'day');
 
     return obj
   };
-  var waterfall = diff$1;
 
   const reverseDiff = function (obj) {
     Object.keys(obj).forEach((k) => {
@@ -1986,14 +1959,14 @@
       reversed = true;
     }
     //compute them all (i know!)
-    let obj = waterfall(a, b);
+    let obj = diff(a, b);
     if (reversed) {
       obj = reverseDiff(obj);
     }
     //return just the requested unit
     if (unit) {
       //make sure it's plural-form
-      unit = normalize$2(unit);
+      unit = normalize$1(unit);
       if (/s$/.test(unit) !== true) {
         unit += 's';
       }
@@ -2004,8 +1977,6 @@
     }
     return obj
   };
-
-  var diff = main$1;
 
   /*
   ISO 8601 duration format
@@ -2034,7 +2005,6 @@
     iso += fmt(diff.seconds) + 'S';
     return iso
   };
-  var toISO$1 = toISO;
 
   //get number of hours/minutes... between the two dates
   function getDiff(a, b) {
@@ -2201,7 +2171,6 @@
 
     return { qualified, rounded, abbreviated, englishValues }
   };
-  var soften = toSoft;
 
   //by spencermountain + Shaun Grady
 
@@ -2224,7 +2193,7 @@
     let precise;
     let direction = futureString();
 
-    let { rounded, qualified, englishValues, abbreviated } = soften(diff);
+    let { rounded, qualified, englishValues, abbreviated } = toSoft(diff);
 
     //make them into a string
     precise = englishValues.splice(0, 2).join(', ');
@@ -2241,7 +2210,7 @@
     }
     // https://en.wikipedia.org/wiki/ISO_8601#Durations
     // P[n]Y[n]M[n]DT[n]H[n]M[n]S 
-    let iso = toISO$1(diff);
+    let iso = toISO(diff);
     return {
       diff,
       rounded,
@@ -2252,8 +2221,6 @@
       direction,
     }
   };
-
-  var since$1 = since;
 
   //https://www.timeanddate.com/calendar/aboutseasons.html
   // Spring - from March 1 to May 31;
@@ -2287,13 +2254,13 @@
 
   const units$1 = {
     second: (s) => {
-      walkTo$1(s, {
+      walkTo(s, {
         millisecond: 0
       });
       return s
     },
     minute: (s) => {
-      walkTo$1(s, {
+      walkTo(s, {
         second: 0,
         millisecond: 0
       });
@@ -2310,14 +2277,14 @@
       } else {
         s = s.minutes(0);
       }
-      walkTo$1(s, {
+      walkTo(s, {
         second: 0,
         millisecond: 0
       });
       return s
     },
     hour: (s) => {
-      walkTo$1(s, {
+      walkTo(s, {
         minute: 0,
         second: 0,
         millisecond: 0
@@ -2325,7 +2292,7 @@
       return s
     },
     day: (s) => {
-      walkTo$1(s, {
+      walkTo(s, {
         hour: 0,
         minute: 0,
         second: 0,
@@ -2339,7 +2306,7 @@
       if (s.isAfter(original)) {
         s = s.subtract(1, 'week');
       }
-      walkTo$1(s, {
+      walkTo(s, {
         hour: 0,
         minute: 0,
         second: 0,
@@ -2348,7 +2315,7 @@
       return s
     },
     month: (s) => {
-      walkTo$1(s, {
+      walkTo(s, {
         date: 1,
         hour: 0,
         minute: 0,
@@ -2360,7 +2327,7 @@
     quarter: (s) => {
       let q = s.quarter();
       if (quarters[q]) {
-        walkTo$1(s, {
+        walkTo(s, {
           month: quarters[q][0],
           date: quarters[q][1],
           hour: 0,
@@ -2384,7 +2351,7 @@
           if (current === 'winter' && s.month() < 3) {
             year -= 1;
           }
-          walkTo$1(s, {
+          walkTo(s, {
             year,
             month: seasons[hem][i][1],
             date: seasons[hem][i][2],
@@ -2399,7 +2366,7 @@
       return s
     },
     year: (s) => {
-      walkTo$1(s, {
+      walkTo(s, {
         month: 0,
         date: 1,
         hour: 0,
@@ -2429,7 +2396,7 @@
 
   const startOf = (a, unit) => {
     let s = a.clone();
-    unit = normalize$2(unit);
+    unit = normalize$1(unit);
     if (units$1[unit]) {
       return units$1[unit](s)
     }
@@ -2443,7 +2410,7 @@
   //piggy-backs off startOf
   const endOf = (a, unit) => {
     let s = a.clone();
-    unit = normalize$2(unit);
+    unit = normalize$1(unit);
     if (units$1[unit]) {
       // go to beginning, go to next one, step back 1ms
       s = units$1[unit](s); // startof
@@ -2472,7 +2439,7 @@
       return []
     }
     //cleanup unit param
-    unit = normalize$2(unit);
+    unit = normalize$1(unit);
     //cleanup to param
     end = start.clone().set(end);
     //swap them, if they're backwards
@@ -2504,7 +2471,6 @@
     }
     return result
   };
-  var every$1 = every;
 
   /* eslint-disable no-console */
 
@@ -2534,7 +2500,7 @@
     let zones = s.timezones;
     let tz = s.tz;
     if (zones.hasOwnProperty(tz) === false) {
-      tz = findTz(s.tz, zones);
+      tz = lookupTz(s.tz, zones);
     }
     if (tz === null) {
       if (s.silent === false) {
@@ -2581,7 +2547,7 @@
     if (result.hasDst === false) {
       result.current.offset = summer;
       result.current.isDST = false;
-    } else if (inSummerTime$1(s.epoch, result.change.start, result.change.back, summer, winter) === true) {
+    } else if (inSummerTime(s.epoch, result.change.start, result.change.back, summer, winter) === true) {
       result.current.offset = summer;
       result.current.isDST = result.hemisphere === 'North'; //dst 'on' in winter in north
     } else {
@@ -2591,7 +2557,6 @@
     }
     return result
   };
-  var timezone$1 = timezone;
 
   /* eslint-disable no-console */
   const units = [
@@ -2611,32 +2576,32 @@
   const methods$4 = {
     set: function (input, tz) {
       let s = this.clone();
-      s = handleInput(s, input);
+      s = parseInput(s, input);
       if (tz) {
-        this.tz = findTz(tz);
+        this.tz = lookupTz(tz);
       }
       return s
     },
     timezone: function () {
-      return timezone$1(this)
+      return timezone(this)
     },
     isDST: function () {
-      return timezone$1(this).current.isDST
+      return timezone(this).current.isDST
     },
     hasDST: function () {
-      return timezone$1(this).hasDst
+      return timezone(this).hasDst
     },
     offset: function () {
-      return timezone$1(this).current.offset * 60
+      return timezone(this).current.offset * 60
     },
     hemisphere: function () {
-      return timezone$1(this).hemisphere
+      return timezone(this).hemisphere
     },
     format: function (fmt) {
-      return format$1(this, fmt)
+      return printFormat(this, fmt)
     },
     unixFmt: function (fmt) {
-      return unixFmt$1(this, fmt)
+      return unixFmt(this, fmt)
     },
     startOf: function (unit) {
       return startOf(this, unit)
@@ -2649,19 +2614,19 @@
       return isLeapYear(year)
     },
     progress: function (unit) {
-      return progress$1(this, unit)
+      return progress(this, unit)
     },
     nearest: function (unit) {
-      return nearest$1(this, unit)
+      return nearest(this, unit)
     },
     diff: function (d, unit) {
-      return diff(this, d, unit)
+      return main$1(this, d, unit)
     },
     since: function (d) {
       if (!d) {
         d = this.clone().set();
       }
-      return since$1(this, d)
+      return since(this, d)
     },
     next: function (unit) {
       let s = this.add(1, unit);
@@ -2682,7 +2647,7 @@
     //travel to this timezone
     goto: function (tz) {
       let s = this.clone();
-      s.tz = findTz(tz, s.timezones); //science!
+      s.tz = lookupTz(tz, s.timezones); //science!
       return s
     },
     //get each week/month/day between a -> b
@@ -2693,7 +2658,7 @@
         to = unit;
         unit = tmp;
       }
-      return every$1(this, unit, to, stepCount)
+      return every(this, unit, to, stepCount)
     },
     isAwake: function () {
       let hour = this.hour();
@@ -2739,12 +2704,12 @@
     //pretty-printing
     log: function () {
       console.log('');
-      console.log(format$1(this, 'nice-short'));
+      console.log(printFormat(this, 'nice-short'));
       return this
     },
     logYear: function () {
       console.log('');
-      console.log(format$1(this, 'full-short'));
+      console.log(printFormat(this, 'full-short'));
       return this
     },
     json: function () {
@@ -2796,7 +2761,6 @@
   methods$4.inDST = methods$4.isDST;
   methods$4.round = methods$4.nearest;
   methods$4.each = methods$4.every;
-  var methods$5 = methods$4;
 
   // javascript setX methods like setDate() can't be used because of the local bias
   //these methods wrap around them.
@@ -2843,7 +2807,7 @@
     n = validate(n);
     let old = s.clone();
     let diff = s.second() - n;
-    let shift = diff * ms.second;
+    let shift = diff * o.second;
     s.epoch = s.epoch - shift;
     s = fwdBkwd(s, old, goFwd, 'minute'); // specify direction
     return s.epoch
@@ -2853,7 +2817,7 @@
     n = validate(n);
     let old = s.clone();
     let diff = s.minute() - n;
-    let shift = diff * ms.minute;
+    let shift = diff * o.minute;
     s.epoch -= shift;
     confirm(s, old, 'second');
     s = fwdBkwd(s, old, goFwd, 'hour'); // specify direction
@@ -2869,7 +2833,7 @@
     }
     let old = s.clone();
     let diff = s.hour() - n;
-    let shift = diff * ms.hour;
+    let shift = diff * o.hour;
     s.epoch -= shift;
     // oops, did we change the day?
     if (s.date() !== old.date()) {
@@ -2880,10 +2844,10 @@
       if (diff < 1) {
         diff += 1;
       }
-      shift = diff * ms.hour;
+      shift = diff * o.hour;
       s.epoch -= shift;
     }
-    walkTo$1(s, {
+    walkTo(s, {
       hour: n
     });
     confirm(s, old, 'minute');
@@ -2940,7 +2904,7 @@
     //avoid setting february 31st
     if (n > 28) {
       let month = s.month();
-      let max = monthLength[month];
+      let max = monthLengths[month];
       // support leap day in february
       if (month === 1 && n === 29 && isLeapYear(s.year())) {
         max = 29;
@@ -2954,7 +2918,7 @@
       n = 1;
     }
     let old = s.clone();
-    walkTo$1(s, {
+    walkTo(s, {
       date: n
     });
     s = fwdBkwd(s, old, goFwd, 'month'); // specify direction
@@ -2979,12 +2943,12 @@
 
     let d = s.date();
     //there's no 30th of february, etc.
-    if (d > monthLength[n]) {
+    if (d > monthLengths[n]) {
       //make it as close as we can..
-      d = monthLength[n];
+      d = monthLengths[n];
     }
     let old = s.clone();
-    walkTo$1(s, {
+    walkTo(s, {
       month: n,
       d
     });
@@ -3007,7 +2971,7 @@
       }
     }
     n = validate(n);
-    walkTo$1(s, {
+    walkTo(s, {
       year: n
     });
     return s.epoch
@@ -3016,19 +2980,29 @@
   const week = function (s, n, goFwd) {
     let old = s.clone();
     n = validate(n);
+
+    // don't set week=1, if we're already week=1 in late december
+    // because this could send us to another year
+    if (n === 1) {
+      if (s.monthName() === 'december' && s.date() >= 29) {
+        if (s.week() === 1) {
+          return s
+        }
+      }
+    }
+
+    // get the first week of the year
     s = s.month(0);
     s = s.date(1);
-    s = s.day('monday');
-    //first week starts first Thurs in Jan
-    // so mon dec 28th is 1st week
-    // so mon dec 29th is not the week
-    if (s.monthName() === 'december' && s.date() >= 28) {
+    s = s.day('monday', false);//go backwards to monday
+    // did we go back too far?
+    if (s.monthName() === 'december' && s.date() < 29) {
       s = s.add(1, 'week');
     }
     n -= 1; //1-based
     s = s.add(n, 'weeks');
     s = fwdBkwd(s, old, goFwd, 'year'); // specify direction
-    return s.epoch
+    return s
   };
 
   const dayOfYear = function (s, n, goFwd) {
@@ -3230,7 +3204,6 @@
       return this.format('iso')
     }
   };
-  var timeFns = methods$3;
 
   const methods$2 = {
     // # day in the month
@@ -3276,7 +3249,7 @@
       }
       let s = this.subtract(diff, 'days');
       //tighten it back up
-      walkTo$1(s, {
+      walkTo(s, {
         hour: original.hour(),
         minute: original.minute(),
         second: original.second()
@@ -3294,7 +3267,6 @@
       return s
     }
   };
-  var dateFns = methods$2;
 
   /* eslint-disable no-console */
 
@@ -3336,28 +3308,32 @@
       // week-setter
       if (num !== undefined) {
         let s = this.clone();
-        s.epoch = week(this, num, goFwd);
+        s = week(s, num, goFwd);
         s = clearMinutes(s);
         return s
       }
-      //find-out which week it is
+      //find-out which week it is:
+      const thisOne = this.epoch;
       let tmp = this.clone();
-      tmp = tmp.month(0);
+
+      // first - are we in week 1 of the next year?
+      if (tmp.monthName() === 'december' && tmp.date() >= 29) {
+        let startNext = week(tmp.add(15, 'days'), 1, false);
+        if (startNext.epoch <= tmp.epoch) {
+          return 1
+        }
+      }
+      // Ok, calculate which week we're in:
+      // go to the first week of the year
+      tmp = tmp.month(0); // go to jan 1
       tmp = tmp.date(1);
       tmp = clearMinutes(tmp);
-      tmp = tmp.day('monday');
-      //don't go into last-year
-      if (tmp.month() === 11 && tmp.date() >= 25) {
+      tmp = tmp.day('monday', false); // go backward to monday
+      if (tmp.monthName() === 'december' && tmp.date() < 29) {
         tmp = tmp.add(1, 'week');
       }
 
-      // is first monday the 1st?
-      let toAdd = 1;
-      if (tmp.date() === 1) {
-        toAdd = 0;
-      }
-      tmp = tmp.minus(2, 'hours');
-      const thisOne = this.epoch;
+      tmp = tmp.minus(2, 'hours'); // fudge for any DST
       //if the week technically hasn't started yet
       if (tmp.epoch > thisOne) {
         return 1
@@ -3365,11 +3341,11 @@
       //speed it up, if we can
       let i = 0;
       let skipWeeks = this.month() * 4;
-      tmp.epoch += ms.week * skipWeeks;
+      tmp.epoch += o.week * skipWeeks;
       i += skipWeeks;
       for (; i <= 52; i++) {
         if (tmp.epoch > thisOne) {
-          return i + toAdd
+          return i
         }
         tmp = tmp.add(1, 'week');
       }
@@ -3568,9 +3544,8 @@
       return num
     }
   };
-  var yearFns = methods$1;
 
-  const methods = Object.assign({}, timeFns, dateFns, yearFns);
+  const methods = Object.assign({}, methods$3, methods$2, methods$1);
 
   //aliases
   methods.milliseconds = methods.millisecond;
@@ -3589,13 +3564,11 @@
     });
   };
 
-  var queryFns = addMethods$4;
-
   const getMonthLength = function (month, year) {
     if (month === 1 && isLeapYear(year)) {
       return 29
     }
-    return monthLength[month]
+    return monthLengths[month]
   };
 
   //month is the one thing we 'model/compute'
@@ -3713,7 +3686,7 @@
         return s //don't bother
       }
       let old = this.clone();
-      unit = normalize$2(unit);
+      unit = normalize$1(unit);
       if (unit === 'millisecond') {
         s.epoch += num;
         return s
@@ -3724,14 +3697,14 @@
         unit = 'week';
       }
       //move forward by the estimated milliseconds (rough)
-      if (ms[unit]) {
-        s.epoch += ms[unit] * num;
+      if (o[unit]) {
+        s.epoch += o[unit] * num;
       } else if (unit === 'week' || unit === 'weekend') {
-        s.epoch += ms.day * (num * 7);
+        s.epoch += o.day * (num * 7);
       } else if (unit === 'quarter' || unit === 'season') {
-        s.epoch += ms.month * (num * 3);
+        s.epoch += o.month * (num * 3);
       } else if (unit === 'quarterhour') {
-        s.epoch += ms.minute * 15 * num;
+        s.epoch += o.minute * 15 * num;
       }
       //now ensure our milliseconds/etc are in-line
       let want = {};
@@ -3800,10 +3773,10 @@
         let haveYear = s.year();
         if (haveYear < wantYear) {
           let toAdd = Math.floor(num / 4) || 1; //approx num of leap-days
-          s.epoch += Math.abs(ms.day * toAdd);
+          s.epoch += Math.abs(o.day * toAdd);
         } else if (haveYear > wantYear) {
           let toAdd = Math.floor(num / 4) || 1; //approx num of leap-days
-          s.epoch += ms.day * toAdd;
+          s.epoch += o.day * toAdd;
         }
       }
       //these are easier
@@ -3814,14 +3787,14 @@
       }
       //keep current date, unless the month doesn't have it.
       if (keepDate[unit]) {
-        let max = monthLength[want.month];
+        let max = monthLengths[want.month];
         want.date = old.date();
         if (want.date > max) {
           want.date = max;
         }
       }
       if (Object.keys(want).length > 1) {
-        walkTo$1(s, want);
+        walkTo(s, want);
       }
       return s
     };
@@ -3835,8 +3808,6 @@
     SpaceTime.prototype.minus = SpaceTime.prototype.subtract;
     SpaceTime.prototype.plus = SpaceTime.prototype.add;
   };
-
-  var addFns = addMethods$3;
 
   //make a string, for easy comparison between dates
   const print = {
@@ -3900,8 +3871,6 @@
     };
   };
 
-  var sameFns = addMethods$2;
-
   const addMethods$1 = SpaceTime => {
     const methods = {
       isAfter: function (d) {
@@ -3952,8 +3921,6 @@
     });
   };
 
-  var compareFns = addMethods$1;
-
   const addMethods = SpaceTime => {
     const methods = {
       i18n: function (data) {
@@ -3996,15 +3963,13 @@
     });
   };
 
-  var i18nFns = addMethods;
-
-  let timezones = zones;
+  let timezones = all;
   // fake timezone-support, for fakers (es5 class)
   const SpaceTime = function (input, tz, options = {}) {
     // the holy moment
     this.epoch = null;
     // the shift for the given timezone
-    this.tz = findTz(tz, timezones);
+    this.tz = lookupTz(tz, timezones);
     // whether to output warnings to console
     this.silent = typeof options.silent !== 'undefined' ? options.silent : true;
     // favour british interpretation of 02/02/2018, etc
@@ -4030,7 +3995,7 @@
     Object.defineProperty(this, 'd', {
       // return a js date object
       get: function () {
-        let offset = quickOffset$1(this);
+        let offset = quickOffset(this);
         // every computer is somewhere- get this computer's built-in offset
         let bias = new Date(this.epoch).getTimezoneOffset() || 0;
         // movement
@@ -4051,7 +4016,7 @@
       }
     });
     // parse the various formats
-    let tmp = handleInput(this, input);
+    let tmp = parseInput(this, input);
     this.epoch = tmp.epoch;
     if (tmp.tz) {
       this.tz = tmp.tz;
@@ -4059,8 +4024,8 @@
   };
 
   // (add instance methods to prototype)
-  Object.keys(methods$5).forEach((k) => {
-    SpaceTime.prototype[k] = methods$5[k];
+  Object.keys(methods$4).forEach((k) => {
+    SpaceTime.prototype[k] = methods$4[k];
   });
 
   // ¯\_(ツ)_/¯
@@ -4089,19 +4054,17 @@
   };
 
   // append more methods
-  queryFns(SpaceTime);
-  addFns(SpaceTime);
-  sameFns(SpaceTime);
-  compareFns(SpaceTime);
-  i18nFns(SpaceTime);
-
-  var Spacetime = SpaceTime;
+  addMethods$4(SpaceTime);
+  addMethods$3(SpaceTime);
+  addMethods$2(SpaceTime);
+  addMethods$1(SpaceTime);
+  addMethods(SpaceTime);
 
   // const timezones = require('../data');
 
   const whereIts = (a, b) => {
-    let start = new Spacetime(null);
-    let end = new Spacetime(null);
+    let start = new SpaceTime(null);
+    let end = new SpaceTime(null);
     start = start.time(a);
     //if b is undefined, use as 'within one hour'
     if (b) {
@@ -4116,7 +4079,7 @@
       if (tz.indexOf('/') === -1) {
         return false
       }
-      let m = new Spacetime(null, tz);
+      let m = new SpaceTime(null, tz);
       let hour = m.hour();
       //do 'calendar-compare' not real-time-compare
       if (hour >= startHour && hour <= endHour) {
@@ -4133,11 +4096,10 @@
     });
     return tzs
   };
-  var whereIts$1 = whereIts;
 
   var version = '7.7.0';
 
-  const main = (input, tz, options) => new Spacetime(input, tz, options);
+  const main = (input, tz, options) => new SpaceTime(input, tz, options);
 
   // set all properties of a given 'today' object
   const setToday = function (s) {
@@ -4150,48 +4112,48 @@
 
   //some helper functions on the main method
   main.now = (tz, options) => {
-    let s = new Spacetime(new Date().getTime(), tz, options);
+    let s = new SpaceTime(new Date().getTime(), tz, options);
     s = setToday(s);
     return s
   };
   main.today = (tz, options) => {
-    let s = new Spacetime(new Date().getTime(), tz, options);
+    let s = new SpaceTime(new Date().getTime(), tz, options);
     s = setToday(s);
     return s.startOf('day')
   };
   main.tomorrow = (tz, options) => {
-    let s = new Spacetime(new Date().getTime(), tz, options);
+    let s = new SpaceTime(new Date().getTime(), tz, options);
     s = setToday(s);
     return s.add(1, 'day').startOf('day')
   };
   main.yesterday = (tz, options) => {
-    let s = new Spacetime(new Date().getTime(), tz, options);
+    let s = new SpaceTime(new Date().getTime(), tz, options);
     s = setToday(s);
     return s.subtract(1, 'day').startOf('day')
   };
   main.extend = function (obj = {}) {
     Object.keys(obj).forEach((k) => {
-      Spacetime.prototype[k] = obj[k];
+      SpaceTime.prototype[k] = obj[k];
     });
     return this
   };
   main.timezones = function () {
-    let s = new Spacetime();
+    let s = new SpaceTime();
     return s.timezones
   };
   main.max = function (tz, options) {
-    let s = new Spacetime(null, tz, options);
+    let s = new SpaceTime(null, tz, options);
     s.epoch = 8640000000000000;
     return s
   };
   main.min = function (tz, options) {
-    let s = new Spacetime(null, tz, options);
-    s.epoch = -8640000000000000;
+    let s = new SpaceTime(null, tz, options);
+    s.epoch = -864e13;
     return s
   };
 
   //find tz by time
-  main.whereIts = whereIts$1;
+  main.whereIts = whereIts;
   main.version = version;
 
   //aliases:

@@ -9,6 +9,10 @@ This project follows semVer, where:
 
  -->
 
+### 7.8.0 [Feb 2025]
+- **[fix]** - more first .week() issues \#303
+- **[update]** - dependencies
+
 ### 7.7.0 [Dec 2024]
 - **[fix]** - .week() issue \#303
 - **[update]** - 2025 DST changes
