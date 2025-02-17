@@ -4,40 +4,30 @@ const defaults = {
   month: 0,
   date: 1
 }
+const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
 
 //support [2016, 03, 01] format
 const parseArray = (s, arr, today) => {
   if (arr.length === 0) {
     return s
   }
-  let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
-  for (let i = 0; i < order.length; i++) {
-    let num = arr[i] || today[order[i]] || defaults[order[i]] || 0
-    s = s[order[i]](num)
+  for (let i = 0; i < units.length; i++) {
+    let num = arr[i] || today[units[i]] || defaults[units[i]] || 0
+    s = s[units[i]](num)
   }
   return s
 }
 
 //support {year:2016, month:3} format
-const parseObject = (s, obj, today) => {
-  // if obj is empty, do nothing
-  if (Object.keys(obj).length === 0) {
-    return s
+const parseObject = (s, obj) => {
+  if (obj.timezone) {
+    s.tz = obj.timezone
   }
-  obj = Object.assign({}, defaults, today, obj)
-  let keys = Object.keys(obj)
-  for (let i = 0; i < keys.length; i++) {
-    let unit = keys[i]
-    //make sure we have this method
-    if (s[unit] === undefined || typeof s[unit] !== 'function') {
-      continue
+  for (let i = 0; i < units.length; i++) {
+    let unit = units[i]
+    if (obj[unit] !== undefined) {
+      s = s[unit](obj[unit])
     }
-    //make sure the value is a number
-    if (obj[unit] === null || obj[unit] === undefined || obj[unit] === '') {
-      continue
-    }
-    let num = obj[unit] || today[unit] || defaults[unit] || 0
-    s = s[unit](num)
   }
   return s
 }

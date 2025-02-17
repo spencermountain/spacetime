@@ -169,11 +169,29 @@ const methods = {
     console.log(format(this, 'full-short'))
     return this
   },
-  json: function () {
-    return units.reduce((h, unit) => {
+  json: function (input) {
+    // setter for json input
+    if (input !== undefined) {
+      let s = this.clone()
+      if (input.timezone) {
+        s.tz = input.timezone
+      }
+      for (let i = 0; i < units.length; i++) {
+        let unit = units[i]
+        if (input[unit] !== undefined) {
+          s = s[unit](input[unit])
+        }
+      }
+      return s
+    }
+    // produce json output
+    let obj = units.reduce((h, unit) => {
       h[unit] = this[unit]()
       return h
     }, {})
+    obj.offset = this.timezone().current.offset
+    obj.timezone = this.tz
+    return obj
   },
   debug: function () {
     let tz = this.timezone()

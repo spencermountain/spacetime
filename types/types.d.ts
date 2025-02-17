@@ -138,7 +138,7 @@ export interface Spacetime {
   logYear: () => string
 
   /** return all date units as a key-value map */
-  json: () => string
+  json: () => object
   /** set the date via JSON object */
   json(obj: object): Spacetime
 
