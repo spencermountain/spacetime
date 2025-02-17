@@ -8,7 +8,11 @@ import spacetime from './src/index.js'
 // console.log(s.iso())
 
 
-let s = spacetime('2023-01-01T5:30[America/Denver]')
-console.log(s.format('iso-full'))
-s.timezone('Europe/Zagreb') // hot-swap
-console.log(s.format('iso-full'))
+
+
+
+let s = spacetime('2014-12-31')
+// let s = spacetime('2014-01-01')
+// s = s.week(1)
+s = s.week(2)
+console.log(s.format('iso-short'))

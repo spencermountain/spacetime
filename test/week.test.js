@@ -78,9 +78,9 @@ test('week input=output current-uear', (t) => {
 test('week 1 stays week 1', (t) => {
   let isos = [
     '2014-12-29',//monday
-    // '2014-12-30',//tues
-    // '2014-12-31',//wed
-    // '2014-01-01',//thurs
+    '2014-12-30',//tues
+    '2014-12-31',//wed
+    '2014-01-01',//thurs
     // '2014-01-02',//fri
     // '2014-01-03',//sat
     // '2014-01-04',//sun
