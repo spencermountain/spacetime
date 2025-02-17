@@ -12,6 +12,7 @@ This project follows semVer, where:
 ### 7.8.0 [Feb 2025]
 - **[fix]** - more .week() issues from \#303
 - **[new]** - initial support for Temporal's extended-iso fmt RFC3339
+- **[new]** - adds `.format('iso-full')` for Temporal back-forth
 - **[new]** - support steady-swap timezone via .timezone(tz) \#180
 - **[new]** - add tz/offset info in `.json()` response
 - **[fix]** - off-by-one errs in undocumented `.json(obj)` setter fn

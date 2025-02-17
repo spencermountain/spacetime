@@ -69,6 +69,7 @@ export type Format =
   | 'json'
   | 'iso-short'
   | 'iso-utc'
+  | 'iso-full'
   | 'nice'
   | 'nice-year'
   | 'nice-day'

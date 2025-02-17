@@ -76,6 +76,9 @@ s.isAfter(s.time('11:00am'))
 - _Zero Dependencies_ - (no _[Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)_)
 - weighs about 40kb.
 - has a cool _[plugin thing](https://observablehq.com/@spencermountain/spacetime)_.
+- frequent updates for approaching DST changes
+- support for upcoming [Temporal](https://tc39.es/proposal-temporal/docs/) standards
+
 
 <!-- spacer -->
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -189,7 +192,7 @@ s = spacetime.min() // the earliest-possible date (271,821 bc)
 s = spacetime.max() // the furthest-possible future date (27k years from now)
 
 // To get the native Date object back
-// NOTE: this returns the date in the local browsers timezone
+// (this bails back to the local timezone)
 jsDate = spacetimeDate.toNativeDate()
 ```
 
@@ -369,6 +372,9 @@ s.format('{time}{ampm} sharp') // '2:30pm sharp'
 
 //if you prefer, you can also use unix-formatting
 s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
+
+// support for the new Temporal ISO format
+s.format('iso-full') // '2011-12-03T10:15:30.010+01:00[Europe/Paris]'
 ```
 
 <!-- spacer -->
