@@ -11,11 +11,11 @@ This project follows semVer, where:
 
 ### 7.8.0 [Feb 2025]
 - **[fix]** - more .week() issues from \#303
-- **[new]** - initial support for Temporal's extended-iso fmt RFC3339
-- **[new]** - adds `.format('iso-full')` for Temporal back-forth
-- **[new]** - support steady-swap timezone via .timezone(tz) \#180
+- **[new]** - initial support for Temporal's extended-iso RFC3339 fmt
+- **[new]** - adds `.format('iso-full')` for Temporal support
+- **[new]** - support hot-swap timezone via .timezone(tz) \#180
 - **[new]** - add tz/offset info in `.json()` response
-- **[fix]** - off-by-one errs in undocumented `.json(obj)` setter fn
+- **[new]** - support `.json(obj)` setter fn
 - **[fix]** - proper capitalization of UTC in `.timezone()` response
 - **[update]** - dependencies
 

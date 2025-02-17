@@ -8,10 +8,7 @@ import spacetime from './src/index.js'
 // console.log(s.iso())
 
 
-let s = spacetime('2011-12-03T10:15:30', 'Europe/Paris')
-console.log(s.format('time'))
-s = s.timezone('America/Toronto')
-console.log(s.format('time'))
-// console.log(s.iso())
-// console.log(b.json())
-// console.log(s.format('iso-short'))
+let s = spacetime('2023-01-01T5:30[America/Denver]')
+console.log(s.format('iso-full'))
+s.timezone('Europe/Zagreb') // hot-swap
+console.log(s.format('iso-full'))

@@ -350,6 +350,14 @@ spacetime().time('4:30pm').goto('Europe/Paris').goto(null).time()
 // 4:30pm
 ```
 
+If, for some reason, you want to change the timezone *without changing the date*, you can do this via the `.timezone(str)` setter:
+```js
+let s = spacetime('2023-01-01T5:30[America/Denver]')
+s = s.timezone('Europe/Zagreb') // hot-swap
+console.log(s.format('iso-full'))
+// '2023-01-01T05:30:00.000+01:00[Europe/Zagreb]' (same time, new tz)
+```
+
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 ### Date Formatting:
