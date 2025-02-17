@@ -20,6 +20,10 @@ const parseArray = (s, arr, today) => {
 
 //support {year:2016, month:3} format
 const parseObject = (s, obj) => {
+  if (Object.keys(obj).length === 0) {
+    return s
+  }
+  obj = Object.assign({}, defaults, obj)
   if (obj.timezone) {
     s.tz = obj.timezone
   }

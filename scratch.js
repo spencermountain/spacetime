@@ -8,7 +8,8 @@ import spacetime from './src/index.js'
 // console.log(s.iso())
 
 
-let s = spacetime('2011-12-03T10:15:30+01:00[Europe/Paris]')
+let s = spacetime({})
+// let s = spacetime('2011-12-03T10:15:30+01:00[Europe/Paris]')
 // let json = s.json()
 // console.log(json)
 // console.log(s.timezone())
