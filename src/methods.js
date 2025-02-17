@@ -8,7 +8,6 @@ import since from './methods/since/index.js'
 import { startOf as _startOf, endOf as _endOf } from './methods/startOf.js'
 import every from './methods/every.js'
 import timezone from './timezone/index.js'
-import swapTz from './timezone/swapTz.js'
 import findTz from './timezone/find.js'
 import handleInput from './input/index.js'
 import { isLeapYear } from './fns.js'
@@ -37,8 +36,11 @@ const methods = {
     return s
   },
   timezone: function (tz) {
+    // hot-swap the timezone, to avoid time-change 
     if (tz !== undefined) {
-      return swapTz(this, tz)
+      let json = this.json()
+      json.timezone = tz
+      return this.set(json, tz)
     }
     return timezone(this)
   },
