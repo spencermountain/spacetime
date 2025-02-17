@@ -9,7 +9,7 @@ export default [
   //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
   // optionally supports Temporal fmt w/ [IANA]
   {
-    reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9-+:]+)?(\[.*?\])?$/i,
+    reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9-+:]+)?(\[.*?\])?(\[.*?\])?$/i,
     parse: (s, m) => {
       let obj = {
         year: m[1],
@@ -20,16 +20,18 @@ export default [
         s.epoch = null
         return s
       }
-      parseOffset(s, m[5])
-      walkTo(s, obj)
-      s = parseTime(s, m[4])
       // if iana code in brackets at the end, set the timezone
       if (m[6]) {
         let tz = parseTz(m[6])//TODO addme
         if (tz) {
-          // s = s.timezone(tz)
+          s = s.timezone(tz)
         }
+      } else {
+        parseOffset(s, m[5])
       }
+      // For now, ignore Temporal calendar info in m[7]..
+      walkTo(s, obj)
+      s = parseTime(s, m[4])
       return s
     }
   },

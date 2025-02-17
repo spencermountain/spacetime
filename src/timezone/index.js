@@ -20,6 +20,9 @@ const titleCase = str => {
   str = str.replace(/\/Dumontdurville$/i, '/DumontDUrville')
   str = str.replace(/\/Mcmurdo$/i, '/McMurdo')
   str = str.replace(/\/Port-au-prince$/i, '/Port-au-Prince')
+  if (str === 'Utc') {
+    str = 'UTC'
+  }
   return str
 }
 

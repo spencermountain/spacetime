@@ -117,6 +117,14 @@ const format = {
   'iso-utc': (s) => {
     return new Date(s.epoch).toISOString() //2017-03-08T19:45:28.367Z
   },
+  'iso-full': (s) => {
+    let iso = s.format('iso')
+    let iana = s.timezone().name
+    if (iana) {
+      iso += `[${iana}]`
+    }
+    return iso
+  },
 
   //i made these up
   nice: (s) => `${short()[s.month()]} ${ordinal(s.date())}, ${s.time()}`,

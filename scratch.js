@@ -9,10 +9,13 @@ import spacetime from './src/index.js'
 
 
 let s = spacetime('2011-12-03T10:15:30+01:00[Europe/Paris]')
-let json = s.json()
-console.log(json)
-let b = spacetime(json)
+// let json = s.json()
+// console.log(json)
+// console.log(s.timezone())
+console.log(s.format('iso-full'))
+// let b = spacetime(json)
 // b.debug()
-console.log(b.iso())
+// s = s.timezone('America/Toronto')
+// console.log(s.iso())
 // console.log(b.json())
 // console.log(s.format('iso-short'))
