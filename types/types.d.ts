@@ -130,10 +130,10 @@ export interface Spacetime {
   millenium(millenium: string | number): Spacetime
 
   /** pretty-print the date to the console, for nicer debugging */
-  log: () => string
+  log: () => Spacetime
 
   /** pretty-print the full-date to the console, for nice debugging */
-  logYear: () => string
+  logYear: () => Spacetime
 
   /** return all date units as a key-value map */
   json: () => string
