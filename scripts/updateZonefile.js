@@ -42,6 +42,11 @@ const parseLine = (line) => {
   } else if (min === '0000' && dst === false) {
     hour += 1
   }
+  if (hour < 0) {
+    console.log('Hour: ', hour)
+    console.log(line)
+    hour = 0
+  }
   //this only appears on unix zonefiles..
   let offset = arr[arr.length - 1].replace(/gmtoff=/, '')
   offset = parseInt(offset, 10) || null

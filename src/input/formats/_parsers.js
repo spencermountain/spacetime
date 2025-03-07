@@ -58,7 +58,7 @@ const parseMonth = function (str) {
 
 const parseTz = function (str) {
   str = str.trim()
-  str = str.replace(/[\[\]]/g, '')
+  str = str.replace(/[[\]]/g, '')
   return str
 }
 

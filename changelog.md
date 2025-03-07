@@ -9,7 +9,8 @@ This project follows semVer, where:
 
  -->
 
-### 7.8.0 [Feb 2025]
+### 7.8.0 [Mar 2025]
+- **[fix]** - 2024 DST-change times for many zones \#431
 - **[fix]** - more .week() issues from \#303
 - **[new]** - initial support for Temporal's extended-iso RFC3339 fmt
 - **[new]** - adds `.format('iso-full')` for Temporal support
@@ -17,6 +18,7 @@ This project follows semVer, where:
 - **[new]** - add tz/offset info in `.json()` response
 - **[new]** - support `.json(obj)` setter fn
 - **[fix]** - proper capitalization of UTC in `.timezone()` response
+- **[fix]** - typescript fixes \#432
 - **[update]** - dependencies
 
 ### 7.7.0 [Dec 2024]

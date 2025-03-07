@@ -33,7 +33,8 @@ export default [
       "regexp/prefer-d": 0,
       "regexp/prefer-w": 0,
       "regexp/prefer-range": 0,
-      "regexp/no-unused-capturing-group": 0
+      "regexp/no-unused-capturing-group": 0,
+      "regexp/optimal-quantifier-concatenation": 0
     }
   }
 ]
