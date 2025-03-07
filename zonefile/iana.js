@@ -248,7 +248,7 @@ export default {
   'america/asuncion': {
     offset: -4,
     hem: 's',
-    'dst': '03/22:24->10/05:02'
+    'dst': '03/22:24->10/05:00'
   },
   'america/bahia': {
     offset: -3,
@@ -408,7 +408,7 @@ export default {
   'america/nuuk': {
     offset: -1,
     hem: 'n',
-    'dst': '03/30:-1->10/25:24'
+    'dst': '03/29:11->10/25:24'
   },
   'america/goose_bay': {
     offset: -3,
@@ -726,7 +726,7 @@ export default {
   'america/scoresbysund': {
     offset: 0,
     hem: 'n',
-    'dst': '03/30:-1->10/25:24'
+    'dst': '03/29:11->10/25:24'
   },
   'america/sitka': {
     offset: -8,
