@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { dayOfYear as _dayOfYear, week as _week, month as _month, year as _year } from '../set/set.js'
+import { dayOfYear as _dayOfYear, week as setWeek, month as _month, year as _year } from '../set/set.js'
 import { long } from '../../data/months.js'
 import quarters from '../../data/quarters.js'
 import seasons from '../../data/seasons.js'
@@ -43,28 +43,32 @@ const methods = {
     // week-setter
     if (num !== undefined) {
       let s = this.clone()
-      s.epoch = _week(this, num, goFwd)
+      s = setWeek(s, num, goFwd)
       s = clearMinutes(s)
       return s
     }
-    //find-out which week it is
+    //find-out which week it is:
+    const thisOne = this.epoch
     let tmp = this.clone()
-    tmp = tmp.month(0)
+
+    // first - are we in week 1 of the next year?
+    if (tmp.monthName() === 'december' && tmp.date() >= 29) {
+      let startNext = setWeek(tmp.add(15, 'days'), 1, false)
+      if (startNext.epoch <= tmp.epoch) {
+        return 1
+      }
+    }
+    // Ok, calculate which week we're in:
+    // go to the first week of the year
+    tmp = tmp.month(0) // go to jan 1
     tmp = tmp.date(1)
     tmp = clearMinutes(tmp)
-    tmp = tmp.day('monday')
-    //don't go into last-year
-    if (tmp.month() === 11 && tmp.date() >= 25) {
+    tmp = tmp.day('monday', false) // go backward to monday
+    if (tmp.monthName() === 'december' && tmp.date() < 29) {
       tmp = tmp.add(1, 'week')
     }
 
-    // is first monday the 1st?
-    let toAdd = 1
-    if (tmp.date() === 1) {
-      toAdd = 0
-    }
-    tmp = tmp.minus(2, 'hours')
-    const thisOne = this.epoch
+    tmp = tmp.minus(2, 'hours') // fudge for any DST
     //if the week technically hasn't started yet
     if (tmp.epoch > thisOne) {
       return 1
@@ -76,7 +80,7 @@ const methods = {
     i += skipWeeks
     for (; i <= 52; i++) {
       if (tmp.epoch > thisOne) {
-        return i + toAdd
+        return i
       }
       tmp = tmp.add(1, 'week')
     }

@@ -35,12 +35,17 @@ const parseLine = (line) => {
   let arr = line.split(/ +/)
   let hour = arr[11].replace(/:[0-9:]+/, '')
   let min = arr[11].replace(/[0-9]{1,2}:([0-9]+):/, '$1')
-  let dst = arr[arr.length - 1] === 'isdst=1'
+  let dst = line.includes('isdst=1')
   hour = parseInt(hour, 10)
   if (min === '0000' && dst === true) {
     hour -= 1
   } else if (min === '0000' && dst === false) {
     hour += 1
+  }
+  if (hour < 0) {
+    console.log('Hour: ', hour)
+    console.log(line)
+    hour = 0
   }
   //this only appears on unix zonefiles..
   let offset = arr[arr.length - 1].replace(/gmtoff=/, '')

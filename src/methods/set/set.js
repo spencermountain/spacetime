@@ -221,19 +221,29 @@ const year = function (s, n) {
 const week = function (s, n, goFwd) {
   let old = s.clone()
   n = validate(n)
+
+  // don't set week=1, if we're already week=1 in late december
+  // because this could send us to another year
+  if (n === 1) {
+    if (s.monthName() === 'december' && s.date() >= 29) {
+      if (s.week() === 1) {
+        return s
+      }
+    }
+  }
+
+  // get the first week of the year
   s = s.month(0)
   s = s.date(1)
-  s = s.day('monday')
-  //first week starts first Thurs in Jan
-  // so mon dec 28th is 1st week
-  // so mon dec 29th is not the week
-  if (s.monthName() === 'december' && s.date() >= 28) {
+  s = s.day('monday', false)//go backwards to monday
+  // did we go back too far?
+  if (s.monthName() === 'december' && s.date() < 29) {
     s = s.add(1, 'week')
   }
   n -= 1 //1-based
   s = s.add(n, 'weeks')
   s = fwdBkwd(s, old, goFwd, 'year') // specify direction
-  return s.epoch
+  return s
 }
 
 const dayOfYear = function (s, n, goFwd) {

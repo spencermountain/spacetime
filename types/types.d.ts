@@ -35,8 +35,10 @@ export interface Spacetime {
   /** @returns the native Date object at the same epoch */
   toNativeDate(): Date
 
-  /** @returns a bunch of meta-data about your current timezone */
-  timezone: () => TimezoneMeta
+  /** @returns a bunch of meta-data about your current timezone  */
+  timezone(): TimezoneMeta
+  /** swap the timezone, but keep the same date-time (if possible) */
+  timezone(tz: String): Spacetime
 
   /** output nicely-formatted strings */
   format: (format: Format) => string
@@ -130,13 +132,15 @@ export interface Spacetime {
   millenium(millenium: string | number): Spacetime
 
   /** pretty-print the date to the console, for nicer debugging */
-  log: () => string
+  log: () => Spacetime
 
   /** pretty-print the full-date to the console, for nice debugging */
-  logYear: () => string
+  logYear: () => Spacetime
 
   /** return all date units as a key-value map */
-  json: () => string
+  json: () => object
+  /** set the date via JSON object */
+  json(obj: object): Spacetime
 
   /** Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
   progress: (unit?: string) => Progress

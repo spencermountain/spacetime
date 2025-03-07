@@ -56,10 +56,17 @@ const parseMonth = function (str) {
   return months[str]
 }
 
+const parseTz = function (str) {
+  str = str.trim()
+  str = str.replace(/[[\]]/g, '')
+  return str
+}
+
 export {
   parseOffset,
   parseTime,
   parseYear,
   parseMonth,
-  validate
+  validate,
+  parseTz
 }

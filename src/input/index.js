@@ -30,7 +30,7 @@ const parseInput = (s, input) => {
   s.epoch = Date.now()
   // overwrite tmp time with 'today' value, if exists
   if (s._today && isObject(s._today) && Object.keys(s._today).length > 0) {
-    let res = parseObject(s, today, defaults)
+    let res = parseObject(s, today)
     if (res.isValid()) {
       s.epoch = res.epoch
     }
@@ -57,7 +57,8 @@ const parseInput = (s, input) => {
       s.tz = input.tz
       return s
     }
-    s = parseObject(s, input, today)
+    let obj = Object.assign({}, input, today)
+    s = parseObject(s, obj)
     return s
   }
   //input as a string..

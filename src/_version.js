@@ -1,1 +1,1 @@
-export default '7.7.0'
+export default '7.8.0'
