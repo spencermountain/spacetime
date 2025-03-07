@@ -10,7 +10,7 @@ This project follows semVer, where:
  -->
 
 ### 7.8.0 [Mar 2025]
-- **[fix]** - 2024 DST-change times for many zones \#431
+- **[fix]** - 2025 DST-change times for many zones \#431
 - **[fix]** - more .week() issues from \#303
 - **[new]** - initial support for Temporal's extended-iso RFC3339 fmt
 - **[new]** - adds `.format('iso-full')` for Temporal support
