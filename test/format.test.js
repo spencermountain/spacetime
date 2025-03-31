@@ -174,7 +174,7 @@ test('unix-fmt-padding', t => {
   })
   let str = d.format("ww DDD MM d, hh:mm a")
   t.equal('04 027 Jan 27, 04:02 AM', str, 'string is 0-padded')
-  
+
   str = d.format("w D MM d, h:m a")
   t.equal('4 27 Jan 27, 4:2 AM', str, 'string is not-0-padded')
   t.end();
@@ -202,4 +202,10 @@ test('am-pm-variants', (t) => {
   })
   t.end()
 })
-  
+
+test('SQL ISO 9075', (t) => {
+  let s = spacetime('January 1, 2023')
+  s = s.time('4:45pm')
+  t.equal(s.format('sql'), '2023-01-01 16:45:00')
+  t.end()
+})

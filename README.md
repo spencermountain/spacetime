@@ -383,6 +383,8 @@ s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
 
 // support for the new Temporal ISO format
 s.format('iso-full') // '2011-12-03T10:15:30.010+01:00[Europe/Paris]'
+// support for the SQL ISO 9075 format
+s.format('sql') // '2011-12-03 10:15:30'
 ```
 
 <!-- spacer -->
