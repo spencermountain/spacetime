@@ -130,6 +130,10 @@ export default {
       "doc": "set or return whether the time is am or pm",
       "out": "clone/String"
     },
+    "epochSeconds": {
+      "doc": "set or return the time in seconds since jan 1 1970",
+      "out": "clone/Number"
+    },
     "dayTime": {
       "doc": "set or return the general time-of-day, like 'afternoon'",
       "out": "clone/String"

@@ -169,6 +169,13 @@ const methods = {
       return this.set(num)
     }
     return this.format('iso')
+  },
+  epochSeconds: function (num) {
+    if (num !== undefined) {
+      this.epoch = num * 1000
+      return
+    }
+    return Math.floor(this.epoch / 1000)
   }
 }
 export default methods

@@ -207,5 +207,17 @@ test('SQL ISO 9075', (t) => {
   let s = spacetime('January 1, 2023')
   s = s.time('4:45pm')
   t.equal(s.format('sql'), '2023-01-01 16:45:00')
+
+  let sql = '2021-11-20 01:01:02'
+  t.equal(spacetime(sql).format('sql'), sql, 'in-out-sql')
+  t.end()
+})
+
+test('epochSeconds', (t) => {
+  let s = spacetime("2025-01-01T00:00.000Z")
+  t.equal(s.epochSeconds(), 1735689600, 'jan-1-utc epochSeconds')
+  // t.equal(spacetime("foobar oh yeah").epochSeconds(), null, 'invalid epochSeconds')
+  s = spacetime("April 5, 2025 12:43:50")
+  t.equal(s.epochSeconds(), 1743871430, 'apr-5 epochSeconds')
   t.end()
 })
