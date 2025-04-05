@@ -259,6 +259,11 @@ export interface Spacetime {
   /** set whether the time is am or pm */
   ampm(value: string, goForward?: boolean): Spacetime
 
+  /** get number of seconds since Jan 1 1970 */
+  epochSeconds(): number | null
+  /** set the time, using seconds since Jan 1 1970 */
+  epochSeconds(value: number): Spacetime
+
   /** get the general time-of-day, like 'afternoon' */
   dayTime(): string
   /** set the general time-of-day, like 'afternoon' */

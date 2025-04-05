@@ -1,4 +1,4 @@
-/* spencermountain/spacetime-daylight 1.5.1 MIT */
+/* spencermountain/spacetime-daylight 1.5.2 MIT */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('spacetime-geo')) :
 	typeof define === 'function' && define.amd ? define(['spacetime-geo'], factory) :
@@ -350,7 +350,6 @@
 	    altitude: toDegree(res.altitude),
 	  }
 	};
-	var sunPosition$1 = sunPosition;
 
 	// the average time between solstices, on timeanddate.com
 	// approx 88 days, 23 hours, 30 mins
@@ -399,13 +398,6 @@
 	    summer: summer,
 	  }
 	};
-	// const equinox = function (s) {
-	//   return {
-	//     summer: null,
-	//     winter: null,
-	//   }
-	// }
-	var solstice$1 = solstice;
 
 	const setFrom = function (s, time) {
 	  let d = new Date(time);
@@ -434,16 +426,16 @@
 	  point: spacetimeGeo.point,
 
 	  solstice: function () {
-	    return solstice$1(this)
+	    return solstice(this)
 	  },
 	  winterSolstice: function () {
-	    return solstice$1(this).winter
+	    return solstice(this).winter
 	  },
 	  summerSolstice: function () {
-	    return solstice$1(this).summer
+	    return solstice(this).summer
 	  },
 	  sunPosition: function (lat, lng) {
-	    return sunPosition$1(this, lat, lng)
+	    return sunPosition(this, lat, lng)
 	  },
 	  sunrise: function (lat, lng) {
 	    return calculatePoint(this, lat, lng, 'sunrise')

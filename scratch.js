@@ -8,11 +8,40 @@ import spacetime from './src/index.js'
 // console.log(s.iso())
 
 
+let s = spacetime("foobar", 'UTC')
+console.log(s.time())
+// console.log(s.epoch)
+// console.log(s.year())
+let arr = [
+  'millisecond',
+  'second',
+  'minute',
+  'hour',
+  'hourFloat',
+  'hour12',
+  'time',
+  'ampm',
+  'dayTime',
+  'iso',
+  'epochSeconds',
+  'date',
+  'day',
+  'dayName',
+  'dayOfYear',
+  'week',
+  'month',
+  'monthName',
+  'quarter',
+  'season',
+  'year',
+  'era',
+  'decade',
+  'century',
+  'millenium',
+]
+arr.forEach(fn => {
+  console.log(s[fn](), fn)
+})
 
-
-
-let s = spacetime('2014-12-31')
-// let s = spacetime('2014-01-01')
-// s = s.week(1)
-s = s.week(2)
-console.log(s.format('iso-short'))
+// console.log(s.epochSeconds(), 1735689600)
+// console.log(s.epochSeconds() == 1735689600)

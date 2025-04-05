@@ -127,7 +127,13 @@ const format = {
   },
 
   sql: (s) => {
-    return new Date(s.epoch).toISOString().replace('T', '').slice(0, 19) //2017-03-08 19:45:28
+    let year = s.format('iso-year')
+    let month = zeroPad(s.month() + 1) //1-based months
+    let date = zeroPad(s.date())
+    let hour = zeroPad(s.h24())
+    let minute = zeroPad(s.minute())
+    let second = zeroPad(s.second())
+    return `${year}-${month}-${date} ${hour}:${minute}:${second}` //2017-03-08 19:45:28
   },
 
   //i made these up
