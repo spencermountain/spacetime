@@ -1,9 +1,11 @@
+import fs from 'fs'
 import commonjs from 'rollup-plugin-commonjs'
 import json from 'rollup-plugin-json'
 import { terser } from 'rollup-plugin-terser'
 import resolve from 'rollup-plugin-node-resolve'
 import sizeCheck from 'rollup-plugin-filesize-check'
-import { version } from './package.json'
+let pkg = JSON.parse(fs.readFileSync('./package.json').toString())
+const version = pkg.version
 
 console.log('\n 📦  - running rollup..\n')
 

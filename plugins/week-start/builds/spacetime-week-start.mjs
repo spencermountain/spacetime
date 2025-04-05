@@ -1,4 +1,4 @@
-/* spencermountain/spacetime-week-start 0.1.0 Apache 2.0 */
+/* spencermountain/spacetime-week-start 0.3.0 Apache 2.0 */
 let loc$1 = {
   c009: 'antarctica',
   c011: 'arctic',
@@ -3521,7 +3521,7 @@ const walk = (s, n, fn, unit, previous) => {
 //find the desired date by a increment/check while loop
 const units = {
   year: {
-    valid: n => n > -4000 && n < 4000,
+    valid: n => n > -4e3 && n < 4000,
     walkTo: (s, n) => walk(s, n, 'getFullYear', 'year', null)
   },
   month: {
