@@ -70,6 +70,7 @@ export type Format =
   | 'iso-short'
   | 'iso-utc'
   | 'iso-full'
+  | 'sql'
   | 'nice'
   | 'nice-year'
   | 'nice-day'

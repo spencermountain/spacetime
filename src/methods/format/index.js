@@ -126,6 +126,10 @@ const format = {
     return iso
   },
 
+  sql: (s) => {
+    return new Date(s.epoch).toISOString().replace('T', '').slice(0, 19) //2017-03-08 19:45:28
+  },
+
   //i made these up
   nice: (s) => `${short()[s.month()]} ${ordinal(s.date())}, ${s.time()}`,
   'nice-24': (s) =>
@@ -149,6 +153,7 @@ const aliases = {
   'day-name': 'day',
   'month-name': 'month',
   'iso 8601': 'iso',
+  'iso 9075': 'sql',
   'time-h24': 'time-24',
   'time-12': 'time',
   'time-h12': 'time',
