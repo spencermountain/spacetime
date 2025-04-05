@@ -9,10 +9,12 @@ This project follows semVer, where:
 
  -->
 
-### 7.8.1 [Apr 2025]
+### 7.9.0 [Apr 2025]
 - **[new]** - `.format('sql')` #437
 - **[new]** - `.epochSeconds()` #439
 - **[fix]** - duplicate type for `.json()` #435
+- **[update]** - plugin peerdepencies #440
+- **[update]** - dependencies
 
 
 ### 7.8.0 [Mar 2025]

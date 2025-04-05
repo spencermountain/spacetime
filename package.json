@@ -24,7 +24,7 @@
     "build:tz": "node ./scripts/updateZonefile.js",
     "pack": "node ./zonefile/pack.js",
     "version": "node ./scripts/version.js",
-    "watch": "amble ./scratch.js",
+    "watch": "node --watch ./scratch.js",
     "test": "tape ./test/**/*.test.js | tap-dancer  --color always",
     "testb": "TESTENV=prod tape ./test/**/*.test.js | tap-dancer  --color always",
     "test:types": "tsx ./test/types/index.ts | tap-dancer  --color always",
@@ -54,7 +54,6 @@
   "devDependencies": {
     "@types/node": "22.14.0",
     "@types/tape": "5.8.1",
-    "amble": "^1.3.0",
     "codecov": "3.8.3",
     "eslint-plugin-regexp": "2.7.0",
     "nyc": "17.1.0",

@@ -8,11 +8,7 @@ import spacetime from './src/index.js'
 // console.log(s.iso())
 
 
-
-
-
-let s = spacetime('2014-12-31')
-// let s = spacetime('2014-01-01')
-// s = s.week(1)
-s = s.week(2)
-console.log(s.format('iso-short'))
+// / Expected: "August 22, 12:10PM"
+let str = spacetime("2024-08-22T12:20:08.140-04:00").format('{month} {date}, {hour}:{minute-pad}{AMPM}')
+console.log(str)
+// Received: "August 22, 12:10pm"
