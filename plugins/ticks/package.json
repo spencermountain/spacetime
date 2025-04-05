@@ -17,7 +17,7 @@
   "author": "Spencer Kelly (spencermountain)",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "amble ./scratch.js",
+    "watch": "node --watch ./scratch.js",
     "start": "budo index.js:assets/bundle.js --live",
     "build:demo": "browserify index.js -t [ babelify --presets [ @babel/preset-env ] ] | derequire > ./assets/bundle.js",
     "version": "node ./scripts/version.js",
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-ticks",
   "peerDependencies": {
-    "spacetime": "^6.1.0"
+    "spacetime": ">=6.1.0"
   },
   "devDependencies": {
     "spencer-color": "0.1.0",
