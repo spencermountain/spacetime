@@ -8,7 +8,40 @@ import spacetime from './src/index.js'
 // console.log(s.iso())
 
 
-// / Expected: "August 22, 12:10PM"
-let str = spacetime("2024-08-22T12:20:08.140-04:00").format('{month} {date}, {hour}:{minute-pad}{AMPM}')
-console.log(str)
-// Received: "August 22, 12:10pm"
+let s = spacetime("foobar", 'UTC')
+console.log(s.time())
+// console.log(s.epoch)
+// console.log(s.year())
+let arr = [
+  'millisecond',
+  'second',
+  'minute',
+  'hour',
+  'hourFloat',
+  'hour12',
+  'time',
+  'ampm',
+  'dayTime',
+  'iso',
+  'epochSeconds',
+  'date',
+  'day',
+  'dayName',
+  'dayOfYear',
+  'week',
+  'month',
+  'monthName',
+  'quarter',
+  'season',
+  'year',
+  'era',
+  'decade',
+  'century',
+  'millenium',
+]
+arr.forEach(fn => {
+  console.log(s[fn](), fn)
+})
+
+// console.log(s.epochSeconds(), 1735689600)
+// console.log(s.epochSeconds() == 1735689600)

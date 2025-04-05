@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.8.0 Apache 2.0 */
+/* spencermountain/spacetime 7.9.0 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -1567,6 +1567,16 @@
       return iso
     },
 
+    sql: (s) => {
+      let year = s.format('iso-year');
+      let month = zeroPad(s.month() + 1); //1-based months
+      let date = zeroPad(s.date());
+      let hour = zeroPad(s.h24());
+      let minute = zeroPad(s.minute());
+      let second = zeroPad(s.second());
+      return `${year}-${month}-${date} ${hour}:${minute}:${second}` //2017-03-08 19:45:28
+    },
+
     //i made these up
     nice: (s) => `${short$1()[s.month()]} ${ordinal(s.date())}, ${s.time()}`,
     'nice-24': (s) =>
@@ -1590,6 +1600,7 @@
     'day-name': 'day',
     'month-name': 'month',
     'iso 8601': 'iso',
+    'iso 9075': 'sql',
     'time-h24': 'time-24',
     'time-12': 'time',
     'time-h12': 'time',
@@ -3249,6 +3260,13 @@
         return this.set(num)
       }
       return this.format('iso')
+    },
+    epochSeconds: function (num) {
+      if (num !== undefined) {
+        this.epoch = num * 1000;
+        return
+      }
+      return Math.floor(this.epoch / 1000)
     }
   };
 
@@ -4144,7 +4162,7 @@
     return tzs
   };
 
-  var version = '7.8.0';
+  var version = '7.9.0';
 
   const main = (input, tz, options) => new SpaceTime(input, tz, options);
 
