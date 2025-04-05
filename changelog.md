@@ -9,6 +9,12 @@ This project follows semVer, where:
 
  -->
 
+### 7.8.1 [Apr 2025]
+- **[new]** - `.format('sql')` #437
+- **[new]** - `.epochSeconds()` #439
+- **[fix]** - duplicate type for `.json()` #435
+
+
 ### 7.8.0 [Mar 2025]
 - **[fix]** - 2025 DST-change times for many zones \#431
 - **[fix]** - more .week() issues from \#303
