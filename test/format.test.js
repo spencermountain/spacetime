@@ -217,7 +217,15 @@ test('epochSeconds', (t) => {
   let s = spacetime("2025-01-01T00:00.000Z")
   t.equal(s.epochSeconds(), 1735689600, 'jan-1-utc epochSeconds')
   // t.equal(spacetime("foobar oh yeah").epochSeconds(), null, 'invalid epochSeconds')
+
   s = spacetime("April 5, 2025 12:43:50", 'Canada/Eastern')
   t.equal(s.epochSeconds(), 1743871430, 'apr-5 epochSeconds')
-  t.end()
+
+  let a = spacetime.now().epochSeconds(1637362862);
+  t.equal(a.epochSeconds(), 1637362862, 'seconds 1637362862');
+
+  let b = spacetime().epochSeconds(1743871430);
+  t.equal(b.epochSeconds(), 1743871430, 'seconds 1743871430');
+  t.ok(s.isEqual(b), 'equal to iso');
+  t.end();
 })

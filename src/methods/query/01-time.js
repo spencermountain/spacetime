@@ -173,7 +173,7 @@ const methods = {
   epochSeconds: function (num) {
     if (num !== undefined) {
       this.epoch = num * 1000
-      return
+      return this
     }
     return Math.floor(this.epoch / 1000)
   }
