@@ -227,5 +227,22 @@ test('epochSeconds', (t) => {
   let b = spacetime().epochSeconds(1743871430);
   t.equal(b.epochSeconds(), 1743871430, 'seconds 1743871430');
   t.ok(s.isEqual(b), 'equal to iso');
+
+  t.end();
+})
+
+test('epoch inputs', (t) => {
+
+  let mils = 1744200453000
+  let secs = 1744200453
+
+  let a = spacetime(mils)
+  t.equal(a.epochSeconds(), secs, 'mils->secs')
+  t.equal(a.epoch, mils, 'mils->mils')
+
+  let b = spacetime.now().epochSeconds(secs)
+  t.equal(b.epochSeconds(), secs, 'secs->secs')
+  t.equal(b.epoch, mils, 'secs->mils')
+
   t.end();
 })
