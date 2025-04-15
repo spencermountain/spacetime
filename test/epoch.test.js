@@ -13,5 +13,13 @@ test('fromUnixSeconds', (t) => {
   s = spacetime.fromUnixSeconds(secs, 'Canada/Pacific')
   t.equal(s.iso(), '2025-04-09T05:07:33.000-07:00', '5am pt');
 
+  // test getter method
+  t.equal(s.epochSeconds(), secs, 'retrieve seconds')
+
+  // test setter method
+  let futureSeconds = 1830720600
+  s = spacetime.now('UTC').epochSeconds(futureSeconds)
+  t.equal(s.epochSeconds(), futureSeconds, 'set seconds')
+  t.equal(s.iso(), '2028-01-05T21:30:00.000Z', 'is future seconds')
   t.end()
 })

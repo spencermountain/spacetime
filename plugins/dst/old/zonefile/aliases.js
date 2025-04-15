@@ -75,6 +75,7 @@ export default {
   'etc/uct': 'etc/utc',
   'etc/universal': 'etc/utc',
   'etc/zulu': 'etc/utc',
+  'z': 'etc/utc',
   'europe/belfast': 'europe/london',
   'europe/nicosia': 'asia/nicosia',
   'europe/tiraspol': 'europe/chisinau',
