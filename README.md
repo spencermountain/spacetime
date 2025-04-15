@@ -354,7 +354,7 @@ If, for some reason, you want to change the timezone *without changing the date*
 ```js
 let s = spacetime('2023-01-01T5:30[America/Denver]')
 s = s.timezone('Europe/Zagreb') // hot-swap
-console.log(s.format('iso-full'))
+console.log(s.isoFull())
 // '2023-01-01T05:30:00.000+01:00[Europe/Zagreb]' (same time, new tz)
 ```
 
@@ -383,6 +383,7 @@ s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
 
 // support for the new Temporal ISO format
 s.format('iso-full') // '2011-12-03T10:15:30.010+01:00[Europe/Paris]'
+
 // support for the SQL ISO 9075 format
 s.format('sql') // '2011-12-03 10:15:30'
 ```
