@@ -12,10 +12,8 @@ import spacetime from './src/index.js'
 let mils = 1744200453183
 let secs = 1744200453
 
-let b = spacetime.now().epochSeconds(secs)
-console.log(b.epochSeconds() == secs, 'secs->secs')
-console.log(b.epoch == mils, 'secs->mils')
-console.log(b.epoch, mils)
+let s = spacetime.fromUnixSeconds(secs, 'Canada/Pacific')
+console.log(s.iso());
 
 
 // let s = spacetime("foobar", 'UTC')
