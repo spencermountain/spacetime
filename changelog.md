@@ -9,6 +9,11 @@ This project follows semVer, where:
 
  -->
 
+### 7.10.0 [Apr 2025]
+- **[new]** - `.isoFull()` method
+- **[new]** - `spacetime.fromEpochSeconds()` method #444
+- **[fix]** - getter form of `.epochSeconds()` 
+
 ### 7.9.0 [Apr 2025]
 - **[new]** - `.format('sql')` #437
 - **[new]** - `.epochSeconds()` #439

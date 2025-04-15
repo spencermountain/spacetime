@@ -43,6 +43,7 @@ test('parse iso-full with negative offset', (t) => {
   t.equal(s.format('iso'), '2023-01-01T12:00:00.000-07:00', 'same-iso')
   t.equal(s.format('iana'), 'America/Denver', 'got-tz')
   t.equal(full, s.format('iso-full'), 'full-iso:' + full)
+  t.equal(full, s.isoFull(), 'isoFull():' + full)
   t.end()
 })
 

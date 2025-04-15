@@ -163,12 +163,19 @@ const methods = {
     return 'night'
   },
 
-  //parse a proper iso string
+  //get/set a traditional iso string
   iso: function (num) {
     if (num !== undefined) {
       return this.set(num)
     }
     return this.format('iso')
+  },
+  // get/set a new iso string
+  isoFull: function (num) {
+    if (num !== undefined) {
+      return this.set(num)
+    }
+    return this.format('iso-full')
   },
   epochSeconds: function (num) {
     if (num !== undefined) {

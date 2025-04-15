@@ -134,6 +134,14 @@ export default {
       "doc": "set or return the time in seconds since jan 1 1970",
       "out": "clone/Number"
     },
+    "iso": {
+      "doc": "set or return the traditional ISO datetime string",
+      "out": "clone/String"
+    },
+    "isoFull": {
+      "doc": "set or return the traditional ISO datetime string",
+      "out": "clone/String"
+    },
     "dayTime": {
       "doc": "set or return the general time-of-day, like 'afternoon'",
       "out": "clone/String"
