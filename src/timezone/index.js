@@ -17,6 +17,7 @@ const titleCase = str => {
   })
   str = str.replace(/_(of|es)_/i, (s) => s.toLowerCase())
   str = str.replace(/\/gmt/i, '/GMT')
+  str = str.replace(/\/utc/i, '/UTC')
   str = str.replace(/\/Dumontdurville$/i, '/DumontDUrville')
   str = str.replace(/\/Mcmurdo$/i, '/McMurdo')
   str = str.replace(/\/Port-au-prince$/i, '/Port-au-Prince')
