@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.9.0 Apache 2.0 */
+/* spencermountain/spacetime 7.10.0 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -2520,6 +2520,7 @@
     });
     str = str.replace(/_(of|es)_/i, (s) => s.toLowerCase());
     str = str.replace(/\/gmt/i, '/GMT');
+    str = str.replace(/\/utc/i, '/UTC');
     str = str.replace(/\/Dumontdurville$/i, '/DumontDUrville');
     str = str.replace(/\/Mcmurdo$/i, '/McMurdo');
     str = str.replace(/\/Port-au-prince$/i, '/Port-au-Prince');
@@ -3254,17 +3255,24 @@
       return 'night'
     },
 
-    //parse a proper iso string
+    //get/set a traditional iso string
     iso: function (num) {
       if (num !== undefined) {
         return this.set(num)
       }
       return this.format('iso')
     },
+    // get/set a new iso string
+    isoFull: function (num) {
+      if (num !== undefined) {
+        return this.set(num)
+      }
+      return this.format('iso-full')
+    },
     epochSeconds: function (num) {
       if (num !== undefined) {
         this.epoch = num * 1000;
-        return
+        return this
       }
       return Math.floor(this.epoch / 1000)
     }
@@ -4162,7 +4170,7 @@
     return tzs
   };
 
-  var version = '7.9.0';
+  var version = '7.10.0';
 
   const main = (input, tz, options) => new SpaceTime(input, tz, options);
 
@@ -4196,6 +4204,10 @@
     s = setToday(s);
     return s.subtract(1, 'day').startOf('day')
   };
+  main.fromUnixSeconds = (secs, tz, options) => {
+    return new SpaceTime(secs * 1000, tz, options)
+  };
+
   main.extend = function (obj = {}) {
     Object.keys(obj).forEach((k) => {
       SpaceTime.prototype[k] = obj[k];
