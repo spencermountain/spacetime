@@ -74,6 +74,9 @@ export interface SpacetimeStatic extends SpacetimeConstructor {
   /** set as yesterday morning */
   yesterday: (timezone?: string, options?: SpacetimeConstructorOptions) => Spacetime
 
+  /** set epoch using seconds instead of milliseconds */
+  fromUnixSeconds: (seconds: number, timezone?: string, options?: SpacetimeConstructorOptions) => Spacetime
+
   /** Extend Spacetime with a custom function/object.  */
   extend: (extension: { [key: string]: any } | {}) => SpacetimeStatic
 

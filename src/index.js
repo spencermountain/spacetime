@@ -34,6 +34,10 @@ main.yesterday = (tz, options) => {
   s = setToday(s)
   return s.subtract(1, 'day').startOf('day')
 }
+main.fromUnixSeconds = (secs, tz, options) => {
+  return new Spacetime(secs * 1000, tz, options)
+}
+
 main.extend = function (obj = {}) {
   Object.keys(obj).forEach((k) => {
     Spacetime.prototype[k] = obj[k]

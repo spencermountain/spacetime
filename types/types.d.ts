@@ -194,10 +194,15 @@ export interface Spacetime {
   /** set the current hour, in 12-hour format (0-11). also accepts/parses '3pm' */
   hour12(value: number | string, goForward?: boolean): Spacetime
 
-  /** get the date/time as ISO 8601 */
+  /** get the date/time as ISO 8601*/
   iso(): string
   /** set the date/time/offset from a ISO 8601 string */
   iso(iso: string): Spacetime
+
+  /** get the date/time as an extended ISO 8601 string (RFC 9557)*/
+  isoFull(): string
+  /** set the date/time/offset from an extended ISO 8601 string (RFC 9557)*/
+  isoFull(iso: string): Spacetime
 
   /** get the day-number of the month (1- max31) */
   date(): number
