@@ -17,7 +17,7 @@ export default [
         date = parseInt(arr[1], 10)
         month = parseInt(arr[2], 10) - 1
       }
-      let obj = {
+      const obj = {
         date,
         month,
         year: parseYear(arr[3], s._today) || new Date().getFullYear()
@@ -35,7 +35,7 @@ export default [
   {
     reg: /^([a-z]+)[\-/. ]([0-9]{1,2})[\-/. ]?([0-9]{4}|'[0-9]{2})?( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
     parse: (s, arr) => {
-      let obj = {
+      const obj = {
         year: parseYear(arr[3], s._today),
         month: parseMonth(arr[1]),
         date: toCardinal(arr[2] || '')
@@ -55,7 +55,7 @@ export default [
   {
     reg: /^([a-z]+) ([0-9]{1,2})( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
     parse: (s, arr) => {
-      let obj = {
+      const obj = {
         year: parseYear(arr[3], s._today),
         month: parseMonth(arr[1]),
         date: toCardinal(arr[2] || '')
@@ -73,8 +73,8 @@ export default [
   {
     reg: /^([a-z]+) ([0-9]{1,2}) ([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2})( \+[0-9]{4})?( [0-9]{4})?$/i,
     parse: (s, arr) => {
-      let [, month, date, time, tz, year] = arr
-      let obj = {
+      const [, month, date, time, tz, year] = arr
+      const obj = {
         year: parseYear(year, s._today),
         month: parseMonth(month),
         date: toCardinal(date || '')

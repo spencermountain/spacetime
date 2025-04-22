@@ -39,7 +39,7 @@ const solstice = function (s) {
   if (winter.year() > s.year()) {
     winter = winter.set(winter.epoch - oneYear)
   }
-  let summer = winter.set(winter.epoch - halfYear)
+  const summer = winter.set(winter.epoch - halfYear)
   return {
     winter: winter,
     summer: summer,

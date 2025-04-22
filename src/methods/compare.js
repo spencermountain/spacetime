@@ -4,7 +4,7 @@ const addMethods = SpaceTime => {
   const methods = {
     isAfter: function (d) {
       d = beADate(d, this)
-      let epoch = getEpoch(d)
+      const epoch = getEpoch(d)
       if (epoch === null) {
         return null
       }
@@ -12,7 +12,7 @@ const addMethods = SpaceTime => {
     },
     isBefore: function (d) {
       d = beADate(d, this)
-      let epoch = getEpoch(d)
+      const epoch = getEpoch(d)
       if (epoch === null) {
         return null
       }
@@ -20,7 +20,7 @@ const addMethods = SpaceTime => {
     },
     isEqual: function (d) {
       d = beADate(d, this)
-      let epoch = getEpoch(d)
+      const epoch = getEpoch(d)
       if (epoch === null) {
         return null
       }
@@ -29,11 +29,11 @@ const addMethods = SpaceTime => {
     isBetween: function (start, end, isInclusive = false) {
       start = beADate(start, this)
       end = beADate(end, this)
-      let startEpoch = getEpoch(start)
+      const startEpoch = getEpoch(start)
       if (startEpoch === null) {
         return null
       }
-      let endEpoch = getEpoch(end)
+      const endEpoch = getEpoch(end)
       if (endEpoch === null) {
         return null
       }

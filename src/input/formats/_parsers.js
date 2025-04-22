@@ -1,7 +1,7 @@
 import monthLengths from '../../data/monthLengths.js'
 import { isLeapYear } from '../../fns.js'
 import { mapping } from '../../data/months.js'
-let months = mapping()
+const months = mapping()
 
 import parseOffset from './parseOffset.js'
 import parseTime from './parseTime.js'
@@ -21,7 +21,7 @@ const validate = (obj) => {
     }
   }
   //is this date too-big for this month?
-  let max = monthLengths[obj.month] || 0
+  const max = monthLengths[obj.month] || 0
   if (obj.date <= max) {
     return true
   }
@@ -32,7 +32,7 @@ const parseYear = (str = '', today) => {
   str = str.trim()
   // parse '86 shorthand
   if (/^'[0-9][0-9]$/.test(str) === true) {
-    let num = Number(str.replace(/'/, ''))
+    const num = Number(str.replace(/'/, ''))
     if (num > 50) {
       return 1900 + num
     }

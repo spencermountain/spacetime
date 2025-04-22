@@ -3,12 +3,12 @@ import patterns from './patterns.js'
 
 
 const topk = function (arr) {
-  let obj = {}
+  const obj = {}
   arr.forEach(a => {
     obj[a] = obj[a] || 0
     obj[a] += 1
   })
-  let res = Object.keys(obj).map(k => [k, obj[k]])
+  const res = Object.keys(obj).map(k => [k, obj[k]])
   return res.sort((a, b) => (a[1] > b[1] ? -1 : 0))
 }
 

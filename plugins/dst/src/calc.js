@@ -1,11 +1,11 @@
 import spacetime from '../../../src/index.js'
 
 const fromJSDate = function (obj, year) {
-  let d = new Date([year, obj.month, 1])
-  let currentDay = d.getDay()
+  const d = new Date([year, obj.month, 1])
+  const currentDay = d.getDay()
   // set to the right day eg 'monday'
   if (currentDay !== obj.day) {
-    let distance = (obj.day + 7 - currentDay) % 7;
+    const distance = (obj.day + 7 - currentDay) % 7;
     d.setDate(1 + distance)
   }
   if (obj.num === 1) {
@@ -21,7 +21,7 @@ const fromJSDate = function (obj, year) {
   }
   if (obj.num === 'last') {
     // get the last sunday in the month
-    let m = d.getMonth()
+    const m = d.getMonth()
     while (d.getMonth() === m) {
       d.setDate(d.getDate() + 7)
     }

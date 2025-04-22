@@ -5,7 +5,7 @@ spacetime.plugin(plugin)
 
 test('weekOfMonth-getter', (t) => {
   // october 1st starts on a thursday
-  let arr = [
+  const arr = [
     // ['sep 28 2020', 1], //mon
     // ['sep 29 2020', 1], //tues
     // ['sep 30 2020', 1], //wed
@@ -19,7 +19,7 @@ test('weekOfMonth-getter', (t) => {
     ['oct 8 2020', 2] //thurs
   ]
   arr.forEach((a) => {
-    let s = spacetime(a[0])
+    const s = spacetime(a[0])
     t.equal(s.weekOfMonth(), a[1], a[0] + '  ' + a[1])
   })
   t.end()

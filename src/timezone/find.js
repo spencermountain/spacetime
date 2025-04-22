@@ -59,7 +59,7 @@ const lookupTz = (str, zones) => {
   }
   // //try to parse '-5h'
   if (/[0-9]/.test(tz) === true) {
-    let id = parseOffset(tz)
+    const id = parseOffset(tz)
     if (id) {
       return id
     }

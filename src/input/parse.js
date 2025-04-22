@@ -5,9 +5,9 @@ const parseString = function (s, input, givenTz) {
   // let parsers = s.parsers || []
   //try each text-parse template, use the first good result
   for (let i = 0; i < parsers.length; i++) {
-    let m = input.match(parsers[i].reg)
+    const m = input.match(parsers[i].reg)
     if (m) {
-      let res = parsers[i].parse(s, m, givenTz)
+      const res = parsers[i].parse(s, m, givenTz)
       if (res !== null && res.isValid()) {
         return res
       }

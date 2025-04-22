@@ -127,7 +127,7 @@ const winter20th = [2080, 2084, 2088, 2092, 2096]
 
 const calcSeasons = function (year) {
   // most common defaults
-  let res = {
+  const res = {
     spring: 'March 20 ' + year,
     summer: 'June 21 ' + year,
     fall: 'Sept 22 ' + year,

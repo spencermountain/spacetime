@@ -32,13 +32,13 @@ print.date = print.day
 
 const addMethods = (SpaceTime) => {
   SpaceTime.prototype.isSame = function (b, unit, tzAware = true) {
-    let a = this
+    const a = this
     if (!unit) {
       return null
     }
     // support swapped params
     if (typeof b === 'string' && typeof unit === 'object') {
-      let tmp = b
+      const tmp = b
       b = unit
       unit = tmp
     }

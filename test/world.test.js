@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 import useOldTz from './lib/useOldTz.js'
 
-let timezones = [
+const timezones = [
   'Africa/Accra',
   'Europe/Jersey',
   'Asia/Ujung_Pandang',
@@ -36,7 +36,7 @@ let timezones = [
 ]
 
 test('epochs dont move on goto', (t) => {
-  let a = spacetime('January 13 2018', 'Pacific/Fiji')
+  const a = spacetime('January 13 2018', 'Pacific/Fiji')
   timezones.forEach((tz) => {
     let b = a.clone()
     b = b.goto(tz)
@@ -47,25 +47,25 @@ test('epochs dont move on goto', (t) => {
 
 test('is-always-input-date', (t) => {
   timezones.forEach((tz) => {
-    let a = spacetime([2030, 3, 2], tz)
+    const a = spacetime([2030, 3, 2], tz)
     t.equal(a.monthName(), 'april', tz + ' is april')
     t.equal(a.date(), 2, tz + ' 2nd')
     t.equal(a.year(), 2030, tz + ' is 2030')
 
-    let b = spacetime(new Date(), tz)
+    const b = spacetime(new Date(), tz)
     t.equal(b.timezone().name, tz, tz + ' is right tz')
 
-    let c = spacetime('03/01/2015', tz)
+    const c = spacetime('03/01/2015', tz)
     t.equal(c.monthName(), 'march', tz + ' is march')
     t.equal(c.date(), 1, tz + ' 1st')
     t.equal(c.year(), 2015, tz + ' is 2015')
 
-    let d = spacetime('January 7 2018', tz)
+    const d = spacetime('January 7 2018', tz)
     t.equal(d.monthName(), 'january', tz + ' is january')
     t.equal(d.date(), 7, tz + ' 7th')
     t.equal(d.year(), 2018, tz + ' is 2018')
 
-    let e = spacetime('March 28, 1998', tz)
+    const e = spacetime('March 28, 1998', tz)
     t.equal(e.monthName(), 'march', tz + ' is march')
     t.equal(e.date(), 28, tz + ' 28th')
     t.equal(e.year(), 1998, tz + ' is 1998')

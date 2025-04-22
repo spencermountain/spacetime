@@ -4,14 +4,14 @@ import { fileURLToPath } from 'url'
 const dir = path.dirname(fileURLToPath(import.meta.url)) // eslint-disable-line
 
 // https://timezonedb.com/files/TimeZoneDB.csv.zip
-let rows = fs.readFileSync(dir + '/time_zone.csv').toString().split(/\n/g)
-let data = {}
-let want = new Set([2021, 2022, 2023, 2024])
+const rows = fs.readFileSync(dir + '/time_zone.csv').toString().split(/\n/g)
+const data = {}
+const want = new Set([2021, 2022, 2023, 2024])
 rows.forEach(str => {
   let [id, _, _co, epoch, offset, on] = str.split(/,/g)
   epoch = Number(epoch) * 1000
-  let d = new Date(epoch)
-  let year = d.getFullYear()
+  const d = new Date(epoch)
+  const year = d.getFullYear()
   if (!want.has(year)) {
     return
   }

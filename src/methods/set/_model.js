@@ -13,11 +13,11 @@ const getMonthLength = function (month, year) {
 const rollMonth = (want, old) => {
   //increment year
   if (want.month > 0) {
-    let years = parseInt(want.month / 12, 10)
+    const years = parseInt(want.month / 12, 10)
     want.year = old.year() + years
     want.month = want.month % 12
   } else if (want.month < 0) {
-    let m = Math.abs(want.month)
+    const m = Math.abs(want.month)
     let years = parseInt(m / 12, 10)
     if (m % 12 !== 0) {
       years += 1
@@ -37,7 +37,7 @@ const rollMonth = (want, old) => {
 const rollDaysDown = (want, old, sum) => {
   want.year = old.year()
   want.month = old.month()
-  let date = old.date()
+  const date = old.date()
   want.date = date - Math.abs(sum)
   while (want.date < 1) {
     want.month -= 1
@@ -45,7 +45,7 @@ const rollDaysDown = (want, old, sum) => {
       want.month = 11
       want.year -= 1
     }
-    let max = getMonthLength(want.month, want.year)
+    const max = getMonthLength(want.month, want.year)
     want.date += max
   }
   return want

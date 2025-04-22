@@ -8,9 +8,9 @@ import spacetime from 'spacetime'
 
 
 function getCountry(country) {
-  for (let day in firstDay) {
+  for (const day in firstDay) {
     if (firstDay.hasOwnProperty(day)) {
-      for (let key in firstDay[day]) {
+      for (const key in firstDay[day]) {
         if (firstDay[day].hasOwnProperty(key)) {
           if ((key === country) || (firstDay[day][key].indexOf(country) !== -1)) {
             return { day: day, country: firstDay[day][key] }
@@ -19,7 +19,7 @@ function getCountry(country) {
       }
     }
   }
-  for (let item in loc) {
+  for (const item in loc) {
     if (loc.hasOwnProperty(item) && loc[item].indexOf(country) !== -1) {
       return { day: 'monday', location: country }
     }
@@ -33,7 +33,7 @@ function getCurrent(tz) {
   }
   // searches if current tz matches with iana
   // gets country key
-  for (let key in iana) {
+  for (const key in iana) {
     if (key === tz) {
       if (!iana[key].ctry && !iana[key].loc) {
         let country = getCountry(key.substr(0, key.indexOf('/')))
@@ -66,10 +66,10 @@ function setWeekStart(value, newDay) {
   if (!value || !newDay) { return { message: 'missing argument' } }
 
   // check if values are valid
-  for (let day in firstDay) {
+  for (const day in firstDay) {
     if (firstDay.hasOwnProperty(day)) {
       if (day === newDay.toLowerCase()) { a.isDay = true }
-      for (let key in firstDay[day]) {
+      for (const key in firstDay[day]) {
         if (firstDay[day][key].indexOf(value.toLowerCase()) !== -1) {
           a.origin = day;
           a.assigned = newDay;
@@ -108,7 +108,7 @@ function getWeekStart(country = '') {
   if (!country) {
     return getCurrent(tz);
   } else if (country) {
-    let first = getCountry((country.toLowerCase()).trim())
+    const first = getCountry((country.toLowerCase()).trim())
     if (first) { return first }
     else { return getWeekStart() }
   }

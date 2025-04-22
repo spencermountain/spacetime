@@ -4,12 +4,12 @@ import json from 'rollup-plugin-json'
 import { terser } from 'rollup-plugin-terser'
 import resolve from 'rollup-plugin-node-resolve'
 import sizeCheck from 'rollup-plugin-filesize-check'
-let pkg = JSON.parse(fs.readFileSync('./package.json').toString())
+const pkg = JSON.parse(fs.readFileSync('./package.json').toString())
 const version = pkg.version
 
 console.log('\n 📦  - running rollup..\n')
 
-let name = 'spacetime-week-start'
+const name = 'spacetime-week-start'
 const banner = `/* spencermountain/${name} ` + version + ' Apache 2.0 */'
 
 export default [

@@ -20,7 +20,7 @@ const fri = 'friday'
 // const sat = 'saturday'
 const sun = 'sunday'
 
-let holidays = {
+const holidays = {
   'martin luther king day': [3, mon, jan], //[third monday in january],
   'presidents day': [3, mon, feb], //[third monday in february],
 

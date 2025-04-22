@@ -2,13 +2,13 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('string-parse', (t) => {
-  let today = {
+  const today = {
     year: 2012,
     month: 2,
     date: 8,
     hour: 9
   }
-  let arr = [
+  const arr = [
     ['Sun Mar 14 15:09:48 1999', 'March 14 1999 3:09:48pm'],
     ['Tue Mar 16 21:49', 'Tues Mar 16 9:49pm'],
     ['Sun Mar 14 15:09:48 +0000 2012', '2012-03-14T15:09:48Z'],
@@ -53,8 +53,8 @@ test('string-parse', (t) => {
     ['2021-11-02T19:55:30.9898989+01', '2021-11-02T19:55:30.989+01'] //lots
   ]
   arr.forEach((a) => {
-    let left = spacetime(a[0], null, { today })
-    let right = spacetime(a[1], null, { today })
+    const left = spacetime(a[0], null, { today })
+    const right = spacetime(a[1], null, { today })
     t.equal(left.iso(), right.iso(), a[0])
   })
   t.end()

@@ -4,7 +4,7 @@ import calendar from './holidays/calendar-holidays.js'
 // holidays that are the same date every year
 const fixedDates = function (str, normal, year, tz) {
   if (calendar.hasOwnProperty(str) || calendar.hasOwnProperty(normal)) {
-    let arr = calendar[str] || calendar[normal] || []
+    const arr = calendar[str] || calendar[normal] || []
     let s = spacetime.now(tz)
     s = s.year(year)
 
@@ -12,7 +12,7 @@ const fixedDates = function (str, normal, year, tz) {
     s = s.month(arr[2])
     s = s.startOf('month')
     // make it january
-    let month = s.month()
+    const month = s.month()
 
     // make it the 1st monday
     s = s.day(arr[1])

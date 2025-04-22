@@ -2,7 +2,7 @@
 // for example, the US changes:
 // the second Sunday of March -> first Sunday of November
 // http://www.webexhibits.org/daylightsaving/g.html
-let patterns = {
+const patterns = {
   usa: '2nd-sun-mar-2h|1st-sun-nov-2h',// (From 1987 to 2006)
   // mexico
   mex: '1st-sun-apr-2h|last-sun-oct-2h',

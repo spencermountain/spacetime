@@ -37,7 +37,7 @@ test('subtract', (t) => {
 })
 
 test('subtract-rollover', (t) => {
-  let s = spacetime('January 1, 2010 1:20:05', 'Canada/Pacific')
+  const s = spacetime('January 1, 2010 1:20:05', 'Canada/Pacific')
 
   let tmp = s.clone()
   tmp = tmp.subtract(8, 'hour')

@@ -56,8 +56,8 @@ const format = {
     return year + ' BC'
   },
   'iso-year': (s) => {
-    let year = s.year()
-    let isNegative = year < 0
+    const year = s.year()
+    const isNegative = year < 0
     let str = zeroPad(Math.abs(year), 4) //0-padded
     if (isNegative) {
       //negative years are for some reason 6-digits ('-00008')
@@ -98,20 +98,20 @@ const format = {
 
   // ... https://en.wikipedia.org/wiki/ISO_8601 ;(((
   iso: (s) => {
-    let year = s.format('iso-year')
-    let month = zeroPad(s.month() + 1) //1-based months
-    let date = zeroPad(s.date())
-    let hour = zeroPad(s.h24())
-    let minute = zeroPad(s.minute())
-    let second = zeroPad(s.second())
-    let ms = zeroPad(s.millisecond(), 3)
-    let offset = isoOffset(s)
+    const year = s.format('iso-year')
+    const month = zeroPad(s.month() + 1) //1-based months
+    const date = zeroPad(s.date())
+    const hour = zeroPad(s.h24())
+    const minute = zeroPad(s.minute())
+    const second = zeroPad(s.second())
+    const ms = zeroPad(s.millisecond(), 3)
+    const offset = isoOffset(s)
     return `${year}-${month}-${date}T${hour}:${minute}:${second}.${ms}${offset}` //2018-03-09T08:50:00.000-05:00
   },
   'iso-short': (s) => {
-    let month = zeroPad(s.month() + 1) //1-based months
-    let date = zeroPad(s.date())
-    let year = padYear(s.year())
+    const month = zeroPad(s.month() + 1) //1-based months
+    const date = zeroPad(s.date())
+    const year = padYear(s.year())
     return `${year}-${month}-${date}` //2017-02-15
   },
   'iso-utc': (s) => {
@@ -119,7 +119,7 @@ const format = {
   },
   'iso-full': (s) => {
     let iso = s.format('iso')
-    let iana = s.timezone().name
+    const iana = s.timezone().name
     if (iana) {
       iso += `[${iana}]`
     }
@@ -127,12 +127,12 @@ const format = {
   },
 
   sql: (s) => {
-    let year = s.format('iso-year')
-    let month = zeroPad(s.month() + 1) //1-based months
-    let date = zeroPad(s.date())
-    let hour = zeroPad(s.h24())
-    let minute = zeroPad(s.minute())
-    let second = zeroPad(s.second())
+    const year = s.format('iso-year')
+    const month = zeroPad(s.month() + 1) //1-based months
+    const date = zeroPad(s.date())
+    const hour = zeroPad(s.h24())
+    const minute = zeroPad(s.minute())
+    const second = zeroPad(s.second())
     return `${year}-${month}-${date} ${hour}:${minute}:${second}` //2017-03-08 19:45:28
   },
 
@@ -201,14 +201,14 @@ const printFormat = (s, str = '') => {
   }
   //support '{hour}:{minute}' notation
   if (str.indexOf('{') !== -1) {
-    let sections = /\{(.+?)\}/g
+    const sections = /\{(.+?)\}/g
     str = str.replace(sections, (_, fmt) => {
       fmt = fmt.trim()
       if (fmt !== 'AMPM') {
         fmt = fmt.toLowerCase()
       }
       if (format.hasOwnProperty(fmt)) {
-        let out = String(format[fmt](s))
+        const out = String(format[fmt](s))
         if (fmt.toLowerCase() !== 'ampm') {
           return applyCaseFormat(out)
         }

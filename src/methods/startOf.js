@@ -18,7 +18,7 @@ const units = {
     return s
   },
   quarterhour: (s) => {
-    let minute = s.minutes()
+    const minute = s.minutes()
     if (minute >= 45) {
       s = s.minutes(45)
     } else if (minute >= 30) {
@@ -52,7 +52,7 @@ const units = {
     return s
   },
   week: (s) => {
-    let original = s.clone()
+    const original = s.clone()
     s = s.day(s._weekStart) //monday
     if (s.isAfter(original)) {
       s = s.subtract(1, 'week')
@@ -76,7 +76,7 @@ const units = {
     return s
   },
   quarter: (s) => {
-    let q = s.quarter()
+    const q = s.quarter()
     if (quarters[q]) {
       walkTo(s, {
         month: quarters[q][0],
@@ -90,7 +90,7 @@ const units = {
     return s
   },
   season: (s) => {
-    let current = s.season()
+    const current = s.season()
     let hem = 'north'
     if (s.hemisphere() === 'South') {
       hem = 'south'
@@ -129,16 +129,16 @@ const units = {
   },
   decade: (s) => {
     s = s.startOf('year')
-    let year = s.year()
-    let decade = parseInt(year / 10, 10) * 10
+    const year = s.year()
+    const decade = parseInt(year / 10, 10) * 10
     s = s.year(decade)
     return s
   },
   century: (s) => {
     s = s.startOf('year')
-    let year = s.year()
+    const year = s.year()
     // near 0AD goes '-1 | +1'
-    let decade = parseInt(year / 100, 10) * 100
+    const decade = parseInt(year / 100, 10) * 100
     s = s.year(decade)
     return s
   }

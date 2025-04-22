@@ -11,7 +11,7 @@ export default [
   {
     reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9-+:]+)?(\[.*?\])?(\[.*?\])?$/i,
     parse: (s, m) => {
-      let obj = {
+      const obj = {
         year: m[1],
         month: parseInt(m[2], 10) - 1,
         date: m[3]
@@ -22,7 +22,7 @@ export default [
       }
       // if iana code in brackets at the end, set the timezone
       if (m[6]) {
-        let tz = parseTz(m[6])//TODO addme
+        const tz = parseTz(m[6])//TODO addme
         if (tz) {
           s = s.timezone(tz)
         }
@@ -39,7 +39,7 @@ export default [
   {
     reg: /^([0-9]{4})[\-/. ]([0-9]{1,2})[\-/. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
     parse: (s, m) => {
-      let obj = {
+      const obj = {
         year: m[1],
         month: parseInt(m[2], 10) - 1,
         date: parseInt(m[3], 10)
@@ -63,7 +63,7 @@ export default [
   {
     reg: /^([0-9]{4})[\-/. ]([a-z]+)[\-/. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
     parse: (s, m) => {
-      let obj = {
+      const obj = {
         year: parseYear(m[1], s._today),
         month: parseMonth(m[2]),
         date: toCardinal(m[3] || '')

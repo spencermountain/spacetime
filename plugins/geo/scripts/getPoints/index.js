@@ -1,16 +1,16 @@
 const fetch = require('node-fetch')
 let iana = require('./iana')
 // const fs = require('fs');
-let key = 'get-your-own'
+const key = 'get-your-own'
 
-let done = {}
+const done = {}
 
 iana = iana.map((arr) => {
-  let cities = arr[3].split(',')
+  const cities = arr[3].split(',')
   let tz = arr[1]
   tz = tz.split('/')
-  let city = cities[0] || tz[tz.length - 1]
-  let str = `${city}, ${arr[2]}`
+  const city = cities[0] || tz[tz.length - 1]
+  const str = `${city}, ${arr[2]}`
   return {
     str: str,
     tz: arr[1]
@@ -22,12 +22,12 @@ const roundIt = function(num) {
 }
 
 function doit(i) {
-  let str = iana[i].str
-  let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(str)}&key=${key}`
+  const str = iana[i].str
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(str)}&key=${key}`
   fetch(url).then(res => res.json()).then(res => {
     if (res.results && res.results[0]) {
       let point = res.results[0].geometry.location
-      let place = res.results[0].formatted_address
+      const place = res.results[0].formatted_address
       point = [roundIt(point.lat), roundIt(point.lng)]
       done[iana[i].tz] = {
         point: point,

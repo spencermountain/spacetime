@@ -39,7 +39,7 @@ const defaultSettings = {
 }
 
 test('i18n useTitleCase is false', (t) => {
-  let a = spacetime([2000, 0, 1])
+  const a = spacetime([2000, 0, 1])
 
   t.equal(a.format('day-short'), 'Sat', 'en: day-short')
   t.equal(a.format('day'), 'Saturday', 'en: day')
@@ -83,7 +83,7 @@ test('i18n useTitleCase is false', (t) => {
 })
 
 test('i18n', (t) => {
-  let a = spacetime([2000, 0, 1])
+  const a = spacetime([2000, 0, 1])
 
   t.equal(a.format('day-short'), 'Sat', 'en: day-short')
   t.equal(a.format('day'), 'Saturday', 'en: day')

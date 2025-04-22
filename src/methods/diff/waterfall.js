@@ -19,8 +19,8 @@ const fastYear = (a, b) => {
 const diff = function (a, b) {
   // an hour is always the same # of milliseconds
   // so these units can be 'pre-calculated'
-  let msDiff = b.epoch - a.epoch
-  let obj = {
+  const msDiff = b.epoch - a.epoch
+  const obj = {
     milliseconds: msDiff,
     seconds: parseInt(msDiff / 1000, 10)
   }

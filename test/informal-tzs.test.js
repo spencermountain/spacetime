@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('informal timezones', (t) => {
-  let arr = [
+  const arr = [
     ['Toronto', 'America/Toronto'],
     ['toronto', 'America/Toronto'],
     ['toronto time', 'America/Toronto'],
@@ -20,8 +20,8 @@ test('informal timezones', (t) => {
   ]
   const date = 'November 11, 1999'
   arr.forEach((a) => {
-    let left = spacetime(date, a[0])
-    let right = spacetime(date, a[1])
+    const left = spacetime(date, a[0])
+    const right = spacetime(date, a[1])
     t.equal(left.format('nice'), right.format('nice'), a[0])
   })
   t.end()

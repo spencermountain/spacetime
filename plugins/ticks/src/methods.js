@@ -2,7 +2,7 @@ import reduceTo from './_reduce.js'
 
 //increment by this unit
 const allTicks = function (start, end, unit) {
-  let ticks = []
+  const ticks = []
   start = start.add(1, unit)
   start = start.startOf(unit)
   while (start.isBefore(end)) {
@@ -13,9 +13,9 @@ const allTicks = function (start, end, unit) {
 }
 
 const formatTicks = function (arr, fmt, start, end) {
-  let delta = end.epoch - start.epoch
+  const delta = end.epoch - start.epoch
   return arr.map(s => {
-    let percent = (s.epoch - start.epoch) / delta
+    const percent = (s.epoch - start.epoch) / delta
     return {
       label: s.format(fmt),
       epoch: s.epoch,
@@ -68,7 +68,7 @@ const methods = {
   days: (start, end, n) => {
     let ticks = allTicks(start, end, 'day')
     ticks = reduceTo(ticks, n)
-    let fmt = '{month-short} {date}'
+    const fmt = '{month-short} {date}'
     ticks = formatTicks(ticks, fmt, start, end)
     return ticks
   },
@@ -85,7 +85,7 @@ const methods = {
   minutes: (start, end, n) => {
     let ticks = allTicks(start, end, 'minute')
     ticks = reduceTo(ticks, n)
-    let fmt = '{time}'
+    const fmt = '{time}'
     ticks = formatTicks(ticks, fmt, start, end)
     return ticks
   }

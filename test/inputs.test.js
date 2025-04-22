@@ -2,12 +2,12 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('inputs', (t) => {
-  let a = spacetime([2015, 2, 25])
-  let b = spacetime('25 Mar 2015')
-  let c = spacetime('Mar 25 2015')
-  let d = spacetime('03/25/2015')
-  let e = spacetime('2015/03/25')
-  let f = spacetime('2015-03-25')
+  const a = spacetime([2015, 2, 25])
+  const b = spacetime('25 Mar 2015')
+  const c = spacetime('Mar 25 2015')
+  const d = spacetime('03/25/2015')
+  const e = spacetime('2015/03/25')
+  const f = spacetime('2015-03-25')
   t.ok(a.isValid(), 'date is valid')
   t.ok(a.isSame(b, 'hour'), 'b-is-equal')
   t.ok(a.isSame(c, 'hour'), 'c-is-equal')
@@ -28,8 +28,8 @@ test('hour-inputs', (t) => {
 })
 
 test('null input', (t) => {
-  let a = spacetime(null, 'Canada/Eastern')
-  let b = spacetime(Date.now(), 'Canada/Eastern')
+  const a = spacetime(null, 'Canada/Eastern')
+  const b = spacetime(Date.now(), 'Canada/Eastern')
   t.ok(a.isValid(), 'null input is valid')
   t.equal(a.format('iso-short'), b.format('iso-short'), 'dates are the same')
   t.equal(a.format('time'), b.format('time'), 'times are the same')
@@ -37,8 +37,8 @@ test('null input', (t) => {
 })
 
 test('undefined input', (t) => {
-  let a = spacetime(undefined, 'Canada/Eastern')
-  let b = spacetime(Date.now(), 'Canada/Eastern')
+  const a = spacetime(undefined, 'Canada/Eastern')
+  const b = spacetime(Date.now(), 'Canada/Eastern')
   t.ok(a.isValid(), 'undefined input is valid')
   t.equal(a.format('iso-short'), b.format('iso-short'), 'dates are the same')
   t.equal(a.format('time'), b.format('time'), 'times are the same')
@@ -58,7 +58,7 @@ test('arr-input', (t) => {
   t.equal(s.month(), 1, 'set-arr-month')
 
   //on a dst change
-  let d = spacetime([2019, 'march', 31, 3, 3], 'Europe/Stockholm')
+  const d = spacetime([2019, 'march', 31, 3, 3], 'Europe/Stockholm')
   t.equal(d.format('{month} {date} {time}'), 'March 31 3:03am', 'array sets time over dst-switch')
   t.end()
 })
@@ -75,14 +75,14 @@ test('obj-input', (t) => {
   t.equal(s.monthName(), 'march', 'obj-month')
 
   //ignore null and undefined values
-  let a = spacetime({
+  const a = spacetime({
     month: '12',
     day: '25',
     hour: '6',
     minute: '24',
     ampm: null
   })
-  let b = spacetime({
+  const b = spacetime({
     month: '12',
     day: '25',
     hour: '6',
@@ -101,8 +101,8 @@ test('obj-input', (t) => {
 })
 
 test('date-input', (t) => {
-  let d = new Date('March 11, 2017')
-  let s = spacetime(d)
+  const d = new Date('March 11, 2017')
+  const s = spacetime(d)
   t.ok(s.isValid(), 'date object input is valid')
   // t.equal(s.date(), 11, 'date-date');//FIXME:!
   t.equal(s.year(), 2017, 'date-year')
@@ -111,8 +111,8 @@ test('date-input', (t) => {
 })
 
 test('self-input', (t) => {
-  let a = spacetime('March 11, 2017')
-  let s = spacetime(a)
+  const a = spacetime('March 11, 2017')
+  const s = spacetime(a)
   t.ok(s.isValid(), 'spacetime object input is valid')
   t.equal(s.date(), 11, 'self-date')
   t.equal(s.year(), 2017, 'self-year')
@@ -121,17 +121,17 @@ test('self-input', (t) => {
 })
 
 test('inputs-in-comparisons', (t) => {
-  let s = spacetime('March 11, 2017')
+  const s = spacetime('March 11, 2017')
   t.ok(s.isAfter(new Date('March 10, 2017')), 'compare with date obj')
   // t.ok(s.isBefore([2022, 3, 2]), 'compare with array'); //this isn't working yet
-  let future = spacetime([2022, 3, 2])
+  const future = spacetime([2022, 3, 2])
   t.ok(s.isBefore(future.epoch), 'compare with epoch')
   t.ok(s.isBefore(future), 'compare with spacetimeObj')
   t.end()
 })
 
 test('iso-string-input', (t) => {
-  let s = spacetime('2017-08-06T09:00:00.000Z')
+  const s = spacetime('2017-08-06T09:00:00.000Z')
   t.ok(s.isValid(), 'obj input is valid')
   t.equal(s.millisecond(), 0, 'iso-string-millisecond')
   t.equal(s.second(), 0, 'iso-string-second')
@@ -144,7 +144,7 @@ test('iso-string-input', (t) => {
 })
 
 test('overlong-milliseconds-iso-string-input', (t) => {
-  let s = spacetime('2017-08-06T09:00:00.12345Z')
+  const s = spacetime('2017-08-06T09:00:00.12345Z')
   t.ok(s.isValid(), 'overlong obj input is valid')
   t.equal(s.millisecond(), 123, 'overlong-iso-string-millisecond')
   t.equal(s.second(), 0, 'overlong-iso-string-second')
@@ -157,21 +157,21 @@ test('overlong-milliseconds-iso-string-input', (t) => {
 })
 
 test('iso format with space', (t) => {
-  let a = spacetime('2018-02-02T22:00:00')
-  let b = spacetime('2018-02-02 22:00:00')
+  const a = spacetime('2018-02-02T22:00:00')
+  const b = spacetime('2018-02-02 22:00:00')
   t.ok(a.isSame(b, 'minute'), 'support space-iso')
   t.end()
 })
 
 test('iso format lowercase', (t) => {
-  let a = spacetime('2020-03-02t01:03:10.000z')
-  let b = spacetime('2020-03-02T01:03:10.000Z')
+  const a = spacetime('2020-03-02t01:03:10.000z')
+  const b = spacetime('2020-03-02T01:03:10.000Z')
   t.ok(a.isSame(b, 'minute'), 'lowercase-iso')
   t.end()
 })
 
 test('funny-numeric-forms', (t) => {
-  let a = spacetime('2016/03/13')
+  const a = spacetime('2016/03/13')
 
   let b = spacetime('03/13/2016')
   t.equal(a.format('numeric'), b.format('numeric'), 'mm/dd/yyyy')
@@ -188,7 +188,7 @@ test('funny-numeric-forms', (t) => {
 })
 
 test('empty-array', (t) => {
-  let s = spacetime([])
+  const s = spacetime([])
   t.ok(s.isValid(), 'array input is valid')
   t.ok(s.monthName(), 'january', 'empty array is january 1st')
   t.ok(s.date(), 1, 'empty array is january 1st')
@@ -197,7 +197,7 @@ test('empty-array', (t) => {
 })
 
 test('empty-object', (t) => {
-  let s = spacetime({})
+  const s = spacetime({})
   t.ok(s.isValid(), 'obj input is valid')
   t.ok(s.monthName(), 'january', 'empty obj is january 1st')
   t.ok(s.date(), 1, 'empty obj is january 1st')
@@ -234,7 +234,7 @@ test('invalid inputs', (t) => {
   t.equal(spacetime('29th Feb 2000').isValid(), true, 'long format #5')
   t.equal(spacetime('29th February 2003').isValid(), false, 'long format #6')
 
-  let s = spacetime('-2 February 2003', 'UTC', {
+  const s = spacetime('-2 February 2003', 'UTC', {
     silent: true
   })
   t.equal(s.isValid(), false, 'negative numbers invalid too')
@@ -289,7 +289,7 @@ test('time-inputs', (t) => {
 })
 
 test('implicit-years', (t) => {
-  let year = new Date().getFullYear()
+  const year = new Date().getFullYear()
   t.equal(
     spacetime('sunday April 3rd').format('numeric'),
     spacetime('April 3rd ' + year).format('numeric'),
@@ -329,8 +329,8 @@ test('british-input', (t) => {
 })
 
 test('short-format', (t) => {
-  let a = spacetime('22-aug')
-  let b = spacetime('aug-22')
+  const a = spacetime('22-aug')
+  const b = spacetime('aug-22')
   t.equal(a.format('iso-short'), b.format('iso-short'), '22-aug')
   t.end()
 })
@@ -345,17 +345,17 @@ test('time with seconds', (t) => {
 })
 
 test('period-seperated', (t) => {
-  let s = spacetime('2015.08.13')
+  const s = spacetime('2015.08.13')
   t.equal(s.format(), '2015-08-13', 'period-parsed')
 
-  let a = spacetime('09.13.2013')
-  let b = spacetime('13.09.2013')
+  const a = spacetime('09.13.2013')
+  const b = spacetime('13.09.2013')
   t.equal(a.format(), b.format(), 'dmy dot format')
   t.end()
 })
 
 test('iso-truncated', (t) => {
-  let s = spacetime('2012-07')
+  const s = spacetime('2012-07')
   t.equal(s.format(), '2012-07-01', 'iso-truncated')
   t.end()
 })

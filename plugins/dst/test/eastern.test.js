@@ -3,12 +3,12 @@ import spacetime from 'spacetime'
 import dst from '../src/index.js'
 spacetime.extend(dst)
 
-let tz = 'Canada/Eastern'
+const tz = 'Canada/Eastern'
 // eastern dst change dates
 // from https://www.timeanddate.com/time/change/canada/toronto
 // From 1987 to 2006, DST began on the first Sunday in April and ended on the last Sunday of October.
 // Starting in 2007, the United States and Canada will on the second Sunday of March and end on the first Sunday of November.
-let arr = [
+const arr = [
   // [1980, 'April 27', 'October 26'],
   // [1981, 'April 26', 'October 25'],
   // [1982, 'April 25', 'October 31'],
@@ -54,11 +54,11 @@ let arr = [
 test('test eastern-time', function (t) {
   arr.forEach((a) => {
     // let s=spacetime(a[1],tz).year(a[0])
-    let have = spacetime.now(tz).year(a[0]).dst()
-    let start = spacetime(have.start).format('{month} {date}')
+    const have = spacetime.now(tz).year(a[0]).dst()
+    const start = spacetime(have.start).format('{month} {date}')
     t.equal(start, a[1], '[start] ' + a[0])
 
-    let end = spacetime(have.end).format('{month} {date}')
+    const end = spacetime(have.end).format('{month} {date}')
     t.equal(end, a[2], '[end] ' + a[0])
   })
   t.end()

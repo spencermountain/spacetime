@@ -26,16 +26,16 @@ const months = {
   dec: 12
 }
 const zeroPad = (str, len = 2) => {
-  let pad = '0'
+  const pad = '0'
   str = str + ''
   return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str
 }
 
 const parseLine = (line) => {
-  let arr = line.split(/ +/)
+  const arr = line.split(/ +/)
   let hour = arr[11].replace(/:[0-9:]+/, '')
-  let min = arr[11].replace(/[0-9]{1,2}:([0-9]+):/, '$1')
-  let dst = line.includes('isdst=1')
+  const min = arr[11].replace(/[0-9]{1,2}:([0-9]+):/, '$1')
+  const dst = line.includes('isdst=1')
   hour = parseInt(hour, 10)
   if (min === '0000' && dst === true) {
     hour -= 1
@@ -53,7 +53,7 @@ const parseLine = (line) => {
   if (offset !== null) {
     offset = offset / 60 / 60
   }
-  let obj = {
+  const obj = {
     month: zeroPad(months[arr[9].toLowerCase()]),
     date: zeroPad(parseInt(arr[10], 10)),
     hour: zeroPad(hour),
@@ -82,10 +82,10 @@ const parseTz = (tz) => {
 
   //remove 'end-of' dst changes
   lines = lines.filter((o) => o.min !== '5959' && o.min !== '2959') //urgh :/
-  let a = lines[0]
-  let b = lines[1]
+  const a = lines[0]
+  const b = lines[1]
   //this weird format i made: "03/26:03->10/29:02"
-  let dst = `${a.month}/${a.date}:${a.hour}->${b.month}/${b.date}:${b.hour}`
+  const dst = `${a.month}/${a.date}:${a.hour}->${b.month}/${b.date}:${b.hour}`
   return {
     dst,
     offset: a.offset
@@ -94,9 +94,9 @@ const parseTz = (tz) => {
 
 const doAll = () => {
   let changes = 0
-  let keys = Object.keys(data)
+  const keys = Object.keys(data)
   keys.forEach((k) => {
-    let obj = parseTz(k)
+    const obj = parseTz(k)
     if (obj) {
       //compare offsets
       if (obj.offset !== null && obj.offset !== data[k].o && data[k].o !== undefined) {

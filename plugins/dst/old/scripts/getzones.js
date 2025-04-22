@@ -5,7 +5,7 @@
 // let tz = 'australia/melbourne'
 
 const tzs = require('/Users/spencer/mountain/spacetime/zonefile/iana.js')
-let list = Object.keys(tzs)
+const list = Object.keys(tzs)
 
 // const titleCase = (str) => {
 //   str = str[0].toUpperCase() + str.substr(1)

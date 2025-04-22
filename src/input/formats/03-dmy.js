@@ -10,7 +10,7 @@ export default [
   {
     reg: /^([0-9]{1,2})[-/]([a-z]+)[\-/]?([0-9]{4})?$/i,
     parse: (s, m) => {
-      let obj = {
+      const obj = {
         year: parseYear(m[3], s._today),
         month: parseMonth(m[2]),
         date: toCardinal(m[1] || '')
@@ -28,7 +28,7 @@ export default [
   {
     reg: /^([0-9]{1,2})( [a-z]+)( [0-9]{4}| '[0-9]{2})? ?([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2} ?(am|pm|gmt))?$/i,
     parse: (s, m) => {
-      let obj = {
+      const obj = {
         year: parseYear(m[3], s._today),
         month: parseMonth(m[2]),
         date: toCardinal(m[1])
@@ -46,7 +46,7 @@ export default [
   {
     reg: /^([0-9]{1,2})[. \-/]([a-z]+)[. \-/]([0-9]{4})?( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
     parse: (s, m) => {
-      let obj = {
+      const obj = {
         date: Number(m[1]),
         month: parseMonth(m[2]),
         year: Number(m[3])

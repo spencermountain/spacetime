@@ -1,8 +1,8 @@
 const somehow = require('somehow')
 
 const drawGraph = function (ticks, id) {
-  let el = document.querySelector(id)
-  let w = somehow({
+  const el = document.querySelector(id)
+  const w = somehow({
     width: 500,
     height: 20,
   })

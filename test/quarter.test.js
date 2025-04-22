@@ -32,9 +32,9 @@ test('set quarter', (t) => {
 })
 
 test('startOf quarter', (t) => {
-  let start = '2020-01-01'
-  let d = spacetime(start).startOf('day')
-  let arr = [
+  const start = '2020-01-01'
+  const d = spacetime(start).startOf('day')
+  const arr = [
     [2, 'days'],
     [23, 'days'],
     [52, 'days'],

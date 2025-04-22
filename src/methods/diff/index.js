@@ -16,7 +16,7 @@ const main = function (a, b, unit) {
   //reverse values, if necessary
   let reversed = false
   if (a.isAfter(b)) {
-    let tmp = a
+    const tmp = a
     a = b
     b = tmp
     reversed = true

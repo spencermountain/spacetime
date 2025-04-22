@@ -14,10 +14,10 @@ keys = keys.filter((k) => zones[k].dst)
 // keys = keys.filter((k) => zones[k].hem === 's')
 // keys = keys.map((k) => titleCase(k))
 
-let byDate = {}
+const byDate = {}
 keys.forEach((k) => {
-  let off = '' + zones[k].offset + 'h  ' + zones[k].dst
-  let init = {
+  const off = '' + zones[k].offset + 'h  ' + zones[k].dst
+  const init = {
     name: '',
     abbrev: '',
     abbrev_dst: '',
@@ -27,7 +27,7 @@ keys.forEach((k) => {
     ids: []
   }
   byDate[off] = byDate[off] || init
-  let id = titleCase(k)
+  const id = titleCase(k)
   byDate[off].ids.push(id)
 })
 let result = Object.values(byDate)

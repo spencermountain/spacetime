@@ -4,7 +4,7 @@ import daylight from '../src/index.js'
 // import daylight from '../builds/spacetime-daylight.mjs'
 spacetime.extend(daylight)
 
-let winters = [
+const winters = [
   // these are from timeanddate.com
   // [1971, 'Dec 22 1971 7:23am'],
   // [1982, 'Dec 21 1982 11:38pm'],
@@ -42,16 +42,16 @@ let winters = [
 ]
 test('winter solstices', function (t) {
   winters.forEach((a) => {
-    let s = spacetime('march 2 ' + String(a[0]))
-    let have = s.winterSolstice()
-    let want = spacetime(a[1])
+    const s = spacetime('march 2 ' + String(a[0]))
+    const have = s.winterSolstice()
+    const want = spacetime(a[1])
     // console.log(have.diff(want, 'minute'))
     t.ok(have.isSame(want, 'hour'), a[1])
   })
   t.end()
 })
 
-let summers = [
+const summers = [
   // [2007, 'Jun 21 2007 2:06pm'],
   // [1988, 'Jun 20 1988 11:56pm'],
   // [1999, 'Jun 21 1999 3:49pm'],
@@ -63,9 +63,9 @@ let summers = [
 ]
 test('summer solstices', function (t) {
   summers.forEach((a) => {
-    let s = spacetime('march 2 ' + String(a[0]))
-    let have = s.summerSolstice()
-    let want = spacetime(a[1])
+    const s = spacetime('march 2 ' + String(a[0]))
+    const have = s.summerSolstice()
+    const want = spacetime(a[1])
     // console.log(have.diff(want, 'minute'))
     t.ok(have.isSame(want, 'hour'), a[1])
   })

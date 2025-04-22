@@ -1,4 +1,4 @@
-let methods = {
+const methods = {
   start: function () {
     this.startEpoch = this.epoch
     return this
@@ -13,7 +13,7 @@ let methods = {
     return this
   },
   elapsed: async function () {
-    let start = this._from(this.startEpoch, this.tz)
+    const start = this._from(this.startEpoch, this.tz)
     return this.diff(start)
   }
 }

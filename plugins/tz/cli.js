@@ -8,21 +8,21 @@ const help = function () {
   console.log('\n\n')
 }
 
-let str = process.argv.slice(2).join(' ').trim()
+const str = process.argv.slice(2).join(' ').trim()
 if (!str) {
   help()
   process.exit()
 }
 
-let res = soft(str)
+const res = soft(str)
 if (res.length === 0) {
   console.log(`\n\nCould not find timezone for \'${str}\'`)
   help()
   process.exit()
 }
-let tz = res[0]
+const tz = res[0]
 // are we in standard time, or daylight time?
-let s = spacetime.now(tz.iana)
+const s = spacetime.now(tz.iana)
 let out = `${s.time()}`
 
 if (tz.daylight && s.isDST()) {
@@ -31,7 +31,7 @@ if (tz.daylight && s.isDST()) {
   out += ' ' + tz.standard.abbr
 }
 
-let here = spacetime.now()
+const here = spacetime.now()
 if (!s.isSame('day', here)) {
   out += ' ' + s.format('nice')
 } else {

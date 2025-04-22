@@ -14,7 +14,7 @@ const dec = 11
 
 // hardcoded dates for astronomical holidays
 //   ----please change, every few years(!)---
-let dates = {
+const dates = {
   // Jewish
   'tu bishvat': [jan, 31],
   'tu bshevat': [jan, 31],

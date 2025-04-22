@@ -9,9 +9,9 @@ const fromEpoch = function (epoch, tz) {
 
 
 const hour = 1000 * 60 * 60
-let start = 2020
+const start = 2020
 const doTZ = function (tz) {
-  let arr = []
+  const arr = []
   for (let y = start; y < start + 5; y += 1) {
     // add start of year
     // let s = spacetime.now(tz)
@@ -21,22 +21,22 @@ const doTZ = function (tz) {
     if (changes[tz][y]) {
       // add dst start
       let epoch = changes[tz][y][0]
-      let on = fromEpoch(epoch, tz)
+      const on = fromEpoch(epoch, tz)
       arr.push([epoch, on.year, on.month, on.day, on.hour])
 
       // add dst end
       epoch = changes[tz][y][1]
       // epoch -= hour
       // epoch += hour
-      let off = fromEpoch(epoch, tz)
+      const off = fromEpoch(epoch, tz)
       arr.push([epoch, off.year, off.month, off.day, off.hour])
     }
   }
   return arr
 }
 
-let arr = ['America/Toronto', 'America/Vancouver', 'europe/london']
-let out = arr.reduce((h, id) => {
+const arr = ['America/Toronto', 'America/Vancouver', 'europe/london']
+const out = arr.reduce((h, id) => {
   h[id] = doTZ('America/Toronto')
   return h
 }, {})

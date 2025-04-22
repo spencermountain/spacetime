@@ -2,8 +2,8 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('implicit goto', (t) => {
-  let a = spacetime('March 14, 2017 22:48:00', 'Africa/Algiers')
-  let b = spacetime('March 14, 2017 22:48:00', 'Canada/Pacific')
+  const a = spacetime('March 14, 2017 22:48:00', 'Africa/Algiers')
+  const b = spacetime('March 14, 2017 22:48:00', 'Canada/Pacific')
 
   t.equal(a.format('iso-short'), b.format('iso-short'), 'dates are the same')
   t.equal(a.format('time-h12'), b.format('time-h12'), 'times are the same')
@@ -144,7 +144,7 @@ test('move-to-not-dst', (t) => {
 })
 
 test('goto null returns to local tz', (t) => {
-  let s = spacetime().time('4:30pm').goto('Europe/Paris').goto(null)
+  const s = spacetime().time('4:30pm').goto('Europe/Paris').goto(null)
   t.equal(s.time(), '4:30pm', 'goto-null')
   t.end()
 })

@@ -6,7 +6,7 @@ const data = require('/Users/spencer/Downloads/data.json')
 // let key = 'CldrMetazones' // *
 // let key = 'CldrPrimaryZones'
 // let key = 'CldrAliases'
-let key = 'CldrLanguageData' //i18n place-names
+const key = 'CldrLanguageData' //i18n place-names
 // let key = 'SelectionZones'
 // console.log(Object.keys(data))
 console.log(Object.keys(data[key]))

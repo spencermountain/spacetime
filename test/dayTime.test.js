@@ -3,7 +3,7 @@ import spacetime from './lib/index.js'
 
 test('daytime-consistent', (t) => {
   let s = spacetime.now()
-  let times = ['morning', 'afternoon', 'evening', 'night']
+  const times = ['morning', 'afternoon', 'evening', 'night']
   times.forEach((daytime) => {
     s = s.dayTime(daytime)
     t.equal(s.dayTime(), daytime, daytime + ' is ' + daytime)

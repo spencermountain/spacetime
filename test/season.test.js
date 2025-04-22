@@ -1,7 +1,7 @@
 import test from 'tape'
 import spacetime from './lib/index.js'
 
-let south = [
+const south = [
   'Africa/Johannesburg',
   'Brazil/Acre',
   'Australia/Canberra',
@@ -9,7 +9,7 @@ let south = [
   'America/Argentina',
   'Africa/Lusaka'
 ]
-let north = [
+const north = [
   'America/Detroit',
   'Mexico/BajaSur',
   'Canada/Eastern',

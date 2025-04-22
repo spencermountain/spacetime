@@ -1,7 +1,7 @@
 export default {
   age: function (unit = 'years') {
-    let now = this.set()
-    let diff = this.diff(now, unit)
+    const now = this.set()
+    const diff = this.diff(now, unit)
     return diff
   }
 }

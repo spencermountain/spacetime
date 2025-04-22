@@ -22,7 +22,7 @@ console.log(s.iso());
 // console.log(s.time())
 // console.log(s.epoch)
 // console.log(s.year())
-let arr = [
+const arr = [
   'millisecond',
   'second',
   'minute',

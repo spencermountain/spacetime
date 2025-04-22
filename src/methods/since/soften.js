@@ -36,8 +36,8 @@ function pluralize(value, unit) {
 const toSoft = function (diff) {
   let rounded = null
   let qualified = null
-  let abbreviated = []
-  let englishValues = []
+  const abbreviated = []
+  const englishValues = []
   //go through each value and create its text-representation
   Object.keys(diff).forEach((unit, i, units) => {
     const value = Math.abs(diff[unit])

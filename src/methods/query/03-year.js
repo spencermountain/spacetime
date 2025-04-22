@@ -16,13 +16,13 @@ const methods = {
   // day 0-366
   dayOfYear: function (num, goFwd) {
     if (num !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       s.epoch = _dayOfYear(s, num, goFwd)
       return s
     }
     //days since newyears - jan 1st is 1, jan 2nd is 2...
     let sum = 0
-    let month = this.d.getMonth()
+    const month = this.d.getMonth()
     let tmp
     //count the num days in each month
     for (let i = 1; i <= month; i++) {
@@ -53,7 +53,7 @@ const methods = {
 
     // first - are we in week 1 of the next year?
     if (tmp.monthName() === 'december' && tmp.date() >= 29) {
-      let startNext = setWeek(tmp.add(15, 'days'), 1, false)
+      const startNext = setWeek(tmp.add(15, 'days'), 1, false)
       if (startNext.epoch <= tmp.epoch) {
         return 1
       }
@@ -75,7 +75,7 @@ const methods = {
     }
     //speed it up, if we can
     let i = 0
-    let skipWeeks = this.month() * 4
+    const skipWeeks = this.month() * 4
     tmp.epoch += ms.week * skipWeeks
     i += skipWeeks
     for (; i <= 52; i++) {
@@ -89,7 +89,7 @@ const methods = {
   //either name or number
   month: function (input, goFwd) {
     if (input !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       s.epoch = _month(s, input, goFwd)
       return s
     }
@@ -114,14 +114,14 @@ const methods = {
       }
       if (quarters[num]) {
         let s = this.clone()
-        let month = quarters[num][0]
+        const month = quarters[num][0]
         s = s.month(month, goFwd)
         s = s.date(1, goFwd)
         s = s.startOf('day')
         return s
       }
     }
-    let month = this.d.getMonth()
+    const month = this.d.getMonth()
     for (let i = 1; i < quarters.length; i++) {
       if (month < quarters[i][0]) {
         return i - 1
@@ -147,7 +147,7 @@ const methods = {
       }
       return s
     }
-    let month = this.d.getMonth()
+    const month = this.d.getMonth()
     for (let i = 0; i < seasons[hem].length - 1; i++) {
       if (month >= seasons[hem][i][1] && month < seasons[hem][i + 1][1]) {
         return seasons[hem][i][0]
@@ -159,7 +159,7 @@ const methods = {
   //the year number
   year: function (num) {
     if (num !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       s.epoch = _year(s, num)
       return s
     }
@@ -169,10 +169,10 @@ const methods = {
   //bc/ad years
   era: function (str) {
     if (str !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       str = str.toLowerCase()
       //TODO: there is no year-0AD i think. may have off-by-1 error here
-      let year = s.d.getFullYear()
+      const year = s.d.getFullYear()
       //make '1992' into 1992bc..
       if (str === 'bc' && year > 0) {
         s.epoch = _year(s, year * -1)

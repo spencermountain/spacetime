@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('random november time', (t) => {
-  let epoch = 1510799750000 //november 15th 9:35pm 2017 EST
+  const epoch = 1510799750000 //november 15th 9:35pm 2017 EST
   // https://www.epochconverter.com/timezones?q=1510799750000
   const arr = [
     ['Asia/Kolkata', 'Thu 8:05am'],
@@ -30,8 +30,8 @@ test('random november time', (t) => {
     ['Africa/Khartoum', 'Thu 4:35am']
   ]
   arr.forEach((a) => {
-    let s = spacetime(epoch, a[0])
-    let have = `${s.format('day-short')} ${s.time()}`
+    const s = spacetime(epoch, a[0])
+    const have = `${s.format('day-short')} ${s.time()}`
     t.equal(a[1], have, a[0])
   })
   t.end()
@@ -39,7 +39,7 @@ test('random november time', (t) => {
 
 // copied from https://www.epochconverter.com/timezones?q=1520999750000
 test('random march time', (t) => {
-  let epoch = 1520999750000 //March 13, 2018 11:55pm
+  const epoch = 1520999750000 //March 13, 2018 11:55pm
   const arr = [
     ['Africa/Abidjan', 'Mar 14 2018 03:55:50'],
     ['Africa/Banjul', 'Mar 14 2018 03:55:50'],
@@ -61,12 +61,12 @@ test('random march time', (t) => {
     ['Pacific/Pohnpei', 'Mar 14 2018 14:55:50']
   ]
   arr.forEach((a) => {
-    let s = spacetime(epoch, a[0])
+    const s = spacetime(epoch, a[0])
     let hour = s.hour()
     if (hour <= 9) {
       hour = '0' + hour
     }
-    let have = `${s.format(
+    const have = `${s.format(
       'month-short'
     )} ${s.date()} ${s.year()} ${hour}:${s.minute()}:${s.seconds()}`
     t.equal(a[1], have, a[0])
@@ -76,7 +76,7 @@ test('random march time', (t) => {
 
 // https://www.epochconverter.com/timezones?q=1520999750000
 test('random july time', (t) => {
-  let epoch = 1500299750000
+  const epoch = 1500299750000
   const arr = [
     ['Africa/Abidjan', 'Jul 17 1:55pm'],
     ['America/Belem', 'Jul 17 10:55am'],
@@ -90,12 +90,12 @@ test('random july time', (t) => {
     ['Asia/Karachi', 'Jul 17 6:55pm']
   ]
   arr.forEach((a) => {
-    let s = spacetime(epoch, a[0])
+    const s = spacetime(epoch, a[0])
     let hour = s.hour()
     if (hour <= 9) {
       hour = '0' + hour
     }
-    let have = `${s.format('month-short')} ${s.date()} ${s.time()}`
+    const have = `${s.format('month-short')} ${s.date()} ${s.time()}`
     t.equal(a[1], have, a[0])
   })
   t.end()
@@ -103,7 +103,7 @@ test('random july time', (t) => {
 
 // https://www.epochconverter.com/timezones?q=1520999750000
 test('random january time', (t) => {
-  let epoch = 1580299750000
+  const epoch = 1580299750000
   const arr = [
     ['Africa/Abidjan', 'Jan 29 12:09pm'],
     ['America/Inuvik', 'Jan 29 5:09am'],
@@ -117,12 +117,12 @@ test('random january time', (t) => {
     ['Pacific/Pohnpei', 'Jan 29 11:09pm']
   ]
   arr.forEach((a) => {
-    let s = spacetime(epoch, a[0])
+    const s = spacetime(epoch, a[0])
     let hour = s.hour()
     if (hour <= 9) {
       hour = '0' + hour
     }
-    let have = `${s.format('month-short')} ${s.date()} ${s.time()}`
+    const have = `${s.format('month-short')} ${s.date()} ${s.time()}`
     t.equal(a[1], have, a[0])
   })
   t.end()

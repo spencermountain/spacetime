@@ -1,17 +1,17 @@
 import data from './_build.js'
 import prefixes from './_prefixes.js'
 
-let all = {}
+const all = {}
 Object.keys(data).forEach((k) => {
-  let split = k.split('|')
-  let obj = {
+  const split = k.split('|')
+  const obj = {
     offset: Number(split[0]),
     hem: split[1]
   }
   if (split[2]) {
     obj.dst = split[2]
   }
-  let names = data[k].split(',')
+  const names = data[k].split(',')
   names.forEach((str) => {
     str = str.replace(/(^[0-9]+)\//, (before, num) => {
       num = Number(num)

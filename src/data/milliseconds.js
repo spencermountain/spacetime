@@ -1,4 +1,4 @@
-let o = {
+const o = {
   millisecond: 1
 }
 o.second = 1000

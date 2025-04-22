@@ -1,4 +1,4 @@
-let loc = {
+const loc = {
   c009: 'antarctica',
   c011: 'arctic',
   c081: 'gmt',
@@ -7,7 +7,7 @@ let loc = {
   c245: 'zulu'
 }
 
-let firstDay = {
+const firstDay = {
   monday: {
     c002: 'aland islands',
     c003: 'albania',
@@ -254,7 +254,7 @@ let firstDay = {
 
 export default {
   countries: () => {
-    let arr = []
+    const arr = []
     Object.keys(firstDay).forEach(day => {
       Object.keys(firstDay[day]).forEach(country => {
         arr.push(firstDay[day][country])

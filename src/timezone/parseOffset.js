@@ -27,7 +27,7 @@ const parseOffset = function (tz) {
   // 'GMT-5' (not opposite)
   m = tz.match(gmtOffset)
   if (m !== null) {
-    let num = Number(m[1]) * -1
+    const num = Number(m[1]) * -1
     return toIana(num)
   }
   // '+5'

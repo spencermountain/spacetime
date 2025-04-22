@@ -31,7 +31,8 @@ const since = (start, end) => {
   let precise
   let direction = futureString()
 
-  let { rounded, qualified, englishValues, abbreviated } = soften(diff)
+  let { rounded, qualified } = soften(diff)
+  const { englishValues, abbreviated } = soften(diff)
 
   //make them into a string
   precise = englishValues.splice(0, 2).join(', ')
@@ -48,7 +49,7 @@ const since = (start, end) => {
   }
   // https://en.wikipedia.org/wiki/ISO_8601#Durations
   // P[n]Y[n]M[n]DT[n]H[n]M[n]S 
-  let iso = toISO(diff)
+  const iso = toISO(diff)
   return {
     diff,
     rounded,

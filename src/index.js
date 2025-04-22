@@ -6,7 +6,7 @@ const main = (input, tz, options) => new Spacetime(input, tz, options)
 
 // set all properties of a given 'today' object
 const setToday = function (s) {
-  let today = s._today || {}
+  const today = s._today || {}
   Object.keys(today).forEach((k) => {
     s = s[k](today[k])
   })
@@ -45,16 +45,16 @@ main.extend = function (obj = {}) {
   return this
 }
 main.timezones = function () {
-  let s = new Spacetime()
+  const s = new Spacetime()
   return s.timezones
 }
 main.max = function (tz, options) {
-  let s = new Spacetime(null, tz, options)
+  const s = new Spacetime(null, tz, options)
   s.epoch = 8640000000000000
   return s
 }
 main.min = function (tz, options) {
-  let s = new Spacetime(null, tz, options)
+  const s = new Spacetime(null, tz, options)
   s.epoch = -8640000000000000
   return s
 }

@@ -3,7 +3,7 @@ import spacetime from './lib/index.js'
 import tk from 'timekeeper'
 
 test('now-is-now', (t) => {
-  let time = new Date(1554092400000) // 4:20, april 1st 2019 GMT
+  const time = new Date(1554092400000) // 4:20, april 1st 2019 GMT
   tk.travel(time)
 
   let d = spacetime(null, 'Etc/GMT')
@@ -28,17 +28,17 @@ test('now-is-now', (t) => {
 })
 
 test('epoch-input', (t) => {
-  let gmt420 = 1554092400000 // 4:20, april 1st 2019 GMT
-  let time = new Date(gmt420)
+  const gmt420 = 1554092400000 // 4:20, april 1st 2019 GMT
+  const time = new Date(gmt420)
   tk.travel(time)
 
   let moved = spacetime.now('Etc/GMT') //4:20
   moved = moved.goto('Canada/Eastern')
 
-  let epoch = spacetime(gmt420, 'Canada/Eastern')
+  const epoch = spacetime(gmt420, 'Canada/Eastern')
   t.equal(moved.format('nice-short'), epoch.format('nice-short'), 'epoch input moves with goto')
 
-  let explicit = spacetime([2019, 3, 1, 0, 20], 'Canada/Eastern')
+  const explicit = spacetime([2019, 3, 1, 0, 20], 'Canada/Eastern')
   t.ok(explicit.isSame(epoch, 'minute'), 'explicit inputs==epoch inputs')
 
   tk.reset()

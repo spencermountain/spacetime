@@ -10,7 +10,7 @@ export default [
   {
     reg: /^([0-9]{4})[\-/]([0-9]{2})$/,
     parse: (s, m) => {
-      let obj = {
+      const obj = {
         year: m[1],
         month: parseInt(m[2], 10) - 1,
         date: 1
@@ -29,7 +29,7 @@ export default [
   {
     reg: /^([a-z]+) ([0-9]{4})$/i,
     parse: (s, arr) => {
-      let obj = {
+      const obj = {
         year: parseYear(arr[2], s._today),
         month: parseMonth(arr[1]),
         date: s._today.date || 1
@@ -48,7 +48,7 @@ export default [
     // 'q2 2002'
     reg: /^(q[0-9])( of)?( [0-9]{4})?/i,
     parse: (s, arr) => {
-      let quarter = arr[1] || ''
+      const quarter = arr[1] || ''
       s = s.quarter(quarter)
       let year = arr[3] || ''
       if (year) {
@@ -62,7 +62,7 @@ export default [
     // 'summer 2002'
     reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?/i,
     parse: (s, arr) => {
-      let season = arr[1] || ''
+      const season = arr[1] || ''
       s = s.season(season)
       let year = arr[3] || ''
       if (year) {
@@ -79,8 +79,8 @@ export default [
       let str = arr[0] || ''
       //make year-negative
       str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1')
-      let d = new Date()
-      let obj = {
+      const d = new Date()
+      const obj = {
         year: parseInt(str.trim(), 10),
         month: d.getMonth(),
         date: d.getDate()
@@ -101,8 +101,8 @@ export default [
       let str = arr[0] || ''
       //remove commas
       str = str.replace(/,/g, '')
-      let d = new Date()
-      let obj = {
+      const d = new Date()
+      const obj = {
         year: parseInt(str.trim(), 10),
         month: d.getMonth(),
         date: d.getDate()
@@ -120,13 +120,13 @@ export default [
     // '1992'
     reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
     parse: (s, arr) => {
-      let today = s._today
+      const today = s._today
       // using today's date, but a new month is awkward.
       if (today.month && !today.date) {
         today.date = 1
       }
-      let d = new Date()
-      let obj = {
+      const d = new Date()
+      const obj = {
         year: parseYear(arr[0], today),
         month: today.month || d.getMonth(),
         date: today.date || d.getDate()

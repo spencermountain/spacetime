@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('goForward [time]', (t) => {
-  let d = spacetime('march 17 2021').time('3:20pm')
+  const d = spacetime('march 17 2021').time('3:20pm')
   let s = d.time('2:32pm')
   t.equal(s.format('nice'), 'Mar 17th, 2:32pm', '[time] goForward=null bckwd')
   s = d.time('4:32pm')
@@ -22,7 +22,7 @@ test('goForward [time]', (t) => {
 })
 
 test('goForward ', (t) => {
-  let arr = [
+  const arr = [
     ['second', '8', '12'],
     ['minute', '4', '12'],
     ['hour', '3', '5'],
@@ -42,22 +42,22 @@ test('goForward ', (t) => {
     ['season', 'spring', 'fall']
   ]
   arr.forEach((a) => {
-    let fn = a[0]
-    let s = spacetime.now()[fn](a[1])
+    const fn = a[0]
+    const s = spacetime.now()[fn](a[1])
     // normal after
-    let after = s[fn](a[2])
+    const after = s[fn](a[2])
     t.equal(s.isBefore(after), true, `[${fn}] fwd-null`)
     // after-true
-    let fwd = s[fn](a[2], true)
+    const fwd = s[fn](a[2], true)
     t.equal(s.isBefore(fwd), true, `[${fn}] fwd`)
     // after-false (skip back)
-    let bkwd = s[fn](a[2], false)
+    const bkwd = s[fn](a[2], false)
     t.equal(s.isAfter(bkwd), true, `[${fn}] bkwd`)
 
     // after->before (definetly)
-    let before = after[fn](a[1], false)
+    const before = after[fn](a[1], false)
     t.equal(before.isBefore(after), true, `[${fn}] go-back-true`)
-    let notBefore = after[fn](a[1], true)
+    const notBefore = after[fn](a[1], true)
     t.equal(notBefore.isBefore(after), false, `[${fn}] go-back-false`)
   })
   t.end()
