@@ -41,15 +41,15 @@ const SpaceTime = function (input, tz, options = {}) {
   Object.defineProperty(this, 'd', {
     // return a js date object
     get: function () {
-      let offset = quickOffset(this)
+      const offset = quickOffset(this)
       // every computer is somewhere- get this computer's built-in offset
-      let bias = new Date(this.epoch).getTimezoneOffset() || 0
+      const bias = new Date(this.epoch).getTimezoneOffset() || 0
       // movement
       let shift = bias + (offset * 60) //in minutes
       shift = shift * 60 * 1000 //in ms
       // remove this computer's offset
-      let epoch = this.epoch + shift
-      let d = new Date(epoch)
+      const epoch = this.epoch + shift
+      const d = new Date(epoch)
       return d
     }
   })
@@ -62,7 +62,7 @@ const SpaceTime = function (input, tz, options = {}) {
     }
   })
   // parse the various formats
-  let tmp = handleInput(this, input)
+  const tmp = handleInput(this, input)
   this.epoch = tmp.epoch
   if (tmp.tz) {
     this.tz = tmp.tz

@@ -3,8 +3,8 @@ import spacetime from '../../../src/index.js'
 import dst from '../src.js'
 spacetime.extend(dst)
 
-let tz = 'Europe/Paris'
-let arr = [
+const tz = 'Europe/Paris'
+const arr = [
   [1980, 'April 6', 'September 28'],
   [1981, 'March 29', 'September 27'],
   [1982, 'March 28', 'September 26'],
@@ -49,11 +49,11 @@ let arr = [
 test('test paris-time', function (t) {
   arr.forEach((a) => {
     // let s=spacetime(a[1],tz).year(a[0])
-    let have = spacetime.now(tz).year(a[0]).dst()
-    let start = spacetime(have.start).format('{month} {date}')
+    const have = spacetime.now(tz).year(a[0]).dst()
+    const start = spacetime(have.start).format('{month} {date}')
     t.equal(start, a[1], '[start] ' + a[0])
 
-    let end = spacetime(have.end).format('{month} {date}')
+    const end = spacetime(have.end).format('{month} {date}')
     t.equal(end, a[2], '[end] ' + a[0])
   })
   t.end()

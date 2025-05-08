@@ -4,8 +4,8 @@ import spacetime from './lib/index.js'
 //https://en.wikipedia.org/wiki/ISO_8601
 //the zone designator would be "+01:00", "+0100", or simply "+01"
 test('set-offset-from-ISO-8601', (t) => {
-  let defaultTz = 'Canada/Eastern'
-  let arr = [
+  const defaultTz = 'Canada/Eastern'
+  const arr = [
     ['2017-04-03T08:00:00', defaultTz],
     ['2017-04-03T08:00:00-0700', 'Etc/GMT+7'],
     ['2017-04-03T08:00:00-1000', 'Etc/GMT+10'],
@@ -25,7 +25,7 @@ test('set-offset-from-ISO-8601', (t) => {
     ['2019-02-22T01:00:00+0530', 'Etc/GMT-5.5']
   ]
   arr.forEach((a) => {
-    let s = spacetime(a[0], defaultTz)
+    const s = spacetime(a[0], defaultTz)
     t.equal(s.timezone().name, a[1], a[0])
   })
 
@@ -33,7 +33,7 @@ test('set-offset-from-ISO-8601', (t) => {
 })
 
 test('offset-should-be-consistant', (t) => {
-  let s = spacetime('2019-03-13T18:00:00.000-05:00')
+  const s = spacetime('2019-03-13T18:00:00.000-05:00')
   t.equal(s.format('iso').slice(-6), '-05:00')
   t.end()
 })

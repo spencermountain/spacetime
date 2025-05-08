@@ -43,8 +43,8 @@ const parseOffset = (s, offset) => {
   if (num >= 0) {
     num = '+' + num
   }
-  let tz = 'etc/gmt' + num
-  let zones = s.timezones
+  const tz = 'etc/gmt' + num
+  const zones = s.timezones
 
   if (zones[tz]) {
     // log a warning if we're over-writing a given timezone?

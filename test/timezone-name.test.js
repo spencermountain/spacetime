@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('titlecase', (t) => {
-  let arr = [
+  const arr = [
     'Africa/Dar_es_Salaam',
     'Africa/Porto-Novo',
     'America/Blanc-Sablon',
@@ -18,7 +18,7 @@ test('titlecase', (t) => {
     'Etc/GMT+7',
   ]
   arr.forEach(tz => {
-    let s = spacetime.now(tz)
+    const s = spacetime.now(tz)
     t.equal(s.timezone().name, tz, tz)
   })
   t.end()

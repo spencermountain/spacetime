@@ -12,14 +12,14 @@ const whereIts = (a, b) => {
     end = start.add(59, 'minutes')
   }
 
-  let startHour = start.hour()
-  let endHour = end.hour()
-  let tzs = Object.keys(start.timezones).filter((tz) => {
+  const startHour = start.hour()
+  const endHour = end.hour()
+  const tzs = Object.keys(start.timezones).filter((tz) => {
     if (tz.indexOf('/') === -1) {
       return false
     }
-    let m = new Spacetime(null, tz)
-    let hour = m.hour()
+    const m = new Spacetime(null, tz)
+    const hour = m.hour()
     //do 'calendar-compare' not real-time-compare
     if (hour >= startHour && hour <= endHour) {
       //test minutes too, if applicable

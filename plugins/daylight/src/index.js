@@ -4,7 +4,7 @@ import sunPosition from './sunPosition.js'
 import solstice from './solstices.js' //equinox
 
 const setFrom = function (s, time) {
-  let d = new Date(time)
+  const d = new Date(time)
   // console.log(time)
   s = s.clone()
   s.epoch = d.getTime()
@@ -13,14 +13,14 @@ const setFrom = function (s, time) {
 
 const calculatePoint = function (s, lat, lng, field) {
   if (lat === undefined || lng === undefined) {
-    let guess = s.point()
+    const guess = s.point()
     lat = guess.lat
     lng = guess.lng
   }
   s.in = s.in || spacetimeGeo.in //bolt-on the plugin
   s = s.in(lat, lng)
-  let d = new Date(s.epoch)
-  let res = sunCalc.getTimes(d, lat, lng)
+  const d = new Date(s.epoch)
+  const res = sunCalc.getTimes(d, lat, lng)
   return setFrom(s, res[field])
 }
 
@@ -57,25 +57,25 @@ export default {
     return calculatePoint(this, lat, lng, 'dusk')
   },
   daylight: function (lat, lng) {
-    let sunrise = this.sunrise(lat, lng)
-    let sunset = this.sunset(lat, lng)
-    let delta = sunset.since(sunrise)
+    const sunrise = this.sunrise(lat, lng)
+    const sunset = this.sunset(lat, lng)
+    const delta = sunset.since(sunrise)
     //clean this up a bit
-    let duration = {
+    const duration = {
       hours: delta.diff.hours,
       minutes: delta.diff.minutes,
       seconds: delta.diff.seconds,
     }
-    let diff = sunrise.diff(sunset)
+    const diff = sunrise.diff(sunset)
     diff.seconds = parseInt((sunset.epoch - sunrise.epoch) / 1000, 10)
 
-    let now = sunrise.diff(this)
+    const now = sunrise.diff(this)
     now.seconds = parseInt((this.epoch - sunrise.epoch) / 1000, 10)
 
     let progress = now.seconds / diff.seconds
     let status = 'day'
-    let dawn = this.dawn()
-    let dusk = this.dusk()
+    const dawn = this.dawn()
+    const dusk = this.dusk()
     if (progress < 0) {
       progress = 0
       if (this.epoch > dawn.epoch) {

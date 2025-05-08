@@ -1,6 +1,6 @@
 // https://www.timeanddate.com/calendar/determining-easter-date.html
 
-let dates = {
+const dates = {
   easter: 0,
   'ash wednesday': -46, // (46 days before easter)
   'palm sunday': 7, // (1 week before easter)

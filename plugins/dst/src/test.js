@@ -13,9 +13,9 @@ const pad = (num) => {
 // test spacetime version
 Object.keys(zones).forEach(k => {
   if (zones[k].dst) {
-    let pattern = patterns[zones[k].pattern]
-    let start = fromSpace(pattern.start, 2022)
-    let end = fromSpace(pattern.end, 2022)
+    const pattern = patterns[zones[k].pattern]
+    const start = fromSpace(pattern.start, 2022)
+    const end = fromSpace(pattern.end, 2022)
     let dst = `${pad(start.month() + 1)}/${pad(start.date())}:${pad(pattern.start.hour)}->`
     dst += `${pad(end.month() + 1)}/${pad(end.date())}:${pad(pattern.end.hour)}`
     // console.log(k, pattern)

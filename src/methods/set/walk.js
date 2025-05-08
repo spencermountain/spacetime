@@ -3,14 +3,14 @@ import ms from '../../data/milliseconds.js'
 
 //basically, step-forward/backward until js Date object says we're there.
 const walk = (s, n, fn, unit, previous) => {
-  let current = s.d[fn]()
+  const current = s.d[fn]()
   if (current === n) {
     return //already there
   }
-  let startUnit = previous === null ? null : s.d[previous]()
-  let original = s.epoch
+  const startUnit = previous === null ? null : s.d[previous]()
+  const original = s.epoch
   //try to get it as close as we can
-  let diff = n - current
+  const diff = n - current
   s.epoch += ms[unit] * diff
   //DST edge-case: if we are going many days, be a little conservative
   // console.log(unit, diff)
@@ -52,15 +52,15 @@ const units = {
   month: {
     valid: (n) => n >= 0 && n <= 11,
     walkTo: (s, n) => {
-      let d = s.d
-      let current = d.getMonth()
-      let original = s.epoch
-      let startUnit = d.getFullYear()
+      const d = s.d
+      const current = d.getMonth()
+      const original = s.epoch
+      const startUnit = d.getFullYear()
       if (current === n) {
         return
       }
       //try to get it as close as we can..
-      let diff = n - current
+      const diff = n - current
       s.epoch += ms.day * (diff * 28) //special case
       //oops, did we change the year? revert it.
       if (startUnit !== s.d.getFullYear()) {
@@ -104,10 +104,10 @@ const units = {
 }
 
 const walkTo = (s, wants) => {
-  let keys = Object.keys(units)
-  let old = s.clone()
+  const keys = Object.keys(units)
+  const old = s.clone()
   for (let i = 0; i < keys.length; i++) {
-    let k = keys[i]
+    const k = keys[i]
     let n = wants[k]
     if (n === undefined) {
       n = old[k]()

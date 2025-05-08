@@ -9,7 +9,7 @@ test('intl-node ', (t) => {
     arr = Intl.supportedValuesOf('timeZone')
   }
   arr.forEach((tz) => {
-    let d = spacetime.now(tz)
+    const d = spacetime.now(tz)
     t.ok(d.isValid(), here + tz)
   })
 
@@ -20,7 +20,7 @@ test('intl-node ', (t) => {
 
 test('intl-firefox', (t) => {
   //results of Intl.supportedValuesOf('timeZone') Aug 2023
-  let arr = [
+  const arr = [
     'Africa/Abidjan',
     'Africa/Accra',
     'Africa/Addis_Ababa',
@@ -492,7 +492,7 @@ test('intl-firefox', (t) => {
     'WET'
   ]
   arr.forEach((tz) => {
-    let d = spacetime.now(tz)
+    const d = spacetime.now(tz)
     t.ok(d.isValid(), here + tz)
   })
   t.end()

@@ -67,7 +67,7 @@ test('add', (t) => {
 
 test('adding 0 changes nothing', (t) => {
   let s = spacetime.now()
-  let a = s.clone()
+  const a = s.clone()
   s = s.add(0, 'month')
   s = s.add(0, 'day')
   s = s.add(0, 'week')
@@ -79,7 +79,7 @@ test('adding 0 changes nothing', (t) => {
   t.equal(s.epoch, a.epoch, 'time-didnt change')
 
   s = spacetime('dec 25 2018')
-  let before = s.format('nice-year')
+  const before = s.format('nice-year')
   s = s.add(0, 'years')
   t.equal(s.format('nice-year'), before, 'year didnt change')
   t.end()
@@ -149,13 +149,13 @@ test('add-30-years', (t) => {
 })
 
 test('year-tricky', (t) => {
-  let s = spacetime(1451667600000, 'Canada/Eastern') //jan 1 2016 (leap year)
+  const s = spacetime(1451667600000, 'Canada/Eastern') //jan 1 2016 (leap year)
   t.equal(s.year(), 2016, 'year1')
 
-  let a = s.clone().add(1, 'year')
+  const a = s.clone().add(1, 'year')
   t.equal(a.year(), 2017, 'year-next')
 
-  let b = s.clone().subtract(1, 'year')
+  const b = s.clone().subtract(1, 'year')
   t.equal(b.year(), 2015, 'year-last')
   t.end()
 })

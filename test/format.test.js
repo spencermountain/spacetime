@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('to-from utc-format', (t) => {
-  let arr = [
+  const arr = [
     '1998-05-01T08:00:00.000Z',
     '1998-05-30T22:00:00.000Z',
     '2017-01-01T08:00:00.000Z',
@@ -31,20 +31,20 @@ test('to-from utc-format', (t) => {
     '-002345-05-04T23:12:01.970Z'
   ]
   arr.forEach((str) => {
-    let s = spacetime(str)
-    let out = s.format('iso')
+    const s = spacetime(str)
+    const out = s.format('iso')
     t.equal(str, out, 'equal - ' + str)
   })
 
-  let str = '2016-01-01T09:00:00.122Z'
-  let s = spacetime(str, 'Canada/Eastern')
+  const str = '2016-01-01T09:00:00.122Z'
+  const s = spacetime(str, 'Canada/Eastern')
   t.equal(s.format('iso'), str, 'input matches output')
 
   t.end()
 })
 
 test('unix-formatting', (t) => {
-  let epoch = 1510850065194
+  const epoch = 1510850065194
   let s = spacetime(epoch, 'Canada/Eastern')
   //examples from http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
   let arr = [
@@ -98,22 +98,22 @@ test('bc-year-formatting', (t) => {
 
 test('iso-in = iso-out', (t) => {
   let str = '2018-07-09T12:59:00.362-07:00'
-  let minus = spacetime(str)
+  const minus = spacetime(str)
   t.equal(minus.format('iso'), str, 'minus-seven')
 
   str = '2018-07-09T12:59:00.000+07:00'
-  let plus = spacetime(str)
+  const plus = spacetime(str)
   t.equal(plus.format('iso'), str, 'plus-seven')
 
   str = '2018-07-09T12:59:00.393Z'
-  let zero = spacetime(str)
+  const zero = spacetime(str)
   t.equal(zero.format('iso'), str, 'zulu')
 
   t.end()
 })
 
 test('iso-with-fraction-offset', (t) => {
-  let s = spacetime('June 8th 1918', 'Asia/Calcutta').time('1:00pm')
+  const s = spacetime('June 8th 1918', 'Asia/Calcutta').time('1:00pm')
   t.equal(s.format('iso'), '1918-06-08T13:00:00.000+05:30', 'correct offset')
   t.end()
 })
@@ -131,7 +131,7 @@ test('hour-pad', (t) => {
 test('made-up-syntax', (t) => {
   let s = spacetime('June 8th 1918', 'Asia/Calcutta')
   s = s.time('4:45pm')
-  let arr = [
+  const arr = [
     ['month', 'June'],
     ['{month}', 'June'],
     ['{month} {hour}:{minute}{ampm}', 'June 4:45pm'],
@@ -144,8 +144,8 @@ test('made-up-syntax', (t) => {
 })
 
 test('test 0-based formatting', (t) => {
-  let s = spacetime('January 4 2017').time('12:01am')
-  let out = s.format('{month} {month-number} {month-pad} {month-iso} {hour-24}')
+  const s = spacetime('January 4 2017').time('12:01am')
+  const out = s.format('{month} {month-number} {month-pad} {month-iso} {hour-24}')
   t.equal(out, 'January 0 00 01 0', '0-based and 1-based months')
   t.end()
 })
@@ -191,7 +191,7 @@ test('unix-year-padding', t => {
 test('am-pm-variants', (t) => {
   let s = spacetime('January 1, 2023')
   s = s.time('4:45pm')
-  let arr = [
+  const arr = [
     ['{hour}:{minute}{ampm}', '4:45pm'],
     ['{hour}:{minute}{AMPM}', '4:45PM'],
     ['{hour}:{minute}{AMPM }', '4:45PM'],
@@ -208,7 +208,7 @@ test('SQL ISO 9075', (t) => {
   s = s.time('4:45pm')
   t.equal(s.format('sql'), '2023-01-01 16:45:00')
 
-  let sql = '2021-11-20 01:01:02'
+  const sql = '2021-11-20 01:01:02'
   t.equal(spacetime(sql).format('sql'), sql, 'in-out-sql')
   t.end()
 })

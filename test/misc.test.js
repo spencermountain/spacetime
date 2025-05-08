@@ -27,8 +27,8 @@ test('asleep-test', (t) => {
 })
 
 test('named-dates', (t) => {
-  let christmas = spacetime('christmas', 'Canada/Eastern')
-  let newYears = spacetime('new years', 'Canada/Eastern')
+  const christmas = spacetime('christmas', 'Canada/Eastern')
+  const newYears = spacetime('new years', 'Canada/Eastern')
   t.equal(christmas.isBefore(newYears), true, 'christmas-is-before-new-years')
   t.end()
 })
@@ -99,9 +99,9 @@ test('week number', (t) => {
 })
 
 test('json', (t) => {
-  let s = spacetime('2019-11-05T11:01:03.030-03:00')
-  let json = s.format('json')
-  let want = {
+  const s = spacetime('2019-11-05T11:01:03.030-03:00')
+  const json = s.format('json')
+  const want = {
     century: 21,
     decade: 2010,
     year: 2019,
@@ -120,7 +120,7 @@ test('json', (t) => {
 })
 
 test('set-time rollover dst', (t) => {
-  let s = spacetime('6 October 2019', 'australia/sydney').time('4:20am')
+  const s = spacetime('6 October 2019', 'australia/sydney').time('4:20am')
   t.equal(s.date(), 6, 'still the 6th')
   t.equal(s.time(), '4:20am', 'correct time')
   t.end()
@@ -134,15 +134,15 @@ test('day aliases', (t) => {
   t.end()
 })
 test('add fortnight', (t) => {
-  let s = spacetime()
-  let a = s.clone().add(2, 'fortnight')
-  let b = s.clone().add(4, 'weeks')
+  const s = spacetime()
+  const a = s.clone().add(2, 'fortnight')
+  const b = s.clone().add(4, 'weeks')
   t.equal(a.iso(), b.iso(), 'fortnight')
   t.end()
 })
 
 test('test floats as inputs', (t) => {
-  let num = 0.5
+  const num = 0.5
   let s = spacetime(null)
   s = s.date(num)
   s = s.hour(num)
@@ -172,23 +172,23 @@ test('apostrophe year', (t) => {
 })
 
 test('weird inputs', (t) => {
-  let now = spacetime.now().add(1, 'millisecond')
-  let isNull = spacetime(null)
+  const now = spacetime.now().add(1, 'millisecond')
+  const isNull = spacetime(null)
   t.ok(isNull.isSame(now, 'hour'), 'null input')
-  let isUndefined = spacetime(undefined)
+  const isUndefined = spacetime(undefined)
   t.ok(isUndefined.isSame(now, 'hour'), 'Undefined input')
-  let isFalse = spacetime(false)
+  const isFalse = spacetime(false)
   t.ok(isFalse.isSame(now, 'hour'), 'isFalse input')
-  let isObj = spacetime({})
+  const isObj = spacetime({})
   t.ok(isObj.isSame(now, 'hour'), 'isObj input')
-  let isArr = spacetime([])
+  const isArr = spacetime([])
   t.ok(isArr.isSame(now, 'hour'), 'isArr input')
   t.end()
 })
 
 test('min < max', (t) => {
-  let min = spacetime.min('Canada/Pacific')
-  let max = spacetime.max('Canada/Eastern')
+  const min = spacetime.min('Canada/Pacific')
+  const max = spacetime.max('Canada/Eastern')
   t.ok(min.isBefore(max), 'min < max')
   t.end()
 })

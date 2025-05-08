@@ -1,4 +1,4 @@
-let dates = {
+const dates = {
   // Muslim holidays
   'isra and miraj': 'april 13',
   'lailat al-qadr': 'june 10',

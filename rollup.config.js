@@ -5,8 +5,8 @@ import resolve from 'rollup-plugin-node-resolve'
 import sizeCheck from 'rollup-plugin-filesize-check'
 import fs from 'fs'
 
-let pkg = JSON.parse(fs.readFileSync('./package.json').toString())
-let version = pkg.version
+const pkg = JSON.parse(fs.readFileSync('./package.json').toString())
+const version = pkg.version
 console.log('\n 📦  - running rollup..\n')
 
 const banner = '/* spencermountain/spacetime ' + version + ' Apache 2.0 */'

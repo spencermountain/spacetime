@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetimeHoliday from './_lib.js'
 
 test('fixed-holidays', (t) => {
-  let arr = [
+  const arr = [
     ['christmas', '2019-12-25'],
     ['christmas day', '2019-12-25'],
     [' CHRISTMAS  ', '2019-12-25'],
@@ -10,7 +10,7 @@ test('fixed-holidays', (t) => {
     ['christmas eve', '2019-12-24']
   ]
   arr.forEach((a) => {
-    let s = spacetimeHoliday(a[0], 2019)
+    const s = spacetimeHoliday(a[0], 2019)
     t.equal(s.format('iso-short'), a[1], a[0])
   })
   t.end()
@@ -30,7 +30,7 @@ test('calendar-holidays', (t) => {
 })
 
 test('easter-holidays 2020', (t) => {
-  let arr = [
+  const arr = [
     ['easter', 'Apr 12th, 2020'],
     ['easter monday', 'Apr 13th, 2020'],
     ['easter sunday  ', 'Apr 12th, 2020'],
@@ -38,20 +38,20 @@ test('easter-holidays 2020', (t) => {
     // ['lent', 'Feb 26th, 2020']
   ]
   arr.forEach((a) => {
-    let s = spacetimeHoliday(a[0], 2020)
+    const s = spacetimeHoliday(a[0], 2020)
     t.equal(s.format('nice-year'), a[1], a[0])
   })
   t.end()
 })
 
 test('astronomical-holidays 2020', (t) => {
-  let arr = [
+  const arr = [
     ['spring equinox', 'Mar 20th, 2020'],
     ['june solstice', 'Jun 20th, 2020'],
     ['winter solstice  ', 'Dec 21st, 2020']
   ]
   arr.forEach((a) => {
-    let s = spacetimeHoliday(a[0], 2020)
+    const s = spacetimeHoliday(a[0], 2020)
     t.equal(s.format('nice-year'), a[1], a[0])
   })
   t.end()
@@ -67,16 +67,16 @@ test('astronomical-holidays 2020', (t) => {
 // })
 
 test('no dates', (t) => {
-  let arr = ['eassdfter', '', null, '  ', 234, 'june']
+  const arr = ['eassdfter', '', null, '  ', 234, 'june']
   arr.forEach((a) => {
-    let s = spacetimeHoliday(a, 2020)
+    const s = spacetimeHoliday(a, 2020)
     t.equal(s, null, a)
   })
   t.end()
 })
 
 test('pass timezone', (t) => {
-  let s = spacetimeHoliday('ramadan', 2019, 'Canada/Pacific')
+  const s = spacetimeHoliday('ramadan', 2019, 'Canada/Pacific')
   t.equal(s.timezone().name, 'Canada/Pacific', 'passed timezone')
   t.end()
 })

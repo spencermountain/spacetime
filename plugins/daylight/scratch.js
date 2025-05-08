@@ -7,7 +7,7 @@ import sunlight from './src/index.js'
 spacetime.extend(sunlight)
 
 // let s = spacetime.today('America/Iqaluit').time('3:00am')
-let s = spacetime.today('america/argentina/comodrivadavia')
+const s = spacetime.today('america/argentina/comodrivadavia')
 // let s = spacetime.today('America/Havana').time('3:00am')
 
 // ---day---

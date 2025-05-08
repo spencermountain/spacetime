@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('first week', (t) => {
-  let arr = [
+  const arr = [
     { "year": 2019, "w1": "2018-12-31" },
     { "year": 2020, "w1": "2019-12-30" },
     { "year": 2021, "w1": "2021-01-04" },
@@ -36,7 +36,7 @@ test('first week', (t) => {
 
 test('jan 1 is always first week', (t) => {
   for (let year = 1950; year < 2070; year += 1) {
-    let s = spacetime(`${year}-01-01`);
+    const s = spacetime(`${year}-01-01`);
     t.equal(year, s.year(), year + ' year')
     t.equal(s.week(), 1, year + ' week')
   }
@@ -45,7 +45,7 @@ test('jan 1 is always first week', (t) => {
 
 
 test('week input=output more-years', (t) => {
-  let years = [2024, 2025, 2026, 1984, 1999, 2018, 2022]
+  const years = [2024, 2025, 2026, 1984, 1999, 2018, 2022]
   years.forEach((year) => {
     for (let w = 1; w < 52; w += 1) {
       const date = spacetime.now().year(year).week(w);
@@ -76,7 +76,7 @@ test('week input=output current-uear', (t) => {
 
 
 test('week 1 stays week 1', (t) => {
-  let isos = [
+  const isos = [
     '2014-12-29',//monday
     '2014-12-30',//tues
     '2014-12-31',//wed

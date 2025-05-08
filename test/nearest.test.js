@@ -2,10 +2,10 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('nearest', (t) => {
-  let s = spacetime('jan 2 2019', 'Canada/Eastern')
-  let month = s.nearest('month')
-  let year = s.nearest('year')
-  let quarter = s.nearest('quarter')
+  const s = spacetime('jan 2 2019', 'Canada/Eastern')
+  const month = s.nearest('month')
+  const year = s.nearest('year')
+  const quarter = s.nearest('quarter')
   t.equal(month.format('iso'), year.format('iso'), 'nearest year=nearest month')
   t.equal(quarter.format('iso'), year.format('iso'), 'nearest quarter=nearest month')
   t.end()
@@ -14,7 +14,7 @@ test('nearest', (t) => {
 test('nearest-time', (t) => {
   let s = spacetime('feb 20 2017', 'Canada/Pacific')
   s = s.time('3:29am')
-  let hour = s.nearest('hour')
+  const hour = s.nearest('hour')
   t.equal(hour.format('time'), '3:00am', 'close-call nearest-hour')
   t.end()
 })

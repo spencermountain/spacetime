@@ -135,7 +135,7 @@ const escapeChars = function (arr) {
 //combine consecutive chars, like 'yyyy' as one.
 const combineRepeated = function (arr) {
   for (let i = 0; i < arr.length; i += 1) {
-    let c = arr[i]
+    const c = arr[i]
     // greedy-forward
     for (let o = i + 1; o < arr.length; o += 1) {
       if (arr[o] === c) {

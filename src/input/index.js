@@ -21,7 +21,7 @@ const defaults = {
 
 //find the epoch from different input styles
 const parseInput = (s, input) => {
-  let today = s._today || defaults
+  const today = s._today || defaults
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
     return parseNumber(s, input)
@@ -30,7 +30,7 @@ const parseInput = (s, input) => {
   s.epoch = Date.now()
   // overwrite tmp time with 'today' value, if exists
   if (s._today && isObject(s._today) && Object.keys(s._today).length > 0) {
-    let res = parseObject(s, today)
+    const res = parseObject(s, today)
     if (res.isValid()) {
       s.epoch = res.epoch
     }
@@ -57,7 +57,7 @@ const parseInput = (s, input) => {
       s.tz = input.tz
       return s
     }
-    let obj = Object.assign({}, input, today)
+    const obj = Object.assign({}, input, today)
     s = parseObject(s, obj)
     return s
   }

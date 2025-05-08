@@ -14,15 +14,15 @@ keys = keys.filter((k) => !zones[k].dst)
 keys = keys.filter((k) => zones[k].hem === 's')
 // keys = keys.map((k) => titleCase(k))
 
-let byOffset = {}
+const byOffset = {}
 keys.forEach((k) => {
-  let off = '' + zones[k].offset
+  const off = '' + zones[k].offset
   byOffset[off] = byOffset[off] || []
-  let id = titleCase(k)
+  const id = titleCase(k)
   byOffset[off].push(id)
 })
 
-let res = {}
+const res = {}
 let nums = Object.keys(byOffset)
 nums = nums.sort((a, b) => {
   if (a > b) {

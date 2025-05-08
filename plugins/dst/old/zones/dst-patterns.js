@@ -275,6 +275,6 @@ export default [
     end: {}
   }
 ]
-let arr = module.exports
+const arr = module.exports
 console.log(arr.length)
 console.log(arr.filter((s) => Object.keys(s).length > 0).length)

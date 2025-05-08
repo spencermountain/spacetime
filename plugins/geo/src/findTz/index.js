@@ -28,7 +28,7 @@ const findTz = function (geo, b) {
     lat = geo[0]
     lng = geo[1]
   } else if (isString(geo) === true) {
-    let arr = geo.split(/[,/]/)
+    const arr = geo.split(/[,/]/)
     lat = arr[0].trim()
     lng = arr[1].trim()
   } else if (isObject(geo) === true) {
@@ -46,7 +46,7 @@ const findTz = function (geo, b) {
     console.warn('Invalid longitude: ' + lng)
     return this
   }
-  let tz = tzlookup(lat, lng)
+  const tz = tzlookup(lat, lng)
   if (!tz) {
     console.warn('Found no timezone for ' + lat + ', ' + lng)
     return this

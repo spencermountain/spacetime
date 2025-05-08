@@ -1,5 +1,5 @@
 // these are properly calculated in ./lib/seasons
-let dates = {
+const dates = {
   'spring equinox': 'spring',
   'summer solistice': 'summer',
   'fall equinox': 'fall',

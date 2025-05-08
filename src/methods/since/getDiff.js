@@ -17,7 +17,7 @@ function getDiff(a, b) {
     if (earlier.isSame(later, unit)) {
       return
     }
-    let max = earlier.diff(later, unit)
+    const max = earlier.diff(later, unit)
     earlier = earlier.add(max, unit)
     diff[unit] = max
   })

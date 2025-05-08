@@ -8,11 +8,11 @@ const safeIntl = () => {
   if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
     return null
   }
-  let format = Intl.DateTimeFormat()
+  const format = Intl.DateTimeFormat()
   if (typeof format === 'undefined' || typeof format.resolvedOptions === 'undefined') {
     return null
   }
-  let timezone = format.resolvedOptions().timeZone
+  const timezone = format.resolvedOptions().timeZone
   if (!timezone) {
     return null
   }
@@ -20,7 +20,7 @@ const safeIntl = () => {
 }
 
 const guessTz = () => {
-  let timezone = safeIntl()
+  const timezone = safeIntl()
   if (timezone === null) {
     return fallbackTZ
   }

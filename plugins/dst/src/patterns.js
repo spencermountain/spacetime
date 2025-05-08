@@ -2,7 +2,7 @@
 // for example, the US changes:
 // the second Sunday of March -> first Sunday of November
 // http://www.webexhibits.org/daylightsaving/g.html
-let zones = {
+const zones = {
   usa: '2nd-sun-mar-2h|1st-sun-nov-2h',// (From 1987 to 2006)
   // mexico
   mex: '1st-sun-apr-2h|last-sun-oct-2h',
@@ -77,8 +77,8 @@ const parse = function (str) {
 }
 
 Object.keys(zones).forEach(k => {
-  let str = zones[k]
-  let [start, end] = str.split(/\|/)
+  const str = zones[k]
+  const [start, end] = str.split(/\|/)
   zones[k] = {
     start: parse(start),
     end: parse(end),

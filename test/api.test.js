@@ -4,7 +4,7 @@ import api from '../api/index.js'
 
 test('test main methods', (t) => {
   Object.keys(api.main).forEach((k) => {
-    let s = spacetime('1998-03-28')
+    const s = spacetime('1998-03-28')
     s[k]()
     t.ok(true, k)
   })
@@ -13,7 +13,7 @@ test('test main methods', (t) => {
 
 test('test getter methods', (t) => {
   Object.keys(api.getters).forEach((k) => {
-    let s = spacetime('1998-03-28')
+    const s = spacetime('1998-03-28')
     s[k]()
     t.ok(true, k)
   })
@@ -27,7 +27,7 @@ test('test util methods', (t) => {
       t.ok(true, k)
       return
     }
-    let s = spacetime('1998-03-28')
+    const s = spacetime('1998-03-28')
     s[k]()
     t.ok(true, k)
   })

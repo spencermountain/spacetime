@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('json in-out', (t) => {
-  let arr = [
+  const arr = [
     '2011-12-03T10:15:30.003+01:00',
     '2011-12-03T10:15:30.003Z',
     '2020-03-20T22:15:33.645-04:00',
@@ -11,11 +11,11 @@ test('json in-out', (t) => {
     '2023-06-15T12:30:00.000-07:00'
   ]
   arr.forEach(str => {
-    let a = spacetime(str)
-    let json = a.json()
-    let b = spacetime(json)
+    const a = spacetime(str)
+    const json = a.json()
+    const b = spacetime(json)
     t.equal(b.format('iso'), str, 'constr json' + str)
-    let c = spacetime.now().json(json)
+    const c = spacetime.now().json(json)
     t.equal(c.format('iso'), str, 'json input' + str)
   })
   t.end()

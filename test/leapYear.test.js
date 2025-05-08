@@ -29,7 +29,7 @@ test('leapyear-basic', (t) => {
 
 test('leapyear-in-add', (t) => {
   let d = spacetime('December 1, 2000 20:42:00', 'Africa/Algiers')
-  let first = d.clone()
+  const first = d.clone()
 
   d = d.add(365, 'day')
   t.equal(d.leapYear(), false, 'not-leap-1')
@@ -61,7 +61,7 @@ test('add-1-day-adds-25-hours', (t) => {
 })
 
 test('feb-29th-exists', (t) => {
-  let leaps = [2004, 2008, 2012, 2016, 2020, 2024]
+  const leaps = [2004, 2008, 2012, 2016, 2020, 2024]
   leaps.forEach((y) => {
     //feb 28th 11:30pm
     let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers')
@@ -76,7 +76,7 @@ test('feb-29th-exists', (t) => {
 })
 
 test('feb-29th-doesnt-exist', (t) => {
-  let noLeaps = [2005, 2009, 2010, 2011, 2013, 2017, 2019, 2021]
+  const noLeaps = [2005, 2009, 2010, 2011, 2013, 2017, 2019, 2021]
   noLeaps.forEach((y) => {
     //feb 28th 11:30pm
     let s = spacetime([y, 1, 28, 23, 30], 'Africa/Algiers')
@@ -91,7 +91,7 @@ test('feb-29th-doesnt-exist', (t) => {
 })
 
 test('length of year', (t) => {
-  let right = {
+  const right = {
     2014: 365,
     2015: 365,
     2016: 366,
@@ -109,8 +109,8 @@ test('length of year', (t) => {
     2028: 366
   }
   for (let i = 0; i < 15; i++) {
-    let year = 2014 + i
-    let s = spacetime({
+    const year = 2014 + i
+    const s = spacetime({
       year
     }).endOf('year')
     t.equal(s.dayOfYear(), right[year], 'year ' + year)

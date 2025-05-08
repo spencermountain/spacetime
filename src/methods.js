@@ -38,7 +38,7 @@ const methods = {
   timezone: function (tz) {
     // hot-swap the timezone, to avoid time-change 
     if (tz !== undefined) {
-      let json = this.json()
+      const json = this.json()
       json.timezone = tz
       return this.set(json, tz)
     }
@@ -69,7 +69,7 @@ const methods = {
     return _endOf(this, unit)
   },
   leapYear: function () {
-    let year = this.year()
+    const year = this.year()
     return isLeapYear(year)
   },
   progress: function (unit) {
@@ -88,12 +88,12 @@ const methods = {
     return since(this, d)
   },
   next: function (unit) {
-    let s = this.add(1, unit)
+    const s = this.add(1, unit)
     return s.startOf(unit)
   },
   //the start of the previous year/week/century
   last: function (unit) {
-    let s = this.subtract(1, unit)
+    const s = this.subtract(1, unit)
     return s.startOf(unit)
   },
   isValid: function () {
@@ -105,7 +105,7 @@ const methods = {
   },
   //travel to this timezone
   goto: function (tz) {
-    let s = this.clone()
+    const s = this.clone()
     s.tz = findTz(tz, s.timezones) //science!
     return s
   },
@@ -113,14 +113,14 @@ const methods = {
   every: function (unit, to, stepCount) {
     // allow swapping these params:
     if (typeof unit === 'object' && typeof to === 'string') {
-      let tmp = to
+      const tmp = to
       to = unit
       unit = tmp
     }
     return every(this, unit, to, stepCount)
   },
   isAwake: function () {
-    let hour = this.hour()
+    const hour = this.hour()
     //10pm -> 8am
     if (hour < 8 || hour > 22) {
       return false
@@ -179,7 +179,7 @@ const methods = {
         s.tz = input.timezone
       }
       for (let i = 0; i < units.length; i++) {
-        let unit = units[i]
+        const unit = units[i]
         if (input[unit] !== undefined) {
           s = s[unit](input[unit])
         }
@@ -187,7 +187,7 @@ const methods = {
       return s
     }
     // produce json output
-    let obj = units.reduce((h, unit) => {
+    const obj = units.reduce((h, unit) => {
       h[unit] = this[unit]()
       return h
     }, {})
@@ -196,7 +196,7 @@ const methods = {
     return obj
   },
   debug: function () {
-    let tz = this.timezone()
+    const tz = this.timezone()
     let date = this.format('MM') + ' ' + this.format('date-ordinal') + ' ' + this.year()
     date += '\n     - ' + this.format('time')
     console.log('\n\n', date + '\n     - ' + tz.name + ' (' + tz.current.offset + ')')
@@ -208,7 +208,7 @@ const methods = {
     return d.since(this)
   },
   fromNow: function () {
-    let d = this.clone().set(Date.now())
+    const d = this.clone().set(Date.now())
     return d.since(this)
   },
   weekStart: function (input) {

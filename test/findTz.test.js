@@ -37,7 +37,7 @@ test('whereits', (t) => {
 })
 
 test('get all timezones method', (t) => {
-  let obj = spacetime.timezones()
+  const obj = spacetime.timezones()
   t.ok(Object.keys(obj).length > 60, 'got a lot of timezones')
   t.equal(
     typeof obj['america/st_vincent'].offset,

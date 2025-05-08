@@ -7,7 +7,7 @@ import { version } from './package.json'
 
 console.log('\n 📦  - running rollup..\n')
 
-let name = 'spacetime-week-of-month'
+const name = 'spacetime-week-of-month'
 const banner = `/* spencermountain/${name} ` + version + ' Apache 2.0 */'
 
 export default [

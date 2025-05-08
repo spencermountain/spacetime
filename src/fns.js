@@ -7,7 +7,7 @@ export function isObject(input) { return Object.prototype.toString.call(input) =
 export function isBoolean(input) { return Object.prototype.toString.call(input) === '[object Boolean]' }
 
 export function zeroPad(str, len = 2) {
-  let pad = '0'
+  const pad = '0'
   str = str + ''
   return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str
 }
@@ -20,8 +20,8 @@ export function titleCase(str) {
 }
 
 export function ordinal(i) {
-  let j = i % 10
-  let k = i % 100
+  const j = i % 10
+  const k = i % 100
   if (j === 1 && k !== 11) {
     return i + 'st'
   }

@@ -81,8 +81,8 @@ test('end of day', (t) => {
 })
 
 test('end of decade', (t) => {
-  let a = spacetime('Nov 23 1999').endOf('decade')
-  let b = spacetime('Nov 12 1992').endOf('decade')
+  const a = spacetime('Nov 23 1999').endOf('decade')
+  const b = spacetime('Nov 12 1992').endOf('decade')
   t.equal(a.epoch, b.epoch, 'both same time')
   t.equal(a.format('month'), 'December', 'December')
   t.equal(b.date(), 31, 'is new-years')
@@ -91,22 +91,22 @@ test('end of decade', (t) => {
 })
 
 test('start-end are idempodent', (t) => {
-  let units = ['day', 'week', 'month', 'quarter', 'season', 'year']
+  const units = ['day', 'week', 'month', 'quarter', 'season', 'year']
   units.forEach((unit) => {
-    let s = spacetime('December 31, 1999 23:59:58', 'Africa/Algiers')
-    let a = s.clone().endOf(unit)
-    let b = a.clone().endOf(unit)
-    let c = b.clone().endOf(unit)
-    let d = c.clone().endOf(unit)
+    const s = spacetime('December 31, 1999 23:59:58', 'Africa/Algiers')
+    const a = s.clone().endOf(unit)
+    const b = a.clone().endOf(unit)
+    const c = b.clone().endOf(unit)
+    const d = c.clone().endOf(unit)
     t.equal(a.isEqual(d), true, unit + '-is-idempodent')
   })
   t.end()
 })
 
 test('startof is idempodent', (t) => {
-  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season', 'second']
+  const units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season', 'second']
   units.forEach((unit) => {
-    let a = spacetime('2020-06-01').startOf(unit)
+    const a = spacetime('2020-06-01').startOf(unit)
     let b = a.clone()
     for (let i = 0; i < 14; i += 1) {
       b = b.startOf(unit)
@@ -117,9 +117,9 @@ test('startof is idempodent', (t) => {
 })
 
 test('endof is idempodent', (t) => {
-  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season', 'second']
+  const units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season', 'second']
   units.forEach((unit) => {
-    let a = spacetime('2020-06-01').endOf(unit)
+    const a = spacetime('2020-06-01').endOf(unit)
     let b = a.clone()
     for (let i = 0; i < 7; i += 1) {
       b = b.endOf(unit)
@@ -130,14 +130,14 @@ test('endof is idempodent', (t) => {
 })
 
 test('startof + minus = startof', (t) => {
-  let units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season', 'second']
+  const units = ['hour', 'minute', 'day', 'week', 'month', 'year', 'quarter', 'season', 'second']
   units.forEach((unit) => {
     let s = spacetime('2020-10-01').startOf(unit)
     s = s.minus(1, unit)
-    let minus = s.iso()
+    const minus = s.iso()
 
     s = s.startOf(unit)
-    let startOf = s.iso()
+    const startOf = s.iso()
     t.equal(minus, startOf, unit + ' start/minus')
   })
   t.end()

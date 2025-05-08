@@ -12,7 +12,7 @@ const parseArray = (s, arr, today) => {
     return s
   }
   for (let i = 0; i < units.length; i++) {
-    let num = arr[i] || today[units[i]] || defaults[units[i]] || 0
+    const num = arr[i] || today[units[i]] || defaults[units[i]] || 0
     s = s[units[i]](num)
   }
   return s
@@ -28,7 +28,7 @@ const parseObject = (s, obj) => {
     s.tz = obj.timezone
   }
   for (let i = 0; i < units.length; i++) {
-    let unit = units[i]
+    const unit = units[i]
     if (obj[unit] !== undefined) {
       s = s[unit](obj[unit])
     }

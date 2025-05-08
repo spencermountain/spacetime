@@ -8021,7 +8021,7 @@
         obj.aspect = obj.aspect || 'widescreen'
         if (obj.aspect) {
           this.aspect = obj.aspect
-          let res = fitAspect({
+          const res = fitAspect({
             aspect: obj.aspect,
             width: 100
           })
@@ -8049,67 +8049,67 @@
         this.html = htm.bind(fn)
       }
       line(obj) {
-        let line = new Line(obj, this)
+        const line = new Line(obj, this)
         this.shapes.push(line)
         return line
       }
       dot(obj) {
-        let dot = new Dot(obj, this)
+        const dot = new Dot(obj, this)
         this.shapes.push(dot)
         return dot
       }
       text(obj) {
-        let text = new Text(obj, this)
+        const text = new Text(obj, this)
         this.shapes.push(text)
         return text
       }
       area(obj) {
-        let shape = new Area(obj, this)
+        const shape = new Area(obj, this)
         this.shapes.push(shape)
         return shape
       }
       midArea(obj) {
-        let shape = new MidArea(obj, this)
+        const shape = new MidArea(obj, this)
         this.shapes.push(shape)
         return shape
       }
       rect(obj) {
-        let shape = new Rect(obj, this)
+        const shape = new Rect(obj, this)
         this.shapes.push(shape)
         return shape
       }
       bar(obj) {
-        let shape = new Bar(obj, this)
+        const shape = new Bar(obj, this)
         this.shapes.push(shape)
         return shape
       }
       annotation(obj) {
-        let shape = new Annotation(obj, this)
+        const shape = new Annotation(obj, this)
         this.shapes.push(shape)
         return shape
       }
       image(obj) {
-        let shape = new Image(obj, this)
+        const shape = new Image(obj, this)
         this.shapes.push(shape)
         return shape
       }
       arrow(obj) {
-        let shape = new Arrow(obj, this)
+        const shape = new Arrow(obj, this)
         this.shapes.push(shape)
         return shape
       }
       now(obj) {
-        let shape = new Now(obj, this)
+        const shape = new Now(obj, this)
         this.shapes.push(shape)
         return shape
       }
       title(obj) {
-        let shape = new Title(obj, this)
+        const shape = new Title(obj, this)
         this.shapes.push(shape)
         return shape
       }
       shape(obj) {
-        let shape = new Shape(obj, this)
+        const shape = new Shape(obj, this)
         this.shapes.push(shape)
         return shape
       }
@@ -8142,7 +8142,7 @@
         return this
       }
       build() {
-        let h = this.html
+        const h = this.html
         let shapes = this.shapes.sort((a, b) => (a._order > b._order ? 1 : -1))
         //remove shapes outside of max/mins
         shapes = clipShapes(shapes, this.x, this.y)
@@ -8154,7 +8154,7 @@
           elements.push(this.yAxis.build())
         }
         elements = elements.concat(shapes.map(shape => shape.build()))
-        let attrs = {
+        const attrs = {
           // width: this.width,
           // height: this.height,
           viewBox: `0,0,${this.width},${this.height}`,
@@ -8186,14 +8186,14 @@
         if (s.ignore_clip === true) {
           return true
         }
-        let { x, y } = s.extent()
+        const { x, y } = s.extent()
         //clip according to x-axis
         if (xScale._clip) {
           //support reversed min/max values
           let min = xScale.min
           let max = xScale.max
           if (min > max) {
-            let tmp = min
+            const tmp = min
             min = max
             max = tmp
           }
@@ -8212,7 +8212,7 @@
           let min = yScale.min
           let max = yScale.max
           if (min > max) {
-            let tmp = min
+            const tmp = min
             min = max
             max = tmp
           }
@@ -8334,7 +8334,7 @@
         this.scale = world.x
       }
       drawTicks(y) {
-        let h = this.world.html
+        const h = this.world.html
         return this.ticks().map(o => {
           return h`<text x="${o.value * 100 + '%'}" y="${y + 3}" fill="${this.attrs.stroke
             }" text-anchor="middle" class="somehow-legible">
@@ -8343,15 +8343,15 @@
         })
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         if (this._show === false) {
           return ''
         }
-        let attrs = this.attrs
-        let width = this.world.width
-        let y = this.world.height
-        let ticks = this.drawTicks(y)
-        let textAttrs = {
+        const attrs = this.attrs
+        const width = this.world.width
+        const y = this.world.height
+        const ticks = this.drawTicks(y)
+        const textAttrs = {
           x: '50%',
           y: '115%',
           fill: this.attrs.stroke,
@@ -8377,7 +8377,7 @@
         this.scale = world.y
       }
       drawTicks(x) {
-        let h = this.world.html
+        const h = this.world.html
         return this.ticks().map(o => {
           let percent = o.value * 100
           percent = 100 - percent
@@ -8388,15 +8388,15 @@
         })
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         if (this._show === false) {
           return ''
         }
-        let attrs = this.attrs
-        let height = this.world.height
-        let x = 0
-        let ticks = this.drawTicks(x)
-        let textAttrs = {
+        const attrs = this.attrs
+        const height = this.world.height
+        const x = 0
+        const ticks = this.drawTicks(x)
+        const textAttrs = {
           x: '-5%',
           y: '50%',
           fill: this.attrs.stroke,
@@ -8418,7 +8418,7 @@
     const prettyNum = _dereq_('./_prettyNum')
 
     const drawTick = function (s, axis) {
-      let scale = axis.scale.scale
+      const scale = axis.scale.scale
       let label = null
       //support {label, value} format
       if (typeof s === 'object' && s !== null) {
@@ -8435,7 +8435,7 @@
         }
       }
       //support '52'
-      let num = Number(s)
+      const num = Number(s)
       return {
         num: num,
         pos: parseInt(scale(num), 10),
@@ -8477,18 +8477,18 @@
     const somehowTicks = _dereq_('somehow-ticks')
 
     const generic = function (axis, n = 5) {
-      let scale = axis.scale
-      let start = scale.min || 0
-      let end = scale.max || 0
-      let ticks = somehowTicks(start, end, n)
+      const scale = axis.scale
+      const start = scale.min || 0
+      const end = scale.max || 0
+      const ticks = somehowTicks(start, end, n)
       return ticks
     }
 
     const date = function (axis, n = 5) {
-      let scale = axis.scale
-      let start = scale.min || 0
-      let end = scale.max || 0
-      let ticks = spacetimeTicks(start, end, n)
+      const scale = axis.scale
+      const start = scale.min || 0
+      const end = scale.max || 0
+      const ticks = spacetimeTicks(start, end, n)
       return ticks
     }
     export default {
@@ -8515,7 +8515,7 @@
       return x !== undefined && x !== null
     }
 
-    let methods = {
+    const methods = {
       //add new minimums
       from: function (x, y) {
         if (has(x) === true) {
@@ -8548,9 +8548,9 @@
       },
 
       fitX: function (x) {
-        let arr = this.shapes.map(s => s.extent()).filter(n => n !== null)
-        let minX = fns.extent(arr.map(o => o.x.min).filter(n => n !== null)).min || 0
-        let maxX = fns.extent(arr.map(o => o.x.max).filter(n => n !== null)).max || 0
+        const arr = this.shapes.map(s => s.extent()).filter(n => n !== null)
+        const minX = fns.extent(arr.map(o => o.x.min).filter(n => n !== null)).min || 0
+        const maxX = fns.extent(arr.map(o => o.x.max).filter(n => n !== null)).max || 0
         //keep graphs from 0, if you can...
         this.x.min = minX > 0 ? 0 : minX
         this.x.max = maxX
@@ -8571,9 +8571,9 @@
         return this
       },
       fitY: function (y) {
-        let arr = this.shapes.map(s => s.extent()).filter(n => n !== null)
-        let minY = fns.extent(arr.map(o => o.y.min).filter(n => n !== null)).min || 0
-        let maxY = fns.extent(arr.map(o => o.y.max).filter(n => n !== null)).max || 0
+        const arr = this.shapes.map(s => s.extent()).filter(n => n !== null)
+        const minY = fns.extent(arr.map(o => o.y.min).filter(n => n !== null)).min || 0
+        const maxY = fns.extent(arr.map(o => o.y.max).filter(n => n !== null)).max || 0
         this.y.min = minY > 0 ? 0 : minY
         this.y.max = maxY
         if (this.y.format() === 'date') {
@@ -8620,14 +8620,14 @@
       }
       //support percentages
       if (/[0-9]%$/.test(str)) {
-        let num = Number(str.replace(/%/, ''))
+        const num = Number(str.replace(/%/, ''))
         return {
           type: 'percent',
           value: num
         }
       }
       //try a straight-up number
-      let num = Number(str)
+      const num = Number(str)
       if (!isNaN(num)) {
         return {
           type: 'number',
@@ -8635,7 +8635,7 @@
         }
       }
       //try a date
-      let s = spacetime(str)
+      const s = spacetime(str)
       if (s.isValid()) {
         return {
           type: 'date',
@@ -8650,7 +8650,7 @@
     }
 
     const parseX = function (str, world) {
-      let res = parse(str)
+      const res = parse(str)
       if (res.type === 'date') {
         world.x.format(res.type)
       }
@@ -8658,7 +8658,7 @@
     }
 
     const parseY = function (str, world) {
-      let res = parse(str)
+      const res = parse(str)
       if (res.type === 'date') {
         world.y.format(res.type)
       }
@@ -8712,11 +8712,11 @@
           return this
         }
         if (has(a) === true) {
-          let num = this.parse(a, this.world).value
+          const num = this.parse(a, this.world).value
           this.min = num
         }
         if (has(b) === true) {
-          let num = this.parse(b, this.world).value
+          const num = this.parse(b, this.world).value
           this.max = num
         }
         this.rescale()
@@ -8732,8 +8732,8 @@
           return obj.value
         }
         if (obj.type === 'percent') {
-          let num = this.byPercent(obj.value)
-          let val = this.scale.backward(num)
+          const num = this.byPercent(obj.value)
+          const val = this.scale.backward(num)
           if (this.is_y) {
             console.log(num, val)
             return this.to - val
@@ -8744,7 +8744,7 @@
       }
       byPercent(num = 0) {
         num = num / 100
-        let diff = this.max - this.min
+        const diff = this.max - this.min
         return diff * num + this.min
       }
       format(format) {
@@ -8761,7 +8761,7 @@
         this._clip = bool
       }
       reverse() {
-        let tmp = this.min
+        const tmp = this.min
         this.min = this.max
         this.max = tmp
         this.rescale()
@@ -8798,19 +8798,19 @@
   }, { "../parse": 25, "./Scale": 26, "./_linear": 28 }], 28: [function (_dereq_, module, exports) {
     //a very-tiny version of d3-scale's scaleLinear
     const scaleLinear = function (obj) {
-      let world = obj.world || []
-      let minmax = obj.minmax || []
+      const world = obj.world || []
+      const minmax = obj.minmax || []
       const calc = num => {
-        let range = minmax[1] - minmax[0]
-        let percent = (num - minmax[0]) / range
-        let size = world[1] - world[0]
+        const range = minmax[1] - minmax[0]
+        const percent = (num - minmax[0]) / range
+        const size = world[1] - world[0]
         return parseInt(size * percent, 10)
       }
       // invert the calculation. return a %?
       calc.backward = num => {
-        let size = world[1] - world[0]
-        let range = minmax[1] - minmax[0]
-        let percent = (num - world[0]) / size
+        const size = world[1] - world[0]
+        const range = minmax[1] - minmax[0]
+        const percent = (num - world[0]) / size
         return parseInt(percent * range, 10)
       }
       return calc
@@ -8859,21 +8859,21 @@
         return this
       }
       drawText() {
-        let h = this.world.html
-        let nudge = this._nudge
+        const h = this.world.html
+        const nudge = this._nudge
         let textArr = this.textLines
         if (this.textFn !== null) {
           textArr = this.textFn(this.world)
           textArr = typeof textArr === 'string' ? [textArr] : textArr
         }
-        let inside = textArr.map(str => h`<tspan x="0" dy="1.2em">${String(str)}</tspan>`)
-        let point = this.position()
-        let estimate = this.estimate()
-        let place = {
+        const inside = textArr.map(str => h`<tspan x="0" dy="1.2em">${String(str)}</tspan>`)
+        const point = this.position()
+        const estimate = this.estimate()
+        const place = {
           x: point.x + nudge.x,
           y: point.y - nudge.y //- estimate.height,
         }
-        let transform = `translate(${place.x} ${place.y})`
+        const transform = `translate(${place.x} ${place.y})`
         return h`<g transform="${transform}" style="${this.drawSyle()}">
       <text ...${this.attrs}>
         ${inside}
@@ -8884,16 +8884,16 @@
     </g>`
       }
       drawRange() {
-        let h = this.world.html
-        let points = this.points()
+        const h = this.world.html
+        const points = this.points()
         if (points.length <= 1) {
           return null
         }
-        let size = 4
-        let style =
+        const size = 4
+        const style =
           'stroke-width:2px; shapeRendering:optimizeQuality; vector-effect: non-scaling-stroke;'
-        let top = points[0]
-        let bottom = points[1]
+        const top = points[0]
+        const bottom = points[1]
         //for a vertical range...
         let ticks = h`<g>
       <line x1="${top[0] - size}" y1="${top[1]}" x2="${top[0] + size}" y2="${top[1]
@@ -8919,27 +8919,27 @@
     </g>`
       }
       getPoint() {
-        let points = this.points()
+        const points = this.points()
         if (points.length <= 1) {
           return points[0]
         }
         //the middle point?
-        let xDiff = points[0][0] - points[1][0]
-        let yDiff = points[0][1] - points[1][1]
+        const xDiff = points[0][0] - points[1][0]
+        const yDiff = points[0][1] - points[1][1]
         return [points[0][0] - xDiff / 2, points[0][1] - yDiff / 2]
       }
       drawLine() {
-        let h = this.world.html
-        let nudge = this._nudge
-        let point = this.getPoint()
-        let start = this.points()[0]
-        let textPoint = {
+        const h = this.world.html
+        const nudge = this._nudge
+        const point = this.getPoint()
+        const start = this.points()[0]
+        const textPoint = {
           x: start[0] + nudge.x,
           y: start[1] - nudge.y + 4
         }
         //touch the right side, instead
         if (nudge.x < 0) {
-          let estimate = this.estimate()
+          const estimate = this.estimate()
           textPoint.x += estimate.width
         }
         return h`<line id="line" x1="${textPoint.x}" y1="${textPoint.y}" x2="${point[0]}" y2="${point[1]
@@ -8947,7 +8947,7 @@
           }/>`
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
         return h`<g id="build">
       ${this.drawText()}
@@ -8990,7 +8990,7 @@
         return this
       }
       areaPath() {
-        let points = this.points()
+        const points = this.points()
         //support non-zero bottom
         if (points[0] && points[0].length === 3) {
           return d3Shape
@@ -9000,7 +9000,7 @@
             .y1(d => d[2])
             .curve(this.curve)(points)
         }
-        let zero = this.world.y.place(parseY(0))
+        const zero = this.world.y.place(parseY(0))
         return d3Shape
           .area()
           .x0(d => d[0])
@@ -9009,7 +9009,7 @@
           .curve(this.curve)(points)
       }
       linePath() {
-        let points = this.points()
+        const points = this.points()
         //support non-zero bottom
         if (points[0] && points[0].length === 3) {
           return d3Shape
@@ -9026,23 +9026,23 @@
           .curve(this.curve)(points)
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
-        let areaAttr = Object.assign({}, this.attrs, {
+        const areaAttr = Object.assign({}, this.attrs, {
           d: this.areaPath(),
           stroke: 'none'
         })
         //draw an area, and a line on top
-        let area = h`<path ...${areaAttr} style="${this.drawSyle()}"/>`
+        const area = h`<path ...${areaAttr} style="${this.drawSyle()}"/>`
         if (!this._line) {
           return area
         }
         //draw a line on top
-        let lineAttr = Object.assign({}, this.attrs, {
+        const lineAttr = Object.assign({}, this.attrs, {
           d: this.linePath(),
           fill: 'none'
         })
-        let line = h`<path ...${lineAttr} style="${this.drawSyle()}">
+        const line = h`<path ...${lineAttr} style="${this.drawSyle()}">
         <title>${this._title}</title>
       </path>`
         return [line, area]
@@ -9086,7 +9086,7 @@
         return this
       }
       path() {
-        let points = this.points()
+        const points = this.points()
         return d3Shape
           .line()
           .x(d => d[0])
@@ -9094,18 +9094,18 @@
           .curve(this.curve)(points)
       }
       getLength(start, end) {
-        let x = start[0] - end[0]
-        let y = start[1] - end[1]
+        const x = start[0] - end[0]
+        const y = start[1] - end[1]
         let h = Math.pow(x, 2) + Math.pow(y, 2) //x^2 + y^2 = h^2
         h = Math.sqrt(h)
         return h
       }
       getAngle(start, end) {
-        let p1 = {
+        const p1 = {
           x: start[0],
           y: start[1]
         }
-        let p2 = {
+        const p2 = {
           x: end[0],
           y: end[1]
         }
@@ -9113,18 +9113,18 @@
         return angleRadians
       }
       head(start, end) {
-        let h = this.world.html
-        let radian = this.getAngle(start, end)
-        let leftAngle = radian - Math.PI / 4
-        let rightAngle = radian + Math.PI / 4
+        const h = this.world.html
+        const radian = this.getAngle(start, end)
+        const leftAngle = radian - Math.PI / 4
+        const rightAngle = radian + Math.PI / 4
         let length = this.getLength(start, end)
         length = length * 0.2
         //---soh cah toa--
-        let left = {
+        const left = {
           opp: Math.sin(leftAngle) * length,
           adj: Math.cos(leftAngle) * length
         }
-        let right = {
+        const right = {
           opp: Math.sin(rightAngle) * length,
           adj: Math.cos(rightAngle) * length
         }
@@ -9136,10 +9136,10 @@
     </g>`
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
-        let points = this.points()
-        let start = points[0]
+        const points = this.points()
+        const start = points[0]
         let end = points[1]
         if (!end) {
           end = [start[0] - this._length, start[1]]
@@ -9200,15 +9200,15 @@
         return this
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
-        let points = this.points()
+        const points = this.points()
         let bottom = points[0][1]
         if (points[0][1] > points[1][1]) {
           bottom = points[1][1]
         }
-        let height = Math.abs(points[1][1] - points[0][1])
-        let attrs = Object.assign({}, this.attrs, {
+        const height = Math.abs(points[1][1] - points[0][1])
+        const attrs = Object.assign({}, this.attrs, {
           x: points[0][0],
           y: bottom,
           width: this._width,
@@ -9243,10 +9243,10 @@
         return this
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
-        let point = this.points()[0]
-        let attrs = Object.assign({}, this.attrs, {
+        const point = this.points()[0]
+        const attrs = Object.assign({}, this.attrs, {
           id: this._id,
           cx: point[0],
           cy: point[1],
@@ -9292,7 +9292,7 @@
         return this
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
         let point = this.points()[0]
         if (!point) {
@@ -9300,7 +9300,7 @@
         }
         let caption = ''
         if (this._caption) {
-          let y = point[1] + this._height + 15
+          const y = point[1] + this._height + 15
           caption = h`<text x="${point[0]}" y="${y}" stroke="none" fill="${colors.grey}">${this._caption
             }</text>`
         }
@@ -9348,7 +9348,7 @@
         return this
       }
       path() {
-        let points = this.points()
+        const points = this.points()
         return d3Shape
           .line()
           .x(d => d[0])
@@ -9402,20 +9402,20 @@
           .curve(this.curve)(points)
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
-        let areaAttr = Object.assign({}, this.attrs, {
+        const areaAttr = Object.assign({}, this.attrs, {
           d: this.areaPath(),
           stroke: 'none'
         })
         //draw an area, and a line on top
-        let area = h`<path ...${areaAttr} style="${this.drawSyle()}">
+        const area = h`<path ...${areaAttr} style="${this.drawSyle()}">
       <title>${this._title}</title>
     </path>`
         if (!this._line) {
           return area
         }
-        let points = this.points()
+        const points = this.points()
 
         //draw a line on top
         let topLine = Object.assign({}, this.attrs, {
@@ -9453,7 +9453,7 @@
         this._label = ''
         this._y = '-5%'
         this.dotted(true)
-        let d = Date.now()
+        const d = Date.now()
         this.set([[d, '0%'], [d, '100%']])
       }
       label(str) {
@@ -9467,13 +9467,13 @@
         this._y = '105%'
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
-        let attrs = Object.assign({}, this.attrs, {
+        const attrs = Object.assign({}, this.attrs, {
           d: this.path()
         })
-        let point = this.points()[0]
-        let textAttrs = {
+        const point = this.points()[0]
+        const textAttrs = {
           x: point[0],
           y: this._y,
           fill: this.attrs.stroke,
@@ -9536,11 +9536,11 @@
         this._rounded = r
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
-        let points = this.points()
-        let a = points[0]
-        let b = points[1] || 0
+        const points = this.points()
+        const a = points[0]
+        const b = points[1] || 0
         let width = Math.abs(b[0] - a[0])
         let height = Math.abs(b[1] - a[1])
         if (this._width !== undefined) {
@@ -9549,7 +9549,7 @@
         if (this._height !== undefined) {
           height = this._height
         }
-        let attrs = Object.assign({}, this.attrs, {
+        const attrs = Object.assign({}, this.attrs, {
           x: a[0],
           y: a[1] - height,
           width: width,
@@ -9637,8 +9637,8 @@
         return this
       }
       extent() {
-        let xArr = []
-        let yArr = []
+        const xArr = []
+        const yArr = []
         this.data.forEach(o => {
           if (o.x.type !== 'pixel') {
             xArr.push(o.x.value)
@@ -9692,7 +9692,7 @@
         }
         //wait for mount
         setTimeout(() => {
-          let el = document.getElementById(this._id)
+          const el = document.getElementById(this._id)
           if (!el) {
             return
           }
@@ -9716,9 +9716,9 @@
       }
       //x,y coordinates
       points() {
-        let { x, y } = this.world
-        let points = this.data.map(o => {
-          let arr = [x.place(o.x), y.place(o.y)]
+        const { x, y } = this.world
+        const points = this.data.map(o => {
+          const arr = [x.place(o.x), y.place(o.y)]
           if (o.y2 !== undefined) {
             arr.push(y.place(o.y2))
           }
@@ -9729,8 +9729,8 @@
         return points
       }
       path() {
-        let zero = this.world.y.place(parseY(0))
-        let points = this.points()
+        const zero = this.world.y.place(parseY(0))
+        const points = this.points()
         return d3Shape
           .area()
           .x0(d => d[0])
@@ -9746,9 +9746,9 @@
           .join(' ')
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
-        let attrs = Object.assign({}, this.attrs, {
+        const attrs = Object.assign({}, this.attrs, {
           d: this.path()
         })
         return h`<path ...${attrs} id=${this._id} style="${this.drawSyle()}"/>`
@@ -9866,7 +9866,7 @@
         // let longest = this.textLines.sort((a, b) => a.length < b.length ? 1 : -1)[0] || ''
         // let width = longest.length * 8
         // let height = this.textLines.length * 20
-        let d = this.data[0] || {}
+        const d = this.data[0] || {}
         return {
           x: {
             min: d.x.value,
@@ -9909,7 +9909,7 @@
         //calculate width
         let width = 0
         textArr.forEach(str => {
-          let w = str.length * 8
+          const w = str.length * 8
           if (w > width) {
             width = w
           }
@@ -9920,15 +9920,15 @@
         }
       }
       position() {
-        let point = this.points()[0]
-        let res = {
+        const point = this.points()[0]
+        const res = {
           x: 0,
           y: 0
         }
         if (!point) {
           return res
         }
-        let { height, width } = this.estimate()
+        const { height, width } = this.estimate()
         res.height = height
         res.width = width
         res.y = point[1] + this._dodge.y - height
@@ -9936,16 +9936,16 @@
         return res
       }
       build() {
-        let h = this.world.html
+        const h = this.world.html
         this.onMount()
         let textArr = this.textLines
         if (this.textFn !== null) {
           textArr = this.textFn(this.world)
           textArr = typeof textArr === 'string' ? [textArr] : textArr
         }
-        let inside = textArr.map(str => h`<tspan x="0" dy="1.2em" >${String(str)}</tspan>`)
-        let { x, y } = this.position()
-        let transform = `translate(${x} ${y})`
+        const inside = textArr.map(str => h`<tspan x="0" dy="1.2em" >${String(str)}</tspan>`)
+        const { x, y } = this.position()
+        const transform = `translate(${x} ${y})`
         return h`<g transform="${transform}" style="${this.drawSyle()}">
       <text ...${this.attrs} class="somehow-legible">
         ${inside}
@@ -10013,8 +10013,8 @@
         return this
       }
       build() {
-        let h = this.world.html
-        let attrs = Object.assign({}, this.attrs, {
+        const h = this.world.html
+        const attrs = Object.assign({}, this.attrs, {
           x: this._x,
           y: this._y
         })
@@ -10034,10 +10034,10 @@
       let lines = str.split(/\n/g)
       lines = lines.filter(l => l)
       lines = lines.map(line => {
-        let split = line.split(/(,|\t) ?/).map(s => s.trim())
-        let x = parseX(split[0], world)
-        let y = parseY(split[2], world)
-        let obj = {
+        const split = line.split(/(,|\t) ?/).map(s => s.trim())
+        const x = parseX(split[0], world)
+        const y = parseY(split[2], world)
+        const obj = {
           x: x,
           y: y
         }
@@ -10055,9 +10055,9 @@
         return parseStr(set, world)
       }
       return set.map(a => {
-        let x = parseX(a[0], world)
-        let y = parseY(a[1], world)
-        let obj = {
+        const x = parseX(a[0], world)
+        const y = parseY(a[1], world)
+        const obj = {
           x: x,
           y: y
         }
@@ -10097,7 +10097,7 @@
     const version = _dereq_('../_version')
 
     const chooseMethod = function (start, end, n = 6) {
-      let diff = start.diff(end)
+      const diff = start.diff(end)
       if (diff.years > 300) {
         return methods.centuries(start, end, n)
       }
@@ -10138,7 +10138,7 @@
       //reverse them, if necessary
       if (start.epoch > end.epoch) {
         reverse = true
-        let tmp = start.epoch
+        const tmp = start.epoch
         start.epoch = end.epoch
         end.epoch = tmp
       }
@@ -10158,7 +10158,7 @@
 
     //increment by this unit
     const allTicks = function (start, end, unit) {
-      let ticks = []
+      const ticks = []
       start = start.add(1, unit)
       start = start.startOf(unit)
       while (start.isBefore(end)) {
@@ -10169,9 +10169,9 @@
     }
 
     const formatTicks = function (arr, fmt, start, end) {
-      let delta = end.epoch - start.epoch
+      const delta = end.epoch - start.epoch
       return arr.map(s => {
-        let percent = (s.epoch - start.epoch) / delta
+        const percent = (s.epoch - start.epoch) / delta
         return {
           label: s.format(fmt),
           epoch: s.epoch,
@@ -10224,7 +10224,7 @@
       days: (start, end, n) => {
         let ticks = allTicks(start, end, 'day')
         ticks = reduceTo(ticks, n)
-        let fmt = '{month-short} {date}'
+        const fmt = '{month-short} {date}'
         ticks = formatTicks(ticks, fmt, start, end)
         return ticks
       },
@@ -10241,7 +10241,7 @@
       minutes: (start, end, n) => {
         let ticks = allTicks(start, end, 'minute')
         ticks = reduceTo(ticks, n)
-        let fmt = '{time}'
+        const fmt = '{time}'
         ticks = formatTicks(ticks, fmt, start, end)
         return ticks
       }

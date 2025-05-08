@@ -27,7 +27,7 @@ const alias = {
 }
 
 let opts = minimist(process.argv.slice(2), { alias: alias })
-let str = opts._.join(' ').trim()
+const str = opts._.join(' ').trim()
 
 if (!str || opts.help) {
   help()
@@ -53,7 +53,7 @@ if (opts.weeks) {
   unit = 'weeks'
 }
 
-let num = spacetime(str).age(unit)
+const num = spacetime(str).age(unit)
 let output = `${num.toLocaleString()}`
 if (unit !== 'years') {
   output += ` (${unit})`

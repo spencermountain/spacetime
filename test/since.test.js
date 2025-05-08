@@ -172,8 +172,8 @@ test('since now - default', (t) => {
 })
 
 test('supports soft inputs', (t) => {
-  let now = spacetime([2019, 3, 12])
-  let c = spacetime('dec 25 2018')
+  const now = spacetime([2019, 3, 12])
+  const c = spacetime('dec 25 2018')
   let obj = now.since(c).diff
   t.equal(obj.months, 3, 'christmas was 3 months ago')
 
@@ -209,7 +209,7 @@ test('supports soft inputs', (t) => {
 })
 
 test('from + fromNow aliases', (t) => {
-  let obj = spacetime('April 12th 2008', 'Canada/Pacific').from('March 12 2018')
+  const obj = spacetime('April 12th 2008', 'Canada/Pacific').from('March 12 2018')
   t.equal(obj.qualified, 'almost 10 years ago', 'qualified')
   t.equal(obj.precise, '9 years, 11 months ago', 'precise')
   t.end()
@@ -259,14 +259,14 @@ test('since calculation involves month addition and subtraction', (t) => {
 })
 
 test('i18n, past and future', (t) => {
-    let start = spacetime("Dec 25th 2021");
-    let end = start
+    const start = spacetime("Dec 25th 2021");
+    const end = start
         .add(1, 'minute')
         .add(2, 'seconds')
         .add(3, 'hours')
         .add(1, 'day');
 
-    let translationValues = {
+    const translationValues = {
         distance: {
             past: 'pasado',
             future: 'futuro',
@@ -321,16 +321,16 @@ test('i18n, past and future', (t) => {
 })
 
 test('i18n, almost and over', (t) => {
-    let start = spacetime("Dec 25th 2021");
-    let almost21Days = start
+    const start = spacetime("Dec 25th 2021");
+    const almost21Days = start
         .add(23, 'hours')
         .add(20, 'days')
-    let almost1Hour = start
+    const almost1Hour = start
         .add(5, 'hours')
         .add(59, 'minutes')
     const overTwoMonths = start.clone().add(2, 'months').add(11, 'days')
 
-    let translationValues = {
+    const translationValues = {
         distance: {
             past: 'pasado',
             future: 'futuro',
@@ -370,10 +370,10 @@ test('i18n, almost and over', (t) => {
 })
 
 test('i18n, now', (t) => {
-    let start = spacetime("Dec 25th 2021");
-    let end = spacetime("Dec 25th 2021");
+    const start = spacetime("Dec 25th 2021");
+    const end = spacetime("Dec 25th 2021");
 
-    let translationValues = {
+    const translationValues = {
         distance: {
             past: 'pasado',
             future: 'futuro',

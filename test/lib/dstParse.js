@@ -1,6 +1,6 @@
 //local time of fall dst change-over
 const dstParse = (dstChange, num) => {
-  let fall = dstChange.split('->')[num]
+  const fall = dstChange.split('->')[num]
   const [month, rest] = fall.split('/')
   let [day, hour] = rest.split(':')
   if (hour === '24') {

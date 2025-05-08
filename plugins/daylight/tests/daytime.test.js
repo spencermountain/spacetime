@@ -5,7 +5,7 @@ import daylight from '../src/index.js'
 spacetime.extend(daylight)
 
 test('day-status-summer', function (t) {
-  let s = spacetime('June 26 2018', 'Canada/Eastern')
+  const s = spacetime('June 26 2018', 'Canada/Eastern')
   let o = {}
   o = s.time('3:30am').daylight()
   t.equal(o.current.status, 'night', '3:30am')
@@ -24,7 +24,7 @@ test('day-status-summer', function (t) {
 })
 
 test('day-status-winter', function (t) {
-  let s = spacetime('November 26 2018', 'Canada/Eastern')
+  const s = spacetime('November 26 2018', 'Canada/Eastern')
   let o = {}
   o = s.time('3:30am').daylight()
   t.equal(o.current.status, 'night', '3:30am')

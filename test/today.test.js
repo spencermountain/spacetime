@@ -2,28 +2,28 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('change assumed year', function (t) {
-  let today = {
+  const today = {
     year: 1996
   }
-  let s = spacetime('June 5th', null, { today: today })
+  const s = spacetime('June 5th', null, { today: today })
   t.equal(s.format('nice-year'), 'Jun 5th, 1996', 'got year')
   t.end()
 })
 
 test('change assumed month', function (t) {
-  let today = {
+  const today = {
     month: 2
   }
-  let s = spacetime('2019', null, { today: today })
+  const s = spacetime('2019', null, { today: today })
   t.equal(s.format('nice-year'), 'Mar 1st, 2019', 'got month')
   t.end()
 })
 
 test('change assumed date', function (t) {
-  let today = {
+  const today = {
     date: 2
   }
-  let s = spacetime('June 2020', null, { today: today })
+  const s = spacetime('June 2020', null, { today: today })
   t.equal(s.format('nice-year'), 'Jun 2nd, 2020', 'got date')
   t.end()
 })
@@ -51,7 +51,7 @@ test('today passthrough', function (t) {
 })
 
 test('today methods works', function (t) {
-  let today = {
+  const today = {
     date: 2,
     month: 'feb',
     year: 2012

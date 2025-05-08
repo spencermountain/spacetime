@@ -18,10 +18,10 @@ const order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond
 
 //reduce hostile micro-changes when moving dates by millisecond
 const confirm = (s, tmp, unit) => {
-  let n = order.indexOf(unit)
-  let arr = order.slice(n, order.length)
+  const n = order.indexOf(unit)
+  const arr = order.slice(n, order.length)
   for (let i = 0; i < arr.length; i++) {
-    let want = tmp[arr[i]]()
+    const want = tmp[arr[i]]()
     s[arr[i]](want)
   }
   return s
@@ -39,16 +39,16 @@ const fwdBkwd = function (s, old, goFwd, unit) {
 
 const milliseconds = function (s, n) {
   n = validate(n)
-  let current = s.millisecond()
-  let diff = current - n //milliseconds to shift by
+  const current = s.millisecond()
+  const diff = current - n //milliseconds to shift by
   return s.epoch - diff
 }
 
 const seconds = function (s, n, goFwd) {
   n = validate(n)
-  let old = s.clone()
-  let diff = s.second() - n
-  let shift = diff * ms.second
+  const old = s.clone()
+  const diff = s.second() - n
+  const shift = diff * ms.second
   s.epoch = s.epoch - shift
   s = fwdBkwd(s, old, goFwd, 'minute') // specify direction
   return s.epoch
@@ -56,9 +56,9 @@ const seconds = function (s, n, goFwd) {
 
 const minutes = function (s, n, goFwd) {
   n = validate(n)
-  let old = s.clone()
-  let diff = s.minute() - n
-  let shift = diff * ms.minute
+  const old = s.clone()
+  const diff = s.minute() - n
+  const shift = diff * ms.minute
   s.epoch -= shift
   confirm(s, old, 'second')
   s = fwdBkwd(s, old, goFwd, 'hour') // specify direction
@@ -72,7 +72,7 @@ const hours = function (s, n, goFwd) {
   } else if (n < 0) {
     n = 0
   }
-  let old = s.clone()
+  const old = s.clone()
   let diff = s.hour() - n
   let shift = diff * ms.hour
   s.epoch -= shift
@@ -130,8 +130,8 @@ const time = function (s, str, goFwd) {
   // handle seconds
   m[3] = m[3] || ''
   m[3] = m[3].replace(/:/, '')
-  let sec = parseInt(m[3], 10) || 0
-  let old = s.clone()
+  const sec = parseInt(m[3], 10) || 0
+  const old = s.clone()
   s = s.hour(hour)
   s = s.minute(minute)
   s = s.second(sec)
@@ -144,7 +144,7 @@ const date = function (s, n, goFwd) {
   n = validate(n)
   //avoid setting february 31st
   if (n > 28) {
-    let month = s.month()
+    const month = s.month()
     let max = monthLength[month]
     // support leap day in february
     if (month === 1 && n === 29 && isLeapYear(s.year())) {
@@ -158,7 +158,7 @@ const date = function (s, n, goFwd) {
   if (n <= 0) {
     n = 1
   }
-  let old = s.clone()
+  const old = s.clone()
   walkTo(s, {
     date: n
   })
@@ -188,7 +188,7 @@ const month = function (s, n, goFwd) {
     //make it as close as we can..
     d = monthLength[n]
   }
-  let old = s.clone()
+  const old = s.clone()
   walkTo(s, {
     month: n,
     d
@@ -219,7 +219,7 @@ const year = function (s, n) {
 }
 
 const week = function (s, n, goFwd) {
-  let old = s.clone()
+  const old = s.clone()
   n = validate(n)
 
   // don't set week=1, if we're already week=1 in late december
@@ -248,7 +248,7 @@ const week = function (s, n, goFwd) {
 
 const dayOfYear = function (s, n, goFwd) {
   n = validate(n)
-  let old = s.clone()
+  const old = s.clone()
   n -= 1 //days are 1-based
   if (n <= 0) {
     n = 0

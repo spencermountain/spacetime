@@ -5,7 +5,7 @@ import { zeroPad } from '../../fns.js'
 const methods = {
   millisecond: function (num) {
     if (num !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       s.epoch = milliseconds(s, num)
       return s
     }
@@ -13,7 +13,7 @@ const methods = {
   },
   second: function (num, goFwd) {
     if (num !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       s.epoch = seconds(s, num, goFwd)
       return s
     }
@@ -21,16 +21,16 @@ const methods = {
   },
   minute: function (num, goFwd) {
     if (num !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       s.epoch = minutes(s, num, goFwd)
       return s
     }
     return this.d.getMinutes()
   },
   hour: function (num, goFwd) {
-    let d = this.d
+    const d = this.d
     if (num !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       s.epoch = hours(s, num, goFwd)
       return s
     }
@@ -40,16 +40,16 @@ const methods = {
   //'3:30' is 3.5
   hourFloat: function (num, goFwd) {
     if (num !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       let minute = num % 1
       minute = minute * 60
-      let hour = parseInt(num, 10)
+      const hour = parseInt(num, 10)
       s.epoch = hours(s, hour, goFwd)
       s.epoch = minutes(s, minute, goFwd)
       return s
     }
-    let d = this.d
-    let hour = d.getHours()
+    const d = this.d
+    const hour = d.getHours()
     let minute = d.getMinutes()
     minute = minute / 60
     return hour + minute
@@ -57,11 +57,11 @@ const methods = {
 
   // hour in 12h format
   hour12: function (str, goFwd) {
-    let d = this.d
+    const d = this.d
     if (str !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       str = '' + str
-      let m = str.match(/^([0-9]+)(am|pm)$/)
+      const m = str.match(/^([0-9]+)(am|pm)$/)
       if (m) {
         let hour = parseInt(m[1], 10)
         if (m[2] === 'pm') {
@@ -85,7 +85,7 @@ const methods = {
   //some ambiguity here with 12/24h
   time: function (str, goFwd) {
     if (str !== undefined) {
-      let s = this.clone()
+      const s = this.clone()
       str = str.toLowerCase().trim()
       s.epoch = _time(s, str, goFwd)
       return s
@@ -106,7 +106,7 @@ const methods = {
       return which
     }
     //okay, we're doing a setter
-    let s = this.clone()
+    const s = this.clone()
     input = input.toLowerCase().trim()
     //ampm should never change the day
     // - so use `.hour(n)` instead of `.minus(12,'hour')`
@@ -144,7 +144,7 @@ const methods = {
       }
       return s
     }
-    let h = this.hour()
+    const h = this.hour()
     if (h < 6) {
       return 'night'
     }

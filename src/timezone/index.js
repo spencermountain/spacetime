@@ -29,7 +29,7 @@ const titleCase = str => {
 
 //get metadata about this timezone
 const timezone = s => {
-  let zones = s.timezones
+  const zones = s.timezones
   let tz = s.tz
   if (zones.hasOwnProperty(tz) === false) {
     tz = findTz(s.tz, zones)
@@ -44,8 +44,8 @@ const timezone = s => {
       }
     }
   }
-  let found = zones[tz]
-  let result = {
+  const found = zones[tz]
+  const result = {
     name: titleCase(tz),
     hasDst: Boolean(found.dst),
     default_offset: found.offset,
@@ -55,7 +55,7 @@ const timezone = s => {
   }
 
   if (result.hasDst) {
-    let arr = parseDst(found.dst)
+    const arr = parseDst(found.dst)
     result.change = {
       start: arr[0],
       back: arr[1]
@@ -63,7 +63,7 @@ const timezone = s => {
   }
   //find the offsets for summer/winter times
   //(these variable names are north-centric)
-  let summer = found.offset // (july)
+  const summer = found.offset // (july)
   let winter = summer // (january) assume it's the same for now
   if (result.hasDst === true) {
     if (result.hemisphere === 'North') {

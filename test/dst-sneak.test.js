@@ -4,7 +4,7 @@ import useOldTz from './lib/useOldTz.js'
 
 // fall dst - Oct 25th 3am
 test('fall-dst-repeats-hour', (t) => {
-  let tz = 'europe/brussels' // 10/25:03
+  const tz = 'europe/brussels' // 10/25:03
   // create 12:01am
   let s = spacetime('Oct 25th 2020 1:01am', tz)
   s = useOldTz(s)
@@ -30,7 +30,7 @@ test('fall-dst-repeats-hour', (t) => {
 
 //spring dst -  03/29:02
 test('spring-est-sneak', (t) => {
-  let tz = 'europe/brussels'
+  const tz = 'europe/brussels'
   // create 12:01am
   let s = spacetime('March 29th 2020 1:01am', tz)
   s = useOldTz(s)

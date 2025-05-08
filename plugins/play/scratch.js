@@ -3,5 +3,5 @@ import plugin from './src/index.js'
 
 spacetime.extend(plugin)
 
-let s = spacetime.now()
+const s = spacetime.now()
 s.play()

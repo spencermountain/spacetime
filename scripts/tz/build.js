@@ -11,7 +11,7 @@ sh.config.silent = true
 const year = 2023//new Date().getFullYear()
 
 const parseLine = (str) => {
-  let meta = {}
+  const meta = {}
   str = str.replace(/^[a-z\/_]*? /i, '')
   if (str.match(/isdst=0/)) {
     meta.on = false
@@ -21,12 +21,12 @@ const parseLine = (str) => {
   let date = str.match(/ UT = (.*) 2017/)
   if (date) {
     date = date[1]
-    let d = new Date(date)
+    const d = new Date(date)
     if (d.getMinutes() === 59) {
       return {}
     }
     meta.date = `${d.getMonth()}/${d.getDate()}/${d.getHours()}`
-    let month = d.getMonth()
+    const month = d.getMonth()
     if (month > 6) {
       meta.season = 'fall'
     } else {
@@ -44,21 +44,21 @@ const parseLine = (str) => {
 }
 
 const fetchZone = (tz) => {
-  let zone = {
+  const zone = {
     tz,
     o: iana[tz]
   }
-  let lines = sh.exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n')
+  const lines = sh.exec(`zdump -v /usr/share/zoneinfo/${tz} | grep ${year}`).toString().split('\n')
   lines
     .filter((str) => str)
     .forEach((str) => {
-      let o = parseLine(str)
+      const o = parseLine(str)
       if (o.season) {
         zone[o.season] = o.date
       }
       zone.h = o.h
     })
-  let obj = {
+  const obj = {
     tz,
     o: iana[tz],
     h: zone.h
@@ -82,10 +82,10 @@ const fetchZone = (tz) => {
 }
 
 const prefixCompress = (obj) => {
-  let result = {}
-  let keys = Object.keys(obj)
+  const result = {}
+  const keys = Object.keys(obj)
   keys.forEach((k) => {
-    let name = k.split('/')
+    const name = k.split('/')
     result[name[0]] = result[name[0]] || {}
     result[name[0]][name[1]] = result[name[0]][name[1]] || {}
     let tmp = obj[k]
@@ -101,7 +101,7 @@ const prefixCompress = (obj) => {
 
 const doAll = () => {
   let all = whitelist.reduce((h, tz) => {
-    let o = fetchZone(tz, year)
+    const o = fetchZone(tz, year)
     h[o.tz] = {
       o: o.o,
       h: o.h
@@ -125,9 +125,9 @@ const doAll = () => {
   console.log('compressing...')
   all = prefixCompress(all)
 
-  let stuff = JSON.stringify(all, null, 2)
+  const stuff = JSON.stringify(all, null, 2)
 
-  let src = `./data/zonefile.json`
+  const src = `./data/zonefile.json`
   writeFileSync(src, stuff, 'utf8')
   console.log('done!')
 }

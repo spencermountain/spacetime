@@ -74,12 +74,12 @@ test('test-date-line-at-0deg', (t) => {
 test('never cross the intl dateline moving right', (t) => {
   for (let h = 0; h < 24; h++) {
     //h ocklock on right side of the map
-    let rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Fiji')
-    let time = h + ':01'
+    const rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Fiji')
+    const time = h + ':01'
     t.equal(rightSide.format('time-24'), time, 'time is ' + time)
     t.equal(rightSide.date(), 24, 'date is 24th')
     //try move across dateline (to left side of the map)
-    let leftSide = rightSide.clone().goto('Pacific/Midway')
+    const leftSide = rightSide.clone().goto('Pacific/Midway')
     t.ok(leftSide.epoch === rightSide.epoch, 'we never actually moved')
     //but...
     if (leftSide.date() === rightSide.date()) {
@@ -95,12 +95,12 @@ test('never cross the intl dateline moving right', (t) => {
 test('never cross the intl dateline moving left', (t) => {
   for (let h = 0; h < 24; h++) {
     //h ocklock on right side of the map
-    let rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Midway')
-    let time = h + ':01'
+    const rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Midway')
+    const time = h + ':01'
     t.equal(rightSide.format('time-24'), time, 'time is ' + time)
     t.equal(rightSide.date(), 24, 'date is 24th')
     //try move across dateline (to left side of the map)
-    let leftSide = rightSide.clone().goto('Pacific/Fiji')
+    const leftSide = rightSide.clone().goto('Pacific/Fiji')
     t.ok(leftSide.epoch === rightSide.epoch, 'we never actually moved')
     //but...
     if (leftSide.date() === rightSide.date()) {

@@ -24,7 +24,7 @@ const every = function (start, unit, end, stepCount = 1) {
   end = start.clone().set(end)
   //swap them, if they're backwards
   if (start.isAfter(end)) {
-    let tmp = start
+    const tmp = start
     start = end
     end = tmp
   }
@@ -38,13 +38,13 @@ const every = function (start, unit, end, stepCount = 1) {
     d = d.next(unit)
     unit = 'week'
   } else {
-    let first = d.startOf(unit)
+    const first = d.startOf(unit)
     if (first.isBefore(start)) {
       d = d.next(unit)
     }
   }
   //okay, actually start doing it
-  let result = []
+  const result = []
   while (d.isBefore(end)) {
     result.push(d)
     d = d.add(stepCount, unit)

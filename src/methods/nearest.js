@@ -4,7 +4,7 @@ import { normalize } from '../fns.js'
 //round to either current, or +1 of this unit
 const nearest = (s, unit) => {
   //how far have we gone?
-  let prog = s.progress()
+  const prog = s.progress()
   unit = normalize(unit)
   //fix camel-case for this one
   if (unit === 'quarterhour') {

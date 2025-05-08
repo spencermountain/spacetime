@@ -4,7 +4,7 @@ import fixed from './holidays/fixed-holidays.js'
 // holidays that are the same date every year
 const fixedDates = function (str, normal, year, tz) {
   if (fixed.hasOwnProperty(str) || fixed.hasOwnProperty(normal)) {
-    let arr = fixed[str] || fixed[normal] || []
+    const arr = fixed[str] || fixed[normal] || []
     let s = spacetime.now(tz)
     s = s.year(year)
     s = s.startOf('year')

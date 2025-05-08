@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('swapTz', (t) => {
-  let arr = [
+  const arr = [
     'Africa/Dar_es_Salaam',
     'Africa/Porto-Novo',
     'America/Blanc-Sablon',

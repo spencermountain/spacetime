@@ -23,7 +23,7 @@ test('fall-diff', (t) => {
   let after = spacetime('2020-11-01T03:10:00', 'America/Chicago')
   before = useOldTz(before)
   after = useOldTz(after)
-  let delta = after.since(before).diff
+  const delta = after.since(before).diff
   t.equal(delta.minutes, 20, '20 minutes later')
   t.end()
 })

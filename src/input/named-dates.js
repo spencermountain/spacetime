@@ -34,12 +34,12 @@ const dates = {
     return s
   },
   christmas: (s) => {
-    let year = getNow(s).year()
+    const year = getNow(s).year()
     s = s.set([year, 11, 25, 18, 0, 0]) // Dec 25
     return s
   },
   'new years': (s) => {
-    let year = getNow(s).year()
+    const year = getNow(s).year()
     s = s.set([year, 11, 31, 18, 0, 0]) // Dec 31
     return s
   }

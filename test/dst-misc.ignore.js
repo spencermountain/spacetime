@@ -19,7 +19,7 @@ const months = [
 const allMonths = (s) =>
   months.map((m) => {
     s = s.month(m)
-    let meta = s.timezone()
+    const meta = s.timezone()
     return meta.current.isDST
   })
 
@@ -39,10 +39,10 @@ test('dst-by-date', (t) => {
 
 test('dst-by-month', (t) => {
   ////        jan   feb    mar    apr   may   jun   july   aug   sept  oct   nov   dec
-  let est = [false, false, false, true, true, true, true, true, true, true, true, false]
-  let pst = [false, false, false, true, true, true, true, true, true, true, false, false]
-  let aus = [true, true, true, false, false, false, false, false, false, true, true, true] //april 2, oct 1
-  let tai = [false, false, false, false, false, false, false, false, false, false, false, false] //no dst
+  const est = [false, false, false, true, true, true, true, true, true, true, true, false]
+  const pst = [false, false, false, true, true, true, true, true, true, true, false, false]
+  const aus = [true, true, true, false, false, false, false, false, false, true, true, true] //april 2, oct 1
+  const tai = [false, false, false, false, false, false, false, false, false, false, false, false] //no dst
   let s = spacetime('January 1, 2016 20:42:00', 'Canada/Eastern')
   s = useOldTz(s)
   t.deepEqual(allMonths(s), est, 'est')

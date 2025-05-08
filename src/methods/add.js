@@ -10,7 +10,7 @@ import { normalize } from '../fns.js'
 // and that usually works-out...
 
 const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month']
-let keep = {
+const keep = {
   second: order.slice(0, 1),
   minute: order.slice(0, 2),
   quarterhour: order.slice(0, 2),
@@ -51,7 +51,7 @@ const addMethods = (SpaceTime) => {
     if (!unit || num === 0) {
       return s //don't bother
     }
-    let old = this.clone()
+    const old = this.clone()
     unit = normalize(unit)
     if (unit === 'millisecond') {
       s.epoch += num
@@ -93,7 +93,7 @@ const addMethods = (SpaceTime) => {
     }
     //support coercing a week, too
     if (unit === 'week') {
-      let sum = old.date() + (num * 7)
+      const sum = old.date() + (num * 7)
       if (sum <= 28 && sum > 1) {
         want.date = sum
       }
@@ -107,7 +107,7 @@ const addMethods = (SpaceTime) => {
         want = daysBack(want, old, num)
       } else {
         //specify a naive date number, if it's easy to do...
-        let sum = old.date() + num
+        const sum = old.date() + num
         // ok, model this one too
         want = days(want, old, sum)
       }
@@ -122,12 +122,12 @@ const addMethods = (SpaceTime) => {
       want.year = old.year()
       // handle rollover
       if (want.month < 0) {
-        let years = Math.floor(want.month / 12)
-        let remainder = want.month + (Math.abs(years) * 12)
+        const years = Math.floor(want.month / 12)
+        const remainder = want.month + (Math.abs(years) * 12)
         want.month = remainder
         want.year += years
       } else if (want.month >= 12) {
-        let years = Math.floor(want.month / 12)
+        const years = Math.floor(want.month / 12)
         want.month = want.month % 12
         want.year += years
       }
@@ -135,13 +135,13 @@ const addMethods = (SpaceTime) => {
     }
     //ensure year has changed (leap-years)
     else if (unit === 'year') {
-      let wantYear = old.year() + num
-      let haveYear = s.year()
+      const wantYear = old.year() + num
+      const haveYear = s.year()
       if (haveYear < wantYear) {
-        let toAdd = Math.floor(num / 4) || 1 //approx num of leap-days
+        const toAdd = Math.floor(num / 4) || 1 //approx num of leap-days
         s.epoch += Math.abs(ms.day * toAdd)
       } else if (haveYear > wantYear) {
-        let toAdd = Math.floor(num / 4) || 1 //approx num of leap-days
+        const toAdd = Math.floor(num / 4) || 1 //approx num of leap-days
         s.epoch += ms.day * toAdd
       }
     }
@@ -153,7 +153,7 @@ const addMethods = (SpaceTime) => {
     }
     //keep current date, unless the month doesn't have it.
     if (keepDate[unit]) {
-      let max = monthLength[want.month]
+      const max = monthLength[want.month]
       want.date = old.date()
       if (want.date > max) {
         want.date = max
@@ -167,7 +167,7 @@ const addMethods = (SpaceTime) => {
 
   //subtract is only add *-1
   SpaceTime.prototype.subtract = function (num, unit) {
-    let s = this.clone()
+    const s = this.clone()
     return s.add(num * -1, unit)
   }
   //add aliases

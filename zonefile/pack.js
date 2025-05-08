@@ -3,11 +3,11 @@ import { writeFileSync } from 'fs'
 import iana from './iana.js'
 import aliases from './aliases.js'
 import prefixes from './_prefixes.js'
-let all = {}
+const all = {}
 
 // add aliases in
 Object.keys(aliases).forEach((k) => {
-  let found = iana[aliases[k]]
+  const found = iana[aliases[k]]
   if (!found) {
     console.log('missing', aliases[k])
   }
@@ -16,14 +16,14 @@ Object.keys(aliases).forEach((k) => {
 
 //pack iana data into a [o|h] object
 Object.keys(iana).forEach((k) => {
-  let o = iana[k]
+  const o = iana[k]
   let key = o.offset + '|' + o.hem
   if (o.dst) {
     key += '|' + o.dst
   }
   all[key] = all[key] || []
-  let name = k.replace(/(.*?)\//, (a, prefix) => {
-    let index = prefixes.indexOf(prefix)
+  const name = k.replace(/(.*?)\//, (a, prefix) => {
+    const index = prefixes.indexOf(prefix)
     if (index !== -1) {
       return index + '/'
     }
@@ -38,7 +38,7 @@ Object.keys(iana).forEach((k) => {
 
 let keys = Object.keys(all)
 keys = keys.sort((a, b) => (a < b ? 1 : -1))
-let result = {}
+const result = {}
 keys.forEach((k) => {
   result[k] = all[k].join(',')
 })

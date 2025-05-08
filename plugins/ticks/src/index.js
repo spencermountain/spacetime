@@ -3,7 +3,7 @@ import methods from './methods.js'
 import version from '../_version.js'
 
 const chooseMethod = function (start, end, n = 6) {
-  let diff = start.diff(end)
+  const diff = start.diff(end)
   if (diff.years > 300) {
     return methods.centuries(start, end, n)
   }
@@ -44,7 +44,7 @@ const spacetimeTicks = function (start, end, n = 6) {
   //reverse them, if necessary
   if (start.epoch > end.epoch) {
     reverse = true
-    let tmp = start.epoch
+    const tmp = start.epoch
     start.epoch = end.epoch
     end.epoch = tmp
   }

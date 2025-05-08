@@ -4,7 +4,7 @@ import { terser } from 'rollup-plugin-terser'
 import resolve from 'rollup-plugin-node-resolve'
 import sizeCheck from 'rollup-plugin-filesize-check'
 import pkg from './package.json' assert { type: "json" };
-let version = pkg.version
+const version = pkg.version
 console.log('\n 📦  - running rollup..\n')
 
 const banner = '/* spencermountain/spacetime-geo ' + version + ' MIT */'

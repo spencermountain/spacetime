@@ -3,7 +3,7 @@ import spacetime from './lib/index.js'
 //ST  = winter.   november -> march
 //DST = summer.   march    -> november
 
-let timezones = ['America/Los_Angeles', 'America/Denver', 'America/Chicago', 'America/New_York']
+const timezones = ['America/Los_Angeles', 'America/Denver', 'America/Chicago', 'America/New_York']
 
 test('ST → ST', (t) => {
   timezones.forEach((tz) => {

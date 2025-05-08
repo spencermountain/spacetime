@@ -2,7 +2,7 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('get', (t) => {
-  let s = spacetime('February 22, 2017 15:30:00', 'Canada/Eastern')
+  const s = spacetime('February 22, 2017 15:30:00', 'Canada/Eastern')
   t.equal(s.date(), 22, '.date()')
   t.equal(s.year(), 2017, '.year()')
   t.equal(s.quarter(), 1, '.quarter()')
