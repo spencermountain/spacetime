@@ -8,4 +8,5 @@ viz/
 coverage/
 coverage.lcov
 .vscode
+.idea
 .gitignore

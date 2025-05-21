@@ -222,3 +222,6 @@ const printFormat = (s, str = '') => {
   return s.format('iso-short')
 }
 export default printFormat
+export {
+  format,
+}
