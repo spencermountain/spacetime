@@ -177,3 +177,6 @@ const unixFmt = (s, str) => {
   }, '')
 }
 export default unixFmt
+export {
+  mapping
+}
