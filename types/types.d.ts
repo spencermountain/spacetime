@@ -131,6 +131,11 @@ export interface Spacetime {
   /** set the current millenium */
   millenium(millenium: string | number): Spacetime
 
+  /** which millennium is it? */
+  millennium(): number
+  /** set the current millennium */
+  millennium(millennium: string | number): Spacetime
+
   /** pretty-print the date to the console, for nicer debugging */
   log: () => Spacetime
 
