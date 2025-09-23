@@ -108,7 +108,7 @@ test('random january time', (t) => {
     ['Africa/Abidjan', 'Jan 29 12:09pm'],
     ['America/Inuvik', 'Jan 29 5:09am'],
     ['America/Lima', 'Jan 29 7:09am'],
-    ['Asia/Almaty', 'Jan 29 6:09pm'],
+    ['Asia/Almaty', 'Jan 29 5:09pm'],
     ['Asia/Barnaul', 'Jan 29 7:09pm'],
     ['Asia/Urumqi', 'Jan 29 6:09pm'],
     ['Asia/Tbilisi', 'Jan 29 4:09pm'],
