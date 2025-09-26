@@ -872,7 +872,7 @@ export default {
     hem: 'n'
   },
   'asia/almaty': {
-    offset: 6,
+    offset: 5,
     hem: 'n'
   },
   'asia/amman': {
@@ -1098,11 +1098,11 @@ export default {
     hem: 'n'
   },
   'asia/qyzylorda': {
-    offset: 6,
+    offset: 5,
     hem: 'n'
   },
   'asia/qostanay': {
-    offset: 6,
+    offset: 5,
     hem: 'n'
   },
   'asia/yangon': {

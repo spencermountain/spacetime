@@ -12,6 +12,34 @@ const clearMinutes = (s) => {
   return s
 }
 
+const millennium = function (input) {
+  if (input !== undefined) {
+    if (typeof input === 'string') {
+      input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
+      input = Number(input)
+      if (isNaN(input)) {
+        console.warn('Spacetime: Invalid millennium input')
+        return this
+      }
+    }
+    if (input > 0) {
+      input -= 1
+    }
+    let year = input * 1000
+    // there is no year 0
+    if (year === 0) {
+      year = 1
+    }
+    return this.year(year)
+  }
+  // get the current millennium
+  let num = Math.floor(this.year() / 1000)
+  if (num >= 0) {
+    num += 1
+  }
+  return num
+}
+
 const methods = {
   // day 0-366
   dayOfYear: function (num, goFwd) {
@@ -251,32 +279,8 @@ const methods = {
     return num + 1
   },
   // 2019 -> 2+1
-  millenium: function (input) {
-    if (input !== undefined) {
-      if (typeof input === 'string') {
-        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
-        input = Number(input)
-        if (isNaN(input)) {
-          console.warn('Spacetime: Invalid millenium input')
-          return this
-        }
-      }
-      if (input > 0) {
-        input -= 1
-      }
-      let year = input * 1000
-      // there is no year 0
-      if (year === 0) {
-        year = 1
-      }
-      return this.year(year)
-    }
-    // get the current millenium
-    let num = Math.floor(this.year() / 1000)
-    if (num >= 0) {
-      num += 1
-    }
-    return num
-  }
+  millenium: millennium,
+  // alias without typo
+  millennium: millennium,
 }
 export default methods
