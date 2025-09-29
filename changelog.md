@@ -9,6 +9,14 @@ This project follows semVer, where:
 
  -->
 
+### 7.11.0 [Sep 2025]
+- **[fix]** - millennium API typo (w/ backward compat)
+- **[update]** - update CICD script
+- **[update]** - Update Kazakhstan timezones to UTC+5
+- **[update]** - add Coyhaique iana code
+- **[update]** - nuuk and scoresbysund dst changes
+- **[update]** - dependencies
+
 ### 7.10.0 [Apr 2025]
 - **[fix]** -  capitalization of "Etc/Utc" #446
 - **[new]** - `.isoFull()` method

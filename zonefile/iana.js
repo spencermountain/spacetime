@@ -341,6 +341,10 @@ export default {
     offset: -6,
     hem: 'n'
   },
+  'america/coyhaique': {
+    offset: -3,
+    hem: 's'
+  },
   'america/creston': {
     offset: -7,
     hem: 'n'
@@ -408,7 +412,7 @@ export default {
   'america/nuuk': {
     offset: -1,
     hem: 'n',
-    'dst': '03/29:11->10/25:24'
+    'dst': '03/30:00->10/25:24'
   },
   'america/goose_bay': {
     offset: -3,
@@ -726,7 +730,7 @@ export default {
   'america/scoresbysund': {
     offset: 0,
     hem: 'n',
-    'dst': '03/29:11->10/25:24'
+    'dst': '03/30:00->10/25:24'
   },
   'america/sitka': {
     offset: -8,
@@ -872,7 +876,7 @@ export default {
     hem: 'n'
   },
   'asia/almaty': {
-    offset: 6,
+    offset: 5,
     hem: 'n'
   },
   'asia/amman': {
@@ -1098,11 +1102,11 @@ export default {
     hem: 'n'
   },
   'asia/qyzylorda': {
-    offset: 6,
+    offset: 5,
     hem: 'n'
   },
   'asia/qostanay': {
-    offset: 6,
+    offset: 5,
     hem: 'n'
   },
   'asia/yangon': {
