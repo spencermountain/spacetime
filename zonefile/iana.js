@@ -341,6 +341,10 @@ export default {
     offset: -6,
     hem: 'n'
   },
+  'america/coyhaique': {
+    offset: -3,
+    hem: 's'
+  },
   'america/creston': {
     offset: -7,
     hem: 'n'
