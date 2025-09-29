@@ -412,7 +412,7 @@ export default {
   'america/nuuk': {
     offset: -1,
     hem: 'n',
-    'dst': '03/29:11->10/25:24'
+    'dst': '03/30:00->10/25:24'
   },
   'america/goose_bay': {
     offset: -3,
@@ -730,7 +730,7 @@ export default {
   'america/scoresbysund': {
     offset: 0,
     hem: 'n',
-    'dst': '03/29:11->10/25:24'
+    'dst': '03/30:00->10/25:24'
   },
   'america/sitka': {
     offset: -8,
