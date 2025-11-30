@@ -180,3 +180,45 @@ test('set time', (t) => {
   t.equal(a.time(), '3:59pm', 'dont overflow minutes in time format')
   t.end()
 })
+
+test('invalid time parsing', (t) => {
+  // Invalid time formats should return isValid() === false
+  let s = spacetime.now()
+
+  s = s.time('abc')
+  t.equal(s.isValid(), false, 'abc is invalid')
+
+  s = spacetime.now().time('2')
+  t.equal(s.isValid(), false, '2 (no am/pm) is invalid')
+
+  s = spacetime.now().time('hello world')
+  t.equal(s.isValid(), false, 'hello world is invalid')
+
+  s = spacetime.now().time('')
+  t.equal(s.isValid(), false, 'empty string is invalid')
+
+  s = spacetime.now().time('not a time')
+  t.equal(s.isValid(), false, 'not a time is invalid')
+
+  t.end()
+})
+
+test('time parsing edge cases', (t) => {
+  let s = spacetime.now()
+
+  s = s.time('12am')
+  t.equal(s.isValid(), true, '12am is valid')
+  t.equal(s.hour(), 0, '12am is midnight (hour 0)')
+
+  s = spacetime.now().time('12pm')
+  t.equal(s.isValid(), true, '12pm is valid')
+  t.equal(s.hour(), 12, '12pm is noon (hour 12)')
+
+  s = spacetime.now().time('1:00am')
+  t.equal(s.isValid(), true, '1:00am is valid')
+
+  s = spacetime.now().time('11:59pm')
+  t.equal(s.isValid(), true, '11:59pm is valid')
+
+  t.end()
+})
