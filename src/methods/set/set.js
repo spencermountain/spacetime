@@ -102,7 +102,7 @@ const time = function (s, str, goFwd) {
     //fallback to support just '2am'
     m = str.match(/([0-9]{1,2}) ?(am|pm)/)
     if (!m) {
-      return s.epoch
+      return null // invalid time string - mark as invalid
     }
     m.splice(2, 0, '0') //add implicit 0 minutes
     m.splice(3, 0, '') //add implicit seconds
