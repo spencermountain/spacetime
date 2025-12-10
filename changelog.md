@@ -9,6 +9,10 @@ This project follows semVer, where:
 
  -->
 
+### 7.12.0 [Dec 2025]
+- **[update]** - update zonefile to 2026 DST dates
+- **[update]** - update dependencies
+
 ### 7.11.0 [Sep 2025]
 - **[fix]** - millennium API typo (w/ backward compat)
 - **[update]** - update CICD script
