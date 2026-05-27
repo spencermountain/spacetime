@@ -9,6 +9,12 @@ This project follows semVer, where:
 
  -->
 
+### 7.12.1 [May 2026]
+- **[fix]** - regression for today param in object format
+- **[change]** - add npm ignore-scripts=true
+- **[update]** - github actions scripts
+- **[update]** - dependencies
+
 ### 7.12.0 [Dec 2025]
 - **[update]** - update zonefile to 2026 DST dates
 - **[update]** - update dependencies

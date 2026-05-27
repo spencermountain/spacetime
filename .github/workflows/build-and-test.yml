@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 22.x, 24.x]
+        node-version: [20.x, 26.x]
 
     steps:
       - uses: actions/checkout@v4
@@ -18,23 +18,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ matrix.node-version }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-${{ matrix.node-version }}-
-            ${{ runner.os }}-npm-
-
       - name: npm install, build, and test
         run: |
           npm ci
-          npm i eslint ts-node typescript
           npm run lint
           npm run pack
+          npm run test
           npm run build
-          npm run testb
-          # npm run test:types
+          npm run test:b
         env:
           CI: true
