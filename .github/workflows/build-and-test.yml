@@ -25,6 +25,6 @@ jobs:
           npm run pack
           npm run test
           npm run build
-          npm run test:b
+          npm run testb
         env:
           CI: true
