@@ -1,8 +1,7 @@
 import spacetime from './src/index.js'
 
-// console.log(spacetime('Feb 29 2001').iso())
-
-let s = spacetime('jan 5 2028 4:30pm', 'pacific/easter')
-// console.log(s.millenium());
-console.log(s.timezone());
+let today = { date: 17, month: 3, year: 1999 }
+let wantDate = { month: 'august', date: '1st', year: '2019' }
+let s = spacetime(wantDate, null, { today: today })
+console.log(s.format('{nice} {year}'));
 
