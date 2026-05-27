@@ -57,7 +57,7 @@ const parseInput = (s, input) => {
       s.tz = input.tz
       return s
     }
-    const obj = Object.assign({}, input, today)
+    const obj = Object.assign({}, today, input)
     s = parseObject(s, obj)
     return s
   }
