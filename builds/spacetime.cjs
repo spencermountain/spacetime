@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.12.0 Apache 2.0 */
+/* spencermountain/spacetime 7.12.1 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -1385,7 +1385,7 @@
         s.tz = input.tz;
         return s
       }
-      const obj = Object.assign({}, input, today);
+      const obj = Object.assign({}, today, input);
       s = parseObject(s, obj);
       return s
     }
@@ -4176,7 +4176,7 @@
     return tzs
   };
 
-  var version = '7.12.0';
+  var version = '7.12.1';
 
   const main = (input, tz, options) => new SpaceTime(input, tz, options);
 
