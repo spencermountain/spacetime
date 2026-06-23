@@ -17,6 +17,7 @@
   "scripts": {
     "watch": "node --watch ./scratch.js",
     "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
+    "download": "node ./scripts/download.js",
     "build": "rollup -c --silent"
   },
   "repository": {
@@ -31,6 +32,7 @@
     "tz-lookup": "6.1.25"
   },
   "devDependencies": {
+    "@turf/simplify": "^7.3.5",
     "shelljs": "0.8.5",
     "spacetime": ">=7.4.0",
     "tap-dancer": "0.3.4",

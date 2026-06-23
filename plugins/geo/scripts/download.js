@@ -1,8 +1,14 @@
 import sh from 'shelljs'
-import spacetime from '../../../src/index.js'
 import fs from 'fs'
+import { simplify } from '@turf/simplify'
 import zonefile from '../../../zonefile/iana.js'
-// let zonefile = spacetime.timezones()
+
+// degrees; ~11km at equator — tune for world-map vs boundary accuracy
+const simplifyOptions = {
+  tolerance: 0.1,
+  highQuality: true,
+  mutate: true,
+}
 sh.exec(`wget 'https://www.geoapify.com/data-share/timezones/timezone-geojson.zip'`)
 sh.exec(`unzip -o timezone-geojson.zip`)
 sh.exec(`mkdir ./tz-downloads`)
@@ -19,13 +25,17 @@ Object.keys(zonefile).forEach(tz => {
   if (fs.existsSync(file)) {
     const tzFile = fs.readFileSync(file, 'utf8')
     const tzData = JSON.parse(tzFile)
-    console.log(filename)
-    combined[tz] = tzData
+    combined[tz] = simplify(tzData, simplifyOptions)
   } else {
     console.log(`${filename}.json not found`)
   }
 })
 
-fs.writeFileSync('./combined.json', JSON.stringify(combined, null, 2))
+const outputFile = './src/geojson/data.json'
+fs.writeFileSync(outputFile, JSON.stringify(combined, null, 2))
+const { size } = fs.statSync(outputFile)
+console.log(`wrote ${outputFile} (${(size / 1024 / 1024).toFixed(2)} MB)`)
 sh.exec(`rm -rf ./tz-downloads`)
+sh.exec(`rm -rf ./timezone-geojson`)
+sh.exec(`rm -rf ./timezone-geojson.zip`)
 sh.exec(`rm -rf __MACOSX`)
