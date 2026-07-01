@@ -65,12 +65,14 @@ const timezone = s => {
   //(these variable names are north-centric)
   const summer = found.offset // (july)
   let winter = summer // (january) assume it's the same for now
+  //most zones shift by 1hr on dst, but Lord Howe is a ½-hour shift
+  const dstShift = tz === 'australia/lord_howe' ? 0.5 : 1
   if (result.hasDst === true) {
     if (result.hemisphere === 'North') {
-      winter = summer - 1
+      winter = summer - dstShift
     } else {
       //southern hemisphere
-      winter = found.offset + 1
+      winter = found.offset + dstShift
     }
   }
 
