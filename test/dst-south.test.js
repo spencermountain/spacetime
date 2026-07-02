@@ -59,3 +59,28 @@ test('south-increment-nov', (t) => {
   })
   t.end()
 })
+
+// oracle: native Intl offset (minutes) for a UTC instant
+function intlOffsetMin(tz, utcISO) {
+  const v = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'longOffset' })
+    .formatToParts(new Date(utcISO))
+    .find((x) => x.type === 'timeZoneName').value // e.g. 'GMT+11:00'
+  const m = v.match(/GMT([+-])(\d{2}):(\d{2})/)
+  if (!m) return 0
+  const sign = m[1] === '-' ? -1 : 1
+  return sign * (+m[2] * 60 + +m[3])
+}
+
+test('Lord Howe half-hour DST offset', (t) => {
+  const tz = 'Australia/Lord_Howe'
+  // January = southern summer = DST on. Intl: +11:00 (660 min).
+  const janUTC = '2026-01-15T00:00:00Z'
+  const jan = spacetime(new Date(janUTC).getTime(), tz)
+  t.equal(jan.offset(), intlOffsetMin(tz, janUTC), 'Lord Howe January offset matches Intl (+11:00)')
+
+  // July = southern winter = standard. Intl: +10:30 (630 min).
+  const julUTC = '2026-07-15T00:00:00Z'
+  const jul = spacetime(new Date(julUTC).getTime(), tz)
+  t.equal(jul.offset(), intlOffsetMin(tz, julUTC), 'Lord Howe July offset matches Intl (+10:30)')
+  t.end()
+})
