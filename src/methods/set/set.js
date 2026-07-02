@@ -2,9 +2,9 @@
 //these methods wrap around them.
 import ms from '../../data/milliseconds.js'
 import { mapping } from '../../data/months.js'
-import monthLength from '../../data/monthLengths.js'
 import walkTo from './walk.js'
 import { isLeapYear } from '../../fns.js'
+import { getMonthLength } from './_model.js'
 
 const validate = (n) => {
   //handle number as a string
@@ -142,14 +142,9 @@ const time = function (s, str, goFwd) {
 
 const date = function (s, n, goFwd) {
   n = validate(n)
-  //avoid setting february 31st
+  //avoid setting february 31st (leap-aware, same as add())
   if (n > 28) {
-    const month = s.month()
-    let max = monthLength[month]
-    // support leap day in february
-    if (month === 1 && n === 29 && isLeapYear(s.year())) {
-      max = 29
-    }
+    const max = getMonthLength(s.month(), s.year())
     if (n > max) {
       n = max
     }
@@ -183,15 +178,16 @@ const month = function (s, n, goFwd) {
   }
 
   let d = s.date()
-  //there's no 30th of february, etc.
-  if (d > monthLength[n]) {
+  //there's no 30th of february, etc. (leap-aware, same as add())
+  const max = getMonthLength(n, s.year())
+  if (d > max) {
     //make it as close as we can..
-    d = monthLength[n]
+    d = max
   }
   const old = s.clone()
   walkTo(s, {
     month: n,
-    d
+    date: d
   })
   s = fwdBkwd(s, old, goFwd, 'year') // specify direction
   return s.epoch

@@ -222,3 +222,19 @@ test('time parsing edge cases', (t) => {
 
   t.end()
 })
+
+test('month()/date() setters clamp the day to the month length', (t) => {
+  const iso = (s) => s.format('iso-short')
+  // .month() must clamp the day to the target month's length
+  t.equal(iso(spacetime('2020-01-31').month('april')), '2020-04-30', 'jan 31 -> april clamps to the 30th')
+  t.equal(iso(spacetime('2020-01-31').month('june')), '2020-06-30', 'jan 31 -> june clamps to the 30th')
+  // leap-year february
+  t.equal(iso(spacetime('2020-01-31').month('february')), '2020-02-29', 'jan 31 -> feb 29 in a leap year')
+  t.equal(iso(spacetime('2024-01-31').month('february')), '2024-02-29', 'jan 31 -> feb 29 in a leap year')
+  t.equal(iso(spacetime('2021-01-31').month('february')), '2021-02-28', 'jan 31 -> feb 28 in a common year')
+  // .date() must clamp to the same leap-aware length
+  t.equal(iso(spacetime('2020-02-10').date(31)), '2020-02-29', 'date(31) in a leap february clamps to the 29th')
+  t.equal(iso(spacetime('2020-02-10').date(30)), '2020-02-29', 'date(30) in a leap february clamps to the 29th')
+  t.equal(iso(spacetime('2021-02-10').date(31)), '2021-02-28', 'date(31) in a common february clamps to the 28th')
+  t.end()
+})
