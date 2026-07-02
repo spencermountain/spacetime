@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>spacetime-start demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 15vh;
+      color: #334;
+    }
+
+    #clock {
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin: 1rem;
+    }
+
+    button {
+      font-size: 1rem;
+      padding: 0.4rem 1.2rem;
+      margin: 0 0.3rem;
+      cursor: pointer;
+    }
+
+    .row {
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="clock">—</div>
+  <div class="row">
+    <button id="start">start</button>
+    <button id="stop">stop</button>
+  </div>
+  <script type="module">
+    import spacetime from 'https://unpkg.com/spacetime/builds/spacetime.mjs'
+    import startPlugin from './src/index.js'
+    spacetime.extend(startPlugin)
+
+    // an arbitrary date, played-back at 1-hour-per-second
+    const s = spacetime('June 8th, 1998 11:00am')
+    const clock = document.querySelector('#clock')
+    clock.innerHTML = s.format('nice')
+
+    document.querySelector('#start').addEventListener('click', () => {
+      s.start({
+        interval: 1000,
+        rate: 3600,
+        tick: (obj) => {
+          clock.innerHTML = obj.format('nice')
+        }
+      })
+    })
+    document.querySelector('#stop').addEventListener('click', () => {
+      s.stop()
+    })
+  </script>
+</body>
+
+</html>

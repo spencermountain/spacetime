@@ -1,0 +1,46 @@
+{
+  "name": "spacetime-start",
+  "description": "playback a spacetime object at real-rate, without drift",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "unpkg": "builds/spacetime-start.min.js",
+  "module": "builds/spacetime-start.mjs",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "require": "./builds/spacetime-start.cjs",
+      "import": "./builds/spacetime-start.mjs",
+      "default": "./builds/spacetime-start.mjs"
+    }
+  },
+  "author": "Spencer Kelly (spencermountain)",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/start",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencermountain/spacetime.git"
+  },
+  "bugs": {
+    "url": "https://github.com/spencermountain/spacetime/issues"
+  },
+  "scripts": {
+    "watch": "node --watch ./scratch.js",
+    "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
+    "build": "rollup -c --silent"
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  },
+  "devDependencies": {
+    "tap-dancer": "0.3.4",
+    "tape": "5.5.3"
+  },
+  "peerDependencies": {
+    "spacetime": ">=6.0.0"
+  },
+  "license": "MIT"
+}
