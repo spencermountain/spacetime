@@ -36,6 +36,8 @@
     "printWidth": 100
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^1.0.0",
+    "rollup": "4.62.2",
     "tap-dancer": "0.3.4",
     "tape": "5.5.3"
   },

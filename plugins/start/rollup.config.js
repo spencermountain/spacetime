@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser';
 const pkg = JSON.parse(fs.readFileSync('./package.json').toString())
 
 console.log('\n 📦  - running rollup..\n')
@@ -10,11 +10,13 @@ const banner = `/* spencermountain/${name} ${pkg.version} MIT */`
 export default [
   {
     input: 'src/index.js',
-    output: [{ banner: banner, file: `builds/${name}.mjs`, format: 'esm' }]
+    output: [{ banner: banner, file: `builds/${name}.mjs`, format: 'esm' }],
+    plugins: [terser()]
   },
   {
     input: 'src/index.js',
-    output: [{ banner: banner, file: `builds/${name}.cjs`, format: 'umd', sourcemap: false, name: 'spacetimeStart' }]
+    output: [{ banner: banner, file: `builds/${name}.cjs`, format: 'umd', sourcemap: false, name: 'spacetimeStart' }],
+    plugins: [terser()]
   },
   {
     input: 'src/index.js',
