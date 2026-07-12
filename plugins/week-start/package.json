@@ -1,9 +1,10 @@
 {
   "name": "spacetime-week-start",
   "description": "calculate start-of-week",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "src/index.js",
   "unpkg": "builds/spacetime-week-start.min.js",
+  "module": "builds/spacetime-week-start.mjs",
   "type": "module",
   "sideEffects": false,
   "exports": {
@@ -32,13 +33,13 @@
     "printWidth": 100
   },
   "devDependencies": {
-    "shelljs": "0.8.5",
+    "@rollup/plugin-terser": "^1.0.0",
+    "rollup": "4.62.2",
     "tap-dancer": "0.3.4",
-    "tape": "5.5.3",
-    "terser": "5.39.0"
+    "tape": "5.5.3"
   },
   "peerDependencies": {
     "spacetime": ">=5.8.2"
   },
-  "licence": "MIT"
+  "license": "MIT"
 }

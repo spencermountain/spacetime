@@ -8,9 +8,6 @@
   <a href="https://npmjs.org/package/spacetime-week-start">
     <img src="https://img.shields.io/npm/v/spacetime-week-start.svg?style=flat-square" />
   </a>
-  <a href="https://unpkg.com/spacetime/builds/spacetime-week-start.min.js">
-    <img src="https://badge-size.herokuapp.com/spencermountain/spacetime-week-start/master/builds/spacetime-week-start.min.js" />
-  </a>
   <div>
     <sup>
       By <a href="https://github.com/MartinSpd">Martin Spodniak</a> and <a href="https://github.com/spencermountain">Spencer Kelly</a>
@@ -21,79 +18,52 @@
 
 The start of a week varies officially in different countries.
 
-This is a library to help understand week-starts/ends, by country or timezone.
+This is a plugin for the [spacetime](https://github.com/spencermountain/spacetime) library, to help understand week-starts/ends, by country or timezone.
 
 It does some opinionated guesswork to determine the most appropriate week-start, when a timezone is given.
 
 It returns an english name of the day used in javascript.
 
-It is built for use in/with the [spacetime](https://github.com/spencermountain/spacetime) library
-
-Main function `weekStart` determines when week start in the current time zone or given coutry:
-- it accepts one optional argument - string name of the country
-- you don't have to supply full name of a country - it's enough write part of name (f.e. instead of *united states of america* just *united states* or unique part of name, like f.e. *ted sta*)
-- if searching for country name is successful it returns a simple JSON object for better clarification what is in output, looking f.e.:
-```js
-{ day: 'sunday', country: 'united states of america' }
-```
-- function also accepts text in any case (lower, upper, camel case)
-- just to make it easy for you write lower cased country name
-- there are some time zones with general names, such as `gmt`, `utc` or `zulu`. These returns `JSON` such as:
-```js
-{ day: 'monday', location: 'zulu' }
-```
-- if you write as argument different type as string, `null`, `undefined` or supply no argument at all it returns first day of weeek for current time zone
-- it uses `spacetime` library to determine current time zone only and rest is distinct for searching first day of week
-
 `npm i spacetime-week-start`
 
 ```js
-const s = require('spacetime-week-start')
+import spacetime from 'spacetime'
+import weekStart from 'spacetime-week-start'
+spacetime.extend(weekStart)
 
-console.log('#1: ', s.weekStart());
-console.log('#2: ', s.weekStart(12));
-console.log('#3: ', s.weekStart(null));
-console.log('#4: ', s.weekStart(''));
-console.log('#5: ', s.weekStart(undefined));
-console.log('#6: ', s.weekStart('abc'));
-// all returns results for current tz, f.e. { day: 'sunday', country: 'canada' }
+let s = spacetime.now('Europe/Berlin')
 
-console.log('#7: ', weekStart('slovakia'));
-// tz: europe/bratislava
-// { day: 'monday', country: 'slovakia' }
+// with no argument, it uses the timezone of the spacetime object
+s.weekStart()
+// { day: 'monday', country: 'germany' }
 
-console.log('#8: ', weekStart('iran'));
-//tz: asia/tehran
-// { day: 'saturday', country: 'iran' }
-
-console.log('#9: ', weekStart('canAda'));
-//tz: f.e. america/montreal
+// or, look up a country by name
+s.weekStart('canada')
 // { day: 'sunday', country: 'canada' }
 
-console.log('#10: ', weekStart('lize'));
-// tz: america/belize
-// { day: 'monday', country: 'belize' }
-
-console.log('#11: ', weekStart('el salvador'));
-// tz: america/el_salvador
-// { day: 'monday', country: 'el salvador' }
-
-console.log('#12: ', weekStart('zulu'));
-// tz: etc/zulu
-// { day: 'monday', location: 'zulu' }
-
-console.log('#13: ', weekStart('gmt'));
-// tz: f.e. etc/gmt
-// { day: 'monday', location: 'gmt' }
-
-console.log('#14: ', weekStart('antarctica'));
-// tz: f.e. antarctica/south_pole
-// { day: 'monday', location: 'antarctica' }
-
-console.log('#15: ', weekStart('arctic'));
-// tz: f.e. arctic/longyearbyen
-// { day: 'monday', location: 'arctic' }
+s.weekStart('iran')
+// { day: 'saturday', country: 'iran' }
 ```
+
+The `weekStart` method accepts one optional argument - the name of a country:
+
+- you don't have to supply the full name of a country - part of the name is enough (f.e. instead of *united states of america* just *united states*, or a unique part of the name, like *ted sta*)
+- the country name can be in any case (lower, upper, camel case)
+- if the country lookup is successful, it returns a simple object:
+
+```js
+s.weekStart('united states')
+// { day: 'sunday', country: 'united states of america' }
+```
+
+- some timezones have general names, such as `gmt`, `utc` or `zulu`. These return:
+
+```js
+spacetime.now('Etc/Zulu').weekStart()
+// { day: 'monday', location: 'zulu' }
+```
+
+- if you supply a non-string, `null`, `undefined`, an unknown name, or no argument at all, it returns the first day of the week for the object's timezone
 
 ### Used various sources to determine most accurate guess:
 
@@ -103,7 +73,5 @@ console.log('#15: ', weekStart('arctic'));
 - [Wikipedia - Workweek and weekend](https://en.wikipedia.org/wiki/Workweek_and_weekend)
 - [Time & Date](https://www.timeanddate.com/worldclock/)
 - [Time zone converter](http://www.timezoneconverter.com/index.php)
-
-work-in-progress
 
 MIT
