@@ -1,6 +1,7 @@
-import spacetime from 'spacetime'
-import spacetimeWeek from './src/index.js'
+import spacetime from '../../src/index.js'
+import weekStartPlugin from './src/index.js'
 
-spacetime.extend(spacetimeWeek)
+spacetime.extend(weekStartPlugin)
 const d = spacetime.now('Europe/Berlin')
-console.log(d.weekStart('iran'))
+console.log(d.weekStart()) // { day: 'monday', country: 'germany' }
+console.log(d.weekStart('iran')) // { day: 'saturday', country: 'iran' }

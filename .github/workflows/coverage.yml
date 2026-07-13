@@ -18,5 +18,5 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - run: npm ci
-      - run: npm i -g nyc
+      - run: npm i -g nyc codecov
       - run: npm run codecov

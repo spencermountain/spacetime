@@ -1,24 +1,27 @@
 {
-  "name": "spacetime-week-start",
-  "description": "calculate start-of-week",
-  "version": "0.4.0",
+  "name": "spacetime-start",
+  "description": "playback a spacetime object at real-rate, without drift",
+  "version": "0.0.1",
   "main": "src/index.js",
-  "unpkg": "builds/spacetime-week-start.min.js",
-  "module": "builds/spacetime-week-start.mjs",
+  "unpkg": "builds/spacetime-start.min.js",
+  "module": "builds/spacetime-start.mjs",
   "type": "module",
   "sideEffects": false,
   "exports": {
     ".": {
-      "require": "./builds/spacetime-week-start.cjs",
-      "import": "./builds/spacetime-week-start.mjs",
-      "default": "./builds/spacetime-week-start.mjs"
+      "require": "./builds/spacetime-start.cjs",
+      "import": "./builds/spacetime-start.mjs",
+      "default": "./builds/spacetime-start.mjs"
     }
   },
-  "author": "Martin Spodniak & Spencer Kelly",
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/week-start",
+  "author": "Spencer Kelly (spencermountain)",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/start",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spencermountain/spacetime.git"
+  },
+  "bugs": {
+    "url": "https://github.com/spencermountain/spacetime/issues"
   },
   "scripts": {
     "watch": "node --watch ./scratch.js",
@@ -39,7 +42,7 @@
     "tape": "5.5.3"
   },
   "peerDependencies": {
-    "spacetime": ">=5.8.2"
+    "spacetime": ">=6.0.0"
   },
   "license": "MIT"
 }

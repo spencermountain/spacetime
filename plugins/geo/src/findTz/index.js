@@ -1,5 +1,4 @@
 import tzlookup from 'tz-lookup'
-
 //.trim() pollyfill
 if (!String.prototype.trim) {
   const rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
