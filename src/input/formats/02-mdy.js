@@ -88,5 +88,26 @@ export default [
       s = parseTime(s, time)
       return s
     }
+  },
+  // Date.toString() - 'Mon Jun 17 2019 11:00:00 GMT-0700 (Pacific Daylight Time)'
+  // (the weekday is already stripped by normalize)
+  {
+    reg: /^([a-z]+) ([0-9]{1,2}) ([0-9]{4}) ([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}) (?:gmt)?([+-][0-9]{4})/i,
+    parse: (s, arr) => {
+      const [, month, date, year, time, tz] = arr
+      const obj = {
+        year: parseYear(year, s._today),
+        month: parseMonth(month),
+        date: toCardinal(date || '')
+      }
+      if (validate(obj) === false) {
+        s.epoch = null
+        return s
+      }
+      walkTo(s, obj)
+      s = parseOffset(s, tz)
+      s = parseTime(s, time)
+      return s
+    }
   }
 ]
