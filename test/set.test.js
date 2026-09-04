@@ -238,3 +238,16 @@ test('month()/date() setters clamp the day to the month length', (t) => {
   t.equal(iso(spacetime('2021-02-10').date(31)), '2021-02-28', 'date(31) in a common february clamps to the 28th')
   t.end()
 })
+
+test('hour() setter clamps out-of-range hours to a valid hour', (t) => {
+  const s = spacetime('2021-03-14 10:00:00', 'UTC')
+  // an out-of-range hour must clamp to 23, not null the epoch
+  t.equal(s.hour(24).hour(), 23, 'hour(24) clamps to 23')
+  t.equal(s.hour(25).hour(), 23, 'hour(25) clamps to 23')
+  t.equal(s.hour(100).hour(), 23, 'hour(100) clamps to 23')
+  t.equal(s.hour(24).isValid(), true, 'hour(24) stays valid')
+  t.equal(s.hour(24).format('iso-short'), '2021-03-14', 'hour(24) keeps the same day')
+  // negative hours still clamp to 0
+  t.equal(s.hour(-1).hour(), 0, 'hour(-1) clamps to 0')
+  t.end()
+})
