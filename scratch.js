@@ -5,5 +5,7 @@ import spacetime from './src/index.js'
 // let s = spacetime(wantDate, null, { today: today })
 // console.log(s.format('{nice} {year}'));
 
-let tzs = spacetime.whereIts('9:00am', '11:00am')
-console.log(tzs.length)
+let str = 'Mon Jun 17 2019 11:00:00 GMT+0530 (India Standard Time)'
+let s = spacetime(str)
+console.log(s.format('iso'))
+  // '2019-06-17T11:00:00+05:30'
