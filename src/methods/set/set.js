@@ -67,8 +67,9 @@ const minutes = function (s, n, goFwd) {
 
 const hours = function (s, n, goFwd) {
   n = validate(n)
+  // Clamp to 0-23: hour 24 is rejected by walkTo(), which nulls the epoch.
   if (n >= 24) {
-    n = 24
+    n = 23
   } else if (n < 0) {
     n = 0
   }
