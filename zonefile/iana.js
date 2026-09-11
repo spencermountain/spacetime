@@ -386,7 +386,7 @@ export default {
   'america/edmonton': {
     offset: -6,
     hem: 'n',
-    dst: '03/08:02->11/01:02'
+    dst: '03/08:02->11/01:03'
   },
   'america/eirunepe': {
     offset: -5,
@@ -816,7 +816,7 @@ export default {
   'america/yellowknife': {
     offset: -6,
     hem: 'n',
-    dst: '03/08:02->11/01:02'
+    dst: '03/08:02->11/01:03'
   },
   'antarctica/casey': {
     offset: 8,
