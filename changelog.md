@@ -5,9 +5,12 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!--
- ### 7.2.0 [Sep 2022]
-
  -->
+ ### 7.14.0 [Sep 2022]
+ - **[new]** - support JavaScript's Date.toString() fmt as input #465
+ - **[change]** - clamp maximum .hour() to 0-23 #467
+ - **[update]** - edmonton and yellowknife DST hour
+ - **[update]** - dependencies
 
 ### 7.13.0 [Jun 2026]
 - **[fix]** - typescript config issue

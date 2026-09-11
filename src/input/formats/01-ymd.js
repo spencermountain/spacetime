@@ -9,7 +9,9 @@ export default [
   //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
   // optionally supports Temporal fmt w/ [IANA]
   {
-    reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9-+:]+)?(\[.*?\])?(\[.*?\])?$/i,
+    // offset must start with 'Z' or a sign, so it shares no leading char with
+    // the preceding time group ([0-9.:]+) -> no ambiguous split -> linear match.
+    reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[+-][0-9:]+)?(\[.*?\])?(\[.*?\])?$/i,
     parse: (s, m) => {
       const obj = {
         year: m[1],

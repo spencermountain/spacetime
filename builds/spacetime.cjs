@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.13.0 Apache 2.0 */
+/* spencermountain/spacetime 7.14.0 Apache 2.0 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -117,7 +117,8 @@
     "-7|n": "1/creston,1/dawson,1/dawson_creek,1/fort_nelson,1/hermosillo,1/mazatlan,1/phoenix,1/whitehorse,6/yukon,10/bajasur,us/arizona,mst",
     "-6|s|04/04:22->09/05:22": "11/easter,7/easterisland",
     "-6|n|04/07:02->10/27:02": "1/merida",
-    "-6|n|03/08:02->11/01:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/north_dakota,1/ojinaga,1/ciudad_juarez,1/yellowknife,1/shiprock,6/mountain,navajo,us/mountain",
+    "-6|n|03/08:02->11/01:03": "1/edmonton,1/yellowknife,6/mountain",
+    "-6|n|03/08:02->11/01:02": "1/boise,1/cambridge_bay,1/denver,1/inuvik,1/north_dakota,1/ojinaga,1/ciudad_juarez,1/shiprock,navajo,us/mountain",
     "-6|n": "1/bahia_banderas,1/belize,1/chihuahua,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/mexico_city,1/monterrey,1/regina,1/swift_current,1/tegucigalpa,11/galapagos,6/east-saskatchewan,6/saskatchewan,10/general",
     "-5|s": "1/lima,1/rio_branco,1/porto_acre,5/acre",
     "-5|n|03/08:02->11/01:02": "1/chicago,1/matamoros,1/menominee,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,1/indiana/knox,1/indiana/tell_city,1/north_dakota/beulah,1/north_dakota/center,1/north_dakota/new_salem,1/knox_in,6/central,us/central,us/indiana-starke",
@@ -947,7 +948,9 @@
     //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
     // optionally supports Temporal fmt w/ [IANA]
     {
-      reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[0-9-+:]+)?(\[.*?\])?(\[.*?\])?$/i,
+      // offset must start with 'Z' or a sign, so it shares no leading char with
+      // the preceding time group ([0-9.:]+) -> no ambiguous split -> linear match.
+      reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T| ]([0-9.:]+)(Z|[+-][0-9:]+)?(\[.*?\])?(\[.*?\])?$/i,
       parse: (s, m) => {
         const obj = {
           year: m[1],
@@ -1089,6 +1092,27 @@
       reg: /^([a-z]+) ([0-9]{1,2}) ([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2})( \+[0-9]{4})?( [0-9]{4})?$/i,
       parse: (s, arr) => {
         const [, month, date, time, tz, year] = arr;
+        const obj = {
+          year: parseYear(year, s._today),
+          month: parseMonth(month),
+          date: toCardinal(date || '')
+        };
+        if (validate$1(obj) === false) {
+          s.epoch = null;
+          return s
+        }
+        walkTo(s, obj);
+        s = parseOffset(s, tz);
+        s = parseTime(s, time);
+        return s
+      }
+    },
+    // Date.toString() - 'Mon Jun 17 2019 11:00:00 GMT-0700 (Pacific Daylight Time)'
+    // (the weekday is already stripped by normalize)
+    {
+      reg: /^([a-z]+) ([0-9]{1,2}) ([0-9]{4}) ([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}) (?:gmt)?([+-][0-9]{4})/i,
+      parse: (s, arr) => {
+        const [, month, date, year, time, tz] = arr;
         const obj = {
           year: parseYear(year, s._today),
           month: parseMonth(month),
@@ -2570,12 +2594,14 @@
     //(these variable names are north-centric)
     const summer = found.offset; // (july)
     let winter = summer; // (january) assume it's the same for now
+    //most zones shift by 1hr on dst, but Lord Howe is a ½-hour shift
+    const dstShift = tz === 'australia/lord_howe' ? 0.5 : 1;
     if (result.hasDst === true) {
       if (result.hemisphere === 'North') {
-        winter = summer - 1;
+        winter = summer - dstShift;
       } else {
         //southern hemisphere
-        winter = found.offset + 1;
+        winter = found.offset + dstShift;
       }
     }
 
@@ -2823,6 +2849,79 @@
   methods$4.round = methods$4.nearest;
   methods$4.each = methods$4.every;
 
+  const getMonthLength = function (month, year) {
+    if (month === 1 && isLeapYear(year)) {
+      return 29
+    }
+    return monthLengths[month]
+  };
+
+  //month is the one thing we 'model/compute'
+  //- because ms-shifting can be off by enough
+  const rollMonth = (want, old) => {
+    //increment year
+    if (want.month > 0) {
+      const years = parseInt(want.month / 12, 10);
+      want.year = old.year() + years;
+      want.month = want.month % 12;
+    } else if (want.month < 0) {
+      const m = Math.abs(want.month);
+      let years = parseInt(m / 12, 10);
+      if (m % 12 !== 0) {
+        years += 1;
+      }
+      want.year = old.year() - years;
+      //ignore extras
+      want.month = want.month % 12;
+      want.month = want.month + 12;
+      if (want.month === 12) {
+        want.month = 0;
+      }
+    }
+    return want
+  };
+
+  // briefly support day=-2 (this does not need to be perfect.)
+  const rollDaysDown = (want, old, sum) => {
+    want.year = old.year();
+    want.month = old.month();
+    const date = old.date();
+    want.date = date - Math.abs(sum);
+    while (want.date < 1) {
+      want.month -= 1;
+      if (want.month < 0) {
+        want.month = 11;
+        want.year -= 1;
+      }
+      const max = getMonthLength(want.month, want.year);
+      want.date += max;
+    }
+    return want
+  };
+
+  // briefly support day=33 (this does not need to be perfect.)
+  const rollDaysUp = (want, old, sum) => {
+    let year = old.year();
+    let month = old.month();
+    let max = getMonthLength(month, year);
+    while (sum > max) {
+      sum -= max;
+      month += 1;
+      if (month >= 12) {
+        month -= 12;
+        year += 1;
+      }
+      max = getMonthLength(month, year);
+    }
+    want.month = month;
+    want.date = sum;
+    return want
+  };
+
+  const months = rollMonth;
+  const days = rollDaysUp;
+  const daysBack = rollDaysDown;
+
   // javascript setX methods like setDate() can't be used because of the local bias
   //these methods wrap around them.
 
@@ -2887,8 +2986,9 @@
 
   const hours = function (s, n, goFwd) {
     n = validate(n);
+    // Clamp to 0-23: hour 24 is rejected by walkTo(), which nulls the epoch.
     if (n >= 24) {
-      n = 24;
+      n = 23;
     } else if (n < 0) {
       n = 0;
     }
@@ -2962,14 +3062,9 @@
 
   const date = function (s, n, goFwd) {
     n = validate(n);
-    //avoid setting february 31st
+    //avoid setting february 31st (leap-aware, same as add())
     if (n > 28) {
-      const month = s.month();
-      let max = monthLengths[month];
-      // support leap day in february
-      if (month === 1 && n === 29 && isLeapYear(s.year())) {
-        max = 29;
-      }
+      const max = getMonthLength(s.month(), s.year());
       if (n > max) {
         n = max;
       }
@@ -3003,15 +3098,16 @@
     }
 
     let d = s.date();
-    //there's no 30th of february, etc.
-    if (d > monthLengths[n]) {
+    //there's no 30th of february, etc. (leap-aware, same as add())
+    const max = getMonthLength(n, s.year());
+    if (d > max) {
       //make it as close as we can..
-      d = monthLengths[n];
+      d = max;
     }
     const old = s.clone();
     walkTo(s, {
       month: n,
-      d
+      date: d
     });
     s = fwdBkwd(s, old, goFwd, 'year'); // specify direction
     return s.epoch
@@ -3643,79 +3739,6 @@
     });
   };
 
-  const getMonthLength = function (month, year) {
-    if (month === 1 && isLeapYear(year)) {
-      return 29
-    }
-    return monthLengths[month]
-  };
-
-  //month is the one thing we 'model/compute'
-  //- because ms-shifting can be off by enough
-  const rollMonth = (want, old) => {
-    //increment year
-    if (want.month > 0) {
-      const years = parseInt(want.month / 12, 10);
-      want.year = old.year() + years;
-      want.month = want.month % 12;
-    } else if (want.month < 0) {
-      const m = Math.abs(want.month);
-      let years = parseInt(m / 12, 10);
-      if (m % 12 !== 0) {
-        years += 1;
-      }
-      want.year = old.year() - years;
-      //ignore extras
-      want.month = want.month % 12;
-      want.month = want.month + 12;
-      if (want.month === 12) {
-        want.month = 0;
-      }
-    }
-    return want
-  };
-
-  // briefly support day=-2 (this does not need to be perfect.)
-  const rollDaysDown = (want, old, sum) => {
-    want.year = old.year();
-    want.month = old.month();
-    const date = old.date();
-    want.date = date - Math.abs(sum);
-    while (want.date < 1) {
-      want.month -= 1;
-      if (want.month < 0) {
-        want.month = 11;
-        want.year -= 1;
-      }
-      const max = getMonthLength(want.month, want.year);
-      want.date += max;
-    }
-    return want
-  };
-
-  // briefly support day=33 (this does not need to be perfect.)
-  const rollDaysUp = (want, old, sum) => {
-    let year = old.year();
-    let month = old.month();
-    let max = getMonthLength(month, year);
-    while (sum > max) {
-      sum -= max;
-      month += 1;
-      if (month >= 12) {
-        month -= 12;
-        year += 1;
-      }
-      max = getMonthLength(month, year);
-    }
-    want.month = month;
-    want.date = sum;
-    return want
-  };
-
-  const months = rollMonth;
-  const days = rollDaysUp;
-  const daysBack = rollDaysDown;
-
   // this logic is a bit of a mess,
   // but briefly:
   // millisecond-math, and some post-processing covers most-things
@@ -4177,7 +4200,7 @@
     return tzs
   };
 
-  var version = '7.13.0';
+  var version = '7.14.0';
 
   const main = (input, tz, options) => new SpaceTime(input, tz, options);
 
