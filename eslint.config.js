@@ -31,9 +31,6 @@ export default [
       "radix": 1,
       "no-unused-vars": 1,
       "regexp/prefer-d": 0,
-      "regexp/prefer-w": 0,
-      "regexp/prefer-range": 0,
-      "regexp/no-unused-capturing-group": 0,
       "regexp/optimal-quantifier-concatenation": 0
     }
   }
