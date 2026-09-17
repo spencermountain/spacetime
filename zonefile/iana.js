@@ -561,8 +561,7 @@ export default {
   },
   'america/merida': {
     offset: -6,
-    hem: 'n',
-    dst: '04/07:02->10/27:02'
+    hem: 'n'
   },
   'america/metlakatla': {
     offset: -8,
@@ -819,8 +818,7 @@ export default {
   },
   'antarctica/casey': {
     offset: 8,
-    hem: 's',
-    dst: '03/13:01->10/02:00'
+    hem: 's'
   },
   'antarctica/davis': {
     offset: 7,
@@ -858,7 +856,7 @@ export default {
   },
   'antarctica/troll': {
     offset: 2,
-    hem: 's',
+    hem: 'n',
     dst: '03/29:02->10/25:02'
   },
   'antarctica/vostok': {
