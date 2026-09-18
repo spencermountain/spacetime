@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import findTz from './find.js'
 import inSummerTime from './summerTime.js'
+import getDstShift from './dstShift.js'
 
 const parseDst = dst => {
   if (!dst) {
@@ -67,7 +68,7 @@ const timezone = s => {
   let winter = summer // (january) assume it's the same for now
   //most zones shift by 1hr on dst, but Lord Howe is a ½-hour shift
   //and Troll (Antarctica) makes a 2-hour jump between +00 and +02
-  const dstShift = tz === 'australia/lord_howe' ? 0.5 : tz === 'antarctica/troll' ? 2 : 1
+  const dstShift = getDstShift(tz)
   if (result.hasDst === true) {
     if (result.hemisphere === 'North') {
       winter = summer - dstShift

@@ -7,5 +7,5 @@ import spacetime from './src/index.js'
 
 let str = 'Mon Jun 17 2019 11:00:00 GMT+0530 (India Standard Time)'
 let s = spacetime(str)
-console.log(s.format('iso'))
+console.log(s.format('iso-short'))
   // '2019-06-17T11:00:00+05:30'
