@@ -37,19 +37,55 @@ export const printHeader = ({ year, version, zoneinfoDir, output, check, total }
 export const printReport = ({ changes, unsupported, total }) => {
   const lines = ['', paint(`Changes (${changes.length})`, '1;36')]
   if (!changes.length) lines.push('  No changes.')
-  for (const { name, before, after } of changes) {
+  const groups = changes.map(({ name, before, after }) => ({
+    name,
+    rows: [...new Set([...Object.keys(before), ...Object.keys(after)])]
+      .filter(key => before[key] !== after[key])
+      .map(key => ({
+        label: key === 'dst' ? 'DST' : key === 'hem' ? 'hemisphere' : key,
+        before: value(key, before[key]),
+        after: value(key, after[key])
+      }))
+  }))
+  const rows = groups.flatMap(group => group.rows)
+  const labelWidth = Math.max(10, ...rows.map(row => row.label.length))
+  for (const { name, rows } of groups) {
     lines.push(`  ${paint(name, '1')}`)
-    for (const key of new Set([...Object.keys(before), ...Object.keys(after)])) {
-      if (before[key] === after[key]) continue
-      const label = (key === 'dst' ? 'DST' : key === 'hem' ? 'hemisphere' : key).padEnd(10)
-      lines.push(`    ${label} ${paint(value(key, before[key]), '31')} → ${paint(value(key, after[key]), '32')}`)
+    for (const row of rows) {
+      // Pad plain text before coloring so ANSI escape sequences do not affect alignment.
+      lines.push(
+        `    ${row.label.padEnd(labelWidth)}  ${paint(`Before  ${row.before}`, '31')}`,
+        `    ${''.padEnd(labelWidth)}  ${paint(`After   ${row.after}`, '32')}`
+      )
     }
   }
   console.log(lines.join('\n'))
   if (unsupported.length) {
     const warnings = ['', paint(`Unsupported (${unsupported.length}) — existing records retained`, '1;33', process.stderr)]
-    for (const { name, reason } of unsupported) {
+    for (const { name, reason, previous, intervals, details = [] } of unsupported) {
       warnings.push(`  ${paint(name, '33', process.stderr)}`, `    ${reason}`)
+      for (const detail of details) warnings.push(`      ${detail}`)
+      if (previous) {
+        warnings.push(`    Keeping: ${value('offset', previous.offset)} · ${value('hem', previous.hem)} · DST ${value('dst', previous.dst)}`)
+      }
+      if (intervals) {
+        let before = intervals.initial
+        const dstFlag = state => state.dst ? 'on' : 'off'
+        const timestamp = epoch => new Date(epoch).toISOString().replace('T', ' ').replace('.000Z', '')
+        warnings.push(`    Initial: ${offset(before.offset)} · DST ${dstFlag(before)}`)
+        warnings.push(`    Transitions (${intervals.transitions.length}):`)
+        for (const after of intervals.transitions) {
+          const delta = Math.round((after.offset - before.offset) * 3600) / 60
+          warnings.push(
+            `      ${timestamp(after.epoch)} UTC`,
+            `        Local   ${timestamp(after.epoch + before.offset * 3600000)} → ${timestamp(after.epoch + after.offset * 3600000)}`,
+            `        Offset  ${offset(before.offset).padEnd(12)} → ${offset(after.offset)} (${delta > 0 ? '+' : ''}${delta} min)`,
+            `        DST     ${dstFlag(before).padEnd(12)} → ${dstFlag(after)}`
+          )
+          before = after
+        }
+      }
+      warnings.push('')
     }
     console.error(warnings.join('\n'))
   }

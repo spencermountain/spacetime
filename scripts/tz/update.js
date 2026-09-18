@@ -57,8 +57,15 @@ export const resolveZone = (directory, name) => {
     if (matches.length !== 1) throw new Error('Missing or ambiguous zone: ' + name)
     path = join(path, matches[0])
   }
-  if (statSync(path).isDirectory())
-    throw new UnsupportedZoneError('Zone name resolves to a directory, not a timezone: ' + name)
+  if (statSync(path).isDirectory()) {
+    throw Object.assign(new UnsupportedZoneError('Zone name resolves to a directory, not a timezone: ' + name), {
+      details: [
+        `Resolved path: ${path}`,
+        `Available entries: ${readdirSync(path).sort().join(', ')}`,
+        'Choose a specific timezone or define an explicit library alias; a directory has no offset or transitions.'
+      ]
+    })
+  }
   if (!statSync(path).isFile() || readFileSync(path).subarray(0, 4).toString() !== 'TZif') {
     throw new Error('Not a compiled TZif file: ' + name)
   }
@@ -88,7 +95,7 @@ export const updateZones = (zones, year, readZone) => {
       intervals = parseIntervals(readZone(name))
     } catch (error) {
       if (error instanceof UnsupportedZoneError) {
-        unsupported.push({ name, reason: error.message })
+        unsupported.push({ name, reason: error.message, previous, details: error.details })
         result[name] = { ...previous }
         continue
       }
@@ -97,7 +104,7 @@ export const updateZones = (zones, year, readZone) => {
     try {
       result[name] = normalizeZone(intervals, previous, name, year)
     } catch (error) {
-      unsupported.push({ name, reason: error.message })
+      unsupported.push({ name, reason: error.message, previous, intervals, details: error.details })
       result[name] = { ...previous }
       continue
     }

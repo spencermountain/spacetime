@@ -1,6 +1,18 @@
 import getDstShift from '../../src/timezone/dstShift.js'
 
 const pad = (n) => String(n).padStart(2, '0')
+const unsupported = (message, details) => Object.assign(new Error(message), { details })
+
+// Match the runtime's Date.UTC rollover: MM/DD:24 is next day's MM/DD:00.
+// Validate the date first so unrelated invalid dates are not silently preserved.
+const boundaryTime = (text, year) => {
+  const match = /^(\d{2})\/(\d{2}):(\d{2})$/.exec(text || '')
+  if (!match) return NaN
+  const [month, day, hour] = match.slice(1).map(Number)
+  const midnight = new Date(Date.UTC(year, month - 1, day))
+  if (midnight.getUTCMonth() !== month - 1 || midnight.getUTCDate() !== day || hour > 24) return NaN
+  return Date.UTC(year, month - 1, day, hour)
+}
 
 // zdump -i uses tabs; empty abbreviation fields are significant.
 export const parseIntervals = (text) => {
@@ -76,7 +88,10 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   const changes = []
   for (const next of transitions) {
     if (next.epoch <= lastEpoch || next.epoch < start || next.epoch >= end) {
-      throw new Error('Unordered or out-of-year transition')
+      throw unsupported('Unordered or out-of-year transition', [
+        `Observed UTC instant: ${new Date(next.epoch).toISOString()}`,
+        `Expected increasing instants within ${year}-01-01 through ${year + 1}-01-01 (exclusive).`
+      ])
     }
     lastEpoch = next.epoch
     // Abbreviation-only transitions do not change runtime behavior.
@@ -88,27 +103,50 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   const result = { ...previous, offset: initial.offset }
   delete result.dst
   if (!changes.length) return result
-  if (changes.length !== 2) throw new Error(`Unsupported pattern: ${changes.length} state changes`)
+  if (changes.length !== 2) throw unsupported(`Unsupported pattern: ${changes.length} state changes`, [
+    'The runtime supports a fixed offset or exactly two changes forming one annual cycle.',
+    `Observed ${changes.length} offset/DST changes across ${transitions.length} transition records.`
+  ])
   const [a, b] = changes
   const shift = getDstShift(tz)
   const expected = previous.hem === 'n' ? shift : -shift
-  if (
-    b.after.offset !== initial.offset ||
-    b.after.dst !== initial.dst ||
-    a.after.offset - initial.offset !== expected ||
-    initial.dst !== (previous.hem === 's') ||
-    a.after.dst !== (previous.hem === 'n')
-  ) {
-    throw new Error('Unsupported offset/DST cycle for runtime hemisphere and shift')
+  const mismatches = []
+  if (b.after.offset !== initial.offset) {
+    mismatches.push(`Final offset must return to the initial offset: expected ${initial.offset}h, observed ${b.after.offset}h.`)
+  }
+  if (b.after.dst !== initial.dst) {
+    mismatches.push(`Final DST flag must return to the initial flag: expected ${initial.dst}, observed ${b.after.dst}.`)
+  }
+  if (a.after.offset - initial.offset !== expected) {
+    mismatches.push(`First offset change: expected ${expected * 60} minutes, observed ${(a.after.offset - initial.offset) * 60} minutes.`)
+  }
+  if (initial.dst !== (previous.hem === 's')) {
+    mismatches.push(`Initial DST flag for hemisphere "${previous.hem}": expected ${previous.hem === 's'}, observed ${initial.dst}.`)
+  }
+  if (a.after.dst !== (previous.hem === 'n')) {
+    mismatches.push(`DST flag after first change for hemisphere "${previous.hem}": expected ${previous.hem === 'n'}, observed ${a.after.dst}.`)
+  }
+  if (mismatches.length) {
+    throw unsupported('Unsupported offset/DST cycle for runtime hemisphere and shift', mismatches)
   }
   const boundary = (change) => {
     const d = new Date(change.epoch + Number(change.before.offset * 3600000))
     if (d.getUTCFullYear() !== year || d.getUTCMinutes() || d.getUTCSeconds()) {
-      throw new Error('Unsupported boundary: runtime requires whole hours in the target year')
+      throw unsupported('Unsupported boundary: runtime requires whole hours in the target year', [
+        `Pre-change local boundary: ${d.toISOString().replace('T', ' ').replace('.000Z', '')} (must be a whole hour in ${year}).`,
+        `Transition instant: ${new Date(change.epoch).toISOString()}`
+      ])
     }
     return `${pad(d.getUTCMonth() + 1)}/${pad(d.getUTCDate())}:${pad(d.getUTCHours())}`
   }
   result.offset = a.after.offset
-  result.dst = `${boundary(a)}->${boundary(b)}`
+  const oldBoundaries = (previous.dst || '').split('->')
+  result.dst = [boundary(a), boundary(b)].map((next, i) => {
+    const old = oldBoundaries[i]
+    // Keep each equivalent boundary's spelling, even when the other boundary changes.
+    return oldBoundaries.length === 2 && boundaryTime(old, year) === boundaryTime(next, year)
+      ? old
+      : next
+  }).join('->')
   return result
 }

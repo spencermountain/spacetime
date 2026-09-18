@@ -20,6 +20,14 @@ An unknown version is reported explicitly. The entry point is `scripts/tz/update
 Console output groups field-level changes, unsupported zones with reasons, and a
 summary of changed/unchanged/unsupported counts. Terminal output uses colors;
 redirected output is plain text. Set `NO_COLOR=1` to disable colors explicitly.
+Equivalent midnight boundaries keep their existing spelling: `10/24:24` and
+`10/25:00` describe the same boundary. Each boundary is compared separately
+using the target year's calendar, so real changes are still reported while
+format-only changes are neither reported nor written.
+Unsupported entries include the failed constraints, the record being kept, the
+source's initial offset/DST state, and each transition's UTC instant, local
+before/after times, offset change, and DST flags. Directory-only keys show their
+resolved path and available entries instead.
 
 `--check` writes nothing and exits 1 if records differ or any zone is unsupported.
 Other runs refuse to write if there are unsupported zones. Pass
