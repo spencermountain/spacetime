@@ -624,9 +624,9 @@ export default {
     hem: 'n'
   },
   'america/north_dakota': {
-    offset: -5,
+    offset: -6,
     hem: 'n',
-    dst: '03/12:03->11/05:01'
+    dst: '03/08:02->11/01:02'
   },
   'america/ojinaga': {
     offset: -5,
@@ -728,7 +728,7 @@ export default {
   'america/scoresbysund': {
     offset: -1,
     hem: 'n',
-    dst: '03/29:00->10/24:24'
+    dst: '03/28:23->10/24:24'
   },
   'america/sitka': {
     offset: -8,
@@ -857,7 +857,7 @@ export default {
   'antarctica/troll': {
     offset: 2,
     hem: 'n',
-    dst: '03/29:02->10/25:02'
+    dst: '03/29:01->10/25:03'
   },
   'antarctica/vostok': {
     offset: 5,
@@ -1286,7 +1286,7 @@ export default {
   'australia/lord_howe': {
     offset: 10.5,
     hem: 's',
-    dst: '04/05:01->10/04:02'
+    dst: '04/05:02->10/04:02'
   },
   'australia/melbourne': {
     offset: 10,

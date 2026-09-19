@@ -7,6 +7,7 @@ This project follows semVer, where:
 <!--
  ### 7.15.0 [Sep 2022]
 - **[fix]** - stale dst offsets #470 (thanks Sudarshan!)
+- **[fix]** - update dst dates for nuuk, indiana, kentucky, scoresbysund, nuuk, troll, and north dakota
 - **[change]** - fixes to zonefile parser
  -->
  ### 7.14.0 [Sep 2022]
