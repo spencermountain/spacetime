@@ -26,11 +26,13 @@ export const parseArgs = (args) => {
     year: new Date().getUTCFullYear(),
     zoneinfoDir: '/usr/share/zoneinfo',
     check: false,
+    verbose: false,
     allowUnsupported: false
   }
   for (let i = 0; i < args.length; i += 1) {
     const arg = args[i]
     if (arg === '--check') options.check = true
+    else if (arg === '--verbose') options.verbose = true
     else if (arg === '--allow-unsupported') options.allowUnsupported = true
     else if (arg === '--help') options.help = true
     else if (['--year', '--zoneinfo-dir', '--output'].includes(arg)) {
@@ -146,7 +148,7 @@ export const main = (args = process.argv.slice(2)) => {
       stdio: ['ignore', 'pipe', 'pipe']
     })
   })
-  printReport({ changes, unsupported, total })
+  printReport({ changes, unsupported, total, verbose: options.verbose })
   // Check mode and the unsupported-zone gate must run before any file write.
   if (options.check) {
     if (changes.length || unsupported.length) process.exitCode = 1

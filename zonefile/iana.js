@@ -59,7 +59,7 @@ export default {
   'africa/casablanca': {
     offset: 0,
     hem: 's',
-    dst: '02/15:03->03/22:02'
+    dst: '02/15:03->09/20:02'
   },
   'africa/ceuta': {
     offset: 2,

@@ -76,7 +76,7 @@ const timestamp = epoch => new Date(epoch).toISOString().replace('T', ' ').repla
 
 // Project an instant onto each side's wall clock using UTC formatting so the host
 // timezone cannot affect the report. These local values must not be labeled UTC.
-const formatTransitions = intervals => {
+const formatTransitionsVerbose = intervals => {
   let before = intervals.initial
   const lines = [
     `    Initial: ${offset(before.offset)} · DST ${dstFlag(before)}`,
@@ -97,27 +97,61 @@ const formatTransitions = intervals => {
   return lines
 }
 
-// Show the retained record and source evidence together so failures can be diagnosed.
-const formatUnsupported = unsupported => {
-  const warnings = ['', paint(`Unsupported (${unsupported.length}) — existing records retained`, '1;33', process.stderr)]
+// A single row per transition keeps the offset and DST sequence visible at a glance.
+// Use stderr's color capability, since warnings can be redirected independently.
+const warningColor = (text, code) => paint(text, code, process.stderr)
+const formatTransitions = intervals => {
+  let before = intervals.initial
+  const lines = [`    ${warningColor('Transition (UTC)      Offset before → after      DST', '2')}`]
+  for (const after of intervals.transitions) {
+    const from = offset(before.offset)
+    const to = offset(after.offset)
+    const changed = before.offset !== after.offset
+    const fromColor = changed ? '31' : '2'
+    const toColor = changed ? '32' : '2'
+    const offsets = `${warningColor(from, fromColor)} → ${warningColor(to, toColor)}`
+    const padding = ' '.repeat(Math.max(0, 25 - (from.length + 3 + to.length)))
+    lines.push(`    ${warningColor(timestamp(after.epoch), '36')}   ${offsets}${padding}  ${dstFlag(before)} → ${dstFlag(after)}`)
+    before = after
+  }
+  return lines
+}
+
+// Keep the full evidence available with --verbose; default to the failure and its timeline.
+const formatUnsupported = (unsupported, verbose) => {
+  const warnings = ['', warningColor(`Unsupported (${unsupported.length}) · existing records kept`, '1;33')]
+  if (!verbose) warnings.push(warningColor('  Use --verbose for full diagnostics.', '2'))
   for (const { name, reason, previous, intervals, details = [] } of unsupported) {
-    warnings.push(`  ${paint(name, '33', process.stderr)}`, `    ${reason}`)
-    for (const detail of details) warnings.push(`      ${detail}`)
-    if (previous) {
+    let title = reason.replace(/^Unsupported (?:pattern|boundary): /, '')
+    if (reason === 'Unsupported offset/DST cycle for runtime hemisphere and shift') {
+      title = 'Offset/DST cycle does not match runtime rules'
+    }
+    if (!intervals && reason.startsWith('Zone name resolves to a directory')) {
+      title = 'Directory, not a timezone — choose a zone or add an alias'
+    }
+    warnings.push('', `  ${warningColor(name, '1;33')}`, `    ${warningColor(title, '33')}`)
+    const explanations = verbose ? details : details.filter(detail =>
+      !detail.startsWith('The runtime supports') &&
+      !detail.startsWith('Observed ') &&
+      !detail.startsWith('Transition instant:') &&
+      !detail.startsWith('Available entries:') &&
+      !detail.startsWith('Choose a specific timezone')
+    )
+    for (const detail of explanations) warnings.push(`    ${warningColor(detail, '2')}`)
+    if (verbose && previous) {
       warnings.push(`    Keeping: ${value('offset', previous.offset)} · ${value('hem', previous.hem)} · DST ${value('dst', previous.dst)}`)
     }
     if (intervals) {
-      warnings.push(...formatTransitions(intervals))
+      warnings.push(...(verbose ? formatTransitionsVerbose(intervals) : formatTransitions(intervals)))
     }
-    warnings.push('')
   }
   return warnings.join('\n')
 }
 
-export const printReport = ({ changes, unsupported, total }) => {
+export const printReport = ({ changes, unsupported, total, verbose = false }) => {
   console.log(formatChanges(changes))
   // Diagnostics go to stderr; normal changes and the summary go to stdout.
-  if (unsupported.length) console.error(formatUnsupported(unsupported))
+  if (unsupported.length) console.error(formatUnsupported(unsupported, verbose))
   const unchanged = total - changes.length - unsupported.length
   console.log([
     '',
@@ -144,6 +178,7 @@ Options
   --year YYYY           Target year (default: current UTC year)
   --zoneinfo-dir PATH   Compiled zoneinfo database (default: /usr/share/zoneinfo)
   --output FILE         Destination (default: zonefile.YYYY.js in repository root)
+  --verbose             Show full unsupported-zone diagnostics
   --check               Report only; exit 1 for changes or unsupported zones
   --allow-unsupported   Keep unsupported records while writing supported changes
   --help                Show this help
