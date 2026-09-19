@@ -1,6 +1,6 @@
 // const fs = require('fs')
 // const path = require('path')
-// const sh = require('shelljs')
+// const { execFileSync } = require('node:child_process')
 // let year = 2021
 // let tz = 'australia/melbourne'
 
@@ -20,7 +20,7 @@ const list = Object.keys(tzs)
 // list.forEach((tz) => {
 //   tz = titleCase(tz)
 //   console.log(tz)
-//   let lines = sh.exec(`zdump -v ${tz} | grep ${year}`).toString().split('\n')
+//   const lines = execFileSync('zdump', ['-i', '-c', `${year},${year + 1}`, tz], { encoding: 'utf8' }).split('\n')
 //   console.log(lines)
 // })
 

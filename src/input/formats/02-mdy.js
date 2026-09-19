@@ -83,8 +83,8 @@ export default [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
       s = parseOffset(s, tz)
+      walkTo(s, obj)
       s = parseTime(s, time)
       return s
     }
@@ -104,8 +104,8 @@ export default [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
       s = parseOffset(s, tz)
+      walkTo(s, obj)
       s = parseTime(s, time)
       return s
     }

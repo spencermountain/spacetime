@@ -59,7 +59,7 @@ export default {
   'africa/casablanca': {
     offset: 0,
     hem: 's',
-    dst: '02/15:03->03/22:02'
+    dst: '02/15:03->09/20:02'
   },
   'africa/ceuta': {
     offset: 2,
@@ -108,7 +108,7 @@ export default {
     hem: 's'
   },
   'africa/juba': {
-    offset: 3,
+    offset: 2,
     hem: 'n'
   },
   'africa/kampala': {
@@ -212,7 +212,7 @@ export default {
     hem: 'n'
   },
   'africa/windhoek': {
-    offset: 1,
+    offset: 2,
     hem: 's'
   },
   'america/adak': {
@@ -246,9 +246,8 @@ export default {
     hem: 'n'
   },
   'america/asuncion': {
-    offset: -4,
-    hem: 's',
-    dst: '03/22:24->10/05:00'
+    offset: -3,
+    hem: 's'
   },
   'america/bahia': {
     offset: -3,
@@ -386,7 +385,7 @@ export default {
   'america/edmonton': {
     offset: -6,
     hem: 'n',
-    dst: '03/08:02->11/01:03'
+    dst: '03/08:02->12/31:23' //dst is permanent now
   },
   'america/eirunepe': {
     offset: -5,
@@ -412,7 +411,7 @@ export default {
   'america/nuuk': {
     offset: -1,
     hem: 'n',
-    dst: '03/29:00->10/24:24'
+    dst: '03/28:23->10/24:24'
   },
   'america/goose_bay': {
     offset: -3,
@@ -461,7 +460,7 @@ export default {
   'america/indiana': {
     offset: -4,
     hem: 'n',
-    dst: '03/12:03->11/05:01'
+    dst: '03/08:02->11/01:02'
   },
   'america/indianapolis': {
     offset: -4,
@@ -494,7 +493,7 @@ export default {
   'america/kentucky': {
     offset: -4,
     hem: 'n',
-    dst: '03/12:03->11/05:01'
+    dst: '03/08:02->11/01:02'
   },
   'america/kralendijk': {
     offset: -4,
@@ -562,8 +561,7 @@ export default {
   },
   'america/merida': {
     offset: -6,
-    hem: 'n',
-    dst: '04/07:02->10/27:02'
+    hem: 'n'
   },
   'america/metlakatla': {
     offset: -8,
@@ -626,12 +624,12 @@ export default {
     hem: 'n'
   },
   'america/north_dakota': {
-    offset: -5,
+    offset: -6,
     hem: 'n',
-    dst: '03/12:03->11/05:01'
+    dst: '03/08:02->11/01:02'
   },
   'america/ojinaga': {
-    offset: -6,
+    offset: -5,
     hem: 'n',
     dst: '03/08:02->11/01:02'
   },
@@ -728,9 +726,9 @@ export default {
     hem: 's'
   },
   'america/scoresbysund': {
-    offset: 0,
+    offset: -1,
     hem: 'n',
-    dst: '03/29:00->10/24:24'
+    dst: '03/28:23->10/24:24'
   },
   'america/sitka': {
     offset: -8,
@@ -797,7 +795,7 @@ export default {
   'america/vancouver': {
     "offset": -7,
     "hem": "n",
-    "dst": "03/08:02->11/01:03"
+    dst: '03/08:02->12/31:23' //dst is permanent now
   },
   'america/whitehorse': {
     offset: -7,
@@ -816,12 +814,11 @@ export default {
   'america/yellowknife': {
     offset: -6,
     hem: 'n',
-    dst: '03/08:02->11/01:03'
+    dst: '03/08:02->12/31:23' //dst is permanent now
   },
   'antarctica/casey': {
     offset: 8,
-    hem: 's',
-    dst: '03/13:01->10/02:00'
+    hem: 's'
   },
   'antarctica/davis': {
     offset: 7,
@@ -832,7 +829,7 @@ export default {
     hem: 's'
   },
   'antarctica/macquarie': {
-    offset: 11,
+    offset: 10,
     hem: 's',
     dst: '04/05:03->10/04:02'
   },
@@ -859,11 +856,11 @@ export default {
   },
   'antarctica/troll': {
     offset: 2,
-    hem: 's',
-    dst: '03/29:02->10/25:02'
+    hem: 'n',
+    dst: '03/29:01->10/25:03'
   },
   'antarctica/vostok': {
-    offset: 6,
+    offset: 5,
     hem: 's'
   },
   'arctic/longyearbyen': {
@@ -1142,7 +1139,7 @@ export default {
     hem: 's'
   },
   'asia/srednekolymsk': {
-    offset: 12,
+    offset: 11,
     hem: 'n'
   },
   'asia/taipei': {
@@ -1289,7 +1286,7 @@ export default {
   'australia/lord_howe': {
     offset: 10.5,
     hem: 's',
-    dst: '04/05:01->10/04:02'
+    dst: '04/05:02->10/04:02'
   },
   'australia/melbourne': {
     offset: 10,
@@ -1571,7 +1568,7 @@ export default {
     dst: '03/29:03->10/25:04'
   },
   'europe/volgograd': {
-    offset: 4,
+    offset: 3,
     hem: 'n'
   },
   'europe/warsaw': {
@@ -1654,7 +1651,7 @@ export default {
   'pacific/chatham': {
     offset: 12.75,
     hem: 's',
-    dst: '04/05:03->04/05:02'
+    dst: '04/05:03->09/27:02'
   },
   'pacific/easter': {
     offset: -6,
@@ -1746,8 +1743,8 @@ export default {
     hem: 'n'
   },
   'pacific/norfolk': {
-    offset: 11.5,
-    hem: 'n',
+    offset: 11,
+    hem: 's',
     dst: '04/05:03->10/04:02'
   },
   'pacific/noumea': {
