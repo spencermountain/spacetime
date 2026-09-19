@@ -385,7 +385,7 @@ export default {
   'america/edmonton': {
     offset: -6,
     hem: 'n',
-    dst: '03/08:02->11/01:03'
+    dst: '03/08:02->12/31:23' //dst is permanent now
   },
   'america/eirunepe': {
     offset: -5,
@@ -795,7 +795,7 @@ export default {
   'america/vancouver': {
     "offset": -7,
     "hem": "n",
-    "dst": "03/08:02->11/01:03"
+    dst: '03/08:02->12/31:23' //dst is permanent now
   },
   'america/whitehorse': {
     offset: -7,
@@ -814,7 +814,7 @@ export default {
   'america/yellowknife': {
     offset: -6,
     hem: 'n',
-    dst: '03/08:02->11/01:03'
+    dst: '03/08:02->12/31:23' //dst is permanent now
   },
   'antarctica/casey': {
     offset: 8,

@@ -5,13 +5,15 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!--
+ -->
  ### 7.15.0 [Sep 2022]
 - **[fix]** - stale dst offsets #470 (thanks Sudarshan!)
 - **[fix]** - update dst dates for nuuk, indiana, kentucky, scoresbysund, nuuk, troll, and north dakota
-- **[change]** - compromise support for casablanca's 4-change year
+- **[change]** - compromised support for casablanca's 4-change year
+- **[change]** - compromised support for permanent dst in edmonton, vancouver, yellowknife
 - **[change]** - fixes to zonefile parser
- -->
- ### 7.14.0 [Sep 2022]
+
+### 7.14.0 [Sep 2022]
  - **[new]** - support JavaScript's Date.toString() fmt as input #465
  - **[change]** - clamp maximum .hour() to 0-23 #467
  - **[update]** - edmonton and yellowknife DST hour

@@ -26,7 +26,6 @@ test('random november time', (t) => {
     ['Europe/Kiev', 'Thu 4:35am'], // Alias to "Europe/Kyiv"
     ['Europe/Kyiv', 'Thu 4:35am'],
     ['America/Winnipeg', 'Wed 8:35pm'],
-    ['America/Edmonton', 'Wed 7:35pm'],
     ['Africa/Khartoum', 'Thu 4:35am']
   ]
   arr.forEach((a) => {
