@@ -1,6 +1,9 @@
 import getDstShift from '../../src/timezone/dstShift.js'
 
+// Pure parsing and normalization: no filesystem access or console output here.
+// Offsets are hours, epochs are UTC milliseconds, and DST boundaries are local times.
 const pad = (n) => String(n).padStart(2, '0')
+// Structured explanations let the CLI format errors without coupling it to validation.
 const unsupported = (message, details) => Object.assign(new Error(message), { details })
 
 // Match the runtime's Date.UTC rollover: MM/DD:24 is next day's MM/DD:00.
@@ -14,7 +17,9 @@ const boundaryTime = (text, year) => {
   return Date.UTC(year, month - 1, day, hour)
 }
 
-// zdump -i uses tabs; empty abbreviation fields are significant.
+// zdump -i emits an initial state followed by transitions with POST-change local times.
+// Fields are date, time, offset, optional abbreviation, and optional DST flag.
+// Split on tabs: an empty abbreviation must not shift the DST flag into its place.
 export const parseIntervals = (text) => {
   const lines = text.trim().split(/\r?\n/)
   if (!/^TZ=".*"$/.test(lines.shift() || '')) throw new Error('Missing zdump TZ header')
@@ -26,19 +31,15 @@ export const parseIntervals = (text) => {
     if (!m || Number(m[3] || 0) > 59 || Number(m[4] || 0) > 59) {
       throw new Error('Invalid interval offset: ' + offset)
     }
-    if (!/^[01]$/.test(flag) || /^"?(-00|zzz)/.test(abbreviation)) {
+    if (!/^[01]$/.test(flag) || /^"?(?:-00|zzz)/.test(abbreviation)) {
       throw new Error('Unknown interval state')
     }
 
-    // Convert the hours component to seconds.
+    // Offsets use ±HH[MM[SS]], not decimal hours; omitted components are zero.
     const hoursInSeconds = Number(m[2]) * 3600
-    // Convert the optional minutes component to seconds, defaulting to zero.
     const minutesInSeconds = Number(m[3] || 0) * 60
-    // Read the optional seconds component, defaulting to zero.
     const secondsComponent = Number(m[4] || 0)
-    // Treat a minus sign as negative; otherwise the offset is positive.
     const sign = m[1] === '-' ? -1 : 1
-    // Add the components and apply the sign to get the total offset in seconds.
     const seconds = (hoursInSeconds + minutesInSeconds + secondsComponent) * sign
 
     const record = { offset: seconds / 3600, dst: flag === '1' }
@@ -57,6 +58,8 @@ export const parseIntervals = (text) => {
       Number(t[2] || 0),
       Number(t[3] || 0)
     ]
+    // Treat wall-clock components as UTC temporarily to avoid the host timezone.
+    // Date.UTC rolls invalid dates forward, so round-trip the fields to reject them.
     const local = Date.UTC(parts[0], parts[1] - 1, parts[2], ...parts.slice(3))
     const check = new Date(local)
     if (
@@ -71,7 +74,8 @@ export const parseIntervals = (text) => {
     ) {
       throw new Error('Out-of-range transition timestamp')
     }
-    return { ...record, epoch: local - Number(seconds * 1000) }
+    // Subtract the POST-change offset to recover the actual transition instant.
+    return { ...record, epoch: local - (seconds * 1000) }
   })
   if (!records.length) throw new Error('Missing initial interval')
   return { initial: records[0], transitions: records.slice(1) }
@@ -109,6 +113,8 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   ])
   const [a, b] = changes
   const shift = getDstShift(tz)
+  // The stored interval normally contains July. Southern cycles enter it by
+  // decreasing their offset, unlike northern cycles.
   const expected = previous.hem === 'n' ? shift : -shift
   const mismatches = []
   if (b.after.offset !== initial.offset) {
@@ -130,7 +136,8 @@ export const normalizeZone = (intervals, previous, tz, year) => {
     throw unsupported('Unsupported offset/DST cycle for runtime hemisphere and shift', mismatches)
   }
   const boundary = (change) => {
-    const d = new Date(change.epoch + Number(change.before.offset * 3600000))
+    // Runtime boundaries use the clock BEFORE the jump, unlike zdump's local time.
+    const d = new Date(change.epoch + (change.before.offset * 3600000))
     if (d.getUTCFullYear() !== year || d.getUTCMinutes() || d.getUTCSeconds()) {
       throw unsupported('Unsupported boundary: runtime requires whole hours in the target year', [
         `Pre-change local boundary: ${d.toISOString().replace('T', ' ').replace('.000Z', '')} (must be a whole hour in ${year}).`,

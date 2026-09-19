@@ -411,7 +411,7 @@ export default {
   'america/nuuk': {
     offset: -1,
     hem: 'n',
-    dst: '03/29:00->10/24:24'
+    dst: '03/28:23->10/24:24'
   },
   'america/goose_bay': {
     offset: -3,
@@ -460,7 +460,7 @@ export default {
   'america/indiana': {
     offset: -4,
     hem: 'n',
-    dst: '03/12:03->11/05:01'
+    dst: '03/08:02->11/01:02'
   },
   'america/indianapolis': {
     offset: -4,
@@ -493,7 +493,7 @@ export default {
   'america/kentucky': {
     offset: -4,
     hem: 'n',
-    dst: '03/12:03->11/05:01'
+    dst: '03/08:02->11/01:02'
   },
   'america/kralendijk': {
     offset: -4,
