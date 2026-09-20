@@ -20,7 +20,7 @@ const parseTime = (s, str = '') => {
   // remove all whitespace
   str = str.replace(/^\s+/, '').toLowerCase()
   //formal time format - 04:30.23
-  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:.]?([0-9]{1,4})?/)
+  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2})(?::([0-9]{1,2}))?(?:[:.]([0-9]{1,4}))?/)
   if (arr !== null) {
     // eslint-disable-next-line prefer-const
     let [, h, m, sec, ms] = arr

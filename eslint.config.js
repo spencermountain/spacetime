@@ -1,37 +1,65 @@
 import * as regexpPlugin from "eslint-plugin-regexp"
+  const ok = 'readonly'
 
-export default [
+  export default [
   regexpPlugin.configs["flat/recommended"],
-  {
-    "ignores": ["**/builds/*"],
-    "rules": {
-      "regexp/no-misleading-capturing-group": 0, //todo remove this
-      "regexp/no-super-linear-backtracking": 0, //todo remove this, too
-      "comma-dangle": [1, "only-multiline"],
-      "quotes": [0, "single", "avoid-escape"],
-      "max-nested-callbacks": [1, 4],
-      "max-params": [1, 5],
-      "consistent-return": 1,
-      "no-bitwise": 1,
-      "no-empty": 1,
-      "no-console": 1,
-      "no-duplicate-imports": 1,
-      "no-eval": 2,
-      "no-implied-eval": 2,
-      "no-mixed-operators": 2,
-      "no-multi-assign": 2,
-      "no-nested-ternary": 1,
-      "no-prototype-builtins": 0,
-      "no-self-compare": 1,
-      "no-sequences": 1,
-      "no-shadow": 2,
-      "no-unmodified-loop-condition": 1,
-      "no-use-before-define": 1,
-      "prefer-const": 1,
-      "radix": 1,
-      "no-unused-vars": 1,
-      "regexp/prefer-d": 0,
-      "regexp/optimal-quantifier-concatenation": 0
+    { ignores: ['**/builds/*'] },
+    {
+      languageOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        globals: {
+          // Node globals
+          console: ok,
+          process: ok,
+          Buffer: ok,
+          setTimeout: ok,
+          clearTimeout: ok,
+          setInterval: ok,
+          clearInterval: ok,
+          __dirname: ok,
+          __filename: ok,
+          // client-side globals
+          self: ok,
+          window: ok,
+          document: ok,
+          navigator: ok,
+          fetch: ok,
+          URL: ok,
+          Event: ok
+        }
+      },
+      // custom rules setup
+      rules: {
+        'no-unused-vars': 'warn',
+        'no-empty': 'warn',
+        'no-undef': 'error',
+        'no-unreachable': 'error',
+        'no-dupe-keys': 'error',
+        'constructor-super': 'error',
+        'no-this-before-super': 'error',
+
+        'comma-dangle': ['warn', 'only-multiline'],
+        'max-nested-callbacks': ['warn', 4],
+        'max-params': ['warn', 5],
+        'consistent-return': 'warn',
+        'no-nested-ternary': 'warn',
+        'no-bitwise': 'warn',
+        'no-console': 'warn',
+        'no-duplicate-imports': 'warn',
+        'no-eval': 'error',
+        'no-implied-eval': 'error',
+        'no-mixed-operators': 'error',
+        'no-multi-assign': 'error',
+        'no-self-compare': 'warn',
+        'no-sequences': 'warn',
+        'no-shadow': 'error',
+        'no-unmodified-loop-condition': 'warn',
+        'no-use-before-define': 'warn',
+        'prefer-const': 'warn',
+        radix: 'warn',
+        // regex
+        'regexp/prefer-d': 'off'
+      }
     }
-  }
-]
+  ]
