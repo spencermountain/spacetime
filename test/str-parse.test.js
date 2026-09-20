@@ -63,3 +63,38 @@ test('string-parse', (t) => {
   })
   t.end()
 })
+
+test('date format boundaries', (t) => {
+  const invalid = [
+    '2020-01-01|12:30:00',
+    'q2garbage',
+    'q2 2020garbage',
+    'q2 20201',
+    'summergarbage',
+    'summer of 2020garbage',
+    'summer 20201'
+  ]
+  invalid.forEach((str) => {
+    t.equal(spacetime(str, 'UTC').isValid(), false, str)
+  })
+  const valid = [
+    ['2020-01-01T12:30:00', '2020-01-01T12:30:00.000Z'],
+    ['2020-01-01t12:30:00', '2020-01-01T12:30:00.000Z'],
+    ['2020-01-01 12:30:00', '2020-01-01T12:30:00.000Z'],
+    ['q2 of 2020', '2020-04-01T00:00:00.000Z'],
+    ['summer of 2020', '2020-06-01T00:00:00.000Z']
+  ]
+  valid.forEach(([str, expected]) => {
+    t.equal(spacetime(str, 'UTC').iso(), expected, str)
+  })
+  // Invalid times retain the existing start-of-day fallback.
+  const invalidTimes = [
+    '2020-01-01T112:30:00',
+    '2020-01-01T012:30:00',
+    'January 1 2020 112:30pm'
+  ]
+  invalidTimes.forEach((input) => {
+    t.equal(spacetime(input, 'UTC').iso(), '2020-01-01T00:00:00.000Z', input)
+  })
+  t.end()
+})

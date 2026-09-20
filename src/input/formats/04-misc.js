@@ -46,7 +46,7 @@ export default [
 
   {
     // 'q2 2002'
-    reg: /^(q[0-9])( of)?( [0-9]{4})?/i,
+    reg: /^(q[0-9])( of)?( [0-9]{4})?$/i,
     parse: (s, arr) => {
       const quarter = arr[1] || ''
       s = s.quarter(quarter)
@@ -60,7 +60,7 @@ export default [
   },
   {
     // 'summer 2002'
-    reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?/i,
+    reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?$/i,
     parse: (s, arr) => {
       const season = arr[1] || ''
       s = s.season(season)
