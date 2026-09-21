@@ -1,26 +1,30 @@
-import fs from 'fs'
-import terser from '@rollup/plugin-terser';
-const pkg = JSON.parse(fs.readFileSync('./package.json').toString())
+import terser from '@rollup/plugin-terser'
+import fs from 'node:fs'
 
-console.log('\n 📦  - running rollup..\n')
+const pkg = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
+const banner = `/* spencermountain/spacetime-start ${pkg.version} MIT */`
 
-const name = 'spacetime-start'
-const banner = `/* spencermountain/${name} ${pkg.version} MIT */`
-
-export default [
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: `builds/${name}.mjs`, format: 'esm' }],
-    plugins: [terser()]
-  },
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: `builds/${name}.cjs`, format: 'umd', sourcemap: false, name: 'spacetimeStart' }],
-    plugins: [terser()]
-  },
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: `builds/${name}.min.js`, format: 'umd', name: 'spacetimeStart' }],
-    plugins: [terser()]
-  }
-]
+export default {
+  input: 'src/index.js',
+  output: [
+    {
+      banner,
+      file: 'builds/spacetime-start.mjs',
+      format: 'esm',
+      plugins: [terser()]
+    },
+    {
+      banner,
+      file: 'builds/spacetime-start.cjs',
+      format: 'cjs',
+      plugins: [terser()]
+    },
+    {
+      banner,
+      file: 'builds/spacetime-start.min.js',
+      format: 'umd',
+      name: 'spacetimeStart',
+      plugins: [terser()]
+    }
+  ]
+}

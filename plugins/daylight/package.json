@@ -34,8 +34,12 @@
     "suncalc": "1.9.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "rollup": "4.63.3",
     "spacetime": ">=7.4.0",
-    "tap-dancer": "0.3.4",
+    "tap-dancer": "0.4.0",
     "tape": "5.9.0"
   },
   "license": "MIT"

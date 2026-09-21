@@ -1,28 +1,32 @@
-import commonjs from 'rollup-plugin-commonjs'
-import json from 'rollup-plugin-json'
-import { terser } from 'rollup-plugin-terser'
-import resolve from 'rollup-plugin-node-resolve'
-import sizeCheck from 'rollup-plugin-filesize-check'
-import pkg from './package.json' assert { type: "json" };
-const version = pkg.version
-console.log('\n 📦  - running rollup..\n')
+import terser from '@rollup/plugin-terser'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import json from '@rollup/plugin-json'
+import fs from 'node:fs'
 
-const banner = '/* spencermountain/spacetime-geo ' + version + ' MIT */'
+const pkg = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
+const banner = `/* spencermountain/spacetime-geo ${pkg.version} MIT */`
 
-export default [
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime-geo.mjs', format: 'esm' }],
-    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 109, warn: 10 })]
-  },
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime-geo.cjs', format: 'umd', sourcemap: false, name: 'spacetimeGeo' }],
-    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 109, warn: 10 })]
-  },
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime-geo.min.js', format: 'umd', name: 'spacetimeGeo' }],
-    plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 109, warn: 10 })]
-  }
-]
+export default {
+  input: 'src/index.js',
+  plugins: [nodeResolve(), commonjs(), json()],
+  output: [
+    {
+      banner,
+      file: 'builds/spacetime-geo.mjs',
+      format: 'esm'
+    },
+    {
+      banner,
+      file: 'builds/spacetime-geo.cjs',
+      format: 'cjs'
+    },
+    {
+      banner,
+      file: 'builds/spacetime-geo.min.js',
+      format: 'umd',
+      name: 'spacetimeGeo',
+      plugins: [terser()]
+    }
+  ]
+}

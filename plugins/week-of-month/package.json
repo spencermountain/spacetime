@@ -31,7 +31,9 @@
     "printWidth": 100
   },
   "devDependencies": {
-    "tap-dancer": "0.3.4",
+    "@rollup/plugin-terser": "^1.0.0",
+    "rollup": "4.63.3",
+    "tap-dancer": "0.4.0",
     "tape": "5.5.3"
   },
   "license": "MIT"

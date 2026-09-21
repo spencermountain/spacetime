@@ -9,7 +9,7 @@ import parseTime from './parseTime.js'
 //given a month, return whether day number exists in it
 const validate = (obj) => {
   //invalid values
-  if (monthLengths.hasOwnProperty(obj.month) !== true) {
+  if (monthLengths.hasOwnProperty(obj.month) !== true || obj.date < 1) {
     return false
   }
   //support leap-year in february

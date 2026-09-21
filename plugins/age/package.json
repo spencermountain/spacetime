@@ -36,5 +36,9 @@
     "minimist": "^1.2.5",
     "spacetime": ">=6.3.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^1.0.0",
+    "rollup": "4.63.3"
+  }
 }

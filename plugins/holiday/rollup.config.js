@@ -1,37 +1,23 @@
-import commonjs from 'rollup-plugin-commonjs'
-import json from 'rollup-plugin-json'
-import { terser } from 'rollup-plugin-terser'
-import resolve from 'rollup-plugin-node-resolve'
-import sizeCheck from 'rollup-plugin-filesize-check'
+import terser from '@rollup/plugin-terser'
 
-export default [
-  {
-    input: 'src/index.js',
-    output: [{ file: 'builds/spacetime-holiday.mjs', format: 'esm' }],
-    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 13, warn: 10 })],
-    external: ['spacetime']
-  },
-  {
-    input: 'src/index.js',
-    output: [{
-      file: 'builds/spacetime-holiday.cjs', format: 'umd', name: 'spacetimeHoliday',
-      globals: {
-        spacetime: 'spacetime'
-      }
+export default {
+  input: 'src/index.js',
+  external: ['spacetime'],
+  output: [
+    {
+      file: 'builds/spacetime-holiday.mjs',
+      format: 'esm'
+    },
+    {
+      file: 'builds/spacetime-holiday.cjs',
+      format: 'cjs'
+    },
+    {
+      file: 'builds/spacetime-holiday.min.js',
+      format: 'umd',
+      name: 'spacetimeHoliday',
+      globals: { spacetime: 'spacetime' },
+      plugins: [terser()]
     }
-    ],
-    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 6, warn: 10 })],
-    external: ['spacetime']
-  },
-  {
-    input: 'src/index.js',
-    output: [{
-      file: 'builds/spacetime-holiday.min.js', format: 'umd', name: 'spacetimeHoliday',
-      globals: {
-        spacetime: 'spacetime'
-      }
-    }],
-    plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 12, warn: 10 })],
-    external: ['spacetime']
-  }
-]
+  ]
+}
