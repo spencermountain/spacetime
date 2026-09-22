@@ -1,2 +1,4 @@
 minimumReleaseAgeExclude:
-  - tap-dancer@0.4.0
+  - brace-expansion@1.1.16
+  - brace-expansion@1.1.17
+  - brace-expansion@1.1.18
