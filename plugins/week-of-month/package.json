@@ -19,10 +19,7 @@
     "test": "TESTENV=dev tape ./week.test.js | tap-dancer  --color always",
     "build": "rollup -c --silent"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/spencermountain/spacetime.git"
-  },
+  "repository": "github:spencermountain/spacetime",
   "prettier": {
     "trailingComma": "none",
     "tabWidth": 2,

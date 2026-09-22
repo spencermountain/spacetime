@@ -14,15 +14,9 @@
       "default": "./builds/spacetime-start.mjs"
     }
   },
-  "author": "Spencer Kelly (spencermountain)",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/start",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spencermountain/spacetime.git"
-  },
-  "bugs": {
-    "url": "https://github.com/spencermountain/spacetime/issues"
-  },
+  "repository": "github:spencermountain/spacetime",
   "scripts": {
     "watch": "node --watch ./scratch.js",
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",

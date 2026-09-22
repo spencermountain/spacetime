@@ -14,7 +14,7 @@
       "default": "./builds/spacetime-ticks.mjs"
     }
   },
-  "author": "Spencer Kelly (spencermountain)",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "node --watch ./scratch.js",
@@ -24,13 +24,7 @@
     "filesize": "node ./scripts/filesize.js",
     "build": "npm run version && rollup -c && npm run filesize"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spencermountain/spacetime.git"
-  },
-  "bugs": {
-    "url": "https://github.com/spencermountain/spacetime/issues"
-  },
+  "repository": "github:spencermountain/spacetime",
   "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-ticks",
   "peerDependencies": {
     "spacetime": ">=6.1.0"

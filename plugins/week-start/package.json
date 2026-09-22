@@ -16,10 +16,7 @@
   },
   "author": "Martin Spodniak & Spencer Kelly",
   "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/week-start",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spencermountain/spacetime.git"
-  },
+  "repository": "github:spencermountain/spacetime",
   "scripts": {
     "watch": "node --watch ./scratch.js",
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",

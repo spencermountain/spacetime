@@ -15,12 +15,9 @@
     }
   },
   "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/space-age",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spencermountain/spacetime.git"
-  },
+  "repository": "github:spencermountain/spacetime",
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "scripts": {
     "test": ""

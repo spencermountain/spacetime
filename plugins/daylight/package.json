@@ -20,15 +20,12 @@
     "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
     "build": "rollup -c --silent"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spencermountain/spacetime.git"
-  },
+  "repository": "github:spencermountain/spacetime",
   "keywords": [
     "sunlight",
     "timezone"
   ],
-  "author": "spencermountain@gmail.com",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "dependencies": {
     "spacetime-geo": "1.4.1",
     "suncalc": "1.9.0"

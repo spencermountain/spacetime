@@ -6,6 +6,8 @@
   "unpkg": "builds/spacetime.min.js",
   "types": "types/index.d.ts",
   "type": "module",
+  "homepage": "https://spacetime.how",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -34,10 +36,7 @@
     "codecov": "npm run coverage && codecov -t 411de6c7-82d2-41e9-a1cc-9096cdab6c72",
     "lint": "eslint ./src ./scripts"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/spencermountain/spacetime.git"
-  },
+  "repository": "github:spencermountain/spacetime",
   "files": [
     "src",
     "builds",
