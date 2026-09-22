@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 import { dayOfYear as _dayOfYear, week as setWeek, month as _month, year as _year } from '../set/set.js'
 import { long } from '../../data/months.js'
 import quarters from '../../data/quarters.js'

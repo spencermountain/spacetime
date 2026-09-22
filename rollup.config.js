@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 import terser from '@rollup/plugin-terser'
 import fs from 'node:fs'
 

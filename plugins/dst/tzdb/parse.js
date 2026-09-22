@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-const dir = path.dirname(fileURLToPath(import.meta.url)) // eslint-disable-line
+const dir = path.dirname(fileURLToPath(import.meta.url))  
 
 // https://timezonedb.com/files/TimeZoneDB.csv.zip
 const rows = fs.readFileSync(dir + '/time_zone.csv').toString().split(/\n/g)

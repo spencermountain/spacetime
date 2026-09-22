@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 import isSummer from './summerTime.js'
 import dstShift from './dstShift.js'
 

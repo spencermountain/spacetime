@@ -1,7 +1,7 @@
 import fs from 'fs'
 let data = fs.readFileSync('./src/geojson/data.json', 'utf8')
 data = JSON.parse(data)
-let geojson = {
+const geojson = {
   type: 'FeatureCollection',
   features: []
 }

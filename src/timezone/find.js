@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 
 import tzs from '../../zonefile/unpack.js'
 import guessTz from './guessTz.js'

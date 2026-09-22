@@ -97,8 +97,8 @@ test('obj-input', (t) => {
   s = spacetime({ year: 1921, date: 3 })
   t.equal(s.format('nice-year'), 'Jan 3rd, 1921', 'assume default date3')
 
-  let today = { date: 17, month: 3, year: 1999 }
-  let wantDate = { month: 'august', date: '1st', year: '2019' }
+  const today = { date: 17, month: 3, year: 1999 }
+  const wantDate = { month: 'august', date: '1st', year: '2019' }
   s = spacetime(wantDate, null, { today: today })
   t.equal(s.format('{month-short} {date-ordinal} {year}'), 'Aug 1st 2019', 'want object with today object');
 
