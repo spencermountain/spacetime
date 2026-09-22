@@ -45,7 +45,7 @@ export const printHeader = ({ year, version, zoneinfoDir, output, check, total }
 // Use one label width across zones; paired rows align even when fields differ.
 const formatChanges = changes => {
   const lines = ['', paint(`Changes (${changes.length})`, '1;36')]
-  if (!changes.length) lines.push('  No changes.')
+  if (changes.length === 0) lines.push('  No changes.')
   const groups = changes.map(({ name, before, after }) => ({
     name,
     rows: [...new Set([...Object.keys(before), ...Object.keys(after)])]
@@ -151,7 +151,7 @@ const formatUnsupported = (unsupported, verbose) => {
 export const printReport = ({ changes, unsupported, total, verbose = false }) => {
   console.log(formatChanges(changes))
   // Diagnostics go to stderr; normal changes and the summary go to stdout.
-  if (unsupported.length) console.error(formatUnsupported(unsupported, verbose))
+  if (unsupported.length > 0) console.error(formatUnsupported(unsupported, verbose))
   const unchanged = total - changes.length - unsupported.length
   console.log([
     '',

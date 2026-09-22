@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 let data = fs.readFileSync('./src/geojson/data.json', 'utf8')
 data = JSON.parse(data)
 const geojson = {

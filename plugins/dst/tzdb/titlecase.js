@@ -1,9 +1,9 @@
 import spacetime from '../../../src/index.js'
 import zone from '../src/zonefile.2022.js'
 
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 const dir = path.dirname(fileURLToPath(import.meta.url))  
 
 // https://timezonedb.com/files/TimeZoneDB.csv.zip

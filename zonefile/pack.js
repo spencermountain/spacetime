@@ -1,5 +1,5 @@
 //turn our timezone data into a small-as-possible string
-import { writeFileSync } from 'fs'
+import { writeFileSync } from 'node:fs'
 import iana from './iana.js'
 import aliases from './aliases.js'
 import prefixes from './_prefixes.js'

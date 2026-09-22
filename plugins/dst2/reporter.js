@@ -1,4 +1,4 @@
-import { Transform } from 'stream';
+import { Transform } from 'node:stream';
 const green = str => '\x1b[32m' + str + '\x1b[0m'
 // const red = str => '\x1b[31m' + str + '\x1b[0m'
 const blue = str => '\x1b[34m' + str + '\x1b[0m'

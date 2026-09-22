@@ -77,7 +77,7 @@ export const parseIntervals = (text) => {
     // Subtract the POST-change offset to recover the actual transition instant.
     return { ...record, epoch: local - (seconds * 1000) }
   })
-  if (!records.length) throw new Error('Missing initial interval')
+  if (records.length === 0) throw new Error('Missing initial interval')
   return { initial: records[0], transitions: records.slice(1) }
 }
 
@@ -106,7 +106,7 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   }
   const result = { ...previous, offset: initial.offset }
   delete result.dst
-  if (!changes.length) return result
+  if (changes.length === 0) return result
   if (changes.length !== 2) throw unsupported(`Unsupported pattern: ${changes.length} state changes`, [
     'The runtime supports a fixed offset or exactly two changes forming one annual cycle.',
     `Observed ${changes.length} offset/DST changes across ${transitions.length} transition records.`
@@ -132,7 +132,7 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   if (a.after.dst !== (previous.hem === 'n')) {
     mismatches.push(`DST flag after first change for hemisphere "${previous.hem}": expected ${previous.hem === 'n'}, observed ${a.after.dst}.`)
   }
-  if (mismatches.length) {
+  if (mismatches.length > 0) {
     throw unsupported('Unsupported offset/DST cycle for runtime hemisphere and shift', mismatches)
   }
   const boundary = (change) => {

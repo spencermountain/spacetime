@@ -151,14 +151,14 @@ export const main = (args = process.argv.slice(2)) => {
   printReport({ changes, unsupported, total, verbose: options.verbose })
   // Check mode and the unsupported-zone gate must run before any file write.
   if (options.check) {
-    if (changes.length || unsupported.length) process.exitCode = 1
+    if (changes.length > 0 || unsupported.length > 0) process.exitCode = 1
     printResult(
-      changes.length || unsupported.length ? 'Check needs attention. No files written.' : 'Check passed. No files written.',
-      Boolean(changes.length || unsupported.length)
+      changes.length > 0 || unsupported.length > 0 ? 'Check needs attention. No files written.' : 'Check passed. No files written.',
+      Boolean(changes.length > 0 || unsupported.length > 0)
     )
     return
   }
-  if (unsupported.length && !options.allowUnsupported)
+  if (unsupported.length > 0 && !options.allowUnsupported)
     throw new Error(
       'No output written. Resolve unsupported zones or explicitly preserve them with --allow-unsupported.'
     )
