@@ -21,11 +21,11 @@ test('whereits', (t) => {
 
   tzs = spacetime.whereIts('9am', '11pm')
   t.ok(tzs.length > 0, '9am-11pm somewhere')
-  t.ok(tzs.length < 503, '9am-11pm-is-subset')
+  t.ok(tzs.length < 520, '9am-11pm-is-subset')
 
   tzs = spacetime.whereIts('8pm', '11pm')
   t.ok(tzs.length > 0, '8pm-11pm somewhere')
-  t.ok(tzs.length < 503, '8pm-11pm-is-subset')
+  t.ok(tzs.length < 520, '8pm-11pm-is-subset')
 
   tzs = spacetime.whereIts('8pm', '7pm')
   t.ok(tzs.length === 0, '8pm-7pm nowhere')

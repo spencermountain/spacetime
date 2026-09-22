@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import src from '../../src/index.js'
 import build from '../../builds/spacetime.mjs'
 let lib = src
