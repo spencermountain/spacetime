@@ -1,12 +1,12 @@
 {
   "name": "spacetime-week-start",
-  "description": "calculate start-of-week",
   "version": "0.4.0",
-  "main": "src/index.js",
-  "unpkg": "builds/spacetime-week-start.min.js",
-  "module": "builds/spacetime-week-start.mjs",
+  "description": "calculate start-of-week",
+  "license": "MIT",
+  "repository": "github:spencermountain/spacetime",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/week-start",
+  "author": "Martin Spodniak & Spencer Kelly",
   "type": "module",
-  "sideEffects": false,
   "exports": {
     ".": {
       "require": "./builds/spacetime-week-start.cjs",
@@ -14,21 +14,17 @@
       "default": "./builds/spacetime-week-start.mjs"
     }
   },
-  "author": "Martin Spodniak & Spencer Kelly",
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/week-start",
-  "repository": "github:spencermountain/spacetime",
+  "main": "./src/index.js",
+  "module": "./builds/spacetime-week-start.mjs",
+  "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
     "build": "rollup -c --silent"
   },
-  "prettier": {
-    "trailingComma": "none",
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true,
-    "printWidth": 100
-  },
+  "files": [
+    "builds"
+  ],
   "devDependencies": {
     "@rollup/plugin-terser": "^1.0.0",
     "rollup": "4.63.3",
@@ -38,5 +34,12 @@
   "peerDependencies": {
     "spacetime": ">=5.8.2"
   },
-  "license": "MIT"
+  "unpkg": "builds/spacetime-week-start.min.js",
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  }
 }

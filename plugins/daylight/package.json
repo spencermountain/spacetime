@@ -2,11 +2,11 @@
   "name": "spacetime-daylight",
   "version": "1.5.2",
   "description": "calculate approximate sunlight times for a given timezone",
-  "main": "builds/spacetime-daylight.mjs",
-  "unpkg": "builds/spacetime-daylight.min.js",
-  "module": "builds/spacetime-daylight.mjs",
+  "license": "MIT",
+  "repository": "github:spencermountain/spacetime",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-daylight",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "type": "module",
-  "sideEffects": false,
   "exports": {
     ".": {
       "require": "./builds/spacetime-daylight.cjs",
@@ -14,18 +14,18 @@
       "default": "./builds/spacetime-daylight.mjs"
     }
   },
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-daylight",
+  "main": "./builds/spacetime-daylight.mjs",
+  "module": "./builds/spacetime-daylight.mjs",
+  "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
     "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
     "build": "rollup -c --silent"
   },
-  "repository": "github:spencermountain/spacetime",
   "keywords": [
     "sunlight",
     "timezone"
   ],
-  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "dependencies": {
     "spacetime-geo": "1.4.1",
     "suncalc": "1.9.0"
@@ -39,5 +39,5 @@
     "tap-dancer": "0.4.0",
     "tape": "5.9.0"
   },
-  "license": "MIT"
+  "unpkg": "builds/spacetime-daylight.min.js"
 }

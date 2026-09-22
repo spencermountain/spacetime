@@ -2,13 +2,11 @@
   "name": "spacetime",
   "version": "7.15.0",
   "description": "figure-out dates across timezones",
-  "main": "src/index.js",
-  "unpkg": "builds/spacetime.min.js",
-  "types": "types/index.d.ts",
-  "type": "module",
+  "license": "Apache-2.0",
+  "repository": "github:spencermountain/spacetime",
   "homepage": "https://spacetime.how",
   "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
-  "sideEffects": false,
+  "type": "module",
   "exports": {
     ".": {
       "import": {
@@ -20,6 +18,12 @@
         "default": "./builds/spacetime.cjs"
       }
     }
+  },
+  "main": "./src/index.js",
+  "types": "./types/index.d.ts",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "npm run pack && npm run version && rollup -c --silent",
@@ -36,21 +40,18 @@
     "codecov": "npm run coverage && codecov -t 411de6c7-82d2-41e9-a1cc-9096cdab6c72",
     "lint": "eslint ./src ./scripts"
   },
-  "repository": "github:spencermountain/spacetime",
   "files": [
-    "src",
-    "builds",
     "api",
+    "builds",
+    "src",
     "types",
     "zonefile"
   ],
-  "prettier": {
-    "trailingComma": "none",
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true,
-    "printWidth": 100
-  },
+  "keywords": [
+    "date-time",
+    "timezone",
+    "daylight-savings"
+  ],
   "devDependencies": {
     "@rollup/plugin-terser": "^1.0.0",
     "eslint-plugin-regexp": "3.3.1",
@@ -59,5 +60,12 @@
     "tape": "5.10.2",
     "timekeeper": "2.3.1"
   },
-  "license": "Apache-2.0"
+  "unpkg": "builds/spacetime.min.js",
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  }
 }

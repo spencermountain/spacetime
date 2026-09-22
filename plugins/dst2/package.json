@@ -2,11 +2,11 @@
   "name": "dst2",
   "version": "0.1.0",
   "type": "module",
-  "main": "datetime-math.js",
   "exports": {
     "./units": "./datetime-units.js",
     "./math": "./datetime-math.js"
   },
+  "main": "./datetime-math.js",
   "scripts": {
     "test": "node --test tests/",
     "watch": "node --watch ./scratch.js"

@@ -2,11 +2,10 @@
   "name": "spacetime-week-of-month",
   "version": "0.2.0",
   "description": "calculate nth week of the month",
-  "main": "src/index.js",
-  "unpkg": "builds/spacetime-week-of-month.min.js",
-  "module": "builds/spacetime-week-of-month.mjs",
+  "license": "MIT",
+  "repository": "github:spencermountain/spacetime",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-week-of-month",
   "type": "module",
-  "sideEffects": false,
   "exports": {
     ".": {
       "require": "./builds/spacetime-week-of-month.cjs",
@@ -14,24 +13,28 @@
       "default": "./builds/spacetime-week-of-month.mjs"
     }
   },
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-week-of-month",
+  "main": "./src/index.js",
+  "module": "./builds/spacetime-week-of-month.mjs",
+  "sideEffects": false,
   "scripts": {
     "test": "TESTENV=dev tape ./week.test.js | tap-dancer  --color always",
     "build": "rollup -c --silent"
   },
-  "repository": "github:spencermountain/spacetime",
-  "prettier": {
-    "trailingComma": "none",
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true,
-    "printWidth": 100
-  },
+  "files": [
+    "builds"
+  ],
   "devDependencies": {
     "@rollup/plugin-terser": "^1.0.0",
     "rollup": "4.63.3",
     "tap-dancer": "0.4.0",
     "tape": "5.5.3"
   },
-  "license": "MIT"
+  "unpkg": "builds/spacetime-week-of-month.min.js",
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  }
 }

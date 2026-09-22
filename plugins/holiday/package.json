@@ -1,12 +1,12 @@
 {
   "name": "spacetime-holiday",
-  "description": "reckoning of common holiday dates ",
   "version": "0.3.0",
-  "main": "builds/spacetime-holiday.cjs",
-  "unpkg": "builds/spacetime-holiday.min.js",
-  "module": "./builds/spacetime-holiday.mjs",
+  "description": "reckoning of common holiday dates ",
+  "license": "MIT",
+  "repository": "github:spencermountain/spacetime",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/holiday",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "type": "module",
-  "sideEffects": false,
   "exports": {
     ".": {
       "require": "./builds/spacetime-holiday.cjs",
@@ -14,9 +14,9 @@
       "default": "./builds/spacetime-holiday.mjs"
     }
   },
-  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/holiday",
-  "repository": "github:spencermountain/spacetime",
+  "main": "./builds/spacetime-holiday.cjs",
+  "module": "./builds/spacetime-holiday.mjs",
+  "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
     "build": "rollup -c --silent",
@@ -26,21 +26,21 @@
   "files": [
     "builds/"
   ],
-  "prettier": {
-    "trailingComma": "none",
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true,
-    "printWidth": 100
-  },
-  "peerDependencies": {
-    "spacetime": ">=6.3.0"
-  },
   "devDependencies": {
     "@rollup/plugin-terser": "^1.0.0",
     "rollup": "4.63.3",
     "tap-dancer": "0.4.0",
     "tape": "5.5.3"
   },
-  "licence": "MIT"
+  "peerDependencies": {
+    "spacetime": ">=6.3.0"
+  },
+  "unpkg": "builds/spacetime-holiday.min.js",
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  }
 }

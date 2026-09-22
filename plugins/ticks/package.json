@@ -2,11 +2,11 @@
   "name": "spacetime-ticks",
   "version": "0.4.0",
   "description": "calculate the best breakpoints between two dates",
-  "main": "src/index.js",
-  "unpkg": "builds/spacetime-ticks.min.js",
-  "module": "builds/spacetime-ticks.mjs",
+  "license": "MIT",
+  "repository": "github:spencermountain/spacetime",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-ticks",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "type": "module",
-  "sideEffects": false,
   "exports": {
     ".": {
       "require": "./builds/spacetime-ticks.cjs",
@@ -14,7 +14,9 @@
       "default": "./builds/spacetime-ticks.mjs"
     }
   },
-  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
+  "main": "./src/index.js",
+  "module": "./builds/spacetime-ticks.mjs",
+  "sideEffects": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "node --watch ./scratch.js",
@@ -24,11 +26,6 @@
     "filesize": "node ./scripts/filesize.js",
     "build": "npm run version && rollup -c && npm run filesize"
   },
-  "repository": "github:spencermountain/spacetime",
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-ticks",
-  "peerDependencies": {
-    "spacetime": ">=6.1.0"
-  },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^1.0.0",
@@ -36,5 +33,8 @@
     "spencer-color": "0.1.0",
     "spencer-css": "1.1.3"
   },
-  "license": "MIT"
+  "peerDependencies": {
+    "spacetime": ">=6.1.0"
+  },
+  "unpkg": "builds/spacetime-ticks.min.js"
 }

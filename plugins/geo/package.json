@@ -2,10 +2,11 @@
   "name": "spacetime-geo",
   "version": "1.4.2",
   "description": "determine a timezone from a lat/lng",
-  "main": "./builds/spacetime-geo.js",
-  "unpkg": "./builds/spacetime-geo.js",
+  "license": "MIT",
+  "repository": "github:spencermountain/spacetime",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-geo",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "type": "module",
-  "sideEffects": false,
   "exports": {
     ".": {
       "require": "./builds/spacetime-geo.cjs",
@@ -13,18 +14,20 @@
       "default": "./builds/spacetime-geo.mjs"
     }
   },
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-geo",
+  "main": "./builds/spacetime-geo.js",
+  "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
     "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
     "download": "node ./scripts/download.js",
     "build": "rollup -c --silent"
   },
-  "repository": "github:spencermountain/spacetime",
+  "files": [
+    "builds"
+  ],
   "keywords": [
     "timezone"
   ],
-  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "dependencies": {
     "tz-lookup": "6.1.25"
   },
@@ -39,5 +42,5 @@
     "tap-dancer": "0.4.0",
     "tape": "5.6.3"
   },
-  "license": "MIT"
+  "unpkg": "./builds/spacetime-geo.js"
 }
