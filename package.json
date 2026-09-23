@@ -52,13 +52,15 @@
     "timezone",
     "daylight-savings"
   ],
+  "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-terser": "^1.0.0",
     "eslint-plugin-regexp": "3.3.1",
     "rollup": "4.63.4",
     "tap-dancer": "0.4.0",
     "tape": "5.10.2",
-    "timekeeper": "2.3.1"
+    "timekeeper": "2.3.1",
+    "rollup-plugin-filesize-check": "2.0.0"
   },
   "unpkg": "builds/spacetime.min.js",
   "prettier": {

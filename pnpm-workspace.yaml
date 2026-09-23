@@ -2,3 +2,4 @@ minimumReleaseAgeExclude:
   - brace-expansion@1.1.16
   - brace-expansion@1.1.17
   - brace-expansion@1.1.18
+  - rollup-plugin-filesize-check@2.0.0

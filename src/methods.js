@@ -162,13 +162,11 @@ const methods = {
   },
   //pretty-printing
   log: function () {
-    console.log('')
-    console.log(format(this, 'nice-short'))
+    console.log('\n' + format(this, 'nice-short')) //eslint-disable-line no-console
     return this
   },
   logYear: function () {
-    console.log('')
-    console.log(format(this, 'full-short'))
+    console.log('\n' + format(this, 'full-short')) //eslint-disable-line no-console
     return this
   },
   json: function (input) {
@@ -199,7 +197,7 @@ const methods = {
     const tz = this.timezone()
     let date = this.format('MM') + ' ' + this.format('date-ordinal') + ' ' + this.year()
     date += '\n     - ' + this.format('time')
-    console.log('\n\n', date + '\n     - ' + tz.name + ' (' + tz.current.offset + ')')
+    console.log('\n\n', date + '\n     - ' + tz.name + ' (' + tz.current.offset + ')') // eslint-disable-line no-console
     return this
   },
   //alias of 'since' but opposite - like moment.js
@@ -229,7 +227,7 @@ const methods = {
       }
       this._weekStart = num
     } else {
-      console.warn('Spacetime Error: Cannot understand .weekStart() input:', input)
+      console.warn('Spacetime Error: Cannot understand .weekStart() input:', input) // eslint-disable-line no-console
     }
     return this
   }

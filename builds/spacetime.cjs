@@ -26,8 +26,6 @@ var getDstShift = tz => {
   return 1
 };
 
-/* eslint-disable no-console */
-
 // this method avoids having to do a full dst-calculation on every operation
 // it reproduces some things in ./index.js, but speeds up spacetime considerably
 const quickOffset = s => {
@@ -230,7 +228,7 @@ const guessTz = () => {
   return timezone
 };
 
-const isOffset = /(-?[0-9]+)h(rs)?/i;
+const isOffset = /(?<![0-9])(-?[0-9]+)h(rs)?/i;
 const isNumber = /(-?[0-9]+)/;
 const utcOffset = /utc([\-+]?[0-9]+)/i;
 const gmtOffset = /gmt([\-+]?[0-9]+)/i;
@@ -269,9 +267,6 @@ const parseOffset$1 = function (tz) {
   }
   return null
 };
-
-/* eslint-disable no-console */
-
 
 let local = guessTz();
 
@@ -429,7 +424,6 @@ function formatTimezone(offset, delimiter = '') {
   return `${sign}${hours}${delimiter}${minutes}`
 }
 
-/* eslint-disable no-console */
 const defaults$1 = {
   year: new Date().getFullYear(),
   month: 0,
@@ -561,8 +555,6 @@ o.year = 3.154e10; // leap-years are supported post-hoc
 Object.keys(o).forEach(k => {
   o[k + 's'] = o[k];
 });
-
-/* eslint-disable no-console */
 
 //basically, step-forward/backward until js Date object says we're there.
 const walk = (s, n, fn, unit, previous) => {
@@ -1321,8 +1313,6 @@ var misc = [
 
 var parsers = [].concat(ymd, mdy, dmy, misc);
 
-/* eslint-disable no-console */
-
 const parseString = function (s, input, givenTz) {
   // let parsers = s.parsers || []
   //try each text-parse template, use the first good result
@@ -1654,8 +1644,12 @@ const printFormat = (s, str = '') => {
   }
   //support '{hour}:{minute}' notation
   if (str.indexOf('{') !== -1) {
-    const sections = /\{(.+?)\}/g;
-    str = str.replace(sections, (_, fmt) => {
+    // Consume unmatched sections through the line ending to avoid repeated scans.
+    const sections = /\{(.[^}\r\n\u2028\u2029]*)(\})?/g;
+    str = str.replace(sections, (section, fmt, closing) => {
+      if (!closing) {
+        return section
+      }
       fmt = fmt.trim();
       if (fmt !== 'AMPM') {
         fmt = fmt.toLowerCase();
@@ -1875,8 +1869,6 @@ const progress = (s, unit) => {
   });
   return obj
 };
-
-/* eslint-disable no-console */
 
 //round to either current, or +1 of this unit
 const nearest = (s, unit) => {
@@ -2516,8 +2508,6 @@ const every = function (start, unit, end, stepCount = 1) {
   return result
 };
 
-/* eslint-disable no-console */
-
 const parseDst = dst => {
   if (!dst) {
     return []
@@ -2609,7 +2599,6 @@ const timezone = s => {
   return result
 };
 
-/* eslint-disable no-console */
 const units = [
   'century',
   'decade',
@@ -3427,8 +3416,6 @@ const methods$2 = {
   }
 };
 
-/* eslint-disable no-console */
-
 const clearMinutes = (s) => {
   s = s.minute(0);
   s = s.second(0);
@@ -3670,8 +3657,8 @@ const methods$1 = {
     if (input !== undefined) {
       if (typeof input === 'string') {
         input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
-        input = input.replace(/([0-9]+) ?(b\.?c\.?|a\.?d\.?)/i, (a, b, c) => {
-          if (c.match(/b\.?c\.?/i)) {
+        input = input.replace(/(?<![0-9])([0-9]+) ?(b\.?c\.?|a\.?d\.?)/i, (a, b, c) => {
+          if (/b\.?c\.?/i.test(c)) {
             b = '-' + b;
           }
           return b

@@ -1,4 +1,4 @@
- 
+ /* eslint-disable no-console */
 // Keep all presentation here; parsing and update decisions live in lib.js/update.js.
 // Keep redirected output readable and respect standard terminal color settings.
 const paint = (text, code, stream = process.stdout) => {

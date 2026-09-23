@@ -18,7 +18,7 @@ const millennium = function (input) {
       input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
       input = Number(input)
       if (isNaN(input)) {
-        console.warn('Spacetime: Invalid millennium input')
+        console.warn('Spacetime: Invalid millennium input') // eslint-disable-line no-console
         return this
       }
     }
@@ -224,7 +224,7 @@ const methods = {
       input = input.replace(/([0-9])'?s$/, '$1') //1950's
       input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
       if (!input) {
-        console.warn('Spacetime: Invalid decade input')
+        console.warn('Spacetime: Invalid decade input') // eslint-disable-line no-console
         return this
       }
       // assume 20th century?? for '70s'.
@@ -256,7 +256,7 @@ const methods = {
       }
       let year = Number(input)
       if (isNaN(input)) {
-        console.warn('Spacetime: Invalid century input')
+        console.warn('Spacetime: Invalid century input') // eslint-disable-line no-console
         return this
       }
       // there is no century 0

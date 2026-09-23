@@ -13,7 +13,6 @@ const walk = (s, n, fn, unit, previous) => {
   const diff = n - current
   s.epoch += ms[unit] * diff
   //DST edge-case: if we are going many days, be a little conservative
-  // console.log(unit, diff)
   if (unit === 'day') {
     // s.epoch -= ms.minute
     //but don't push it over a month
@@ -23,7 +22,6 @@ const walk = (s, n, fn, unit, previous) => {
   }
   // 1st time: oops, did we change previous unit? revert it.
   if (previous !== null && startUnit !== s.d[previous]()) {
-    // console.warn('spacetime warning: missed setting ' + unit)
     s.epoch = original
     // s.epoch += ms[unit] * diff * 0.89 // maybe try and make it close...?
   }
@@ -119,7 +117,7 @@ const walkTo = (s, wants) => {
     if (!units[k].valid(n)) {
       s.epoch = null
       if (s.silent === false) {
-        console.warn('invalid ' + k + ': ' + n)
+        console.warn('invalid ' + k + ': ' + n) // eslint-disable-line no-console
       }
       return
     }

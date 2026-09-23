@@ -8,7 +8,7 @@ const quickOffset = s => {
   const zones = s.timezones
   const obj = zones[s.tz]
   if (obj === undefined) {
-    console.warn("Warning: couldn't find timezone " + s.tz)
+    console.warn("Warning: couldn't find timezone " + s.tz) // eslint-disable-line no-console
     return 0
   }
   if (obj.dst === undefined) {

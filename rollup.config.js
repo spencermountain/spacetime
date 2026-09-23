@@ -1,4 +1,4 @@
- 
+import sizeCheck from 'rollup-plugin-filesize-check'
 import terser from '@rollup/plugin-terser'
 import fs from 'node:fs'
 
@@ -26,7 +26,14 @@ export default {
       file: 'builds/spacetime.min.js',
       format: 'umd',
       name: 'spacetime',
-      plugins: [terser()]
+      plugins: [
+        terser(),
+        sizeCheck({
+          expect: 45, // sizes in kb
+          warn: 10, // acceptable change (+/-)
+          throw: 25 // unacceptable change (+/-)
+        })
+      ]
     }
   ]
 }

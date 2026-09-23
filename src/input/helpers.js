@@ -43,8 +43,8 @@ const parseNumber = function (s, input) {
   // if the given epoch is really small, they've probably given seconds and not milliseconds
   // anything below this number is likely (but not necessarily) a mistaken input.
   if (input > 0 && input < minimumEpoch && s.silent === false) {
-    console.warn('  - Warning: You are setting the date to January 1970.')
-    console.warn('       -   did input seconds instead of milliseconds?')
+    console.warn('  - Warning: You are setting the date to January 1970.') // eslint-disable-line no-console
+    console.warn('       -   did input seconds instead of milliseconds?') // eslint-disable-line no-console
   }
   s.epoch = input
   return s

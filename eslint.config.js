@@ -60,7 +60,7 @@ export default [
       'no-unmodified-loop-condition': 'warn',
       'no-use-before-define': 'warn',
       'no-irregular-whitespace': 'warn',
-      'no-console': 'off',
+      'no-console': 'warn',
       'no-mixed-operators': 'off',
       'no-prototype-builtins': 'off',
       'prefer-const': 'warn',
