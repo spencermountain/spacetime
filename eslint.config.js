@@ -64,7 +64,8 @@ export default [
       'no-mixed-operators': 'off',
       'no-prototype-builtins': 'off',
       'prefer-const': 'warn',
-      'regexp/prefer-d': 'off'
+      'regexp/prefer-d': 'off',
+      'regexp/no-super-linear-move': 'warn'
     }
   }
 ]

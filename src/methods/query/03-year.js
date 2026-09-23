@@ -246,7 +246,7 @@ const methods = {
     if (input !== undefined) {
       if (typeof input === 'string') {
         input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
-        input = input.replace(/([0-9]+) ?(b\.?c\.?|a\.?d\.?)/i, (a, b, c) => {
+        input = input.replace(/(?<![0-9])([0-9]+) ?(b\.?c\.?|a\.?d\.?)/i, (a, b, c) => {
           if (/b\.?c\.?/i.test(c)) {
             b = '-' + b
           }

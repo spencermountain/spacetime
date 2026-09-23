@@ -1,4 +1,4 @@
-const isOffset = /(-?[0-9]+)h(rs)?/i
+const isOffset = /(?<![0-9])(-?[0-9]+)h(rs)?/i
 const isNumber = /(-?[0-9]+)/
 const utcOffset = /utc([\-+]?[0-9]+)/i
 const gmtOffset = /gmt([\-+]?[0-9]+)/i

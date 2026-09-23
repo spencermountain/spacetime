@@ -201,8 +201,12 @@ const printFormat = (s, str = '') => {
   }
   //support '{hour}:{minute}' notation
   if (str.indexOf('{') !== -1) {
-    const sections = /\{(.+?)\}/g
-    str = str.replace(sections, (_, fmt) => {
+    // Consume unmatched sections through the line ending to avoid repeated scans.
+    const sections = /\{(.[^}\r\n\u2028\u2029]*)(\})?/g
+    str = str.replace(sections, (section, fmt, closing) => {
+      if (!closing) {
+        return section
+      }
       fmt = fmt.trim()
       if (fmt !== 'AMPM') {
         fmt = fmt.toLowerCase()
