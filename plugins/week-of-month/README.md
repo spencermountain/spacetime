@@ -8,7 +8,7 @@
       <img src="https://img.shields.io/npm/v/spacetime-week-of-month.svg?style=flat-square" />
     </a>
     <a href="https://unpkg.com/spacetime-week-of-month/builds/spacetime-week-of-month.min.js">
-      <img src="https://badge-size.herokuapp.com/spencermountain/spacetime-week-of-month/master/builds/spacetime-week-of-month.min.js" />
+      <img src="https://img.shields.io/bundlephobia/min/spacetime-week-of-month" />
     </a>
   </div>
   <div align="center">

@@ -8,7 +8,7 @@
       <img src="https://img.shields.io/npm/v/spacetime-cal.svg?style=flat-square" />
     </a>
     <a href="https://unpkg.com/spacetime-cal/builds/spacetime-cal.min.js">
-      <img src="https://badge-size.herokuapp.com/spencermountain/spacetime-cal/master/builds/spacetime-cal.min.js" />
+      <img src="https://img.shields.io/bundlephobia/min/spacetime-cal" />
     </a>
   </div>
   <div align="center">

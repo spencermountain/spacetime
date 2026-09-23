@@ -6,7 +6,7 @@
     <img src="https://img.shields.io/npm/v/spacetime-ticks.svg?style=flat-square" />
   </a>
   <a href="https://unpkg.com/spacetime-ticks">
-    <img src="https://badge-size.herokuapp.com/spencermountain/spacetime-ticks/master/builds/spacetime-ticks.min.js" />
+    <img src="https://img.shields.io/bundlephobia/min/spacetime-ticks" />
   </a>
 </div>
 
