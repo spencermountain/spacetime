@@ -1,51 +1,75 @@
+# Changing values
 
-## Changing values
+Import `spacetime` as shown in the [usage guide](./README.md).
 
-### Set a specific unit (returns a new object)
+## Set a specific unit
+
+These setters return a new object. Capture the result to keep the change.
 
 ```js
-s = s.hour(5)          // 5am
-s = s.date(15)         // the 15th
-s = s.month('march')   // March 1st of the same year (names accepted)
-s = s.quarter(2)       // April 1st
-s = s.day('monday')    // this week's Monday
-s = s.time('4:30pm')
-s = s.set('march 5th 2020')   // set() takes any ParsableDate
+const s = spacetime('2024-06-15T14:30:00', 'UTC')
+s.hour(5).time() // '5:30am' (minutes preserved)
+s.date(10).date() // 10
+s.month('march').format('iso-short') // '2024-03-15' (day preserved)
+s.quarter(2).iso() // '2024-04-01T00:00:00.000Z'
+s.time('4:30pm').time() // '4:30pm'
+s.set('march 5th 2020').format('iso-short') // '2020-03-05'
+s.time() // '2:30pm' (original unchanged)
 ```
 
-### The `goForward` 2nd argument (key feature)
+`set(input, timezone?)` parses a new input. Its second argument is a timezone
+string, **not** a direction boolean. For an existing date, use `goto(tz)` or
+`timezone(tz)` according to the [timezone guide](./timezones.md).
 
-Most setters accept a boolean 2nd arg controlling search direction when the
-target is ambiguous:
+## The `goForward` argument
+
+Unit setters such as `day`, `month`, `date`, `hour`, and `time` accept a boolean
+second argument: `true` moves forward if the result would be earlier; `false`
+moves backward if it would be later. Equality is allowed; this does not mean
+“strictly next.” Without it, `day()` shifts by weekday number without choosing
+the nearest occurrence or consulting `weekStart`.
 
 ```js
-s = s.day('monday')         // nearest/this-week's monday
-s = s.day('monday', true)   // the NEXT monday (forward in time)
-s = s.day('monday', false)  // the most-recent monday (backward)
+const s = spacetime('2024-01-03T17:00:00', 'UTC') // Wednesday
+s.day('monday').format('iso-short') // '2024-01-01'
+s.day('monday', true).format('iso-short') // '2024-01-08'
+s.day('monday', false).format('iso-short') // '2024-01-01'
+s.time('4:00pm', true).iso() // '2024-01-04T16:00:00.000Z'
 
-s = s.time('4:00pm', true)  // the next 4pm in the future
-s = s.set('march 4th', true)// next year's march 4th if it's already past
+const monday = spacetime('2024-01-01T09:00:00', 'UTC')
+monday.day('monday', true).epoch === monday.epoch // true
 ```
 
-### Add / subtract / round (returns a new object)
+## Add, subtract, and round
 
 ```js
+let s = spacetime('2024-01-15T14:37:00', 'UTC')
 s = s.add(1, 'week')
-s = s.subtract(2, 'months').add(1, 'day')   // chainable, each step immutable
-s = s.startOf('day')        // 12:00am today
-s = s.endOf('quarter')      // 11:59:59.999pm of the quarter
-s = s.next('month')         // start of next month
-s = s.last('year')          // start of previous year
-s = s.nearest('hour')       // round to nearest hour
-s = s.nearest('quarterHour')// 5:15, 5:30, 5:45...
+s = s.subtract(2, 'months').add(1, 'day') // capture each chain's result
+s.startOf('day').time() // '12:00am'
+s.endOf('quarter').iso() // '2023-12-31T23:59:59.999Z'
+s.next('month').format('iso-short') // '2023-12-01'
+s.last('year').format('iso-short') // '2022-01-01'
+s.nearest('hour').time() // '3:00pm'
+s.nearest('quarterHour').time() // '2:30pm'
 ```
 
-`add`/`subtract` preserve clock-time intuitively: 9am Tuesday + 1 week is still
-9am Tuesday, even across DST.
+Calendar-day and week arithmetic preserve clock time across DST where that time
+exists. Hours measure elapsed time. See [edge cases](./edge-cases.md).
 
-### `TimeUnit` values (used by add, subtract, startOf, endOf, diff, next, last, nearest, round, isSame, each)
+## Units depend on the method
 
-`millisecond, second, minute, quarterHour, hour, day, week, month, quarter,
-season, year, decade, century, date` — **plural forms are also accepted**
-(`days`, `months`, `quarters`, `centuries`, …). Use singular or plural
-interchangeably.
+Common arithmetic units include `millisecond`, `second`, `minute`, `quarterHour`,
+`hour`, `day` (alias `date`), `week`, `month`, `quarter`, `season`, `year`,
+`decade`, and `century`. Arithmetic accepts plurals such as `days` and `months`.
+Do not assume every method implements every `TimeUnit` from the TypeScript union.
+
+- `diff` supports milliseconds, seconds, minutes, hours, days, weeks, months,
+  quarters, and years (also singular names and `date`).
+- `isSame` supports millisecond, second, minute, hour, day/date, week, month,
+  quarter, and year (also plurals). Unsupported units return `null`.
+- `nearest`/`round`, `startOf`/`endOf`, and iteration have their own boundary
+  semantics; prefer the examples here and in [comparisons](./comparisons.md).
+
+See [mutation exceptions](./edge-cases.md#mutation-and-shared-state) for
+`epochSeconds(value)` and configuration methods.
