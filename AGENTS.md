@@ -96,14 +96,16 @@ Work on the current branch. The user may make simultaneous changes. Verify their
 
 ### Code style
 - Write maintainable javascript, using esmodules
-- Write portable ES2022+ for browers or for Node>=18
+- Write portable ES2022+ for browers and Node>=18
 - Typescript and jsdoc are not required
 - Add terse comments for maintainability
 - Prefer functions assigned with const, over declarations
 - Do not use unbracketed if statements
 - Do not use complex, multi-line, or nested ternary operators
-- Defensive try/catch blocks are not required
+- Avoid while loops when possible
+- Prefer older for loops, unless an await is required
 - File-size is always important
+- Defensive try/catch blocks are not required
 
 ### Project structure
 - Prefer pnpm over npm
