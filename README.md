@@ -7,7 +7,7 @@
     <img src="https://img.shields.io/npm/v/spacetime.svg?style=flat-square" />
   </a>
   <a href="https://bundlephobia.com/result?p=spacetime@latest">
-    <img src="https://badgen.net/bundlephobia/min/spacetime" />
+    <img src="https://badgen.net/bundlejs/min/spacetime" />
   </a>
 </div>
 
