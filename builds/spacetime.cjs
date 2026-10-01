@@ -3228,6 +3228,9 @@ const methods$3 = {
       const m = str.match(/^([0-9]+)(am|pm)$/);
       if (m) {
         let hour = parseInt(m[1], 10);
+        if (hour === 12) {
+          hour = 0;
+        }
         if (m[2] === 'pm') {
           hour += 12;
         }
@@ -3743,7 +3746,9 @@ const keepDate = {
   month: true,
   quarter: true,
   season: true,
-  year: true
+  year: true,
+  decade: true,
+  century: true
 };
 
 const addMethods$3 = (SpaceTime) => {
@@ -3856,9 +3861,9 @@ const addMethods$3 = (SpaceTime) => {
     }
     //these are easier
     else if (unit === 'decade') {
-      want.year = s.year() + 10;
+      want.year = old.year() + (num * 10);
     } else if (unit === 'century') {
-      want.year = s.year() + 100;
+      want.year = old.year() + (num * 100);
     }
     //keep current date, unless the month doesn't have it.
     if (keepDate[unit]) {
@@ -4100,6 +4105,7 @@ Object.keys(methods$4).forEach((k) => {
 SpaceTime.prototype.clone = function () {
   return new SpaceTime(this.epoch, this.tz, {
     silent: this.silent,
+    dmy: this.british,
     weekStart: this._weekStart,
     today: this._today,
     parsers: this.parsers
