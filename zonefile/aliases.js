@@ -28,7 +28,7 @@ export default {
   'america/indiana/indianapolis': 'america/indianapolis',
   'america/kentucky': 'america/louisville',
   'america/kentucky/louisville': 'america/louisville',
-  'america/north_dakota': 'america/boise',
+  'america/north_dakota': 'america/north_dakota/center',
   'america/knox_in': 'america/indiana/knox',
   'america/montreal': 'america/toronto',
   'america/porto_acre': 'america/rio_branco',
@@ -149,6 +149,10 @@ export default {
   //rogue acronym results found in results of
   // Intl.supportedValuesOf('timeZone')
   cet: 'europe/paris',
+  est5edt: 'america/new_york',
+  cst6cdt: 'america/chicago',
+  mst7mdt: 'america/denver',
+  pst8pdt: 'america/los_angeles',
   eet: 'europe/sofia',
   est: 'america/cancun',
   factory: 'etc/utc',

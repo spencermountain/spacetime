@@ -624,7 +624,7 @@ export default {
     hem: 's'
   },
   'america/north_dakota': {
-    offset: -6,
+    offset: -5,
     hem: 'n',
     dst: '03/08:02->11/01:02'
   },

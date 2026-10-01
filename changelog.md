@@ -9,6 +9,8 @@ This project follows semVer, where:
 - **[fix]** - correct Chatham and NZ-CHAT transitions to 03:45 and 02:45
 - **[fix]** - apply Lord Howe's half-hour DST shift to the Australia/LHI alias
 - **[fix]** - hemispheres for 42 zones
+- **[fix]** - preserve fractional timezone offsets, support UTC±14, and reject malformed offsets
+- **[fix]** - point the North Dakota shortcut to Central time and resolve nested timezone city names
  -->
 
  ### 7.15.0 [Sep 2022]

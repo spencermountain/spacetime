@@ -8,7 +8,7 @@ let local = guessTz()
 
 //add all the city names by themselves
 const cities = Object.keys(tzs).reduce((h, k) => {
-  let city = k.split('/')[1] || ''
+  let city = k.split('/').pop()
   city = city.replace(/_/g, ' ')
   h[city] = k
   return h
