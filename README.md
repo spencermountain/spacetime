@@ -17,9 +17,9 @@
 </div>
 
 <!-- spacer -->
-<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-Isn't it weird how we can do <i>math</i> in our head, but not <b><i>date math</i></b>?
+isn't it weird how we can do <i>math</i> in our head, but not <b><i>date-math</i></b>?
 
 <div align="left">
 <div >
@@ -41,11 +41,11 @@ and worse - there is no real **_date calculator_**.
   <sub>people end up asking google, and going to weird websites.</sub>
 </div>
 
-<img height="10px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="5px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 <div align="center"><sub>that's bad.</sub></div>
 
-<img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 <b>spacetime</b> is a date-calculator,
 
@@ -56,23 +56,20 @@ and worse - there is no real **_date calculator_**.
 ```js
 let s = spacetime.now()
 
+// Days to the end of the year:
 s.diff(s.endOf('year'), 'days')
 // 292
 
+// Time it was, 11 hours ago:
 s.subtract(11, 'hours').time()
 // 6:50am
 
+// Is it lunchtime in France?
 s = s.goto('Europe/Paris')
 s.isAfter(s.time('11:00am'))
 // true 🥐
 ```
 
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
-<div align="center">
-  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221814-05ed1680-ffb8-11e9-8b6b-c7528d163871.png"/>
-</div>
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 - calculate time in remote timezones
 - support **daylight savings**, **leap years**, and **hemispheres**
@@ -88,13 +85,18 @@ s.isAfter(s.time('11:00am'))
 <!-- spacer -->
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<div align="left">
-  <div><code>npm install spacetime</code></div>
-  <div><i>or, </i> <code>npx skills add spencermountain/spacetime</code></div>
+<code>npm install spacetime</code>
+
+<div align="right">
+  <i>or, </i> <code>npx skills add spencermountain/spacetime</code>
 </div>
 
-<!-- spacer -->
-<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<div align="center">
+  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221814-05ed1680-ffb8-11e9-8b6b-c7528d163871.png"/>
+</div>
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
 
 ```html
 <script src="https://unpkg.com/spacetime"></script>
