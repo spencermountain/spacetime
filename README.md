@@ -144,12 +144,16 @@ d.format('nice')
       Docs
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
+    <a href="https://work.spencermountain.dev/spacetime/">
+      Website
+    </a>
+    &nbsp; &nbsp; • &nbsp; &nbsp;
     <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
       API
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
-    <a href="https://work.spencermountain.dev/spacetime/">
-      Website
+    <a href="docs/LLMs.md">
+      LLM Docs
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
     <a href="https://beta.observablehq.com/@spencermountain/spacetime">
