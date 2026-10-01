@@ -125,7 +125,7 @@ const time: string = london.time() // '2:30pm'
 ```
 
 
-common-js:
+old-guy node:
 ```js
 const spacetime = require('spacetime')
 
@@ -166,7 +166,7 @@ d.format('nice')
 
  </div>
 
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 plugins:
 
@@ -184,7 +184,7 @@ plugins:
 
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Date Inputs:
+## Date Inputs:
 
 we can parse _[all the normal stuff](https://github.com/spencermountain/spacetime/wiki/Input)_, and some fancy stuff:
 
@@ -222,7 +222,7 @@ for fancier natural-language inputs, use [compromise-dates](https://github.com/s
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Get & Set dates:
+## Get & Set dates:
 
 you can whip things around, but stay intuitive
 
@@ -293,7 +293,7 @@ it's actually a little surprising how helpful this is.
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Comparisons:
+## Comparisons:
 
 ```js
 let s = spacetime([2017, 5, 2])
@@ -323,7 +323,7 @@ all comparisons are done with sensitivity of timezone - **_8am EST_** is < **_8a
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Timezones:
+## Timezones:
 
 the best way to describe a timezone is an [IANA code](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones):
 
@@ -382,7 +382,7 @@ console.log(s.isoFull())
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Date Formatting:
+## Date Formatting:
 
 it's _[a pretty-sensible process](https://github.com/spencermountain/spacetime/wiki/Formatting)_ to create nice-looking dates:
 
@@ -421,7 +421,7 @@ s.format('sql') // '2011-12-03 10:15:30'
 #### ◆ Historical timezone info
 
 DST changes move around all the time, and timezones pop-in and out of existence.
-We store and use only the latest DST information, and apply it to historical dates.
+We store and use only the latest DST information, updated frequently, and apply it (wrongly) to historical and future dates.
 
 #### ◆ International date line
 
@@ -635,6 +635,6 @@ s.dayName()
 - [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) - some _[sorta-green](https://caniuse.com/#feat=internationalization)_ in-browser date utilities
 - [BurntSushi/Jiff](https://github.com/BurntSushi/jiff) - Rust/wasm date library
 
-thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
+*(also, thank you to the amazing [timeanddate.com](https://www.timeanddate.com/))*
 
-Apache 2.0 - PRs welcome
+Apache 2.0 - PRs respected
