@@ -148,6 +148,10 @@ d.format('nice')
       API
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
+    <a href="https://work.spencermountain.dev/spacetime/">
+      Website
+    </a>
+    &nbsp; &nbsp; • &nbsp; &nbsp;
     <a href="https://beta.observablehq.com/@spencermountain/spacetime">
       Demos
     </a>
