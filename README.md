@@ -142,7 +142,7 @@ d.format('nice')
       Docs
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
-    <a href="https://work.spencermountain.dev/spacetime/">
+    <a href="https://spacetime.how/">
       Website
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
