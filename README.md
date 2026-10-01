@@ -88,7 +88,8 @@ s.isAfter(s.time('11:00am'))
 <code>npm install spacetime</code>
 
 <div align="right">
-  <i>or, </i> <code>npx skills add spencermountain/spacetime</code>
+  <code>npx skills add spencermountain/spacetime</code>
+  <dic><i>for computers</i></div>
 </div>
 
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -98,6 +99,7 @@ s.isAfter(s.time('11:00am'))
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 
+in brower:
 ```html
 <script src="https://unpkg.com/spacetime"></script>
 <script>
@@ -112,19 +114,21 @@ s.isAfter(s.time('11:00am'))
 ```
 
 
-Typescript:
+typescript:
 ```ts
 import spacetime, { type Spacetime } from 'spacetime'
 
 const meeting: Spacetime = spacetime('2026-01-15T09:30:00', 'America/New_York')
+
 const london = meeting.goto('Europe/London')
 const time: string = london.time() // '2:30pm'
 ```
 
 
-Commonjs:
+common-js:
 ```js
 const spacetime = require('spacetime')
+
 let d = spacetime.now('Europe/Paris')
 d.dayName()
 //'Wednesday'
