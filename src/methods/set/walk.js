@@ -45,15 +45,15 @@ const walk = (s, n, fn, unit, previous) => {
 const units = {
   year: {
     valid: (n) => n > -4000 && n < 4000,
-    walkTo: (s, n) => walk(s, n, 'getFullYear', 'year', null)
+    walkTo: (s, n) => walk(s, n, 'getUTCFullYear', 'year', null)
   },
   month: {
     valid: (n) => n >= 0 && n <= 11,
     walkTo: (s, n) => {
       const d = s.d
-      const current = d.getMonth()
+      const current = d.getUTCMonth()
       const original = s.epoch
-      const startUnit = d.getFullYear()
+      const startUnit = d.getUTCFullYear()
       if (current === n) {
         return
       }
@@ -61,29 +61,29 @@ const units = {
       const diff = n - current
       s.epoch += ms.day * (diff * 28) //special case
       //oops, did we change the year? revert it.
-      if (startUnit !== s.d.getFullYear()) {
+      if (startUnit !== s.d.getUTCFullYear()) {
         s.epoch = original
       }
       //increment by day
-      while (s.d.getMonth() < n) {
+      while (s.d.getUTCMonth() < n) {
         s.epoch += ms.day
       }
-      while (s.d.getMonth() > n) {
+      while (s.d.getUTCMonth() > n) {
         s.epoch -= ms.day
       }
     }
   },
   date: {
     valid: (n) => n > 0 && n <= 31,
-    walkTo: (s, n) => walk(s, n, 'getDate', 'day', 'getMonth')
+    walkTo: (s, n) => walk(s, n, 'getUTCDate', 'day', 'getUTCMonth')
   },
   hour: {
     valid: (n) => n >= 0 && n < 24,
-    walkTo: (s, n) => walk(s, n, 'getHours', 'hour', 'getDate')
+    walkTo: (s, n) => walk(s, n, 'getUTCHours', 'hour', 'getUTCDate')
   },
   minute: {
     valid: (n) => n >= 0 && n < 60,
-    walkTo: (s, n) => walk(s, n, 'getMinutes', 'minute', 'getHours')
+    walkTo: (s, n) => walk(s, n, 'getUTCMinutes', 'minute', 'getUTCHours')
   },
   second: {
     valid: (n) => n >= 0 && n < 60,

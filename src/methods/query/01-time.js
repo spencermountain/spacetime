@@ -9,7 +9,7 @@ const methods = {
       s.epoch = milliseconds(s, num)
       return s
     }
-    return this.d.getMilliseconds()
+    return this.d.getUTCMilliseconds()
   },
   second: function (num, goFwd) {
     if (num !== undefined) {
@@ -17,7 +17,7 @@ const methods = {
       s.epoch = seconds(s, num, goFwd)
       return s
     }
-    return this.d.getSeconds()
+    return this.d.getUTCSeconds()
   },
   minute: function (num, goFwd) {
     if (num !== undefined) {
@@ -25,7 +25,7 @@ const methods = {
       s.epoch = minutes(s, num, goFwd)
       return s
     }
-    return this.d.getMinutes()
+    return this.d.getUTCMinutes()
   },
   hour: function (num, goFwd) {
     const d = this.d
@@ -34,7 +34,7 @@ const methods = {
       s.epoch = hours(s, num, goFwd)
       return s
     }
-    return d.getHours()
+    return d.getUTCHours()
   },
 
   //'3:30' is 3.5
@@ -49,8 +49,8 @@ const methods = {
       return s
     }
     const d = this.d
-    const hour = d.getHours()
-    let minute = d.getMinutes()
+    const hour = d.getUTCHours()
+    let minute = d.getUTCMinutes()
     minute = minute / 60
     return hour + minute
   },
@@ -72,7 +72,7 @@ const methods = {
       return s
     }
     //get the hour
-    let hour12 = d.getHours()
+    let hour12 = d.getUTCHours()
     if (hour12 > 12) {
       hour12 = hour12 - 12
     }
