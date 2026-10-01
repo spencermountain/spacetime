@@ -40,7 +40,9 @@ const keepDate = {
   month: true,
   quarter: true,
   season: true,
-  year: true
+  year: true,
+  decade: true,
+  century: true
 }
 
 const addMethods = (SpaceTime) => {
@@ -153,9 +155,9 @@ const addMethods = (SpaceTime) => {
     }
     //these are easier
     else if (unit === 'decade') {
-      want.year = s.year() + 10
+      want.year = old.year() + (num * 10)
     } else if (unit === 'century') {
-      want.year = s.year() + 100
+      want.year = old.year() + (num * 100)
     }
     //keep current date, unless the month doesn't have it.
     if (keepDate[unit]) {

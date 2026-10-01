@@ -6,8 +6,8 @@ This project follows semVer, where:
 
 <!--
  -->
- ### 7.16.0 [Sep 2022]
-- **[change]** deprecated but exposed `.d` date now is in UTC - users can do `new Date(s.d.epoch)`
+ ### 7.16.0 [Oct 2026]
+- **[change]** deprecated but exposed `.d` date now is in UTC - users can do `s.toNativeDate()`
 - **[change]** - use UTC date methods internally to reduce bias of local computer
 - **[fix]** - correct Chatham and NZ-CHAT transitions to 03:45 and 02:45
 - **[fix]** - apply Lord Howe's half-hour DST shift to the Australia/LHI alias
@@ -17,16 +17,19 @@ This project follows semVer, where:
 - **[change]** - reject malformed clock fields in date strings #450 
 - **[change]** - parse two-digit years including `12/30/19 12:22:08 PM` #179
 - **[change]** - support `{silent: false}` for #451
+- **[fix]** - midnight and noon issue in `.hour12('12am')` and `.hour12('12pm')`
+- **[fix]** - preserve day-first parsing (`dmy`) through cloning, arithmetic, and chained setters
+- **[fix]** - decade and century arithmetic, clamping leap days to the target year
 - **[update]** - dependencies
 
- ### 7.15.0 [Sep 2022]
+ ### 7.15.0 [Sep 2026]
 - **[fix]** - stale dst offsets #470 (thanks Sudarshan!)
 - **[fix]** - update dst dates for nuuk, indiana, kentucky, scoresbysund, nuuk, troll, and north dakota
 - **[change]** - compromised support for casablanca's 4-change year
 - **[change]** - compromised support for permanent dst in edmonton, vancouver, yellowknife
 - **[change]** - fixes to zonefile parser
 
-### 7.14.0 [Sep 2022]
+### 7.14.0 [Sep 2026]
  - **[new]** - support JavaScript's Date.toString() fmt as input #465
  - **[change]** - clamp maximum .hour() to 0-23 #467
  - **[update]** - edmonton and yellowknife DST hour

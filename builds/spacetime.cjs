@@ -814,41 +814,41 @@ const parseMs = function (str = '') {
 };
 
 const parseTime = (s, str = '') => {
-  // remove all whitespace
-  str = str.replace(/^\s+/, '').toLowerCase();
+  str = str.trim().toLowerCase();
+  if (!str) {
+    return s.startOf('day')
+  }
   //formal time format - 04:30.23
-  let arr = str.match(/^([0-9]{1,2}):([0-9]{1,2})(?::([0-9]{1,2}))?(?:[:.]([0-9]{1,4}))?/);
+  let arr = str.match(/^([0-9]{1,2}):([0-9]{2})(?::([0-9]{1,2}))?(?:[:.]([0-9]+))?(?: ?(am|pm|gmt))?$/);
   if (arr !== null) {
-    // eslint-disable-next-line prefer-const
-    let [, h, m, sec, ms] = arr;
-    //validate it a little
-    h = Number(h);
-    if (h < 0 || h > 24) {
-      return s.startOf('day')
-    }
-    m = Number(m); //don't accept '5:3pm'
-    if (arr[2].length < 2 || m < 0 || m > 59) {
-      return s.startOf('day')
+    const [, hour, minute, sec, ms, suffix] = arr;
+    const h = Number(hour);
+    const m = Number(minute);
+    const ampm = suffix === 'am' || suffix === 'pm';
+    // Reject invalid clock fields before setters clamp or roll them over.
+    if (h > 23 || m > 59 || Number(sec || 0) > 59 || (ampm && (h < 1 || h > 12))) {
+      s.epoch = null;
+      return s
     }
     s = s.hour(h);
     s = s.minute(m);
     s = s.seconds(sec || 0);
     s = s.millisecond(parseMs(ms));
     //parse-out am/pm
-    const ampm = str.match(/[0-9] ?(am|pm)\b/);
-    if (ampm !== null && ampm[1]) {
-      s = s.ampm(ampm[1]);
+    if (ampm) {
+      s = s.ampm(suffix);
     }
     return s
   }
 
   //try an informal form - 5pm (no minutes)
-  arr = str.match(/^([0-9]+) ?(am|pm)/);
+  arr = str.match(/^([0-9]{1,2}) ?(am|pm)$/);
   if (arr !== null && arr[1]) {
     const h = Number(arr[1]);
     //validate it a little..
     if (h > 12 || h < 1) {
-      return s.startOf('day')
+      s.epoch = null;
+      return s
     }
     s = s.hour(arr[1] || 0);
     s = s.ampm(arr[2]);
@@ -856,8 +856,8 @@ const parseTime = (s, str = '') => {
     return s
   }
 
-  //no time info found, use start-of-day
-  s = s.startOf('day');
+  // An explicit but unrecognized time must not silently become midnight.
+  s.epoch = null;
   return s
 };
 
@@ -887,8 +887,8 @@ const validate$1 = (obj) => {
 
 const parseYear = (str = '', today) => {
   str = str.trim();
-  // parse '86 shorthand
-  if (/^'[0-9][0-9]$/.test(str) === true) {
+  // Two-digit years share the '86 shorthand's century cutoff.
+  if (/^'?[0-9][0-9]$/.test(str) === true) {
     const num = Number(str.replace(/'/, ''));
     if (num > 50) {
       return 1900 + num
@@ -1002,9 +1002,9 @@ var mdy = [
   // =====
   //  m-d-y
   // =====
-  //mm/dd/yyyy - uk/canada "6/28/2019, 12:26:14 PM"
+  //mm/dd/yyyy or mm/dd/yy - "6/28/2019, 12:26:14 PM"
   {
-    reg: /^([0-9]{1,2})[-/.]([0-9]{1,2})[\-/.]?([0-9]{4})?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2} ?(am|pm|gmt))?$/i,
+    reg: /^([0-9]{1,2})[-/.]([0-9]{1,2})(?:[\-/.]([0-9]{4}|[0-9]{2}))?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2} ?(am|pm|gmt))?$/i,
     parse: (s, arr) => {
       let month = parseInt(arr[1], 10) - 1;
       let date = parseInt(arr[2], 10);
@@ -3754,6 +3754,7 @@ const addMethods$3 = (SpaceTime) => {
       return s //don't bother
     }
     const old = this.clone();
+    const inputUnit = unit;
     unit = normalize$1(unit);
     if (unit === 'millisecond') {
       s.epoch += num;
@@ -3763,6 +3764,12 @@ const addMethods$3 = (SpaceTime) => {
     if (unit === 'fortnight') {
       num *= 2;
       unit = 'week';
+    }
+    if (!Object.hasOwn(o, unit) && !Object.hasOwn(keep, unit) && unit !== 'weekend') {
+      if (s.silent === false) {
+        console.warn(`Warn: unsupported arithmetic unit "${inputUnit}"`); // eslint-disable-line no-console
+      }
+      return s
     }
     //move forward by the estimated milliseconds (rough)
     if (o[unit]) {

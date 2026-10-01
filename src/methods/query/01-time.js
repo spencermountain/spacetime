@@ -64,6 +64,9 @@ const methods = {
       const m = str.match(/^([0-9]+)(am|pm)$/)
       if (m) {
         let hour = parseInt(m[1], 10)
+        if (hour === 12) {
+          hour = 0
+        }
         if (m[2] === 'pm') {
           hour += 12
         }

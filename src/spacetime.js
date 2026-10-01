@@ -70,6 +70,7 @@ Object.keys(methods).forEach((k) => {
 SpaceTime.prototype.clone = function () {
   return new SpaceTime(this.epoch, this.tz, {
     silent: this.silent,
+    dmy: this.british,
     weekStart: this._weekStart,
     today: this._today,
     parsers: this.parsers
