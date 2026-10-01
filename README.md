@@ -104,7 +104,10 @@ s.isAfter(s.time('11:00am'))
 <!-- spacer -->
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-`npm install spacetime`
+<div align="center">
+  <div><code>npm install spacetime</code></div>
+  <div><code>npx skills add spencermountain/spacetime</code></div>
+</div>
 
 ```js
 const spacetime = require('spacetime')
