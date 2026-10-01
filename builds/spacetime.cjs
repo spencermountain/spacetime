@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.15.0 Apache-2.0 */
+/* spencermountain/spacetime 7.16.0 Apache-2.0 */
 'use strict';
 
 const MSEC_IN_HOUR = 60 * 60 * 1000;
@@ -4158,7 +4158,7 @@ const whereIts = (a, b) => {
   return tzs
 };
 
-var version = '7.15.0';
+var version = '7.16.0';
 
 const main = (input, tz, options) => new SpaceTime(input, tz, options);
 
