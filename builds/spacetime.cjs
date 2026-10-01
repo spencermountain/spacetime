@@ -6,8 +6,8 @@ const MSEC_IN_HOUR = 60 * 60 * 1000;
 //convert our local date syntax a javascript UTC date
 const toUtc = (dstChange, offset, year) => {
   const [month, rest] = dstChange.split('/');
-  const [day, hour] = rest.split(':');
-  return Date.UTC(year, month - 1, day, hour) - (offset * MSEC_IN_HOUR)
+  const [day, hour, minute = 0] = rest.split(':');
+  return Date.UTC(year, month - 1, day, hour, minute) - (offset * MSEC_IN_HOUR)
 };
 
 // compare epoch with dst change events (in utc)
@@ -21,8 +21,12 @@ const inSummerTime = (epoch, start, end, summerOffset, winterOffset) => {
 
 // Keep metadata and the fast wall-clock calculation in agreement.
 var getDstShift = tz => {
-  if (tz === 'australia/lord_howe') return 0.5
-  if (tz === 'antarctica/troll') return 2
+  if (tz === 'australia/lord_howe' || tz === 'australia/lhi') {
+    return 0.5
+  }
+  if (tz === 'antarctica/troll') {
+    return 2
+  }
   return 1
 };
 
@@ -32,7 +36,7 @@ const quickOffset = s => {
   const zones = s.timezones;
   const obj = zones[s.tz];
   if (obj === undefined) {
-    console.warn("Warning: couldn't find timezone " + s.tz);
+    console.warn("Warning: couldn't find timezone " + s.tz); // eslint-disable-line no-console
     return 0
   }
   if (obj.dst === undefined) {
@@ -59,83 +63,88 @@ var data = {
   "9|n": "2/chita,2/khandyga,2/pyongyang,2/seoul,2/tokyo,2/yakutsk,11/palau,japan,rok",
   "9.5|s|04/05:03->10/04:02": "4/adelaide,4/broken_hill,4/south,4/yancowinna",
   "9.5|s": "4/darwin,4/north",
-  "8|s": "12/casey,2/kuala_lumpur,2/makassar,2/singapore,4/perth,2/ujung_pandang,4/west,singapore",
-  "8|n": "2/brunei,2/hong_kong,2/irkutsk,2/kuching,2/macau,2/manila,2/shanghai,2/taipei,2/ulaanbaatar,2/chongqing,2/chungking,2/harbin,2/macao,2/ulan_bator,2/choibalsan,hongkong,prc,roc",
+  "8|s": "12/casey,2/makassar,4/perth,2/ujung_pandang,4/west",
+  "8|n": "2/brunei,2/hong_kong,2/irkutsk,2/kuala_lumpur,2/kuching,2/macau,2/manila,2/shanghai,2/singapore,2/taipei,2/ulaanbaatar,2/chongqing,2/chungking,2/harbin,2/macao,2/ulan_bator,2/choibalsan,hongkong,prc,roc,singapore",
   "8.75|s": "4/eucla",
-  "7|s": "12/davis,2/jakarta,9/christmas",
-  "7|n": "2/bangkok,2/barnaul,2/hovd,2/krasnoyarsk,2/novokuznetsk,2/novosibirsk,2/phnom_penh,2/pontianak,2/ho_chi_minh,2/tomsk,2/vientiane,2/saigon",
-  "6|n": "2/bishkek,2/dhaka,2/omsk,2/thimphu,2/urumqi,9/chagos,2/dacca,2/kashgar,2/thimbu",
-  "6.5|n": "2/yangon,9/cocos,2/rangoon",
+  "7|s": "12/davis,2/jakarta,2/pontianak,9/christmas",
+  "7|n": "2/bangkok,2/barnaul,2/hovd,2/krasnoyarsk,2/novokuznetsk,2/novosibirsk,2/phnom_penh,2/ho_chi_minh,2/tomsk,2/vientiane,2/saigon",
+  "6|s": "9/chagos",
+  "6|n": "2/bishkek,2/dhaka,2/omsk,2/thimphu,2/urumqi,2/dacca,2/kashgar,2/thimbu",
+  "6.5|s": "9/cocos",
+  "6.5|n": "2/yangon,2/rangoon",
   "5|s": "12/mawson,12/vostok,9/kerguelen",
   "5|n": "2/almaty,2/aqtau,2/aqtobe,2/ashgabat,2/atyrau,2/dushanbe,2/karachi,2/oral,2/qyzylorda,2/qostanay,2/samarkand,2/tashkent,2/yekaterinburg,9/maldives,2/ashkhabad",
   "5.75|n": "2/kathmandu,2/katmandu",
   "5.5|n": "2/kolkata,2/colombo,2/calcutta",
-  "4|s": "9/reunion",
-  "4|n": "2/baku,2/dubai,2/muscat,2/tbilisi,2/yerevan,8/astrakhan,8/samara,8/saratov,8/ulyanovsk,9/mahe,9/mauritius",
+  "4|s": "9/mahe,9/mauritius,9/reunion",
+  "4|n": "2/baku,2/dubai,2/muscat,2/tbilisi,2/yerevan,8/astrakhan,8/samara,8/saratov,8/ulyanovsk",
   "4.5|n": "2/kabul",
-  "3|s": "12/syowa,9/antananarivo",
+  "3|s": "0/dar_es_salaam,0/nairobi,12/syowa,9/antananarivo,9/comoro,9/mayotte",
   "3|n|04/24:00->10/29:24": "0/cairo,egypt",
   "3|n|03/29:03->10/25:04": "2/famagusta,2/nicosia,8/athens,8/bucharest,8/chisinau,8/helsinki,8/kyiv,8/mariehamn,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye,8/nicosia,8/tiraspol,8/kiev,eet",
   "3|n|03/29:00->10/24:24": "2/beirut",
   "3|n|03/28:02->10/24:02": "2/gaza,2/hebron",
   "3|n|03/27:02->10/25:02": "2/jerusalem,2/tel_aviv,israel",
-  "3|n": "0/addis_ababa,0/asmara,0/asmera,0/dar_es_salaam,0/djibouti,0/kampala,0/mogadishu,0/nairobi,2/aden,2/amman,2/baghdad,2/bahrain,2/damascus,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,8/volgograd,9/comoro,9/mayotte,2/volgograd,2/istanbul,turkey,w-su",
+  "3|n": "0/addis_ababa,0/asmara,0/asmera,0/djibouti,0/kampala,0/mogadishu,2/aden,2/amman,2/baghdad,2/bahrain,2/damascus,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,8/volgograd,2/volgograd,2/istanbul,turkey,w-su",
   "3.5|n": "2/tehran,iran",
-  "2|s": "0/gaborone,0/harare,0/johannesburg,0/lubumbashi,0/lusaka,0/maputo,0/maseru,0/mbabane,0/windhoek",
+  "2|s": "0/blantyre,0/bujumbura,0/gaborone,0/harare,0/johannesburg,0/kigali,0/lubumbashi,0/lusaka,0/maputo,0/maseru,0/mbabane,0/windhoek",
   "2|n|03/29:02->10/25:03": "0/ceuta,arctic/longyearbyen,8/amsterdam,8/andorra,8/belgrade,8/berlin,8/bratislava,8/brussels,8/budapest,8/busingen,8/copenhagen,8/gibraltar,8/ljubljana,8/luxembourg,8/madrid,8/malta,8/monaco,8/oslo,8/paris,8/podgorica,8/prague,8/rome,8/san_marino,8/sarajevo,8/skopje,8/stockholm,8/tirane,8/vaduz,8/vatican,8/vienna,8/warsaw,8/zagreb,8/zurich,3/jan_mayen,poland,cet,met",
   "2|n|03/29:01->10/25:03": "12/troll",
-  "2|n": "0/blantyre,0/bujumbura,0/juba,0/khartoum,0/kigali,0/tripoli,8/kaliningrad,libya",
+  "2|n": "0/juba,0/khartoum,0/tripoli,8/kaliningrad,libya",
   "1|s": "0/brazzaville,0/kinshasa,0/luanda",
   "1|n|03/29:01->10/25:02": "3/canary,3/faroe,3/madeira,8/dublin,8/guernsey,8/isle_of_man,8/jersey,8/lisbon,8/london,3/faeroe,eire,8/belfast,gb-eire,gb,portugal,wet",
   "1|n": "0/algiers,0/bangui,0/douala,0/lagos,0/libreville,0/malabo,0/ndjamena,0/niamey,0/porto-novo,0/tunis",
   "14|n": "11/kiritimati",
-  "13|s": "11/apia,11/tongatapu",
-  "13|n": "11/enderbury,11/kanton,11/fakaofo",
+  "13|s": "11/apia,11/enderbury,11/kanton,11/fakaofo,11/tongatapu",
   "12|s|04/05:03->09/27:02": "12/mcmurdo,11/auckland,12/south_pole,nz",
-  "12|s": "11/fiji",
-  "12|n": "2/anadyr,2/kamchatka,11/funafuti,11/kwajalein,11/majuro,11/nauru,11/tarawa,11/wake,11/wallis,kwajalein",
-  "12.75|s|04/05:03->09/27:02": "11/chatham,nz-chat",
+  "12|s": "11/fiji,11/funafuti,11/nauru,11/wallis",
+  "12|n": "2/anadyr,2/kamchatka,11/kwajalein,11/majuro,11/tarawa,11/wake,kwajalein",
+  "12.75|s|04/05:03:45->09/27:02:45": "11/chatham,nz-chat",
   "11|s|04/05:03->10/04:02": "11/norfolk",
-  "11|s": "11/bougainville",
-  "11|n": "2/magadan,2/sakhalin,2/srednekolymsk,11/efate,11/guadalcanal,11/kosrae,11/noumea,11/pohnpei,11/ponape",
+  "11|s": "11/bougainville,11/efate,11/guadalcanal,11/noumea",
+  "11|n": "2/magadan,2/sakhalin,2/srednekolymsk,11/kosrae,11/pohnpei,11/ponape",
   "10|s|04/05:03->10/04:02": "12/macquarie,4/currie,4/hobart,4/melbourne,4/sydney,4/act,4/canberra,4/nsw,4/tasmania,4/victoria",
   "10|s": "12/dumontdurville,4/brisbane,4/lindeman,11/port_moresby,4/queensland",
   "10|n": "2/ust-nera,2/vladivostok,11/guam,11/saipan,11/chuuk,11/truk,11/yap",
   "10.5|s|04/05:02->10/04:02": "4/lord_howe,4/lhi",
   "0|s|02/15:03->09/20:02": "0/casablanca",
   "0|s|02/15:03->03/22:02": "0/el_aaiun",
+  "0|s": "3/st_helena",
   "0|n|03/29:00->10/25:01": "3/azores",
-  "0|n": "0/abidjan,0/accra,0/bamako,0/banjul,0/bissau,0/conakry,0/dakar,0/freetown,0/lome,0/monrovia,0/nouakchott,0/ouagadougou,0/sao_tome,1/danmarkshavn,3/reykjavik,3/st_helena,13/gmt,13/utc,0/timbuktu,13/greenwich,13/uct,13/universal,13/zulu,gmt-0,gmt+0,gmt0,greenwich,iceland,uct,universal,utc,zulu,13/unknown,factory",
+  "0|n": "0/abidjan,0/accra,0/bamako,0/banjul,0/bissau,0/conakry,0/dakar,0/freetown,0/lome,0/monrovia,0/nouakchott,0/ouagadougou,0/sao_tome,1/danmarkshavn,3/reykjavik,13/gmt,13/utc,0/timbuktu,13/greenwich,13/uct,13/universal,13/zulu,gmt-0,gmt+0,gmt0,greenwich,iceland,uct,universal,utc,zulu,13/unknown,factory",
+  "-9|s": "11/gambier",
   "-9|n|03/08:02->11/01:02": "1/adak,1/atka,us/aleutian",
-  "-9|n": "11/gambier",
-  "-9.5|n": "11/marquesas",
+  "-9.5|s": "11/marquesas",
+  "-8|s": "11/pitcairn",
   "-8|n|03/08:02->11/01:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat,us/alaska",
-  "-8|n": "11/pitcairn",
   "-7|n|03/08:02->12/31:23": "1/vancouver,6/pacific",
-  "-7|n|03/08:02->11/01:02": "1/los_angeles,1/santa_isabel,1/tijuana,1/ensenada,10/bajanorte,us/pacific-new,us/pacific",
+  "-7|n|03/08:02->11/01:02": "1/los_angeles,1/santa_isabel,1/tijuana,1/ensenada,10/bajanorte,us/pacific-new,us/pacific,pst8pdt",
   "-7|n": "1/creston,1/dawson,1/dawson_creek,1/fort_nelson,1/hermosillo,1/mazatlan,1/phoenix,1/whitehorse,6/yukon,10/bajasur,us/arizona,mst",
   "-6|s|04/04:22->09/05:22": "11/easter,7/easterisland",
+  "-6|s": "11/galapagos",
   "-6|n|03/08:02->12/31:23": "1/edmonton,1/yellowknife,6/mountain",
-  "-6|n|03/08:02->11/01:02": "1/boise,1/cambridge_bay,1/denver,1/inuvik,1/north_dakota,1/ciudad_juarez,1/shiprock,navajo,us/mountain",
-  "-6|n": "1/bahia_banderas,1/belize,1/chihuahua,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/merida,1/mexico_city,1/monterrey,1/regina,1/swift_current,1/tegucigalpa,11/galapagos,6/east-saskatchewan,6/saskatchewan,10/general",
-  "-5|s": "1/lima,1/rio_branco,1/porto_acre,5/acre",
-  "-5|n|03/08:02->11/01:02": "1/chicago,1/matamoros,1/menominee,1/ojinaga,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,1/indiana/knox,1/indiana/tell_city,1/north_dakota/beulah,1/north_dakota/center,1/north_dakota/new_salem,1/knox_in,6/central,us/central,us/indiana-starke",
-  "-5|n": "1/bogota,1/cancun,1/cayman,1/coral_harbour,1/eirunepe,1/guayaquil,1/jamaica,1/panama,1/atikokan,jamaica,est",
+  "-6|n|03/08:02->11/01:02": "1/boise,1/cambridge_bay,1/denver,1/inuvik,1/ciudad_juarez,1/shiprock,navajo,us/mountain,mst7mdt",
+  "-6|n": "1/bahia_banderas,1/belize,1/chihuahua,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/merida,1/mexico_city,1/monterrey,1/regina,1/swift_current,1/tegucigalpa,6/east-saskatchewan,6/saskatchewan,10/general",
+  "-5|s": "1/eirunepe,1/guayaquil,1/lima,1/rio_branco,1/porto_acre,5/acre",
+  "-5|n|03/08:02->11/01:02": "1/chicago,1/matamoros,1/menominee,1/north_dakota,1/ojinaga,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,1/indiana/knox,1/indiana/tell_city,1/north_dakota/beulah,1/north_dakota/center,1/north_dakota/new_salem,1/knox_in,6/central,us/central,us/indiana-starke,cst6cdt",
+  "-5|n": "1/bogota,1/cancun,1/cayman,1/coral_harbour,1/jamaica,1/panama,1/atikokan,jamaica,est",
   "-4|s|04/04:24->09/06:00": "1/santiago,7/continental",
-  "-4|s": "1/campo_grande,1/cuiaba,1/la_paz,1/manaus,5/west",
-  "-4|n|03/08:02->11/01:02": "1/detroit,1/grand_turk,1/indiana,1/indianapolis,1/iqaluit,1/kentucky,1/louisville,1/montreal,1/nassau,1/new_york,1/nipigon,1/pangnirtung,1/port-au-prince,1/thunder_bay,1/toronto,1/indiana/marengo,1/indiana/petersburg,1/indiana/vevay,1/indiana/vincennes,1/indiana/winamac,1/kentucky/monticello,1/fort_wayne,1/indiana/indianapolis,1/kentucky/louisville,6/eastern,us/east-indiana,us/eastern,us/michigan",
+  "-4|s": "1/campo_grande,1/cuiaba,1/la_paz,1/manaus,1/porto_velho,5/west",
+  "-4|n|03/08:02->11/01:02": "1/detroit,1/grand_turk,1/indiana,1/indianapolis,1/iqaluit,1/kentucky,1/louisville,1/montreal,1/nassau,1/new_york,1/nipigon,1/pangnirtung,1/port-au-prince,1/thunder_bay,1/toronto,1/indiana/marengo,1/indiana/petersburg,1/indiana/vevay,1/indiana/vincennes,1/indiana/winamac,1/kentucky/monticello,1/fort_wayne,1/indiana/indianapolis,1/kentucky/louisville,6/eastern,us/east-indiana,us/eastern,us/michigan,est5edt",
   "-4|n|03/08:00->11/01:01": "1/havana,cuba",
-  "-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/porto_velho,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin",
-  "-3|s": "1/argentina,1/asuncion,1/buenos_aires,1/catamarca,1/cordoba,1/coyhaique,1/fortaleza,1/jujuy,1/mendoza,1/montevideo,1/punta_arenas,1/sao_paulo,12/palmer,12/rothera,3/stanley,1/argentina/la_rioja,1/argentina/rio_gallegos,1/argentina/salta,1/argentina/san_juan,1/argentina/san_luis,1/argentina/tucuman,1/argentina/ushuaia,1/argentina/comodrivadavia,1/argentina/buenos_aires,1/argentina/catamarca,1/argentina/cordoba,1/argentina/jujuy,1/argentina/mendoza,1/argentina/rosario,1/rosario,5/east",
+  "-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin",
+  "-3|s": "1/araguaina,1/argentina,1/asuncion,1/bahia,1/belem,1/buenos_aires,1/catamarca,1/cordoba,1/coyhaique,1/fortaleza,1/jujuy,1/maceio,1/mendoza,1/montevideo,1/punta_arenas,1/recife,1/santarem,1/sao_paulo,12/palmer,12/rothera,3/stanley,1/argentina/la_rioja,1/argentina/rio_gallegos,1/argentina/salta,1/argentina/san_juan,1/argentina/san_luis,1/argentina/tucuman,1/argentina/ushuaia,1/argentina/comodrivadavia,1/argentina/buenos_aires,1/argentina/catamarca,1/argentina/cordoba,1/argentina/jujuy,1/argentina/mendoza,1/argentina/rosario,1/rosario,5/east",
   "-3|n|03/08:02->11/01:02": "1/glace_bay,1/goose_bay,1/halifax,1/moncton,1/thule,3/bermuda,6/atlantic",
-  "-3|n": "1/araguaina,1/bahia,1/belem,1/cayenne,1/maceio,1/paramaribo,1/recife,1/santarem",
+  "-3|n": "1/cayenne,1/paramaribo",
+  "-2|s": "1/noronha,3/south_georgia,5/denoronha",
   "-2|n|03/08:02->11/01:02": "1/miquelon",
-  "-2|n": "1/noronha,3/south_georgia,5/denoronha",
   "-2.5|n|03/08:02->11/01:02": "1/st_johns,6/newfoundland",
   "-1|n|03/28:23->10/24:24": "1/nuuk,1/scoresbysund,1/godthab",
   "-1|n": "3/cape_verde",
-  "-11|n": "11/midway,11/niue,11/pago_pago,11/samoa,us/samoa",
-  "-10|n": "11/honolulu,11/johnston,11/rarotonga,11/tahiti,us/hawaii,hst"
+  "-11|s": "11/niue,11/pago_pago,11/samoa,us/samoa",
+  "-11|n": "11/midway",
+  "-10|s": "11/rarotonga,11/tahiti",
+  "-10|n": "11/honolulu,11/johnston,us/hawaii,hst"
 };
 
 //prefixes for iana names..
@@ -228,51 +237,43 @@ const guessTz = () => {
   return timezone
 };
 
-const isOffset = /(?<![0-9])(-?[0-9]+)h(rs)?/i;
-const isNumber = /(-?[0-9]+)/;
-const utcOffset = /utc([\-+]?[0-9]+)/i;
-const gmtOffset = /gmt([\-+]?[0-9]+)/i;
+const offsetPattern = /^(?:(utc|gmt)\s*)?([+-]?)(\d+)(?:(\.\d+)|:([0-5]\d))?(?:\s*(?:h|hrs?|hours?))?$/i;
+const embeddedHours = /(?:^|\s)([+-]?\d+(?:\.\d+|:[0-5]\d)?\s*(?:h|hrs?|hours?))$/i;
 
-const toIana = function (num) {
-  num = Number(num);
-  if (num >= -13 && num <= 13) {
-    num = num * -1; //it's opposite!
-    num = (num > 0 ? '+' : '') + num; //add plus sign
-    return 'etc/gmt' + num
+const parseOffset$1 = (tz) => {
+  const input = tz.trim();
+  let match = input.match(offsetPattern);
+  if (!match) {
+    // Retain loose hour-suffix inputs such as 'prefix -5hrs'.
+    const embedded = input.match(embeddedHours);
+    if (embedded) {
+      match = embedded[1].match(offsetPattern);
+    }
   }
-  return null
-};
-
-const parseOffset$1 = function (tz) {
-  // '+5hrs'
-  let m = tz.match(isOffset);
-  if (m !== null) {
-    return toIana(m[1])
+  if (!match) {
+    return null
   }
-  // 'utc+5'
-  m = tz.match(utcOffset);
-  if (m !== null) {
-    return toIana(m[1])
+  const [, prefix, sign, hours, fraction = '0', minutes = '0'] = match;
+  let num = Number(hours) + Number(fraction) + Number(minutes) / 60;
+  // Fixed-offset entries exist in quarter-hour steps up to UTC±14.
+  if (num > 14 || !Number.isInteger(num * 4)) {
+    return null
   }
-  // 'GMT-5' (not opposite)
-  m = tz.match(gmtOffset);
-  if (m !== null) {
-    const num = Number(m[1]) * -1;
-    return toIana(num)
+  if (sign === '-') {
+    num *= -1;
   }
-  // '+5'
-  m = tz.match(isNumber);
-  if (m !== null) {
-    return toIana(m[1])
+  // Preserve the existing GMT convention; UTC and bare offsets use normal signs.
+  if (prefix?.toLowerCase() !== 'gmt') {
+    num *= -1;
   }
-  return null
+  return 'etc/gmt' + (num > 0 ? '+' : '') + num
 };
 
 let local = guessTz();
 
 //add all the city names by themselves
 const cities = Object.keys(all).reduce((h, k) => {
-  let city = k.split('/')[1] || '';
+  let city = k.split('/').pop();
   city = city.replace(/_/g, ' ');
   h[city] = k;
   return h
@@ -294,13 +295,13 @@ const lookupTz = (str, zones) => {
   if (!str) {
     // guard if Intl response is unsupported (#397)
     if (!zones.hasOwnProperty(local)) {
-      console.warn(`Unrecognized IANA id '${local}'. Setting fallback tz to UTC.`);
+      console.warn(`Unrecognized IANA id '${local}'. Setting fallback tz to UTC.`); // eslint-disable-line no-console
       local = 'utc';
     }
     return local
   }
   if (typeof str !== 'string') {
-    console.error("Timezone must be a string - recieved: '", str, "'\n");
+    console.error("Timezone must be a string - recieved: '", str, "'\n"); // eslint-disable-line no-console
   }
   let tz = str.trim();
   // let split = str.split('/')
@@ -468,8 +469,8 @@ const parseNumber$1 = function (s, input) {
   // if the given epoch is really small, they've probably given seconds and not milliseconds
   // anything below this number is likely (but not necessarily) a mistaken input.
   if (input > 0 && input < minimumEpoch && s.silent === false) {
-    console.warn('  - Warning: You are setting the date to January 1970.');
-    console.warn('       -   did input seconds instead of milliseconds?');
+    console.warn('  - Warning: You are setting the date to January 1970.'); // eslint-disable-line no-console
+    console.warn('       -   did input seconds instead of milliseconds?'); // eslint-disable-line no-console
   }
   s.epoch = input;
   return s
@@ -568,7 +569,6 @@ const walk = (s, n, fn, unit, previous) => {
   const diff = n - current;
   s.epoch += o[unit] * diff;
   //DST edge-case: if we are going many days, be a little conservative
-  // console.log(unit, diff)
   if (unit === 'day') {
     // s.epoch -= ms.minute
     //but don't push it over a month
@@ -578,7 +578,6 @@ const walk = (s, n, fn, unit, previous) => {
   }
   // 1st time: oops, did we change previous unit? revert it.
   if (previous !== null && startUnit !== s.d[previous]()) {
-    // console.warn('spacetime warning: missed setting ' + unit)
     s.epoch = original;
     // s.epoch += ms[unit] * diff * 0.89 // maybe try and make it close...?
   }
@@ -602,15 +601,15 @@ const walk = (s, n, fn, unit, previous) => {
 const units$4 = {
   year: {
     valid: (n) => n > -4e3 && n < 4000,
-    walkTo: (s, n) => walk(s, n, 'getFullYear', 'year', null)
+    walkTo: (s, n) => walk(s, n, 'getUTCFullYear', 'year', null)
   },
   month: {
     valid: (n) => n >= 0 && n <= 11,
     walkTo: (s, n) => {
       const d = s.d;
-      const current = d.getMonth();
+      const current = d.getUTCMonth();
       const original = s.epoch;
-      const startUnit = d.getFullYear();
+      const startUnit = d.getUTCFullYear();
       if (current === n) {
         return
       }
@@ -618,29 +617,29 @@ const units$4 = {
       const diff = n - current;
       s.epoch += o.day * (diff * 28); //special case
       //oops, did we change the year? revert it.
-      if (startUnit !== s.d.getFullYear()) {
+      if (startUnit !== s.d.getUTCFullYear()) {
         s.epoch = original;
       }
       //increment by day
-      while (s.d.getMonth() < n) {
+      while (s.d.getUTCMonth() < n) {
         s.epoch += o.day;
       }
-      while (s.d.getMonth() > n) {
+      while (s.d.getUTCMonth() > n) {
         s.epoch -= o.day;
       }
     }
   },
   date: {
     valid: (n) => n > 0 && n <= 31,
-    walkTo: (s, n) => walk(s, n, 'getDate', 'day', 'getMonth')
+    walkTo: (s, n) => walk(s, n, 'getUTCDate', 'day', 'getUTCMonth')
   },
   hour: {
     valid: (n) => n >= 0 && n < 24,
-    walkTo: (s, n) => walk(s, n, 'getHours', 'hour', 'getDate')
+    walkTo: (s, n) => walk(s, n, 'getUTCHours', 'hour', 'getUTCDate')
   },
   minute: {
     valid: (n) => n >= 0 && n < 60,
-    walkTo: (s, n) => walk(s, n, 'getMinutes', 'minute', 'getHours')
+    walkTo: (s, n) => walk(s, n, 'getUTCMinutes', 'minute', 'getUTCHours')
   },
   second: {
     valid: (n) => n >= 0 && n < 60,
@@ -674,7 +673,7 @@ const walkTo = (s, wants) => {
     if (!units$4[k].valid(n)) {
       s.epoch = null;
       if (s.silent === false) {
-        console.warn('invalid ' + k + ': ' + n);
+        console.warn('invalid ' + k + ': ' + n); // eslint-disable-line no-console
       }
       return
     }
@@ -1326,7 +1325,7 @@ const parseString = function (s, input, givenTz) {
     }
   }
   if (s.silent === false) {
-    console.warn("Warning: couldn't parse date-string: '" + input + "'");
+    console.warn("Warning: couldn't parse date-string: '" + input + "'"); // eslint-disable-line no-console
   }
   s.epoch = null;
   return s
@@ -1887,7 +1886,7 @@ const nearest = (s, unit) => {
     // go to start
     s = s.startOf(unit);
   } else if (s.silent === false) {
-    console.warn("no known unit '" + unit + "'");
+    console.warn("no known unit '" + unit + "'"); // eslint-disable-line no-console
   }
   return s
 };
@@ -2542,7 +2541,7 @@ const timezone = s => {
   }
   if (tz === null) {
     if (s.silent === false) {
-      console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
+      console.warn("Warn: could not find given or local timezone - '" + s.tz + "'"); // eslint-disable-line no-console
     }
     return {
       current: {
@@ -2749,13 +2748,11 @@ const methods$4 = {
   },
   //pretty-printing
   log: function () {
-    console.log('');
-    console.log(printFormat(this, 'nice-short'));
+    console.log('\n' + printFormat(this, 'nice-short')); //eslint-disable-line no-console
     return this
   },
   logYear: function () {
-    console.log('');
-    console.log(printFormat(this, 'full-short'));
+    console.log('\n' + printFormat(this, 'full-short')); //eslint-disable-line no-console
     return this
   },
   json: function (input) {
@@ -2786,7 +2783,7 @@ const methods$4 = {
     const tz = this.timezone();
     let date = this.format('MM') + ' ' + this.format('date-ordinal') + ' ' + this.year();
     date += '\n     - ' + this.format('time');
-    console.log('\n\n', date + '\n     - ' + tz.name + ' (' + tz.current.offset + ')');
+    console.log('\n\n', date + '\n     - ' + tz.name + ' (' + tz.current.offset + ')'); // eslint-disable-line no-console
     return this
   },
   //alias of 'since' but opposite - like moment.js
@@ -2816,7 +2813,7 @@ const methods$4 = {
       }
       this._weekStart = num;
     } else {
-      console.warn('Spacetime Error: Cannot understand .weekStart() input:', input);
+      console.warn('Spacetime Error: Cannot understand .weekStart() input:', input); // eslint-disable-line no-console
     }
     return this
   }
@@ -3176,7 +3173,7 @@ const methods$3 = {
       s.epoch = milliseconds(s, num);
       return s
     }
-    return this.d.getMilliseconds()
+    return this.d.getUTCMilliseconds()
   },
   second: function (num, goFwd) {
     if (num !== undefined) {
@@ -3184,7 +3181,7 @@ const methods$3 = {
       s.epoch = seconds(s, num, goFwd);
       return s
     }
-    return this.d.getSeconds()
+    return this.d.getUTCSeconds()
   },
   minute: function (num, goFwd) {
     if (num !== undefined) {
@@ -3192,7 +3189,7 @@ const methods$3 = {
       s.epoch = minutes(s, num, goFwd);
       return s
     }
-    return this.d.getMinutes()
+    return this.d.getUTCMinutes()
   },
   hour: function (num, goFwd) {
     const d = this.d;
@@ -3201,7 +3198,7 @@ const methods$3 = {
       s.epoch = hours(s, num, goFwd);
       return s
     }
-    return d.getHours()
+    return d.getUTCHours()
   },
 
   //'3:30' is 3.5
@@ -3216,8 +3213,8 @@ const methods$3 = {
       return s
     }
     const d = this.d;
-    const hour = d.getHours();
-    let minute = d.getMinutes();
+    const hour = d.getUTCHours();
+    let minute = d.getUTCMinutes();
     minute = minute / 60;
     return hour + minute
   },
@@ -3239,7 +3236,7 @@ const methods$3 = {
       return s
     }
     //get the hour
-    let hour12 = d.getHours();
+    let hour12 = d.getUTCHours();
     if (hour12 > 12) {
       hour12 = hour12 - 12;
     }
@@ -3364,13 +3361,13 @@ const methods$2 = {
       }
       return s
     }
-    return this.d.getDate()
+    return this.d.getUTCDate()
   },
 
   //like 'wednesday' (hard!)
   day: function (input, goFwd) {
     if (input === undefined) {
-      return this.d.getDay()
+      return this.d.getUTCDay()
     }
     const original = this.clone();
     let want = input;
@@ -3387,7 +3384,7 @@ const methods$2 = {
       }
     }
     //move approx
-    const day = this.d.getDay();
+    const day = this.d.getUTCDay();
     let diff = day - want;
     if (goFwd === true && diff > 0) {
       diff = diff - 7;
@@ -3429,7 +3426,7 @@ const millennium = function (input) {
       input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
       input = Number(input);
       if (isNaN(input)) {
-        console.warn('Spacetime: Invalid millennium input');
+        console.warn('Spacetime: Invalid millennium input'); // eslint-disable-line no-console
         return this
       }
     }
@@ -3460,21 +3457,15 @@ const methods$1 = {
       return s
     }
     //days since newyears - jan 1st is 1, jan 2nd is 2...
-    let sum = 0;
-    const month = this.d.getMonth();
-    let tmp;
+    const d = this.d;
+    let sum = d.getUTCDate();
+    const month = d.getUTCMonth();
+    const year = d.getUTCFullYear();
     //count the num days in each month
-    for (let i = 1; i <= month; i++) {
-      tmp = new Date();
-      tmp.setDate(1);
-      tmp.setFullYear(this.d.getFullYear()); //the year matters, because leap-years
-      tmp.setHours(1);
-      tmp.setMinutes(1);
-      tmp.setMonth(i);
-      tmp.setHours(-2); //the last day of the month
-      sum += tmp.getDate();
+    for (let i = 0; i < month; i++) {
+      sum += getMonthLength(i, year);
     }
-    return sum + this.d.getDate()
+    return sum
   },
 
   //since the start of the year
@@ -3532,7 +3523,7 @@ const methods$1 = {
       s.epoch = month(s, input, goFwd);
       return s
     }
-    return this.d.getMonth()
+    return this.d.getUTCMonth()
   },
   //'january'
   monthName: function (input, goFwd) {
@@ -3560,7 +3551,7 @@ const methods$1 = {
         return s
       }
     }
-    const month = this.d.getMonth();
+    const month = this.d.getUTCMonth();
     for (let i = 1; i < quarters.length; i++) {
       if (month < quarters[i][0]) {
         return i - 1
@@ -3586,7 +3577,7 @@ const methods$1 = {
       }
       return s
     }
-    const month = this.d.getMonth();
+    const month = this.d.getUTCMonth();
     for (let i = 0; i < seasons[hem].length - 1; i++) {
       if (month >= seasons[hem][i][1] && month < seasons[hem][i + 1][1]) {
         return seasons[hem][i][0]
@@ -3602,7 +3593,7 @@ const methods$1 = {
       s.epoch = year(s, num);
       return s
     }
-    return this.d.getFullYear()
+    return this.d.getUTCFullYear()
   },
 
   //bc/ad years
@@ -3611,7 +3602,7 @@ const methods$1 = {
       const s = this.clone();
       str = str.toLowerCase();
       //TODO: there is no year-0AD i think. may have off-by-1 error here
-      const year$1 = s.d.getFullYear();
+      const year$1 = s.d.getUTCFullYear();
       //make '1992' into 1992bc..
       if (str === 'bc' && year$1 > 0) {
         s.epoch = year(s, year$1 * -1);
@@ -3622,7 +3613,7 @@ const methods$1 = {
       }
       return s
     }
-    if (this.d.getFullYear() < 0) {
+    if (this.d.getUTCFullYear() < 0) {
       return 'BC'
     }
     return 'AD'
@@ -3635,7 +3626,7 @@ const methods$1 = {
       input = input.replace(/([0-9])'?s$/, '$1'); //1950's
       input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
       if (!input) {
-        console.warn('Spacetime: Invalid decade input');
+        console.warn('Spacetime: Invalid decade input'); // eslint-disable-line no-console
         return this
       }
       // assume 20th century?? for '70s'.
@@ -3667,7 +3658,7 @@ const methods$1 = {
       }
       let year = Number(input);
       if (isNaN(input)) {
-        console.warn('Spacetime: Invalid century input');
+        console.warn('Spacetime: Invalid century input'); // eslint-disable-line no-console
         return this
       }
       // there is no century 0
@@ -4071,18 +4062,10 @@ const SpaceTime = function (input, tz, options = {}) {
   // })
   // add getter/setters
   Object.defineProperty(this, 'd', {
-    // return a js date object
+    // Internal clock view: read its UTC fields, not the host's local fields.
     get: function () {
       const offset = quickOffset(this);
-      // every computer is somewhere- get this computer's built-in offset
-      const bias = new Date(this.epoch).getTimezoneOffset() || 0;
-      // movement
-      let shift = bias + (offset * 60); //in minutes
-      shift = shift * 60 * 1000; //in ms
-      // remove this computer's offset
-      const epoch = this.epoch + shift;
-      const d = new Date(epoch);
-      return d
+      return new Date(this.epoch + (offset * 3600000))
     }
   });
   // add this data on the object, to allow adding new timezones

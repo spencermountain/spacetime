@@ -5,13 +5,16 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!--
+ -->
  ### 7.16.0 [Sep 2022]
+- **[change]** deprecated but exposed `.d` date now is in UTC - users can do `new Date(s.d.epoch)`
+- **[change]** - use UTC date methods internally to reduce bias of local computer
 - **[fix]** - correct Chatham and NZ-CHAT transitions to 03:45 and 02:45
 - **[fix]** - apply Lord Howe's half-hour DST shift to the Australia/LHI alias
 - **[fix]** - hemispheres for 42 zones
 - **[fix]** - preserve fractional timezone offsets, support UTC±14, and reject malformed offsets
 - **[fix]** - point the North Dakota shortcut to Central time and resolve nested timezone city names
- -->
+- **[update]** - dependencies
 
  ### 7.15.0 [Sep 2022]
 - **[fix]** - stale dst offsets #470 (thanks Sudarshan!)

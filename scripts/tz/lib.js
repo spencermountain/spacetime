@@ -10,11 +10,11 @@ const unsupported = (message, details) => Object.assign(new Error(message), { de
 // Validate the date first so unrelated invalid dates are not silently preserved.
 const boundaryTime = (text, year) => {
   const match = /^(\d{2})\/(\d{2}):(\d{2})(?::(\d{2}))?$/.exec(text || '')
-  if (!match) return NaN
+  if (!match) {return NaN}
   const [month, day, hour] = match.slice(1, 4).map(Number)
   const minute = Number(match[4] || 0)
   const midnight = new Date(Date.UTC(year, month - 1, day))
-  if (midnight.getUTCMonth() !== month - 1 || midnight.getUTCDate() !== day || hour > 24) return NaN
+  if (midnight.getUTCMonth() !== month - 1 || midnight.getUTCDate() !== day || hour > 24) {return NaN}
   if (minute > 59 || (hour === 24 && minute !== 0)) {
     return NaN
   }
@@ -26,10 +26,10 @@ const boundaryTime = (text, year) => {
 // Split on tabs: an empty abbreviation must not shift the DST flag into its place.
 export const parseIntervals = (text) => {
   const lines = text.trim().split(/\r?\n/)
-  if (!/^TZ=".*"$/.test(lines.shift() || '')) throw new Error('Missing zdump TZ header')
+  if (!/^TZ=".*"$/.test(lines.shift() || '')) {throw new Error('Missing zdump TZ header')}
   const records = lines.map((line, i) => {
     const fields = line.split('\t')
-    if (fields.length < 3 || fields.length > 5) throw new Error('Invalid interval fields')
+    if (fields.length < 3 || fields.length > 5) {throw new Error('Invalid interval fields')}
     const [date, time, offset, abbreviation = '', flag = '0'] = fields
     const m = /^([+-]?)(\d{2})(\d{2})?(\d{2})?$/.exec(offset)
     if (!m || Number(m[3] || 0) > 59 || Number(m[4] || 0) > 59) {
@@ -48,12 +48,12 @@ export const parseIntervals = (text) => {
 
     const record = { offset: seconds / 3600, dst: flag === '1' }
     if (i === 0) {
-      if (date !== '-' || time !== '-') throw new Error('Missing initial interval')
+      if (date !== '-' || time !== '-') {throw new Error('Missing initial interval')}
       return record
     }
     const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date)
     const t = /^(\d{2})(?::(\d{2}))?(?::(\d{2}))?$/.exec(time)
-    if (!d || !t) throw new Error('Invalid transition timestamp')
+    if (!d || !t) {throw new Error('Invalid transition timestamp')}
     const parts = [
       Number(d[1]),
       Number(d[2]),
@@ -81,7 +81,7 @@ export const parseIntervals = (text) => {
     // Subtract the POST-change offset to recover the actual transition instant.
     return { ...record, epoch: local - (seconds * 1000) }
   })
-  if (records.length === 0) throw new Error('Missing initial interval')
+  if (records.length === 0) {throw new Error('Missing initial interval')}
   return { initial: records[0], transitions: records.slice(1) }
 }
 
@@ -110,11 +110,11 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   }
   const result = { ...previous, offset: initial.offset }
   delete result.dst
-  if (changes.length === 0) return result
-  if (changes.length !== 2) throw unsupported(`Unsupported pattern: ${changes.length} state changes`, [
+  if (changes.length === 0) {return result}
+  if (changes.length !== 2) {throw unsupported(`Unsupported pattern: ${changes.length} state changes`, [
     'The runtime supports a fixed offset or exactly two changes forming one annual cycle.',
     `Observed ${changes.length} offset/DST changes across ${transitions.length} transition records.`
-  ])
+  ])}
   const [a, b] = changes
   const shift = getDstShift(tz)
   // The stored interval normally contains July. Southern cycles enter it by

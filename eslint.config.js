@@ -64,6 +64,7 @@ export default [
       'no-mixed-operators': 'off',
       'no-prototype-builtins': 'off',
       'prefer-const': 'warn',
+      curly: ['warn', 'all'],
       'regexp/prefer-d': 'off',
       'regexp/no-super-linear-move': 'warn'
     }

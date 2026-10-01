@@ -17,15 +17,15 @@ const offset = hours => {
 }
 
 const fieldLabel = key => {
-  if (key === 'dst') return 'DST'
-  if (key === 'hem') return 'hemisphere'
+  if (key === 'dst') {return 'DST'}
+  if (key === 'hem') {return 'hemisphere'}
   return key
 }
 
 const value = (key, v) => {
-  if (v === undefined) return key === 'dst' ? 'none (fixed offset)' : 'none'
-  if (key === 'offset') return offset(v)
-  if (key === 'hem') return v === 'n' ? 'North' : 'South'
+  if (v === undefined) {return key === 'dst' ? 'none (fixed offset)' : 'none'}
+  if (key === 'offset') {return offset(v)}
+  if (key === 'hem') {return v === 'n' ? 'North' : 'South'}
   if (key === 'dst') {
     return v.replace(/:(\d{2})(?::(\d{2}))?/g, (_, hour, minute = '00') => ` ${hour}:${minute}`).replace('->', ' – ')
   }
@@ -47,7 +47,7 @@ export const printHeader = ({ year, version, zoneinfoDir, output, check, total }
 // Use one label width across zones; paired rows align even when fields differ.
 const formatChanges = changes => {
   const lines = ['', paint(`Changes (${changes.length})`, '1;36')]
-  if (changes.length === 0) lines.push('  No changes.')
+  if (changes.length === 0) {lines.push('  No changes.')}
   const groups = changes.map(({ name, before, after }) => ({
     name,
     rows: [...new Set([...Object.keys(before), ...Object.keys(after)])]
@@ -122,7 +122,7 @@ const formatTransitions = intervals => {
 // Keep the full evidence available with --verbose; default to the failure and its timeline.
 const formatUnsupported = (unsupported, verbose) => {
   const warnings = ['', warningColor(`Unsupported (${unsupported.length}) · existing records kept`, '1;33')]
-  if (!verbose) warnings.push(warningColor('  Use --verbose for full diagnostics.', '2'))
+  if (!verbose) {warnings.push(warningColor('  Use --verbose for full diagnostics.', '2'))}
   for (const { name, reason, previous, intervals, details = [] } of unsupported) {
     let title = reason.replace(/^Unsupported (?:pattern|boundary): /, '')
     if (reason === 'Unsupported offset/DST cycle for runtime hemisphere and shift') {
@@ -139,7 +139,7 @@ const formatUnsupported = (unsupported, verbose) => {
       !detail.startsWith('Available entries:') &&
       !detail.startsWith('Choose a specific timezone')
     )
-    for (const detail of explanations) warnings.push(`    ${warningColor(detail, '2')}`)
+    for (const detail of explanations) {warnings.push(`    ${warningColor(detail, '2')}`)}
     if (verbose && previous) {
       warnings.push(`    Keeping: ${value('offset', previous.offset)} · ${value('hem', previous.hem)} · DST ${value('dst', previous.dst)}`)
     }
@@ -153,7 +153,7 @@ const formatUnsupported = (unsupported, verbose) => {
 export const printReport = ({ changes, unsupported, total, verbose = false }) => {
   console.log(formatChanges(changes))
   // Diagnostics go to stderr; normal changes and the summary go to stdout.
-  if (unsupported.length > 0) console.error(formatUnsupported(unsupported, verbose))
+  if (unsupported.length > 0) {console.error(formatUnsupported(unsupported, verbose))}
   const unchanged = total - changes.length - unsupported.length
   console.log([
     '',

@@ -9,6 +9,9 @@
   <a href="https://bundlephobia.com/result?p=spacetime@latest">
     <img src="https://badgen.net/bundlejs/min/spacetime" />
   </a>
+  <a href="https://www.npmchart.com/p/spacetime">
+    <img src="https://badgen.net/github/dependents-repo/spencermountain/spacetime" />
+  </a>
 </div>
 
 <!-- spacer -->
