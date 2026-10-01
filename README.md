@@ -86,7 +86,15 @@ s.isAfter(s.time('11:00am'))
 
 
 <!-- spacer -->
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+<div align="left">
+  <div><code>npm install spacetime</code></div>
+  <div><i>or, </i> <code>npx skills add spencermountain/spacetime</code></div>
+</div>
+
+<!-- spacer -->
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 ```html
 <script src="https://unpkg.com/spacetime"></script>
@@ -101,37 +109,26 @@ s.isAfter(s.time('11:00am'))
 </script>
 ```
 
-<!-- spacer -->
-<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<div align="center">
-  <div align="left">
-    <div><code>npm install spacetime</code></div>
-    <div><i>or, </i> <code>npx skills add spencermountain/spacetime</code></div>
-  </div>
-</div>
+Typescript:
+```ts
+import spacetime, { type Spacetime } from 'spacetime'
 
+const meeting: Spacetime = spacetime('2026-01-15T09:30:00', 'America/New_York')
+const london = meeting.goto('Europe/London')
+const time: string = london.time() // '2:30pm'
+```
+
+
+Commonjs:
 ```js
 const spacetime = require('spacetime')
 let d = spacetime.now('Europe/Paris')
 d.dayName()
 //'Wednesday'
-d.isAsleep()
-//true
-```
-
-<sub><i>typescript / babel / deno:</i></sub>
-
-```ts
-import spacetime from 'spacetime'
-let d = spacetime.now()
 d.format('nice')
 //'Apr 1st, 4:32pm'
 ```
-
-<div align="right">
-  <a href="https://github.com/spencermountain/spacetime/wiki/Typescript">ts docs</a>
-</div>
 
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
@@ -142,11 +139,11 @@ d.format('nice')
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
     <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
-      Full API
+      API
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
     <a href="https://beta.observablehq.com/@spencermountain/spacetime">
-      Observables
+      Demos
     </a>
   </h3>
   <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -630,4 +627,4 @@ s.dayName()
 
 thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
 
-Apache 2.0
+Apache 2.0 - PRs welcome
