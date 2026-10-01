@@ -89,7 +89,7 @@ s.isAfter(s.time('11:00am'))
 
 <div align="right">
   <code>npx skills add spencermountain/spacetime</code>
-  <dic><i>for computers</i></div>
+  <div><i>for computers</i></div>
 </div>
 
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -148,12 +148,8 @@ d.format('nice')
       Website
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
-    <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
-      API
-    </a>
-    &nbsp; &nbsp; • &nbsp; &nbsp;
     <a href="docs/LLMs.md">
-      LLM Docs
+      Agent Docs
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
     <a href="https://beta.observablehq.com/@spencermountain/spacetime">
