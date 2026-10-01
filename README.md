@@ -102,7 +102,7 @@ s.isAfter(s.time('11:00am'))
 ```
 
 <!-- spacer -->
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 `npm install spacetime`
 
@@ -128,18 +128,20 @@ d.format('nice')
   <a href="https://github.com/spencermountain/spacetime/wiki/Typescript">ts docs</a>
 </div>
 
-<sub><a href="./AGENTS.md"><code>AGENTS.md</code> LLM docs</a></sub>
-
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 <div align="center">
   <h3>
-    <a href="https://beta.observablehq.com/@spencermountain/spacetime">
-      Demo
+    <a href="docs/">
+      Docs
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
     <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
       Full API
+    </a>
+    &nbsp; &nbsp; • &nbsp; &nbsp;
+    <a href="https://beta.observablehq.com/@spencermountain/spacetime">
+      Observables
     </a>
   </h3>
   <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
