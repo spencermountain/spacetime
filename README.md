@@ -1,6 +1,8 @@
 <div align="center">
   <div>
-    <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
+    <a href="javascript:void(0);">
+      <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
+    </a>
   </div>
 
   <a href="https://npmjs.org/package/spacetime">
