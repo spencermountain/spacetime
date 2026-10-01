@@ -9,12 +9,16 @@ const unsupported = (message, details) => Object.assign(new Error(message), { de
 // Match the runtime's Date.UTC rollover: MM/DD:24 is next day's MM/DD:00.
 // Validate the date first so unrelated invalid dates are not silently preserved.
 const boundaryTime = (text, year) => {
-  const match = /^(\d{2})\/(\d{2}):(\d{2})$/.exec(text || '')
+  const match = /^(\d{2})\/(\d{2}):(\d{2})(?::(\d{2}))?$/.exec(text || '')
   if (!match) return NaN
-  const [month, day, hour] = match.slice(1).map(Number)
+  const [month, day, hour] = match.slice(1, 4).map(Number)
+  const minute = Number(match[4] || 0)
   const midnight = new Date(Date.UTC(year, month - 1, day))
   if (midnight.getUTCMonth() !== month - 1 || midnight.getUTCDate() !== day || hour > 24) return NaN
-  return Date.UTC(year, month - 1, day, hour)
+  if (minute > 59 || (hour === 24 && minute !== 0)) {
+    return NaN
+  }
+  return Date.UTC(year, month - 1, day, hour, minute)
 }
 
 // zdump -i emits an initial state followed by transitions with POST-change local times.
@@ -82,7 +86,7 @@ export const parseIntervals = (text) => {
 }
 
 // The runtime stores one chronological interval, with the opposite offset outside it.
-// Its boundaries are local wall times BEFORE each change, at whole hours.
+// Its boundaries are local wall times BEFORE each change, with optional minutes.
 export const normalizeZone = (intervals, previous, tz, year) => {
   const { initial, transitions } = intervals
   const start = Date.UTC(year, 0, 1)
@@ -138,13 +142,17 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   const boundary = (change) => {
     // Runtime boundaries use the clock BEFORE the jump, unlike zdump's local time.
     const d = new Date(change.epoch + (change.before.offset * 3600000))
-    if (d.getUTCFullYear() !== year || d.getUTCMinutes() || d.getUTCSeconds()) {
-      throw unsupported('Unsupported boundary: runtime requires whole hours in the target year', [
-        `Pre-change local boundary: ${d.toISOString().replace('T', ' ').replace('.000Z', '')} (must be a whole hour in ${year}).`,
+    if (d.getUTCFullYear() !== year || d.getUTCSeconds() || d.getUTCMilliseconds()) {
+      throw unsupported('Unsupported boundary: runtime requires whole minutes in the target year', [
+        `Pre-change local boundary: ${d.toISOString().replace('T', ' ').replace('.000Z', '')} (must be a whole minute in ${year}).`,
         `Transition instant: ${new Date(change.epoch).toISOString()}`
       ])
     }
-    return `${pad(d.getUTCMonth() + 1)}/${pad(d.getUTCDate())}:${pad(d.getUTCHours())}`
+    let text = `${pad(d.getUTCMonth() + 1)}/${pad(d.getUTCDate())}:${pad(d.getUTCHours())}`
+    if (d.getUTCMinutes()) {
+      text += ':' + pad(d.getUTCMinutes())
+    }
+    return text
   }
   result.offset = a.after.offset
   const oldBoundaries = (previous.dst || '').split('->')

@@ -41,7 +41,7 @@ export default {
   },
   'africa/blantyre': {
     offset: 2,
-    hem: 'n'
+    hem: 's'
   },
   'africa/brazzaville': {
     offset: 1,
@@ -49,7 +49,7 @@ export default {
   },
   'africa/bujumbura': {
     offset: 2,
-    hem: 'n'
+    hem: 's'
   },
   'africa/cairo': {
     offset: 3,
@@ -76,7 +76,7 @@ export default {
   },
   'africa/dar_es_salaam': {
     offset: 3,
-    hem: 'n'
+    hem: 's'
   },
   'africa/djibouti': {
     offset: 3,
@@ -121,7 +121,7 @@ export default {
   },
   'africa/kigali': {
     offset: 2,
-    hem: 'n'
+    hem: 's'
   },
   'africa/kinshasa': {
     offset: 1,
@@ -177,7 +177,7 @@ export default {
   },
   'africa/nairobi': {
     offset: 3,
-    hem: 'n'
+    hem: 's'
   },
   'africa/ndjamena': {
     offset: 1,
@@ -235,7 +235,7 @@ export default {
   },
   'america/araguaina': {
     offset: -3,
-    hem: 'n'
+    hem: 's'
   },
   'america/argentina': {
     offset: -3,
@@ -251,7 +251,7 @@ export default {
   },
   'america/bahia': {
     offset: -3,
-    hem: 'n'
+    hem: 's'
   },
   'america/bahia_banderas': {
     offset: -6,
@@ -263,7 +263,7 @@ export default {
   },
   'america/belem': {
     offset: -3,
-    hem: 'n'
+    hem: 's'
   },
   'america/belize': {
     offset: -6,
@@ -389,7 +389,7 @@ export default {
   },
   'america/eirunepe': {
     offset: -5,
-    hem: 'n'
+    hem: 's'
   },
   'america/el_salvador': {
     offset: -6,
@@ -437,7 +437,7 @@ export default {
   },
   'america/guayaquil': {
     offset: -5,
-    hem: 'n'
+    hem: 's'
   },
   'america/guyana': {
     offset: -4,
@@ -523,7 +523,7 @@ export default {
   },
   'america/maceio': {
     offset: -3,
-    hem: 'n'
+    hem: 's'
   },
   'america/managua': {
     offset: -6,
@@ -621,7 +621,7 @@ export default {
   },
   'america/noronha': {
     offset: -2,
-    hem: 'n'
+    hem: 's'
   },
   'america/north_dakota': {
     offset: -6,
@@ -666,7 +666,7 @@ export default {
   },
   'america/porto_velho': {
     offset: -4,
-    hem: 'n'
+    hem: 's'
   },
   'america/puerto_rico': {
     offset: -4,
@@ -688,7 +688,7 @@ export default {
   },
   'america/recife': {
     offset: -3,
-    hem: 'n'
+    hem: 's'
   },
   'america/regina': {
     offset: -6,
@@ -710,7 +710,7 @@ export default {
   },
   'america/santarem': {
     offset: -3,
-    hem: 'n'
+    hem: 's'
   },
   'america/santiago': {
     offset: -4,
@@ -1031,7 +1031,7 @@ export default {
   },
   'asia/kuala_lumpur': {
     offset: 8,
-    hem: 's'
+    hem: 'n'
   },
   'asia/kuching': {
     offset: 8,
@@ -1088,7 +1088,7 @@ export default {
   },
   'asia/pontianak': {
     offset: 7,
-    hem: 'n'
+    hem: 's'
   },
   'asia/pyongyang': {
     offset: 9,
@@ -1136,7 +1136,7 @@ export default {
   },
   'asia/singapore': {
     offset: 8,
-    hem: 's'
+    hem: 'n'
   },
   'asia/srednekolymsk': {
     offset: 11,
@@ -1237,11 +1237,11 @@ export default {
   },
   'atlantic/south_georgia': {
     offset: -2,
-    hem: 'n'
+    hem: 's'
   },
   'atlantic/st_helena': {
     offset: 0,
-    hem: 'n'
+    hem: 's'
   },
   'atlantic/stanley': {
     offset: -3,
@@ -1597,7 +1597,7 @@ export default {
   },
   'indian/chagos': {
     offset: 6,
-    hem: 'n'
+    hem: 's'
   },
   'indian/christmas': {
     offset: 7,
@@ -1605,11 +1605,11 @@ export default {
   },
   'indian/cocos': {
     offset: 6.5,
-    hem: 'n'
+    hem: 's'
   },
   'indian/comoro': {
     offset: 3,
-    hem: 'n'
+    hem: 's'
   },
   'indian/kerguelen': {
     offset: 5,
@@ -1617,7 +1617,7 @@ export default {
   },
   'indian/mahe': {
     offset: 4,
-    hem: 'n'
+    hem: 's'
   },
   'indian/maldives': {
     offset: 5,
@@ -1625,11 +1625,11 @@ export default {
   },
   'indian/mauritius': {
     offset: 4,
-    hem: 'n'
+    hem: 's'
   },
   'indian/mayotte': {
     offset: 3,
-    hem: 'n'
+    hem: 's'
   },
   'indian/reunion': {
     offset: 4,
@@ -1651,7 +1651,7 @@ export default {
   'pacific/chatham': {
     offset: 12.75,
     hem: 's',
-    dst: '04/05:03->09/27:02'
+    dst: '04/05:03:45->09/27:02:45'
   },
   'pacific/easter': {
     offset: -6,
@@ -1660,7 +1660,7 @@ export default {
   },
   'pacific/efate': {
     offset: 11,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/enderbury': {
     offset: 13,
@@ -1668,7 +1668,7 @@ export default {
   },
   'pacific/kanton': {
     offset: 13,
-    hem: 'n'
+    hem: 's'
   },
   'america/atikokan': {
     offset: -5,
@@ -1676,7 +1676,7 @@ export default {
   },
   'pacific/fakaofo': {
     offset: 13,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/fiji': {
     offset: 12,
@@ -1684,19 +1684,19 @@ export default {
   },
   'pacific/funafuti': {
     offset: 12,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/galapagos': {
     offset: -6,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/gambier': {
     offset: -9,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/guadalcanal': {
     offset: 11,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/guam': {
     offset: 10,
@@ -1728,7 +1728,7 @@ export default {
   },
   'pacific/marquesas': {
     offset: -9.5,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/midway': {
     offset: -11,
@@ -1736,11 +1736,11 @@ export default {
   },
   'pacific/nauru': {
     offset: 12,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/niue': {
     offset: -11,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/norfolk': {
     offset: 11,
@@ -1749,11 +1749,11 @@ export default {
   },
   'pacific/noumea': {
     offset: 11,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/pago_pago': {
     offset: -11,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/palau': {
     offset: 9,
@@ -1761,7 +1761,7 @@ export default {
   },
   'pacific/pitcairn': {
     offset: -8,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/pohnpei': {
     offset: 11,
@@ -1773,7 +1773,7 @@ export default {
   },
   'pacific/rarotonga': {
     offset: -10,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/saipan': {
     offset: 10,
@@ -1781,7 +1781,7 @@ export default {
   },
   'pacific/tahiti': {
     offset: -10,
-    hem: 'n'
+    hem: 's'
   },
   'pacific/tarawa': {
     offset: 12,
@@ -1801,7 +1801,7 @@ export default {
   },
   'pacific/wallis': {
     offset: 12,
-    hem: 'n'
+    hem: 's'
   },
   'etc/gmt': {
     offset: 0,

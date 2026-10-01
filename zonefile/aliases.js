@@ -4,7 +4,7 @@
 
 // link-name : target
 export default {
-  'africa/asmera': 'africa/nairobi',
+  'africa/asmera': 'africa/asmara',
   'africa/timbuktu': 'africa/abidjan',
   'america/atka': 'america/adak',
   'america/coral_harbour': 'america/atikokan',

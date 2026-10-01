@@ -26,7 +26,9 @@ const value = (key, v) => {
   if (v === undefined) return key === 'dst' ? 'none (fixed offset)' : 'none'
   if (key === 'offset') return offset(v)
   if (key === 'hem') return v === 'n' ? 'North' : 'South'
-  if (key === 'dst') return v.replace(/:(\d{2})/g, ' $1:00').replace('->', ' – ')
+  if (key === 'dst') {
+    return v.replace(/:(\d{2})(?::(\d{2}))?/g, (_, hour, minute = '00') => ` ${hour}:${minute}`).replace('->', ' – ')
+  }
   return String(v)
 }
 

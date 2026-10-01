@@ -5,7 +5,12 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!--
+ ### 7.16.0 [Sep 2022]
+- **[fix]** - correct Chatham and NZ-CHAT transitions to 03:45 and 02:45
+- **[fix]** - apply Lord Howe's half-hour DST shift to the Australia/LHI alias
+- **[fix]** - hemispheres for 42 zones
  -->
+
  ### 7.15.0 [Sep 2022]
 - **[fix]** - stale dst offsets #470 (thanks Sudarshan!)
 - **[fix]** - update dst dates for nuuk, indiana, kentucky, scoresbysund, nuuk, troll, and north dakota
