@@ -1,12 +1,12 @@
 {
   "name": "spacetime",
-  "version": "7.15.0",
+  "version": "7.16.0",
   "description": "figure-out dates across timezones",
-  "main": "src/index.js",
-  "unpkg": "builds/spacetime.min.js",
-  "types": "types/index.d.ts",
+  "license": "Apache-2.0",
+  "repository": "github:spencermountain/spacetime",
+  "homepage": "https://spacetime.how",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "type": "module",
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -19,8 +19,14 @@
       }
     }
   },
+  "main": "./src/index.js",
+  "types": "./types/index.d.ts",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
-    "build": "npm run pack && npm run version && rollup -c --silent",
+    "build": "node ./zonefile/pack.js && node ./scripts/version.js && rollup -c --silent",
     "build:tz": "node ./scripts/tz/update.js",
     "pack": "node ./zonefile/pack.js",
     "version": "node ./scripts/version.js",
@@ -31,37 +37,36 @@
     "test:release": "node ./scripts/check-release.js",
     "coverage": "nyc -r lcov -n 'src/**/*' -n 'plugins/**/*' npm run coverage:tests",
     "coverage:tests": "npm run test",
-    "codecov": "npm run coverage && codecov -t 411de6c7-82d2-41e9-a1cc-9096cdab6c72",
     "lint": "eslint ./src ./scripts"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/spencermountain/spacetime.git"
-  },
   "files": [
-    "src",
-    "builds",
     "api",
+    "builds",
+    "src",
     "types",
     "zonefile"
   ],
+  "keywords": [
+    "date-time",
+    "timezone",
+    "daylight-savings"
+  ],
+  "devDependencies": {
+    "@rollup/plugin-terser": "^1.0.0",
+    "eslint": "^10.11.0",
+    "eslint-plugin-regexp": "3.3.1",
+    "rollup": "4.63.5",
+    "rollup-plugin-filesize-check": "2.0.1",
+    "tap-dancer": "0.4.3",
+    "tape": "5.10.2",
+    "timekeeper": "2.3.1"
+  },
+  "unpkg": "builds/spacetime.min.js",
   "prettier": {
     "trailingComma": "none",
     "tabWidth": 2,
     "semi": false,
     "singleQuote": true,
     "printWidth": 100
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.2",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^1.0.0",
-    "eslint-plugin-regexp": "3.3.0",
-    "rollup": "4.63.3",
-    "tap-dancer": "0.3.4",
-    "tape": "5.10.2",
-    "timekeeper": "2.3.1"
-  },
-  "license": "Apache-2.0"
+  }
 }

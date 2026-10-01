@@ -1,4 +1,4 @@
-/* eslint no-unused-vars: "off" */
+/* eslint-disable no-console */
 import test from 'tape'
 import spacetime from './lib/index.js'
 import useOldTz from './lib/useOldTz.js'

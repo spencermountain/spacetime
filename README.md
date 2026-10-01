@@ -1,20 +1,25 @@
 <div align="center">
   <div>
-    <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
+    <a href="javascript:void(0);">
+      <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
+    </a>
   </div>
 
   <a href="https://npmjs.org/package/spacetime">
     <img src="https://img.shields.io/npm/v/spacetime.svg?style=flat-square" />
   </a>
   <a href="https://bundlephobia.com/result?p=spacetime@latest">
-    <img src="https://badgen.net/bundlephobia/min/spacetime" />
+    <img src="https://badgen.net/bundlejs/min/spacetime" />
+  </a>
+  <a href="https://www.npmchart.com/p/spacetime">
+    <img src="https://badgen.net/github/dependents-repo/spencermountain/spacetime" />
   </a>
 </div>
 
 <!-- spacer -->
-<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-Isn't it weird how we can do <i>math</i> in our head, but not <b><i>date math</i></b>?
+isn't it weird how we can do <i>math</i> in our head, but not <b><i>date-math</i></b>?
 
 <div align="left">
 <div >
@@ -28,21 +33,19 @@ Isn't it weird how we can do <i>math</i> in our head, but not <b><i>date math</i
 </div>
 </div>
 
-<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-and worse - there is no real **_date calculator_**.
+and worse - there's no real **_date calculator_**?
 
 <div align="center">
   <sub>people end up asking google, and going to weird websites.</sub>
 </div>
 
-<img height="10px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
 <div align="center"><sub>that's bad.</sub></div>
 
-<img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<b>spacetime</b> is a date-calculator,
+<b>spacetime</b> is a date-calculator
 
 <div >
   <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><sub>It's very small, and very handy.</sub>
@@ -51,23 +54,20 @@ and worse - there is no real **_date calculator_**.
 ```js
 let s = spacetime.now()
 
+// Days to the end of the year:
 s.diff(s.endOf('year'), 'days')
 // 292
 
+// Time it was, 11 hours ago:
 s.subtract(11, 'hours').time()
 // 6:50am
 
+// Is it lunchtime in France?
 s = s.goto('Europe/Paris')
 s.isAfter(s.time('11:00am'))
 // true 🥐
 ```
 
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
-<div align="center">
-  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221814-05ed1680-ffb8-11e9-8b6b-c7528d163871.png"/>
-</div>
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 - calculate time in remote timezones
 - support **daylight savings**, **leap years**, and **hemispheres**
@@ -81,8 +81,23 @@ s.isAfter(s.time('11:00am'))
 
 
 <!-- spacer -->
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+<code>npm install spacetime</code>
+
+<div align="right">
+  <code>npx skills add spencermountain/spacetime</code>
+  <div><i>(for computers)</i></div>
+</div>
+
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<div align="center">
+  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221814-05ed1680-ffb8-11e9-8b6b-c7528d163871.png"/>
+</div>
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
+
+client-side:
 ```html
 <script src="https://unpkg.com/spacetime"></script>
 <script>
@@ -96,45 +111,47 @@ s.isAfter(s.time('11:00am'))
 </script>
 ```
 
-<!-- spacer -->
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-`npm install spacetime`
+typescript:
+```ts
+import spacetime, { type Spacetime } from 'spacetime'
 
+const meeting: Spacetime = spacetime('2026-01-15T09:30:00', 'America/New_York')
+
+const london = meeting.goto('Europe/London')
+const time: string = london.time() // '2:30pm'
+```
+
+
+old node:
 ```js
 const spacetime = require('spacetime')
+
 let d = spacetime.now('Europe/Paris')
 d.dayName()
 //'Wednesday'
-d.isAsleep()
-//true
-```
-
-<sub><i>typescript / babel / deno:</i></sub>
-
-```ts
-import spacetime from 'spacetime'
-let d = spacetime.now()
 d.format('nice')
 //'Apr 1st, 4:32pm'
 ```
-
-<div align="right">
-  <a href="https://github.com/spencermountain/spacetime/wiki/Typescript">ts docs</a>
-</div>
-
-<sub><a href="./AGENTS.md"><code>AGENTS.md</code> LLM docs</a></sub>
 
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 <div align="center">
   <h3>
-    <a href="https://beta.observablehq.com/@spencermountain/spacetime">
-      Demo
+    <a href="docs/">
+      Docs
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
-    <a href="https://beta.observablehq.com/@spencermountain/spacetime-api">
-      Full API
+    <a href="https://spacetime.how/">
+      Website
+    </a>
+    &nbsp; &nbsp; • &nbsp; &nbsp;
+    <a href="docs/LLMs.md">
+      Agent Docs
+    </a>
+    &nbsp; &nbsp; • &nbsp; &nbsp;
+    <a href="https://beta.observablehq.com/@spencermountain/spacetime">
+      Demos
     </a>
   </h3>
   <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -147,7 +164,7 @@ d.format('nice')
 
  </div>
 
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 plugins:
 
@@ -165,7 +182,7 @@ plugins:
 
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Date Inputs:
+## Date Inputs:
 
 we can parse _[all the normal stuff](https://github.com/spencermountain/spacetime/wiki/Input)_, and some fancy stuff:
 
@@ -203,7 +220,7 @@ for fancier natural-language inputs, use [compromise-dates](https://github.com/s
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Get & Set dates:
+## Get & Set dates:
 
 you can whip things around, but stay intuitive
 
@@ -274,7 +291,7 @@ it's actually a little surprising how helpful this is.
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Comparisons:
+## Comparisons:
 
 ```js
 let s = spacetime([2017, 5, 2])
@@ -304,7 +321,7 @@ all comparisons are done with sensitivity of timezone - **_8am EST_** is < **_8a
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Timezones:
+## Timezones:
 
 the best way to describe a timezone is an [IANA code](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones):
 
@@ -363,7 +380,7 @@ console.log(s.isoFull())
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Date Formatting:
+## Date Formatting:
 
 it's _[a pretty-sensible process](https://github.com/spencermountain/spacetime/wiki/Formatting)_ to create nice-looking dates:
 
@@ -402,7 +419,7 @@ s.format('sql') // '2011-12-03 10:15:30'
 #### ◆ Historical timezone info
 
 DST changes move around all the time, and timezones pop-in and out of existence.
-We store and use only the latest DST information, and apply it to historical dates.
+We store and use only the latest DST information, updated frequently, and apply it (wrongly) to historical and future dates.
 
 #### ◆ International date line
 
@@ -616,6 +633,6 @@ s.dayName()
 - [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) - some _[sorta-green](https://caniuse.com/#feat=internationalization)_ in-browser date utilities
 - [BurntSushi/Jiff](https://github.com/BurntSushi/jiff) - Rust/wasm date library
 
-thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
+*(also, thank you to the amazing [timeanddate.com](https://www.timeanddate.com/))*
 
-Apache 2.0
+Apache 2.0 - PRs respected

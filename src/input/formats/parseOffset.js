@@ -4,34 +4,22 @@ const parseOffset = (s, offset) => {
     return s
   }
   offset = offset.trim().toLowerCase()
-  // according to ISO8601, tz could be hh:mm, hhmm or hh
-  // so need few more steps before the calculation.
-  let num = 0
-
-  // for (+-)hh:mm
-  if (/^[+-]?[0-9]{2}:[0-9]{2}$/.test(offset)) {
-    //support "+01:00"
-    if (/:00/.test(offset) === true) {
-      offset = offset.replace(/:00/, '')
-    }
-    //support "+01:30"
-    if (/:30/.test(offset) === true) {
-      offset = offset.replace(/:30/, '.5')
-    }
+  if (offset === 'z') {
+    s.tz = 'etc/gmt'
+    return s
   }
-
-  // for (+-)hhmm
-  if (/^[+-]?[0-9]{4}$/.test(offset)) {
-    offset = offset.replace(/30$/, '.5')
+  // Split hh:mm, hhmm or hh before converting minutes to fractional hours.
+  const match = offset.match(/^([+-]?)([0-9]{2})(?::?([0-9]{2}))?$/)
+  if (!match) {
+    return s
   }
-  num = parseFloat(offset)
-
-  //divide by 100 or 10 - , "+0100", "+01"
-  if (Math.abs(num) > 100) {
-    num = num / 100
+  const hours = Number(match[2])
+  const minutes = Number(match[3] || 0)
+  if (minutes > 59) {
+    return s
   }
-  //this is a fancy-move
-  if (num === 0 || offset === 'Z' || offset === 'z') {
+  let num = (hours + (minutes / 60)) * (match[1] === '-' ? -1 : 1)
+  if (num === 0) {
     s.tz = 'etc/gmt'
     return s
   }

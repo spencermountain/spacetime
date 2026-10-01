@@ -33,7 +33,7 @@ export default [
         month: parseMonth(m[2]),
         date: toCardinal(m[1])
       }
-      if (!obj.month || validate(obj) === false) {
+      if (validate(obj) === false) {
         s.epoch = null
         return s
       }

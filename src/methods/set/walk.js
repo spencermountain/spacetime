@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 import ms from '../../data/milliseconds.js'
 
 //basically, step-forward/backward until js Date object says we're there.
@@ -13,7 +13,6 @@ const walk = (s, n, fn, unit, previous) => {
   const diff = n - current
   s.epoch += ms[unit] * diff
   //DST edge-case: if we are going many days, be a little conservative
-  // console.log(unit, diff)
   if (unit === 'day') {
     // s.epoch -= ms.minute
     //but don't push it over a month
@@ -23,7 +22,6 @@ const walk = (s, n, fn, unit, previous) => {
   }
   // 1st time: oops, did we change previous unit? revert it.
   if (previous !== null && startUnit !== s.d[previous]()) {
-    // console.warn('spacetime warning: missed setting ' + unit)
     s.epoch = original
     // s.epoch += ms[unit] * diff * 0.89 // maybe try and make it close...?
   }
@@ -47,15 +45,15 @@ const walk = (s, n, fn, unit, previous) => {
 const units = {
   year: {
     valid: (n) => n > -4000 && n < 4000,
-    walkTo: (s, n) => walk(s, n, 'getFullYear', 'year', null)
+    walkTo: (s, n) => walk(s, n, 'getUTCFullYear', 'year', null)
   },
   month: {
     valid: (n) => n >= 0 && n <= 11,
     walkTo: (s, n) => {
       const d = s.d
-      const current = d.getMonth()
+      const current = d.getUTCMonth()
       const original = s.epoch
-      const startUnit = d.getFullYear()
+      const startUnit = d.getUTCFullYear()
       if (current === n) {
         return
       }
@@ -63,29 +61,29 @@ const units = {
       const diff = n - current
       s.epoch += ms.day * (diff * 28) //special case
       //oops, did we change the year? revert it.
-      if (startUnit !== s.d.getFullYear()) {
+      if (startUnit !== s.d.getUTCFullYear()) {
         s.epoch = original
       }
       //increment by day
-      while (s.d.getMonth() < n) {
+      while (s.d.getUTCMonth() < n) {
         s.epoch += ms.day
       }
-      while (s.d.getMonth() > n) {
+      while (s.d.getUTCMonth() > n) {
         s.epoch -= ms.day
       }
     }
   },
   date: {
     valid: (n) => n > 0 && n <= 31,
-    walkTo: (s, n) => walk(s, n, 'getDate', 'day', 'getMonth')
+    walkTo: (s, n) => walk(s, n, 'getUTCDate', 'day', 'getUTCMonth')
   },
   hour: {
     valid: (n) => n >= 0 && n < 24,
-    walkTo: (s, n) => walk(s, n, 'getHours', 'hour', 'getDate')
+    walkTo: (s, n) => walk(s, n, 'getUTCHours', 'hour', 'getUTCDate')
   },
   minute: {
     valid: (n) => n >= 0 && n < 60,
-    walkTo: (s, n) => walk(s, n, 'getMinutes', 'minute', 'getHours')
+    walkTo: (s, n) => walk(s, n, 'getUTCMinutes', 'minute', 'getUTCHours')
   },
   second: {
     valid: (n) => n >= 0 && n < 60,
@@ -119,7 +117,7 @@ const walkTo = (s, wants) => {
     if (!units[k].valid(n)) {
       s.epoch = null
       if (s.silent === false) {
-        console.warn('invalid ' + k + ': ' + n)
+        console.warn('invalid ' + k + ': ' + n) // eslint-disable-line no-console
       }
       return
     }

@@ -17,41 +17,41 @@ const parseMs = function (str = '') {
 }
 
 const parseTime = (s, str = '') => {
-  // remove all whitespace
-  str = str.replace(/^\s+/, '').toLowerCase()
+  str = str.trim().toLowerCase()
+  if (!str) {
+    return s.startOf('day')
+  }
   //formal time format - 04:30.23
-  let arr = str.match(/([0-9]{1,2}):([0-9]{1,2}):?([0-9]{1,2})?[:.]?([0-9]{1,4})?/)
+  let arr = str.match(/^([0-9]{1,2}):([0-9]{2})(?::([0-9]{1,2}))?(?:[:.]([0-9]+))?(?: ?(am|pm|gmt))?$/)
   if (arr !== null) {
-    // eslint-disable-next-line prefer-const
-    let [, h, m, sec, ms] = arr
-    //validate it a little
-    h = Number(h)
-    if (h < 0 || h > 24) {
-      return s.startOf('day')
-    }
-    m = Number(m) //don't accept '5:3pm'
-    if (arr[2].length < 2 || m < 0 || m > 59) {
-      return s.startOf('day')
+    const [, hour, minute, sec, ms, suffix] = arr
+    const h = Number(hour)
+    const m = Number(minute)
+    const ampm = suffix === 'am' || suffix === 'pm'
+    // Reject invalid clock fields before setters clamp or roll them over.
+    if (h > 23 || m > 59 || Number(sec || 0) > 59 || (ampm && (h < 1 || h > 12))) {
+      s.epoch = null
+      return s
     }
     s = s.hour(h)
     s = s.minute(m)
     s = s.seconds(sec || 0)
     s = s.millisecond(parseMs(ms))
     //parse-out am/pm
-    const ampm = str.match(/[0-9] ?(am|pm)\b/)
-    if (ampm !== null && ampm[1]) {
-      s = s.ampm(ampm[1])
+    if (ampm) {
+      s = s.ampm(suffix)
     }
     return s
   }
 
   //try an informal form - 5pm (no minutes)
-  arr = str.match(/([0-9]+) ?(am|pm)/)
+  arr = str.match(/^([0-9]{1,2}) ?(am|pm)$/)
   if (arr !== null && arr[1]) {
     const h = Number(arr[1])
     //validate it a little..
     if (h > 12 || h < 1) {
-      return s.startOf('day')
+      s.epoch = null
+      return s
     }
     s = s.hour(arr[1] || 0)
     s = s.ampm(arr[2])
@@ -59,8 +59,8 @@ const parseTime = (s, str = '') => {
     return s
   }
 
-  //no time info found, use start-of-day
-  s = s.startOf('day')
+  // An explicit but unrecognized time must not silently become midnight.
+  s.epoch = null
   return s
 }
 export default parseTime

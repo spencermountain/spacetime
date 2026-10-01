@@ -39,18 +39,10 @@ const SpaceTime = function (input, tz, options = {}) {
   // })
   // add getter/setters
   Object.defineProperty(this, 'd', {
-    // return a js date object
+    // Internal clock view: read its UTC fields, not the host's local fields.
     get: function () {
       const offset = quickOffset(this)
-      // every computer is somewhere- get this computer's built-in offset
-      const bias = new Date(this.epoch).getTimezoneOffset() || 0
-      // movement
-      let shift = bias + (offset * 60) //in minutes
-      shift = shift * 60 * 1000 //in ms
-      // remove this computer's offset
-      const epoch = this.epoch + shift
-      const d = new Date(epoch)
-      return d
+      return new Date(this.epoch + (offset * 3600000))
     }
   })
   // add this data on the object, to allow adding new timezones
@@ -78,6 +70,7 @@ Object.keys(methods).forEach((k) => {
 SpaceTime.prototype.clone = function () {
   return new SpaceTime(this.epoch, this.tz, {
     silent: this.silent,
+    dmy: this.british,
     weekStart: this._weekStart,
     today: this._today,
     parsers: this.parsers

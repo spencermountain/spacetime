@@ -45,6 +45,9 @@ test('string-parse', (t) => {
     ['5.feb.2002 14:00', '2002-02-05 2:00pm'],
     ['feb.5.2002 2:30pm', '2002-02-05 2:30pm'],
     ['2002.feb.5 14:00:00', '2002-02-05 2:00pm'],
+    ['2020-01-01 04:30.23', '2020-01-01T04:30:00.230'],
+    ['2020-01-01 04:30:23:12', '2020-01-01T04:30:23.120'],
+    ['2020-01-01 04:30:2.1', '2020-01-01T04:30:02.100'],
     // millisecond varieties
     ['2021-11-02T19:55:30.087+01', '2021-11-02T19:55:30.087+01'], //leading zero
     ['2021-11-02T19:55:30.0872+01', '2021-11-02T19:55:30.087+01'], //4 digits
@@ -56,6 +59,42 @@ test('string-parse', (t) => {
     const left = spacetime(a[0], null, { today })
     const right = spacetime(a[1], null, { today })
     t.equal(left.iso(), right.iso(), a[0])
+  })
+  t.end()
+})
+
+test('date format boundaries', (t) => {
+  const invalid = [
+    '2020-01-01|12:30:00',
+    'q2garbage',
+    'q2 2020garbage',
+    'q2 20201',
+    'summergarbage',
+    'summer of 2020garbage',
+    'summer 20201'
+  ]
+  invalid.forEach((str) => {
+    t.equal(spacetime(str, 'UTC').isValid(), false, str)
+  })
+  const valid = [
+    ['2020-01-01T12:30:00', '2020-01-01T12:30:00.000Z'],
+    ['2020-01-01t12:30:00', '2020-01-01T12:30:00.000Z'],
+    ['2020-01-01 12:30:00', '2020-01-01T12:30:00.000Z'],
+    ['q2 of 2020', '2020-04-01T00:00:00.000Z'],
+    ['summer of 2020', '2020-06-01T00:00:00.000Z']
+  ]
+  valid.forEach(([str, expected]) => {
+    t.equal(spacetime(str, 'UTC').iso(), expected, str)
+  })
+  // Explicit malformed times must not become midnight or lose trailing digits.
+  const invalidTimes = [
+    '2020-01-01 04:3012', // seconds need a separator
+    '2020-01-01T112:30:00',
+    '2020-01-01T012:30:00',
+    'January 1 2020 112:30pm'
+  ]
+  invalidTimes.forEach((input) => {
+    t.equal(spacetime(input, 'UTC').isValid(), false, input)
   })
   t.end()
 })

@@ -2,28 +2,34 @@
   "name": "space-age",
   "version": "0.1.0",
   "description": "a CLI calendar",
-  "main": "cli.js",
-  "bin": {
-    "space-age": "cli.js"
-  },
+  "license": "MIT",
+  "repository": "github:spencermountain/spacetime",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/space-age",
   "type": "module",
-  "sideEffects": false,
   "exports": {
     ".": {
       "import": "./cli.js",
       "default": "./cli.js"
     }
   },
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/space-age",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spencermountain/spacetime.git"
+  "main": "./cli.js",
+  "bin": {
+    "space-age": "./cli.js"
   },
+  "sideEffects": false,
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "scripts": {
     "test": ""
+  },
+  "dependencies": {
+    "minimist": "^1.2.5",
+    "spacetime": ">=6.3.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^1.0.0",
+    "rollup": "4.63.3"
   },
   "prettier": {
     "trailingComma": "none",
@@ -31,10 +37,5 @@
     "semi": false,
     "singleQuote": true,
     "printWidth": 100
-  },
-  "dependencies": {
-    "minimist": "^1.2.5",
-    "spacetime": ">=6.3.0"
-  },
-  "license": "MIT"
+  }
 }

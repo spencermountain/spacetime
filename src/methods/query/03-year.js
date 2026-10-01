@@ -1,5 +1,6 @@
-/* eslint-disable no-console */
+ 
 import { dayOfYear as _dayOfYear, week as setWeek, month as _month, year as _year } from '../set/set.js'
+import { getMonthLength } from '../set/_model.js'
 import { long } from '../../data/months.js'
 import quarters from '../../data/quarters.js'
 import seasons from '../../data/seasons.js'
@@ -18,7 +19,7 @@ const millennium = function (input) {
       input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
       input = Number(input)
       if (isNaN(input)) {
-        console.warn('Spacetime: Invalid millennium input')
+        console.warn('Spacetime: Invalid millennium input') // eslint-disable-line no-console
         return this
       }
     }
@@ -49,21 +50,15 @@ const methods = {
       return s
     }
     //days since newyears - jan 1st is 1, jan 2nd is 2...
-    let sum = 0
-    const month = this.d.getMonth()
-    let tmp
+    const d = this.d
+    let sum = d.getUTCDate()
+    const month = d.getUTCMonth()
+    const year = d.getUTCFullYear()
     //count the num days in each month
-    for (let i = 1; i <= month; i++) {
-      tmp = new Date()
-      tmp.setDate(1)
-      tmp.setFullYear(this.d.getFullYear()) //the year matters, because leap-years
-      tmp.setHours(1)
-      tmp.setMinutes(1)
-      tmp.setMonth(i)
-      tmp.setHours(-2) //the last day of the month
-      sum += tmp.getDate()
+    for (let i = 0; i < month; i++) {
+      sum += getMonthLength(i, year)
     }
-    return sum + this.d.getDate()
+    return sum
   },
 
   //since the start of the year
@@ -121,7 +116,7 @@ const methods = {
       s.epoch = _month(s, input, goFwd)
       return s
     }
-    return this.d.getMonth()
+    return this.d.getUTCMonth()
   },
   //'january'
   monthName: function (input, goFwd) {
@@ -149,7 +144,7 @@ const methods = {
         return s
       }
     }
-    const month = this.d.getMonth()
+    const month = this.d.getUTCMonth()
     for (let i = 1; i < quarters.length; i++) {
       if (month < quarters[i][0]) {
         return i - 1
@@ -175,7 +170,7 @@ const methods = {
       }
       return s
     }
-    const month = this.d.getMonth()
+    const month = this.d.getUTCMonth()
     for (let i = 0; i < seasons[hem].length - 1; i++) {
       if (month >= seasons[hem][i][1] && month < seasons[hem][i + 1][1]) {
         return seasons[hem][i][0]
@@ -191,7 +186,7 @@ const methods = {
       s.epoch = _year(s, num)
       return s
     }
-    return this.d.getFullYear()
+    return this.d.getUTCFullYear()
   },
 
   //bc/ad years
@@ -200,7 +195,7 @@ const methods = {
       const s = this.clone()
       str = str.toLowerCase()
       //TODO: there is no year-0AD i think. may have off-by-1 error here
-      const year = s.d.getFullYear()
+      const year = s.d.getUTCFullYear()
       //make '1992' into 1992bc..
       if (str === 'bc' && year > 0) {
         s.epoch = _year(s, year * -1)
@@ -211,7 +206,7 @@ const methods = {
       }
       return s
     }
-    if (this.d.getFullYear() < 0) {
+    if (this.d.getUTCFullYear() < 0) {
       return 'BC'
     }
     return 'AD'
@@ -224,7 +219,7 @@ const methods = {
       input = input.replace(/([0-9])'?s$/, '$1') //1950's
       input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
       if (!input) {
-        console.warn('Spacetime: Invalid decade input')
+        console.warn('Spacetime: Invalid decade input') // eslint-disable-line no-console
         return this
       }
       // assume 20th century?? for '70s'.
@@ -246,8 +241,8 @@ const methods = {
     if (input !== undefined) {
       if (typeof input === 'string') {
         input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
-        input = input.replace(/([0-9]+) ?(b\.?c\.?|a\.?d\.?)/i, (a, b, c) => {
-          if (c.match(/b\.?c\.?/i)) {
+        input = input.replace(/(?<![0-9])([0-9]+) ?(b\.?c\.?|a\.?d\.?)/i, (a, b, c) => {
+          if (/b\.?c\.?/i.test(c)) {
             b = '-' + b
           }
           return b
@@ -256,7 +251,7 @@ const methods = {
       }
       let year = Number(input)
       if (isNaN(input)) {
-        console.warn('Spacetime: Invalid century input')
+        console.warn('Spacetime: Invalid century input') // eslint-disable-line no-console
         return this
       }
       // there is no century 0

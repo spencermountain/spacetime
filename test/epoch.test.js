@@ -2,10 +2,10 @@ import test from 'tape'
 import spacetime from './lib/index.js'
 
 test('fromUnixSeconds', (t) => {
-  let mils = 1744200453183
-  let secs = 1744200453
-  let a = spacetime.fromUnixSeconds(secs)
-  let b = spacetime(mils)
+  const mils = 1744200453183
+  const secs = 1744200453
+  const a = spacetime.fromUnixSeconds(secs)
+  const b = spacetime(mils)
   t.ok(a.isSame('hour', b), 'mils=secs')
 
   let s = spacetime.fromUnixSeconds(secs, 'Canada/Eastern')
@@ -17,7 +17,7 @@ test('fromUnixSeconds', (t) => {
   t.equal(s.epochSeconds(), secs, 'retrieve seconds')
 
   // test setter method
-  let futureSeconds = 1830720600
+  const futureSeconds = 1830720600
   s = spacetime.now('UTC').epochSeconds(futureSeconds)
   t.equal(s.epochSeconds(), futureSeconds, 'set seconds')
   t.equal(s.iso(), '2028-01-05T21:30:00.000Z', 'is future seconds')

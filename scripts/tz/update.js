@@ -31,19 +31,30 @@ export const parseArgs = (args) => {
   }
   for (let i = 0; i < args.length; i += 1) {
     const arg = args[i]
-    if (arg === '--check') options.check = true
-    else if (arg === '--verbose') options.verbose = true
-    else if (arg === '--allow-unsupported') options.allowUnsupported = true
-    else if (arg === '--help') options.help = true
-    else if (['--year', '--zoneinfo-dir', '--output'].includes(arg)) {
+    if (arg === '--check') {
+      options.check = true
+    } else if (arg === '--verbose') {
+      options.verbose = true
+    } else if (arg === '--allow-unsupported') {
+      options.allowUnsupported = true
+    } else if (arg === '--help') {
+      options.help = true
+    } else if (['--year', '--zoneinfo-dir', '--output'].includes(arg)) {
       const value = args[++i]
-      if (!value || value.startsWith('--')) throw new Error('Missing value for ' + arg)
+      if (!value || value.startsWith('--')) {
+        throw new Error('Missing value for ' + arg)
+      }
       if (arg === '--year') {
-        if (!/^\d{4}$/.test(value) || Number(value) < 1900 || Number(value) > 9998)
+        if (!/^\d{4}$/.test(value) || Number(value) < 1900 || Number(value) > 9998) {
           throw new Error('Year must be 1900–9998')
+        }
         options.year = Number(value)
-      } else options[arg === '--output' ? 'output' : 'zoneinfoDir'] = resolve(value)
-    } else throw new Error('Unknown option: ' + arg)
+      } else {
+        options[arg === '--output' ? 'output' : 'zoneinfoDir'] = resolve(value)
+      }
+    } else {
+      throw new Error('Unknown option: ' + arg)
+    }
   }
   options.output ||= join(root, `zonefile.${options.year}.js`)
   return options
@@ -55,11 +66,15 @@ export const resolveZone = (directory, name) => {
   name = aliases[name] || name
   let path = directory
   for (const component of name.split('/')) {
-    if (!component || component === '.' || component === '..') throw new Error('Invalid zone name')
+    if (!component || component === '.' || component === '..') {
+      throw new Error('Invalid zone name')
+    }
     const matches = readdirSync(path).filter(
       (entry) => entry.toLowerCase() === component.toLowerCase()
     )
-    if (matches.length !== 1) throw new Error('Missing or ambiguous zone: ' + name)
+    if (matches.length !== 1) {
+      throw new Error('Missing or ambiguous zone: ' + name)
+    }
     path = join(path, matches[0])
   }
   const stats = statSync(path)
@@ -87,7 +102,9 @@ const sourceVersion = (directory) => {
     if (existsSync(path)) {
       const text = readFileSync(path, 'utf8')
       const version = name === '+VERSION' ? text.trim() : /^# version (\S+)/m.exec(text)?.[1]
-      if (version) return version
+      if (version) {
+        return version
+      }
     }
   }
   return 'unknown'
@@ -151,17 +168,20 @@ export const main = (args = process.argv.slice(2)) => {
   printReport({ changes, unsupported, total, verbose: options.verbose })
   // Check mode and the unsupported-zone gate must run before any file write.
   if (options.check) {
-    if (changes.length || unsupported.length) process.exitCode = 1
+    if (changes.length > 0 || unsupported.length > 0) {
+      process.exitCode = 1
+    }
     printResult(
-      changes.length || unsupported.length ? 'Check needs attention. No files written.' : 'Check passed. No files written.',
-      Boolean(changes.length || unsupported.length)
+      changes.length > 0 || unsupported.length > 0 ? 'Check needs attention. No files written.' : 'Check passed. No files written.',
+      Boolean(changes.length > 0 || unsupported.length > 0)
     )
     return
   }
-  if (unsupported.length && !options.allowUnsupported)
+  if (unsupported.length > 0 && !options.allowUnsupported) {
     throw new Error(
       'No output written. Resolve unsupported zones or explicitly preserve them with --allow-unsupported.'
     )
+  }
   const source = JSON.stringify({
     year,
     tzdata: version,
@@ -177,7 +197,9 @@ export const main = (args = process.argv.slice(2)) => {
     created = true
     renameSync(temporary, options.output)
   } finally {
-    if (created && existsSync(temporary)) unlinkSync(temporary)
+    if (created && existsSync(temporary)) {
+      unlinkSync(temporary)
+    }
   }
   printResult(`Wrote ${options.output}`)
 }

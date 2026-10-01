@@ -1,29 +1,28 @@
-import commonjs from 'rollup-plugin-commonjs'
-import json from 'rollup-plugin-json'
-import { terser } from 'rollup-plugin-terser'
-import resolve from 'rollup-plugin-node-resolve'
-import sizeCheck from 'rollup-plugin-filesize-check'
-import { version } from './package.json'
+import terser from '@rollup/plugin-terser'
+import fs from 'node:fs'
 
-console.log('\n 📦  - running rollup..\n')
+const pkg = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
+const banner = `/* spencermountain/spacetime-week-of-month ${pkg.version} Apache 2.0 */`
 
-const name = 'spacetime-week-of-month'
-const banner = `/* spencermountain/${name} ` + version + ' Apache 2.0 */'
-
-export default [
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: `builds/${name}.mjs`, format: 'esm' }],
-    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 1, warn: 10 })]
-  },
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: `builds/${name}.cjs`, format: 'umd', sourcemap: false, name: 'weekOfMonth' }],
-    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 1, warn: 10 })]
-  },
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: `builds/${name}.min.js`, format: 'umd', name: 'weekOfMonth' }],
-    plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 1, warn: 10 })]
-  }
-]
+export default {
+  input: 'src/index.js',
+  output: [
+    {
+      banner,
+      file: 'builds/spacetime-week-of-month.mjs',
+      format: 'esm'
+    },
+    {
+      banner,
+      file: 'builds/spacetime-week-of-month.cjs',
+      format: 'cjs'
+    },
+    {
+      banner,
+      file: 'builds/spacetime-week-of-month.min.js',
+      format: 'umd',
+      name: 'weekOfMonth',
+      plugins: [terser()]
+    }
+  ]
+}

@@ -9,7 +9,7 @@ import parseTime from './parseTime.js'
 //given a month, return whether day number exists in it
 const validate = (obj) => {
   //invalid values
-  if (monthLengths.hasOwnProperty(obj.month) !== true) {
+  if (monthLengths.hasOwnProperty(obj.month) !== true || obj.date < 1) {
     return false
   }
   //support leap-year in february
@@ -30,8 +30,8 @@ const validate = (obj) => {
 
 const parseYear = (str = '', today) => {
   str = str.trim()
-  // parse '86 shorthand
-  if (/^'[0-9][0-9]$/.test(str) === true) {
+  // Two-digit years share the '86 shorthand's century cutoff.
+  if (/^'?[0-9][0-9]$/.test(str) === true) {
     const num = Number(str.replace(/'/, ''))
     if (num > 50) {
       return 1900 + num

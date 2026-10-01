@@ -126,7 +126,7 @@ try {
     }
   })
   check('ESM / CJS', () => {
-    if (!tarball) throw new Error('Cannot test entry points because npm pack failed')
+    if (!tarball) {throw new Error('Cannot test entry points because npm pack failed')}
     run('tar', ['-xzf', tarball, '-C', temp])
     const smoke = join(temp, 'package', 'release-smoke.mjs')
     writeFileSync(smoke, `
@@ -144,13 +144,13 @@ try {
     run(process.execPath, [smoke])
   })
   check('ATTW', () => {
-    if (!tarball) throw new Error('Cannot check types because npm pack failed')
+    if (!tarball) {throw new Error('Cannot check types because npm pack failed')}
     run('attw', ['--no-definitely-typed', tarball])
   })
   let previous
   check('Previous release', () => {
-    if (!latest) throw new Error('npm latest version lookup failed')
-    ;[previous] = JSON.parse(run('npm', [
+    if (!latest) {throw new Error('npm latest version lookup failed')
+    ;}[previous] = JSON.parse(run('npm', [
       'pack', `${pkg.name}@${latest}`, '--json', '--ignore-scripts',
       '--pack-destination', temp, ...registryArgs
     ]))
@@ -164,15 +164,15 @@ try {
   ]
   for (const [name, getSize] of sizes) {
     check(name, () => {
-      if (!packed || !previous) throw new Error('Package size data unavailable')
+      if (!packed || !previous) {throw new Error('Package size data unavailable')}
       const limit = Number(process.env.RELEASE_MAX_SIZE_GROWTH_PERCENT || 10)
-      if (!Number.isFinite(limit) || limit < 0) throw new Error('Size growth limit must be a nonnegative number')
+      if (!Number.isFinite(limit) || limit < 0) {throw new Error('Size growth limit must be a nonnegative number')}
       const before = getSize(previous)
       const after = getSize(packed)
-      if (!(before > 0) || !(after > 0)) throw new Error('Missing or invalid file sizes')
+      if (!(before > 0) || !(after > 0)) {throw new Error('Missing or invalid file sizes')}
       const growth = ((after / before) - 1) * 100
       const detail = `${(before / 1024).toFixed(1)} → ${(after / 1024).toFixed(1)} KiB, ${growth >= 0 ? '+' : ''}${growth.toFixed(1)}% vs ${latest}`
-      if (growth > limit) throw new Error(`${detail}; exceeds ${limit}% growth limit`)
+      if (growth > limit) {throw new Error(`${detail}; exceeds ${limit}% growth limit`)}
     })
   }
 } finally {

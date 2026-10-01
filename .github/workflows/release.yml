@@ -17,31 +17,36 @@ jobs:
         with:
           persist-credentials: false
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - uses: actions/setup-node@v4
         with: 
           node-version: 'lts/*'
           registry-url: 'https://registry.npmjs.org'
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: install
         run: |
-          npm ci
+          pnpm install --frozen-lockfile
 
       - name: static checks
         run: |
-          npm run lint
+          pnpm run lint
 
       - name: build
         run: |
-          npm run build
+          pnpm run build
 
       - name: test
         run: |
-          npm run test
-          npm run testb
+          pnpm run test
+          pnpm run testb
 
       - name: publish
         run: |
-          echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
-          npm publish --access public --provenance
+          pnpm publish --access public --provenance --no-git-checks
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

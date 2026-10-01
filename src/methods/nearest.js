@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 import { normalize } from '../fns.js'
 
 //round to either current, or +1 of this unit
@@ -18,7 +18,7 @@ const nearest = (s, unit) => {
     // go to start
     s = s.startOf(unit)
   } else if (s.silent === false) {
-    console.warn("no known unit '" + unit + "'")
+    console.warn("no known unit '" + unit + "'") // eslint-disable-line no-console
   }
   return s
 }

@@ -1,5 +1,5 @@
 //turn our timezone data into a small-as-possible string
-import { writeFileSync } from 'fs'
+import { writeFileSync } from 'node:fs'
 import iana from './iana.js'
 import aliases from './aliases.js'
 import prefixes from './_prefixes.js'
@@ -9,7 +9,7 @@ const all = {}
 Object.keys(aliases).forEach((k) => {
   const found = iana[aliases[k]]
   if (!found) {
-    console.log('missing', aliases[k])
+    console.log('missing', aliases[k]) //eslint-disable-line
   }
   iana[k] = Object.assign({}, found)
 })

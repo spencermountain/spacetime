@@ -1,11 +1,11 @@
 .DS_Store
-.jshintrc
 .env
-node_modules/
 .nyc_output
-npm-debug.log
-viz/
-coverage/
-coverage.lcov
 .vscode
 .gitignore
+.pnpm-store
+.clinic
+npm-debug.log
+node_modules/
+coverage/
+coverage.lcov

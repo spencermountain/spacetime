@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 
 import tzs from '../../zonefile/unpack.js'
 import guessTz from './guessTz.js'
@@ -8,7 +8,7 @@ let local = guessTz()
 
 //add all the city names by themselves
 const cities = Object.keys(tzs).reduce((h, k) => {
-  let city = k.split('/')[1] || ''
+  let city = k.split('/').pop()
   city = city.replace(/_/g, ' ')
   h[city] = k
   return h
@@ -30,13 +30,13 @@ const lookupTz = (str, zones) => {
   if (!str) {
     // guard if Intl response is unsupported (#397)
     if (!zones.hasOwnProperty(local)) {
-      console.warn(`Unrecognized IANA id '${local}'. Setting fallback tz to UTC.`)
+      console.warn(`Unrecognized IANA id '${local}'. Setting fallback tz to UTC.`) // eslint-disable-line no-console
       local = 'utc'
     }
     return local
   }
   if (typeof str !== 'string') {
-    console.error("Timezone must be a string - recieved: '", str, "'\n")
+    console.error("Timezone must be a string - recieved: '", str, "'\n") // eslint-disable-line no-console
   }
   let tz = str.trim()
   // let split = str.split('/')

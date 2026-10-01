@@ -221,10 +221,10 @@ test('epochSeconds', (t) => {
   s = spacetime("April 5, 2025 12:43:50", 'Canada/Eastern')
   t.equal(s.epochSeconds(), 1743871430, 'apr-5 epochSeconds')
 
-  let a = spacetime.now().epochSeconds(1637362862);
+  const a = spacetime.now().epochSeconds(1637362862);
   t.equal(a.epochSeconds(), 1637362862, 'seconds 1637362862');
 
-  let b = spacetime().epochSeconds(1743871430);
+  const b = spacetime().epochSeconds(1743871430);
   t.equal(b.epochSeconds(), 1743871430, 'seconds 1743871430');
   t.ok(s.isEqual(b), 'equal to iso');
 
@@ -233,14 +233,14 @@ test('epochSeconds', (t) => {
 
 test('epoch inputs', (t) => {
 
-  let mils = 1744200453000
-  let secs = 1744200453
+  const mils = 1744200453000
+  const secs = 1744200453
 
-  let a = spacetime(mils)
+  const a = spacetime(mils)
   t.equal(a.epochSeconds(), secs, 'mils->secs')
   t.equal(a.epoch, mils, 'mils->mils')
 
-  let b = spacetime.now().epochSeconds(secs)
+  const b = spacetime.now().epochSeconds(secs)
   t.equal(b.epochSeconds(), secs, 'secs->secs')
   t.equal(b.epoch, mils, 'secs->mils')
 

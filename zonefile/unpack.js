@@ -26,8 +26,8 @@ all.utc = {
   hem: 'n' //default to northern hemisphere - (sorry!)
 }
 
-//add etc/gmt+n
-for (let i = -14; i <= 14; i += 0.5) {
+//add fixed offsets in quarter-hour steps (including +05:45 and +12:45)
+for (let i = -14; i <= 14; i += 0.25) {
   let num = i
   if (num > 0) {
     num = '+' + num

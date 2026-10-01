@@ -9,12 +9,16 @@ const unsupported = (message, details) => Object.assign(new Error(message), { de
 // Match the runtime's Date.UTC rollover: MM/DD:24 is next day's MM/DD:00.
 // Validate the date first so unrelated invalid dates are not silently preserved.
 const boundaryTime = (text, year) => {
-  const match = /^(\d{2})\/(\d{2}):(\d{2})$/.exec(text || '')
-  if (!match) return NaN
-  const [month, day, hour] = match.slice(1).map(Number)
+  const match = /^(\d{2})\/(\d{2}):(\d{2})(?::(\d{2}))?$/.exec(text || '')
+  if (!match) {return NaN}
+  const [month, day, hour] = match.slice(1, 4).map(Number)
+  const minute = Number(match[4] || 0)
   const midnight = new Date(Date.UTC(year, month - 1, day))
-  if (midnight.getUTCMonth() !== month - 1 || midnight.getUTCDate() !== day || hour > 24) return NaN
-  return Date.UTC(year, month - 1, day, hour)
+  if (midnight.getUTCMonth() !== month - 1 || midnight.getUTCDate() !== day || hour > 24) {return NaN}
+  if (minute > 59 || (hour === 24 && minute !== 0)) {
+    return NaN
+  }
+  return Date.UTC(year, month - 1, day, hour, minute)
 }
 
 // zdump -i emits an initial state followed by transitions with POST-change local times.
@@ -22,10 +26,10 @@ const boundaryTime = (text, year) => {
 // Split on tabs: an empty abbreviation must not shift the DST flag into its place.
 export const parseIntervals = (text) => {
   const lines = text.trim().split(/\r?\n/)
-  if (!/^TZ=".*"$/.test(lines.shift() || '')) throw new Error('Missing zdump TZ header')
+  if (!/^TZ=".*"$/.test(lines.shift() || '')) {throw new Error('Missing zdump TZ header')}
   const records = lines.map((line, i) => {
     const fields = line.split('\t')
-    if (fields.length < 3 || fields.length > 5) throw new Error('Invalid interval fields')
+    if (fields.length < 3 || fields.length > 5) {throw new Error('Invalid interval fields')}
     const [date, time, offset, abbreviation = '', flag = '0'] = fields
     const m = /^([+-]?)(\d{2})(\d{2})?(\d{2})?$/.exec(offset)
     if (!m || Number(m[3] || 0) > 59 || Number(m[4] || 0) > 59) {
@@ -44,12 +48,12 @@ export const parseIntervals = (text) => {
 
     const record = { offset: seconds / 3600, dst: flag === '1' }
     if (i === 0) {
-      if (date !== '-' || time !== '-') throw new Error('Missing initial interval')
+      if (date !== '-' || time !== '-') {throw new Error('Missing initial interval')}
       return record
     }
     const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date)
     const t = /^(\d{2})(?::(\d{2}))?(?::(\d{2}))?$/.exec(time)
-    if (!d || !t) throw new Error('Invalid transition timestamp')
+    if (!d || !t) {throw new Error('Invalid transition timestamp')}
     const parts = [
       Number(d[1]),
       Number(d[2]),
@@ -77,12 +81,12 @@ export const parseIntervals = (text) => {
     // Subtract the POST-change offset to recover the actual transition instant.
     return { ...record, epoch: local - (seconds * 1000) }
   })
-  if (!records.length) throw new Error('Missing initial interval')
+  if (records.length === 0) {throw new Error('Missing initial interval')}
   return { initial: records[0], transitions: records.slice(1) }
 }
 
 // The runtime stores one chronological interval, with the opposite offset outside it.
-// Its boundaries are local wall times BEFORE each change, at whole hours.
+// Its boundaries are local wall times BEFORE each change, with optional minutes.
 export const normalizeZone = (intervals, previous, tz, year) => {
   const { initial, transitions } = intervals
   const start = Date.UTC(year, 0, 1)
@@ -106,11 +110,11 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   }
   const result = { ...previous, offset: initial.offset }
   delete result.dst
-  if (!changes.length) return result
-  if (changes.length !== 2) throw unsupported(`Unsupported pattern: ${changes.length} state changes`, [
+  if (changes.length === 0) {return result}
+  if (changes.length !== 2) {throw unsupported(`Unsupported pattern: ${changes.length} state changes`, [
     'The runtime supports a fixed offset or exactly two changes forming one annual cycle.',
     `Observed ${changes.length} offset/DST changes across ${transitions.length} transition records.`
-  ])
+  ])}
   const [a, b] = changes
   const shift = getDstShift(tz)
   // The stored interval normally contains July. Southern cycles enter it by
@@ -132,19 +136,23 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   if (a.after.dst !== (previous.hem === 'n')) {
     mismatches.push(`DST flag after first change for hemisphere "${previous.hem}": expected ${previous.hem === 'n'}, observed ${a.after.dst}.`)
   }
-  if (mismatches.length) {
+  if (mismatches.length > 0) {
     throw unsupported('Unsupported offset/DST cycle for runtime hemisphere and shift', mismatches)
   }
   const boundary = (change) => {
     // Runtime boundaries use the clock BEFORE the jump, unlike zdump's local time.
     const d = new Date(change.epoch + (change.before.offset * 3600000))
-    if (d.getUTCFullYear() !== year || d.getUTCMinutes() || d.getUTCSeconds()) {
-      throw unsupported('Unsupported boundary: runtime requires whole hours in the target year', [
-        `Pre-change local boundary: ${d.toISOString().replace('T', ' ').replace('.000Z', '')} (must be a whole hour in ${year}).`,
+    if (d.getUTCFullYear() !== year || d.getUTCSeconds() || d.getUTCMilliseconds()) {
+      throw unsupported('Unsupported boundary: runtime requires whole minutes in the target year', [
+        `Pre-change local boundary: ${d.toISOString().replace('T', ' ').replace('.000Z', '')} (must be a whole minute in ${year}).`,
         `Transition instant: ${new Date(change.epoch).toISOString()}`
       ])
     }
-    return `${pad(d.getUTCMonth() + 1)}/${pad(d.getUTCDate())}:${pad(d.getUTCHours())}`
+    let text = `${pad(d.getUTCMonth() + 1)}/${pad(d.getUTCDate())}:${pad(d.getUTCHours())}`
+    if (d.getUTCMinutes()) {
+      text += ':' + pad(d.getUTCMinutes())
+    }
+    return text
   }
   result.offset = a.after.offset
   const oldBoundaries = (previous.dst || '').split('->')

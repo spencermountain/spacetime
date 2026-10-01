@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 import parsers from './formats/index.js'
 
 const parseString = function (s, input, givenTz) {
@@ -14,7 +14,7 @@ const parseString = function (s, input, givenTz) {
     }
   }
   if (s.silent === false) {
-    console.warn("Warning: couldn't parse date-string: '" + input + "'")
+    console.warn("Warning: couldn't parse date-string: '" + input + "'") // eslint-disable-line no-console
   }
   s.epoch = null
   return s

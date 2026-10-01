@@ -1,4 +1,4 @@
-import data from './data.js'
+import data from './data.json' with { type: 'json' }
 //
 const geojson = function () {
   const tz = this.timezone().name

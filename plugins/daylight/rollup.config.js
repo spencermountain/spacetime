@@ -1,27 +1,31 @@
-import commonjs from 'rollup-plugin-commonjs'
-import json from 'rollup-plugin-json'
-import { terser } from 'rollup-plugin-terser'
-import resolve from 'rollup-plugin-node-resolve'
-import sizeCheck from 'rollup-plugin-filesize-check'
-import pkg from './package.json' assert { type: "json" };
-console.log('\n 📦  - running rollup..\n')
+import terser from '@rollup/plugin-terser'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import fs from 'node:fs'
 
-const banner = '/* spencermountain/spacetime-daylight ' + pkg.version + ' MIT */'
+const pkg = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
+const banner = `/* spencermountain/spacetime-daylight ${pkg.version} MIT */`
 
-export default [
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime-daylight.mjs', format: 'esm' }],
-    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 132, warn: 10 })]
-  },
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime-daylight.cjs', format: 'umd', sourcemap: false, name: 'spacetimeDaylight' }],
-    plugins: [resolve(), json(), commonjs(), sizeCheck({ expect: 134, warn: 10 })]
-  },
-  {
-    input: 'src/index.js',
-    output: [{ banner: banner, file: 'builds/spacetime-daylight.min.js', format: 'umd', name: 'spacetimeDaylight' }],
-    plugins: [resolve(), json(), commonjs(), terser(), sizeCheck({ expect: 95, warn: 10 })]
-  }
-]
+export default {
+  input: 'src/index.js',
+  plugins: [nodeResolve(), commonjs()],
+  output: [
+    {
+      banner,
+      file: 'builds/spacetime-daylight.mjs',
+      format: 'esm'
+    },
+    {
+      banner,
+      file: 'builds/spacetime-daylight.cjs',
+      format: 'cjs'
+    },
+    {
+      banner,
+      file: 'builds/spacetime-daylight.min.js',
+      format: 'umd',
+      name: 'spacetimeDaylight',
+      plugins: [terser()]
+    }
+  ]
+}

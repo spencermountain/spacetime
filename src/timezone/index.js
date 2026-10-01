@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 import findTz from './find.js'
 import inSummerTime from './summerTime.js'
 import getDstShift from './dstShift.js'
@@ -37,7 +37,7 @@ const timezone = s => {
   }
   if (tz === null) {
     if (s.silent === false) {
-      console.warn("Warn: could not find given or local timezone - '" + s.tz + "'")
+      console.warn("Warn: could not find given or local timezone - '" + s.tz + "'") // eslint-disable-line no-console
     }
     return {
       current: {

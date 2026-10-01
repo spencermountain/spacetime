@@ -13,13 +13,13 @@ const methods = {
       }
       return s
     }
-    return this.d.getDate()
+    return this.d.getUTCDate()
   },
 
   //like 'wednesday' (hard!)
   day: function (input, goFwd) {
     if (input === undefined) {
-      return this.d.getDay()
+      return this.d.getUTCDay()
     }
     const original = this.clone()
     let want = input
@@ -36,7 +36,7 @@ const methods = {
       }
     }
     //move approx
-    const day = this.d.getDay()
+    const day = this.d.getUTCDay()
     let diff = day - want
     if (goFwd === true && diff > 0) {
       diff = diff - 7
