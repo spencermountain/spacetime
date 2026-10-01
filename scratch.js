@@ -5,7 +5,7 @@ import spacetime from './src/index.js'
 // let s = spacetime(wantDate, null, { today: today })
 // console.log(s.format('{nice} {year}'));
 
-const str = 'Mon Jun 17 2019 11:00:00 GMT+0530 (India Standard Time)'
-const s = spacetime(str)
-console.log(s.format('iso-short'))
-  // '2019-06-17T11:00:00+05:30'
+const s = spacetime.now('UTC', { silent: false })
+s.add(3, 'daus')
+console.log(s.format('iso-short'), s.isValid())
+// Warn: unsupported arithmetic unit "daus"
