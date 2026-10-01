@@ -26,7 +26,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "npm run pack && npm run version && rollup -c --silent",
+    "build": "node ./zonefile/pack.js && node ./scripts/version.js && rollup -c --silent",
     "build:tz": "node ./scripts/tz/update.js",
     "pack": "node ./zonefile/pack.js",
     "version": "node ./scripts/version.js",

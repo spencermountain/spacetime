@@ -13,18 +13,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: use node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: npm install, build, and test
+      - name: pnpm install, build, and test
         run: |
-          npm ci
-          npm run lint
-          npm run pack
-          npm run test
-          npm run build
-          npm run testb
+          pnpm install --frozen-lockfile
+          pnpm run lint
+          pnpm run pack
+          pnpm run test
+          pnpm run build
+          pnpm run testb
         env:
           CI: true
