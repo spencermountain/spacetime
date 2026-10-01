@@ -33,21 +33,19 @@ isn't it weird how we can do <i>math</i> in our head, but not <b><i>date-math</i
 </div>
 </div>
 
-<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-and worse - there is no real **_date calculator_**.
+and worse - there's no real **_date calculator_**?
 
 <div align="center">
   <sub>people end up asking google, and going to weird websites.</sub>
 </div>
 
-<img height="5px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
 <div align="center"><sub>that's bad.</sub></div>
 
 <img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<b>spacetime</b> is a date-calculator,
+<b>spacetime</b> is a date-calculator
 
 <div >
   <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><sub>It's very small, and very handy.</sub>
@@ -89,7 +87,7 @@ s.isAfter(s.time('11:00am'))
 
 <div align="right">
   <code>npx skills add spencermountain/spacetime</code>
-  <div><i>for computers</i></div>
+  <div><i>(for computers)</i></div>
 </div>
 
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -99,7 +97,7 @@ s.isAfter(s.time('11:00am'))
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 
-in brower:
+client-side:
 ```html
 <script src="https://unpkg.com/spacetime"></script>
 <script>
@@ -125,7 +123,7 @@ const time: string = london.time() // '2:30pm'
 ```
 
 
-old-guy node:
+old node:
 ```js
 const spacetime = require('spacetime')
 

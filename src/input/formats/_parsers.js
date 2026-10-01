@@ -30,8 +30,8 @@ const validate = (obj) => {
 
 const parseYear = (str = '', today) => {
   str = str.trim()
-  // parse '86 shorthand
-  if (/^'[0-9][0-9]$/.test(str) === true) {
+  // Two-digit years share the '86 shorthand's century cutoff.
+  if (/^'?[0-9][0-9]$/.test(str) === true) {
     const num = Number(str.replace(/'/, ''))
     if (num > 50) {
       return 1900 + num

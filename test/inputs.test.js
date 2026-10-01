@@ -272,23 +272,23 @@ test('time-inputs', (t) => {
 
   //invalid minutes
   s = spacetime('June 5 2019, 5:5')
-  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-minute1')
+  t.equal(s.isValid(), false, 'invalid-minute1')
 
   s = spacetime('June 5 2019, 5:90')
-  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-minute2')
+  t.equal(s.isValid(), false, 'invalid-minute2')
 
   s = spacetime('June 5 2019, 5:82pm')
-  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-minute2')
+  t.equal(s.isValid(), false, 'invalid-minute3')
 
   //invalid hours
   s = spacetime('June 5 2019, 13pm')
-  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-hour1')
+  t.equal(s.isValid(), false, 'invalid-hour1')
 
   s = spacetime('June 5 2019, 28am')
-  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-hour2')
+  t.equal(s.isValid(), false, 'invalid-hour2')
 
   s = spacetime('June 5 2019, 200am')
-  t.equal(s.format('nice'), 'Jun 5th, 12:00am', 'invalid-hour3')
+  t.equal(s.isValid(), false, 'invalid-hour3')
 
   t.end()
 })

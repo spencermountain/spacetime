@@ -48,7 +48,6 @@ test('string-parse', (t) => {
     ['2020-01-01 04:30.23', '2020-01-01T04:30:00.230'],
     ['2020-01-01 04:30:23:12', '2020-01-01T04:30:23.120'],
     ['2020-01-01 04:30:2.1', '2020-01-01T04:30:02.100'],
-    ['2020-01-01 04:3012', '2020-01-01T04:30:00'], // seconds need a separator
     // millisecond varieties
     ['2021-11-02T19:55:30.087+01', '2021-11-02T19:55:30.087+01'], //leading zero
     ['2021-11-02T19:55:30.0872+01', '2021-11-02T19:55:30.087+01'], //4 digits
@@ -87,14 +86,15 @@ test('date format boundaries', (t) => {
   valid.forEach(([str, expected]) => {
     t.equal(spacetime(str, 'UTC').iso(), expected, str)
   })
-  // Invalid times retain the existing start-of-day fallback.
+  // Explicit malformed times must not become midnight or lose trailing digits.
   const invalidTimes = [
+    '2020-01-01 04:3012', // seconds need a separator
     '2020-01-01T112:30:00',
     '2020-01-01T012:30:00',
     'January 1 2020 112:30pm'
   ]
   invalidTimes.forEach((input) => {
-    t.equal(spacetime(input, 'UTC').iso(), '2020-01-01T00:00:00.000Z', input)
+    t.equal(spacetime(input, 'UTC').isValid(), false, input)
   })
   t.end()
 })

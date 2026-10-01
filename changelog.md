@@ -14,6 +14,8 @@ This project follows semVer, where:
 - **[fix]** - hemispheres for 42 zones
 - **[fix]** - preserve fractional timezone offsets, support UTC±14, and reject malformed offsets
 - **[fix]** - point the North Dakota shortcut to Central time and resolve nested timezone city names
+- **[change]** - reject malformed clock fields in date strings (#450); 
+- **[change]** - parse two-digit years including `12/30/19 12:22:08 PM` (#179)
 - **[update]** - dependencies
 
  ### 7.15.0 [Sep 2022]
