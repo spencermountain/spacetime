@@ -1,3 +1,4 @@
+export const tzdbVersion = '2026c'
 export default {
   'africa/abidjan': {
     offset: 0,

@@ -86,6 +86,9 @@ export interface SpacetimeStatic extends SpacetimeConstructor {
   /** list timezones by their time */
   whereIts: (a: string, b?: string) => string[]
 
+  /** IANA tzdb release of the bundled timezone data, like '2026c' */
+  tzdbVersion: string
+
   /** set as earliest-possible date */
   min: (timezone?: string, options?: SpacetimeConstructorOptions) => Spacetime
 
