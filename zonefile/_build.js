@@ -1,3 +1,4 @@
+export const tzdbVersion = "2026c"
 export default {
   "9|s": "2/dili,2/jayapura",
   "9|n": "2/chita,2/khandyga,2/pyongyang,2/seoul,2/tokyo,2/yakutsk,11/palau,japan,rok",
