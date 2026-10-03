@@ -23,3 +23,12 @@ test('titlecase', (t) => {
   })
   t.end()
 })
+
+test('whereIts returns titlecased names', (t) => {
+  const tzs = spacetime.whereIts('12:00am', '11:59pm')
+  t.ok(tzs.includes('Antarctica/Mawson'), 'Antarctica/Mawson')
+  t.ok(tzs.includes('America/Port-au-Prince'), 'America/Port-au-Prince')
+  const wrong = tzs.filter(tz => tz !== spacetime.now(tz).timezone().name)
+  t.deepEqual(wrong, [], 'same name as timezone()')
+  t.end()
+})
