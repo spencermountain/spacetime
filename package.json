@@ -36,6 +36,8 @@
     "node": ">=18.0.0"
   },
   "scripts": {
+    "bench": "node ./scripts/bench/index.js",
+    "bench:write": "node ./scripts/bench/index.js --write",
     "build": "node ./zonefile/pack.js && node ./scripts/version.js && rollup -c --silent",
     "build:tz": "node ./scripts/tz/update.js",
     "pack": "node ./zonefile/pack.js",
