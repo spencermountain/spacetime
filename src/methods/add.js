@@ -2,6 +2,7 @@ import walkTo from './set/walk.js'
 import ms from '../data/milliseconds.js'
 import { months, daysBack, days, getMonthLength } from './set/_model.js'
 import { normalize } from '../fns.js'
+import addFraction from './_lib/fractional.js'
 // this logic is a bit of a mess,
 // but briefly:
 // millisecond-math, and some post-processing covers most-things
@@ -63,6 +64,16 @@ const addMethods = (SpaceTime) => {
     if (unit === 'fortnight') {
       num *= 2
       unit = 'week'
+    }
+    if (unit === 'millennium') {
+      return s.add(num * 1000, 'year')
+    }
+    // support 0.5 days, etc
+    if (Number.isFinite(num) && !Number.isInteger(num)) {
+      const fractional = addFraction(s, num, unit)
+      if (fractional) {
+        return fractional
+      }
     }
     if (!Object.hasOwn(ms, unit) && !Object.hasOwn(keep, unit) && unit !== 'weekend') {
       if (s.silent === false) {

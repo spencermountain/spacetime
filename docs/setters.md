@@ -54,14 +54,52 @@ s.nearest('hour').time() // '3:00pm'
 s.nearest('quarterHour').time() // '2:30pm'
 ```
 
-Calendar-day and week arithmetic preserve clock time across DST where that time
+Whole calendar-day and week arithmetic preserve clock time across DST where that time
 exists. Hours measure elapsed time. See [edge cases](./edge-cases.md).
+
+### Fractional arithmetic
+
+`add` and `subtract` accept decimal amounts, including negative values. Like
+integer arithmetic, they return a new object and leave the original unchanged.
+
+```js
+const s = spacetime('2020-06-15T00:00:00', 'UTC')
+s.add(2.5, 'days').iso() // '2020-06-17T12:00:00.000Z'
+s.subtract(0.5, 'day').iso() // '2020-06-14T12:00:00.000Z'
+s.add(0.25, 'hour').time() // '12:15am'
+s.add(0.5, 'month').iso() // '2020-06-29T00:00:00.000Z'
+s.add(1.5, 'months').iso() // '2020-07-29T00:00:00.000Z'
+s.startOf('year').add(0.5, 'year').iso() // '2020-07-02T00:00:00.000Z'
+```
+
+Fractional results round to the nearest boundary in the current timezone,
+clearing smaller fields:
+
+| Input unit | Result precision |
+| --- | --- |
+| `second` | Millisecond |
+| `minute` | Second |
+| `hour`, `quarterHour` | Minute |
+| `day` / `date` | Hour |
+| `week`, `month`, `quarter`, `season`, `year` | Day (midnight) |
+
+Fractional days use elapsed time: `0.5` day is 12 hours, including across DST.
+For months, quarters, seasons, and years, the whole part uses calendar arithmetic
+first. The remaining fraction uses that unit's duration from the resulting date,
+except that fractional months use a fixed 28-day duration: half a month is always
+14 days. Fractional decades, centuries, and millennia convert to years first.
+
+Rounding happens on every call, so repeated fractions need not equal a whole
+unit. For example, `0.1` day rounds to two hours; ten such additions total 20
+hours. Similarly, two half-month additions total 28 days, whereas adding one
+whole month follows the calendar. Add the combined amount in one call when you
+want to avoid accumulating rounding differences.
 
 ## Units depend on the method
 
 Common arithmetic units include `millisecond`, `second`, `minute`, `quarterHour`,
 `hour`, `day` (alias `date`), `week`, `month`, `quarter`, `season`, `year`,
-`decade`, and `century`. Arithmetic accepts plurals such as `days` and `months`.
+`decade`, `century`, and `millennium`. Arithmetic accepts plurals such as `days` and `months`.
 Do not assume every method implements every `TimeUnit` from the TypeScript union.
 
 - `diff` supports milliseconds, seconds, minutes, hours, days, weeks, months,

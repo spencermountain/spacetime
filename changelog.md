@@ -6,8 +6,11 @@ This project follows semVer, where:
 
 <!--
  -->
+ ### 7.17.0 [Oct 2026]
+ - **[change]** - better support for fractional arithmetic
+
  ### 7.16.0 [Oct 2026]
-- **[change]** deprecated but exposed `.d` date now is in UTC - users can do `s.toNativeDate()`
+- **[change]** - deprecated but exposed `.d` date now is in UTC - users can do `s.toNativeDate()`
 - **[change]** - use UTC date methods internally to reduce bias of local computer
 - **[fix]** - correct Chatham and NZ-CHAT transitions to 03:45 and 02:45
 - **[fix]** - apply Lord Howe's half-hour DST shift to the Australia/LHI alias
