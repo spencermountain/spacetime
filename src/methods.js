@@ -101,7 +101,7 @@ const methods = {
     if (!this.epoch && this.epoch !== 0) {
       return false
     }
-    return !isNaN(this.d.getTime())
+    return Number.isFinite(this.epoch) && !isNaN(new Date(this.epoch).getTime())
   },
   //travel to this timezone
   goto: function (tz) {

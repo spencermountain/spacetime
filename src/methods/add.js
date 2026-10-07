@@ -50,7 +50,7 @@ const addMethods = (SpaceTime) => {
   SpaceTime.prototype.add = function (num, unit) {
     let s = this.clone()
 
-    if (!unit || num === 0) {
+    if (!s.isValid() || !unit || num === 0) {
       return s //don't bother
     }
     const old = this.clone()

@@ -15,13 +15,16 @@ const isDay = function (unit) {
 // return a list of the weeks/months/days between a -> b
 // returns spacetime objects in the timezone of the input
 const every = function (start, unit, end, stepCount = 1) {
-  if (!unit || !end) {
+  if (!unit || !end || !Number.isInteger(stepCount) || stepCount <= 0) {
     return []
   }
   //cleanup unit param
   unit = normalize(unit)
   //cleanup to param
   end = start.clone().set(end)
+  if (!start.isValid() || !end.isValid()) {
+    return []
+  }
   //swap them, if they're backwards
   if (start.isAfter(end)) {
     const tmp = start
@@ -45,9 +48,14 @@ const every = function (start, unit, end, stepCount = 1) {
   }
   //okay, actually start doing it
   const result = []
-  while (d.isBefore(end)) {
+  for (; d.isBefore(end);) {
     result.push(d)
-    d = d.add(stepCount, unit)
+    const next = d.add(stepCount, unit)
+    // Stop if arithmetic cannot advance the cursor.
+    if (!next.isValid() || next.epoch <= d.epoch) {
+      break
+    }
+    d = next
   }
   return result
 }

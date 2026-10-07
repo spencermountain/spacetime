@@ -1356,7 +1356,7 @@ const parseString = function (s, input, givenTz) {
   for (let i = 0; i < parsers.length; i++) {
     const m = input.match(parsers[i].reg);
     if (m) {
-      const res = parsers[i].parse(s, m, givenTz);
+      const res = parsers[i].parse(s.clone(), m, givenTz);
       if (res !== null && res.isValid()) {
         return res
       }
@@ -2470,6 +2470,9 @@ units$1.date = units$1.day;
 
 const startOf = (a, unit) => {
   let s = a.clone();
+  if (!s.isValid()) {
+    return s
+  }
   unit = normalize$2(unit);
   if (units$1[unit]) {
     return units$1[unit](s)
@@ -2484,6 +2487,9 @@ const startOf = (a, unit) => {
 //piggy-backs off startOf
 const endOf = (a, unit) => {
   let s = a.clone();
+  if (!s.isValid()) {
+    return s
+  }
   unit = normalize$2(unit);
   if (units$1[unit]) {
     // go to beginning, go to next one, step back 1ms
@@ -2509,13 +2515,16 @@ const isDay = function (unit) {
 // return a list of the weeks/months/days between a -> b
 // returns spacetime objects in the timezone of the input
 const every = function (start, unit, end, stepCount = 1) {
-  if (!unit || !end) {
+  if (!unit || !end || !Number.isInteger(stepCount) || stepCount <= 0) {
     return []
   }
   //cleanup unit param
   unit = normalize$2(unit);
   //cleanup to param
   end = start.clone().set(end);
+  if (!start.isValid() || !end.isValid()) {
+    return []
+  }
   //swap them, if they're backwards
   if (start.isAfter(end)) {
     const tmp = start;
@@ -2539,9 +2548,14 @@ const every = function (start, unit, end, stepCount = 1) {
   }
   //okay, actually start doing it
   const result = [];
-  while (d.isBefore(end)) {
+  for (; d.isBefore(end);) {
     result.push(d);
-    d = d.add(stepCount, unit);
+    const next = d.add(stepCount, unit);
+    // Stop if arithmetic cannot advance the cursor.
+    if (!next.isValid() || next.epoch <= d.epoch) {
+      break
+    }
+    d = next;
   }
   return result
 };
@@ -2726,7 +2740,7 @@ const methods$4 = {
     if (!this.epoch && this.epoch !== 0) {
       return false
     }
-    return !isNaN(this.d.getTime())
+    return Number.isFinite(this.epoch) && !isNaN(new Date(this.epoch).getTime())
   },
   //travel to this timezone
   goto: function (tz) {
@@ -3850,7 +3864,7 @@ const addMethods$3 = (SpaceTime) => {
   SpaceTime.prototype.add = function (num, unit) {
     let s = this.clone();
 
-    if (!unit || num === 0) {
+    if (!s.isValid() || !unit || num === 0) {
       return s //don't bother
     }
     const old = this.clone();
@@ -4042,6 +4056,9 @@ const addMethods$2 = (SpaceTime) => {
     if (typeof b === 'string' || typeof b === 'number') {
       b = new SpaceTime(b, this.timezone.name);
     }
+    if (!a.isValid() || !b?.isValid?.()) {
+      return false
+    }
     //support 'seconds' aswell as 'second'
     unit = unit.replace(/s$/, '');
 
@@ -4057,29 +4074,31 @@ const addMethods$2 = (SpaceTime) => {
   };
 };
 
+const validEpoch = epoch => Number.isFinite(epoch) && !isNaN(new Date(epoch).getTime());
+
 const addMethods$1 = SpaceTime => {
   const methods = {
     isAfter: function (d) {
       d = beADate(d, this);
       const epoch = getEpoch(d);
-      if (epoch === null) {
-        return null
+      if (!this.isValid() || !validEpoch(epoch)) {
+        return false
       }
       return this.epoch > epoch
     },
     isBefore: function (d) {
       d = beADate(d, this);
       const epoch = getEpoch(d);
-      if (epoch === null) {
-        return null
+      if (!this.isValid() || !validEpoch(epoch)) {
+        return false
       }
       return this.epoch < epoch
     },
     isEqual: function (d) {
       d = beADate(d, this);
       const epoch = getEpoch(d);
-      if (epoch === null) {
-        return null
+      if (!this.isValid() || !validEpoch(epoch)) {
+        return false
       }
       return this.epoch === epoch
     },
@@ -4087,12 +4106,12 @@ const addMethods$1 = SpaceTime => {
       start = beADate(start, this);
       end = beADate(end, this);
       const startEpoch = getEpoch(start);
-      if (startEpoch === null) {
-        return null
+      if (!this.isValid() || !validEpoch(startEpoch)) {
+        return false
       }
       const endEpoch = getEpoch(end);
-      if (endEpoch === null) {
-        return null
+      if (!validEpoch(endEpoch)) {
+        return false
       }
       if (isInclusive) {
         return this.isBetween(start, end) || this.isEqual(start) || this.isEqual(end);
@@ -4181,6 +4200,9 @@ const SpaceTime = function (input, tz, options = {}) {
   Object.defineProperty(this, 'd', {
     // Internal clock view: read its UTC fields, not the host's local fields.
     get: function () {
+      if (!Number.isFinite(this.epoch)) {
+        return new Date(NaN)
+      }
       const offset = quickOffset(this);
       return new Date(this.epoch + (offset * 3600000))
     }
@@ -4208,7 +4230,7 @@ Object.keys(methods$4).forEach((k) => {
 
 // ¯\_(ツ)_/¯
 SpaceTime.prototype.clone = function () {
-  return new SpaceTime(this.epoch, this.tz, {
+  return new SpaceTime(this.isValid() ? this.epoch : NaN, this.tz, {
     silent: this.silent,
     dmy: this.british,
     weekStart: this._weekStart,

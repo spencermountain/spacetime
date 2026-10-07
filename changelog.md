@@ -11,6 +11,9 @@ This project follows semVer, where:
  - **[new]** - experimental `spacetime/temporal` wrapper 
 - **[fix]** - typescript types
 - **[fix]** - more api edge-cases
+- **[fix]** - Preserve invalidity across api changes
+- **[change]** - Make invalid comparisons consistently return false
+- **[fix]** - Prevent invalid dates hanging `.every()` iteration
 
  ### 7.16.0 [Oct 2026]
 - **[change]** - deprecated but exposed `.d` date now is in UTC - users can do `s.toNativeDate()`

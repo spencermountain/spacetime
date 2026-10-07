@@ -1,28 +1,30 @@
 import { beADate, getEpoch } from '../fns.js'
 
+const validEpoch = epoch => Number.isFinite(epoch) && !isNaN(new Date(epoch).getTime())
+
 const addMethods = SpaceTime => {
   const methods = {
     isAfter: function (d) {
       d = beADate(d, this)
       const epoch = getEpoch(d)
-      if (epoch === null) {
-        return null
+      if (!this.isValid() || !validEpoch(epoch)) {
+        return false
       }
       return this.epoch > epoch
     },
     isBefore: function (d) {
       d = beADate(d, this)
       const epoch = getEpoch(d)
-      if (epoch === null) {
-        return null
+      if (!this.isValid() || !validEpoch(epoch)) {
+        return false
       }
       return this.epoch < epoch
     },
     isEqual: function (d) {
       d = beADate(d, this)
       const epoch = getEpoch(d)
-      if (epoch === null) {
-        return null
+      if (!this.isValid() || !validEpoch(epoch)) {
+        return false
       }
       return this.epoch === epoch
     },
@@ -30,12 +32,12 @@ const addMethods = SpaceTime => {
       start = beADate(start, this)
       end = beADate(end, this)
       const startEpoch = getEpoch(start)
-      if (startEpoch === null) {
-        return null
+      if (!this.isValid() || !validEpoch(startEpoch)) {
+        return false
       }
       const endEpoch = getEpoch(end)
-      if (endEpoch === null) {
-        return null
+      if (!validEpoch(endEpoch)) {
+        return false
       }
       if (isInclusive) {
         return this.isBetween(start, end) || this.isEqual(start) || this.isEqual(end);

@@ -42,6 +42,9 @@ const SpaceTime = function (input, tz, options = {}) {
   Object.defineProperty(this, 'd', {
     // Internal clock view: read its UTC fields, not the host's local fields.
     get: function () {
+      if (!Number.isFinite(this.epoch)) {
+        return new Date(NaN)
+      }
       const offset = quickOffset(this)
       return new Date(this.epoch + (offset * 3600000))
     }
@@ -69,7 +72,7 @@ Object.keys(methods).forEach((k) => {
 
 // ¯\_(ツ)_/¯
 SpaceTime.prototype.clone = function () {
-  return new SpaceTime(this.epoch, this.tz, {
+  return new SpaceTime(this.isValid() ? this.epoch : NaN, this.tz, {
     silent: this.silent,
     dmy: this.british,
     weekStart: this._weekStart,
