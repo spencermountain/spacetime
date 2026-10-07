@@ -58,7 +58,7 @@ const SpaceTime = function (input, tz, options = {}) {
     }
   })
   // parse the various formats
-  const tmp = handleInput(this, input)
+  const tmp = handleInput(this, input, tz)
   this.epoch = tmp.epoch
   if (tmp.tz) {
     this.tz = tmp.tz

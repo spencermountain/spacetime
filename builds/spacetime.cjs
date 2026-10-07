@@ -1386,7 +1386,7 @@ const defaults = {
 };
 
 //find the epoch from different input styles
-const parseInput = (s, input) => {
+const parseInput = (s, input, timezone) => {
   const today = s._today || defaults;
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
@@ -1422,9 +1422,11 @@ const parseInput = (s, input) => {
   //support {year:2016, month:3} format
   if (isObject(input) === true) {
     //support spacetime object as input
-    if (input.epoch) {
-      s.epoch = input.epoch;
-      s.tz = input.tz;
+    if (Object.hasOwn(input, 'epoch')) {
+      s.epoch = typeof input.epoch === 'number' ? input.epoch : NaN;
+      if (timezone == null && input.tz) {
+        s.tz = input.tz;
+      }
       return s
     }
     const obj = Object.assign({}, today, input);
@@ -2668,7 +2670,7 @@ const units = [
 const methods$4 = {
   set: function (input, tz) {
     let s = this.clone();
-    s = parseInput(s, input);
+    s = parseInput(s, input, null);
     if (tz) {
       s.tz = lookupTz(tz, s.timezones);
     }
@@ -4216,7 +4218,7 @@ const SpaceTime = function (input, tz, options = {}) {
     }
   });
   // parse the various formats
-  const tmp = parseInput(this, input);
+  const tmp = parseInput(this, input, tz);
   this.epoch = tmp.epoch;
   if (tmp.tz) {
     this.tz = tmp.tz;
