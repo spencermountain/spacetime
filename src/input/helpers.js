@@ -12,7 +12,7 @@ const parseArray = (s, arr, today) => {
     return s
   }
   for (let i = 0; i < units.length; i++) {
-    const num = arr[i] || today[units[i]] || defaults[units[i]] || 0
+    const num = arr[i] ?? today[units[i]] ?? defaults[units[i]] ?? 0
     s = s[units[i]](num)
   }
   return s

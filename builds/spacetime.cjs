@@ -476,7 +476,7 @@ const parseArray$1 = (s, arr, today) => {
     return s
   }
   for (let i = 0; i < units$6.length; i++) {
-    const num = arr[i] || today[units$6[i]] || defaults$1[units$6[i]] || 0;
+    const num = arr[i] ?? today[units$6[i]] ?? defaults$1[units$6[i]] ?? 0;
     s = s[units$6[i]](num);
   }
   return s
