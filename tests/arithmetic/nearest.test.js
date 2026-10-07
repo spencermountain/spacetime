@@ -38,3 +38,32 @@ test('nearest', (t) => {
   t.equal(s.date(), 1, 'dec 1')
   t.end()
 })
+
+
+test('nearest rounds around midpoints and calendar boundaries', (t) => {
+  // Exact midpoint ties preserve the earlier boundary.
+  const cases = [
+    ['2024-01-15T03:29:59.999Z', 'hour', '2024-01-15T03:00:00.000Z'],
+    ['2024-01-15T03:30:00.000Z', 'hour', '2024-01-15T03:00:00.000Z'],
+    ['2024-01-15T03:30:00.001Z', 'hour', '2024-01-15T04:00:00.000Z'],
+    ['2024-01-15T10:07:29.999Z', 'quarter-hour', '2024-01-15T10:00:00.000Z'],
+    ['2024-01-15T10:07:30.000Z', 'quarter-hour', '2024-01-15T10:00:00.000Z'],
+    ['2024-01-15T10:07:30.001Z', 'quarter-hour', '2024-01-15T10:15:00.000Z'],
+    ['2024-01-15T11:59:59.999Z', 'day', '2024-01-15T00:00:00.000Z'],
+    ['2024-01-15T12:00:00.000Z', 'day', '2024-01-15T00:00:00.000Z'],
+    ['2024-01-15T12:00:00.001Z', 'day', '2024-01-16T00:00:00.000Z'],
+    ['2024-01-15T23:45:00.000Z', 'hour', '2024-01-16T00:00:00.000Z'],
+    ['2024-12-31T23:45:00.000Z', 'hour', '2025-01-01T00:00:00.000Z'],
+    ['2024-12-31T23:59:40.000Z', 'minute', '2025-01-01T00:00:00.000Z'],
+    ['2024-12-31T12:00:00.000Z', 'month', '2025-01-01T00:00:00.000Z'],
+    ['2024-01-15T03:00:00.000Z', 'hour', '2024-01-15T03:00:00.000Z']
+  ]
+  cases.forEach(([input, unit, expected]) => {
+    const s = spacetime(input, 'UTC')
+    const result = s.nearest(unit)
+    const label = `${input} UTC: nearest(${unit})`
+    t.equal(result.iso(), expected, label)
+    t.equal(s.epoch, Date.parse(input), `${label} preserves the original`)
+  })
+  t.end()
+})

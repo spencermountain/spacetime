@@ -29,3 +29,35 @@ test('progress-param', (t) => {
   t.equal(s.progress('month'), 0.03, 'early-month')
   t.end()
 })
+
+
+test('progress measures exact fractions in UTC', (t) => {
+  const cases = [
+    ['2024-01-01T00:00:00Z', 'year', 0],
+    ['2024-01-15T00:00:00Z', 'day', 0],
+    ['2024-01-15T06:00:00Z', 'day', 0.25],
+    ['2024-01-15T12:00:00Z', 'day', 0.5],
+    ['2024-01-15T10:00:00Z', 'hour', 0],
+    ['2024-01-15T10:15:00Z', 'hour', 0.25],
+    ['2024-01-15T10:30:00Z', 'hour', 0.5],
+    ['2024-01-15T10:00:15Z', 'minute', 0.25],
+    ['2024-01-15T10:00:30Z', 'minute', 0.5],
+    ['2024-04-08T12:00:00Z', 'month', 0.25],
+    ['2024-04-16T00:00:00Z', 'month', 0.5],
+    ['2024-01-08T18:00:00Z', 'month', 0.25],
+    ['2024-01-16T12:00:00Z', 'month', 0.5],
+    ['2023-02-08T00:00:00Z', 'month', 0.25],
+    ['2023-02-15T00:00:00Z', 'month', 0.5],
+    ['2024-02-08T06:00:00Z', 'month', 0.25],
+    ['2024-02-15T12:00:00Z', 'month', 0.5],
+    ['2023-07-02T12:00:00Z', 'year', 0.5],
+    ['2024-07-02T00:00:00Z', 'year', 0.5]
+  ]
+  cases.forEach(([input, unit, expected]) => {
+    const s = spacetime(input, 'UTC')
+    const label = `${input} UTC: progress(${unit})`
+    t.equal(s.progress(unit), expected, label)
+    t.equal(s.progress()[unit], expected, `${label} agrees with the object form`)
+  })
+  t.end()
+})

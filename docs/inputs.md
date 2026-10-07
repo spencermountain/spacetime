@@ -22,8 +22,40 @@ IANA zone for reproducible results. Fixed-offset `Etc/GMT` names reverse the
 sign: `etc/gmt+7` means UTC−07:00 and has no regional DST rules.
 
 The constructor accepts strings, millisecond numbers, native Dates, Spacetime
-objects, arrays, and date-field objects. Other methods have their own input
+objects, arrays, date-field objects, and the native Temporal types below. Other methods have their own input
 contracts; do not assume all constructor inputs work with every comparison.
+
+## Native Temporal inputs and output
+
+The regular `spacetime` entry accepts these objects when `globalThis.Temporal`
+is available, either natively or through a globally installed polyfill:
+
+```js
+const native = Temporal.ZonedDateTime.from('2026-07-15T12:00+09:00[Asia/Tokyo]')
+const s = spacetime(native) // keeps the instant and Tokyo timezone
+spacetime(native, 'UTC') // keeps the instant, uses UTC
+spacetime(Temporal.Instant.from('2026-07-15T03:00Z'), 'UTC')
+spacetime(Temporal.PlainDate.from('2026-07-15'), 'UTC') // midnight in UTC
+spacetime(Temporal.PlainDateTime.from('2026-07-15T12:00'), 'UTC')
+
+const out = s.toTemporal() // Temporal.ZonedDateTime at the same instant and zone
+spacetime(out).epoch === s.epoch // true
+```
+
+`Instant` uses the supplied timezone or the local timezone. `PlainDate` and
+`PlainDateTime` resolve their calendar fields in that timezone using Temporal's
+default DST disambiguation. Spacetime stores milliseconds, so sub-millisecond
+precision is lost. Temporal durations and partial date/time types are unsupported.
+
+`.toTemporal()` does not mutate the instance. It returns `null` for an invalid
+date **when Temporal is available**. If `globalThis.Temporal` is unavailable,
+it throws an explicit `Error`, even for an invalid date. Ordinary Spacetime
+operations continue to work without Temporal.
+
+The returned value uses the runtime's timezone rules; historical wall-clock
+values may differ from Spacetime's bundled rules. Custom timezone tables are not
+transferred. Enable TypeScript's `ESNext.Temporal` library for full native input
+and output types; without it, the return declaration provides a minimal shape.
 
 ## Current-date and extreme-date helpers
 

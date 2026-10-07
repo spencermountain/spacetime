@@ -209,8 +209,13 @@ const year = function (s, n) {
     }
   }
   n = validate(n)
+  // Keep leap-day changes inside the destination month.
+  const targetMonth = s.month()
+  const targetDate = Math.min(s.date(), getMonthLength(targetMonth, n))
   walkTo(s, {
-    year: n
+    year: n,
+    month: targetMonth,
+    date: targetDate
   })
   return s.epoch
 }

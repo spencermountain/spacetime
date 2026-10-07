@@ -17,7 +17,7 @@ export default {
       "out": "Date"
     },
     "toTemporal": {
-      "doc": "return a native Temporal.ZonedDateTime at the same instant and timezone, or null for an invalid date. Requires Temporal at runtime",
+      "doc": "return a native Temporal.ZonedDateTime at the same instant and timezone with millisecond precision, or null for an invalid date. Throws an Error if globalThis.Temporal is unavailable, including for invalid dates",
       "out": "Temporal.ZonedDateTime/null"
     },
     "format": {

@@ -1,25 +1,22 @@
- 
 import { normalize } from '../fns.js'
 
-//round to either current, or +1 of this unit
+const units = ['year', 'season', 'quarter', 'month', 'week', 'date', 'quarterhour', 'hour', 'minute']
+
 const nearest = (s, unit) => {
-  //how far have we gone?
-  const prog = s.progress()
   unit = normalize(unit)
-  //fix camel-case for this one
-  if (unit === 'quarterhour') {
-    unit = 'quarterHour'
-  }
-  if (prog[unit] !== undefined) {
-    // go forward one?
-    if (prog[unit] > 0.5) {
-      s = s.add(1, unit)
+  if (!units.includes(unit)) {
+    if (s.silent === false) {
+      console.warn("no known unit '" + unit + "'") // eslint-disable-line no-console
     }
-    // go to start
-    s = s.startOf(unit)
-  } else if (s.silent === false) {
-    console.warn("no known unit '" + unit + "'") // eslint-disable-line no-console
+    return s
   }
-  return s
+  const lower = s.startOf(unit)
+  const upper = lower.add(1, unit)
+  // Compare exact distances; ties keep the earlier boundary.
+  if (s.epoch - lower.epoch > upper.epoch - s.epoch) {
+    return upper
+  }
+  return lower
 }
+
 export default nearest

@@ -11,7 +11,9 @@ interface ZonedFallback {
   toString(): string
 }
 
+/** Native ZonedDateTime with ESNext.Temporal; a minimal shape otherwise. */
 export type TemporalResult = [Zoned] extends [never] ? ZonedFallback : Zoned
+/** Native date inputs supported by the main entry when ESNext.Temporal is enabled. */
 export type TemporalInput = Zoned
   | NativeInstance<typeof globalThis, 'Instant'>
   | NativeInstance<typeof globalThis, 'PlainDate'>

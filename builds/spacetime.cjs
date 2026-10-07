@@ -468,16 +468,16 @@ const defaults$1 = {
   month: 0,
   date: 1
 };
-const units$5 = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
+const units$6 = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'];
 
 //support [2016, 03, 01] format
 const parseArray$1 = (s, arr, today) => {
   if (arr.length === 0) {
     return s
   }
-  for (let i = 0; i < units$5.length; i++) {
-    const num = arr[i] || today[units$5[i]] || defaults$1[units$5[i]] || 0;
-    s = s[units$5[i]](num);
+  for (let i = 0; i < units$6.length; i++) {
+    const num = arr[i] || today[units$6[i]] || defaults$1[units$6[i]] || 0;
+    s = s[units$6[i]](num);
   }
   return s
 };
@@ -491,8 +491,8 @@ const parseObject$1 = (s, obj) => {
   if (obj.timezone) {
     s.tz = obj.timezone;
   }
-  for (let i = 0; i < units$5.length; i++) {
-    const unit = units$5[i];
+  for (let i = 0; i < units$6.length; i++) {
+    const unit = units$6[i];
     if (obj[unit] !== undefined) {
       s = s[unit](obj[unit]);
     }
@@ -1264,7 +1264,7 @@ const walk = (s, n, fn, unit, previous) => {
   }
 };
 //find the desired date by a increment/check while loop
-const units$4 = {
+const units$5 = {
   year: {
     valid: (n) => n > -4e3 && n < 4000,
     walkTo: (s, n) => walk(s, n, 'getUTCFullYear', 'year', null)
@@ -1324,7 +1324,7 @@ const units$4 = {
 };
 
 const walkTo = (s, wants) => {
-  const keys = Object.keys(units$4);
+  const keys = Object.keys(units$5);
   const old = s.clone();
   for (let i = 0; i < keys.length; i++) {
     const k = keys[i];
@@ -1336,14 +1336,14 @@ const walkTo = (s, wants) => {
       n = parseInt(n, 10);
     }
     //make-sure it's valid
-    if (!units$4[k].valid(n)) {
+    if (!units$5[k].valid(n)) {
       s.epoch = null;
       if (s.silent === false) {
         console.warn('invalid ' + k + ': ' + n); // eslint-disable-line no-console
       }
       return
     }
-    units$4[k].walkTo(s, n);
+    units$5[k].walkTo(s, n);
   }
   return
 };
@@ -1410,7 +1410,7 @@ const parseInput = (s, input) => {
     return native
   }
   //support input of Date() object
-  if (isDate(input) === true) {
+  if (Object.prototype.toString.call(input) === '[object Date]') {
     s.epoch = input.getTime();
     return s
   }
@@ -1888,7 +1888,7 @@ const unixFmt = (s, str) => {
   }, '')
 };
 
-const units$3 = ['year', 'season', 'quarter', 'month', 'week', 'day', 'quarterHour', 'hour', 'minute'];
+const units$4 = ['year', 'season', 'quarter', 'month', 'week', 'day', 'quarterHour', 'hour', 'minute'];
 
 const doUnit = function (s, k) {
   const start = s.clone().startOf(k);
@@ -1905,32 +1905,29 @@ const progress = (s, unit) => {
     return doUnit(s, unit)
   }
   const obj = {};
-  units$3.forEach(k => {
+  units$4.forEach(k => {
     obj[k] = doUnit(s, k);
   });
   return obj
 };
 
-//round to either current, or +1 of this unit
+const units$3 = ['year', 'season', 'quarter', 'month', 'week', 'date', 'quarterhour', 'hour', 'minute'];
+
 const nearest = (s, unit) => {
-  //how far have we gone?
-  const prog = s.progress();
   unit = normalize$2(unit);
-  //fix camel-case for this one
-  if (unit === 'quarterhour') {
-    unit = 'quarterHour';
-  }
-  if (prog[unit] !== undefined) {
-    // go forward one?
-    if (prog[unit] > 0.5) {
-      s = s.add(1, unit);
+  if (!units$3.includes(unit)) {
+    if (s.silent === false) {
+      console.warn("no known unit '" + unit + "'"); // eslint-disable-line no-console
     }
-    // go to start
-    s = s.startOf(unit);
-  } else if (s.silent === false) {
-    console.warn("no known unit '" + unit + "'"); // eslint-disable-line no-console
+    return s
   }
-  return s
+  const lower = s.startOf(unit);
+  const upper = lower.add(1, unit);
+  // Compare exact distances; ties keep the earlier boundary.
+  if (s.epoch - lower.epoch > upper.epoch - s.epoch) {
+    return upper
+  }
+  return lower
 };
 
 //increment until dates are the same
@@ -3144,8 +3141,13 @@ const year = function (s, n) {
     }
   }
   n = validate(n);
+  // Keep leap-day changes inside the destination month.
+  const targetMonth = s.month();
+  const targetDate = Math.min(s.date(), getMonthLength(targetMonth, n));
   walkTo(s, {
-    year: n
+    year: n,
+    month: targetMonth,
+    date: targetDate
   });
   return s.epoch
 };
@@ -3404,7 +3406,7 @@ const methods$2 = {
     if (num !== undefined) {
       const s = this.clone();
       num = parseInt(num, 10);
-      if (num) {
+      if (!Number.isNaN(num)) {
         s.epoch = date(s, num, goFwd);
       }
       return s
@@ -4227,7 +4229,7 @@ SpaceTime.prototype.toLocalDate = function () {
  * @returns native date object at the same epoch
  */
 SpaceTime.prototype.toNativeDate = function () {
-  return new Date(this.epoch)
+  return new Date(this.isValid() ? this.epoch : NaN)
 };
 
 SpaceTime.prototype.toTemporal = function () {

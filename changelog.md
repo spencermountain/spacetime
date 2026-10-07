@@ -10,6 +10,7 @@ This project follows semVer, where:
  - **[change]** - better support for fractional arithmetic
  - **[new]** - experimental `spacetime/temporal` wrapper 
 - **[fix]** - typescript types
+- **[fix]** - more api edge-cases
 
  ### 7.16.0 [Oct 2026]
 - **[change]** - deprecated but exposed `.d` date now is in UTC - users can do `s.toNativeDate()`

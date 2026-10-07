@@ -1,5 +1,5 @@
 import { parseTemporal } from './temporal.js'
-import { isObject, isDate, isArray } from '../fns.js'
+import { isObject, isArray } from '../fns.js'
 import fns from './helpers.js'
 const { parseArray, parseObject, parseNumber } = fns
 import namedDates from './named-dates.js'
@@ -45,7 +45,7 @@ const parseInput = (s, input) => {
     return native
   }
   //support input of Date() object
-  if (isDate(input) === true) {
+  if (Object.prototype.toString.call(input) === '[object Date]') {
     s.epoch = input.getTime()
     return s
   }

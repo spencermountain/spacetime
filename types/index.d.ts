@@ -9,3 +9,4 @@ export default spacetime
 export { SpacetimeConstructor, SpacetimeConstructorOptions, SpacetimeStatic } from './constructors.js'
 export { Format, I18nOptions, TimeUnit } from './constraints.js'
 export { Spacetime, Diff, ParsableDate, Progress, Since, TimezoneMeta, TimezoneSet } from './types.js'
+export type { TemporalInput, TemporalResult } from './temporal-interop.js'

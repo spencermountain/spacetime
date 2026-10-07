@@ -54,3 +54,36 @@ test('long-every is stable', (t) => {
   })
   t.end()
 })
+
+
+test('every returns exact boundaries for short ranges', (t) => {
+  // Include aligned starts, exclude ends, and iterate reversed ranges chronologically.
+  const cases = [
+    ['2024-04-01', '2024-04-01', 'day', 1, []],
+    ['2024-04-03', '2024-04-01', 'day', 1,
+      ['2024-04-01T00:00:00.000Z', '2024-04-02T00:00:00.000Z']],
+    ['2024-04-01', '2024-04-03', 'day', 1,
+      ['2024-04-01T00:00:00.000Z', '2024-04-02T00:00:00.000Z']],
+    ['2024-04-01T12:00:00Z', '2024-04-03', 'day', 1,
+      ['2024-04-02T00:00:00.000Z']],
+    ['2024-04-01', '2024-04-02T23:59:59.999Z', 'day', 1,
+      ['2024-04-01T00:00:00.000Z', '2024-04-02T00:00:00.000Z']],
+    ['2024-04-01T12:00:00Z', '2024-04-01T13:00:00Z', 'day', 1, []],
+    ['2024-04-01', '2024-04-05', 'day', 2,
+      ['2024-04-01T00:00:00.000Z', '2024-04-03T00:00:00.000Z']],
+    ['2024-02-28', '2024-03-01', 'day', 1,
+      ['2024-02-28T00:00:00.000Z', '2024-02-29T00:00:00.000Z']],
+    ['2024-01-15', '2024-04-01', 'month', 1,
+      ['2024-02-01T00:00:00.000Z', '2024-03-01T00:00:00.000Z']]
+  ]
+  cases.forEach(([input, endInput, unit, step, expected]) => {
+    const start = spacetime(input, 'UTC')
+    const end = spacetime(endInput, 'UTC')
+    const label = `${input} to ${endInput} UTC: every(${unit}, step ${step})`
+    const dates = start.every(unit, end, step)
+    t.deepEqual(dates.map(s => s.iso()), expected, label)
+    t.equal(start.epoch, Date.parse(input), `${label} preserves start`)
+    t.equal(end.epoch, Date.parse(endInput), `${label} preserves end`)
+  })
+  t.end()
+})

@@ -90,7 +90,7 @@ SpaceTime.prototype.toLocalDate = function () {
  * @returns native date object at the same epoch
  */
 SpaceTime.prototype.toNativeDate = function () {
-  return new Date(this.epoch)
+  return new Date(this.isValid() ? this.epoch : NaN)
 }
 
 SpaceTime.prototype.toTemporal = function () {
