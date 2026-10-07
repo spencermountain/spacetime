@@ -17,4 +17,4 @@ const attempt = (s, operation) => {
   }
 }
 
-export { invalid, attempt }
+export default attempt

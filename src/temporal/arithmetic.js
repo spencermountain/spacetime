@@ -74,16 +74,19 @@ const arithmetic = {
     }
     return result._result(result._value.startOfDay())
   },
-  endOf(unit) { return isBoundary(unit) ? this.startOf(unit).add(1, unit).subtract(1, 'millisecond') : this.clone() },
+  endOf(unit) { return isBoundary(unit) ? this.startOf(unit).add(1, unit).startOf(unit).subtract(1, 'millisecond') : this.clone() },
   next(unit) { return isBoundary(unit) ? this.add(1, unit).startOf(unit) : this.clone() },
   last(unit) { return isBoundary(unit) ? this.subtract(1, unit).startOf(unit) : this.clone() },
   progress(unit) {
     if (!this.isValid() || !isBoundary(unit)) {
       return NaN
     }
-    const start = this.startOf(unit).epoch
-    const end = this.startOf(unit).add(1, unit).epoch
-    return (this.epoch - start) / (end - start)
+    const start = this.startOf(unit)
+    const end = start.add(1, unit).startOf(unit)
+    if (!start.isValid() || !end.isValid()) {
+      return NaN
+    }
+    return (this.epoch - start.epoch) / (end.epoch - start.epoch)
   },
   nearest(unit) {
     const start = this.startOf(unit)

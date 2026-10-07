@@ -1,3 +1,4 @@
+import { parseTemporal } from './temporal.js'
 import { isObject, isDate, isArray } from '../fns.js'
 import fns from './helpers.js'
 const { parseArray, parseObject, parseNumber } = fns
@@ -38,6 +39,10 @@ const parseInput = (s, input) => {
   // null input means 'now'
   if (input === null || input === undefined || input === '') {
     return s //k, we're good.
+  }
+  const native = parseTemporal(s, input)
+  if (native) {
+    return native
   }
   //support input of Date() object
   if (isDate(input) === true) {

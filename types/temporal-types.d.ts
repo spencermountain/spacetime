@@ -4,7 +4,9 @@ export type Timezone = string | number | null
 export type FieldValue = string | number
 export type BoundaryUnit = 'millisecond' | 'second' | 'minute' | 'quarterhour' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year' | 'decade' | 'century' | 'millennium'
 export type Unit = BoundaryUnit | 'date' | 'min' | 'quarter-hour' | 'season' | 'fortnight' | 'weekend'
-export type Units = Unit | `${Unit}s` | 'centuries' | 'millennia'
+export type Units = Unit | `${Unit}s` | 'centuries'
+export type BoundaryUnits = BoundaryUnit | `${BoundaryUnit}s` | 'centuries' | 'date' | 'dates' | 'min' | 'mins' | 'quarter-hour' | 'quarter-hours'
+export type DifferenceUnits = Exclude<Units, 'quarterhour' | 'quarterhours' | 'quarter-hour' | 'quarter-hours' | 'weekend' | 'weekends'>
 export interface DateFields {
   year?: FieldValue | null
   month?: FieldValue | null
@@ -83,13 +85,13 @@ export interface Spacetime {
   year(value: FieldValue): Spacetime
   month(): number
   month(value: FieldValue, forward?: boolean): Spacetime
-  monthName(): string | undefined
+  monthName(): string
   monthName(value: FieldValue, forward?: boolean): Spacetime
   date(): number
   date(value: FieldValue, forward?: boolean): Spacetime
   day(): number
   day(value: FieldValue, forward?: boolean): Spacetime
-  dayName(): string | undefined
+  dayName(): string
   dayName(value: FieldValue, forward?: boolean): Spacetime
   dayOfYear(): number
   dayOfYear(value: number): Spacetime
@@ -104,7 +106,7 @@ export interface Spacetime {
   century(value: FieldValue): Spacetime
   millennium(): number
   millennium(value: FieldValue): Spacetime
-  era(): 'AD' | 'BC'
+  era(): 'AD' | 'BC' | ''
   era(value: string): Spacetime
   hour(): number
   hour(value: FieldValue, forward?: boolean): Spacetime
@@ -118,7 +120,7 @@ export interface Spacetime {
   second(value: FieldValue, forward?: boolean): Spacetime
   millisecond(): number
   millisecond(value: FieldValue): Spacetime
-  ampm(): 'am' | 'pm'
+  ampm(): 'am' | 'pm' | ''
   ampm(value: 'am' | 'pm', forward?: boolean): Spacetime
   time(): string
   time(value: string, forward?: boolean): Spacetime
@@ -126,16 +128,16 @@ export interface Spacetime {
   daysInMonth(): number
   add(amount: number, unit?: Units): Spacetime
   subtract(amount: number, unit?: Units): Spacetime
-  startOf(unit?: Units): Spacetime
-  endOf(unit?: Units): Spacetime
-  next(unit?: Units): Spacetime
-  last(unit?: Units): Spacetime
-  progress(unit: Units): number
-  nearest(unit?: Units): Spacetime
+  startOf(unit?: BoundaryUnits): Spacetime
+  endOf(unit?: BoundaryUnits): Spacetime
+  next(unit?: BoundaryUnits): Spacetime
+  last(unit?: BoundaryUnits): Spacetime
+  progress(unit: BoundaryUnits): number
+  nearest(unit?: BoundaryUnits): Spacetime
   diff(input: Input): Difference | number
-  diff(input: Input, unit: Units): number
-  isSame(input: Input, unit: Units, timezoneAware?: boolean): boolean | null
-  isSame(unit: Units, input: Spacetime, timezoneAware?: boolean): boolean | null
+  diff(input: Input, unit: DifferenceUnits): number
+  isSame(input: Input, unit: BoundaryUnits, timezoneAware?: boolean): boolean | null
+  isSame(unit: BoundaryUnits, input: Spacetime, timezoneAware?: boolean): boolean | null
   isBefore(input: Input): boolean | null
   isAfter(input: Input): boolean | null
   isEqual(input: Input): boolean | null

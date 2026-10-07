@@ -1,3 +1,4 @@
+import type { TemporalInput, TemporalResult } from './temporal-interop.js'
 import type { TimeUnit, Format, I18nOptions } from './constraints.js'
 
 /** a date/timezone object */
@@ -34,6 +35,9 @@ export interface Spacetime {
 
   /** @returns the native Date object at the same epoch */
   toNativeDate(): Date
+
+  /** Convert to a native Temporal value; requires Temporal at runtime. */
+  toTemporal(): TemporalResult | null
 
   /** @returns a bunch of meta-data about your current timezone  */
   timezone(): TimezoneMeta
@@ -361,4 +365,4 @@ export interface TimezoneSet {
   }
 }
 
-export type ParsableDate = Spacetime | Date | number | Array<number> | string
+export type ParsableDate = Spacetime | Date | number | Array<number> | string | TemporalInput

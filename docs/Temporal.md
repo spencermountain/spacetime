@@ -160,15 +160,69 @@ Other compatibility details remain incomplete: permissive invalid-value setters,
 old century/decade string shorthand, and some week-number conventions. `.week()`
 uses native ISO week numbers, which may belong to the previous or following ISO
 week-year near January 1. Do not assume all legacy setters, aliases, or error
-behaviors are interchangeable. Invalid parsed dates usually report
-`.isValid() === false`, while invalid setters and unsupported boundaries can throw.
+behaviors are interchangeable.
+
+## Invalid values and unsupported units
+
+Constructors and setters convert values rejected by Temporal into invalid
+instances. Native overflow constraints still apply where supported: setting
+February on January 31 clamps to the last day of February. Most setters leave
+the original instance unchanged; assigning `.epoch` or `.tz`, and calling
+`.epochSeconds(value)`, updates the receiver, including its invalid state.
+
+| Situation | Result |
+| --- | --- |
+| Unparseable date, invalid timezone, or rejected setter/arithmetic value | Invalid instance |
+| Operations on an invalid instance | Remain invalid |
+| Invalid instance's `.epoch` / `.toTemporal()` | `null` |
+| Invalid instance's numeric getters, `.diff()`, or `.progress()` | `NaN` |
+| Comparison involving an invalid instance | `null` |
+| Invalid instance's time/name getters or formatted output | Empty string |
+| Missing/unsupported arithmetic or boundary unit | Unchanged clone |
+| Unsupported `.diff()` / `.progress()` unit | `NaN` |
+| Missing/unsupported `.isSame()` unit | `null` |
+
+Calling `.diff(other)` without a unit still returns all supported differences.
+Unknown arithmetic units emit a warning when `silent: false`; they do not throw.
+Missing Temporal support and calls to APIs absent from this entry still throw.
+
+```js
+const invalid = s.hour(NaN)
+invalid.isValid()             // false
+invalid.toTemporal()          // null
+invalid.isBefore(s)           // null
+s.startOf('unsupported').epoch === s.epoch // true
+```
+
+## TypeScript
+
+Both ESM and CommonJS imports have separate declarations for the supported
+Temporal API. They intentionally omit APIs such as `.since()` and `.timezones`.
+The declarations reference the compiler's `esnext.temporal` library; use a
+TypeScript version that includes it (verified with TypeScript 7). Types do not
+provide Temporal at runtime.
+
+```ts
+import spacetime, { type Spacetime } from 'spacetime/temporal'
+
+const date: Spacetime = spacetime('2024-02-29', 'UTC')
+const native: Temporal.ZonedDateTime | null = date.toTemporal()
+if (native) {
+  native.add({ days: 1 })
+}
+```
+
+The native result is nullable because the wrapper can represent invalid dates.
+Unit types distinguish arithmetic, boundary, and difference operations.
 
 ## Testing this entry
 
 ```sh
-pnpm test:temporal       # supported behavior and package smoke tests
-pnpm testb:temporal  # rebuild and exercise the bundled entry
-pnpm test:temporal:all   # diagnostic audit of every legacy test file
+pnpm test:temporal        # supported behavior, boundaries, and build-guard tests
+pnpm run build           # build the regular and Temporal bundles together
+pnpm testb:temporal       # exercise the existing bundled entry
+pnpm test:temporal:types  # check ESM/CommonJS types and unsupported API rejection
+pnpm test:temporal:all    # diagnostic audit of every legacy test file
 ```
 
 The focused suite compares shared behavior with regular Spacetime, checks DST
@@ -177,3 +231,8 @@ and timezone travel preserving the instant. The full audit runs files separately
 so an unsupported API does not prevent other files from running. It is expected
 to report compatibility gaps and exit nonzero; it is not the release gate for
 this entry. Legacy tests that inject timezone tables cannot govern native Temporal.
+
+Every Temporal Rollup build rejects imports outside its small shared-module
+allowlist, including the legacy timezone engine and external runtime dependencies.
+Each output has budgets of 32 KiB minified and 10 KiB gzip. Build-guard tests
+verify that forbidden imports and exceeded budgets fail the build.

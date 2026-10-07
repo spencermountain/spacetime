@@ -11,7 +11,7 @@ const query = {
     const result = this._with({ month: fieldNumber(value, 'month') + 1 })
     return direction(result, this, forward, 'year')
   },
-  monthName(value, forward) { return value === undefined ? months()[this.month()] : this.month(value, forward) },
+  monthName(value, forward) { return value === undefined ? months()[this.month()] || '' : this.month(value, forward) },
   day(value, forward) {
     const day = (this._clock?.dayOfWeek ?? NaN) % 7
     if (value === undefined) {
@@ -35,7 +35,7 @@ const query = {
     }
     return this.add(delta, 'day')
   },
-  dayName(value, forward) { return value === undefined ? days()[this.day()] : this.day(value, forward) },
+  dayName(value, forward) { return value === undefined ? days()[this.day()] || '' : this.day(value, forward) },
   dayOfYear(value) {
     return value === undefined ? this._clock?.dayOfYear ?? NaN : this.add(Number(value) - this.dayOfYear(), 'day')
   },
@@ -88,17 +88,24 @@ const query = {
   },
   era(value) {
     if (value !== undefined) {
-      return this.year(Math.abs(this.year()) * (value.toLowerCase() === 'bc' ? -1 : 1))
+      value = value.trim().toLowerCase()
+      if (value !== 'bc' && value !== 'ad') {
+        throw new RangeError('Invalid era')
+      }
+      return this.year(Math.abs(this.year()) * (value === 'bc' ? -1 : 1))
+    }
+    if (!this.isValid()) {
+      return ''
     }
     return this.year() < 0 ? 'BC' : 'AD'
   },
   hour12(value, forward) {
     if (value === undefined) {
-      return this.hour() % 12 || 12
+      return this.isValid() ? this.hour() % 12 || 12 : NaN
     }
     const match = String(value).trim().toLowerCase().match(/^([0-9]{1,2})(am|pm)$/)
-    if (!match) {
-      return this.clone()
+    if (!match || Number(match[1]) < 1 || Number(match[1]) > 12) {
+      throw new RangeError('Invalid 12-hour clock value')
     }
     return this.hour(Number(match[1]) % 12 + (match[2] === 'pm' ? 12 : 0), forward)
   },
@@ -111,12 +118,22 @@ const query = {
   },
   ampm(value, forward) {
     if (value === undefined) {
+      if (!this.isValid()) {
+        return ''
+      }
       return this.hour() >= 12 ? 'pm' : 'am'
     }
-    return this.hour(this.hour() % 12 + (value.toLowerCase() === 'pm' ? 12 : 0), forward)
+    value = value.trim().toLowerCase()
+    if (value !== 'am' && value !== 'pm') {
+      throw new RangeError('Invalid AM/PM value')
+    }
+    return this.hour(this.hour() % 12 + (value === 'pm' ? 12 : 0), forward)
   },
   time(value, forward) {
     if (value === undefined) {
+      if (!this.isValid()) {
+        return ''
+      }
       return `${this.hour12()}:${String(this.minute()).padStart(2, '0')}${this.ampm()}`
     }
     const s = this.clone()

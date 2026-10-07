@@ -30,3 +30,8 @@ const certain: Temporal.ZonedDateTime = spacetime('bad input').toTemporal()
 // @ts-expect-error Native Temporal types are retained, not any.
 native?.nonexistent()
 void [native, formatted, epoch, equal, months, certain]
+
+// @ts-expect-error Named-season boundaries are not supported.
+s.startOf('season')
+// @ts-expect-error Weekend differences are not supported.
+s.diff(s, 'weekend')

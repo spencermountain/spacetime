@@ -12,63 +12,17 @@ test('daytime-consistent', (t) => {
 })
 
 test('daytime-sanity-test', (t) => {
-  let s = spacetime.now()
-  let time = '2am'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'night', time + ' is night')
-
-  time = '7am'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'morning', time + ' is morning')
-
-  time = '7:01am'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'morning', time + ' is morning')
-
-  time = '11:59am'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'morning', time + ' is morning')
-
-  time = '12:00pm'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'afternoon', time + ' is afternoon')
-
-  time = '12:01pm'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'afternoon', time + ' is afternoon')
-
-  time = '2:47pm'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'afternoon', time + ' is afternoon')
-
-  time = '6pm'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'evening', time + ' is evening')
-
-  time = '6:02pm'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'evening', time + ' is evening')
-
-  time = '9:07pm'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'evening', time + ' is evening')
-
-  time = '11pm'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'night', time + ' is night')
-
-  time = '12am'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'night', time + ' is night')
-
-  time = '12:00am'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'night', time + ' is night')
-
-  time = '12:01am'
-  s = s.time(time)
-  t.equal(s.dayTime(), 'night', time + ' is night')
-
+  const s = spacetime('2020-01-15', 'UTC')
+  const cases = [
+    ['2am', 'night'], ['7am', 'morning'], ['7:01am', 'morning'],
+    ['11:59am', 'morning'], ['12:00pm', 'afternoon'], ['12:01pm', 'afternoon'],
+    ['2:47pm', 'afternoon'], ['6pm', 'evening'], ['6:02pm', 'evening'],
+    ['9:07pm', 'evening'], ['11pm', 'night'], ['12am', 'night'],
+    ['12:00am', 'night'], ['12:01am', 'night']
+  ]
+  cases.forEach(([time, expected]) => {
+    t.equal(s.time(time).dayTime(), expected, `2020-01-15 UTC: dayTime at ${time}`)
+  })
   t.end()
 })
 

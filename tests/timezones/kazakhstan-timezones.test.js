@@ -26,15 +26,10 @@ test('kazakhstan-timezones-utc5', (t) => {
 })
 
 test('kazakhstan-timezone-names', (t) => {
-  // Test that Kazakhstan timezone names are properly recognized
-  const s1 = spacetime.now('Asia/Almaty')
-  t.ok(s1.timezone().name, 'Asia/Almaty should be recognized')
-
-  const s2 = spacetime.now('Asia/Qyzylorda')
-  t.ok(s2.timezone().name, 'Asia/Qyzylorda should be recognized')
-
-  const s3 = spacetime.now('Asia/Qostanay')
-  t.ok(s3.timezone().name, 'Asia/Qostanay should be recognized')
-
+  const input = '2024-06-15T12:00:00'
+  const zones = ['Asia/Almaty', 'Asia/Qyzylorda', 'Asia/Qostanay']
+  zones.forEach(zone => {
+    t.equal(spacetime(input, zone).timezone().name, zone, `${input} ${zone}: timezone preserves the name`)
+  })
   t.end()
 })

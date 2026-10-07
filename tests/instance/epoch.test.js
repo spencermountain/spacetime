@@ -6,7 +6,8 @@ test('fromUnixSeconds', (t) => {
   const secs = 1744200453
   const a = spacetime.fromUnixSeconds(secs)
   const b = spacetime(mils)
-  t.ok(a.isSame('hour', b), 'mils=secs')
+  t.equal(a.epoch, 1744200453000, 'fromUnixSeconds(1744200453) converts to milliseconds')
+  t.equal(b.epoch - a.epoch, 183, 'millisecond input retains the fractional second')
 
   let s = spacetime.fromUnixSeconds(secs, 'Canada/Eastern')
   t.equal(s.iso(), '2025-04-09T08:07:33.000-04:00', '8am et');

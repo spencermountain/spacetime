@@ -1,3 +1,4 @@
+import temporal from './rollup.temporal.config.js'
 import sizeCheck from 'rollup-plugin-filesize-check'
 import terser from '@rollup/plugin-terser'
 import fs from 'node:fs'
@@ -7,7 +8,7 @@ console.log('\n 📦  - running rollup..\n')
 
 const banner = `/* spencermountain/${pkg.name} ${pkg.version} ${pkg.license} */`
 
-export default {
+const main = {
   input: 'src/index.js',
   output: [
     {
@@ -37,3 +38,5 @@ export default {
     }
   ]
 }
+
+export default [main, temporal]

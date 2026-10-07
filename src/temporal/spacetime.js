@@ -1,4 +1,4 @@
-import { attempt } from './_errors.js'
+import attempt from './_errors.js'
 import normalizeTimezone from './timezone.js'
 import parse from './parse.js'
 import format from '../methods/format/index.js'

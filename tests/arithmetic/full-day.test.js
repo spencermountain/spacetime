@@ -76,17 +76,18 @@ test('never cross the intl dateline moving right', (t) => {
     //h ocklock on right side of the map
     const rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Fiji')
     const time = h + ':01'
-    t.equal(rightSide.format('time-24'), time, 'time is ' + time)
-    t.equal(rightSide.date(), 24, 'date is 24th')
+    const label = `${rightSide.iso()} ${rightSide.tz}: goto across the date line`
+    t.equal(rightSide.format('time-24'), time, `${label}: source time is ${time}`)
+    t.equal(rightSide.date(), 24, `${label}: source date is 24`)
     //try move across dateline (to left side of the map)
     const leftSide = rightSide.clone().goto('Pacific/Midway')
-    t.ok(leftSide.epoch === rightSide.epoch, 'we never actually moved')
+    t.equal(leftSide.epoch, rightSide.epoch, `${label}: preserves the instant`)
     //but...
     if (leftSide.date() === rightSide.date()) {
-      t.ok(leftSide.hour() < rightSide.hour(), '.. but hour moved backward')
+      t.ok(leftSide.hour() < rightSide.hour(), `${label}: local hour moves backward`)
     } else {
-      t.ok(leftSide.date() + 1 === rightSide.date(), '..but date moved backward')
-      t.ok(leftSide.hour() > rightSide.hour(), '..and hour moved < 24')
+      t.equal(leftSide.date(), 23, `${label}: destination is the previous day`)
+      t.ok(leftSide.hour() > rightSide.hour(), `${label}: local clock wraps across midnight`)
     }
   }
   t.end()
@@ -97,17 +98,18 @@ test('never cross the intl dateline moving left', (t) => {
     //h ocklock on right side of the map
     const rightSide = spacetime([2022, 8, 24, h, 1], 'Pacific/Midway')
     const time = h + ':01'
-    t.equal(rightSide.format('time-24'), time, 'time is ' + time)
-    t.equal(rightSide.date(), 24, 'date is 24th')
+    const label = `${rightSide.iso()} ${rightSide.tz}: goto across the date line`
+    t.equal(rightSide.format('time-24'), time, `${label}: source time is ${time}`)
+    t.equal(rightSide.date(), 24, `${label}: source date is 24`)
     //try move across dateline (to left side of the map)
     const leftSide = rightSide.clone().goto('Pacific/Fiji')
-    t.ok(leftSide.epoch === rightSide.epoch, 'we never actually moved')
+    t.equal(leftSide.epoch, rightSide.epoch, `${label}: preserves the instant`)
     //but...
     if (leftSide.date() === rightSide.date()) {
-      t.ok(leftSide.hour() > rightSide.hour(), '.. but hour moved forward')
+      t.ok(leftSide.hour() > rightSide.hour(), `${label}: local hour moves forward`)
     } else {
-      t.ok(leftSide.date() - 1 === rightSide.date(), '..but date moved forward')
-      t.ok(leftSide.hour() <= rightSide.hour(), '..and hour moved < 24')
+      t.equal(leftSide.date(), 25, `${label}: destination is the next day`)
+      t.ok(leftSide.hour() <= rightSide.hour(), `${label}: local clock wraps across midnight`)
     }
   }
   t.end()

@@ -18,8 +18,8 @@ test('round the final result when the starting time is not on a boundary', (t) =
   cases.forEach(([input, amount, unit, expected]) => {
     const s = spacetime(input, 'UTC')
     t.equal(s.add(amount, unit).iso(), expected, `${input} + ${amount} ${unit}: round the final time`)
-    t.equal(s.subtract(-amount, unit).iso(), expected, 'subtracting the opposite amount agrees')
-    t.equal(s.epoch, Date.parse(input), 'rounding leaves the starting time unchanged')
+    t.equal(s.subtract(-amount, unit).iso(), expected, `${input} UTC: subtract(${-amount}, ${unit}) matches add(${amount}, ${unit})`)
+    t.equal(s.epoch, Date.parse(input), `${input} UTC: add/subtract ${amount} ${unit} preserves the original`)
   })
   const local = spacetime('2025-06-18T10:45:00', 'Asia/Kathmandu')
   t.equal(local.add(0.5, 'day').iso(), '2025-06-18T23:00:00.000+05:45', 'round to a local hour, not a UTC hour')

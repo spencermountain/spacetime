@@ -1,3 +1,4 @@
+import { inputTimezone, toTemporal } from './input/temporal.js'
 import quickOffset from './timezone/quick.js'
 import findTz from './timezone/find.js'
 import handleInput from './input/index.js'
@@ -15,7 +16,7 @@ const SpaceTime = function (input, tz, options = {}) {
   // the holy moment
   this.epoch = null
   // the shift for the given timezone
-  this.tz = findTz(tz, timezones)
+  this.tz = findTz(tz ?? inputTimezone(input), timezones)
   // whether to output warnings to console
   this.silent = typeof options.silent !== 'undefined' ? options.silent : true
   // favour british interpretation of 02/02/2018, etc
@@ -90,6 +91,10 @@ SpaceTime.prototype.toLocalDate = function () {
  */
 SpaceTime.prototype.toNativeDate = function () {
   return new Date(this.epoch)
+}
+
+SpaceTime.prototype.toTemporal = function () {
+  return toTemporal(this)
 }
 
 // append more methods

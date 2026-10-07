@@ -37,95 +37,50 @@ test('subtract', (t) => {
 })
 
 test('subtract-rollover', (t) => {
-  const s = spacetime('January 1, 2010 1:20:05', 'Canada/Pacific')
-
-  let tmp = s.clone()
-  tmp = tmp.subtract(8, 'hour')
-  t.equal(tmp.year(), 2009, 'minus-8-hours')
-
-  tmp = s.clone()
-  tmp = tmp.subtract(3, 'day')
-  t.equal(tmp.year(), 2009, 'minus-3-days')
-
-  tmp = s.clone()
-  tmp = tmp.subtract(1, 'month')
-  t.equal(tmp.year(), 2009, 'minus-1-month')
-
-  tmp = s.clone()
-  tmp = tmp.subtract(4, 'month')
-  t.equal(tmp.year(), 2009, 'minus-4-months-still-1-year')
-
-  tmp = s.clone()
-  tmp = tmp.subtract(13, 'month')
-  t.equal(tmp.year(), 2008, 'minus-13-months-2-years')
-
-  tmp = s.clone()
-  tmp = tmp.subtract(0, 'month')
-  t.equal(tmp.year(), 2010, 'minus-0-months-0-years')
-  t.equal(tmp.monthName(), s.monthName(), '0-months-same-month')
-  t.equal(tmp.date(), s.date(), '0-months-same-date')
-
-  tmp = s.clone()
-  tmp = tmp.subtract(12, 'month')
-  t.equal(tmp.year(), 2009, 'minus-12-months-1-years')
-  t.equal(tmp.monthName(), s.monthName(), '12-months-same-month')
-  t.equal(tmp.date(), s.date(), '12-months-same-date')
-
-  tmp = s.clone()
-  tmp = tmp.subtract(120, 'month')
-  t.equal(tmp.year(), 2000, 'minus-120-months-10-years')
-  t.equal(tmp.monthName(), s.monthName(), 'same-month')
-  t.equal(tmp.date(), s.date(), 'same-date')
-
+  const input = '2010-01-01T01:20:05'
+  const zone = 'Canada/Pacific'
+  const s = spacetime(input, zone)
+  const cases = [
+    [8, 'hour', '2009-12-31', 17],
+    [3, 'day', '2009-12-29', 1],
+    [1, 'month', '2009-12-01', 1],
+    [4, 'month', '2009-09-01', 1],
+    [13, 'month', '2008-12-01', 1],
+    [0, 'month', '2010-01-01', 1],
+    [12, 'month', '2009-01-01', 1],
+    [120, 'month', '2000-01-01', 1]
+  ]
+  cases.forEach(([amount, unit, date, hour]) => {
+    const result = s.subtract(amount, unit)
+    const label = `${input} ${zone}: subtract(${amount}, ${unit})`
+    t.equal(result.format('iso-short'), date, `${label} sets the date`)
+    t.deepEqual([result.hour(), result.minute(), result.second(), result.millisecond()],
+      [hour, 20, 5, 0], `${label} preserves the local clock fields`)
+  })
   t.end()
 })
 
-
-
-test('month-rollover even', (t) => {
-  const s = spacetime('jan 1 2022')
-
-  let a = s.subtract(0, 'month');
-  t.equal(a.format('iso-short'), '2022-01-01', '0 years even')
-
-  a = s.subtract(12, 'month');
-  t.equal(a.format('iso-short'), '2021-01-01', '1 years even')
-
-  a = s.subtract(24, 'month');
-  t.equal(a.format('iso-short'), '2020-01-01', '2 years even')
-
-  a = s.subtract(36, 'month');
-  t.equal(a.format('iso-short'), '2019-01-01', '3 years even')
-
-  a = s.subtract(48, 'month');
-  t.equal(a.format('iso-short'), '2018-01-01', '4 years even')
-  t.end()
-})
-
-test('month-rollover + 1', (t) => {
-  const s = spacetime('jan 1 2022')
-
-  let a = s.subtract(1, 'month');
-  t.equal(a.format('iso-short'), '2021-12-01', '0 years +1m')
-
-  a = s.subtract(13, 'month');
-  t.equal(a.format('iso-short'), '2020-12-01', '1 years +1m')
-
-  a = s.subtract(25, 'month');
-  t.equal(a.format('iso-short'), '2019-12-01', '2 years +1m')
-
-  a = s.subtract(37, 'month');
-  t.equal(a.format('iso-short'), '2018-12-01', '3 years +1m')
-
-  a = s.subtract(49, 'month');
-  t.equal(a.format('iso-short'), '2017-12-01', '4 years +1m')
+test('month subtraction across multiple years', (t) => {
+  const input = '2022-01-01'
+  const s = spacetime(input, 'UTC')
+  const cases = [
+    [0, '2022-01-01'], [12, '2021-01-01'], [24, '2020-01-01'],
+    [36, '2019-01-01'], [48, '2018-01-01'],
+    [1, '2021-12-01'], [13, '2020-12-01'], [25, '2019-12-01'],
+    [37, '2018-12-01'], [49, '2017-12-01']
+  ]
+  cases.forEach(([months, expected]) => {
+    t.equal(s.subtract(months, 'month').format('iso-short'), expected, `${input} UTC: subtract(${months}, month)`)
+  })
   t.end()
 })
 
 test('subtract overflow', (t) => {
-  const s = spacetime.now()
-  const a = s.subtract(25, 'month');
-  const b = s.subtract(13, 'month');
-  t.ok(a.iso() !== b.iso(), 'subtractions not equal')
+  const input = '2024-03-31T12:30:00Z'
+  const s = spacetime(input, 'UTC')
+  const cases = [[25, '2022-02-28T12:30:00.000Z'], [13, '2023-02-28T12:30:00.000Z']]
+  cases.forEach(([months, expected]) => {
+    t.equal(s.subtract(months, 'month').iso(), expected, `${input} UTC: subtract(${months}, month) clamps February`)
+  })
   t.end()
 })

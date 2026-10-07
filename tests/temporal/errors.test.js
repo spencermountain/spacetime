@@ -16,6 +16,10 @@ test('Temporal errors: invalid values propagate without changing the receiver', 
     () => s.month('nonesuch'),
     () => s.day('nonesuch'),
     () => s.time('nonesuch'),
+    () => s.hour12('nonesuch'),
+    () => s.hour12('13pm'),
+    () => s.ampm('nonesuch'),
+    () => s.era('nonesuch'),
     () => s.goto('bad/zone'),
     () => s.timezone('bad/zone'),
     () => s.add(Infinity, 'day'),
@@ -24,6 +28,9 @@ test('Temporal errors: invalid values propagate without changing the receiver', 
     const invalid = make()
     t.notOk(invalid.isValid())
     t.equal(invalid.toTemporal(), null)
+    t.ok(Number.isNaN(invalid.hour12()))
+    t.equal(invalid.time(), '')
+    t.equal(invalid.monthName(), '')
     t.notOk(invalid.add(1, 'day').startOf('month').isValid())
     t.equal(invalid.format('iso'), '')
     t.ok(Number.isNaN(invalid.epochSeconds()))
@@ -61,5 +68,16 @@ test('Temporal errors: mutable epoch and timezone setters invalidate consistentl
   t.ok(s.isValid(), 'can recover using a valid epoch')
   s.tz = 'bad/zone'
   t.notOk(s.isValid())
+  t.end()
+})
+
+test('Temporal errors: missing runtime remains actionable', options, t => {
+  const native = globalThis.Temporal
+  try {
+    globalThis.Temporal = undefined
+    t.throws(() => spacetime('2024-01-01', 'UTC'), /requires native Temporal/)
+  } finally {
+    globalThis.Temporal = native
+  }
   t.end()
 })
