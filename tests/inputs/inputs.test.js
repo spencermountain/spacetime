@@ -111,10 +111,10 @@ test('obj-input', (t) => {
 })
 
 test('date-input', (t) => {
-  const d = new Date('March 11, 2017')
-  const s = spacetime(d)
+  const d = new Date('2017-03-11T12:00:00-05:00')
+  const s = spacetime(d, 'UTC')
   t.ok(s.isValid(), 'date object input is valid')
-  // t.equal(s.date(), 11, 'date-date');//FIXME:!
+  t.equal(s.date(), 11, 'date-date')
   t.equal(s.year(), 2017, 'date-year')
   t.equal(s.monthName(), 'march', 'date-month')
   t.end()
@@ -133,7 +133,7 @@ test('self-input', (t) => {
 test('inputs-in-comparisons', (t) => {
   const s = spacetime('March 11, 2017')
   t.ok(s.isAfter(new Date('March 10, 2017')), 'compare with date obj')
-  // t.ok(s.isBefore([2022, 3, 2]), 'compare with array'); //this isn't working yet
+  t.ok(s.isBefore([2022, 3, 2]), 'compare with array')
   const future = spacetime([2022, 3, 2])
   t.ok(s.isBefore(future.epoch), 'compare with epoch')
   t.ok(s.isBefore(future), 'compare with spacetimeObj')

@@ -75,15 +75,15 @@ test('week input=output current-uear', (t) => {
 })
 
 
-test('week 1 stays week 1', (t) => {
+test('week 1 at the year boundary', (t) => {
   const isos = [
     '2014-12-29',//monday
     '2014-12-30',//tues
     '2014-12-31',//wed
-    // '2014-01-01',//thurs //TODO:fixme
-    // '2014-01-02',//fri
-    // '2014-01-03',//sat
-    // '2014-01-04',//sun
+    '2015-01-01',
+    '2015-01-02',
+    '2015-01-03',
+    '2015-01-04',
   ]
   isos.forEach(iso => {
     let s = spacetime(iso)
@@ -91,19 +91,20 @@ test('week 1 stays week 1', (t) => {
     s = s.week(1)//set it as same week
     t.equal(s.week(), 1, 'still wk1' + iso)
     t.equal(s.year(), 2014, 'still year ' + iso)
-    t.equal(s.format('iso-short'), iso, 'same-day ' + iso)
+    // Late December is preserved; January setters select the week's Monday.
+    const expected = iso.startsWith('2014') ? iso : '2014-12-29'
+    t.equal(s.format('iso-short'), expected, 'week setter ' + iso)
   })
   t.end()
 })
 
 test('week number', (t) => {
-  //TODO: these should pass
   t.equal(spacetime('jan 1st 2018').week(), 1, '2018 first week') //monday
   t.equal(spacetime('jan 9th 2018').week(), 2, '2018 second week') //tuesday
-  // t.equal(spacetime('jan 15th 2018').week(), 3, '2018 third week') //monday
+  t.equal(spacetime('jan 15th 2018').week(), 3, '2018 third week') //monday
 
   t.equal(spacetime('jan 1th 2019').week(), 1, '2019 first week') //tuesday
-  // t.equal(spacetime('jan 9th 2019').week(), 2, '2019 second week') //wednesday
-  // t.equal(spacetime('jan 15th 2019').week(), 3, '2019 third week') //tuesday
+  t.equal(spacetime('jan 9th 2019').week(), 2, '2019 second week') //wednesday
+  t.equal(spacetime('jan 15th 2019').week(), 3, '2019 third week') //tuesday
   t.end()
 })

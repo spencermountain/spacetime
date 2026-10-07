@@ -19,8 +19,14 @@
       }
     },
     "./temporal": {
-      "import": "./builds/spacetime-temporal.mjs",
-      "require": "./builds/spacetime-temporal.cjs"
+      "import": {
+        "types": "./types/temporal.d.ts",
+        "default": "./builds/spacetime-temporal.mjs"
+      },
+      "require": {
+        "types": "./types/temporal.d.cts",
+        "default": "./builds/spacetime-temporal.cjs"
+      }
     }
   },
   "main": "./src/index.js",
@@ -36,13 +42,18 @@
     "pack": "node ./zonefile/pack.js",
     "version": "node ./scripts/version.js",
     "watch": "node --watch ./scratch.js",
-    "test": "tape './tests/**/*.test.js' | tap-dancer  --color always",
-    "testb": "TESTENV=prod tape './tests/**/*.test.js' | tap-dancer  --color always",
-    "test:types": "tsx ./tests/types/index.ts | tap-dancer  --color always",
+    "test": "tape --strict './tests/**/*.test.js' | tap-dancer --color always",
+    "testb": "TESTENV=prod tape --strict './tests/**/*.test.js' | tap-dancer --color always",
+    "test:temporal": "node scripts/test-temporal.js",
+    "testb:temporal": "pnpm build:temporal && node scripts/test-temporal.js --prod",
+    "test:temporal:types": "tsc --project tests/temporal-types/tsconfig.json",
+    "test:temporal:all": "node scripts/test-temporal.js --all",
+    "check:types": "tsc --project ./tests/types/tsconfig.json",
+    "test:types": "pnpm check:types && node --import tsx ./tests/types/index.ts | tap-dancer --color always",
     "test:release": "node ./scripts/check-release.js",
     "coverage": "nyc -r lcov -n 'src/**/*' -n 'plugins/**/*' npm run coverage:tests",
     "coverage:tests": "npm run test",
-    "lint": "eslint ./src ./scripts"
+    "lint": "eslint ./src ./scripts ./tests"
   },
   "files": [
     "api",
@@ -58,13 +69,17 @@
   ],
   "devDependencies": {
     "@rollup/plugin-terser": "^1.0.0",
+    "@types/node": "^26.6.4",
+    "@types/tape": "^5.8.1",
     "eslint": "^10.11.0",
     "eslint-plugin-regexp": "3.3.1",
     "rollup": "4.63.5",
     "rollup-plugin-filesize-check": "2.0.1",
     "tap-dancer": "0.4.3",
     "tape": "5.10.2",
-    "timekeeper": "2.3.1"
+    "timekeeper": "2.3.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   },
   "unpkg": "builds/spacetime.min.js",
   "prettier": {

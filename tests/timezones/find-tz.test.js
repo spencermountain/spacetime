@@ -51,13 +51,13 @@ test('throw-error-on-invalid', (t) => {
   try {
     spacetime('12pm', 'invalid-timezone')
     t.ok(false, 'did-not-throw-exception')
-  } catch (e) {
+  } catch {
     t.ok(true, 'threw-exception-on-input')
   }
   try {
     spacetime.now().goto('canada/nope')
     t.ok(false, 'goto-did-not-throw-exception')
-  } catch (e) {
+  } catch {
     t.ok(true, 'threw-exception-on-goto')
   }
   t.end()

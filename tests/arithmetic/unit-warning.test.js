@@ -1,3 +1,4 @@
+/* eslint-disable no-console -- Intercept warnings to assert their contents. */
 import test from 'tape'
 import spacetime from '../_lib/index.js'
 

@@ -54,9 +54,8 @@ test('day-of-year', (t) => {
   s = spacetime('February 11, 2017 2:00:00', 'Canada/Eastern')
   t.equal(s.dayOfYear(), 42, 'feb 1()')
 
-  //after feb29th, there could be a leapyear
-  // s = spacetime('December 31, 2017 2:00:00', 'Canada/Eastern');
-  // t.equal(s.dayOfYear(), 364, 'December 31()');
+  s = spacetime('December 31, 2017 2:00:00', 'Canada/Eastern')
+  t.equal(s.dayOfYear(), 365, 'December 31 in a common year')
 
   t.end()
 })

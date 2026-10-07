@@ -4,23 +4,22 @@ import useOldTz from '../_lib/use-old-tz.js'
 
 // Nov 1 @ 2am
 test('day-dst', (t) => {
+  useOldTz(spacetime(null, 'UTC'), t)
   // (sunday)
   let d = spacetime('2020-11-01T00:00:00', 'America/Chicago')
-  d = useOldTz(d, t)
   t.equal(d.format('{day}'), 'Sunday', 'set day init')
   d = d.day('monday')
   t.equal(d.format('{day}'), 'Monday', 'set day -fwd')
   // (sunday again)
   d = spacetime('2020-11-01T04:00:00', 'America/Chicago')
-  d = useOldTz(d, t)
   d = d.day('saturday')
   t.equal(d.format('{day}'), 'Saturday', 'set day -bkwd')
   t.end()
 })
 
 test('hour-dst', (t) => {
+  useOldTz(spacetime(null, 'UTC'), t)
   let d = spacetime('2020-11-01T00:01:00', 'America/Chicago')
-  d = useOldTz(d, t)
   t.equal(d.format('{time}'), '12:01am', 'set init hour')
   d = d.hour(5)
   t.equal(d.format('{time}'), '5:01am', 'set new hour - fwd')
@@ -30,8 +29,8 @@ test('hour-dst', (t) => {
 })
 
 test('time-dst', (t) => {
+  useOldTz(spacetime(null, 'UTC'), t)
   let d = spacetime('2020-11-01T00:40:00', 'America/Chicago')
-  d = useOldTz(d, t)
   t.equal(d.format('{time}'), '12:40am', 'set init time')
   d = d.time('5:20am')
   t.equal(d.format('{time}'), '5:20am', 'set new time - fwd')
@@ -41,8 +40,8 @@ test('time-dst', (t) => {
 })
 
 test('date-dst', (t) => {
+  useOldTz(spacetime(null, 'UTC'), t)
   let d = spacetime('2020-11-01T01:40:00', 'America/Chicago')
-  d = useOldTz(d, t)
   t.equal(d.format('iso-short'), '2020-11-01', 'set init date')
   d = d.date(2)
   t.equal(d.format('iso-short'), '2020-11-02', 'set new date - fwd')
@@ -52,8 +51,8 @@ test('date-dst', (t) => {
 })
 
 test('month-dst', (t) => {
+  useOldTz(spacetime(null, 'UTC'), t)
   let d = spacetime('2020-11-01T01:40:00', 'America/Chicago')
-  d = useOldTz(d, t)
   t.equal(d.format('iso-short'), '2020-11-01', 'set init month')
   d = d.month('dec')
   t.equal(d.format('iso-short'), '2020-12-01', 'set new month - fwd')
@@ -63,8 +62,8 @@ test('month-dst', (t) => {
 })
 
 test('dayOfYear-dst', (t) => {
+  useOldTz(spacetime(null, 'UTC'), t)
   let d = spacetime('2020-11-01T01:40:00', 'America/Chicago')
-  d = useOldTz(d, t)
   t.equal(d.dayOfYear(), 306, 'set init dayOfYear')
   d = d.dayOfYear(307)
   t.equal(d.dayOfYear(), 307, 'set new dayOfYear - fwd')
@@ -75,8 +74,8 @@ test('dayOfYear-dst', (t) => {
 
 // -5hrs -> -6hrs
 test('start-end-dst', (t) => {
+  useOldTz(spacetime(null, 'UTC'), t)
   let d = spacetime('2020-11-01T00:00:00', 'America/Chicago')
-  d = useOldTz(d, t)
   t.equal(d.iso(), '2020-11-01T00:00:00.000-05:00', 'set init iso')
   d = d.endOf('day')
   t.equal(d.iso(), '2020-11-01T23:59:59.999-06:00', 'end of day - backwd')

@@ -1,4 +1,3 @@
-import { default as spacetimejs } from '../../builds/spacetime.cjs'
-import { SpacetimeStatic } from '../../types/constructors'
+import spacetime from 'spacetime'
 
-export const spacetime: SpacetimeStatic = <any>spacetimejs
+export { spacetime }

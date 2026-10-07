@@ -84,11 +84,11 @@ test('set', (t) => {
   s = s.time('13:20pm')
   t.equal(s.hour(), 13, 'time-hour-24h()')
   t.equal(s.minute(), 20, 'time-minute-24h()')
-  t.equal(s.era(), 'AD', '2017 ad')
+  t.equal(s.era(), 'AD', 'ad before era setter')
 
   s = s.era('bc')
-  t.equal(s.era(), 'BC', '2015 bc')
-  // t.equal(s.year(), -2015, '-2015') //may be broken?
+  t.equal(s.era(), 'BC', 'bc after era setter')
+  t.equal(s.year(), -2014, 'era setter preserves year magnitude after week crossed into 2014')
   t.end()
 })
 

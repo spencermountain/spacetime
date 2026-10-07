@@ -47,7 +47,7 @@ test('diff-big', (t) => {
   t.equal(obj.seconds, 631152000, 'big-s')
   t.equal(obj.hours, 175320, 'big-hour')
   t.equal(obj.days, 7305, 'big-day')
-  // t.equal(obj.weeks, 1044, 'big-weeks') //some side-effect of making 'add' dst awareness
+  t.equal(obj.weeks, 1043, '7305 days contain 1043 complete weeks')
   t.equal(obj.months, 240, 'big-months')
   t.equal(obj.years, 20, 'big-years')
   t.end()

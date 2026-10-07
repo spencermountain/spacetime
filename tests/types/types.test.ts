@@ -1,5 +1,5 @@
 import { default as test } from 'tape'
-import { spacetime } from './spacetime-static'
+import { spacetime } from './spacetime-static.js'
 
 test('Spacetime base properties exist', (t: test.Test) => {
   const obj = spacetime.now()

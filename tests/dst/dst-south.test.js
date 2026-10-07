@@ -66,7 +66,9 @@ function intlOffsetMin(tz, utcISO) {
     .formatToParts(new Date(utcISO))
     .find((x) => x.type === 'timeZoneName').value // e.g. 'GMT+11:00'
   const m = v.match(/GMT([+-])(\d{2}):(\d{2})/)
-  if (!m) return 0
+  if (!m) {
+    return 0
+  }
   const sign = m[1] === '-' ? -1 : 1
   return sign * (+m[2] * 60 + +m[3])
 }

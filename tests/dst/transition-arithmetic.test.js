@@ -5,8 +5,8 @@ import useOldTz from '../_lib/use-old-tz.js'
 // 12:00am  ->  1:02am  ->  2nd 1:02am ->  2:02am
 // dst:true -> dst:true -> dst:false   ->  dst:false
 test('add-fall-dst', (t) => {
+  useOldTz(spacetime(null, 'UTC'), t)
   let d = spacetime('2020-11-01T00:02:00', 'America/Chicago')
-  d = useOldTz(d, t)
   t.equal(d.timezone().current.isDST, true, `${d.time()} true`)
   t.equal(d.time(), '12:02am', '12:02am')
 
@@ -33,30 +33,27 @@ test('add-fall-dst', (t) => {
   t.equal(d.time(), '1:32am', '1:32am - 2nd time')
   t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
 
-  // let d= spacetime('Dec 15th 2020').time('1:32am')
-  // d = d.add(30, 'minutes')
-  // t.equal(d.time(), '2:02am', '2:02am')
-  // t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
-
+  d = d.add(30, 'minutes')
+  t.equal(d.time(), '2:02am', '2:02am')
+  t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
   t.end()
 })
 
-// 3:02am -> 2:02am -> 1:02am  |->  1:02am(2)  ->  2:02am -> 1:02am
-//  false -> false  -> false   |->    true     ->  true   -> true
+// Subtraction traverses the repeated hour in reverse.
 
 test('dst-fall-minus', (t) => {
+  useOldTz(spacetime(null, 'UTC'), t)
   let d = spacetime('2020-11-01', 'America/Chicago')
-  d = useOldTz(d, t)
   d = d.set('2020-11-01T03:01:00').goto('America/Chicago')
   t.equal(d.time(), '3:01am', '3:01am')
   t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
 
   d = d.minus(30, 'minutes')
-  // t.equal(d.time(), '2:31am', '2:31am')
+  t.equal(d.time(), '2:31am', '2:31am')
   t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
 
   d = d.minus(30, 'minutes')
-  // t.equal(d.time(), '2:01am', '2:01am')
+  t.equal(d.time(), '2:01am', '2:01am')
   t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
 
   d = d.minus(30, 'minutes')
@@ -89,8 +86,8 @@ test('dst-fall-minus', (t) => {
 // 12:00am  ->  1:02am  ->  3:02am ->  4:02am
 //  false   ->   false  ->  true   ->  true
 test('add-spring-dst', (t) => {
+  useOldTz(spacetime(null, 'UTC'), t)
   let d = spacetime('2020-03-08T00:02:00', 'America/Chicago')
-  d = useOldTz(d, t)
   t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
   t.equal(d.time(), '12:02am', '12:02am')
 
@@ -100,19 +97,16 @@ test('add-spring-dst', (t) => {
 
   d = d.add(30, 'minutes')
   t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
-  // t.equal(d.time(), '1:02am', '1:02am')  //FIXME
-
+  t.equal(d.time(), '1:02am', '1:02am')
   d = d.add(30, 'minutes')
   t.equal(d.timezone().current.isDST, false, `${d.time()} false`)
-  // t.equal(d.time(), '1:32am', '1:32am') // FIXME
-
+  t.equal(d.time(), '1:32am', '1:32am')
   // ---skip 2am---
   d = d.add(30, 'minutes')
   t.equal(d.timezone().current.isDST, true, `${d.time()} true`)
-  // t.equal(d.time(), '3:02am', '3:02am')
-
+  t.equal(d.time(), '3:02am', '3:02am')
   d = d.add(30, 'minutes')
   t.equal(d.timezone().current.isDST, true, `${d.time()} true`)
-  // t.equal(d.time(), '3:32am', '3:32am')
+  t.equal(d.time(), '3:32am', '3:32am')
   t.end()
 })

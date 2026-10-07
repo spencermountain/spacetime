@@ -1,3 +1,5 @@
+import { attempt } from './_errors.js'
+import normalizeTimezone from './timezone.js'
 import parse from './parse.js'
 import format from '../methods/format/index.js'
 import unixFmt from '../methods/format/unixFmt.js'
@@ -9,7 +11,7 @@ import compare from './compare.js'
 class Spacetime {
   constructor(input, tz, options = {}) {
     const T = temporal()
-    this._tz = tz || input?.timeZoneId || T.Now.timeZoneId()
+    this._tz = T.Now.timeZoneId()
     this._weekStart = options.weekStart ?? 1
     this._today = { ...options.today }
     this.british = options.dmy || options.british
@@ -17,9 +19,10 @@ class Spacetime {
     this._pending = null
     // Only input errors become invalid dates; missing Temporal remains actionable.
     try {
+      this._tz = normalizeTimezone(tz, input?.timeZoneId || this._tz)
       this._value = T.Instant.fromEpochMilliseconds(Date.now()).toZonedDateTimeISO(this.tz)
       if (Object.keys(this._today).length) {
-        this._value = this._value.with(fieldValues(this._today))
+        this._value = this._value.with(fieldValues({ month: 0, date: 1, ...this._today }))
       }
       const result = parse(this, input)
       this._value = result._value
@@ -40,15 +43,23 @@ class Spacetime {
     this._pending = null
     this._value = null
     if (typeof value === 'number' && Number.isFinite(value)) {
-      this._value = temporal().Instant.fromEpochMilliseconds(Math.trunc(value)).toZonedDateTimeISO(this.tz)
+      attempt(this, () => {
+        this._value = temporal().Instant.fromEpochMilliseconds(Math.trunc(value)).toZonedDateTimeISO(this.tz)
+        return this
+      })
     }
   }
   get tz() { return this._tz }
   set tz(value) {
-    if (this._value) {
-      this._value = this._value.withTimeZone(value)
-    }
-    this._tz = value
+    const result = attempt(this, () => {
+      const s = this.clone()
+      s._tz = normalizeTimezone(value, temporal().Now.timeZoneId())
+      if (s._value) {
+        s._value = s._value.withTimeZone(s._tz)
+      }
+      return s
+    })
+    Object.assign(this, result)
   }
 
   clone() { return Object.assign(Object.create(Object.getPrototypeOf(this)), this, { _today: { ...this._today } }) }
@@ -76,6 +87,7 @@ class Spacetime {
   }
   timezone(tz) {
     if (tz !== undefined) {
+      tz = normalizeTimezone(tz, temporal().Now.timeZoneId())
       const s = this.clone()
       s._tz = tz
       if (s.isValid() && !s._pending) {
@@ -95,7 +107,7 @@ class Spacetime {
       this.epoch = value * 1000
       return this
     }
-    return Math.floor(this.epoch / 1000)
+    return this.isValid() ? Math.floor(this.epoch / 1000) : NaN
   }
   json(input) {
     if (input !== undefined) {
@@ -106,5 +118,18 @@ class Spacetime {
   }
 }
 Object.assign(Spacetime.prototype, query, arithmetic, compare)
+
+// Guard value-changing APIs without changing the return types of their getters.
+const setters = [...Object.keys(query), 'timezone', 'json']
+const transformations = ['add', 'subtract', 'plus', 'minus', 'startOf', 'endOf', 'next', 'last', 'nearest', 'round', 'goto']
+for (const name of [...setters, ...transformations]) {
+  const method = Spacetime.prototype[name]
+  Spacetime.prototype[name] = function (...args) {
+    if (setters.includes(name) && args[0] === undefined) {
+      return method.apply(this, args)
+    }
+    return attempt(this, () => method.apply(this, args))
+  }
+}
 
 export default Spacetime

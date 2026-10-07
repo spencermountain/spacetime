@@ -8,6 +8,8 @@ This project follows semVer, where:
  -->
  ### 7.17.0 [Oct 2026]
  - **[change]** - better support for fractional arithmetic
+ - **[new]** - experimental `spacetime/temporal` wrapper 
+- **[fix]** - typescript types
 
  ### 7.16.0 [Oct 2026]
 - **[change]** - deprecated but exposed `.d` date now is in UTC - users can do `s.toNativeDate()`

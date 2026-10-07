@@ -1,27 +1,16 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "es5",
-    "esModuleInterop": true,
-    "module": "commonjs",
-    "lib": [],
-    "allowJs": true,
-    "checkJs": true,
-    "declaration": true,
-    "sourceMap": false,
-    "importHelpers": true,
-    "downlevelIteration": true,
-    "isolatedModules": true,
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "types": ["node"],
     "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
+    "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
-  }
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["*.ts", "*.mts", "*.cts"]
 }

@@ -1,20 +1,42 @@
-import { duration, unitName } from './_lib.js'
+import addFraction from '../methods/_lib/fractional.js'
+import { duration, unitName, isBoundary } from './_lib.js'
 
 const arithmetic = {
   add(amount, unit) {
-    if (!this.isValid()) {
+    if (!this.isValid() || !unit || Number(amount) === 0) {
       return this.clone()
     }
-    return this._result(this._clock.add(duration(Number(amount), unit)))
+    const name = unitName(unit)
+    const values = duration(Number(amount), name)
+    if (!values) {
+      if (this.silent === false) {
+        console.warn(`Warn: unsupported arithmetic unit "${unit}"`) // eslint-disable-line no-console
+      }
+      return this.clone()
+    }
+    if (Number.isFinite(Number(amount)) && !Number.isInteger(Number(amount))) {
+      const fractional = addFraction(this.clone(), Number(amount), name === 'day' ? 'date' : name)
+      if (fractional) {
+        return fractional
+      }
+    }
+    let result = this._result(this._clock.add(values))
+    if (name === 'weekend' && result.day() !== 6) {
+      result = result.day(6, true)
+    }
+    return result
   },
   subtract(amount, unit) { return this.add(-Number(amount), unit) },
   startOf(unit) {
     unit = unitName(unit)
-    if (!this.isValid() || unit === 'millisecond') {
+    if (!this.isValid() || !isBoundary(unit)) {
       return this.clone()
     }
     const s = this.clone()
     const values = { microsecond: 0, nanosecond: 0 }
+    if (unit === 'millisecond') {
+      return s._with(values)
+    }
     const clock = ['second', 'minute', 'hour']
     const index = clock.indexOf(unit)
     if (index !== -1 || unit === 'quarterhour') {
@@ -44,7 +66,7 @@ const arithmetic = {
       const size = { year: 1, decade: 10, century: 100, millennium: 1000 }[unit]
       values.year = Math.trunc(s.year() / size) * size
     } else if (unit !== 'day') {
-      throw new RangeError(`Unsupported Temporal boundary: ${unit}`)
+      return s
     }
     const result = s._with(values)
     if (result._pending) {
@@ -52,10 +74,13 @@ const arithmetic = {
     }
     return result._result(result._value.startOfDay())
   },
-  endOf(unit) { return this.startOf(unit).add(1, unit).subtract(1, 'millisecond') },
-  next(unit) { return this.add(1, unit).startOf(unit) },
-  last(unit) { return this.subtract(1, unit).startOf(unit) },
+  endOf(unit) { return isBoundary(unit) ? this.startOf(unit).add(1, unit).subtract(1, 'millisecond') : this.clone() },
+  next(unit) { return isBoundary(unit) ? this.add(1, unit).startOf(unit) : this.clone() },
+  last(unit) { return isBoundary(unit) ? this.subtract(1, unit).startOf(unit) : this.clone() },
   progress(unit) {
+    if (!this.isValid() || !isBoundary(unit)) {
+      return NaN
+    }
     const start = this.startOf(unit).epoch
     const end = this.startOf(unit).add(1, unit).epoch
     return (this.epoch - start) / (end - start)

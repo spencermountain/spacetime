@@ -1,6 +1,6 @@
 import { default as test } from 'tape'
-import { spacetime } from './spacetime-static'
-import { ParsableDate } from '../../types/types'
+import { spacetime } from './spacetime-static.js'
+import type { ParsableDate } from 'spacetime'
 
 test('static api exists', (t: test.Test) => {
   t.equal(typeof spacetime, 'function', 'default is a function')

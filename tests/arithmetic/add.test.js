@@ -41,12 +41,12 @@ test('add', (t) => {
   t.equal(s.year(), 2018, 'moveyear.year()')
 
   s = spacetime('January 1, 2017 1:20:05', 'Canada/Eastern')
-  // s.add(1, 'quarter');
-  // t.equal(s.date(), 1, 'movequarter.date()');
-  // t.equal(s.monthName(), 'april', 'movequarter.date()');
+  s = s.add(1, 'quarter')
+  t.equal(s.date(), 1, 'movequarter.date()')
+  t.equal(s.monthName(), 'april', 'movequarter.month()')
   s = s.add(2, 'years')
   t.equal(s.date(), 1, 'moveyear-.date()')
-  // t.equal(s.monthName(), 'april', 'moveyear.month()');
+  t.equal(s.monthName(), 'april', 'moveyear.month()')
   t.equal(s.year(), 2019, 'moveyear.year()')
 
   s = s.add(1, 'decade')

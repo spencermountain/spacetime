@@ -163,22 +163,21 @@ test('test millisecond', (t) => {
   t.equal(date.unixFmt('SSS'), '020', 'Millisecond with pad in unix')
   t.end()
 })
-/* FIXME failing test
 test('unix-fmt-padding', t => {
-  let d = spacetime({
+  const d = spacetime({
     year: 2017,
     month: 'january',
-    day: 26,
+    date: 27,
     hour: 4,
     minute: 2
-  })
-  let str = d.format("ww DDD MM d, hh:mm a")
-  t.equal('04 027 Jan 27, 04:02 AM', str, 'string is 0-padded')
+  }, 'UTC')
+  const padded = d.unixFmt('ww DDD MMM dd, hh:mm a')
+  t.equal(padded, '04 027 Jan 27, 04:02 AM', 'string is 0-padded')
 
-  str = d.format("w D MM d, h:m a")
-  t.equal('4 27 Jan 27, 4:2 AM', str, 'string is not-0-padded')
-  t.end();
-});*/
+  const unpadded = d.unixFmt('w D MMM d, h:m a')
+  t.equal(unpadded, '4 27 Jan 27, 4:2 AM', 'string is not 0-padded')
+  t.end()
+})
 
 test('unix-year-padding', t => {
   let s = spacetime('sep 1 2022')
@@ -216,7 +215,7 @@ test('SQL ISO 9075', (t) => {
 test('epochSeconds', (t) => {
   let s = spacetime("2025-01-01T00:00.000Z")
   t.equal(s.epochSeconds(), 1735689600, 'jan-1-utc epochSeconds')
-  // t.equal(spacetime("foobar oh yeah").epochSeconds(), null, 'invalid epochSeconds')
+  t.equal(spacetime('foobar oh yeah').epochSeconds(), null, 'invalid epochSeconds')
 
   s = spacetime("April 5, 2025 12:43:50", 'Canada/Eastern')
   t.equal(s.epochSeconds(), 1743871430, 'apr-5 epochSeconds')

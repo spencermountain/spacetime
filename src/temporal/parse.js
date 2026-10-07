@@ -1,3 +1,4 @@
+import normalizeTimezone from './timezone.js'
 import ymd from '../input/formats/01-ymd.js'
 import mdy from '../input/formats/02-mdy.js'
 import dmy from '../input/formats/03-dmy.js'
@@ -40,7 +41,7 @@ const parse = (s, input) => {
   } else if (typeof input === 'number') {
     s.epoch = input
   } else if (input && typeof input === 'object' && 'epoch' in input) {
-    s._tz = input.tz || s.tz
+    s._tz = normalizeTimezone(input.tz, s.tz)
     if (input._value instanceof T.ZonedDateTime) {
       s._value = input._value
     } else {
@@ -52,7 +53,7 @@ const parse = (s, input) => {
       obj = Object.fromEntries(fields.map((key, i) => [key, input[i]]).filter(([, value]) => value !== undefined))
     }
     const values = { year: s.year(), month: 0, date: 1, ...s._today, ...obj }
-    s._tz = values.timezone || s.tz
+    s._tz = normalizeTimezone(values.timezone, s.tz)
     s._value = T.ZonedDateTime.from({ timeZone: s.tz, ...fieldValues(values) })
   } else if (typeof input === 'string' && input) {
     // Native ISO parsing preserves an explicit offset in a repeated DST hour.

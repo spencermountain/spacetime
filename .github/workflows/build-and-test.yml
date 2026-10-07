@@ -32,5 +32,6 @@ jobs:
           pnpm run test
           pnpm run build
           pnpm run testb
+          pnpm run test:types
         env:
           CI: true
