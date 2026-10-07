@@ -3708,6 +3708,54 @@ const addMethods$4 = Space => {
   });
 };
 
+const precision = {
+  second: 'millisecond',
+  minute: 'second',
+  quarterhour: 'minute',
+  hour: 'minute',
+  date: 'hour',
+  week: 'day',
+  month: 'day',
+  quarter: 'day',
+  season: 'day',
+  year: 'day'
+};
+const years = { decade: 10, century: 100 };
+
+const addFraction = (s, num, unit) => {
+  if (Object.hasOwn(years, unit)) {
+    return s.add(num * years[unit], 'year')
+  }
+  if (!Object.hasOwn(precision, unit)) {
+    return null
+  }
+  let duration = o[unit];
+  if (unit === 'month' || unit === 'quarter' || unit === 'season' || unit === 'year') {
+    // Keep calendar arithmetic for the whole part; only estimate the remainder.
+    s = s.add(Math.trunc(num), unit);
+    num %= 1;
+    duration = s.add(1, unit).epoch - s.epoch;
+    if (unit === 'month') {
+      duration = 28 * o.day;
+    }
+  } else if (unit === 'quarterhour') {
+    duration = 15 * o.minute;
+  }
+  s.epoch += num * duration;
+  const subunit = precision[unit];
+  if (subunit === 'millisecond') {
+    s.epoch = Math.round(s.epoch);
+    return s
+  }
+  // Round against local boundaries, including days with a DST transition.
+  const lower = s.startOf(subunit);
+  const upper = lower.add(1, subunit);
+  if (s.epoch - lower.epoch <= upper.epoch - s.epoch) {
+    return lower
+  }
+  return upper
+};
+
 // this logic is a bit of a mess,
 // but briefly:
 // millisecond-math, and some post-processing covers most-things
@@ -3769,6 +3817,16 @@ const addMethods$3 = (SpaceTime) => {
     if (unit === 'fortnight') {
       num *= 2;
       unit = 'week';
+    }
+    if (unit === 'millennium') {
+      return s.add(num * 1000, 'year')
+    }
+    // support 0.5 days, etc
+    if (Number.isFinite(num) && !Number.isInteger(num)) {
+      const fractional = addFraction(s, num, unit);
+      if (fractional) {
+        return fractional
+      }
     }
     if (!Object.hasOwn(o, unit) && !Object.hasOwn(keep, unit) && unit !== 'weekend') {
       if (s.silent === false) {

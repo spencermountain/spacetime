@@ -12,6 +12,7 @@ export type TimeUnit =
   | 'year'
   | 'decade'
   | 'century'
+  | 'millennium'
   | 'date'
   | 'milliseconds' //plural forms
   | 'seconds'
@@ -26,6 +27,7 @@ export type TimeUnit =
   | 'years'
   | 'decades'
   | 'centuries'
+  | 'millenniums'
   | 'dates'
 
 export type Format =

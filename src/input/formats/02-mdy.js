@@ -1,8 +1,7 @@
-import walkTo from '../../methods/set/walk.js'
 import { toCardinal } from '../../fns.js'
-import { validate, parseTime, parseYear, parseMonth, parseOffset } from './_parsers.js'
+import { validate, parseTime, parseYear, parseMonth } from './_parsers.js'
 
-export default [
+const create = (walkTo, parseOffset) => [
   // =====
   //  m-d-y
   // =====
@@ -111,3 +110,5 @@ export default [
     }
   }
 ]
+
+export default create
