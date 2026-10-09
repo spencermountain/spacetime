@@ -20,7 +20,8 @@
   "scripts": {
     "watch": "node --watch ./scratch.js",
     "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
-    "build": "rollup -c --silent"
+    "version": "node ./scripts/version.js",
+    "build": "node ./scripts/version.js && rollup -c --silent"
   },
   "files": [
     "builds"

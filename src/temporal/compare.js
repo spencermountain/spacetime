@@ -58,7 +58,7 @@ const operators = { isBefore: (a, b) => a < b, isAfter: (a, b) => a > b, isEqual
 Object.keys(operators).forEach((key) => {
   compare[key] = function (input) {
     const other = this.set(input)
-    return this.isValid() && other.isValid() ? operators[key](this.epoch, other.epoch) : null
+    return this.isValid() && other.isValid() ? operators[key](this._value.epochNanoseconds, other._value.epochNanoseconds) : null
   }
 })
 

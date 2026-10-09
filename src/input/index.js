@@ -57,7 +57,7 @@ const parseInput = (s, input, timezone) => {
   //support {year:2016, month:3} format
   if (isObject(input) === true) {
     //support spacetime object as input
-    if (Object.hasOwn(input, 'epoch')) {
+    if ('epoch' in input) {
       s.epoch = typeof input.epoch === 'number' ? input.epoch : NaN
       if (timezone == null && input.tz) {
         s.tz = input.tz

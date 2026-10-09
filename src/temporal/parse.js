@@ -6,6 +6,7 @@ import misc from '../input/formats/04-misc.js'
 import normalize from '../input/normalize.js'
 import namedDates from '../input/named-dates.js'
 import { fields, temporal, fieldValues } from './_lib.js'
+import { isoCalendar, incomplete, warn } from '../input/temporal-calendar.js'
 
 const walkTo = (s, input) => {
   s._pending = s._clock.with(fieldValues(input))
@@ -31,11 +32,14 @@ const parsers = [...ymd(walkTo, parseOffset), ...mdy(walkTo, parseOffset), ...dm
 const parse = (s, input) => {
   const T = temporal()
   if (input instanceof T.ZonedDateTime) {
-    s._value = input.withCalendar('iso8601').withTimeZone(s.tz)
+    s._value = isoCalendar(s, input).withTimeZone(s.tz)
   } else if (input instanceof T.Instant) {
     s._value = input.toZonedDateTimeISO(s.tz)
   } else if (input instanceof T.PlainDate || input instanceof T.PlainDateTime) {
-    s._value = input.toZonedDateTime(s.tz)
+    s._value = isoCalendar(s, input).toZonedDateTime(s.tz)
+  } else if (incomplete(input, T)) {
+    warn(s, 'Temporal input requires a complete date; convert it to a PlainDateTime or ZonedDateTime first')
+    s.epoch = null
   } else if (input instanceof Date) {
     s.epoch = input.getTime()
   } else if (typeof input === 'number') {
@@ -58,7 +62,7 @@ const parse = (s, input) => {
   } else if (typeof input === 'string' && input) {
     // Native ISO parsing preserves an explicit offset in a repeated DST hour.
     if (/^[+-]?[0-9]{4,6}-[0-9]{2}-[0-9]{2}T[^[]*\[[^[\]]+\](?:\[[^[\]]+\])?$/i.test(input)) {
-      s._value = T.ZonedDateTime.from(input).withCalendar('iso8601')
+      s._value = isoCalendar(s, T.ZonedDateTime.from(input))
       s._tz = s._value.timeZoneId
       return s
     }

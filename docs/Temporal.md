@@ -1,5 +1,8 @@
 # Spacetime with Temporal
 
+For interoperability with the **regular `spacetime` entry**, including the
+method-by-method ZonedDateTime comparison, see [Temporal interop](./temporal-interop.md).
+
 `spacetime/temporal` is an opt-in proof of concept that wrap Spacetime's familiar
 methods over the native Temporal API. It reuses the string parsers and
 formatters, but uses Temporal for calendar arithmetic and timezone calculations.
@@ -7,7 +10,7 @@ The regular `spacetime` entry remains independent.
 
 The goal is a small wrapper for common workflows, rather than complete API
 compatibility. It does not bundle Spacetime's timezone database or a Temporal
-polyfill. Use a runtime with `globalThis.Temporal`, such as Node 26. In a runtime
+polyfill. Feature-detect `globalThis.Temporal` in the intended runtime. In a runtime
 without Temporal, construction throws; the regular entry still works.
 
 ## Basic usage
@@ -101,9 +104,14 @@ s.toNativeDate() // JavaScript Date at the same instant
 The wrapper targets ISO/Gregorian calendar workflows. Non-ISO calendars and
 Temporal's full options surface, including custom DST disambiguation, are outside
 its compatibility contract; use native Temporal directly for those operations.
-The Spacetime-facing epoch, formatting, and end-of-unit conventions are based on
-milliseconds. Use `.toTemporal()` for native precision; do not assume a round trip
-through a Spacetime string or `.epoch` preserves sub-millisecond information.
+Non-ISO date objects and annotated strings are normalized to ISO with an opt-in
+warning (`silent: false`). Incomplete Temporal types are rejected as invalid.
+The Spacetime-facing epoch and end-of-unit conventions are based on milliseconds.
+Use `.toTemporal()` or `.format('iso-full')` for native precision: `iso-full` is
+exactly the native default `.toString()`, including nanoseconds. `.iso()`, `.json()`,
+`.epoch`, and JavaScript Date conversion do not carry that full precision.
+Instant comparisons (`isBefore`, `isAfter`, `isEqual`) use nanoseconds;
+`isSame(other, 'millisecond')` deliberately compares at millisecond precision.
 
 ---
 
@@ -218,7 +226,7 @@ Unit types distinguish arithmetic, boundary, and difference operations.
 ## Testing this entry
 
 ```sh
-pnpm test:temporal        # supported behavior, boundaries, and build-guard tests
+pnpm test:temporal        # supported behavior and boundaries
 pnpm run build           # build the regular and Temporal bundles together
 pnpm testb:temporal       # exercise the existing bundled entry
 pnpm test:temporal:types  # check ESM/CommonJS types and unsupported API rejection
@@ -231,8 +239,3 @@ and timezone travel preserving the instant. The full audit runs files separately
 so an unsupported API does not prevent other files from running. It is expected
 to report compatibility gaps and exit nonzero; it is not the release gate for
 this entry. Legacy tests that inject timezone tables cannot govern native Temporal.
-
-Every Temporal Rollup build rejects imports outside its small shared-module
-allowlist, including the legacy timezone engine and external runtime dependencies.
-Each output has budgets of 32 KiB minified and 10 KiB gzip. Build-guard tests
-verify that forbidden imports and exceeded budgets fail the build.

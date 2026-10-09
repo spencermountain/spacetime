@@ -1,3 +1,4 @@
+import version from './_version.js'
 import sunCalc from 'suncalc'
 import spacetimeGeo from 'spacetime-geo'
 import sunPosition from './sunPosition.js'
@@ -24,7 +25,7 @@ const calculatePoint = function (s, lat, lng, field) {
   return setFrom(s, res[field])
 }
 
-export default {
+const plugin = {
   //depend on this plugin
   in: spacetimeGeo.in,
   point: spacetimeGeo.point,
@@ -110,3 +111,8 @@ export default {
     }
   },
 }
+
+// Keep metadata out of spacetime.extend()'s method list.
+Object.defineProperty(plugin, 'version', { value: version })
+
+export default plugin

@@ -91,10 +91,28 @@ function formatTimezone(offset, delimiter = '') {
   return `${sign}${hours}${delimiter}${minutes}`
 }
 
+const warn = (s, message) => {
+  if (s.silent === false) {
+    console.warn(`Warn: ${message}`); // eslint-disable-line no-console
+  }
+};
+
+// Spacetime's month and year getters always describe the ISO calendar.
+const isoCalendar = (s, value) => {
+  if (value.calendarId !== 'iso8601') {
+    warn(s, `Temporal calendar "${value.calendarId}" converted to iso8601`);
+    return value.withCalendar('iso8601')
+  }
+  return value
+};
+
+const incomplete = (input, T) => input instanceof T.PlainTime || input instanceof T.PlainYearMonth ||
+  input instanceof T.PlainMonthDay || input instanceof T.Duration;
+
 // Legacy fractional Etc/GMT zones need a native fixed-offset identifier.
 const temporalZone = s => {
   const match = s.tz.match(/^etc\/gmt([+-][0-9]+(?:\.[0-9]+)?)$/i);
-  return match ? formatTimezone(-Number(match[1]), ':') : s.tz
+  return match ? formatTimezone(-Number(match[1]), ':') : s.timezone().name
 };
 
 const inputTimezone = input => {
@@ -108,11 +126,25 @@ const parseTemporal = (s, input) => {
     return null
   }
   if (input instanceof T.ZonedDateTime || input instanceof T.Instant) {
+    if (input instanceof T.ZonedDateTime) {
+      input = isoCalendar(s, input);
+    }
+    if (input.epochNanoseconds % 1000000n !== 0n) {
+      warn(s, 'Temporal sub-millisecond precision discarded; use spacetime/temporal to preserve it');
+    }
     s.epoch = input.epochMilliseconds;
+    const native = input instanceof T.Instant ? input.toZonedDateTimeISO(temporalZone(s)) : input.withTimeZone(temporalZone(s));
+    if (Math.round(s.offset() * 60000000000) !== native.offsetNanoseconds) {
+      warn(s, 'Spacetime timezone rules differ from Temporal at this instant; use spacetime/temporal for native wall-clock values');
+    }
     return s
   }
   if (input instanceof T.PlainDate || input instanceof T.PlainDateTime) {
-    s.epoch = input.toZonedDateTime(temporalZone(s)).epochMilliseconds;
+    return parseTemporal(s, isoCalendar(s, input).toZonedDateTime(temporalZone(s)))
+  }
+  if (incomplete(input, T)) {
+    warn(s, 'Temporal input requires a complete date; convert it to a PlainDateTime or ZonedDateTime first');
+    s.epoch = null;
     return s
   }
   return null
@@ -1422,7 +1454,7 @@ const parseInput = (s, input, timezone) => {
   //support {year:2016, month:3} format
   if (isObject(input) === true) {
     //support spacetime object as input
-    if (Object.hasOwn(input, 'epoch')) {
+    if ('epoch' in input) {
       s.epoch = typeof input.epoch === 'number' ? input.epoch : NaN;
       if (timezone == null && input.tz) {
         s.tz = input.tz;
@@ -1669,14 +1701,15 @@ const aliases = {
 };
 Object.keys(aliases).forEach((k) => (format[k] = format[aliases[k]]));
 
-const printFormat = (s, str = '') => {
+const printFormat = (s, str = '', overrides) => {
   //don't print anything if it's an invalid date
   if (s.isValid() !== true) {
     return ''
   }
+  const formats = format;
   //support .format('month')
-  if (format.hasOwnProperty(str)) {
-    let out = format[str](s) || '';
+  if (formats.hasOwnProperty(str)) {
+    let out = formats[str](s) || '';
     if (str !== 'json') {
       out = String(out);
       if (str.toLowerCase() !== 'ampm') {
@@ -1697,8 +1730,8 @@ const printFormat = (s, str = '') => {
       if (fmt !== 'AMPM') {
         fmt = fmt.toLowerCase();
       }
-      if (format.hasOwnProperty(fmt)) {
-        const out = String(format[fmt](s));
+      if (formats.hasOwnProperty(fmt)) {
+        const out = String(formats[fmt](s));
         if (fmt.toLowerCase() !== 'ampm') {
           return applyCaseFormat(out)
         }

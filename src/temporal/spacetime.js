@@ -8,6 +8,8 @@ import query from './query.js'
 import arithmetic from './arithmetic.js'
 import compare from './compare.js'
 
+const formats = { 'iso-full': s => s.toTemporal().toString() }
+
 class Spacetime {
   constructor(input, tz, options = {}) {
     const T = temporal()
@@ -98,7 +100,7 @@ class Spacetime {
     return { name: this._value?.timeZoneId || this.tz, current: { offset: this.offset() / 60 } }
   }
   offset() { return this._value ? this._value.offsetNanoseconds / 60000000000 : NaN }
-  format(fmt) { return format(this, fmt) }
+  format(fmt) { return format(this, fmt, formats) }
   unixFmt(fmt) { return this.isValid() ? unixFmt(this, fmt) : '' }
   iso(input) { return input === undefined ? this.format('iso') : this.set(input) }
   isoFull(input) { return input === undefined ? this.format('iso-full') : this.set(input) }

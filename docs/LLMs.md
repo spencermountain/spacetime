@@ -23,16 +23,16 @@ const out = s.format('{day-short} {month} {date-ordinal}, {time}') // 'Thu March
 
 ## Docs
 
-- [start here](./docs/README.md) - overview and task index
-- [API](./docs/edge-cases.md) - full method list
-- [inputs](./docs/inputs.md) - date/time parsing and supported formats
-- [getters](./docs/getters.md) - getting specific datetime information
-- [setters](./docs/setters.md) - modifying the datetime
-- [formatting](./docs/formatting.md) - customizable output formats
-- [timezones](./docs/timezones.md) - setting and changing iana zones
-- [comparisons](./docs/comparisons.md) - utility functions on datetimes
-- [edge cases](./docs/edge-cases.md) - DST, clamping, invalid inputs, and shared state
-- [plugins](./docs/plugins.md) - extending or changing spacetime behaviour
+- [start here](./README.md) - overview and task index
+- [API](./API.md) - full method list
+- [inputs](./inputs.md) - date/time parsing and supported formats
+- [getters](./getters.md) - getting specific datetime information
+- [setters](./setters.md) - modifying the datetime
+- [formatting](./formatting.md) - customizable output formats
+- [timezones](./timezones.md) - setting and changing iana zones
+- [comparisons](./comparisons.md) - utility functions on datetimes
+- [edge cases](./edge-cases.md) - DST, clamping, invalid inputs, and shared state
+- [plugins](./plugins.md) - extending or changing spacetime behaviour
 
 ---
 
@@ -80,6 +80,6 @@ isoFull, timezone`. `epochSeconds()` also has a setter, but it mutates the insta
 - Putting the timezone first
   - constructor timezone is the **2nd** argument; `now(tz)` takes it first.
 - Using `goto()` when you meant `timezone()` (or vice versa): `goto(tz)` keeps
-  the instant; `timezone(tz)` keeps the wall-clock values. See [timezones](./docs/timezones.md).
+  the instant; `timezone(tz)` keeps the wall-clock values. See [timezones](./timezones.md).
 - Expecting `s.epoch()` / `s.tz()` as methods → `epoch` and `tz` are
   **properties** (no parentheses). `epochSeconds()` _is_ a method.

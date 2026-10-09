@@ -1,3 +1,4 @@
+import version from './_version.js'
 const defaults = {
   interval: 1000, // ms between ticks
   rate: 1 // speed, relative to real-time
@@ -58,5 +59,8 @@ const methods = {
     return this
   }
 }
+
+// Keep metadata out of spacetime.extend()'s method list.
+Object.defineProperty(methods, 'version', { value: version })
 
 export default methods

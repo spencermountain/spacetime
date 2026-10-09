@@ -2,7 +2,7 @@
 
 Import with `import spacetime from 'spacetime'` or `const spacetime = require('spacetime')`.
 Here, `s` is a Spacetime instance, `?` means optional, and `→` describes the return value.
-For runnable examples, see the [usage guide](./docs/README.md).
+For runnable examples, see the [usage guide](./README.md).
 
 ## Conventions
 
@@ -11,7 +11,7 @@ For runnable examples, see the [usage guide](./docs/README.md).
 - **Timezones:** use an IANA name such as `'America/New_York'` or `'UTC'`. Omitted zones default to the host timezone unless the input supplies one.
 - **Inputs:** the constructor accepts a string, millisecond epoch, native `Date`, `Spacetime`, numeric array, or date-field object. `null`, `undefined`, and `''` mean now.
 - **Comparisons:** prefer valid Spacetime objects for `other`, `start`, and `end`; accepted input forms vary between methods.
-- **Limits:** timezone data, DST, clamping, and shared state have [edge cases](./docs/edge-cases.md). Validate dates with `isValid()` before using them.
+- **Limits:** timezone data, DST, clamping, and shared state have [edge cases](./edge-cases.md). Validate dates with `isValid()` before using them.
 
 ## Creation and static helpers
 
@@ -56,7 +56,7 @@ For runnable examples, see the [usage guide](./docs/README.md).
 Call without a value to read; pass a value to get a new `Spacetime`, except for
 the marked `epochSeconds` mutation. Getter types and ranges below describe valid dates.
 Where shown, `goForward = true` prevents moving backward and `false` prevents
-moving forward; equality is allowed. See [setter examples](./docs/setters.md).
+moving forward; equality is allowed. See [setter examples](./setters.md).
 
 - `s.millisecond(value?)` — getter: number, **0–999**; setter: numeric milliseconds.
 - `s.second(value?, goForward?)` — getter: number, **0–59**; setter: numeric seconds.
@@ -118,7 +118,7 @@ moving forward; equality is allowed. See [setter examples](./docs/setters.md).
 ## Formatting and inspection
 
 - `s.format(nameOrTemplate) → string` — named output such as `'iso-short'` or a template such as `'{iso-year}-{iso-month}-{date-pad}'`; `format('json')` returns an object instead.
-- `s.unixFmt(pattern) → string` — supported Unicode-style tokens, such as `'yyyy.MM.dd h:mm a'`; `MM` is numeric month, `MMM` is abbreviated name. See [formatting](./docs/formatting.md).
+- `s.unixFmt(pattern) → string` — supported Unicode-style tokens, such as `'yyyy.MM.dd h:mm a'`; `MM` is numeric month, `MMM` is abbreviated name. See [formatting](./formatting.md).
 - `s.toNativeDate() → Date` — native Date at the same epoch; native Dates do not retain the IANA timezone.
 - `s.isValid() → boolean` — whether the resulting date is valid; not strict validation of the original input.
 - `s.leapYear() → boolean` — whether this year is a leap year.
@@ -133,7 +133,7 @@ moving forward; equality is allowed. See [setter examples](./docs/setters.md).
 ## Configuration, aliases, and deprecated members
 
 - `s.weekStart(day) → s` — **mutates** the instance's week boundary; takes 0–6 or a weekday name. Clone first to preserve the original configuration.
-- `s.i18n(words) → s` — **changes shared language data** for all instances in this loaded library. Accepts day/month names, AM/PM markers, and other language settings; see [plugins](./docs/plugins.md).
+- `s.i18n(words) → s` — **changes shared language data** for all instances in this loaded library. Accepts day/month names, AM/PM markers, and other language settings; see [plugins](./plugins.md).
 - `s.inDST()` — alias of `isDST()`.
 - `s.plus(amount, unit)` / `s.minus(amount, unit)` — runtime aliases of `add` / `subtract`.
 - `s.hour24(...)` / `s.h24(...)` — runtime aliases of `hour`; `s.h12(...)` aliases `hour12`.
@@ -145,5 +145,5 @@ moving forward; equality is allowed. See [setter examples](./docs/setters.md).
 
 ## Reference sources
 
-- [API inventory](./api/index.js) — method catalog; this page corrects stale descriptions such as offset units and `from` direction using the implementation.
-- [Instance types](./types/types.d.ts), [constructor types](./types/constructors.d.ts), and [units/formats](./types/constraints.d.ts) — editor and TypeScript declarations. Some signatures lag runtime behavior: `fromNow` takes no argument, `dayOfYear` returns a number, `progress(unit)` returns a number, and several optional arguments and aliases are missing.
+- [API inventory](../api/index.js) — method catalog; this page corrects stale descriptions such as offset units and `from` direction using the implementation.
+- [Instance types](../types/types.d.ts), [constructor types](../types/constructors.d.ts), and [units/formats](../types/constraints.d.ts) — editor and TypeScript declarations. Some signatures lag runtime behavior: `fromNow` takes no argument, `dayOfYear` returns a number, `progress(unit)` returns a number, and several optional arguments and aliases are missing.

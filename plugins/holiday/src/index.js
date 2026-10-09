@@ -1,3 +1,4 @@
+import version from './_version.js'
 import spacetime from 'spacetime'
 import fixedDates from './01-fixedDates.js'
 import nthWeekday from './02-nthWeekday.js'
@@ -45,4 +46,6 @@ const spacetimeHoliday = function (str, year, tz) {
 
   return null
 }
+spacetimeHoliday.version = version
+
 export default spacetimeHoliday
