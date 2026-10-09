@@ -164,6 +164,57 @@ d.format('nice')
 
  </div>
 
+
+<!-- spacer -->
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/399657/68221814-05ed1680-ffb8-11e9-8b6b-c7528d163871.png"/>
+</div>
+
+## Temporal API adoption
+The new [Date replacement API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) is [finally landing](https://caniuse.com/temporal), and may serve as a near-perfect replacement for this library.
+
+If you want to get a Temporal object from spacetime, use `.toTemporal()`:
+```js
+const s = spacetime('june 8th 2021', 'America/Los_Angeles').time('16:22')
+// pass to Temporal API
+const dt = s.toTemporal() // (Temporal.ZonedDateTime)
+
+// get time
+let str = `${dt.hour}:${String(dt.minute).padStart(2, "0")}`
+// 16:22
+
+let tz = dt.timeZoneId
+// "America/Los_Angeles"
+```
+This method will throw if user does not support Temporal API.
+
+We also support their [cool new iso-format](https://www.rfc-editor.org/info/rfc9557/), so passing a date-time the other way is easy:
+```js
+let dt = Temporal.ZonedDateTime.from({ 
+  timeZone: 'America/Los_Angeles', 
+  year: 2021, month: 7, day: 8, 
+  hour: 16, minute: 22
+})
+const fullIso = dt.toString();
+// 2021-07-08T16:22:00.000-07:00[America/Los_Angeles]
+
+// reproduce it in spacetime:
+const s = spacetime(fullIso)
+const time = s.format('time-24') // 16:22
+const tz = s.format('iana') // America/Los_Angeles
+```
+
+If you wanted to keep the spacetime API, but use Temporal under-the-hood, we made this minimal wrapper:
+```js
+import spacetime from 'spacetime/temporal' // half the size
+
+let s = spacetime(`oct 9 '27`,'America/New_York')
+s = s.startOf('week').add(1, 'week')
+const out = s.format('{month-short} {date-ordinal}') 
+// Oct 11th
+```
+
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 plugins:
@@ -184,7 +235,7 @@ plugins:
 
 ## Date Inputs:
 
-we can parse _[all the normal stuff](https://github.com/spencermountain/spacetime/wiki/Input)_, and some fancy stuff:
+we can parse _[all the normal stuff](./docs/inputs.md)_, and some fancy stuff:
 
 ```js
 //epoch
@@ -382,7 +433,7 @@ console.log(s.isoFull())
 
 ## Date Formatting:
 
-it's _[a pretty-sensible process](https://github.com/spencermountain/spacetime/wiki/Formatting)_ to create nice-looking dates:
+it's _[a pretty-sensible process](./docs/formatting.md)_ to create nice-looking dates:
 
 ```js
 // Date + time formatting
@@ -437,7 +488,7 @@ for better or worse we copy the JavaScript spec for 0-based months, and 1-based 
 
 ISO-formatting is different, so keep on your toes.
 
-see [more considerations and gotchas](https://github.com/spencermountain/spacetime/wiki)
+see [more considerations and gotchas](./docs/edge-cases.md)
 
 #### Daylight-savings gotchas
 
