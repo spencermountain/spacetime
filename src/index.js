@@ -1,6 +1,7 @@
 import Spacetime from './spacetime.js'
 import whereIts from './whereIts.js'
 import version from './_version.js'
+import { tzdbVersion } from '../zonefile/_build.js'
 
 const main = (input, tz, options) => new Spacetime(input, tz, options)
 
@@ -62,6 +63,7 @@ main.min = function (tz, options) {
 //find tz by time
 main.whereIts = whereIts
 main.version = version
+main.tzdbVersion = tzdbVersion
 
 //aliases:
 main.plugin = main.extend
