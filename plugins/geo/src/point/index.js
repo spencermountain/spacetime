@@ -3,7 +3,7 @@ import points from './IANA-points.js'
 const point = function () {
   const tz = this.timezone().name
   if (points.hasOwnProperty(tz) === false) {
-    console.warn('Unable to find location for timezone ' + tz)
+    console.warn('Unable to find location for timezone ' + tz) // eslint-disable-line no-console
     return {}
   }
   const arr = points[tz].split(',')

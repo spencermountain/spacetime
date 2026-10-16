@@ -1,7 +1,7 @@
 import tzlookup from 'tz-lookup'
 //.trim() pollyfill
 if (!String.prototype.trim) {
-  const rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
+  const rtrim = /^\s+|\s+$/g
   String.prototype.trim = function () {
     return this.replace(rtrim, '')
   }
@@ -38,16 +38,16 @@ const findTz = function (geo, b) {
   }
   //validate lat/lng
   if (lat < -90 || lat > 90) {
-    console.warn('Invalid latitude: ' + lat)
+    console.warn('Invalid latitude: ' + lat) //eslint-disable-line no-console
     return this
   }
   if (lng < -180 || lng > 180) {
-    console.warn('Invalid longitude: ' + lng)
+    console.warn('Invalid longitude: ' + lng) //eslint-disable-line no-console
     return this
   }
   const tz = tzlookup(lat, lng)
   if (!tz) {
-    console.warn('Found no timezone for ' + lat + ', ' + lng)
+    console.warn('Found no timezone for ' + lat + ', ' + lng) //eslint-disable-line no-console
     return this
   }
   return this.goto(tz)

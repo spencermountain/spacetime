@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+
+/* eslint-disable no-console */
 import spacetime from 'spacetime'
 import minimist from 'minimist'
 import plg from './src/index.js'

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -18,16 +19,21 @@ const workDir = fs.mkdtempSync(join(tmpdir(), 'spacetime-geo-'))
 try {
   const archive = join(workDir, 'timezone-geojson.zip')
   const response = await fetch('https://www.geoapify.com/data-share/timezones/timezone-geojson.zip')
-  if (!response.ok) throw new Error(`Timezone download failed: HTTP ${response.status}`)
+  if (!response.ok) {
+    throw new Error(`Timezone download failed: HTTP ${response.status}`)
+  }
   await pipeline(Readable.fromWeb(response.body), fs.createWriteStream(archive))
   execFileSync('unzip', ['-o', archive, '-d', workDir], { stdio: 'inherit' })
 
   const sourceDir = join(workDir, 'timezone-geojson')
-  const files = new Map(fs.readdirSync(sourceDir)
-    .filter(file => file.endsWith('.geojson'))
-    .map(file => [file.toLowerCase(), join(sourceDir, file)]))
+  const files = new Map(
+    fs
+      .readdirSync(sourceDir)
+      .filter((file) => file.endsWith('.geojson'))
+      .map((file) => [file.toLowerCase(), join(sourceDir, file)])
+  )
   const combined = {}
-  Object.keys(zonefile).forEach(tz => {
+  Object.keys(zonefile).forEach((tz) => {
     const filename = tz.replaceAll('/', '__')
     const file = files.get(`${filename}.geojson`)
     if (file) {

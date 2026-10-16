@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
+
 import spacetime from 'spacetime'
 import soft from 'timezone-soft'
 const help = function () {

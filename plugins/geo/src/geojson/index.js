@@ -3,7 +3,7 @@ import data from './data.json' with { type: 'json' }
 const geojson = function () {
   const tz = this.timezone().name
   if (data.hasOwnProperty(tz) === false) {
-    console.warn('Unable to find geosjon for timezone ' + tz)
+    console.warn('Unable to find geosjon for timezone ' + tz) //eslint-disable-line no-console
     return null
   }
   return data[tz]

@@ -1,4 +1,3 @@
-import temporal from './rollup.temporal.config.js'
 import sizeCheck from 'rollup-plugin-filesize-check'
 import terser from '@rollup/plugin-terser'
 import fs from 'node:fs'
@@ -36,6 +35,14 @@ const main = {
         })
       ]
     }
+  ]
+}
+
+const temporal = {
+  input: 'src/temporal/index.js',
+  output: [
+    { file: 'builds/spacetime-temporal.mjs', format: 'esm', plugins: [terser()] },
+    { file: 'builds/spacetime-temporal.cjs', format: 'cjs', plugins: [terser()] }
   ]
 }
 
