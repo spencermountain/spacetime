@@ -1,6 +1,6 @@
 import spacetime from 'spacetime';
 
-var version = '0.3.0';
+var version = '0.4.0';
 
 //yep,
 const jan$1 = 'january';
