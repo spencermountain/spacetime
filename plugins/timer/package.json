@@ -1,21 +1,21 @@
 {
-  "name": "spacetime-start",
+  "name": "spacetime-timer",
   "version": "0.0.1",
   "description": "playback a spacetime object at real-rate, without drift",
   "license": "MIT",
   "repository": "github:spencermountain/spacetime",
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/start",
   "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
+  "minimumReleaseAge": "1 day",
   "type": "module",
   "exports": {
     ".": {
-      "require": "./builds/spacetime-start.cjs",
-      "import": "./builds/spacetime-start.mjs",
-      "default": "./builds/spacetime-start.mjs"
+      "require": "./builds/spacetime-timer.cjs",
+      "import": "./builds/spacetime-timer.mjs",
+      "default": "./builds/spacetime-timer.mjs"
     }
   },
   "main": "./src/index.js",
-  "module": "./builds/spacetime-start.mjs",
+  "module": "./builds/spacetime-timer.mjs",
   "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
@@ -35,7 +35,7 @@
   "peerDependencies": {
     "spacetime": "workspace:>=7.0.0"
   },
-  "unpkg": "builds/spacetime-start.min.js",
+  "unpkg": "builds/spacetime-timer.min.js",
   "prettier": {
     "trailingComma": "none",
     "tabWidth": 2,

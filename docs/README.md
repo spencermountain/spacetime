@@ -14,6 +14,8 @@ london.time() // '2:00pm'
 original.format('iso-short') // '2024-01-15' (unchanged)
 ```
 
+Supports Browsers Typescript, Commonjs, and Node 18+.
+
 ## Find the right page
 
 | Task                                                     | Guide                           |
@@ -26,22 +28,26 @@ original.format('iso-short') // '2024-01-15' (unchanged)
 | Convert zones or inspect offsets                         | [Timezones](./timezones.md)     |
 | Compare dates, measure differences, or iterate           | [Comparisons](./comparisons.md) |
 | Extend the API or change language data                   | [Plugins](./plugins.md)         |
-| Handle DST, month ends, invalid inputs, and shared state | [Edge cases](#edge-cases)   |
+| Handle DST, month ends, invalid inputs, and shared state | [Edge cases](#edge-cases)       |
 
-### Essential rules
+## Important concepts
 
-- Capture returned dates: `s = s.add(1, 'day')`. Most setters are immutable;
-  see [mutation exceptions](#mutation-and-shared-state).
-- Months are **0–11**; dates are **1–31**. `[2024, 0, 15]` means January 15.
-- Epoch numbers are **milliseconds**. Use `spacetime.fromUnixSeconds(seconds)`
-  for seconds. `s.epoch` and `s.tz` are properties, not methods.
-- Pass an explicit timezone for predictable results. The constructor is
-  `spacetime(input, timezone, options)`; current-date helpers use `now(timezone)`.
-- `goto(tz)` preserves the instant; `timezone(tz)` preserves wall-clock values.
-- `offset()` returns **minutes**; `timezone().current.offset` returns **hours**.
-
-Library supports browsers and Node.js 18+. Most setters return new instances: capture their return values.
-`epochSeconds(value)` and `weekStart(value)` mutate the instance; `i18n()` changes shared language settings.
+- **Capture returned dates:** `s = s.add(1, 'day')`. Most setters return new
+  instances; see [mutation exceptions](#mutation-and-shared-state).
+- **Months are 0–11; dates are 1–31.** `[2017, 5, 2]` means June 2, 2017.
+  Use `monthName()` for a name such as `'june'`.
+- **Epochs use milliseconds.** For seconds, use `spacetime.fromUnixSeconds(seconds)`.
+  `s.epoch` and `s.tz` are properties, not methods.
+- **Check timezone argument positions.** The constructor and `fromUnixSeconds`
+  take `(input, timezone?, options?)`; `now`, `today`, `tomorrow`, `yesterday`,
+  `min`, and `max` take `(timezone?, options?)`. Omitted zones default to the host
+  timezone; supply an IANA name such as `'America/New_York'` for predictable results.
+- **Getters and setters share method names.** `s.hour()` reads the hour;
+  `s.hour(9)` returns a date with that hour set.
+- **Choose the right timezone operation.** `goto(tz)` preserves the instant;
+  `timezone(tz)` preserves wall-clock values. See [timezones](./timezones.md).
+- **Offset units differ.** `offset()` returns minutes;
+  `timezone().current.offset` returns hours.
 
 ## Edge cases
 
@@ -93,8 +99,7 @@ s.hour(24).hour() // 23 (clamped)
 ```
 
 Check validity before comparing or doing arithmetic. `null`, `undefined`, and
-`''` as constructor inputs mean **now**, not invalid dates. Omitting a timezone
-also makes results depend on the host environment.
+`''` as constructor inputs mean **now**, not invalid dates.
 
 ### Range boundaries
 
@@ -108,13 +113,13 @@ steps and reasonable range sizes: results are eagerly collected into an array.
 ```js
 const start = spacetime('2024-01-01T12:00:00', 'UTC')
 const end = spacetime('2024-01-04', 'UTC')
-start.every('day', end).map(s => s.format('iso-short'))
+start.every('day', end).map((s) => s.format('iso-short'))
 // ['2024-01-02', '2024-01-03']
 ```
 
 ### Timezone conversion and the date line
 
-`goto()` preserves the epoch, but the local calendar date may change.
+Timezone conversion can change the local calendar date:
 
 ```js
 const s = spacetime('2024-01-15T12:00:00', 'Pacific/Kiritimati')
@@ -130,8 +135,7 @@ future policy changes. See [timezone data limits](./timezones.md#data-model-and-
 
 ### Mutation and shared state
 
-Arithmetic, `goto`, and most date setters return new objects. Exceptions in the
-current implementation:
+These operations mutate the receiver or shared state:
 
 - `epochSeconds(value)` changes the receiver's epoch and returns it. Use
   `spacetime.fromUnixSeconds(value, s.tz)` for a new instance.

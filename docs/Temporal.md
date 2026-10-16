@@ -108,6 +108,5 @@ names or fixed offsets such as `'+05:30'`; city-only names are unsupported.
 The entry includes separate TypeScript declarations referencing `esnext.temporal`;
 use a compiler that provides that library. Types do not supply runtime support.
 
-Run `pnpm test:temporal` for focused checks and `pnpm test:temporal:types` for
-its declarations. `pnpm test:temporal:all` audits legacy compatibility and is
-expected to report unsupported features.
+Run `pnpm test:temporal` for focused checks. Check the declarations with
+`pnpm exec tsc --project tests/temporal/temporal-types/tsconfig.json`.

@@ -223,7 +223,7 @@ const out = s.format('{month-short} {date-ordinal}')
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-plugins:
+#### Plugins:
 
  <div align="center">
     <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/geo">spacetime-geo</a>
@@ -231,10 +231,9 @@ plugins:
     • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/age">space-age</a>
   </div>
   <div align="center">
-    <a href="https://github.com/spencermountain/scal">spacetime-calendar</a>
     • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/week-of-month">week-of-month</a>
     • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/week-start">week-start</a>
-    • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/start">spacetime-start</a>
+    • <a href="https://github.com/spencermountain/spacetime/tree/master/plugins/timer">spacetime-timer</a>
   </div>
 
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
