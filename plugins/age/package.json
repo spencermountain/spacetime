@@ -39,6 +39,6 @@
     "printWidth": 100
   },
   "peerDependencies": {
-    "spacetime": "workspace:^"
+    "spacetime": "workspace:>=7.0.0"
   }
 }

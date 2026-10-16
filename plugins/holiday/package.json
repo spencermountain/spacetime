@@ -34,7 +34,7 @@
     "tape": "catalog:"
   },
   "peerDependencies": {
-    "spacetime": "workspace:^"
+    "spacetime": "workspace:>=7.0.0"
   },
   "unpkg": "builds/spacetime-holiday.min.js",
   "prettier": {

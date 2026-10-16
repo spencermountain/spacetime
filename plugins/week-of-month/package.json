@@ -17,7 +17,7 @@
   "module": "./builds/spacetime-week-of-month.mjs",
   "sideEffects": false,
   "scripts": {
-    "test": "TESTENV=dev tape ./week.test.js | tap-dancer  --color always",
+    "test": "TESTENV=dev tape ./week.test.js './tests/*.test.js' | tap-dancer  --color always",
     "version": "node ./scripts/version.js",
     "build": "node ./scripts/version.js && rollup -c --silent"
   },
@@ -39,7 +39,7 @@
     "printWidth": 100
   },
   "peerDependencies": {
-    "spacetime": "workspace:^"
+    "spacetime": "workspace:>=7.0.0"
   },
   "engines": {
     "node": ">=18.0.0"

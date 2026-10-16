@@ -9,12 +9,13 @@ import { pipeline } from 'node:stream/promises'
 import { simplify } from '@turf/simplify'
 import { createHash } from 'node:crypto'
 import zonefile from '../../../zonefile/iana.js'
+import pack from './pack-geojson.js'
 
 const sourceUrl = 'https://www.geoapify.com/data-share/timezones/timezone-geojson.zip'
-const outputFile = fileURLToPath(new URL('../src/geojson/data.json', import.meta.url))
-// degrees; ~11km at equator — tune for world-map vs boundary accuracy
+const outputFile = fileURLToPath(new URL('../src/geojson/packed.json', import.meta.url))
+// degrees; ~13km at equator — tune for world-map vs boundary accuracy
 const simplifyOptions = {
-  tolerance: 0.1,
+  tolerance: 0.12,
   highQuality: true,
   mutate: true
 }
@@ -44,7 +45,7 @@ try {
       if (tzData.type !== 'Feature' || !['Polygon', 'MultiPolygon'].includes(tzData.geometry?.type) || !tzData.geometry.coordinates.length) {
         throw new Error(`Invalid timezone geometry: ${tz}`)
       }
-      combined[tz] = simplify(tzData, simplifyOptions)
+      combined[tz] = pack(simplify(tzData, simplifyOptions))
     } else {
       console.log(`${filename}.geojson not found`)
     }

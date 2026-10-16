@@ -1,4 +1,4 @@
-import version from './_version.js'
+import version, { lookupVersion } from './_version.js'
 import find from './findTz/index.js'
 import point from './point/index.js'
 import geojson from './geojson/index.js'
@@ -10,6 +10,9 @@ const plugin = {
 }
 
 // Keep metadata out of spacetime.extend()'s method list.
-Object.defineProperty(plugin, 'version', { value: version })
+Object.defineProperties(plugin, {
+  version: { value: version },
+  lookupVersion: { value: lookupVersion }
+})
 
 export default plugin

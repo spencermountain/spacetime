@@ -33,7 +33,7 @@
     "tape": "catalog:"
   },
   "peerDependencies": {
-    "spacetime": "workspace:^"
+    "spacetime": "workspace:>=7.0.0"
   },
   "unpkg": "builds/spacetime-week-start.min.js",
   "prettier": {

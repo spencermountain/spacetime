@@ -75,7 +75,7 @@ importers:
         specifier: 'catalog:'
         version: 1.2.8
       spacetime:
-        specifier: workspace:^
+        specifier: workspace:>=7.0.0
         version: link:../..
     devDependencies:
       '@rollup/plugin-terser':
@@ -94,7 +94,7 @@ importers:
         specifier: 'catalog:'
         version: 1.2.8
       spacetime:
-        specifier: workspace:^
+        specifier: workspace:>=7.0.0
         version: link:../..
       timezone-soft:
         specifier: 1.5.2
@@ -107,7 +107,7 @@ importers:
   plugins/daylight:
     dependencies:
       spacetime:
-        specifier: workspace:^
+        specifier: workspace:>=7.0.0
         version: link:../..
       spacetime-geo:
         specifier: workspace:^
@@ -141,7 +141,7 @@ importers:
         specifier: 11.7.0
         version: 11.7.0
       spacetime:
-        specifier: workspace:^
+        specifier: workspace:>=7.0.0
         version: link:../..
     devDependencies:
       '@rollup/plugin-commonjs':
@@ -172,7 +172,7 @@ importers:
   plugins/holiday:
     dependencies:
       spacetime:
-        specifier: workspace:^
+        specifier: workspace:>=7.0.0
         version: link:../..
     devDependencies:
       '@rollup/plugin-terser':
@@ -191,7 +191,7 @@ importers:
   plugins/start:
     dependencies:
       spacetime:
-        specifier: workspace:^
+        specifier: workspace:>=7.0.0
         version: link:../..
     devDependencies:
       '@rollup/plugin-terser':
@@ -210,7 +210,7 @@ importers:
   plugins/week-of-month:
     dependencies:
       spacetime:
-        specifier: workspace:^
+        specifier: workspace:>=7.0.0
         version: link:../..
     devDependencies:
       '@rollup/plugin-terser':
@@ -229,7 +229,7 @@ importers:
   plugins/week-start:
     dependencies:
       spacetime:
-        specifier: workspace:^
+        specifier: workspace:>=7.0.0
         version: link:../..
     devDependencies:
       '@rollup/plugin-terser':

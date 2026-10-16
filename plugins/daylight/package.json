@@ -41,7 +41,7 @@
   },
   "unpkg": "builds/spacetime-daylight.min.js",
   "peerDependencies": {
-    "spacetime": "workspace:^"
+    "spacetime": "workspace:>=7.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
