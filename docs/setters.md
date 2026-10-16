@@ -55,7 +55,7 @@ s.nearest('quarterHour').time() // '2:30pm'
 ```
 
 Whole calendar-day and week arithmetic preserve clock time across DST where that time
-exists. Hours measure elapsed time. See [edge cases](./edge-cases.md).
+exists. Hours measure elapsed time. See [edge cases](./README.md#edge-cases).
 
 ### Fractional arithmetic
 
@@ -97,5 +97,5 @@ Do not assume every method implements every `TimeUnit` from the TypeScript union
 See the [API reference](./API.md#arithmetic-and-boundaries) for supported units
 and [comparisons](./comparisons.md) for differences and iteration.
 
-See [mutation exceptions](./edge-cases.md#mutation-and-shared-state) for
+See [mutation exceptions](./README.md#mutation-and-shared-state) for
 `epochSeconds(value)` and configuration methods.

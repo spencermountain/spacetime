@@ -77,4 +77,4 @@ but is currently absent from the TypeScript constructor-options declaration.
 
 Partial strings assume the first day for `'June 1992'`, the current year for
 `'June 5th'`, and January 1 for `'2030'`. `null`, `undefined`, and an empty string
-mean now. See [invalid-input edge cases](./edge-cases.md#invalid-inputs-and-clamping).
+mean now. See [invalid-input edge cases](./README.md#invalid-inputs-and-clamping).

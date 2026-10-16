@@ -23,14 +23,14 @@ const out = s.format('{day-short} {month} {date-ordinal}, {time}') // 'Thu March
 ## Docs
 
 * [start here](./docs/README.md) - overview and task index
-* [API](./docs/edge-cases.md) - full method list
+* [API](./docs/API.md) - full method list
 * [inputs](./docs/inputs.md) - date/time parsing and supported formats
 * [getters](./docs/getters.md) - getting specific datetime information
 * [setters](./docs/setters.md) - modifying the datetime
 * [formatting](./docs/formatting.md) - customizable output formats
 * [timezones](./docs/timezones.md) - setting and changing iana zones
 * [comparisons](./docs/comparisons.md) - utility functions on datetimes
-* [edge cases](./docs/edge-cases.md) - DST, clamping, invalid inputs, and shared state
+* [edge cases](./docs/README.md#edge-cases) - DST, clamping, invalid inputs, and shared state
 * [plugins](./docs/plugins.md) - extending or changing spacetime behaviour
 
 ---

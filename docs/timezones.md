@@ -43,7 +43,7 @@ s.time() // '3:00pm' (original unchanged)
 `timezone(tz)` preserves the **wall-clock values** and changes the instant.
 Both return new objects. `goto(null)` returns a new object in the local
 machine/browser timezone. Conversion can change the calendar date, including
-across the date line; see [edge cases](./edge-cases.md#timezone-conversion-and-the-date-line).
+across the date line; see [edge cases](./README.md#timezone-conversion-and-the-date-line).
 
 ## Offset and metadata
 
@@ -96,7 +96,7 @@ zone has DST rules. Southern zones can observe DST in January, and shifts are
 not always one hour. `goto()` applies the destination offset automatically.
 
 Calendar days and elapsed hours differ across transitions; see the
-[DST arithmetic example](./edge-cases.md#calendar-days-versus-elapsed-hours).
+[DST arithmetic example](./README.md#calendar-days-versus-elapsed-hours).
 
 ## Missing and repeated clock times
 

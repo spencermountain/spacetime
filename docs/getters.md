@@ -48,7 +48,7 @@ spacetime('not a date', 'UTC').isValid() // false
 ```
 
 `isValid()` checks the resulting date, not strict validation of the original
-input. Some out-of-range values are clamped; see [edge cases](./edge-cases.md).
+input. Some out-of-range values are clamped; see [edge cases](./README.md#edge-cases).
 
 The internal `.d` property and deprecated `.toLocalDate()` should be avoided;
 use `.toNativeDate()` for a native Date at the same instant.

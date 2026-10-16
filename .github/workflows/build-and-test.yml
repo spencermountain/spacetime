@@ -68,7 +68,7 @@ jobs:
         if: matrix.node-version == '26.x'
         env:
           TESTENV: temporal-prod
-        run: pnpm exec tape tests/temporal/_reporter.js './tests/temporal/*.test.js' './tests/integration/temporal*.test.js'
+        run: pnpm exec tape tests/temporal/_require.js './tests/temporal/*.test.js' './tests/integration/temporal*.test.js' | pnpm exec tap-dancer
 
       - name: Check types
         if: matrix.node-version == '26.x'

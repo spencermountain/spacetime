@@ -1,3 +1,5 @@
+## Spacetime
+
 > spacetime is a zero-dependency JavaScript library for working with dates across
 > timezones. It does timezone math (DST, leap years, hemispheres) **without** the
 > `Intl` API, and exposes a Moment-like, mostly **immutable** API.
@@ -12,21 +14,6 @@ london.time() // '2:00pm'
 original.format('iso-short') // '2024-01-15' (unchanged)
 ```
 
-## Essential rules
-
-- Capture returned dates: `s = s.add(1, 'day')`. Most setters are immutable;
-  see [mutation exceptions](./edge-cases.md#mutation-and-shared-state).
-- Months are **0–11**; dates are **1–31**. `[2024, 0, 15]` means January 15.
-- Epoch numbers are **milliseconds**. Use `spacetime.fromUnixSeconds(seconds)`
-  for seconds. `s.epoch` and `s.tz` are properties, not methods.
-- Pass an explicit timezone for predictable results. The constructor is
-  `spacetime(input, timezone, options)`; current-date helpers use `now(timezone)`.
-- `goto(tz)` preserves the instant; `timezone(tz)` preserves wall-clock values.
-- `offset()` returns **minutes**; `timezone().current.offset` returns **hours**.
-
-Library supports browsers and Node.js 18+. Most setters return new instances: capture their return values.
-`epochSeconds(value)` and `weekStart(value)` mutate the instance; `i18n()` changes shared language settings.
-
 ## Find the right page
 
 | Task                                                     | Guide                           |
@@ -39,7 +26,120 @@ Library supports browsers and Node.js 18+. Most setters return new instances: ca
 | Convert zones or inspect offsets                         | [Timezones](./timezones.md)     |
 | Compare dates, measure differences, or iterate           | [Comparisons](./comparisons.md) |
 | Extend the API or change language data                   | [Plugins](./plugins.md)         |
-| Handle DST, month ends, invalid inputs, and shared state | [Edge cases](./edge-cases.md)   |
+| Handle DST, month ends, invalid inputs, and shared state | [Edge cases](#edge-cases)   |
 
-Examples use default English language data. Import `spacetime` as shown above
-before running examples from the topic pages; each code block defines its own dates.
+### Essential rules
+
+- Capture returned dates: `s = s.add(1, 'day')`. Most setters are immutable;
+  see [mutation exceptions](#mutation-and-shared-state).
+- Months are **0–11**; dates are **1–31**. `[2024, 0, 15]` means January 15.
+- Epoch numbers are **milliseconds**. Use `spacetime.fromUnixSeconds(seconds)`
+  for seconds. `s.epoch` and `s.tz` are properties, not methods.
+- Pass an explicit timezone for predictable results. The constructor is
+  `spacetime(input, timezone, options)`; current-date helpers use `now(timezone)`.
+- `goto(tz)` preserves the instant; `timezone(tz)` preserves wall-clock values.
+- `offset()` returns **minutes**; `timezone().current.offset` returns **hours**.
+
+Library supports browsers and Node.js 18+. Most setters return new instances: capture their return values.
+`epochSeconds(value)` and `weekStart(value)` mutate the instance; `i18n()` changes shared language settings.
+
+## Edge cases
+
+### Calendar days versus elapsed hours
+
+Adding a calendar day preserves the local clock time where it exists. Adding
+24 hours measures elapsed time; the results can differ across DST. This example
+uses the March 8 transition in the currently bundled New York rules.
+
+```js
+const s = spacetime('2026-03-07T09:00:00', 'America/New_York')
+const nextDay = s.add(1, 'day')
+nextDay.iso() // '2026-03-08T09:00:00.000-04:00'
+s.add(24, 'hours').iso() // '2026-03-08T10:00:00.000-04:00'
+const elapsedHours = (nextDay.epoch - s.epoch) / 3600000
+elapsedHours // 23
+```
+
+For missing or repeated local times, see
+[DST disambiguation](./timezones.md#missing-and-repeated-clock-times).
+
+### Month ends
+
+Month setters and month arithmetic preserve the day where possible, clamping
+to the last available day. Clamping loses information, so reversing an operation
+need not recover the original date.
+
+```js
+const s = spacetime('2024-01-31', 'UTC')
+const feb = s.add(1, 'month')
+feb.format('iso-short') // '2024-02-29'
+feb.subtract(1, 'month').format('iso-short') // '2024-01-29'
+s.month('february').format('iso-short') // '2024-02-29'
+```
+
+### Invalid inputs and clamping
+
+`isValid()` checks the resulting date; it is not strict input validation.
+Validate input fields separately if clamping or defaults are inappropriate.
+
+```js
+const invalid = spacetime('not a date', 'UTC')
+invalid.isValid() // false
+invalid.format('iso') // ''
+
+const s = spacetime('2024-02-15', 'UTC')
+s.date(31).format('iso-short') // '2024-02-29' (clamped, still valid)
+s.hour(24).hour() // 23 (clamped)
+```
+
+Check validity before comparing or doing arithmetic. `null`, `undefined`, and
+`''` as constructor inputs mean **now**, not invalid dates. Omitting a timezone
+also makes results depend on the host environment.
+
+### Range boundaries
+
+`isBetween(start, end)` excludes both endpoints; pass `true` as the third
+argument to include them. `every`/`each` excludes the end, can include a start
+on a unit boundary, and moves an unaligned start to the next boundary.
+It returns an empty array when the span is less than the requested step in
+that unit, even if a boundary falls inside that short span. Use positive integer
+steps and reasonable range sizes: results are eagerly collected into an array.
+
+```js
+const start = spacetime('2024-01-01T12:00:00', 'UTC')
+const end = spacetime('2024-01-04', 'UTC')
+start.every('day', end).map(s => s.format('iso-short'))
+// ['2024-01-02', '2024-01-03']
+```
+
+### Timezone conversion and the date line
+
+`goto()` preserves the epoch, but the local calendar date may change.
+
+```js
+const s = spacetime('2024-01-15T12:00:00', 'Pacific/Kiritimati')
+const honolulu = s.goto('Pacific/Honolulu')
+honolulu.iso() // '2024-01-14T12:00:00.000-10:00'
+honolulu.epoch === s.epoch // true
+```
+
+### Historical timezones
+
+Bundled rules do not provide complete historical accuracy or anticipate
+future policy changes. See [timezone data limits](./timezones.md#data-model-and-historical-limits).
+
+### Mutation and shared state
+
+Arithmetic, `goto`, and most date setters return new objects. Exceptions in the
+current implementation:
+
+- `epochSeconds(value)` changes the receiver's epoch and returns it. Use
+  `spacetime.fromUnixSeconds(value, s.tz)` for a new instance.
+- `weekStart(value)` changes the receiver's week configuration and returns it.
+  Use `s.clone().weekStart(value)` to preserve the original configuration.
+- `i18n()` changes shared language data; cloning does not isolate it.
+- `spacetime.extend()` changes the shared prototype. The `timezones` data is
+  shared too; treat it as read-only during normal use.
+
+Direct writes to `s.epoch` or `s.tz` also mutate the instance. See
+[plugins](./plugins.md) for language and extension examples.

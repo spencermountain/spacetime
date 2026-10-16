@@ -147,10 +147,6 @@ d.format('nice')
       Website
     </a>
     &nbsp; &nbsp; • &nbsp; &nbsp;
-    <a href="docs/LLMs.md">
-      Agent Docs
-    </a>
-    &nbsp; &nbsp; • &nbsp; &nbsp;
     <a href="https://observablehq.com/@spencermountain/spacetime">
       Demos
     </a>
@@ -528,7 +524,7 @@ for better or worse we copy the JavaScript spec for 0-based months, and 1-based 
 
 ISO-formatting is different, so keep on your toes.
 
-see [more considerations and gotchas](./docs/edge-cases.md)
+see [more considerations and gotchas](./docs/README.md#edge-cases)
 
 #### Daylight-savings gotchas
 

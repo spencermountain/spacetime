@@ -11,7 +11,7 @@ For runnable examples, see the [usage guide](./README.md).
 - **Timezones:** use an IANA name such as `'America/New_York'` or `'UTC'`. Omitted zones default to the host timezone unless the input supplies one.
 - **Inputs:** the constructor accepts a string, millisecond epoch, native `Date`, `Spacetime`, numeric array, or date-field object. `null`, `undefined`, and `''` mean now.
 - **Comparisons:** prefer valid Spacetime objects for `other`, `start`, and `end`; accepted input forms vary between methods.
-- **Limits:** timezone data, DST, clamping, and shared state have [edge cases](./edge-cases.md). Validate dates with `isValid()` before using them.
+- **Limits:** timezone data, DST, clamping, and shared state have [edge cases](./README.md#edge-cases). Validate dates with `isValid()` before using them.
 
 ## Creation and static helpers
 
