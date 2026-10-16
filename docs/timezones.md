@@ -4,43 +4,26 @@ Import `spacetime` as shown in the [usage guide](./README.md).
 
 ## Supported IANA names
 
-Spacetime ships its own timezone list and offset rules. Use full names such as
-`America/New_York`, `Europe/London`, `Asia/Tokyo`, `Africa/Johannesburg`,
-`Australia/Sydney`, or `Pacific/Auckland`. Names with multiple path components,
-such as `America/Argentina/Buenos_Aires`, are supported when present in the list.
-
-- Names are matched case-insensitively and surrounding whitespace is trimmed.
-  `s.tz` stores the lowercase lookup name; `s.timezone().name` formats its casing.
-- The bundle includes legacy names such as `US/Eastern` and `Asia/Calcutta`.
-  Accepted aliases need not be rewritten to a single canonical name in `s.tz`.
-- Prefer full names over abbreviations or city-only shortcuts. `EST`, for
-  example, should not be used to mean New York with seasonal DST changes.
-- An unrecognized explicit timezone throws an error; `silent: true` does not
-  turn it into an invalid date or suppress the exception.
-- The installed library's list is authoritative. Do not assume every name in
-  the latest IANA database or the host's `Intl` list is supported by this bundle.
-
-List or validate names without constructing a date:
+Use full IANA names such as `America/New_York` or `Asia/Tokyo`. Names are
+case-insensitive and trimmed; `s.tz` stores the lowercase name. The bundle
+includes aliases, but does not necessarily support every name in the host's
+`Intl` database. Unknown explicit zones throw, even with `silent: true`.
+Prefer full names over abbreviations such as `EST` or city-only shortcuts.
 
 ```js
 const zones = spacetime.timezones()
 const names = Object.keys(zones).sort()
-const americanNames = names.filter(name => name.startsWith('america/'))
 const hasZone = name => Object.hasOwn(zones, name.trim().toLowerCase())
 hasZone('America/New_York') // true
-hasZone('America/Argentina/Buenos_Aires') // true
 hasZone('Not/A_Zone') // false
 ```
 
-This checks exact bundled names, including aliases, without relying on the
-resolver's loose matching. The list also includes `utc` and generated fixed-offset
-names; it is not a list of distinct cities or exclusively canonical IANA IDs.
-The returned data is shared: do not edit it to configure a single instance.
+This checks exact bundled names, including aliases and generated fixed offsets.
+The returned data is shared; treat it as read-only.
 
-If no zone is supplied, spacetime attempts to detect the host timezone using
-`Intl.DateTimeFormat().resolvedOptions().timeZone`, falling back to UTC when
-detection is unavailable or the detected name is unsupported. Offset and DST
-calculations themselves use bundled data, not `Intl`.
+Without a supplied zone, Spacetime detects the host zone through `Intl`, falling
+back to UTC if detection fails or the name is unsupported. Offset and DST
+calculations use bundled data.
 
 ## Convert an instant or reinterpret a clock time
 
@@ -72,16 +55,13 @@ s.timezone().name // 'America/New_York'
 s.hemisphere() // 'North'
 s.isDST() // true (for this instance's date)
 s.hasDST() // true (according to the bundled timezone rules)
-s.timezones // shared timezone data object, keyed by lowercase zone names
-spacetime.timezones() // the same shared timezone data
 spacetime.whereIts('8:30pm', '9:30pm') // zone names in this window right now
 ```
 
-`timezone()` returns metadata with `name`, `hasDst`, `default_offset` (hours),
-`hemisphere`, and `current: { offset, isDST }`. Here, `current` means the
-instance's instant, not necessarily now. `default_offset` and the raw timezone
-record's `offset` describe the stored interval (usually July); neither should
-be treated as the current offset or necessarily the standard-time offset.
+`timezone()` includes `name`, `hemisphere`, `hasDst`, `default_offset`, and
+`current: { offset, isDST }`. `current` refers to the instance's date, not now.
+Use `current.offset` for the offset in hours; `default_offset` describes the
+stored interval and is not necessarily the standard-time offset.
 
 Fractional offsets are supported: for example, `Asia/Kathmandu` has an offset
 of `345` minutes (`5.75` hours). Do not round offsets to whole hours.
@@ -111,34 +91,12 @@ other IANA consumers accept them. Prefer regional names for interoperability.
 
 ## How DST is applied
 
-Spacetime selects an offset from the instance's epoch and the zone's bundled
-transition rules. `isDST()` reports whether DST is active at that instant;
-`hasDST()` reports whether the bundled zone has DST rules at all. It does not
-mean the zone has always observed DST historically.
+`isDST()` checks the instance's date; `hasDST()` reports whether the bundled
+zone has DST rules. Southern zones can observe DST in January, and shifts are
+not always one hour. `goto()` applies the destination offset automatically.
 
-```js
-const winter = spacetime('2026-01-15T12:00:00', 'America/New_York')
-const summer = spacetime('2026-07-15T12:00:00', 'America/New_York')
-winter.hasDST() // true
-winter.isDST() // false
-winter.offset() // -300
-summer.isDST() // true
-summer.offset() // -240
-
-const sydney = spacetime('2026-01-15T12:00:00', 'Australia/Sydney')
-sydney.isDST() // true (southern summer)
-sydney.month('july').isDST() // false
-```
-
-- Seasons reverse between hemispheres; January can be DST in southern zones.
-- A DST shift is not always one hour. The runtime handles a half-hour shift
-  for `Australia/Lord_Howe` and a two-hour shift for `Antarctica/Troll`.
-- `goto()` preserves the epoch and uses the destination's offset at that
-  instant. Do not manually add or subtract a DST hour after conversion.
-- Calendar arithmetic such as `add(1, 'day')` preserves wall-clock time where
-  it exists; `add(24, 'hours')` measures elapsed time. A day spanning a DST
-  transition can be shorter or longer than 24 hours; see the
-  [DST arithmetic example](./edge-cases.md#calendar-days-versus-elapsed-hours).
+Calendar days and elapsed hours differ across transitions; see the
+[DST arithmetic example](./edge-cases.md#calendar-days-versus-elapsed-hours).
 
 ## Missing and repeated clock times
 
@@ -164,22 +122,12 @@ This example uses the November 1 transition in the currently bundled rules.
 
 ## Data model and historical limits
 
-The compact runtime data stores one offset inside a single annual interval
-and another outside it. DST metadata exposes the boundaries as
-`change: { start, back }`, using `MM/DD:HH` local times measured before each
-change. For southern zones, `start` can mark the end of DST rather than its
-beginning; use `isDST()` instead of interpreting the field names as DST flags.
+Bundled rules reuse fixed month/day transition boundaries in each requested
+year. They are not a complete history or recurring rules such as “the second
+Sunday in March,” so transitions can be wrong in other years even without a
+policy change. The model also cannot represent every seasonal or permanent
+offset change. Use a library with full historical data when needed.
 
-The stored month/day boundaries are reused in the requested year. They are
-not a complete history or recurring rules such as “the second Sunday in
-March.” Consequently, DST boundaries can be wrong in other years, even when
-the region's policy has not changed. The model also cannot represent every
-region's multiple seasonal changes, permanent offset moves, or transitions
-at minute/second precision.
-
-The library does not fetch timezone updates at runtime. Supported names and
-rules depend on the installed bundle; updating the host's timezone database
-alone does not update spacetime. Maintainers can follow the
-[timezone data update guide](../scripts/tz/README.md) to regenerate and review
-the data, but generating a new year does not add historical support.
-Use a library with full historical timezone data when that accuracy is required.
+Rules update with the library bundle, not the host's timezone database.
+Maintainers can use the [timezone data update guide](../scripts/tz/README.md);
+regenerating a year's rules does not add historical support.

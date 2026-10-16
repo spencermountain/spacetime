@@ -1,25 +1,25 @@
 //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
-export function isLeapYear(year) { return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0 }
+export const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 // unsurprisingly-nasty `typeof date` call
-export function isDate(d) { return Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf()) }
-export function isArray(input) { return Object.prototype.toString.call(input) === '[object Array]' }
-export function isObject(input) { return Object.prototype.toString.call(input) === '[object Object]' }
-export function isBoolean(input) { return Object.prototype.toString.call(input) === '[object Boolean]' }
+export const isArray = (input) => Object.prototype.toString.call(input) === '[object Array]'
+export const isObject = (input) => Object.prototype.toString.call(input) === '[object Object]'
+export const isBoolean = (input) => Object.prototype.toString.call(input) === '[object Boolean]'
+const isDate = (d) => Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
 
-export function zeroPad(str, len = 2) {
+export const zeroPad = (str, len = 2) => {
   const pad = '0'
   str = str + ''
   return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str
 }
 
-export function titleCase(str) {
+export const titleCase = (str) => {
   if (!str) {
     return ''
   }
   return str[0].toUpperCase() + str.substr(1)
 }
 
-export function ordinal(i) {
+export const ordinal = (i) => {
   const j = i % 10
   const k = i % 100
   if (j === 1 && k !== 11) {
@@ -35,14 +35,14 @@ export function ordinal(i) {
 }
 
 //strip 'st' off '1st'..
-export function toCardinal(str) {
+export const toCardinal = (str) => {
   str = String(str)
   str = str.replace(/([0-9])(st|nd|rd|th)$/i, '$1')
   return parseInt(str, 10)
 }
 
 //used mostly for cleanup of unit names, like 'months'
-export function normalize(str = '') {
+export const normalize = (str = '') => {
   str = str.toLowerCase().trim()
   str = str.replace(/ies$/, 'y') //'centuries'
   str = str.replace(/s$/, '')
@@ -56,7 +56,7 @@ export function normalize(str = '') {
   return str
 }
 
-export function getEpoch(tmp) {
+export const getEpoch = (tmp) => {
   //support epoch
   if (typeof tmp === 'number') {
     return tmp
@@ -73,14 +73,14 @@ export function getEpoch(tmp) {
 }
 
 //make sure this input is a spacetime obj
-export function beADate(d, s) {
+export const beADate = (d, s) => {
   if (isObject(d) === false) {
     return s.clone().set(d)
   }
   return d
 }
 
-export function formatTimezone(offset, delimiter = '') {
+export const formatTimezone = (offset, delimiter = '') => {
   const sign = offset > 0 ? '+' : '-'
   const absOffset = Math.abs(offset)
   const hours = zeroPad(parseInt('' + absOffset, 10))

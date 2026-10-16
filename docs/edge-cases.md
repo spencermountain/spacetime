@@ -17,10 +17,8 @@ const elapsedHours = (nextDay.epoch - s.epoch) / 3600000
 elapsedHours // 23
 ```
 
-During DST transitions, some local times do not exist or occur twice. A bare
-wall-clock string cannot distinguish the two occurrences. For a specific
-instant, supply an epoch or ISO string with an explicit offset, then `goto()`
-the regional zone. Do not assume parsing a nonexistent time rejects it.
+For missing or repeated local times, see
+[DST disambiguation](./timezones.md#missing-and-repeated-clock-times).
 
 ## Month ends
 
@@ -84,11 +82,8 @@ honolulu.epoch === s.epoch // true
 
 ## Historical timezones
 
-Spacetime applies its bundled DST rules to historical dates; it does not keep a
-complete history of past timezone changes. Historical offsets and transitions
-may therefore be inaccurate. Its bundled data also cannot anticipate future
-rule changes. Use a library with historical timezone data when that accuracy
-is required.
+Bundled rules do not provide complete historical accuracy or anticipate
+future policy changes. See [timezone data limits](./timezones.md#data-model-and-historical-limits).
 
 ## Mutation and shared state
 

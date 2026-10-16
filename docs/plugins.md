@@ -9,7 +9,9 @@ the shared prototype and are available on existing and future instances.
 
 ```js
 spacetime.extend({
-  isHappyHour: function () { return this.hour() === 16 }
+  isHappyHour: function () {
+    return this.hour() === 16
+  }
 })
 const s = spacetime('2024-01-15T16:00:00', 'UTC')
 s.isHappyHour() // true
@@ -18,7 +20,7 @@ s.isHappyHour() // true
 Install compatible plugin method objects with `spacetime.extend(plugin)`.
 In ESM, import the plugin; in CommonJS, use `require`. Plugins in
 [the repository](../plugins/) include `age`, `daylight`, `geo`, `holiday`,
-`week-of-month`, `week-start`, and `ticks`; check each plugin's own setup and API.
+`week-of-month`, and `week-start`; check each plugin's own setup and API.
 
 ## Language data is shared
 

@@ -33,15 +33,20 @@
     "tz-lookup": "6.1.25"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-commonjs": "catalog:",
     "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^1.0.0",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@rollup/plugin-terser": "catalog:",
     "@turf/simplify": "^7.3.5",
-    "rollup": "4.63.3",
-    "spacetime": ">=7.4.0",
-    "tap-dancer": "0.4.0",
-    "tape": "5.6.3"
+    "rollup": "catalog:",
+    "tap-dancer": "catalog:",
+    "tape": "catalog:"
   },
-  "unpkg": "./builds/spacetime-geo.js"
+  "unpkg": "./builds/spacetime-geo.js",
+  "peerDependencies": {
+    "spacetime": "workspace:^"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

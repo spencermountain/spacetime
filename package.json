@@ -36,25 +36,20 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "bench": "node ./scripts/bench/index.js",
-    "bench:write": "node ./scripts/bench/index.js --write",
-    "build": "node ./zonefile/pack.js && node ./scripts/version.js && rollup -c --silent",
-    "build:tz": "node ./scripts/tz/update.js",
+    "watch": "node --watch ./scratch.js",
     "pack": "node ./zonefile/pack.js",
     "version": "node ./scripts/version.js",
-    "watch": "node --watch ./scratch.js",
-    "test": "tape --strict './tests/**/*.test.js' | tap-dancer --color always",
-    "testb": "TESTENV=prod tape --strict './tests/**/*.test.js' | tap-dancer --color always",
+    "build": "pnpm run pack && pnpm run version && rollup -c --silent",
+    "build:tz": "node ./scripts/tz/update.js",
+    "test": "tape --strict './tests/**/*.test.js' | tap-dancer",
+    "testb": "TESTENV=prod pnpm run test",
+    "test:plugins": "pnpm --filter \"./plugins/*\" run test",
     "test:temporal": "TESTENV=temporal tape --strict tests/temporal/_reporter.js './tests/temporal/*.test.js' './tests/integration/temporal*.test.js'",
-    "testb:temporal": "TESTENV=temporal-prod tape --strict tests/temporal/_reporter.js './tests/temporal/*.test.js' './tests/integration/temporal*.test.js'",
     "test:temporal:types": "tsc --project tests/temporal-types/tsconfig.json",
-    "test:temporal:all": "node scripts/audit-temporal.js",
-    "check:types": "tsc --project ./tests/types/tsconfig.json",
-    "test:types": "pnpm check:types && node --import tsx ./tests/types/index.ts | tap-dancer --color always",
-    "test:release": "node ./scripts/check-release.js",
-    "coverage": "nyc -r lcov -n 'src/**/*' -n 'plugins/**/*' npm run coverage:tests",
-    "coverage:tests": "npm run test",
-    "lint": "eslint ./src ./scripts ./tests"
+    "test:types": "tsc --project ./tests/types/tsconfig.json && node --import tsx ./tests/types/index.ts | tap-dancer",
+    "bench": "node ./scripts/bench/index.js",
+    "bench:write": "node ./scripts/bench/index.js --write",
+    "lint": "eslint ."
   },
   "files": [
     "api",
@@ -69,15 +64,15 @@
     "daylight-savings"
   ],
   "devDependencies": {
-    "@rollup/plugin-terser": "^1.0.0",
-    "@types/node": "^26.6.4",
+    "@rollup/plugin-terser": "catalog:",
+    "@types/node": "^26.6.5",
     "@types/tape": "^5.8.1",
-    "eslint": "^10.11.0",
+    "eslint": "^10.12.0",
     "eslint-plugin-regexp": "3.3.1",
-    "rollup": "4.63.5",
+    "rollup": "catalog:",
     "rollup-plugin-filesize-check": "2.0.1",
-    "tap-dancer": "0.4.3",
-    "tape": "5.10.2",
+    "tap-dancer": "catalog:",
+    "tape": "catalog:",
     "timekeeper": "2.3.1",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
@@ -89,5 +84,6 @@
     "semi": false,
     "singleQuote": true,
     "printWidth": 100
-  }
+  },
+  "packageManager": "pnpm@10.26.0"
 }

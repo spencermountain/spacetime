@@ -145,5 +145,5 @@ moving forward; equality is allowed. See [setter examples](./setters.md).
 
 ## Reference sources
 
-- [API inventory](../api/index.js) — method catalog; this page corrects stale descriptions such as offset units and `from` direction using the implementation.
-- [Instance types](../types/types.d.ts), [constructor types](../types/constructors.d.ts), and [units/formats](../types/constraints.d.ts) — editor and TypeScript declarations. Some signatures lag runtime behavior: `fromNow` takes no argument, `dayOfYear` returns a number, `progress(unit)` returns a number, and several optional arguments and aliases are missing.
+- [API inventory](../api/index.js) — method catalog.
+- [Instance types](../types/types.d.ts), [constructor types](../types/constructors.d.ts), and [units/formats](../types/constraints.d.ts) — editor and TypeScript declarations. Declarations may lag runtime behavior.

@@ -1,2 +1,15 @@
+packages:
+  - plugins/*
+
+catalogMode: manual
+
+catalog:
+  '@rollup/plugin-commonjs': '^29.0.2'
+  '@rollup/plugin-node-resolve': '^16.0.3'
+  '@rollup/plugin-terser': '^1.0.0'
+  'rollup': '4.64.7'
+  'tap-dancer': '0.4.4'
+  'tape': '5.10.3'
+
 allowBuilds:
   esbuild: true

@@ -18,18 +18,17 @@
   },
   "sideEffects": false,
   "engines": {
-    "node": ">=12"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "test": ""
   },
   "dependencies": {
-    "minimist": "^1.2.5",
-    "spacetime": ">=6.3.0"
+    "minimist": "^1.2.5"
   },
   "devDependencies": {
-    "@rollup/plugin-terser": "^1.0.0",
-    "rollup": "4.63.3"
+    "@rollup/plugin-terser": "catalog:",
+    "rollup": "catalog:"
   },
   "prettier": {
     "trailingComma": "none",
@@ -37,5 +36,8 @@
     "semi": false,
     "singleQuote": true,
     "printWidth": 100
+  },
+  "peerDependencies": {
+    "spacetime": "workspace:^"
   }
 }
