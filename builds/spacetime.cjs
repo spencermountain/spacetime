@@ -1,28 +1,28 @@
-/* spencermountain/spacetime 7.16.0 Apache-2.0 */
+/* spencermountain/spacetime 7.17.0 Apache-2.0 */
 'use strict';
 
 //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
-function isLeapYear(year) { return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0 }
+const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 // unsurprisingly-nasty `typeof date` call
-function isDate(d) { return Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf()) }
-function isArray(input) { return Object.prototype.toString.call(input) === '[object Array]' }
-function isObject(input) { return Object.prototype.toString.call(input) === '[object Object]' }
-function isBoolean(input) { return Object.prototype.toString.call(input) === '[object Boolean]' }
+const isArray = (input) => Object.prototype.toString.call(input) === '[object Array]';
+const isObject = (input) => Object.prototype.toString.call(input) === '[object Object]';
+const isBoolean = (input) => Object.prototype.toString.call(input) === '[object Boolean]';
+const isDate = (d) => Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf());
 
-function zeroPad(str, len = 2) {
+const zeroPad = (str, len = 2) => {
   const pad = '0';
   str = str + '';
   return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str
-}
+};
 
-function titleCase$1(str) {
+const titleCase$1 = (str) => {
   if (!str) {
     return ''
   }
   return str[0].toUpperCase() + str.substr(1)
-}
+};
 
-function ordinal(i) {
+const ordinal = (i) => {
   const j = i % 10;
   const k = i % 100;
   if (j === 1 && k !== 11) {
@@ -35,17 +35,17 @@ function ordinal(i) {
     return i + 'rd'
   }
   return i + 'th'
-}
+};
 
 //strip 'st' off '1st'..
-function toCardinal(str) {
+const toCardinal = (str) => {
   str = String(str);
   str = str.replace(/([0-9])(st|nd|rd|th)$/i, '$1');
   return parseInt(str, 10)
-}
+};
 
 //used mostly for cleanup of unit names, like 'months'
-function normalize$2(str = '') {
+const normalize$2 = (str = '') => {
   str = str.toLowerCase().trim();
   str = str.replace(/ies$/, 'y'); //'centuries'
   str = str.replace(/s$/, '');
@@ -57,9 +57,9 @@ function normalize$2(str = '') {
     return 'minute'
   }
   return str
-}
+};
 
-function getEpoch(tmp) {
+const getEpoch = (tmp) => {
   //support epoch
   if (typeof tmp === 'number') {
     return tmp
@@ -73,23 +73,23 @@ function getEpoch(tmp) {
     return tmp.epoch
   }
   return null
-}
+};
 
 //make sure this input is a spacetime obj
-function beADate(d, s) {
+const beADate = (d, s) => {
   if (isObject(d) === false) {
     return s.clone().set(d)
   }
   return d
-}
+};
 
-function formatTimezone(offset, delimiter = '') {
+const formatTimezone = (offset, delimiter = '') => {
   const sign = offset > 0 ? '+' : '-';
   const absOffset = Math.abs(offset);
   const hours = zeroPad(parseInt('' + absOffset, 10));
   const minutes = zeroPad((absOffset % 1) * 60);
   return `${sign}${hours}${delimiter}${minutes}`
-}
+};
 
 const warn = (s, message) => {
   if (s.silent === false) {
@@ -218,6 +218,7 @@ const quickOffset = s => {
   return dec
 };
 
+const tzdbVersion = "2026c";
 var data = {
   "9|s": "2/dili,2/jayapura",
   "9|n": "2/chita,2/khandyga,2/pyongyang,2/seoul,2/tokyo,2/yakutsk,11/palau,japan,rok",
@@ -630,100 +631,6 @@ const monthLengths = [
 // 30 - april, june, sept, nov
 // 31 - jan, march, may, july, aug, oct, dec
 
-let shortMonths = [
-  'jan',
-  'feb',
-  'mar',
-  'apr',
-  'may',
-  'jun',
-  'jul',
-  'aug',
-  'sep',
-  'oct',
-  'nov',
-  'dec'
-];
-let longMonths = [
-  'january',
-  'february',
-  'march',
-  'april',
-  'may',
-  'june',
-  'july',
-  'august',
-  'september',
-  'october',
-  'november',
-  'december'
-];
-
-function buildMapping() {
-  const obj = {
-    sep: 8 //support this format
-  };
-  for (let i = 0; i < shortMonths.length; i++) {
-    obj[shortMonths[i]] = i;
-  }
-  for (let i = 0; i < longMonths.length; i++) {
-    obj[longMonths[i]] = i;
-  }
-  return obj
-}
-
-function short$1() { return shortMonths }
-function long$1() { return longMonths }
-function mapping$1() { return buildMapping() }
-function set$5(i18n) {
-  shortMonths = i18n.short || shortMonths;
-  longMonths = i18n.long || longMonths;
-}
-
-//pull-apart ISO offsets, like "+0100"
-const parseOffset = (s, offset) => {
-  if (!offset) {
-    return s
-  }
-  offset = offset.trim().toLowerCase();
-  if (offset === 'z') {
-    s.tz = 'etc/gmt';
-    return s
-  }
-  // Split hh:mm, hhmm or hh before converting minutes to fractional hours.
-  const match = offset.match(/^([+-]?)([0-9]{2})(?::?([0-9]{2}))?$/);
-  if (!match) {
-    return s
-  }
-  const hours = Number(match[2]);
-  const minutes = Number(match[3] || 0);
-  if (minutes > 59) {
-    return s
-  }
-  let num = (hours + (minutes / 60)) * (match[1] === '-' ? -1 : 1);
-  if (num === 0) {
-    s.tz = 'etc/gmt';
-    return s
-  }
-  //okay, try to match it to a utc timezone
-  //remember - this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_(:/)_/¯
-  //https://askubuntu.com/questions/519550/why-is-the-8-timezone-called-gmt-8-in-the-filesystem
-  num *= -1;
-
-  if (num >= 0) {
-    num = '+' + num;
-  }
-  const tz = 'etc/gmt' + num;
-  const zones = s.timezones;
-
-  if (zones[tz]) {
-    // log a warning if we're over-writing a given timezone?
-    // console.log('changing timezone to: ' + tz)
-    s.tz = tz;
-  }
-  return s
-};
-
 // truncate any sub-millisecond values
 const parseMs = function (str = '') {
   str = String(str);
@@ -789,6 +696,56 @@ const parseTime = (s, str = '') => {
   s.epoch = null;
   return s
 };
+
+let shortMonths = [
+  'jan',
+  'feb',
+  'mar',
+  'apr',
+  'may',
+  'jun',
+  'jul',
+  'aug',
+  'sep',
+  'oct',
+  'nov',
+  'dec'
+];
+let longMonths = [
+  'january',
+  'february',
+  'march',
+  'april',
+  'may',
+  'june',
+  'july',
+  'august',
+  'september',
+  'october',
+  'november',
+  'december'
+];
+
+function buildMapping() {
+  const obj = {
+    sep: 8 //support this format
+  };
+  for (let i = 0; i < shortMonths.length; i++) {
+    obj[shortMonths[i]] = i;
+  }
+  for (let i = 0; i < longMonths.length; i++) {
+    obj[longMonths[i]] = i;
+  }
+  return obj
+}
+
+function short$1() { return shortMonths }
+function long$1() { return longMonths }
+function mapping$1() { return buildMapping() }
+function set$5(i18n) {
+  shortMonths = i18n.short || shortMonths;
+  longMonths = i18n.long || longMonths;
+}
 
 const months$1 = mapping$1();
 
@@ -1378,6 +1335,50 @@ const walkTo = (s, wants) => {
     units$5[k].walkTo(s, n);
   }
   return
+};
+
+//pull-apart ISO offsets, like "+0100"
+const parseOffset = (s, offset) => {
+  if (!offset) {
+    return s
+  }
+  offset = offset.trim().toLowerCase();
+  if (offset === 'z') {
+    s.tz = 'etc/gmt';
+    return s
+  }
+  // Split hh:mm, hhmm or hh before converting minutes to fractional hours.
+  const match = offset.match(/^([+-]?)([0-9]{2})(?::?([0-9]{2}))?$/);
+  if (!match) {
+    return s
+  }
+  const hours = Number(match[2]);
+  const minutes = Number(match[3] || 0);
+  if (minutes > 59) {
+    return s
+  }
+  let num = (hours + (minutes / 60)) * (match[1] === '-' ? -1 : 1);
+  if (num === 0) {
+    s.tz = 'etc/gmt';
+    return s
+  }
+  //okay, try to match it to a utc timezone
+  //remember - this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_(:/)_/¯
+  //https://askubuntu.com/questions/519550/why-is-the-8-timezone-called-gmt-8-in-the-filesystem
+  num *= -1;
+
+  if (num >= 0) {
+    num = '+' + num;
+  }
+  const tz = 'etc/gmt' + num;
+  const zones = s.timezones;
+
+  if (zones[tz]) {
+    // log a warning if we're over-writing a given timezone?
+    // console.log('changing timezone to: ' + tz)
+    s.tz = tz;
+  }
+  return s
 };
 
 var parsers = [].concat(create$3(walkTo, parseOffset), create$2(walkTo, parseOffset), create$1(walkTo), create(walkTo));
@@ -2595,13 +2596,6 @@ const every = function (start, unit, end, stepCount = 1) {
   return result
 };
 
-const parseDst = dst => {
-  if (!dst) {
-    return []
-  }
-  return dst.split('->')
-};
-
 //iana codes are case-sensitive, technically
 const titleCase = str => {
   str = str[0].toUpperCase() + str.substr(1);
@@ -2618,6 +2612,13 @@ const titleCase = str => {
     str = 'UTC';
   }
   return str
+};
+
+const parseDst = dst => {
+  if (!dst) {
+    return []
+  }
+  return dst.split('->')
 };
 
 //get metadata about this timezone
@@ -4334,10 +4335,10 @@ const whereIts = (a, b) => {
     }
     return false
   });
-  return tzs
+  return tzs.map(titleCase)
 };
 
-var version = '7.16.0';
+var version = '7.17.0';
 
 const main = (input, tz, options) => new SpaceTime(input, tz, options);
 
@@ -4399,6 +4400,7 @@ main.min = function (tz, options) {
 //find tz by time
 main.whereIts = whereIts;
 main.version = version;
+main.tzdbVersion = tzdbVersion;
 
 //aliases:
 main.plugin = main.extend;

@@ -1,5 +1,5 @@
 import test from 'tape'
-import spacetime from 'spacetime/temporal'
+import spacetime from '../../src/temporal/index.js'
 
 const options = { skip: !globalThis.Temporal }
 

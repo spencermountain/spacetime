@@ -169,57 +169,29 @@ d.format('nice')
 
 ## Temporal API adoption
 
-The new [Date replacement API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) is [finally landing](https://caniuse.com/temporal), and may serve as a near-perfect replacement for this library.
-
-If you want to get a Temporal object from spacetime, use `.toTemporal()`:
+Spacetime can exchange native Temporal objects when `globalThis.Temporal` is
+available. No polyfill is bundled.
 
 ```js
 const s = spacetime('june 8th 2021', 'America/Los_Angeles').time('16:22')
-// pass to Temporal API
-const dt = s.toTemporal() // (Temporal.ZonedDateTime)
-
-// get time
-let str = `${dt.hour}:${String(dt.minute).padStart(2, '0')}`
-// 16:22
-
-let tz = dt.timeZoneId
-// "America/Los_Angeles"
+const native = s.toTemporal() // Temporal.ZonedDateTime
+const roundTrip = spacetime(native) // same instant and timezone
 ```
 
-No polyfill is bundled.
+Pass native objects directly to preserve the selected instant during repeated
+DST hours. Regular Spacetime stores millisecond precision.
 
-We also support their [cool new iso-format](https://www.rfc-editor.org/info/rfc9557/), so passing a date-time the other way is easy:
+The experimental `spacetime/temporal` entry uses Temporal for calendar arithmetic
+and timezone calculations, without bundling Spacetime's timezone database:
 
 ```js
-let dt = Temporal.ZonedDateTime.from({
-  timeZone: 'America/Los_Angeles',
-  year: 2021,
-  month: 7,
-  day: 8,
-  hour: 16,
-  minute: 22
-})
-const fullIso = dt.toString()
-// 2021-07-08T16:22:00-07:00[America/Los_Angeles]
+import spacetime from 'spacetime/temporal'
 
-// reproduce it in spacetime:
-const s = spacetime(fullIso)
-const time = s.format('time-24') // 16:22
-const tz = s.format('iana') // America/Los_Angeles
+const nextWeek = spacetime('2027-10-09', 'America/New_York').add(1, 'week')
 ```
 
-You can also pass the native object directly: `spacetime(dt)`. This preserves the instant during repeated DST hours more reliably than parsing an annotated string.
-
-To use Temporal for calendar arithmetic and timezone calculations, there is an experimental wrapper supporting a subset of the spacetime API. It requires `globalThis.Temporal`; see [supported methods and differences](./docs/Temporal.md):
-
-```js
-import spacetime from 'spacetime/temporal' // does not bundle the timezone database
-
-let s = spacetime(`oct 9 '27`, 'America/New_York')
-s = s.startOf('week').add(1, 'week')
-const out = s.format('{month-short} {date-ordinal}')
-// Oct 11th
-```
+It requires Temporal and supports a subset of the regular API. See the
+[Temporal guide](./docs/Temporal.md) for supported methods and conversion limits.
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
@@ -291,71 +263,23 @@ for fancier natural-language inputs, use [compromise-dates](https://github.com/s
 
 ## Get & Set dates:
 
-you can whip things around, but stay intuitive
+you can whip things around, but stay intuitive. Most setters return a new
+instance, so capture the result:
 
 ```js
-let s = spacetime('2017-04-14T05:01:00', 'UTC')
-s.date() // 14
-s.year() // 2017
-s.season() // 'spring'
-s = s.hour(5) // Change to 5am
-s = s.date(15) // Change to the 15th
+const original = spacetime('2017-04-14T05:01:00', 'UTC')
+original.date() // 14
 
-s = s.day('monday') // Change to (this week's) monday
-s = s.day('monday', true) // go forward to monday
-s = s.day('monday', false) // go backward to monday
-
-s = s.month('march') // Change the month, preserving the date where possible
-s = s.quarter(2) // Change to April 1st
-s.era() // 'BC'/'AD'
-s.decade() // 2010
-s.century() // 21
-
-// Percentage-based information
-s.progress().month // fraction of the month elapsed (0–1)
-s.progress().day // fraction of the day elapsed (0–1)
-s.progress().hour // fraction of the hour elapsed (0–1)
-
-// Add/subtract methods
+let s = original.hour(9).minute(0)
 s = s.add(1, 'week')
-s = s.add(3, 'quarters')
-s = s.subtract(2, 'months').add(1, 'day')
-
-// start-of/end-of
-s = s.startOf('day') // 12:00am
-s = s.startOf('month') // 12:00am on the first day of the month
-s = s.endOf('quarter') // last millisecond of the quarter
-
-s = s.nearest('hour') //round up/down to the hour
-s = s.nearest('quarter-hour') //5:15, 5:30, 5:45..
-s = s.next('month') //start of the next month
-s = s.last('year') //start of the last year
-
-// fill-in all dates between a range
-s.every('week', 'Jan 1st 2020') // (in tz of starting-date)
-
-//utilities:
-s.clone() // Make a copy
-s.isValid() // Sept 32nd → false
-s.isAwake() // true from 8:00am up to, but not including, 11:00pm
-s.json() // get values in every unit as key-val object
+s.time() // '9:00am'
+s.startOf('day').time() // '12:00am'
+original.time() // '5:01am' (unchanged)
 ```
 
-if it's **_9am on tuesday_**, and you <i>add a week</i>, it will still be 9am on tuesday.
-... even if some crazy changes happen.
-Many unit and time setters support a handy 2nd param that controls whether it should be set forward, or backward.
-
-```js
-s = s.time('4:00pm') // 4pm today
-s = s.time('4:00pm', true) // the next 4pm in the future
-s = s.time('4:00pm', false) // the most-recent 4pm
-
-// set(input, timezone?) parses a new input; its second argument is a timezone.
-s = s.set('march 5th 2020', 'UTC')
-s = s.set('march 4th 2020', 'UTC')
-```
-
-it's actually a little surprising how helpful this is.
+Calendar days and weeks preserve the local clock where it exists, even across
+DST. See [getters](./docs/getters.md) and [setters](./docs/setters.md) for fields,
+rounding, boundaries, and choosing a forward or backward occurrence.
 
 <img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
@@ -541,178 +465,26 @@ Fall DST changes can repeat a local hour; spring changes can skip one. The displ
 
 ### Config:
 
-#### Ambiguity warnings:
-
-javascript dates use millisecond-epochs, instead of second-epochs, like some other languages.
-This is a common bug, and spacetime can warn if you set an epoch within January 1970.
-to enable:
+Pass constructor options as the third argument:
 
 ```js
-let s = spacetime(123456, 'UTC', {
-  silent: false
-})
-s.log() // "Jan 1st, 12:02am"
+spacetime('12/01/2018', 'UTC', { dmy: true }).format('iso-short') // '2018-01-12'
 ```
 
-An explicit offset in an ISO string takes precedence over the supplied timezone. It selects a fixed-offset zone, without a warning:
+| Option | Purpose | Default |
+| --- | --- | --- |
+| `silent` | Set `false` to enable warnings | `true` |
+| `dmy` | Interpret ambiguous numeric dates as day/month/year | `false` |
+| `today` | Supply reference date fields for partial inputs | Current date |
+| `weekStart` | Set week boundaries (0 = Sunday, 1 = Monday) | `1` |
 
-```js
-let s = spacetime('2017-04-03T08:00:00-0700', 'Canada/Eastern', {
-  silent: false
-})
-s.timezone().name // 'Etc/GMT+7' (UTC-7)
-```
+See [constructor options](./docs/inputs.md#constructor-options-third-argument)
+for examples. For country-specific week starts, use
+[spacetime-week-start](./plugins/week-start).
 
-#### Configure 'today' context:
-
-spacetime makes some assumptions about some string inputs:
-
-```js
-// assumes start of month
-let s = spacetime('June 1992')
-s.date() // 1
-
-// assumes current year
-s = spacetime('June 5th')
-s.year() // the current year
-
-// assumes Jan 1st
-s = spacetime('2030')
-s.month() // 0 (January)
-```
-
-you can configure this assumed date (usually for testing) by passing it in as an option:
-
-```js
-let today = {
-  month: 3,
-  date: 4,
-  year: 1996
-}
-let s = spacetime('June 5th', null, { today: today })
-s.year() // 1996
-```
-
-it also works for `spacetime.now(tz, {today:today})` and others.
-
-#### Extending/Plugins:
-
-you can throw any methods onto the Spacetime class you want, with `spacetime.extend()`:
-
-```js
-spacetime.extend({
-  isHappyHour: function () {
-    return this.hour() === 16
-  }
-})
-
-let s = spacetime('2026-01-15T15:00:00', 'Australia/Adelaide')
-s.isHappyHour()
-//false
-
-s = s.time('4:30pm')
-s.isHappyHour()
-//true
-```
-
-#### DD/MM/YYYY interpretation:
-
-by default spacetime uses the American interpretation of ambiguous date formats, like javascript does:
-
-```js
-spacetime('12/01/2018') //dec 1st
-
-// unless it's clear (>12):
-spacetime('13/01/2018') //jan 13th
-```
-
-you can change this behaviour by passing in a `dmy` option, like this:
-
-```js
-spacetime('12/01/2018', null, { dmy: true }) //jan 12th
-```
-
-this format is more common in [britain, and south america](https://en.wikipedia.org/wiki/Date_format_by_country).
-
-#### Custom languages:
-
-`i18n()` updates shared settings for all instances.
-
-```js
-let s = spacetime.now()
-s.i18n({
-  days: {
-    long: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
-    short: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb']
-  },
-  months: {
-    long: [
-      'enero',
-      'febrero',
-      'marzo',
-      'abril',
-      'mayo',
-      'junio',
-      'julio',
-      'agosto',
-      'septiembre',
-      'octubre',
-      'noviembre',
-      'diciembre'
-    ],
-    short: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
-  },
-  ampm: {
-    am: ' a. m.',
-    pm: ' p. m.'
-  },
-  distance: {
-    past: 'past',
-    future: 'future',
-    present: 'present',
-    now: 'now',
-    almost: 'almost',
-    over: 'over',
-    pastDistance: (value) => `${value} ago`,
-    futureDistance: (value) => `in ${value}`
-  },
-  units: {
-    second: 'second',
-    seconds: 'seconds',
-    minute: 'minute',
-    minutes: 'minutes',
-    hour: 'hour',
-    hours: 'hours',
-    day: 'day',
-    days: 'days',
-    month: 'month',
-    months: 'months',
-    year: 'year',
-    years: 'years'
-  },
-  useTitleCase: true // automatically in .format()
-})
-s.day(6).format('day') // 'Sábado'
-```
-
-#### Configure start of week:
-
-by default, the start of the week is monday.
-
-You can look up country-specific week starts with [spacetime-week-start](./plugins/week-start).
-
-```js
-let s = spacetime.now()
-s = s.weekStart('sunday')
-
-s = s.startOf('week')
-s.dayName()
-//sunday
-
-s = s.endOf('week')
-s.dayName()
-//saturday
-```
+Use `spacetime.extend()` to add methods and `s.i18n()` to customize language
+labels. Both affect shared state across instances; see
+[extensions and language settings](./docs/plugins.md).
 
 <!-- spacer -->
 <div align="center">

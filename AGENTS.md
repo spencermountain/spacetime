@@ -2,9 +2,12 @@
 
 > spacetime is a zero-dependency JavaScript library for working with dates across
 > timezones. It does timezone math (DST, leap years, hemispheres) **without** the
-> `Intl` API, and exposes a Moment-like, mostly **immutable** API (see exceptions below).
+> `Intl` API, and exposes a Moment-like, mostly **immutable** API.
 
-## Mental model
+See the [usage guide](./docs/README.md) for behavior and edge cases,
+and the [API reference](./docs/API.md) for public signatures.
+
+## Quick example
 
 ```js
 import spacetime from 'spacetime'
@@ -35,7 +38,39 @@ const out = s.format('{day-short} {month} {date-ordinal}, {time}') // 'Thu March
 
 ---
 
-# Development
+## Repository map
+
+- `src/` — regular entry, instance implementation, parsers (`input/`), public
+  methods (`methods/`), and timezone calculations (`timezone/`).
+- `src/temporal/` — experimental Temporal-backed entry.
+- `zonefile/` — timezone data and packing; `scripts/tz/` updates the data.
+- `builds/` — generated distribution bundles; change source rather than bundles.
+- `types/` — public declarations;
+- `tests/` — Tape suites grouped by behavior; `plugins/` contains workspace packages.
+
+## Checks and builds
+
+Run checks relevant to the change. Use a runtime with `globalThis.Temporal` for
+Temporal tests; CI uses Node 26 for tooling and tests the regular library on
+Node 18, 20, 22, 24, and 26.
+
+| Command                                                               | Purpose                                                                    |
+| --------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `pnpm test`                                                           | Main test suite                                                            |
+| `pnpm lint`                                                           | ESLint                                                                     |
+| `pnpm test:types`                                                     | Regular-entry declaration checks                                           |
+| `pnpm test:temporal`                                                  | Focused Temporal suite                                                     |
+| `pnpm test:plugins`                                                   | Plugin suites                                                              |
+| `pnpm build`                                                          | Pack timezone data, update `src/_version.js`, and build both entries       |
+| `pnpm testb`                                                          | Main suite against existing bundles; build first to include source changes |
+
+The [CI workflow](./.github/workflows/build-and-test.yml) also checks Temporal
+bundles. `pnpm test:all` runs source, Temporal, types, plugins, and lint; it does
+not build or include every CI check.
+
+---
+
+## Development
 
 Unless given specific instruction:
 
@@ -46,11 +81,11 @@ Unless given specific instruction:
 
 Work on the current branch. The user may make simultaneous changes. Verify their work is not overwritten, or ask permission before destructive git changes.
 
-### Code style
+## Code style
 
-- Write maintainable javascript, using esmodules
-- Write portable ES2022+ for browers and Node>=18
-- Typescript and jsdoc are not required
+- Write maintainable JavaScript, using ES modules
+- Write portable ES2022+ for browsers and Node >=18
+- TypeScript and JSDoc are not required
 - Add terse comments for maintainability
 - Prefer functions assigned with const, over declarations
 - Do not use unbracketed if statements
@@ -60,10 +95,9 @@ Work on the current branch. The user may make simultaneous changes. Verify their
 - File-size is always important
 - Defensive try/catch blocks are not required
 
-### Project structure
+## File conventions
 
 - Prefer pnpm over npm
-- eslint is always configured
 - Prefer small maintainable files with one purpose
 - Split out utility functions into a _lib.js file or ./_lib dir
 - Prefer `export default` on files with one export

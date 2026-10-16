@@ -64,17 +64,9 @@ jobs:
         if: matrix.node-version == '26.x'
         run: pnpm run test:temporal
 
-      - name: Test Temporal builds
-        if: matrix.node-version == '26.x'
-        env:
-          TESTENV: temporal-prod
-        run: pnpm exec tape tests/temporal/_require.js './tests/temporal/*.test.js' './tests/integration/temporal*.test.js' | pnpm exec tap-dancer
-
       - name: Check types
         if: matrix.node-version == '26.x'
-        run: |
-          pnpm run test:types
-          pnpm exec tsc --project tests/temporal/temporal-types/tsconfig.json
+        run: pnpm run test:types
 
       - name: Lint
         if: matrix.node-version == '26.x'

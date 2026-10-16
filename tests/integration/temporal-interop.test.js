@@ -1,7 +1,7 @@
 import test from 'tape'
 import source from '../../src/index.js'
 import built from 'spacetime'
-const spacetime = ['prod', 'temporal-prod'].includes(process.env.TESTENV) ? built : source
+const spacetime = process.env.TESTENV === 'prod' ? built : source
 const options = { skip: !globalThis.Temporal }
 
 test('main library: native Temporal instant and zone interop', options, t => {

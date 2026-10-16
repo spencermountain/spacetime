@@ -1,5 +1,5 @@
-/* spencermountain/spacetime-week-of-month 0.2.0 Apache 2.0 */
-var version = '0.2.0';
+/* spencermountain/spacetime-week-of-month 0.3.0 Apache 2.0 */
+var version = '0.3.0';
 
 // the first week of a month includes a thursday, in that month
 // (leap days do not effect week-ordering!)

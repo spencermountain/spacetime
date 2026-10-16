@@ -194,7 +194,7 @@ importers:
         specifier: 'catalog:'
         version: 5.10.3
 
-  plugins/start:
+  plugins/timer:
     dependencies:
       spacetime:
         specifier: workspace:>=7.0.0
