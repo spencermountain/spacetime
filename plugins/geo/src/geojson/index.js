@@ -1,11 +1,14 @@
 import data from './data.json' with { type: 'json' }
-//
+import indexData from '../_lib.js'
+
+const features = indexData(data)
 const geojson = function () {
-  const tz = this.timezone().name
-  if (data.hasOwnProperty(tz) === false) {
-    console.warn('Unable to find geosjon for timezone ' + tz) //eslint-disable-line no-console
+  const tz = this.timezone().name.toLowerCase()
+  if (!Object.hasOwn(features, tz)) {
     return null
   }
-  return data[tz]
+  // Callers may edit geometry without changing subsequent lookups.
+  return JSON.parse(JSON.stringify(features[tz]))
 }
+
 export default geojson

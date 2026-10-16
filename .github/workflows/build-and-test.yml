@@ -60,6 +60,9 @@ jobs:
       - name: Test plugins
         run: pnpm run test:plugins
 
+      - name: Test plugin bundles
+        run: pnpm run test:plugins:build
+
       - name: Test Temporal source
         if: matrix.node-version == '26.x'
         run: pnpm run test:temporal

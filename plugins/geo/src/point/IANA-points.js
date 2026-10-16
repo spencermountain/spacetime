@@ -1,5 +1,8 @@
 //these are points i chose for each timezone, typically in its most populous location
 export default {
+  // IANA zone.tab representative coordinates.
+  "America/Coyhaique": '-45.5667,-72.0667',
+  "America/Ciudad_Juarez": '31.7333,-106.4833',
   "Pacific/Midway": '28.21,-177.37', //Midway Atoll, United States
   "Pacific/Niue": '-19.06,-169.92', //Alofi, Niue
   "Pacific/Pago_Pago": '-14.28,-170.7', //Pago Pago, Eastern District, American Samoa

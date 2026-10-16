@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-let data = fs.readFileSync('./src/geojson/data.json', 'utf8')
+let data = fs.readFileSync(new URL('../src/geojson/data.json', import.meta.url), 'utf8')
 data = JSON.parse(data)
 const geojson = {
   type: 'FeatureCollection',

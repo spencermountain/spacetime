@@ -21,14 +21,15 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "test": ""
+    "test": "tape --strict test/*.test.js"
   },
   "dependencies": {
-    "minimist": "^1.2.5"
+    "minimist": "catalog:"
   },
   "devDependencies": {
     "@rollup/plugin-terser": "catalog:",
-    "rollup": "catalog:"
+    "rollup": "catalog:",
+    "tape": "catalog:"
   },
   "prettier": {
     "trailingComma": "none",

@@ -11,7 +11,7 @@ const help = function () {
 }
 
 const str = process.argv.slice(2).join(' ').trim()
-if (!str) {
+if (!str || str === '--help' || str === '-h') {
   help()
   process.exit()
 }

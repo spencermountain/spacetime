@@ -7,6 +7,7 @@ catalog:
   '@rollup/plugin-commonjs': '^29.0.2'
   '@rollup/plugin-node-resolve': '^16.0.3'
   '@rollup/plugin-terser': '^1.0.0'
+  'minimist': '^1.2.5'
   'rollup': '4.64.7'
   'tap-dancer': '0.4.4'
   'tape': '5.10.3'

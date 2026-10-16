@@ -25,19 +25,22 @@ original.format('iso-short') // '2024-01-15' (unchanged)
 - `goto(tz)` preserves the instant; `timezone(tz)` preserves wall-clock values.
 - `offset()` returns **minutes**; `timezone().current.offset` returns **hours**.
 
+Library supports browsers and Node.js 18+. Most setters return new instances: capture their return values.
+`epochSeconds(value)` and `weekStart(value)` mutate the instance; `i18n()` changes shared language settings.
+
 ## Find the right page
 
-| Task | Guide |
-| --- | --- |
-| Look up a method signature or return value | [API reference](./API.md) |
-| Parse strings, arrays, objects, or epochs | [Inputs](./inputs.md) |
-| Read date fields and check validity | [Getters](./getters.md) |
-| Set fields, add time, or round dates | [Setters](./setters.md) |
-| Produce strings or native Dates | [Formatting](./formatting.md) |
-| Convert zones or inspect offsets | [Timezones](./timezones.md) |
-| Compare dates, measure differences, or iterate | [Comparisons](./comparisons.md) |
-| Extend the API or change language data | [Plugins](./plugins.md) |
-| Handle DST, month ends, invalid inputs, and shared state | [Edge cases](./edge-cases.md) |
+| Task                                                     | Guide                           |
+| -------------------------------------------------------- | ------------------------------- |
+| Look up a method signature or return value               | [API reference](./API.md)       |
+| Parse strings, arrays, objects, or epochs                | [Inputs](./inputs.md)           |
+| Read date fields and check validity                      | [Getters](./getters.md)         |
+| Set fields, add time, or round dates                     | [Setters](./setters.md)         |
+| Produce strings or native Dates                          | [Formatting](./formatting.md)   |
+| Convert zones or inspect offsets                         | [Timezones](./timezones.md)     |
+| Compare dates, measure differences, or iterate           | [Comparisons](./comparisons.md) |
+| Extend the API or change language data                   | [Plugins](./plugins.md)         |
+| Handle DST, month ends, invalid inputs, and shared state | [Edge cases](./edge-cases.md)   |
 
 Examples use default English language data. Import `spacetime` as shown above
 before running examples from the topic pages; each code block defines its own dates.

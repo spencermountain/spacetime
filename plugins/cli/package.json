@@ -18,14 +18,13 @@
   },
   "sideEffects": false,
   "engines": {
-    "node": ">=12"
+    "node": ">=18.0.0"
   },
   "scripts": {
-    "test": ""
+    "test": "tape --strict test/*.test.js"
   },
   "dependencies": {
-    "minimist": "^1.2.5",
-    "spacetime": ">=6.16.3",
+    "minimist": "catalog:",
     "timezone-soft": "1.5.2"
   },
   "prettier": {
@@ -34,5 +33,11 @@
     "semi": false,
     "singleQuote": true,
     "printWidth": 100
+  },
+  "peerDependencies": {
+    "spacetime": "workspace:^"
+  },
+  "devDependencies": {
+    "tape": "catalog:"
   }
 }

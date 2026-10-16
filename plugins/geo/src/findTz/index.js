@@ -1,49 +1,12 @@
-import tzlookup from 'tz-lookup'
+import tzlookup from '@photostructure/tz-lookup'
+import coordinates from './_lib.js'
 
-const isArray = function (hmm) {
-  return Object.prototype.toString.call(hmm) === '[object Array]'
-}
-const isString = function (hmm) {
-  return typeof hmm === 'string'
-}
-function isObject(hmm) {
-  return hmm instanceof Object && hmm.constructor === Object
+const findTz = function (geo, longitude) {
+  const point = coordinates(geo, longitude)
+  if (!point) {
+    return this
+  }
+  return this.goto(tzlookup(...point))
 }
 
-const findTz = function (geo, b) {
-  let lat = null
-  let lng = null
-  //accept weird formats
-  if (typeof b === 'number' && typeof geo === 'number') {
-    lat = geo
-    lng = b
-  } else if (isArray(geo) === true) {
-    lat = geo[0]
-    lng = geo[1]
-  } else if (isString(geo) === true) {
-    const arr = geo.split(/[,/]/)
-    lat = arr[0].trim()
-    lng = arr[1].trim()
-  } else if (isObject(geo) === true) {
-    lat = geo.lat || geo.latitude
-    lng = geo.lng || geo.lon || geo.long || geo.longitude
-  } else {
-    return this
-  }
-  //validate lat/lng
-  if (lat < -90 || lat > 90) {
-    console.warn('Invalid latitude: ' + lat) //eslint-disable-line no-console
-    return this
-  }
-  if (lng < -180 || lng > 180) {
-    console.warn('Invalid longitude: ' + lng) //eslint-disable-line no-console
-    return this
-  }
-  const tz = tzlookup(lat, lng)
-  if (!tz) {
-    console.warn('Found no timezone for ' + lat + ', ' + lng) //eslint-disable-line no-console
-    return this
-  }
-  return this.goto(tz)
-}
 export default findTz

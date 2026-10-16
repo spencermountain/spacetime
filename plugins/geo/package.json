@@ -4,7 +4,7 @@
   "description": "determine a timezone from a lat/lng",
   "license": "MIT",
   "repository": "github:spencermountain/spacetime",
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-geo",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/geo",
   "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "type": "module",
   "exports": {
@@ -14,7 +14,7 @@
       "default": "./builds/spacetime-geo.mjs"
     }
   },
-  "main": "./builds/spacetime-geo.js",
+  "main": "./builds/spacetime-geo.cjs",
   "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
@@ -30,7 +30,7 @@
     "timezone"
   ],
   "dependencies": {
-    "tz-lookup": "6.1.25"
+    "@photostructure/tz-lookup": "11.7.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:",
@@ -42,7 +42,7 @@
     "tap-dancer": "catalog:",
     "tape": "catalog:"
   },
-  "unpkg": "./builds/spacetime-geo.js",
+  "unpkg": "./builds/spacetime-geo.min.js",
   "peerDependencies": {
     "spacetime": "workspace:^"
   },

@@ -18,10 +18,9 @@
 this is really just a wrapper of [tz-lookup](https://github.com/darkskyapp/tz-lookup/) by dark-sky - based on [Evan Siroky's](http://www.evansiroky.com/) awesome [boundary-builder](https://github.com/evansiroky/timezone-boundary-builder/) work.
 
 ```js
-import spacetime from './src/index'
+import spacetime from 'spacetime'
 import geo from 'spacetime-geo'
-//apply the plugin
-spacetime.extend(geo)
+spacetime.extend(geo) //apply the plugin
 
 //set a specific time somewhere
 let s = spacetime('June 4 2018', 'Canada/Eastern').time('3:37pm')
@@ -31,7 +30,7 @@ s.point()
 //{ lat: 43.65, lng: -79.38 }
 
 //go to a specific point (near paris)
-s.in([48.7235, 1.9931])
+s = s.in([48.7235, 1.9931])
 
 s.timezone().name
 //Europe/Paris
@@ -40,6 +39,7 @@ s.time()
 ```
 
 in the browser: `111kb` (uncompressed)
+
 ```html
 <script src="https://unpkg.com/spacetime"></script>
 <script src="https://unpkg.com/spacetime-geo"></script>
@@ -47,18 +47,20 @@ in the browser: `111kb` (uncompressed)
   spacetime.extend(spacetimeGeo)
   var d = spacetime.now()
   //in the suburbs of São Paulo..
-  d.in({lat:-23.7201, lon:-46.9543})
+  d = d.in({ lat: -23.7201, lon: -46.9543 })
   console.log(d.time())
 </script>
 ```
 
 spacetime-geo accepts other formats of geolocation too:
+
 ```js
-spacetime.now().in({lat:42.7235, lon:-73.6931})
+spacetime.now().in({ lat: 42.7235, lon: -73.6931 })
 spacetime.now().in('48.7235, 1.9931')
 ```
 
 ### Caveats - **.in()**
+
 [timezone boundaries](https://github.com/evansiroky/timezone-boundary-builder/) are very, very detailed things. In order to keep this library small, we've [simplified](http://mourner.github.io/simplify-js/) the paths. This may produce some off-by-one errors, close to the boundaries, especially for jagged coasts, or complex political boundaries.
 
 ![1091](https://user-images.githubusercontent.com/399657/41735400-9279263a-7557-11e8-9c57-6f993e410e00.png)
@@ -66,9 +68,11 @@ spacetime.now().in('48.7235, 1.9931')
 You can always produce a more-detailed, and larger (<=130mb!) dataset using Evan Siroky's [script](https://github.com/evansiroky/timezone-boundary-builder/).
 
 ### Caveats - **.point()**
-I made-up an [arbitrary point for each IANA timezone](https://github.com/spencermountain/spacetime-geo/blob/master/src/point/IANA-points.js) using the most-populous city in each timezone, and not any fancy [centroid-math](https://en.wikipedia.org/wiki/Centroid). This is all pretty-subjective stuff, especially for timezones like `Etc/GMT-9`. It should be fine for, centering a map, but probably not for doing air-strikes.
+
+I made-up an [arbitrary point for each IANA timezone](https://github.com/spencermountain/spacetime-geo/blob/master/src/point/IANA-points.js) using the most-populous city in each timezone, and not any fancy [centroid-math](https://en.wikipedia.org/wiki/Centroid). This is all pretty-subjective stuff, especially for timezones like `Etc/GMT-9`. It should be fine for centering a map, but probably not for landing airplanes.
 
 ### See also
-* [spacetime-daylight](https://github.com/spencermountain/spacetime-daylight)
+
+- [spacetime-daylight](https://github.com/spencermountain/spacetime-daylight)
 
 MIT
