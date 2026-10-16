@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
-const fetch = require('node-fetch')
-let iana = require('./iana')
+import iana from './iana.js'
 // const fs = require('fs');
 const key = 'get-your-own'
 

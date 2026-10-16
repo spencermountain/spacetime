@@ -1,4 +1,4 @@
-[
+export default [
 ["UTC-11", "Pacific/Midway", "United States Minor Outlying Islands", ""],
 ["UTC-11", "Pacific/Niue", "Niue", "Alofi"],
 ["UTC-11", "Pacific/Pago_Pago", "American Samoa", "Pago Pago, Tāfuna, Ta`ū, Taulaga"],

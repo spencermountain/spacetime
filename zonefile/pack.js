@@ -22,7 +22,7 @@ Object.keys(iana).forEach((k) => {
     key += '|' + o.dst
   }
   all[key] = all[key] || []
-  const name = k.replace(/(.*?)\//, (a, prefix) => {
+  const name = k.replace(/^([^/]*)\//, (a, prefix) => {
     const index = prefixes.indexOf(prefix)
     if (index !== -1) {
       return index + '/'

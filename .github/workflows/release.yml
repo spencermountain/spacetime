@@ -2,12 +2,24 @@ name: Release
 
 on:
   release:
-    types: [created]
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  release:
+  validate:
+    if: github.event.release.prerelease == false
+    uses: ./.github/workflows/build-and-test.yml
+
+  publish:
+    needs: validate
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 15
     permissions:
       id-token: write
       contents: read
@@ -20,31 +32,30 @@ jobs:
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
-        with: 
-          node-version: 'lts/*'
+        with:
+          node-version: 26.x
           registry-url: 'https://registry.npmjs.org'
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
 
-      - name: install
+      - name: Verify release version
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
-          pnpm install --frozen-lockfile
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict'
+          import fs from 'node:fs'
+          const { version } = JSON.parse(fs.readFileSync('package.json', 'utf8'))
+          assert.equal(process.env.RELEASE_TAG.replace(/^v/, ''), version, 'Release tag must match package.json')
+          NODE
 
-      - name: static checks
-        run: |
-          pnpm run lint
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: build
-        run: |
-          pnpm run build
+      - name: Build library
+        run: pnpm run build
 
-      - name: test
-        run: |
-          pnpm run test
-          pnpm run testb
-
-      - name: publish
-        run: |
-          pnpm publish --access public --provenance --no-git-checks
+      - name: Publish
+        run: pnpm publish --access public --provenance --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

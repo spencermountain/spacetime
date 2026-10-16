@@ -1,11 +1,5 @@
 import tzlookup from 'tz-lookup'
-//.trim() pollyfill
-if (!String.prototype.trim) {
-  const rtrim = /^\s+|\s+$/g
-  String.prototype.trim = function () {
-    return this.replace(rtrim, '')
-  }
-}
+
 const isArray = function (hmm) {
   return Object.prototype.toString.call(hmm) === '[object Array]'
 }
