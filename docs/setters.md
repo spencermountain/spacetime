@@ -54,22 +54,48 @@ s.nearest('hour').time() // '3:00pm'
 s.nearest('quarterHour').time() // '2:30pm'
 ```
 
-Calendar-day and week arithmetic preserve clock time across DST where that time
-exists. Hours measure elapsed time. See [edge cases](./edge-cases.md).
+Whole calendar-day and week arithmetic preserve clock time across DST where that time
+exists. Hours measure elapsed time. See [edge cases](./README.md#edge-cases).
+
+### Fractional arithmetic
+
+`add` and `subtract` accept decimal amounts, including negative values:
+
+```js
+const s = spacetime('2020-06-15T00:00:00', 'UTC')
+s.add(2.5, 'days').iso() // '2020-06-17T12:00:00.000Z'
+s.add(0.5, 'month').iso() // '2020-06-29T00:00:00.000Z'
+```
+
+Results round to a smaller unit boundary, clearing smaller fields:
+
+| Input unit | Result precision |
+| --- | --- |
+| `second` | Millisecond |
+| `minute` | Second |
+| `hour`, `quarterHour` | Minute |
+| `day` / `date` | Hour |
+| `week`, `month`, `quarter`, `season`, `year` | Day (midnight) |
+
+Fractional days use elapsed time: half a day is 12 hours, even across DST.
+For months through years, the whole part uses calendar arithmetic first, then
+the fraction uses the resulting unit's duration. Fractional months are the
+exception: they use 28 days, so half a month is always 14 days. Fractional
+decades, centuries, and millennia convert to years first.
+
+Rounding happens on every call: `0.1` day rounds to two hours, so ten additions
+produce 20 hours. Two half-month additions produce 28 days, not a calendar month.
+Combine amounts in one call to avoid accumulating rounding differences.
 
 ## Units depend on the method
 
 Common arithmetic units include `millisecond`, `second`, `minute`, `quarterHour`,
 `hour`, `day` (alias `date`), `week`, `month`, `quarter`, `season`, `year`,
-`decade`, and `century`. Arithmetic accepts plurals such as `days` and `months`.
+`decade`, `century`, and `millennium`. Arithmetic accepts plurals such as `days` and `months`.
 Do not assume every method implements every `TimeUnit` from the TypeScript union.
 
-- `diff` supports milliseconds, seconds, minutes, hours, days, weeks, months,
-  quarters, and years (also singular names and `date`).
-- `isSame` supports millisecond, second, minute, hour, day/date, week, month,
-  quarter, and year (also plurals). Unsupported units return `null`.
-- `nearest`/`round`, `startOf`/`endOf`, and iteration have their own boundary
-  semantics; prefer the examples here and in [comparisons](./comparisons.md).
+See the [API reference](./API.md#arithmetic-and-boundaries) for supported units
+and [comparisons](./comparisons.md) for differences and iteration.
 
-See [mutation exceptions](./edge-cases.md#mutation-and-shared-state) for
+See [mutation exceptions](./README.md#mutation-and-shared-state) for
 `epochSeconds(value)` and configuration methods.

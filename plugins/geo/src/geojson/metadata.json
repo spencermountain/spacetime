@@ -1,0 +1,15 @@
+{
+  "tzdbVersion": "2026e",
+  "source": "https://github.com/evansiroky/timezone-boundary-builder/releases/download/2026e/timezones-with-oceans.geojson.zip",
+  "downloadedAt": "2026-10-16T19:46:57.989Z",
+  "sha256": "8eefcbc3df102dc3c174983b784bde82fec00fb4a596a1ed63e8f53a92043885",
+  "simplifyOptions": {
+    "tolerance": 0.12,
+    "highQuality": true,
+    "mutate": true
+  },
+  "coordinateDecimals": 4,
+  "zones": 444,
+  "license": "ODbL-1.0",
+  "attribution": "Timezone Boundary Builder / OpenStreetMap contributors"
+}

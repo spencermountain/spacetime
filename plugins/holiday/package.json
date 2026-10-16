@@ -19,21 +19,22 @@
   "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
-    "build": "rollup -c --silent",
-    "test": "TESTENV=dev tape ./tests/**/*.test.js | tap-dancer",
-    "testb": "TESTENV=prod tape ./tests/**/*.test.js | tap-dancer"
+    "version": "node ./scripts/version.js",
+    "build": "node ./scripts/version.js && rollup -c --silent",
+    "test": "tape './tests/**/*.test.js' | tap-dancer --color",
+    "testb": "TESTENV=prod tape './tests/**/*.test.js' | tap-dancer --color"
   },
   "files": [
     "builds/"
   ],
   "devDependencies": {
-    "@rollup/plugin-terser": "^1.0.0",
-    "rollup": "4.63.3",
-    "tap-dancer": "0.4.0",
-    "tape": "5.5.3"
+    "@rollup/plugin-terser": "catalog:",
+    "rollup": "catalog:",
+    "tap-dancer": "catalog:",
+    "tape": "catalog:"
   },
   "peerDependencies": {
-    "spacetime": ">=6.3.0"
+    "spacetime": "workspace:>=7.0.0"
   },
   "unpkg": "builds/spacetime-holiday.min.js",
   "prettier": {
@@ -42,5 +43,8 @@
     "semi": false,
     "singleQuote": true,
     "printWidth": 100
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

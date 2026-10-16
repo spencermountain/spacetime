@@ -1,36 +1,73 @@
 name: Build and test
 
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
 
 jobs:
-  build:
+  test:
+    name: Node ${{ matrix.node-version }}
     runs-on: ubuntu-latest
-
+    timeout-minutes: 15
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [20.x, 26.x]
+        node-version: [18.x, 20.x, 22.x, 24.x, 26.x]
+    env:
+      CI: true
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
-      - name: use node.js ${{ matrix.node-version }}
+      # Build tooling requires a newer Node than the library itself.
+      - name: Set up build runtime
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 26.x
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
 
-      - name: pnpm install, build, and test
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm run lint
-          pnpm run pack
-          pnpm run test
-          pnpm run build
-          pnpm run testb
-        env:
-          CI: true
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build library
+        run: pnpm run build
+
+      - name: Build plugins
+        run: pnpm --filter './plugins/*' --if-present run build
+
+      - name: Set up test runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Test source
+        run: pnpm run test
+
+      - name: Test builds
+        run: pnpm run testb
+
+      - name: Test plugins
+        run: pnpm run test:plugins
+
+      - name: Test Temporal source
+        if: matrix.node-version == '26.x'
+        run: pnpm run test:temporal
+
+      - name: Check types
+        if: matrix.node-version == '26.x'
+        run: pnpm run test:types
+
+      - name: Lint
+        if: matrix.node-version == '26.x'
+        run: pnpm run lint

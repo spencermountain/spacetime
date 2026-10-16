@@ -44,14 +44,14 @@ test('easter-holidays 2020', (t) => {
   t.end()
 })
 
-test('astronomical-holidays 2020', (t) => {
+test('astronomical-holidays 2020 in UTC', (t) => {
   const arr = [
     ['spring equinox', 'Mar 20th, 2020'],
     ['june solstice', 'Jun 20th, 2020'],
     ['winter solstice  ', 'Dec 21st, 2020']
   ]
   arr.forEach((a) => {
-    const s = spacetimeHoliday(a[0], 2020)
+    const s = spacetimeHoliday(a[0], 2020, 'UTC')
     t.equal(s.format('nice-year'), a[1], a[0])
   })
   t.end()

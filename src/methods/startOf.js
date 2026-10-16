@@ -147,6 +147,9 @@ units.date = units.day
 
 const startOf = (a, unit) => {
   let s = a.clone()
+  if (!s.isValid()) {
+    return s
+  }
   unit = normalize(unit)
   if (units[unit]) {
     return units[unit](s)
@@ -161,6 +164,9 @@ const startOf = (a, unit) => {
 //piggy-backs off startOf
 const endOf = (a, unit) => {
   let s = a.clone()
+  if (!s.isValid()) {
+    return s
+  }
   unit = normalize(unit)
   if (units[unit]) {
     // go to beginning, go to next one, step back 1ms

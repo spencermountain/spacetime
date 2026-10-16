@@ -16,7 +16,6 @@ const mon = 'monday'
 // const tues = 'tuesday'
 // const wed = 'wednesday'
 const thurs = 'thursday'
-const fri = 'friday'
 // const sat = 'saturday'
 const sun = 'sunday'
 
@@ -31,11 +30,12 @@ const holidays = {
   'columbus day': [2, mon, oct], //[second monday in october],
   'canadian thanksgiving': [2, mon, oct], //[second monday in october],
   thanksgiving: [4, thurs, nov], // [fourth Thursday in November],
-  'black friday': [4, fri, nov] //[fourth friday in november],
+  'black friday': { after: 'thanksgiving', days: 1 },
+  'cyber monday': { after: 'thanksgiving', days: 4 },
+  'memorial day': [-1, mon, may], // last Monday in May
+  'victoria day': { weekday: mon, before: [may, 25] },
 
-  // 'memorial day': [may], //[last monday in may],
   // 'us election': [nov], // [Tuesday following the first Monday in November],
-  // 'cyber monday': [nov]
   // 'advent': [] // fourth Sunday before Christmas
 }
 

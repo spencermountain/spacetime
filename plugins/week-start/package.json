@@ -19,20 +19,21 @@
   "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
-    "test": "TESTENV=dev tape ./test/**/*.test.js | tap-dancer",
-    "build": "rollup -c --silent"
+    "test": "tape './test/**/*.test.js' | tap-dancer --color",
+    "version": "node ./scripts/version.js",
+    "build": "node ./scripts/version.js && rollup -c --silent"
   },
   "files": [
     "builds"
   ],
   "devDependencies": {
-    "@rollup/plugin-terser": "^1.0.0",
-    "rollup": "4.63.3",
-    "tap-dancer": "0.4.0",
-    "tape": "5.5.3"
+    "@rollup/plugin-terser": "catalog:",
+    "rollup": "catalog:",
+    "tap-dancer": "catalog:",
+    "tape": "catalog:"
   },
   "peerDependencies": {
-    "spacetime": ">=5.8.2"
+    "spacetime": "workspace:>=7.0.0"
   },
   "unpkg": "builds/spacetime-week-start.min.js",
   "prettier": {
@@ -41,5 +42,8 @@
     "semi": false,
     "singleQuote": true,
     "printWidth": 100
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

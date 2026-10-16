@@ -19,23 +19,31 @@
     <a href="https://spencermountain.github.io/">Spencer Kelly</a>
   </sub>
 </div>
-<p></p>
+
+<!-- spacer -->
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 Broadly, we think of a month as having 4 weeks, but when people say 'the 1st week of the month', it can be an ambiguous thing.
 
-The **1st week of May** is defined as the first week *with a Thursday* in it. 
+The **1st week of May** is defined as the first week _with a Thursday_ in it.
 
-This means that first 3 days of October are in the ***5th week of September***:
+<!-- spacer -->
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+This means that first 3 days of October are in the _**5th week of September**_:
 ![image](https://user-images.githubusercontent.com/399657/111084979-93654280-84eb-11eb-8853-923c516a3032.png)
-
 
 and the last 3 days of June, will be the **1st week of July**.
 ![image](https://user-images.githubusercontent.com/399657/111084924-3a95aa00-84eb-11eb-9afd-33418a8dd1e7.png)
 
-
 This is a spacetime plugin to calculate this, for a given day.
 
+### Usage
+
 ```js
+import spacetime from 'spacetime'
+import weekOfMonth from 'spacetime-week-of-month'
+spacetime.extend(weekOfMonth)
 
 // Oct 2020 starts on a thursday
 let s = spacetime('saturday oct 10th 2020')
@@ -44,14 +52,15 @@ s.weekOfMonth()
 
 s = s.weekOfMonth(1)
 // Mon Sep 28th
-
 ```
+
 the week numbers start at 1.
 
 like `.week()` which is based on the year, `.weekOfMonth()` works as a getter+setter, based on the input param:
 
-**Note:** 
+**Note:**
 the getter/setter can produce different results:
+
 ```js
 let s = spacetime('saturday oct 10th 2020')
 s = s.weekOfMonth(1)
@@ -59,12 +68,13 @@ s = s.weekOfMonth(1)
 s.weekOfMonth()
 // 5
 ```
-Sep 28th is considered the 5th week of September.
 
+Sep 28th is considered the 5th week of September.
 
 work-in-progress.
 
 ### See also
-* [spacetime-week](https://github.com/spencermountain/spacetime-week)
+
+- [spacetime-week](https://github.com/spencermountain/spacetime-week)
 
 MIT

@@ -1,10 +1,10 @@
 {
   "name": "spacetime-geo",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "determine a timezone from a lat/lng",
   "license": "MIT",
   "repository": "github:spencermountain/spacetime",
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/spacetime-geo",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/geo",
   "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
   "type": "module",
   "exports": {
@@ -14,13 +14,14 @@
       "default": "./builds/spacetime-geo.mjs"
     }
   },
-  "main": "./builds/spacetime-geo.js",
+  "main": "./builds/spacetime-geo.cjs",
   "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
-    "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
+    "test": "tape './tests/*.test.js' | tap-dancer --color",
     "download": "node ./scripts/download.js",
-    "build": "rollup -c --silent"
+    "version": "node ./scripts/version.js",
+    "build": "node ./scripts/version.js && rollup -c --silent"
   },
   "files": [
     "builds"
@@ -29,18 +30,23 @@
     "timezone"
   ],
   "dependencies": {
-    "tz-lookup": "6.1.25"
+    "@photostructure/tz-lookup": "11.7.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-commonjs": "catalog:",
     "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^1.0.0",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@rollup/plugin-terser": "catalog:",
     "@turf/simplify": "^7.3.5",
-    "rollup": "4.63.3",
-    "spacetime": ">=7.4.0",
-    "tap-dancer": "0.4.0",
-    "tape": "5.6.3"
+    "rollup": "catalog:",
+    "tap-dancer": "catalog:",
+    "tape": "catalog:"
   },
-  "unpkg": "./builds/spacetime-geo.js"
+  "unpkg": "./builds/spacetime-geo.min.js",
+  "peerDependencies": {
+    "spacetime": "workspace:>=7.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

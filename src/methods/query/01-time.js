@@ -185,6 +185,9 @@ const methods = {
       this.epoch = num * 1000
       return this
     }
+    if (!this.isValid()) {
+      return null
+    }
     return Math.floor(this.epoch / 1000)
   }
 }

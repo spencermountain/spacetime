@@ -8,7 +8,7 @@ const methods = {
     if (num !== undefined) {
       const s = this.clone()
       num = parseInt(num, 10)
-      if (num) {
+      if (!Number.isNaN(num)) {
         s.epoch = _date(s, num, goFwd)
       }
       return s

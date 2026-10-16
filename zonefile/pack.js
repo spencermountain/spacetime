@@ -1,6 +1,6 @@
 //turn our timezone data into a small-as-possible string
 import { writeFileSync } from 'node:fs'
-import iana from './iana.js'
+import iana, { tzdbVersion } from './iana.js'
 import aliases from './aliases.js'
 import prefixes from './_prefixes.js'
 const all = {}
@@ -22,7 +22,7 @@ Object.keys(iana).forEach((k) => {
     key += '|' + o.dst
   }
   all[key] = all[key] || []
-  const name = k.replace(/(.*?)\//, (a, prefix) => {
+  const name = k.replace(/^([^/]*)\//, (a, prefix) => {
     const index = prefixes.indexOf(prefix)
     if (index !== -1) {
       return index + '/'
@@ -44,4 +44,7 @@ keys.forEach((k) => {
 })
 
 // console.log(result)
-writeFileSync('./zonefile/_build.js', 'export default ' + JSON.stringify(result, null, 2))
+writeFileSync(
+  './zonefile/_build.js',
+  `export const tzdbVersion = ${JSON.stringify(tzdbVersion)}\nexport default ${JSON.stringify(result, null, 2)}`
+)

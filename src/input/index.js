@@ -1,4 +1,5 @@
-import { isObject, isDate, isArray } from '../fns.js'
+import { parseTemporal } from './temporal.js'
+import { isObject, isArray } from '../fns.js'
 import fns from './helpers.js'
 const { parseArray, parseObject, parseNumber } = fns
 import namedDates from './named-dates.js'
@@ -20,7 +21,7 @@ const defaults = {
 }
 
 //find the epoch from different input styles
-const parseInput = (s, input) => {
+const parseInput = (s, input, timezone) => {
   const today = s._today || defaults
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
@@ -39,8 +40,12 @@ const parseInput = (s, input) => {
   if (input === null || input === undefined || input === '') {
     return s //k, we're good.
   }
+  const native = parseTemporal(s, input)
+  if (native) {
+    return native
+  }
   //support input of Date() object
-  if (isDate(input) === true) {
+  if (Object.prototype.toString.call(input) === '[object Date]') {
     s.epoch = input.getTime()
     return s
   }
@@ -52,9 +57,11 @@ const parseInput = (s, input) => {
   //support {year:2016, month:3} format
   if (isObject(input) === true) {
     //support spacetime object as input
-    if (input.epoch) {
-      s.epoch = input.epoch
-      s.tz = input.tz
+    if ('epoch' in input) {
+      s.epoch = typeof input.epoch === 'number' ? input.epoch : NaN
+      if (timezone == null && input.tz) {
+        s.tz = input.tz
+      }
       return s
     }
     const obj = Object.assign({}, today, input)

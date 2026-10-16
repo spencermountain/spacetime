@@ -1,3 +1,4 @@
+import version from './_version.js'
 // the first week of a month includes a thursday, in that month
 // (leap days do not effect week-ordering!)
 const getFirstWeek = function (s) {
@@ -11,7 +12,7 @@ const getFirstWeek = function (s) {
   return start
 }
 
-export default {
+const plugin = {
   weekOfMonth: function (n) {
     const start = getFirstWeek(this.clone())
     // week-setter
@@ -53,3 +54,8 @@ export default {
     return s.endOf('week')
   }
 }
+
+// Keep metadata out of spacetime.extend()'s method list.
+Object.defineProperty(plugin, 'version', { value: version })
+
+export default plugin

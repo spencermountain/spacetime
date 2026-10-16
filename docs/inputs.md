@@ -22,8 +22,24 @@ IANA zone for reproducible results. Fixed-offset `Etc/GMT` names reverse the
 sign: `etc/gmt+7` means UTC−07:00 and has no regional DST rules.
 
 The constructor accepts strings, millisecond numbers, native Dates, Spacetime
-objects, arrays, and date-field objects. Other methods have their own input
-contracts; do not assume all constructor inputs work with every comparison.
+objects, arrays, date-field objects, and the native Temporal types below. Other
+methods have their own input contracts; do not assume all constructor inputs work with every comparison.
+
+## Native Temporal inputs and output
+
+With `globalThis.Temporal` available, pass native objects directly:
+
+```js
+const native = Temporal.ZonedDateTime.from('2026-07-15T12:00+09:00[Asia/Tokyo]')
+const s = spacetime(native) // keeps the instant and Tokyo timezone
+const out = s.toTemporal() // Temporal.ZonedDateTime
+```
+
+`Instant`, `PlainDate`, and `PlainDateTime` are also supported. See the
+[Temporal guide](./Temporal.md#using-temporal-objects-with-regular-spacetime)
+for timezone handling, precision, runtime requirements, and conversion limits.
+Enable TypeScript's `ESNext.Temporal` library for full native types; without it,
+the return declaration provides a minimal shape.
 
 ## Current-date and extreme-date helpers
 
@@ -61,4 +77,4 @@ but is currently absent from the TypeScript constructor-options declaration.
 
 Partial strings assume the first day for `'June 1992'`, the current year for
 `'June 5th'`, and January 1 for `'2030'`. `null`, `undefined`, and an empty string
-mean now. See [invalid-input edge cases](./edge-cases.md#invalid-inputs-and-clamping).
+mean now. See [invalid-input edge cases](./README.md#invalid-inputs-and-clamping).

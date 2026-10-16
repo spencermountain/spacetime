@@ -7,7 +7,7 @@ console.log('\n 📦  - running rollup..\n')
 
 const banner = `/* spencermountain/${pkg.name} ${pkg.version} ${pkg.license} */`
 
-export default {
+const main = {
   input: 'src/index.js',
   output: [
     {
@@ -37,3 +37,13 @@ export default {
     }
   ]
 }
+
+const temporal = {
+  input: 'src/temporal/index.js',
+  output: [
+    { file: 'builds/spacetime-temporal.mjs', format: 'esm', plugins: [terser()] },
+    { file: 'builds/spacetime-temporal.cjs', format: 'cjs', plugins: [terser()] }
+  ]
+}
+
+export default [main, temporal]

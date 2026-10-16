@@ -45,6 +45,9 @@ const addMethods = (SpaceTime) => {
     if (typeof b === 'string' || typeof b === 'number') {
       b = new SpaceTime(b, this.timezone.name)
     }
+    if (!a.isValid() || !b?.isValid?.()) {
+      return false
+    }
     //support 'seconds' aswell as 'second'
     unit = unit.replace(/s$/, '')
 

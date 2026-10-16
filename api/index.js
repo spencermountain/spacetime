@@ -16,6 +16,10 @@ export default {
       "doc": "return the native javascript Date object at the same epoch (falls back to the local timezone)",
       "out": "Date"
     },
+    "toTemporal": {
+      "doc": "return a native Temporal.ZonedDateTime at the same instant and timezone with millisecond precision, or null for an invalid date. Throws an Error if globalThis.Temporal is unavailable, including for invalid dates",
+      "out": "Temporal.ZonedDateTime/null"
+    },
     "format": {
       "doc": "output nicely-formatted strings, using a named format or a {token} template",
       "out": "String/Object"

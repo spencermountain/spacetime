@@ -60,4 +60,4 @@ start.every('day', end, 2).map(s => s.format('iso-short'))
 
 `each` is an alias of `every(unit, end, stepCount = 1)`. Use a positive integer
 step. The end is excluded; a start on a unit boundary can be included. Reversed
-ranges are iterated chronologically. See [range edge cases](./edge-cases.md#range-boundaries).
+ranges are iterated chronologically. See [range edge cases](./README.md#range-boundaries).

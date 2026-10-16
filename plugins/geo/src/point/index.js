@@ -1,15 +1,14 @@
-import points from './IANA-points.js'
-//
+import data from './IANA-points.js'
+import indexData from '../_lib.js'
+
+const points = indexData(data)
 const point = function () {
-  const tz = this.timezone().name
-  if (points.hasOwnProperty(tz) === false) {
-    console.warn('Unable to find location for timezone ' + tz)
+  const tz = this.timezone().name.toLowerCase()
+  if (!Object.hasOwn(points, tz)) {
     return {}
   }
-  const arr = points[tz].split(',')
-  return {
-    lat: parseFloat(arr[0]),
-    lng: parseFloat(arr[1])
-  }
+  const [lat, lng] = points[tz].split(',').map(Number)
+  return { lat, lng }
 }
+
 export default point

@@ -68,5 +68,12 @@ export default [
       'regexp/prefer-d': 'off',
       'regexp/no-super-linear-move': 'warn'
     }
+  },
+  {
+    files: ['tests/**/*.js'],
+    rules: {
+      'no-async-promise-executor': 'error',
+      'no-promise-executor-return': 'error'
+    }
   }
 ]

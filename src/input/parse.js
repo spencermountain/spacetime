@@ -7,7 +7,7 @@ const parseString = function (s, input, givenTz) {
   for (let i = 0; i < parsers.length; i++) {
     const m = input.match(parsers[i].reg)
     if (m) {
-      const res = parsers[i].parse(s, m, givenTz)
+      const res = parsers[i].parse(s.clone(), m, givenTz)
       if (res !== null && res.isValid()) {
         return res
       }

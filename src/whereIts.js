@@ -1,4 +1,5 @@
 import Spacetime from './spacetime.js'
+import titleCase from './timezone/titleCase.js'
 // const timezones = require('../data');
 
 const whereIts = (a, b) => {
@@ -33,6 +34,6 @@ const whereIts = (a, b) => {
     }
     return false
   })
-  return tzs
+  return tzs.map(titleCase)
 }
 export default whereIts

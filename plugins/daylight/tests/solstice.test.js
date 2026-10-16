@@ -4,6 +4,9 @@ import daylight from '../src/index.js'
 // import daylight from '../builds/spacetime-daylight.mjs'
 spacetime.extend(daylight)
 
+// These reference times are Eastern local time, including summer DST.
+const timezone = 'America/Toronto'
+
 const winters = [
   // these are from timeanddate.com
   // [1971, 'Dec 22 1971 7:23am'],
@@ -42,9 +45,9 @@ const winters = [
 ]
 test('winter solstices', function (t) {
   winters.forEach((a) => {
-    const s = spacetime('march 2 ' + String(a[0]))
+    const s = spacetime('march 2 ' + String(a[0]), timezone)
     const have = s.winterSolstice()
-    const want = spacetime(a[1])
+    const want = spacetime(a[1], timezone)
     // console.log(have.diff(want, 'minute'))
     t.ok(have.isSame(want, 'hour'), a[1])
   })
@@ -63,9 +66,9 @@ const summers = [
 ]
 test('summer solstices', function (t) {
   summers.forEach((a) => {
-    const s = spacetime('march 2 ' + String(a[0]))
+    const s = spacetime('march 2 ' + String(a[0]), timezone)
     const have = s.summerSolstice()
-    const want = spacetime(a[1])
+    const want = spacetime(a[1], timezone)
     // console.log(have.diff(want, 'minute'))
     t.ok(have.isSame(want, 'hour'), a[1])
   })

@@ -183,14 +183,15 @@ const aliases = {
 }
 Object.keys(aliases).forEach((k) => (format[k] = format[aliases[k]]))
 
-const printFormat = (s, str = '') => {
+const printFormat = (s, str = '', overrides) => {
   //don't print anything if it's an invalid date
   if (s.isValid() !== true) {
     return ''
   }
+  const formats = overrides ? { ...format, ...overrides } : format
   //support .format('month')
-  if (format.hasOwnProperty(str)) {
-    let out = format[str](s) || ''
+  if (formats.hasOwnProperty(str)) {
+    let out = formats[str](s) || ''
     if (str !== 'json') {
       out = String(out)
       if (str.toLowerCase() !== 'ampm') {
@@ -211,8 +212,8 @@ const printFormat = (s, str = '') => {
       if (fmt !== 'AMPM') {
         fmt = fmt.toLowerCase()
       }
-      if (format.hasOwnProperty(fmt)) {
-        const out = String(format[fmt](s))
+      if (formats.hasOwnProperty(fmt)) {
+        const out = String(formats[fmt](s))
         if (fmt.toLowerCase() !== 'ampm') {
           return applyCaseFormat(out)
         }

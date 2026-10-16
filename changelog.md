@@ -6,15 +6,31 @@ This project follows semVer, where:
 
 <!--
  -->
- ### 7.16.0 [Oct 2026]
-- **[change]** deprecated but exposed `.d` date now is in UTC - users can do `s.toNativeDate()`
+
+### 7.17.0 [Oct 2026]
+
+- **[change]** - #212 return proper titlecased IANA codes in `.whereIts()`
+- **[change]** - better support for fractional arithmetic
+- **[new]** - #350 export tzdb-version
+- **[new]** - experimental `spacetime/temporal` wrapper
+- **[fix]** - typescript types
+- **[fix]** - more api edge-cases
+- **[fix]** - Preserve invalidity across api changes
+- **[change]** - Make invalid comparisons consistently return false
+- **[fix]** - Prevent invalid dates hanging `.every()` iteration
+- **[update]** - overdue improvements to `spacetime-geo` plugin
+- **[update]** - dependencies
+
+### 7.16.0 [Oct 2026]
+
+- **[change]** - deprecated but exposed `.d` date now is in UTC - users can do `s.toNativeDate()`
 - **[change]** - use UTC date methods internally to reduce bias of local computer
 - **[fix]** - correct Chatham and NZ-CHAT transitions to 03:45 and 02:45
 - **[fix]** - apply Lord Howe's half-hour DST shift to the Australia/LHI alias
 - **[fix]** - hemispheres for 42 zones
 - **[fix]** - preserve fractional timezone offsets, support UTC±14, and reject malformed offsets
 - **[fix]** - point the North Dakota shortcut to Central time and resolve nested timezone city names
-- **[change]** - reject malformed clock fields in date strings #450 
+- **[change]** - reject malformed clock fields in date strings #450
 - **[change]** - parse two-digit years including `12/30/19 12:22:08 PM` #179
 - **[change]** - support `{silent: false}` for #451
 - **[fix]** - midnight and noon issue in `.hour12('12am')` and `.hour12('12pm')`
@@ -22,7 +38,8 @@ This project follows semVer, where:
 - **[fix]** - decade and century arithmetic, clamping leap days to the target year
 - **[update]** - dependencies
 
- ### 7.15.0 [Sep 2026]
+### 7.15.0 [Sep 2026]
+
 - **[fix]** - stale dst offsets #470 (thanks Sudarshan!)
 - **[fix]** - update dst dates for nuuk, indiana, kentucky, scoresbysund, nuuk, troll, and north dakota
 - **[change]** - compromised support for casablanca's 4-change year
@@ -30,29 +47,34 @@ This project follows semVer, where:
 - **[change]** - fixes to zonefile parser
 
 ### 7.14.0 [Sep 2026]
- - **[new]** - support JavaScript's Date.toString() fmt as input #465
- - **[change]** - clamp maximum .hour() to 0-23 #467
- - **[update]** - edmonton and yellowknife DST hour
- - **[update]** - dependencies
+
+- **[new]** - support JavaScript's Date.toString() fmt as input #465
+- **[change]** - clamp maximum .hour() to 0-23 #467
+- **[update]** - edmonton and yellowknife DST hour
+- **[update]** - dependencies
 
 ### 7.13.0 [Jun 2026]
+
 - **[fix]** - typescript config issue
 - **[fix]** - leap-year issue #461
-- **[update]** -  Chisinau + Vancouver dst hour
-- **[new]** - static LLM docs 
+- **[update]** - Chisinau + Vancouver dst hour
+- **[new]** - static LLM docs
 - **[update]** - dependencies
 
 ### 7.12.1 [May 2026]
+
 - **[fix]** - regression for today param in object format
 - **[change]** - add npm ignore-scripts=true
 - **[update]** - github actions scripts
 - **[update]** - dependencies
 
 ### 7.12.0 [Dec 2025]
+
 - **[update]** - update zonefile to 2026 DST dates
 - **[update]** - update dependencies
 
 ### 7.11.0 [Sep 2025]
+
 - **[fix]** - millennium API typo (w/ backward compat)
 - **[update]** - update CICD script
 - **[update]** - Update Kazakhstan timezones to UTC+5
@@ -61,21 +83,23 @@ This project follows semVer, where:
 - **[update]** - dependencies
 
 ### 7.10.0 [Apr 2025]
-- **[fix]** -  capitalization of "Etc/Utc" #446
+
+- **[fix]** - capitalization of "Etc/Utc" #446
 - **[new]** - `.isoFull()` method
 - **[new]** - `spacetime.fromEpochSeconds()` method #444
-- **[fix]** - getter form of `.epochSeconds()` 
+- **[fix]** - getter form of `.epochSeconds()`
 - **[update]** - dependencies
 
 ### 7.9.0 [Apr 2025]
+
 - **[new]** - `.format('sql')` #437
 - **[new]** - `.epochSeconds()` #439
 - **[fix]** - duplicate type for `.json()` #435
 - **[update]** - plugin peerdepencies #440
 - **[update]** - dependencies
 
-
 ### 7.8.0 [Mar 2025]
+
 - **[fix]** - 2025 DST-change times for many zones \#431
 - **[fix]** - more .week() issues from \#303
 - **[new]** - initial support for Temporal's extended-iso RFC3339 fmt
@@ -88,16 +112,18 @@ This project follows semVer, where:
 - **[update]** - dependencies
 
 ### 7.7.0 [Dec 2024]
+
 - **[fix]** - .week() issue \#303
 - **[update]** - 2025 DST changes
 - **[update]** - greenland Nuuk DST change \#420
 - **[update]** - alias choibalsan to ulaanbaatar
 
-
 ### 7.6.2 [Oct 2024]
+
 - **[fix]** - isEqual null on 1970-01-01 #417
 
 ### 7.6.1 [July 2024]
+
 - **[new]** - add stepCount paramater to `.every()` #411
 - **[fix]** - eslint update and fixes
 - **[change]** - readme improvements #412

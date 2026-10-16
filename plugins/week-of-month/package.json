@@ -1,6 +1,6 @@
 {
   "name": "spacetime-week-of-month",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "calculate nth week of the month",
   "license": "MIT",
   "repository": "github:spencermountain/spacetime",
@@ -17,17 +17,18 @@
   "module": "./builds/spacetime-week-of-month.mjs",
   "sideEffects": false,
   "scripts": {
-    "test": "TESTENV=dev tape ./week.test.js | tap-dancer  --color always",
-    "build": "rollup -c --silent"
+    "test": "tape './tests/*.test.js' | tap-dancer --color",
+    "version": "node ./scripts/version.js",
+    "build": "node ./scripts/version.js && rollup -c --silent"
   },
   "files": [
     "builds"
   ],
   "devDependencies": {
-    "@rollup/plugin-terser": "^1.0.0",
-    "rollup": "4.63.3",
-    "tap-dancer": "0.4.0",
-    "tape": "5.5.3"
+    "@rollup/plugin-terser": "catalog:",
+    "rollup": "catalog:",
+    "tap-dancer": "catalog:",
+    "tape": "catalog:"
   },
   "unpkg": "builds/spacetime-week-of-month.min.js",
   "prettier": {
@@ -36,5 +37,11 @@
     "semi": false,
     "singleQuote": true,
     "printWidth": 100
+  },
+  "peerDependencies": {
+    "spacetime": "workspace:>=7.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

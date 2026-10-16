@@ -1,3 +1,4 @@
+import { inputTimezone, toTemporal } from './input/temporal.js'
 import quickOffset from './timezone/quick.js'
 import findTz from './timezone/find.js'
 import handleInput from './input/index.js'
@@ -15,7 +16,7 @@ const SpaceTime = function (input, tz, options = {}) {
   // the holy moment
   this.epoch = null
   // the shift for the given timezone
-  this.tz = findTz(tz, timezones)
+  this.tz = findTz(tz ?? inputTimezone(input), timezones)
   // whether to output warnings to console
   this.silent = typeof options.silent !== 'undefined' ? options.silent : true
   // favour british interpretation of 02/02/2018, etc
@@ -41,6 +42,9 @@ const SpaceTime = function (input, tz, options = {}) {
   Object.defineProperty(this, 'd', {
     // Internal clock view: read its UTC fields, not the host's local fields.
     get: function () {
+      if (!Number.isFinite(this.epoch)) {
+        return new Date(NaN)
+      }
       const offset = quickOffset(this)
       return new Date(this.epoch + (offset * 3600000))
     }
@@ -54,7 +58,7 @@ const SpaceTime = function (input, tz, options = {}) {
     }
   })
   // parse the various formats
-  const tmp = handleInput(this, input)
+  const tmp = handleInput(this, input, tz)
   this.epoch = tmp.epoch
   if (tmp.tz) {
     this.tz = tmp.tz
@@ -68,7 +72,7 @@ Object.keys(methods).forEach((k) => {
 
 // ¯\_(ツ)_/¯
 SpaceTime.prototype.clone = function () {
-  return new SpaceTime(this.epoch, this.tz, {
+  return new SpaceTime(this.isValid() ? this.epoch : NaN, this.tz, {
     silent: this.silent,
     dmy: this.british,
     weekStart: this._weekStart,
@@ -89,7 +93,11 @@ SpaceTime.prototype.toLocalDate = function () {
  * @returns native date object at the same epoch
  */
 SpaceTime.prototype.toNativeDate = function () {
-  return new Date(this.epoch)
+  return new Date(this.isValid() ? this.epoch : NaN)
+}
+
+SpaceTime.prototype.toTemporal = function () {
+  return toTemporal(this)
 }
 
 // append more methods

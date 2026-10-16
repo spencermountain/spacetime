@@ -1,6 +1,6 @@
 {
   "name": "spacetime-daylight",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "calculate approximate sunlight times for a given timezone",
   "license": "MIT",
   "repository": "github:spencermountain/spacetime",
@@ -19,25 +19,31 @@
   "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
-    "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
-    "build": "rollup -c --silent"
+    "test": "tape './tests/*.test.js' | tap-dancer --color",
+    "version": "node ./scripts/version.js",
+    "build": "node ./scripts/version.js && rollup -c --silent"
   },
   "keywords": [
     "sunlight",
     "timezone"
   ],
   "dependencies": {
-    "spacetime-geo": "1.4.1",
+    "spacetime-geo": "workspace:^",
     "suncalc": "1.9.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.2",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^1.0.0",
-    "rollup": "4.63.3",
-    "spacetime": ">=7.4.0",
-    "tap-dancer": "0.4.0",
-    "tape": "5.9.0"
+    "@rollup/plugin-commonjs": "catalog:",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@rollup/plugin-terser": "catalog:",
+    "rollup": "catalog:",
+    "tap-dancer": "catalog:",
+    "tape": "catalog:"
   },
-  "unpkg": "builds/spacetime-daylight.min.js"
+  "unpkg": "builds/spacetime-daylight.min.js",
+  "peerDependencies": {
+    "spacetime": "workspace:>=7.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
