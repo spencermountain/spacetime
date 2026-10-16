@@ -38,7 +38,6 @@ var fixed = {
   'cinco de mayo': [may$1, 5],
   'national nurses day': [may$1, 6],
   'harvey milk day': [may$1, 22],
-  'victoria day': [may$1, 24],
   juneteenth: [jun$1, 19],
   'canada day': [jul, 1],
   'independence day': [jul, 4],
@@ -59,7 +58,7 @@ var fixed = {
   'all saints day': [nov$1, 1],
   'all sts day': [nov$1, 1],
   'armistice day': [nov$1, 11],
-  'rememberance day': [nov$1, 11],
+  'remembrance day': [nov$1, 11],
   'christmas eve': [dec, 24],
   christmas: [dec, 25],
   xmas: [dec, 25],
@@ -88,7 +87,7 @@ var fixed = {
 };
 
 // holidays that are the same date every year
-const fixedDates$1 = function (str, normal, year, tz) {
+const fixedDates = function (str, normal, year, tz) {
   if (fixed.hasOwnProperty(str) || fixed.hasOwnProperty(normal)) {
     const arr = fixed[str] || fixed[normal] || [];
     let s = spacetime.now(tz);
@@ -121,7 +120,6 @@ const mon = 'monday';
 // const tues = 'tuesday'
 // const wed = 'wednesday'
 const thurs = 'thursday';
-const fri = 'friday';
 // const sat = 'saturday'
 const sun = 'sunday';
 
@@ -136,11 +134,12 @@ const holidays = {
   'columbus day': [2, mon, oct], //[second monday in october],
   'canadian thanksgiving': [2, mon, oct], //[second monday in october],
   thanksgiving: [4, thurs, nov], // [fourth Thursday in November],
-  'black friday': [4, fri, nov] //[fourth friday in november],
+  'black friday': { after: 'thanksgiving', days: 1 },
+  'cyber monday': { after: 'thanksgiving', days: 4 },
+  'memorial day': [-1, mon, may], // last Monday in May
+  'victoria day': { weekday: mon, before: [may, 25] },
 
-  // 'memorial day': [may], //[last monday in may],
   // 'us election': [nov], // [Tuesday following the first Monday in November],
-  // 'cyber monday': [nov]
   // 'advent': [] // fourth Sunday before Christmas
 };
 
@@ -149,34 +148,39 @@ holidays['turday day'] = holidays.thanksgiving;
 holidays['indigenous peoples day'] = holidays['columbus day'];
 holidays['mlk day'] = holidays['martin luther king day'];
 
-// holidays that are the same date every year
-const fixedDates = function (str, normal, year, tz) {
-  if (holidays.hasOwnProperty(str) || holidays.hasOwnProperty(normal)) {
-    const arr = holidays[str] || holidays[normal] || [];
-    let s = spacetime.now(tz);
-    s = s.year(year);
-
-    // [3rd, 'monday', 'january']
-    s = s.month(arr[2]);
-    s = s.startOf('month');
-    // make it january
-    const month = s.month();
-
-    // make it the 1st monday
-    s = s.day(arr[1]);
-    if (s.month() !== month) {
-      s = s.add(1, 'week');
-    }
-    // make it nth monday
-    if (arr[0] > 1) {
-      s = s.add(arr[0] - 1, 'week');
-    }
-    if (s.isValid()) {
-      return s
-    }
+const calendarDates = (str, normal, year, tz, lookup) => {
+  const rule = holidays[str] ?? holidays[normal];
+  if (!rule) {
+    return null
   }
-
-  return null
+  if (rule.after) {
+    const base = lookup(rule.after, year, tz);
+    return base ? base.add(rule.days, 'day') : null
+  }
+  const start = spacetime.now(tz).year(year).startOf('year');
+  if (rule.before) {
+    const anchor = start.month(rule.before[0]).date(rule.before[1]);
+    let result = anchor.day(rule.weekday);
+    if (result.epoch >= anchor.epoch) {
+      result = result.subtract(1, 'week');
+    }
+    return result
+  }
+  const [nth, weekday, month] = rule;
+  let anchor = start.month(month).startOf('month');
+  if (nth < 0) {
+    anchor = anchor.endOf('month').startOf('day');
+    let result = anchor.day(weekday);
+    if (result.epoch > anchor.epoch) {
+      result = result.subtract(1, 'week');
+    }
+    return result.add(nth + 1, 'week')
+  }
+  let result = anchor.day(weekday);
+  if (result.epoch < anchor.epoch) {
+    result = result.add(1, 'week');
+  }
+  return result.add(nth - 1, 'week')
 };
 
 // https://www.timeanddate.com/calendar/determining-easter-date.html
@@ -184,7 +188,7 @@ const fixedDates = function (str, normal, year, tz) {
 const dates$2 = {
   easter: 0,
   'ash wednesday': -46, // (46 days before easter)
-  'palm sunday': 7, // (1 week before easter)
+  'palm sunday': -7, // (1 week before easter)
   'maundy thursday': -3, // (3 days before easter)
   'good friday': -2, // (2 days before easter)
   'holy saturday': -1, // (1 days before easter)
@@ -193,7 +197,7 @@ const dates$2 = {
   'ascension day': 39, // (39 days after easter)
   'whit sunday': 49, // / pentecost (49 days after easter)
   'whit monday': 50, // (50 days after easter)
-  'trinity sunday': 65, // (56 days after easter)
+  'trinity sunday': 56, // (56 days after easter)
   'corpus christi': 60, // (60 days after easter)
 
   'mardi gras': -47 //(47 days before easter)
@@ -205,29 +209,28 @@ dates$2.whitsun = dates$2['whit sunday'];
 // by John Dyer
 // based on the algorithm by Oudin (1940) from http://www.tondering.dk/claus/cal/easter.php
 const calcEaster = function (year) {
-  let f = Math.floor,
-    // Golden Number - 1
-    G = year % 19,
-    C = f(year / 100),
-    // related to Epact
-    H = (C - f(C / 4) - f((8 * C + 13) / 25) + 19 * G + 15) % 30,
-    // number of days from 21 March to the Paschal full moon
-    I = H - f(H / 28) * (1 - f(29 / (H + 1)) * f((21 - G) / 11)),
-    // weekday for the Paschal full moon
-    J = (year + f(year / 4) + I + 2 - C + f(C / 4)) % 7,
-    // number of days from 21 March to the Sunday on or before the Paschal full moon
-    L = I - J,
-    month = 3 + f((L + 40) / 44),
-    date = L + 28 - 31 * f(month / 4);
-
-  month = month === 4 ? 'April' : 'March';
-  return month + ' ' + date
+  const f = Math.floor;
+  // Golden Number - 1
+  const G = year % 19;
+  const C = f(year / 100);
+  // related to Epact
+  const H = (C - f(C / 4) - f((8 * C + 13) / 25) + 19 * G + 15) % 30;
+  // number of days from 21 March to the Paschal full moon
+  const I = H - f(H / 28) * (1 - f(29 / (H + 1)) * f((21 - G) / 11));
+  // weekday for the Paschal full moon
+  const J = (year + f(year / 4) + I + 2 - C + f(C / 4)) % 7;
+  // number of days from 21 March to the Sunday on or before the Paschal full moon
+  const L = I - J;
+  const month = 3 + f((L + 40) / 44);
+  const date = L + 28 - 31 * f(month / 4);
+  const monthName = month === 4 ? 'April' : 'March';
+  return monthName + ' ' + date
 };
 
 //calculate any holidays based on easter
 const easterDates = function (str, normal, year, tz) {
   if (dates$2.hasOwnProperty(str) || dates$2.hasOwnProperty(normal)) {
-    const days = dates$2[str] || dates$2[normal] || [];
+    const days = dates$2[str] ?? dates$2[normal];
 
     const date = calcEaster(year);
     if (!date) {
@@ -401,7 +404,7 @@ const calcSeasons = function (year) {
 // these are properly calculated in ./lib/seasons
 const dates$1 = {
   'spring equinox': 'spring',
-  'summer solistice': 'summer',
+  'summer solstice': 'summer',
   'fall equinox': 'fall',
   'winter solstice': 'winter'
 };
@@ -411,8 +414,9 @@ dates$1['march equinox'] = dates$1['spring equinox'];
 dates$1['vernal equinox'] = dates$1['spring equinox'];
 dates$1['ostara'] = dates$1['spring equinox'];
 
-dates$1['june solstice'] = dates$1['summer solistice'];
-dates$1['litha'] = dates$1['summer solistice'];
+dates$1['summer solistice'] = dates$1['summer solstice'];
+dates$1['june solstice'] = dates$1['summer solstice'];
+dates$1['litha'] = dates$1['summer solstice'];
 
 dates$1['autumn equinox'] = dates$1['fall equinox'];
 dates$1['autumnal equinox'] = dates$1['fall equinox'];
@@ -420,9 +424,9 @@ dates$1['september equinox'] = dates$1['fall equinox'];
 dates$1['sept equinox'] = dates$1['fall equinox'];
 dates$1['mabon'] = dates$1['fall equinox'];
 
-dates$1['december solstice'] = dates$1['winter solistice'];
-dates$1['dec solstice'] = dates$1['winter solistice'];
-dates$1['yule'] = dates$1['winter solistice'];
+dates$1['december solstice'] = dates$1['winter solstice'];
+dates$1['dec solstice'] = dates$1['winter solstice'];
+dates$1['yule'] = dates$1['winter solstice'];
 
 const astroDates = function (str, normal, year, tz) {
   if (dates$1.hasOwnProperty(str) || dates$1.hasOwnProperty(normal)) {
@@ -479,47 +483,121 @@ const lunarDates = function (str, normal, year, tz) {
   return null
 };
 
-const nowYear = spacetime.now().year();
+// Explicit aliases keep unrelated holidays on the same date distinct.
+const aliases = {
+  'new years': 'new years day',
+  'saint valentines day': 'valentines day',
+  'st valentines day': 'valentines day',
+  'st patricks day': 'saint patricks day',
+  'april fools': 'april fools day',
+  'independents day': 'independence day',
+  '16 de septiembre': 'grito de dolores',
+  'dieciseis de septiembre': 'grito de dolores',
+  'all hallows eve': 'halloween',
+  'dia de muertos': 'day of the dead',
+  'st andrews day': 'saint andrews day',
+  'all sts day': 'all saints day',
+  'rememberance day': 'remembrance day',
+  xmas: 'christmas',
+  'st stephens day': 'saint stephens day',
+  'turday day': 'thanksgiving',
+  'turkey day': 'thanksgiving',
+  'mlk day': 'martin luther king day',
+  'easter sunday': 'easter',
+  'easter saturday': 'holy saturday',
+  pentecost: 'whit sunday',
+  whitsun: 'whit sunday',
+  'march equinox': 'spring equinox',
+  'vernal equinox': 'spring equinox',
+  ostara: 'spring equinox',
+  'summer solistice': 'summer solstice',
+  'june solstice': 'summer solstice',
+  litha: 'summer solstice',
+  'autumn equinox': 'fall equinox',
+  'autumnal equinox': 'fall equinox',
+  'september equinox': 'fall equinox',
+  'sept equinox': 'fall equinox',
+  mabon: 'fall equinox',
+  'december solstice': 'winter solstice',
+  'dec solstice': 'winter solstice',
+  yule: 'winter solstice',
+  'id al-fitr': 'eid al-fitr',
+  'eid ul-fitr': 'eid al-fitr'
+};
 
-const spacetimeHoliday = function (str, year, tz) {
-  year = year || nowYear;
-  str = str || '';
-  str = String(str);
-  str = str.trim().toLowerCase();
-  str = str.replace(/'s/, 's'); // 'mother's day'
+const normalize = (name) => String(name ?? '').trim().toLowerCase().replace(/['’]/g, '').replace(/\s+/g, ' ').replace(/^the /, '');
+const catalog = {};
+Object.keys({ ...fixed, ...holidays, ...dates$2, ...dates$1, ...dates }).forEach((key) => {
+  const normalized = normalize(key);
+  const name = aliases[normalized] ?? normalized;
+  if (!Object.hasOwn(catalog, name)) {
+    catalog[name] = { name, aliases: [] };
+  }
+});
+Object.entries(aliases).forEach(([alias, name]) => {
+  if (Object.hasOwn(catalog, name)) {
+    catalog[name].aliases.push(alias);
+  }
+});
 
-  let normal = str.replace(/ day$/, '');
-  normal = normal.replace(/^the /, '');
-  normal = normal.replace(/^orthodox /, ''); //orthodox good friday
-
-  // try easier, unmoving holidays
-  let s = fixedDates$1(str, normal, year, tz);
-  if (s !== null) {
-    return s
+const resolveName = (input) => {
+  const name = normalize(input);
+  const candidates = [name, name.replace(/ day$/, '')];
+  for (let i = 0; i < candidates.length; i += 1) {
+    const candidate = aliases[candidates[i]] ?? candidates[i];
+    if (Object.hasOwn(catalog, candidate)) {
+      return candidate
+    }
   }
-  // try 'nth monday' holidays
-  s = fixedDates(str, normal, year, tz);
-  if (s !== null) {
-    return s
-  }
-  // easter-based holidays
-  s = easterDates(str, normal, year, tz);
-  if (s !== null) {
-    return s
-  }
-  // solar-based holidays
-  s = astroDates(str, normal, year, tz);
-  if (s !== null) {
-    return s
-  }
-  // mostly muslim holidays
-  s = lunarDates(str, normal, year, tz);
-  if (s !== null) {
-    return s
-  }
-
   return null
 };
-spacetimeHoliday.version = version;
 
-export { spacetimeHoliday as default };
+const resolvers = [fixedDates, calendarDates, easterDates, astroDates, lunarDates];
+const lookup = (input, year, tz) => {
+  const name = resolveName(input);
+  if (!name) {
+    return null
+  }
+  year = year ?? spacetime.now(tz).year();
+  for (let i = 0; i < resolvers.length; i += 1) {
+    const date = resolvers[i](name, name, year, tz, lookup);
+    if (date !== null) {
+      return date
+    }
+  }
+  return null
+};
+
+const list = (options = {}) => {
+  return Object.keys(catalog).sort().map((name) => {
+    const entry = { name, aliases: [...catalog[name].aliases].sort() };
+    if (options.year !== undefined) {
+      entry.date = lookup(name, options.year, options.timezone);
+    }
+    return entry
+  })
+};
+
+const next = (name, options = {}) => {
+  const from = options.from ?? Date.now();
+  const timezone = options.timezone ?? from?.tz;
+  const input = from?.epoch ?? from;
+  const reference = spacetime(input, timezone).startOf('day');
+  if (!reference.isValid()) {
+    return null
+  }
+  // Holidays are calendar dates: today counts even after midnight.
+  for (let year = reference.year(); year <= reference.year() + 1; year += 1) {
+    const result = lookup(name, year, reference.tz);
+    if (result && result.epoch >= reference.epoch) {
+      return result
+    }
+  }
+  return null
+};
+
+lookup.version = version;
+lookup.list = list;
+lookup.next = next;
+
+export { lookup as default };

@@ -13,6 +13,9 @@
   <code>npm install spacetime-geo</code>
 </div>
 
+<!-- spacer -->
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
 [spacetime](https://github.com/spencermountain/spacetime) plugin for determining a timezone based on a point on the earth, and vice-versa.
 
 Coordinate lookup uses the maintained [PhotoStructure tz-lookup fork](https://github.com/photostructure/tz-lookup). Display polygons come from tagged [timezone-boundary-builder](https://github.com/evansiroky/timezone-boundary-builder/) releases, including ocean zones. UTC offsets and daylight-saving rules come from spacetime.

@@ -1,6 +1,6 @@
 import test from 'tape'
-import spacetime from '../../src/index.js'
-import plugin from './src/index.js'
+import spacetime from '../../../src/index.js'
+import plugin from '../src/index.js'
 spacetime.plugin(plugin)
 
 test('weekOfMonth-getter', (t) => {

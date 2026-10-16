@@ -1,23 +1,29 @@
 <div align="center">
-  <img src="https://cloud.githubusercontent.com/assets/399657/23590290/ede73772-01aa-11e7-8915-181ef21027bc.png" />
-  <div>
-    <h2>spacetime-holiday</h2>
+  <div><b>spacetime-holiday</b></div>
+  <div>calculate the calendar-date of holidays</div>
+  <div><code>npm install spacetime-holiday</code></div>
+  <div align="center">
+    <sub>
+      by
+      <a href="https://github.com/spencermountain">Spencer Kelly</a>
+    </sub>
   </div>
+  <img height="25px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
+</div>
+<!--2nd row-->
+<div align="center">
   <div>
-    calculate the calendar-date of holidays
-  </div>
-  <a href="https://npmjs.org/package/spacetime-holiday">
+    <a href="https://npmjs.org/package/spacetime-holiday">
     <img src="https://img.shields.io/npm/v/spacetime-holiday.svg?style=flat-square" />
   </a>
-  <a href="https://unpkg.com/spacetime-holiday/builds/spacetime-holiday.min.js">
-    <img src="https://img.shields.io/bundlephobia/min/spacetime-holiday" />
+  <a href="https://bundlephobia.com/result?p=spacetime-holiday">
+    <img src="https://badgen.net/bundlejs/min/spacetime-holiday" />
   </a>
-  <div>
-    <sup>
-      By <a href="https://github.com/spencermountain">Spencer Kelly</a>
-    </sup>
   </div>
 </div>
+
+<!-- spacer -->
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 Some holidays are the same day every year, some holidays change astronomically, some by calendar rules like 'third thursday in June'.
 
@@ -27,12 +33,8 @@ if it finds a date, it returns a [spacetime](https://github.com/spencermountain/
 
 to conserve filesize of your build, **spacetime** is a peerDependency, so must be installed separately:
 
-`npm i spacetime`
-
-`npm i spacetime-holiday`
-
 ```js
-const spacetimeHoliday = require('spacetime-holiday')
+import spacetimeHoliday from 'spacetime-holiday'
 
 let s = spacetimeHoliday('easter monday', 2020)
 s.format('iso-short')
@@ -50,7 +52,7 @@ s.iso()
 // 2019-05-05T00:00:00.000-07:00
 ```
 
-work-in-progress!
+### Support:
 
 - american/western holidays 👍
 

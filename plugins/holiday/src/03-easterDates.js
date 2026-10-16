@@ -5,7 +5,7 @@ import calcEaster from './lib/calcEaster.js'
 //calculate any holidays based on easter
 const easterDates = function (str, normal, year, tz) {
   if (holidays.hasOwnProperty(str) || holidays.hasOwnProperty(normal)) {
-    const days = holidays[str] || holidays[normal] || []
+    const days = holidays[str] ?? holidays[normal]
 
     const date = calcEaster(year)
     if (!date) {

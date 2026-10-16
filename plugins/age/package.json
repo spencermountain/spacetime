@@ -1,10 +1,11 @@
 {
   "name": "space-age",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "a CLI calendar",
   "license": "MIT",
   "repository": "github:spencermountain/spacetime",
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/space-age",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
+  "minimumReleaseAge": "1 day",
   "type": "module",
   "exports": {
     ".": {

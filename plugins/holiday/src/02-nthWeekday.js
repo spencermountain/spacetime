@@ -1,33 +1,39 @@
 import spacetime from 'spacetime'
 import calendar from './holidays/calendar-holidays.js'
 
-// holidays that are the same date every year
-const fixedDates = function (str, normal, year, tz) {
-  if (calendar.hasOwnProperty(str) || calendar.hasOwnProperty(normal)) {
-    const arr = calendar[str] || calendar[normal] || []
-    let s = spacetime.now(tz)
-    s = s.year(year)
-
-    // [3rd, 'monday', 'january']
-    s = s.month(arr[2])
-    s = s.startOf('month')
-    // make it january
-    const month = s.month()
-
-    // make it the 1st monday
-    s = s.day(arr[1])
-    if (s.month() !== month) {
-      s = s.add(1, 'week')
-    }
-    // make it nth monday
-    if (arr[0] > 1) {
-      s = s.add(arr[0] - 1, 'week')
-    }
-    if (s.isValid()) {
-      return s
-    }
+const calendarDates = (str, normal, year, tz, lookup) => {
+  const rule = calendar[str] ?? calendar[normal]
+  if (!rule) {
+    return null
   }
-
-  return null
+  if (rule.after) {
+    const base = lookup(rule.after, year, tz)
+    return base ? base.add(rule.days, 'day') : null
+  }
+  const start = spacetime.now(tz).year(year).startOf('year')
+  if (rule.before) {
+    const anchor = start.month(rule.before[0]).date(rule.before[1])
+    let result = anchor.day(rule.weekday)
+    if (result.epoch >= anchor.epoch) {
+      result = result.subtract(1, 'week')
+    }
+    return result
+  }
+  const [nth, weekday, month] = rule
+  let anchor = start.month(month).startOf('month')
+  if (nth < 0) {
+    anchor = anchor.endOf('month').startOf('day')
+    let result = anchor.day(weekday)
+    if (result.epoch > anchor.epoch) {
+      result = result.subtract(1, 'week')
+    }
+    return result.add(nth + 1, 'week')
+  }
+  let result = anchor.day(weekday)
+  if (result.epoch < anchor.epoch) {
+    result = result.add(1, 'week')
+  }
+  return result.add(nth - 1, 'week')
 }
-export default fixedDates
+
+export default calendarDates

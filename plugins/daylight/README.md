@@ -133,6 +133,6 @@ maybeList.forEach((tz) => {
 
 ## See also
 
-- [timespace](https://github.com/mapbox/timespace) - by MapBox, using Moment - larger and more-accurate.
+- [mapbox/timespace](https://github.com/mapbox/timespace) - using Moment - more-accurate, but larger
 
 MIT

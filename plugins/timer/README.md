@@ -8,7 +8,7 @@
       <a href="https://github.com/spencermountain">Spencer Kelly</a>
     </sub>
   </div>
-  <img height="25px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
+  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
 </div>
 <!--2nd row-->
 <div align="center">
@@ -21,6 +21,9 @@
   </a>
   </div>
 </div>
+
+<!-- spacer -->
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 turn a spacetime object into a live-updating clock - from _any_ date, at _any_ speed.
 
@@ -42,7 +45,8 @@ s.start({
 s.stop()
 ```
 
-`npm i spacetime-timer`
+<!-- spacer -->
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 ### It doesn't drift
 
