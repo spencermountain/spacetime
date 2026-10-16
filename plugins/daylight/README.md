@@ -4,8 +4,8 @@
   <a href="https://npmjs.org/package/spacetime-daylight">
     <img src="https://img.shields.io/npm/v/spacetime-daylight.svg?style=flat-square" />
   </a>
-  <a href="https://nodejs.org/api/documentation.html#documentation_stability_index">
-    <img src="https://img.shields.io/badge/stability-stable-green.svg?style=flat-square" />
+  <a href="https://bundlephobia.com/result?p=spacetime-daylight@latest">
+    <img src="https://badgen.net/bundlejs/min/spacetime-daylight" />
   </a>
 </div>
 

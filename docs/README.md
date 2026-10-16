@@ -1,7 +1,6 @@
-# spacetime usage guide
-
-spacetime works with dates and timezones using bundled timezone data. Start here
-when generating code; use the topic pages for signatures and examples.
+> spacetime is a zero-dependency JavaScript library for working with dates across
+> timezones. It does timezone math (DST, leap years, hemispheres) **without** the
+> `Intl` API, and exposes a Moment-like, mostly **immutable** API.
 
 ```js
 import spacetime from 'spacetime'

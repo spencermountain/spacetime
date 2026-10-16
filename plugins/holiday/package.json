@@ -21,8 +21,8 @@
     "watch": "node --watch ./scratch.js",
     "version": "node ./scripts/version.js",
     "build": "node ./scripts/version.js && rollup -c --silent",
-    "test": "TESTENV=dev tape ./tests/**/*.test.js | tap-dancer",
-    "testb": "TESTENV=prod tape ./tests/**/*.test.js | tap-dancer"
+    "test": "tape './tests/**/*.test.js' | tap-dancer --color",
+    "testb": "TESTENV=prod tape './tests/**/*.test.js' | tap-dancer --color"
   },
   "files": [
     "builds/"

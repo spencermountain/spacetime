@@ -84,6 +84,9 @@ importers:
       rollup:
         specifier: 'catalog:'
         version: 4.64.7
+      tap-dancer:
+        specifier: 'catalog:'
+        version: 0.4.4
       tape:
         specifier: 'catalog:'
         version: 5.10.3
@@ -100,6 +103,9 @@ importers:
         specifier: 1.5.2
         version: 1.5.2
     devDependencies:
+      tap-dancer:
+        specifier: 'catalog:'
+        version: 0.4.4
       tape:
         specifier: 'catalog:'
         version: 5.10.3

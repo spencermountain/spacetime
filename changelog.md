@@ -18,6 +18,8 @@ This project follows semVer, where:
 - **[fix]** - Preserve invalidity across api changes
 - **[change]** - Make invalid comparisons consistently return false
 - **[fix]** - Prevent invalid dates hanging `.every()` iteration
+- **[update]** - overdue improvements to `spacetime-geo` plugin
+- **[update]** - dependencies
 
 ### 7.16.0 [Oct 2026]
 

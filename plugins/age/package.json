@@ -21,7 +21,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "test": "tape --strict test/*.test.js"
+    "test": "tape './test/*.test.js' | tap-dancer --color"
   },
   "dependencies": {
     "minimist": "catalog:"
@@ -29,7 +29,8 @@
   "devDependencies": {
     "@rollup/plugin-terser": "catalog:",
     "rollup": "catalog:",
-    "tape": "catalog:"
+    "tape": "catalog:",
+    "tap-dancer": "catalog:"
   },
   "prettier": {
     "trailingComma": "none",

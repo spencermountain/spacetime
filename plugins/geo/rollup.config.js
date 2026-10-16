@@ -5,7 +5,10 @@ import json from '@rollup/plugin-json'
 import fs from 'node:fs'
 
 const pkg = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
-const banner = `/* spencermountain/spacetime-geo ${pkg.version} MIT */`
+const banner = `/* spencermountain/spacetime-geo ${pkg.version} MIT
+ * Boundary data: Timezone Boundary Builder / OpenStreetMap contributors, ODbL-1.0.
+ * https://github.com/evansiroky/timezone-boundary-builder — see timezone-data.LICENSE.
+ */`
 
 export default {
   input: 'src/index.js',

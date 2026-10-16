@@ -19,7 +19,7 @@
   "sideEffects": false,
   "scripts": {
     "watch": "node --watch ./scratch.js",
-    "test": "\"node_modules/.bin/tape\" \"./tests/*.test.js\" | \"node_modules/.bin/tap-dancer\" --color",
+    "test": "tape './tests/*.test.js' | tap-dancer --color",
     "version": "node ./scripts/version.js",
     "build": "node ./scripts/version.js && rollup -c --silent"
   },
