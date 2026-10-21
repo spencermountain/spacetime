@@ -14,14 +14,14 @@ class Spacetime {
   constructor(input, tz, options = {}) {
     const T = temporal()
     this._tz = T.Now.timeZoneId()
-    this._weekStart = options.weekStart ?? 1
+    this._weekStart = options.weekStart == null ? 1 : options.weekStart
     this._today = { ...options.today }
     this.british = options.dmy || options.british
-    this.silent = options.silent ?? true
+    this.silent = options.silent == null ? true : options.silent
     this._pending = null
     // Only input errors become invalid dates; missing Temporal remains actionable.
     try {
-      this._tz = normalizeTimezone(tz, input?.timeZoneId || this._tz)
+      this._tz = normalizeTimezone(tz, (input != null && input.timeZoneId) || this._tz)
       this._value = T.Instant.fromEpochMilliseconds(Date.now()).toZonedDateTimeISO(this.tz)
       if (Object.keys(this._today).length) {
         this._value = this._value.with(fieldValues({ month: 0, date: 1, ...this._today }))
@@ -40,7 +40,7 @@ class Spacetime {
   }
 
   get _clock() { return this._pending || this._value }
-  get epoch() { return this._value?.epochMilliseconds ?? null }
+  get epoch() { return this._value == null ? null : this._value.epochMilliseconds }
   set epoch(value) {
     this._pending = null
     this._value = null
@@ -97,7 +97,7 @@ class Spacetime {
       }
       return s
     }
-    return { name: this._value?.timeZoneId || this.tz, current: { offset: this.offset() / 60 } }
+    return { name: (this._value != null && this._value.timeZoneId) || this.tz, current: { offset: this.offset() / 60 } }
   }
   offset() { return this._value ? this._value.offsetNanoseconds / 60000000000 : NaN }
   format(fmt) { return format(this, fmt, formats) }

@@ -16,7 +16,7 @@ const SpaceTime = function (input, tz, options = {}) {
   // the holy moment
   this.epoch = null
   // the shift for the given timezone
-  this.tz = findTz(tz ?? inputTimezone(input), timezones)
+  this.tz = findTz(tz == null ? inputTimezone(input) : tz, timezones)
   // whether to output warnings to console
   this.silent = typeof options.silent !== 'undefined' ? options.silent : true
   // favour british interpretation of 02/02/2018, etc

@@ -1,5 +1,11 @@
 import { mapping } from '../data/months.js'
 
+const clockField = (s, field, fallback = NaN) => {
+  const clock = s._clock
+  const value = clock == null ? undefined : clock[field]
+  return value == null ? fallback : value
+}
+
 const fields = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
 const temporal = () => {
   if (!globalThis.Temporal) {
@@ -40,7 +46,7 @@ const duration = (amount, unit) => {
 const fieldNumber = (value, field) => {
   if (typeof value === 'string') {
     value = value.trim().toLowerCase()
-    if (field === 'month' && Object.hasOwn(mapping(), value)) {
+    if (field === 'month' && Object.prototype.hasOwnProperty.call(mapping(), value)) {
       return mapping()[value]
     }
     value = value.replace(/(st|nd|rd|th)$/, '')
@@ -75,4 +81,4 @@ const fieldValues = (input) => {
 const boundaryUnits = ['millisecond', 'second', 'minute', 'quarterhour', 'hour', 'day', 'week', 'month', 'quarter', 'year', 'decade', 'century', 'millennium']
 const isBoundary = unit => boundaryUnits.includes(unitName(unit))
 
-export { isBoundary, fields, temporal, unitName, duration, fieldValues, fieldNumber, direction }
+export { clockField, isBoundary, fields, temporal, unitName, duration, fieldValues, fieldNumber, direction }

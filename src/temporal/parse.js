@@ -67,7 +67,7 @@ const parse = (s, input) => {
       return s
     }
     const str = normalize(input)
-    if (Object.hasOwn(namedDates, str)) {
+    if (Object.prototype.hasOwnProperty.call(namedDates, str)) {
       return namedDates[str](s)
     }
     // Collect wall-clock fields before resolving a gap or repeated hour once.

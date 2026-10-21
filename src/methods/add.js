@@ -75,7 +75,7 @@ const addMethods = (SpaceTime) => {
         return fractional
       }
     }
-    if (!Object.hasOwn(ms, unit) && !Object.hasOwn(keep, unit) && unit !== 'weekend') {
+    if (!Object.prototype.hasOwnProperty.call(ms, unit) && !Object.prototype.hasOwnProperty.call(keep, unit) && unit !== 'weekend') {
       if (s.silent === false) {
         console.warn(`Warn: unsupported arithmetic unit "${inputUnit}"`) // eslint-disable-line no-console
       }

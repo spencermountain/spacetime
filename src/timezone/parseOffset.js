@@ -24,7 +24,7 @@ const parseOffset = (tz) => {
     num *= -1
   }
   // Preserve the existing GMT convention; UTC and bare offsets use normal signs.
-  if (prefix?.toLowerCase() !== 'gmt') {
+  if (prefix == null || prefix.toLowerCase() !== 'gmt') {
     num *= -1
   }
   return 'etc/gmt' + (num > 0 ? '+' : '') + num

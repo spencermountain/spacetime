@@ -15,10 +15,10 @@ const precision = {
 const years = { decade: 10, century: 100 }
 
 const addFraction = (s, num, unit) => {
-  if (Object.hasOwn(years, unit)) {
+  if (Object.prototype.hasOwnProperty.call(years, unit)) {
     return s.add(num * years[unit], 'year')
   }
-  if (!Object.hasOwn(precision, unit)) {
+  if (!Object.prototype.hasOwnProperty.call(precision, unit)) {
     return null
   }
   let duration = ms[unit]

@@ -1,4 +1,4 @@
-import { fieldNumber, direction } from './_lib.js'
+import { fieldNumber, direction, clockField } from './_lib.js'
 import { long as months } from '../data/months.js'
 import { long as days, short as shortDays, aliases } from '../data/days.js'
 import parseTime from '../input/formats/parseTime.js'
@@ -6,20 +6,20 @@ import parseTime from '../input/formats/parseTime.js'
 const query = {
   month(value, forward) {
     if (value === undefined) {
-      return (this._clock?.month ?? NaN) - 1
+      return clockField(this, 'month') - 1
     }
     const result = this._with({ month: fieldNumber(value, 'month') + 1 })
     return direction(result, this, forward, 'year')
   },
   monthName(value, forward) { return value === undefined ? months()[this.month()] || '' : this.month(value, forward) },
   day(value, forward) {
-    const day = (this._clock?.dayOfWeek ?? NaN) % 7
+    const day = clockField(this, 'dayOfWeek') % 7
     if (value === undefined) {
       return day
     }
     if (typeof value === 'string') {
       const name = value.toLowerCase()
-      value = aliases[name] ?? days().indexOf(name)
+      value = aliases[name] == null ? days().indexOf(name) : aliases[name]
       if (value === -1) {
         value = shortDays().indexOf(name)
       }
@@ -37,11 +37,14 @@ const query = {
   },
   dayName(value, forward) { return value === undefined ? days()[this.day()] || '' : this.day(value, forward) },
   dayOfYear(value) {
-    return value === undefined ? this._clock?.dayOfYear ?? NaN : this.add(Number(value) - this.dayOfYear(), 'day')
+    if (value === undefined) {
+      return clockField(this, 'dayOfYear')
+    }
+    return this.add(Number(value) - this.dayOfYear(), 'day')
   },
   week(value, forward) {
     if (value === undefined) {
-      return this._clock?.weekOfYear ?? NaN
+      return clockField(this, 'weekOfYear')
     }
     // January 4 always belongs to the first ISO week of the calendar year.
     const inYear = year => this._with({ year, month: 1, day: 4 })
@@ -148,15 +151,15 @@ const query = {
     }
     return direction(result, this, forward, 'day')
   },
-  leapYear() { return this._clock?.inLeapYear ?? false },
-  daysInMonth() { return this._clock?.daysInMonth ?? NaN }
+  leapYear() { return clockField(this, 'inLeapYear', false) },
+  daysInMonth() { return clockField(this, 'daysInMonth') }
 }
 
 const fields = { year: 'year', date: 'day', hour: 'hour', minute: 'minute', second: 'second', millisecond: 'millisecond' }
 Object.keys(fields).forEach((key) => {
   query[key] = function (value, forward) {
     if (value === undefined) {
-      return this._clock?.[fields[key]] ?? NaN
+      return clockField(this, fields[key])
     }
     const result = this._with({ [fields[key]]: fieldNumber(value, key) })
     const parent = { second: 'minute', minute: 'hour', hour: 'day', date: 'month' }[key]
