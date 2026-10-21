@@ -8,7 +8,7 @@ const clockField = (s, field, fallback = NaN) => {
 
 const fields = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
 const temporal = () => {
-  if (!globalThis.Temporal) {
+  if (typeof globalThis === 'undefined' || !globalThis.Temporal) {
     throw new Error('spacetime/temporal requires native Temporal (or a globally installed polyfill)')
   }
   return globalThis.Temporal

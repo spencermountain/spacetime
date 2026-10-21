@@ -8,12 +8,12 @@ const temporalZone = s => {
 }
 
 const inputTimezone = input => {
-  const T = globalThis.Temporal
+  const T = typeof globalThis === 'undefined' ? undefined : globalThis.Temporal
   return T && input instanceof T.ZonedDateTime ? input.timeZoneId : undefined
 }
 
 const parseTemporal = (s, input) => {
-  const T = globalThis.Temporal
+  const T = typeof globalThis === 'undefined' ? undefined : globalThis.Temporal
   if (!T) {
     return null
   }
@@ -43,7 +43,7 @@ const parseTemporal = (s, input) => {
 }
 
 const toTemporal = s => {
-  const T = globalThis.Temporal
+  const T = typeof globalThis === 'undefined' ? undefined : globalThis.Temporal
   if (!T) {
     throw new Error('toTemporal() requires native Temporal (or a globally installed polyfill)')
   }
