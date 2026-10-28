@@ -156,6 +156,8 @@ const addMethods = (SpaceTime) => {
     else if (unit === 'year') {
       const wantYear = old.year() + num
       const haveYear = s.year()
+      // walk to the target year, and clamp feb 29th against it
+      want.year = wantYear
       if (haveYear < wantYear) {
         const toAdd = Math.floor(num / 4) || 1 //approx num of leap-days
         s.epoch += Math.abs(ms.day * toAdd)
