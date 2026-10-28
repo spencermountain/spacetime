@@ -1,14 +1,15 @@
 //increment until dates are the same
 const climb = (a, b, unit) => {
   let i = 0
-  a = a.clone()
-  while (a.isBefore(b)) {
+  let next = a.clone()
+  while (next.isBefore(b)) {
     //do proper, expensive increment to catch all-the-tricks
-    a = a.add(1, unit)
+    //count from the start each time, so a clamped month-end (jan 31 -> feb 28) doesn't carry over
     i += 1
+    next = a.add(i, unit)
   }
   //oops, we went too-far..
-  if (a.isAfter(b, unit)) {
+  if (next.isAfter(b, unit)) {
     i -= 1
   }
   return i
