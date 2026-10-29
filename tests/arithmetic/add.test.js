@@ -169,6 +169,17 @@ test('add/subtract month clamps to the leap-aware month length', (t) => {
   t.end()
 })
 
+test('add/subtract years lands on the target year and day', (t) => {
+  t.equal(spacetime('2024-02-29', 'UTC').add(13, 'year').format('iso-short'), '2037-02-28', 'feb 29 + 13y')
+  t.equal(spacetime('2024-02-29', 'UTC').subtract(13, 'year').format('iso-short'), '2011-02-28', 'feb 29 - 13y')
+  t.equal(spacetime('2020-02-29', 'UTC').add(5, 'year').format('iso-short'), '2025-02-28', 'feb 29 + 5y')
+  t.equal(spacetime('2036-02-29T01:16:37', 'UTC').subtract(1, 'year').format('iso-short'), '2035-02-28', 'feb 29 - 1y')
+  t.equal(spacetime('2024-02-29', 'UTC').add(4, 'year').format('iso-short'), '2028-02-29', 'feb 29 + 4y')
+  t.equal(spacetime('2023-01-01', 'UTC').add(11, 'year').format('iso-short'), '2034-01-01', 'jan 1 + 11y')
+  t.equal(spacetime('2040-12-31T22:26:31', 'UTC').add(2, 'year').format('iso-short'), '2042-12-31', 'dec 31 + 2y')
+  t.end()
+})
+
 test('add fortnight', (t) => {
   const s = spacetime()
   const a = s.clone().add(2, 'fortnight')
