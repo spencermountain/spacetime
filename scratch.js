@@ -17,10 +17,10 @@ import spacetime from 'spacetime/temporal'
 //
 // console.log(str, tz)
 
-let s = spacetime(`oct 9 '27`,'America/New_York')
-s = s.startOf('week').add(1, 'week')
-s.format('{month-short} {date-ordinal}') // Oct 11th
-
+const s=spacetime('2024-02-29').add(13, 'year')
+  // .debug()
+// s.format('{month-short} {date-ordinal}') // Oct 11th
+console.log(s.format(''))
 // Warn: unsupported arithmetic unit "daus"
 // const s = spacetime('March 1 2012 3:22pm', 'America/New_York')
 // const tomorrow = s.add(1, 'day')
