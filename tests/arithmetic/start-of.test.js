@@ -142,3 +142,18 @@ test('startof + minus = startof', (t) => {
   })
   t.end()
 })
+
+test('start of summer in the southern hemisphere', (t) => {
+  const arr = [
+    ['January 15, 2024', 'Australia/Sydney', '2023-12-01'],
+    ['February 29, 2024', 'Australia/Sydney', '2023-12-01'],
+    ['February 10, 2024', 'Africa/Johannesburg', '2023-12-01'],
+    ['December 15, 2024', 'Australia/Sydney', '2024-12-01'],
+    ['January 15, 2024', 'America/New_York', '2023-12-01'],
+  ]
+  arr.forEach((a) => {
+    const s = spacetime(a[0], a[1]).startOf('season')
+    t.equal(s.format('iso-short'), a[2], a[1] + ' ' + a[0])
+  })
+  t.end()
+})
