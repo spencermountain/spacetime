@@ -11,6 +11,11 @@ This project follows semVer, where:
 - **[fix]** - #479 year-arithmetic on leap
 - **[fix]** - #480 issue with clamped diffs
 - **[change]** - use direct (more-frequent) tzdb source
+- **[change]** - #477 remove DST change from edmonton,vancouver,yellowknife,winnipeg,rainy_river,inuvik
+- **[change]** - remove DST change from havana
+- **[change]** - remove DST change from casablanca,el_aaiun
+- **[update]** - tzdbVersion 2026f
+- **[update]** - dependencies
  -->
 
 ### 7.17.0 [Oct 2026]
