@@ -177,3 +177,21 @@ test('diff-timezone equal times', (t) => {
   t.end()
 })
 
+
+test('diff months after a clamped month-end', (t) => {
+  // jan 31 + 1 month is feb 28, but jan 31 + 2 months is mar 31
+  let a = spacetime('2023-01-31', 'UTC')
+  let b = spacetime('2023-03-30', 'UTC')
+  t.equal(a.diff(b, 'months'), 1, 'jan 31 -> mar 30')
+  t.equal(b.diff(a, 'months'), -1, 'mar 30 -> jan 31')
+
+  a = spacetime('2008-05-31', 'UTC')
+  b = spacetime('2009-05-29', 'UTC')
+  t.equal(a.diff(b, 'months'), 11, 'may 31 -> may 29 months')
+  t.equal(a.diff(b, 'quarters'), 3, 'may 31 -> may 29 quarters')
+
+  a = spacetime('2034-07-30T18:03', 'UTC')
+  b = spacetime('2036-06-29T23:18', 'UTC')
+  t.equal(a.diff(b, 'months'), 22, 'across a leap february')
+  t.end()
+})
