@@ -4,7 +4,7 @@
 const fallbackTZ = 'utc' //
 
 //this Intl object is not supported often, yet
-const safeIntl = () => {
+const safeIntl = (): string | null => {
   if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat === 'undefined') {
     return null
   }
@@ -19,7 +19,7 @@ const safeIntl = () => {
   return timezone.toLowerCase()
 }
 
-const guessTz = () => {
+const guessTz = (): string => {
   const timezone = safeIntl()
   if (timezone === null) {
     return fallbackTZ

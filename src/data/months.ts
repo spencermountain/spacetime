@@ -1,3 +1,5 @@
+import type { I18n } from '../types/index.ts'
+
 let shortMonths = [
   'jan',
   'feb',
@@ -27,8 +29,9 @@ let longMonths = [
   'december'
 ]
 
-function buildMapping() {
-  const obj = {
+// month-name -> month-number
+function buildMapping(): Record<string, number> {
+  const obj: Record<string, number> = {
     sep: 8 //support this format
   }
   for (let i = 0; i < shortMonths.length; i++) {
@@ -40,10 +43,10 @@ function buildMapping() {
   return obj
 }
 
-export function short() { return shortMonths }
-export function long() { return longMonths }
-export function mapping() { return buildMapping() }
-export function set(i18n) {
+export function short(): string[] { return shortMonths }
+export function long(): string[] { return longMonths }
+export function mapping(): Record<string, number> { return buildMapping() }
+export function set(i18n: I18n['months']): void {
   shortMonths = i18n.short || shortMonths
   longMonths = i18n.long || longMonths
 }

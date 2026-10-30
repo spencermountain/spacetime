@@ -1,9 +1,9 @@
 let titleCaseEnabled = true
 
-export function useTitleCase() {
+export function useTitleCase(): boolean {
   return titleCaseEnabled
 }
 
-export function set(val) {
+export function set(val: boolean): void {
   titleCaseEnabled = val
 }

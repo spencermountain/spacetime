@@ -1,7 +1,8 @@
 const offsetPattern = /^(?:(utc|gmt)\s*)?([+-]?)(\d+)(?:(\.\d+)|:([0-5]\d))?(?:\s*(?:h|hrs?|hours?))?$/i
 const embeddedHours = /(?:^|\s)([+-]?\d+(?:\.\d+|:[0-5]\d)?\s*(?:h|hrs?|hours?))$/i
 
-const parseOffset = (tz) => {
+// turn '-5h', 'utc+5:30', 'gmt-3' into our 'etc/gmt+5' style zone id
+const parseOffset = (tz: string): string | null => {
   const input = tz.trim()
   let match = input.match(offsetPattern)
   if (!match) {

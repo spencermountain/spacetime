@@ -5,9 +5,10 @@ import { set as setTcf } from '../data/caseFormat.ts'
 import { set as setAmpm } from '../data/ampm.ts'
 import { set as setDistance } from '../data/distance.ts'
 import { set as setUnits } from '../data/units.ts'
+import type { I18n } from '../types/index.ts'
 
 const methods = {
-  i18n: function (data) {
+  i18n: function (data: I18n) {
     //change the day names
     if (isObject(data.days)) {
       setD(data.days)

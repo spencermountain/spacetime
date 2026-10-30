@@ -1,22 +1,21 @@
-// @ts-nocheck
 import data from './_build.js'
 import prefixes from './_prefixes.js'
+import type { Zone, TimezoneSet } from '../src/types/index.ts'
 
-const all = {}
+const all: TimezoneSet = {}
 Object.keys(data).forEach((k) => {
   const split = k.split('|')
-  const obj = {
+  const obj: Zone = {
     offset: Number(split[0]),
     hem: split[1]
   }
   if (split[2]) {
     obj.dst = split[2]
   }
-  const names = data[k].split(',')
+  const names: string[] = data[k].split(',')
   names.forEach((str) => {
-    str = str.replace(/(^[0-9]+)\//, (before, num) => {
-      num = Number(num)
-      return prefixes[num] + '/'
+    str = str.replace(/(^[0-9]+)\//, (_before, num) => {
+      return prefixes[Number(num)] + '/'
     })
     all[str] = obj
   })
@@ -29,10 +28,7 @@ all.utc = {
 
 //add fixed offsets in quarter-hour steps (including +05:45 and +12:45)
 for (let i = -14; i <= 14; i += 0.25) {
-  let num = i
-  if (num > 0) {
-    num = '+' + num
-  }
+  const num = i > 0 ? '+' + i : String(i)
   let name = 'etc/gmt' + num
   all[name] = {
     offset: i * -1, //they're negative!

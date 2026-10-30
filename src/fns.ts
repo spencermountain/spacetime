@@ -16,7 +16,7 @@ export const titleCase = (str) => {
   if (!str) {
     return ''
   }
-  return str[0].toUpperCase() + str.substr(1)
+  return str[0].toUpperCase() + str.slice(1)
 }
 
 export const ordinal = (i) => {

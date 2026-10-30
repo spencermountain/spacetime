@@ -50,7 +50,7 @@ const format = {
   'year-short': (s) => {
     let year = s.year()
     if (year > 0) {
-      return `'${String(s.year()).substr(2, 4)}`
+      return `'${String(s.year()).slice(2, 6)}`
     }
     year = Math.abs(year)
     return year + ' BC'

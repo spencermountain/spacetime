@@ -1,13 +1,15 @@
+import type { I18n } from '../types/index.ts'
+
 let shortDays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 let longDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
-export function short() { return shortDays }
-export function long() { return longDays }
-export function set(i18n) {
+export function short(): string[] { return shortDays }
+export function long(): string[] { return longDays }
+export function set(i18n: I18n['days']): void {
   shortDays = i18n.short || shortDays
   longDays = i18n.long || longDays
 }
-export const aliases = {
+export const aliases: Record<string, number> = {
   mo: 1,
   tu: 2,
   we: 3,

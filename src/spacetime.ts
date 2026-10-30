@@ -9,7 +9,7 @@ import addFns from './methods/add.ts'
 import sameFns from './methods/same.ts'
 import compareFns from './methods/compare.ts'
 import i18nFns from './methods/i18n.ts'
-import type { SpacetimeInput, Options, DateParts } from './types/index.ts'
+import type { SpacetimeInput, Options, DateParts, TimezoneSet } from './types/index.ts'
 
 // shared timezone data, swappable via `s.timezones = {...}`
 let timezones = zones
@@ -60,7 +60,7 @@ class Spacetime {
   get timezones() {
     return timezones
   }
-  set timezones(obj) {
+  set timezones(obj: TimezoneSet) {
     timezones = obj
   }
 

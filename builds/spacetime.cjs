@@ -140,8 +140,8 @@ const toTemporal = (s) => {
 const MSEC_IN_HOUR = 60 * 60 * 1e3;
 const toUtc = (dstChange, offset, year) => {
   const [month, rest] = dstChange.split("/");
-  const [day, hour, minute = 0] = rest.split(":");
-  return Date.UTC(year, month - 1, day, hour, minute) - offset * MSEC_IN_HOUR;
+  const [day, hour, minute = "0"] = rest.split(":");
+  return Date.UTC(year, Number(month) - 1, Number(day), Number(hour), Number(minute)) - offset * MSEC_IN_HOUR;
 };
 const inSummerTime = (epoch, start, end, summerOffset, winterOffset) => {
   const year = new Date(epoch).getUTCFullYear();
@@ -150,7 +150,7 @@ const inSummerTime = (epoch, start, end, summerOffset, winterOffset) => {
   return epoch >= startUtc && epoch < endUtc;
 };
 
-var getDstShift = (tz) => {
+const dstShift = (tz) => {
   if (tz === "australia/lord_howe" || tz === "australia/lhi") {
     return 0.5;
   }
@@ -171,13 +171,13 @@ const quickOffset = (s) => {
     return obj.offset;
   }
   const jul = obj.offset;
-  const shift = getDstShift(s.tz);
+  const shift = dstShift(s.tz);
   let dec = obj.offset + shift;
   if (obj.hem === "n") {
     dec = jul - shift;
   }
-  const split = obj.dst.split("->");
-  const inSummer = inSummerTime(s.epoch, split[0], split[1], jul, dec);
+  const [start, end] = obj.dst.split("->");
+  const inSummer = inSummerTime(s.epoch, start, end, jul, dec);
   if (inSummer === true) {
     return jul;
   }
@@ -298,9 +298,8 @@ Object.keys(data).forEach((k) => {
   }
   const names = data[k].split(",");
   names.forEach((str) => {
-    str = str.replace(/(^[0-9]+)\//, (before, num) => {
-      num = Number(num);
-      return prefixes[num] + "/";
+    str = str.replace(/(^[0-9]+)\//, (_before, num) => {
+      return prefixes[Number(num)] + "/";
     });
     all[str] = obj;
   });
@@ -311,10 +310,7 @@ all.utc = {
   //default to northern hemisphere - (sorry!)
 };
 for (let i = -14; i <= 14; i += 0.25) {
-  let num = i;
-  if (num > 0) {
-    num = "+" + num;
-  }
+  const num = i > 0 ? "+" + i : String(i);
   let name = "etc/gmt" + num;
   all[name] = {
     offset: i * -1,
@@ -381,12 +377,11 @@ const parseOffset$1 = (tz) => {
 };
 
 let local = guessTz();
-const cities = Object.keys(all).reduce((h, k) => {
-  let city = k.split("/").pop();
-  city = city.replace(/_/g, " ");
-  h[city] = k;
-  return h;
-}, {});
+const cities = {};
+Object.keys(all).forEach((k) => {
+  const city = k.split("/").pop().replace(/_/g, " ");
+  cities[city] = k;
+});
 const normalize$1 = (tz) => {
   tz = tz.replace(/ time/g, "");
   tz = tz.replace(/ (standard|daylight|summer)/g, "");
@@ -1049,20 +1044,35 @@ const parseOffset = (s, offset) => {
   return s;
 };
 
-const o = {
-  millisecond: 1
+const millisecond = 1;
+const second = 1e3;
+const minute = 6e4;
+const hour = 36e5;
+const day = 864e5;
+const week$1 = 6048e5;
+const month$1 = 864e5 * 29.5;
+const year$1 = 3154e7;
+const ms = {
+  millisecond,
+  second,
+  minute,
+  hour,
+  day,
+  date: day,
+  week: week$1,
+  month: month$1,
+  year: year$1,
+  // plurals
+  milliseconds: millisecond,
+  seconds: second,
+  minutes: minute,
+  hours: hour,
+  days: day,
+  dates: day,
+  weeks: week$1,
+  months: month$1,
+  years: year$1
 };
-o.second = 1e3;
-o.minute = 6e4;
-o.hour = 36e5;
-o.day = 864e5;
-o.date = o.day;
-o.month = 864e5 * 29.5;
-o.week = 6048e5;
-o.year = 3154e7;
-Object.keys(o).forEach((k) => {
-  o[k + "s"] = o[k];
-});
 
 const walk = (s, n, fn, unit, previous) => {
   const current = s.d[fn]();
@@ -1072,16 +1082,16 @@ const walk = (s, n, fn, unit, previous) => {
   const startUnit = previous === null ? null : s.d[previous]();
   const original = s.epoch;
   const diff = n - current;
-  s.epoch += o[unit] * diff;
+  s.epoch += ms[unit] * diff;
   if (unit === "day") {
     if (Math.abs(diff) > 28 && n < 28) {
-      s.epoch += o.hour;
+      s.epoch += ms.hour;
     }
   }
   if (previous !== null && startUnit !== s.d[previous]()) {
     s.epoch = original;
   }
-  const halfStep = o[unit] / 2;
+  const halfStep = ms[unit] / 2;
   while (s.d[fn]() < n) {
     s.epoch += halfStep;
   }
@@ -1108,15 +1118,15 @@ const units$5 = {
         return;
       }
       const diff = n - current;
-      s.epoch += o.day * (diff * 28);
+      s.epoch += ms.day * (diff * 28);
       if (startUnit !== s.d.getUTCFullYear()) {
         s.epoch = original;
       }
       while (s.d.getUTCMonth() < n) {
-        s.epoch += o.day;
+        s.epoch += ms.day;
       }
       while (s.d.getUTCMonth() > n) {
-        s.epoch -= o.day;
+        s.epoch -= ms.day;
       }
     }
   },
@@ -2020,7 +2030,7 @@ const south = [
 ];
 var seasons = { north, south };
 
-var quarters = [
+const quarters = [
   null,
   [0, 1],
   //jan 1
@@ -2266,27 +2276,11 @@ const titleCase = (str) => {
   return str;
 };
 
-const parseDst = (dst) => {
-  if (!dst) {
-    return [];
-  }
-  return dst.split("->");
-};
 const timezone = (s) => {
   const zones = s.timezones;
   let tz = s.tz;
   if (zones.hasOwnProperty(tz) === false) {
     tz = lookupTz(s.tz, zones);
-  }
-  if (tz === null) {
-    if (s.silent === false) {
-      console.warn("Warn: could not find given or local timezone - '" + s.tz + "'");
-    }
-    return {
-      current: {
-        epochShift: 0
-      }
-    };
   }
   const found = zones[tz];
   const result = {
@@ -2295,23 +2289,20 @@ const timezone = (s) => {
     default_offset: found.offset,
     //do north-hemisphere version as default (sorry!)
     hemisphere: found.hem === "s" ? "South" : "North",
-    current: {}
+    current: { offset: found.offset, isDST: false }
   };
   if (result.hasDst) {
-    const arr = parseDst(found.dst);
-    result.change = {
-      start: arr[0],
-      back: arr[1]
-    };
+    const [start, back] = found.dst.split("->");
+    result.change = { start, back };
   }
   const summer = found.offset;
   let winter = summer;
-  const dstShift = getDstShift(tz);
+  const dstShift$1 = dstShift(tz);
   if (result.hasDst === true) {
     if (result.hemisphere === "North") {
-      winter = summer - dstShift;
+      winter = summer - dstShift$1;
     } else {
-      winter = found.offset + dstShift;
+      winter = found.offset + dstShift$1;
     }
   }
   if (result.hasDst === false) {
@@ -2638,7 +2629,7 @@ const seconds = function(s, n, goFwd) {
   n = validate(n);
   const old = s.clone();
   const diff = s.second() - n;
-  const shift = diff * o.second;
+  const shift = diff * ms.second;
   s.epoch = s.epoch - shift;
   s = fwdBkwd(s, old, goFwd, "minute");
   return s.epoch;
@@ -2647,7 +2638,7 @@ const minutes = function(s, n, goFwd) {
   n = validate(n);
   const old = s.clone();
   const diff = s.minute() - n;
-  const shift = diff * o.minute;
+  const shift = diff * ms.minute;
   s.epoch -= shift;
   confirm(s, old, "second");
   s = fwdBkwd(s, old, goFwd, "hour");
@@ -2662,7 +2653,7 @@ const hours = function(s, n, goFwd) {
   }
   const old = s.clone();
   let diff = s.hour() - n;
-  let shift = diff * o.hour;
+  let shift = diff * ms.hour;
   s.epoch -= shift;
   if (s.date() !== old.date()) {
     s = old.clone();
@@ -2672,7 +2663,7 @@ const hours = function(s, n, goFwd) {
     if (diff < 1) {
       diff += 1;
     }
-    shift = diff * o.hour;
+    shift = diff * ms.hour;
     s.epoch -= shift;
   }
   walkTo(s, {
@@ -3148,7 +3139,7 @@ const methods$4 = {
     }
     let i = 0;
     const skipWeeks = this.month() * 4;
-    tmp.epoch += o.week * skipWeeks;
+    tmp.epoch += ms.week * skipWeeks;
     i += skipWeeks;
     for (; i <= 52; i++) {
       if (tmp.epoch > thisOne) {
@@ -3351,16 +3342,16 @@ const addFraction = (s, num, unit) => {
   if (!Object.prototype.hasOwnProperty.call(precision, unit)) {
     return null;
   }
-  let duration = o[unit];
+  let duration = ms[unit];
   if (unit === "month" || unit === "quarter" || unit === "season" || unit === "year") {
     s = s.add(Math.trunc(num), unit);
     num %= 1;
     duration = s.add(1, unit).epoch - s.epoch;
     if (unit === "month") {
-      duration = 28 * o.day;
+      duration = 28 * ms.day;
     }
   } else if (unit === "quarterhour") {
-    duration = 15 * o.minute;
+    duration = 15 * ms.minute;
   }
   s.epoch += num * duration;
   const subunit = precision[unit];
@@ -3434,20 +3425,20 @@ const add = function(num, unit) {
       return fractional;
     }
   }
-  if (!Object.prototype.hasOwnProperty.call(o, unit) && !Object.prototype.hasOwnProperty.call(keep, unit) && unit !== "weekend") {
+  if (!Object.prototype.hasOwnProperty.call(ms, unit) && !Object.prototype.hasOwnProperty.call(keep, unit) && unit !== "weekend") {
     if (s.silent === false) {
       console.warn(`Warn: unsupported arithmetic unit "${inputUnit}"`);
     }
     return s;
   }
-  if (o[unit]) {
-    s.epoch += o[unit] * num;
+  if (ms[unit]) {
+    s.epoch += ms[unit] * num;
   } else if (unit === "week" || unit === "weekend") {
-    s.epoch += o.day * (num * 7);
+    s.epoch += ms.day * (num * 7);
   } else if (unit === "quarter" || unit === "season") {
-    s.epoch += o.month * (num * 3);
+    s.epoch += ms.month * (num * 3);
   } else if (unit === "quarterhour") {
-    s.epoch += o.minute * 15 * num;
+    s.epoch += ms.minute * 15 * num;
   }
   let want = {};
   if (keep[unit]) {
@@ -3501,10 +3492,10 @@ const add = function(num, unit) {
     want.year = wantYear;
     if (haveYear < wantYear) {
       const toAdd = Math.floor(num / 4) || 1;
-      s.epoch += Math.abs(o.day * toAdd);
+      s.epoch += Math.abs(ms.day * toAdd);
     } else if (haveYear > wantYear) {
       const toAdd = Math.floor(num / 4) || 1;
-      s.epoch += o.day * toAdd;
+      s.epoch += ms.day * toAdd;
     }
   } else if (unit === "decade") {
     want.year = old.year() + num * 10;

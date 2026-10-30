@@ -1,10 +1,10 @@
- 
 import isSummer from './summerTime.ts'
 import dstShift from './dstShift.ts'
+import type { Spacetime } from '../types/index.ts'
 
 // this method avoids having to do a full dst-calculation on every operation
-// it reproduces some things in ./index.js, but speeds up spacetime considerably
-const quickOffset = s => {
+// it reproduces some things in ./index.ts, but speeds up spacetime considerably
+const quickOffset = (s: Spacetime): number => {
   const zones = s.timezones
   const obj = zones[s.tz]
   if (obj === undefined) {
@@ -22,8 +22,8 @@ const quickOffset = s => {
   if (obj.hem === 'n') {
     dec = jul - shift
   }
-  const split = obj.dst.split('->')
-  const inSummer = isSummer(s.epoch, split[0], split[1], jul, dec)
+  const [start, end] = obj.dst.split('->')
+  const inSummer = isSummer(s.epoch, start, end, jul, dec)
   if (inSummer === true) {
     return jul
   }

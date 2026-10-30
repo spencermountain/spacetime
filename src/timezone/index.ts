@@ -1,57 +1,33 @@
-// @ts-nocheck
- 
 import findTz from './find.ts'
 import inSummerTime from './summerTime.ts'
 import getDstShift from './dstShift.ts'
 import titleCase from './titleCase.ts'
-
-const parseDst = dst => {
-  if (!dst) {
-    return []
-  }
-  return dst.split('->')
-}
+import type { Spacetime, TimezoneMeta } from '../types/index.ts'
 
 //get metadata about this timezone
-const timezone = s => {
+const timezone = (s: Spacetime): TimezoneMeta => {
   const zones = s.timezones
   let tz = s.tz
   if (zones.hasOwnProperty(tz) === false) {
     tz = findTz(s.tz, zones)
   }
-  if (tz === null) {
-    if (s.silent === false) {
-      console.warn("Warn: could not find given or local timezone - '" + s.tz + "'") // eslint-disable-line no-console
-    }
-    return {
-      current: {
-        epochShift: 0
-      }
-    }
-  }
   const found = zones[tz]
-  const result = {
+  const result: TimezoneMeta = {
     name: titleCase(tz),
     hasDst: Boolean(found.dst),
     default_offset: found.offset,
     //do north-hemisphere version as default (sorry!)
     hemisphere: found.hem === 's' ? 'South' : 'North',
-    current: {}
+    current: { offset: found.offset, isDST: false }
   }
-
   if (result.hasDst) {
-    const arr = parseDst(found.dst)
-    result.change = {
-      start: arr[0],
-      back: arr[1]
-    }
+    const [start, back] = found.dst.split('->')
+    result.change = { start, back }
   }
   //find the offsets for summer/winter times
   //(these variable names are north-centric)
   const summer = found.offset // (july)
   let winter = summer // (january) assume it's the same for now
-  //most zones shift by 1hr on dst, but Lord Howe is a ½-hour shift
-  //and Troll (Antarctica) makes a 2-hour jump between +00 and +02
   const dstShift = getDstShift(tz)
   if (result.hasDst === true) {
     if (result.hemisphere === 'North') {

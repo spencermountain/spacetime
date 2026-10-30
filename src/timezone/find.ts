@@ -1,21 +1,19 @@
- 
-
 import tzs from '../../zonefile/unpack.ts'
 import guessTz from './guessTz.ts'
 import parseOffset from './parseOffset.ts'
+import type { TimezoneSet } from '../types/index.ts'
 
 let local = guessTz()
 
 //add all the city names by themselves
-const cities = Object.keys(tzs).reduce((h, k) => {
-  let city = k.split('/').pop()
-  city = city.replace(/_/g, ' ')
-  h[city] = k
-  return h
-}, {})
+const cities: Record<string, string> = {}
+Object.keys(tzs).forEach((k) => {
+  const city = k.split('/').pop().replace(/_/g, ' ')
+  cities[city] = k
+})
 
 //try to match these against iana form
-const normalize = (tz) => {
+const normalize = (tz: string): string => {
   tz = tz.replace(/ time/g, '')
   tz = tz.replace(/ (standard|daylight|summer)/g, '')
   tz = tz.replace(/\b(east|west|north|south)ern/g, '$1')
@@ -26,7 +24,7 @@ const normalize = (tz) => {
 }
 
 // try our best to reconcile the timzone to this given string
-const lookupTz = (str, zones) => {
+const lookupTz = (str: string | null | undefined, zones: TimezoneSet): string => {
   if (!str) {
     // guard if Intl response is unsupported (#397)
     if (!zones.hasOwnProperty(local)) {
@@ -39,11 +37,6 @@ const lookupTz = (str, zones) => {
     console.error("Timezone must be a string - recieved: '", str, "'\n") // eslint-disable-line no-console
   }
   let tz = str.trim()
-  // let split = str.split('/')
-  //support long timezones like 'America/Argentina/Rio_Gallegos'
-  // if (split.length > 2 && zones.hasOwnProperty(tz) === false) {
-  //   tz = split[0] + '/' + split[1]
-  // }
   tz = tz.toLowerCase()
   if (zones.hasOwnProperty(tz) === true) {
     return tz
