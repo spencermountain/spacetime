@@ -25,7 +25,7 @@ test('random november time', (t) => {
     ['Europe/Paris', 'Thu 3:35am'],
     ['Europe/Kiev', 'Thu 4:35am'], // Alias to "Europe/Kyiv"
     ['Europe/Kyiv', 'Thu 4:35am'],
-    ['America/Winnipeg', 'Wed 8:35pm'],
+    ['America/Winnipeg', 'Wed 9:35pm'], // permanent -05 since 2026
     ['Africa/Khartoum', 'Thu 4:35am']
   ]
   arr.forEach((a) => {
@@ -105,7 +105,7 @@ test('random january time', (t) => {
   const epoch = 1580299750000
   const arr = [
     ['Africa/Abidjan', 'Jan 29 12:09pm'],
-    ['America/Inuvik', 'Jan 29 5:09am'],
+    ['America/Inuvik', 'Jan 29 6:09am'], // permanent -06 since 2026
     ['America/Lima', 'Jan 29 7:09am'],
     ['Asia/Almaty', 'Jan 29 5:09pm'],
     ['Asia/Barnaul', 'Jan 29 7:09pm'],

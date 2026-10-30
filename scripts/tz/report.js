@@ -149,10 +149,25 @@ const formatUnsupported = (unsupported, verbose) => {
   return warnings.join('\n')
 }
 
-export const printReport = ({ changes, unsupported, total, verbose = false }) => {
+// Attention items that are not zone-record changes: new tzdb zones, stale ignore entries.
+const formatNotes = (missing, supported) => {
+  const lines = []
+  if (missing.length > 0) {
+    lines.push('', warningColor(`Not in iana.js (${missing.length}) · tzdb zones with no record or alias`, '1;33'))
+    for (const name of missing) {lines.push(`  ${name}`)}
+  }
+  if (supported.length > 0) {
+    lines.push('', warningColor(`Ignored but now supported (${supported.length}) · remove from ignore`, '1;33'))
+    for (const name of supported) {lines.push(`  ${name}`)}
+  }
+  return lines.join('\n')
+}
+
+export const printReport = ({ changes, unsupported, missing = [], supported = [], total, verbose = false }) => {
   console.log(formatChanges(changes))
   // Diagnostics go to stderr; normal changes and the summary go to stdout.
   if (unsupported.length > 0) {console.error(formatUnsupported(unsupported, verbose))}
+  if (missing.length > 0 || supported.length > 0) {console.error(formatNotes(missing, supported))}
   const unchanged = total - changes.length - unsupported.length
   console.log([
     '',

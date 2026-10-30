@@ -29,6 +29,11 @@ const run = (file, args, cwd) => execFileSync(file, args, {
   stdio: ['ignore', 'pipe', 'inherit']
 })
 
+// Canonical zone names from zic input ('Zone America/Cancun ...'); Etc/GMT±N are synthesized by the runtime.
+export const parseZoneNames = (zi) => (zi.match(/^Zone\s+\S+/gm) || [])
+  .map((line) => line.split(/\s+/)[1])
+  .filter((name) => !name.startsWith('Etc/'))
+
 // Returns the compiled zoneinfo directory plus the release actually inside the tarball.
 export const fetchRelease = async (release) => {
   const source = releaseUrl(release)
@@ -49,5 +54,5 @@ export const fetchRelease = async (release) => {
   writeFileSync(join(src, `${dataform}.zi`), zi)
   const zoneinfoDir = join(dir, 'zoneinfo')
   run('zic', ['-d', zoneinfoDir, join(src, `${dataform}.zi`)])
-  return { zoneinfoDir, version, released, source }
+  return { zoneinfoDir, version, released, source, zones: parseZoneNames(zi) }
 }

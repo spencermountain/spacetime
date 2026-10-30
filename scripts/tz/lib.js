@@ -148,6 +148,13 @@ export const normalizeZone = (intervals, previous, tz, year) => {
         `Transition instant: ${new Date(change.epoch).toISOString()}`
       ])
     }
+    // Convention: a midnight fall-back is the end of the previous day (10/24:24), not 10/25:00.
+    // Both run identically, but tests and readers expect the ':24' spelling.
+    const fallsBack = change.after.offset < change.before.offset
+    if (fallsBack && d.getUTCHours() === 0 && d.getUTCMinutes() === 0) {
+      const eve = new Date(d.getTime() - 1)
+      return `${pad(eve.getUTCMonth() + 1)}/${pad(eve.getUTCDate())}:24`
+    }
     let text = `${pad(d.getUTCMonth() + 1)}/${pad(d.getUTCDate())}:${pad(d.getUTCHours())}`
     if (d.getUTCMinutes()) {
       text += ':' + pad(d.getUTCMinutes())

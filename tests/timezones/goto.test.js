@@ -18,12 +18,12 @@ test('goto-from-est', (t) => {
   t.equal(s.hour(), 15, 'est-hour')
   t.equal(s.minute(), 42, 'est-minute')
 
-  //three hours back
+  //two hours back (permanent -07 since 2026)
   s = s.goto('Canada/Pacific')
   t.equal(s.date(), 22, 'pst-date')
   t.equal(s.month(), 1, 'pst-month')
   t.equal(s.year(), 2017, 'pst-year')
-  t.equal(s.hour(), 12, 'pst-hour-moved')
+  t.equal(s.hour(), 13, 'pst-hour-moved')
   t.equal(s.minute(), 42, 'pst-minute')
 
   //return to est

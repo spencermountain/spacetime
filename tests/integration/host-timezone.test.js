@@ -53,8 +53,9 @@ const run = host => JSON.parse(execFileSync(process.execPath, ['--input-type=mod
 
 test('clock fields and operations are independent of host DST', t => {
   const baseline = run('UTC')
-  t.equal(baseline.rows[0].iso, '2026-03-08T01:59:59.123-07:00', 'Inuvik clock at the reported instant')
-  t.deepEqual(baseline.rows[0].fields, [2026, 2, 8, 0, 1, 59, 59, 123], 'all clock fields')
+  // Inuvik is permanent -06 since 2026
+  t.equal(baseline.rows[0].iso, '2026-03-08T02:59:59.123-06:00', 'Inuvik clock at the reported instant')
+  t.deepEqual(baseline.rows[0].fields, [2026, 2, 8, 0, 2, 59, 59, 123], 'all clock fields')
   t.equal(baseline.rows[8].iso, '2026-03-08T03:00:00.000-04:00', 'destination spring-forward still applies')
   t.equal(baseline.rows[10].iso, '2026-11-01T01:00:00.000-05:00', 'destination fallback still applies')
   t.deepEqual(baseline.calendar, [[4, 366], [99, 365], [1900, 365], [2000, 366], [2024, 366]], 'day-of-year handles small years and leap centuries')
