@@ -29,33 +29,33 @@
       }
     }
   },
-  "main": "./src/index.js",
+  "main": "./builds/spacetime.cjs",
   "types": "./types/index.d.ts",
   "sideEffects": false,
   "engines": {
     "node": ">=18.0.0"
   },
   "scripts": {
-    "watch": "node --watch ./scratch.js",
+    "watch": "node --import tsx --watch ./scratch.ts",
     "tz:pack": "node ./zonefile/pack.js",
     "build:plugins": "pnpm --filter \"./plugins/*\" run build",
     "version": "node ./scripts/version.js",
     "build": "pnpm run tz:pack && pnpm run version && rollup -c --silent",
-    "build:tz": "node ./scripts/tz/index.js",
-    "test": "tape './tests/**/*.test.js' | tap-dancer",
+    "build:tz": "node --import tsx ./scripts/tz/index.js",
+    "test": "node --import tsx tests/_lib/run.ts tests | tap-dancer",
     "testb": "TESTENV=prod pnpm run test",
     "test:plugins": "pnpm --filter \"./plugins/*\" run test",
-    "test:temporal": "tape tests/temporal/_require.js './tests/temporal/*.test.js' | tap-dancer",
+    "test:temporal": "node --import tsx tests/_lib/run.ts tests/temporal/_require.ts tests/temporal | tap-dancer",
     "test:types": "tsc --project ./tests/types/tsconfig.json && node --import tsx ./tests/types/index.ts | tap-dancer",
-    "test:all": "pnpm run test && pnpm run test:temporal && pnpm run test:types && pnpm run test:plugins && pnpm run lint",
-    "bench": "node ./scripts/bench/index.js",
-    "bench:write": "node ./scripts/bench/index.js --write",
+    "typecheck": "tsc -p tsconfig.json",
+    "test:all": "pnpm run test && pnpm run test:temporal && pnpm run test:types && pnpm run test:plugins && pnpm run typecheck && pnpm run lint",
+    "bench": "node --import tsx ./scripts/bench/index.js",
+    "bench:write": "node --import tsx ./scripts/bench/index.js --write",
     "lint": "eslint ."
   },
   "files": [
     "api",
     "builds",
-    "src",
     "types",
     "zonefile"
   ],
@@ -68,15 +68,18 @@
     "@rollup/plugin-terser": "catalog:",
     "@types/node": "^26.6.5",
     "@types/tape": "^5.8.1",
+    "esbuild": "^0.28.2",
     "eslint": "^10.12.0",
     "eslint-plugin-regexp": "3.3.1",
     "rollup": "catalog:",
+    "rollup-plugin-esbuild": "^6.2.1",
     "rollup-plugin-filesize-check": "2.0.1",
     "tap-dancer": "catalog:",
     "tape": "catalog:",
     "timekeeper": "2.3.1",
     "tsx": "^4.23.15",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1"
   },
   "unpkg": "builds/spacetime.min.js",
   "prettier": {

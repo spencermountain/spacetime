@@ -1,8 +1,12 @@
 import * as regexpPlugin from "eslint-plugin-regexp"
+import tseslint from 'typescript-eslint'
 
 export default [
-  { ignores: ['**/builds/*', '**/scratch.js', '**/rollup.config.js'] },
+  // types/ is hand-written and checked by `test:types`, not linted
+  { ignores: ['**/builds/*', '**/scratch.js', '**/scratch.ts', '**/rollup.config.js', 'types/**', 'tests/types/**'] },
   regexpPlugin.configs['flat/recommended'],
+  // typescript: parse .ts files, and lint them with the (non type-aware) recommended rules
+  ...tseslint.configs.recommended,
   {
     languageOptions: {
       ecmaVersion: 'latest',
@@ -70,7 +74,24 @@ export default [
     }
   },
   {
-    files: ['tests/**/*.js'],
+    files: ['**/*.ts'],
+    rules: {
+      // the TS compiler handles these for .ts files
+      'no-undef': 'off',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': ['warn', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+      // we are opting-in to types gradually; `any` and @ts-nocheck are expected for now
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
+      // `const a = this` is used in a few places; stylistic, not worth churning now
+      '@typescript-eslint/no-this-alias': 'off',
+      // `interface Spacetime extends Mixins {}` merges the mixed-in methods onto the class
+      '@typescript-eslint/no-empty-object-type': ['error', { allowInterfaces: 'with-single-extends' }],
+      '@typescript-eslint/no-unsafe-declaration-merging': 'off'
+    }
+  },
+  {
+    files: ['tests/**/*.ts'],
     rules: {
       'no-async-promise-executor': 'error',
       'no-promise-executor-return': 'error'

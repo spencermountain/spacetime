@@ -1,4 +1,4 @@
-import spacetime from '../../src/index.js'
+import spacetime from '../../src/index.ts'
 
 // Fixed inputs cover DST, leap years, and fractional timezone offsets.
 const inputs = [

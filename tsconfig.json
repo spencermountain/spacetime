@@ -1,0 +1,29 @@
+{
+  // Forgiving, opt-in TypeScript: files type-check as they are, and annotations tighten things gradually.
+  // Flip `noImplicitAny`, then `strict`, as the source gets typed.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "types": ["node"],
+
+    "strict": false,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+
+    // source imports use real `.ts` extensions; tsx + esbuild run them directly
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "allowJs": true,
+    "checkJs": false,
+    "resolveJsonModule": true,
+
+    // we only type-check here; rollup/esbuild and tsx do the emitting
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["src", "tests", "zonefile/unpack.ts", "scratch.ts"],
+  "exclude": ["tests/types", "node_modules", "builds", "plugins"]
+}
