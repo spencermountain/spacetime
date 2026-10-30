@@ -68,6 +68,10 @@ jobs:
         if: matrix.node-version == '26.x'
         run: pnpm run test:types
 
+      - name: Typecheck source
+        if: matrix.node-version == '26.x'
+        run: pnpm run typecheck
+
       - name: Lint
         if: matrix.node-version == '26.x'
         run: pnpm run lint

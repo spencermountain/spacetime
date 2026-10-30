@@ -30,7 +30,14 @@
     }
   },
   "main": "./builds/spacetime.cjs",
-  "types": "./types/index.d.ts",
+  "types": "./types/index.d.cts",
+  "typesVersions": {
+    "*": {
+      "temporal": [
+        "./types/temporal.d.cts"
+      ]
+    }
+  },
   "sideEffects": false,
   "engines": {
     "node": ">=18.0.0"
