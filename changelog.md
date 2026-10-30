@@ -5,8 +5,12 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!--
+
+
 ### 7.17.1 [Nov 2026]
 - **[fix]** - #479 year-arithmetic on leap
+- **[fix]** - #480 issue with clamped diffs
+- **[change]** - use direct (more-frequent) tzdb source
  -->
 
 ### 7.17.0 [Oct 2026]

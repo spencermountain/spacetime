@@ -41,7 +41,7 @@
     "build:plugins": "pnpm --filter \"./plugins/*\" run build",
     "version": "node ./scripts/version.js",
     "build": "pnpm run build:zones && pnpm run version && rollup -c --silent",
-    "build:tz": "node ./scripts/tz/update.js",
+    "build:tz": "node ./scripts/tz/index.js",
     "test": "tape './tests/**/*.test.js' | tap-dancer",
     "testb": "TESTENV=prod pnpm run test",
     "test:plugins": "pnpm --filter \"./plugins/*\" run test",

@@ -32,13 +32,13 @@ const value = (key, v) => {
   return String(v)
 }
 
-export const printHeader = ({ year, version, zoneinfoDir, output, check, total }) => {
+export const printHeader = ({ year, version, released, dataform, source, output, total }) => {
   console.log([
     '',
     paint(`Timezone build · ${year}`, '1;36'),
-    `  tzdata   ${version}`,
-    `  source   ${zoneinfoDir}`,
-    `  output   ${check ? 'check only — no files written' : output}`,
+    `  tzdata   ${version} (released ${released}) · ${dataform} form`,
+    `  source   ${source}`,
+    `  output   ${output}`,
     '',
     paint(`Reading ${total} zones…`, '2')
   ].join('\n'))
@@ -122,7 +122,6 @@ const formatTransitions = intervals => {
 // Keep the full evidence available with --verbose; default to the failure and its timeline.
 const formatUnsupported = (unsupported, verbose) => {
   const warnings = ['', warningColor(`Unsupported (${unsupported.length}) · existing records kept`, '1;33')]
-  if (!verbose) {warnings.push(warningColor('  Use --verbose for full diagnostics.', '2'))}
   for (const { name, reason, previous, intervals, details = [] } of unsupported) {
     let title = reason.replace(/^Unsupported (?:pattern|boundary): /, '')
     if (reason === 'Unsupported offset/DST cycle for runtime hemisphere and shift') {
@@ -165,27 +164,4 @@ export const printReport = ({ changes, unsupported, total, verbose = false }) =>
 
 export const printResult = (message, warning = false) => {
   console.log(paint(message, warning ? '33' : '32'))
-}
-
-export const printError = message => {
-  console.error(`\n${paint('Error', '1;31', process.stderr)}: ${message}\n`)
-}
-
-export const printHelp = () => {
-  console.log(`
-Timezone build
-  npm run build:tz -- [options]
-
-Options
-  --year YYYY           Target year (default: current UTC year)
-  --zoneinfo-dir PATH   Compiled zoneinfo database (default: /usr/share/zoneinfo)
-  --output FILE         Destination (default: zonefile.YYYY.js in repository root)
-  --verbose             Show full unsupported-zone diagnostics
-  --check               Report only; exit 1 for changes or unsupported zones
-  --allow-unsupported   Keep unsupported records while writing supported changes
-  --help                Show this help
-
-To update the build input, use --output zonefile/iana.js.
-Read and parse errors always fail. Set NO_COLOR=1 to disable terminal colors.
-`)
 }
