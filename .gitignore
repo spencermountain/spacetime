@@ -10,3 +10,4 @@ node_modules/
 coverage/
 coverage.lcov
 **/bench/results.jsonl
+.claude/
