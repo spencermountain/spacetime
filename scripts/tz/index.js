@@ -15,9 +15,11 @@ const version = 'latest'
 // zones we know the runtime cannot model this year; keep their current record quietly
 const ignore = {
   'america/argentina': true, // a directory, not a zone
-  // 'america/edmonton': true, // permanent -06 since 2026-06-18; dst is hand-set to run to year-end
-  // 'america/vancouver': true, // permanent -07 since 2026-03-09
-  // 'america/yellowknife': true // permanent -06 since 2026-08-21
+  'america/edmonton': true, // permanent 2026 dst
+  'america/vancouver': true, // permanent 2026 dst
+  'america/yellowknife': true, // permanent 2026 dst
+  'america/winnipeg': true, // permanent 2026 dst
+  'america/havana': true, // permanent 2026 dst
 }
 const output = fileURLToPath(new URL('../../zonefile/iana.js', import.meta.url))
 
