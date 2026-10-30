@@ -2,13 +2,33 @@ import monthLengths from '../../data/monthLengths.ts'
 import parseTime from './parseTime.ts'
 import { isLeapYear } from '../../fns.ts'
 import { mapping } from '../../data/months.ts'
-import type { Spacetime, DateParts } from '../../types/index.ts'
+import type { DateParts } from '../../types/index.ts'
 const months = mapping()
 
-/** a date-string parsing template */
+/** what a parser needs to know about the instance it is parsing for */
+export interface ParseContext {
+  _today: DateParts
+  british?: boolean
+}
+
+/** the result of parsing a date-string. The caller applies it to an instance. */
+export interface ParsedDate {
+  /** calendar fields to walk to (already validated) */
+  parts?: DateParts
+  /** time-of-day, for parseTime(). '' means start-of-day; absent means leave the clock alone */
+  time?: string
+  /** an ISO offset, like '+0100' or 'Z' */
+  offset?: string
+  /** an IANA zone, from a trailing '[Europe/Berlin]' */
+  timezone?: string
+  quarter?: string
+  season?: string
+}
+
+/** a date-string parsing template. parse() is pure, and returns null for an invalid date */
 export interface Parser {
   reg: RegExp
-  parse: (s: Spacetime, m: RegExpMatchArray, givenTz?: string) => Spacetime
+  parse: (m: RegExpMatchArray, ctx: ParseContext) => ParsedDate | null
 }
 
 //given a month, return whether day number exists in it

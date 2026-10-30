@@ -675,18 +675,18 @@ function set$5(i18n) {
 
 const months$1 = mapping$1();
 const validate$1 = (obj) => {
-  if (monthLengths.hasOwnProperty(obj.month) !== true || Number(obj.date) < 1) {
+  if (monthLengths.hasOwnProperty(obj.month) !== true || obj.date < 1) {
     return false;
   }
   if (obj.month === 1) {
-    if (isLeapYear(Number(obj.year)) && Number(obj.date) <= 29) {
+    if (isLeapYear(obj.year) && obj.date <= 29) {
       return true;
     } else {
-      return Number(obj.date) <= 28;
+      return obj.date <= 28;
     }
   }
-  const max = monthLengths[Number(obj.month)] || 0;
-  if (Number(obj.date) <= max) {
+  const max = monthLengths[obj.month] || 0;
+  if (obj.date <= max) {
     return true;
   }
   return false;
@@ -702,7 +702,7 @@ const parseYear = (str = "", today) => {
   }
   let year = parseInt(str, 10);
   if (!year && today) {
-    year = Number(today.year);
+    year = today.year;
   }
   year = year || (/* @__PURE__ */ new Date()).getFullYear();
   return year;
@@ -720,384 +720,334 @@ const parseTz = function(str) {
   return str;
 };
 
-const create$3 = (walkTo, parseOffset) => [
-  // =====
-  //  y-m-d
-  // =====
+const parsers$4 = [
   //iso-this 1998-05-30T22:00:00:000Z, iso-that 2017-04-03T08:00:00-0700
   // optionally supports Temporal fmt w/ [IANA]
   {
     // offset must start with 'Z' or a sign, so it shares no leading char with
     // the preceding time group ([0-9.:]+) -> no ambiguous split -> linear match.
     reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T ]([0-9.:]+)(Z|[+-][0-9:]+)?(\[[^[\]]*\])?(\[[^[\]]*\])?$/i,
-    parse: (s, m) => {
-      const obj = {
-        year: m[1],
+    parse: (m) => {
+      const parts = {
+        year: Number(m[1]),
         month: parseInt(m[2], 10) - 1,
-        date: m[3]
+        date: Number(m[3])
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      if (m[6]) {
-        const tz = parseTz(m[6]);
-        if (tz) {
-          s = s.timezone(tz);
-        }
-      } else {
-        parseOffset(s, m[5]);
-      }
-      walkTo(s, obj);
-      s = parseTime(s, m[4]);
-      return s;
+      const timezone = m[6] ? parseTz(m[6]) : "";
+      return timezone ? { parts, timezone, time: m[4] } : { parts, offset: m[5], time: m[4] };
     }
   },
   //short-iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
   {
     reg: /^([0-9]{4})[\-/. ]([0-9]{1,2})[\-/. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
-    parse: (s, m) => {
-      const obj = {
-        year: m[1],
+    parse: (m) => {
+      const parts = {
+        year: Number(m[1]),
         month: parseInt(m[2], 10) - 1,
         date: parseInt(m[3], 10)
       };
-      if (obj.month >= 12) {
-        obj.date = parseInt(m[2], 10);
-        obj.month = parseInt(m[3], 10) - 1;
+      if (parts.month >= 12) {
+        parts.date = parseInt(m[2], 10);
+        parts.month = parseInt(m[3], 10) - 1;
       }
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s, m[4]);
-      return s;
+      return { parts, time: m[4] || "" };
     }
   },
   //text-month "2015-feb-25"
   {
     reg: /^([0-9]{4})[\-/. ]([a-z]+)[\-/. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
-    parse: (s, m) => {
-      const obj = {
+    parse: (m, s) => {
+      const parts = {
         year: parseYear(m[1], s._today),
         month: parseMonth(m[2]),
         date: toCardinal(m[3] || "")
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s, m[4]);
-      return s;
+      return { parts, time: m[4] || "" };
     }
   }
 ];
 
-const create$2 = (walkTo, parseOffset) => [
-  // =====
-  //  m-d-y
-  // =====
+const parsers$3 = [
   //mm/dd/yyyy or mm/dd/yy - "6/28/2019, 12:26:14 PM"
   {
     reg: /^([0-9]{1,2})[-/.]([0-9]{1,2})(?:[\-/.]([0-9]{4}|[0-9]{2}))?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2} ?(am|pm|gmt))?$/i,
-    parse: (s, arr) => {
+    parse: (arr, s) => {
       let month = parseInt(arr[1], 10) - 1;
       let date = parseInt(arr[2], 10);
       if (s.british || month >= 12) {
         date = parseInt(arr[1], 10);
         month = parseInt(arr[2], 10) - 1;
       }
-      const obj = {
+      const parts = {
         date,
         month,
         year: parseYear(arr[3], s._today) || (/* @__PURE__ */ new Date()).getFullYear()
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s, arr[4]);
-      return s;
+      return { parts, time: arr[4] || "" };
     }
   },
   //alt short format - "feb-25-2015"
   {
     reg: /^([a-z]+)[\-/. ]([0-9]{1,2})[\-/. ]?([0-9]{4}|'[0-9]{2})?( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
-    parse: (s, arr) => {
-      const obj = {
+    parse: (arr, s) => {
+      const parts = {
         year: parseYear(arr[3], s._today),
         month: parseMonth(arr[1]),
         date: toCardinal(arr[2] || "")
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s, arr[4]);
-      return s;
+      return { parts, time: arr[4] || "" };
     }
   },
   //Long "Mar 25 2015"
   //February 22, 2017 15:30:00
   {
     reg: /^([a-z]+) ([0-9]{1,2})( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
-    parse: (s, arr) => {
-      const obj = {
+    parse: (arr, s) => {
+      const parts = {
         year: parseYear(arr[3], s._today),
         month: parseMonth(arr[1]),
         date: toCardinal(arr[2] || "")
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s, arr[4]);
-      return s;
+      return { parts, time: arr[4] || "" };
     }
   },
   // 'Sun Mar 14 15:09:48 +0000 2021'
   {
     reg: /^([a-z]+) ([0-9]{1,2}) ([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2})( \+[0-9]{4})?( [0-9]{4})?$/i,
-    parse: (s, arr) => {
-      const [, month, date, time, tz, year] = arr;
-      const obj = {
+    parse: (arr, s) => {
+      const [, month, date, time, offset, year] = arr;
+      const parts = {
         year: parseYear(year, s._today),
         month: parseMonth(month),
         date: toCardinal(date || "")
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      s = parseOffset(s, tz);
-      walkTo(s, obj);
-      s = parseTime(s, time);
-      return s;
+      return { parts, offset, time };
     }
   },
   // Date.toString() - 'Mon Jun 17 2019 11:00:00 GMT-0700 (Pacific Daylight Time)'
   // (the weekday is already stripped by normalize)
   {
     reg: /^([a-z]+) ([0-9]{1,2}) ([0-9]{4}) ([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}) (?:gmt)?([+-][0-9]{4})/i,
-    parse: (s, arr) => {
-      const [, month, date, year, time, tz] = arr;
-      const obj = {
+    parse: (arr, s) => {
+      const [, month, date, year, time, offset] = arr;
+      const parts = {
         year: parseYear(year, s._today),
         month: parseMonth(month),
         date: toCardinal(date || "")
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      s = parseOffset(s, tz);
-      walkTo(s, obj);
-      s = parseTime(s, time);
-      return s;
+      return { parts, offset, time };
     }
   }
 ];
 
-const create$1 = (walkTo) => [
-  // =====
-  //  d-m-y
-  // =====
+const parsers$2 = [
   //common british format - "25-feb-2015"
   {
     reg: /^([0-9]{1,2})[-/]([a-z]+)[\-/]?([0-9]{4})?$/i,
-    parse: (s, m) => {
-      const obj = {
+    parse: (m, s) => {
+      const parts = {
         year: parseYear(m[3], s._today),
         month: parseMonth(m[2]),
         date: toCardinal(m[1] || "")
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s, m[4]);
-      return s;
+      return { parts, time: "" };
     }
   },
   // "25 Mar 2015"
   {
     reg: /^([0-9]{1,2})( [a-z]+)( [0-9]{4}| '[0-9]{2})? ?([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2} ?(am|pm|gmt))?$/i,
-    parse: (s, m) => {
-      const obj = {
+    parse: (m, s) => {
+      const parts = {
         year: parseYear(m[3], s._today),
         month: parseMonth(m[2]),
         date: toCardinal(m[1])
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s, m[4]);
-      return s;
+      return { parts, time: m[4] || "" };
     }
   },
   // 01-jan-2020
   {
     reg: /^([0-9]{1,2})[. \-/]([a-z]+)[. \-/]([0-9]{4})?( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
-    parse: (s, m) => {
-      const obj = {
+    parse: (m) => {
+      const parts = {
         date: Number(m[1]),
         month: parseMonth(m[2]),
         year: Number(m[3])
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = s.startOf("day");
-      s = parseTime(s, m[4]);
-      return s;
+      return { parts, time: m[4] || "" };
     }
   }
 ];
 
-const create = (walkTo) => [
-  // =====
-  // no dates
-  // =====
+const parsers$1 = [
   // '2012-06' month-only
   {
     reg: /^([0-9]{4})[\-/]([0-9]{2})$/,
-    parse: (s, m) => {
-      const obj = {
-        year: m[1],
+    parse: (m) => {
+      const parts = {
+        year: Number(m[1]),
         month: parseInt(m[2], 10) - 1,
         date: 1
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s, m[4]);
-      return s;
+      return { parts, time: "" };
     }
   },
   //February 2017 (implied date)
   {
     reg: /^([a-z]+) ([0-9]{4})$/i,
-    parse: (s, arr) => {
-      const obj = {
+    parse: (arr, s) => {
+      const parts = {
         year: parseYear(arr[2], s._today),
         month: parseMonth(arr[1]),
         date: s._today.date || 1
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s, arr[4]);
-      return s;
+      return { parts, time: "" };
     }
   },
   {
     // 'q2 2002'
     reg: /^(q[1-4])( of)?( [0-9]{4})?$/i,
-    parse: (s, arr) => {
-      const quarter = arr[1] || "";
-      s = s.quarter(quarter);
-      let year = arr[3] || "";
-      if (year) {
-        year = year.trim();
-        s = s.year(year);
-      }
-      return s;
+    parse: (arr) => {
+      const year = (arr[3] || "").trim();
+      return { quarter: arr[1] || "", parts: year ? { year: Number(year) } : void 0 };
     }
   },
   {
     // 'summer 2002'
     reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?$/i,
-    parse: (s, arr) => {
-      const season = arr[1] || "";
-      s = s.season(season);
-      let year = arr[3] || "";
-      if (year) {
-        year = year.trim();
-        s = s.year(year);
-      }
-      return s;
+    parse: (arr) => {
+      const year = (arr[3] || "").trim();
+      return { season: arr[1] || "", parts: year ? { year: Number(year) } : void 0 };
     }
   },
   {
     // '200bc'
     reg: /^[0-9,]+ ?b\.?c\.?$/i,
-    parse: (s, arr) => {
+    parse: (arr) => {
       let str = arr[0] || "";
       str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, "-$1");
       const d = /* @__PURE__ */ new Date();
-      const obj = {
+      const parts = {
         year: parseInt(str.trim(), 10),
         month: d.getMonth(),
         date: d.getDate()
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s);
-      return s;
+      return { parts, time: "" };
     }
   },
   {
     // '200ad'
     reg: /^[0-9,]+ ?(a\.?d\.?|c\.?e\.?)$/i,
-    parse: (s, arr) => {
+    parse: (arr) => {
       let str = arr[0] || "";
       str = str.replace(/,/g, "");
       const d = /* @__PURE__ */ new Date();
-      const obj = {
+      const parts = {
         year: parseInt(str.trim(), 10),
         month: d.getMonth(),
         date: d.getDate()
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s);
-      return s;
+      return { parts, time: "" };
     }
   },
   {
     // '1992'
     reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
-    parse: (s, arr) => {
+    parse: (arr, s) => {
       const today = s._today;
-      if (today.month && !today.date) {
-        today.date = 1;
-      }
       const d = /* @__PURE__ */ new Date();
-      const obj = {
+      const parts = {
         year: parseYear(arr[0], today),
         month: today.month || d.getMonth(),
-        date: today.date || d.getDate()
+        // using today's date, but a new month is awkward.
+        date: today.date || (today.month ? 1 : d.getDate())
       };
-      if (validate$1(obj) === false) {
-        s.epoch = null;
-        return s;
+      if (validate$1(parts) === false) {
+        return null;
       }
-      walkTo(s, obj);
-      s = parseTime(s);
-      return s;
+      return { parts, time: "" };
     }
   }
 ];
+
+const parsers = [...parsers$4, ...parsers$3, ...parsers$2, ...parsers$1];
+
+const parseOffset = (s, offset) => {
+  if (!offset) {
+    return s;
+  }
+  offset = offset.trim().toLowerCase();
+  if (offset === "z") {
+    s.tz = "etc/gmt";
+    return s;
+  }
+  const match = offset.match(/^([+-]?)([0-9]{2})(?::?([0-9]{2}))?$/);
+  if (!match) {
+    return s;
+  }
+  const hours = Number(match[2]);
+  const minutes = Number(match[3] || 0);
+  if (minutes > 59) {
+    return s;
+  }
+  let num = (hours + minutes / 60) * (match[1] === "-" ? -1 : 1);
+  if (num === 0) {
+    s.tz = "etc/gmt";
+    return s;
+  }
+  num *= -1;
+  const tz = "etc/gmt" + (num >= 0 ? "+" + num : num);
+  const zones = s.timezones;
+  if (zones[tz]) {
+    s.tz = tz;
+  }
+  return s;
+};
 
 const o = {
   millisecond: 1
@@ -1219,47 +1169,36 @@ const walkTo = (s, wants) => {
   return;
 };
 
-const parseOffset = (s, offset) => {
-  if (!offset) {
-    return s;
+const apply = (s, parsed) => {
+  if (parsed.timezone) {
+    s = s.timezone(parsed.timezone);
+  } else if (parsed.offset) {
+    s = parseOffset(s, parsed.offset);
   }
-  offset = offset.trim().toLowerCase();
-  if (offset === "z") {
-    s.tz = "etc/gmt";
-    return s;
+  if (parsed.parts) {
+    walkTo(s, parsed.parts);
   }
-  const match = offset.match(/^([+-]?)([0-9]{2})(?::?([0-9]{2}))?$/);
-  if (!match) {
-    return s;
+  if (parsed.quarter) {
+    s = s.quarter(parsed.quarter);
   }
-  const hours = Number(match[2]);
-  const minutes = Number(match[3] || 0);
-  if (minutes > 59) {
-    return s;
+  if (parsed.season) {
+    s = s.season(parsed.season);
   }
-  let num = (hours + minutes / 60) * (match[1] === "-" ? -1 : 1);
-  if (num === 0) {
-    s.tz = "etc/gmt";
-    return s;
-  }
-  num *= -1;
-  const tz = "etc/gmt" + (num >= 0 ? "+" + num : num);
-  const zones = s.timezones;
-  if (zones[tz]) {
-    s.tz = tz;
+  if (parsed.time !== void 0) {
+    s = parseTime(s, parsed.time);
   }
   return s;
 };
-
-const parsers = [...create$3(walkTo, parseOffset), ...create$2(walkTo, parseOffset), ...create$1(walkTo), ...create(walkTo)];
-
-const parseString = function(s, input, givenTz) {
+const parseString = function(s, input) {
   for (let i = 0; i < parsers.length; i++) {
     const m = input.match(parsers[i].reg);
     if (m) {
-      const res = parsers[i].parse(s.clone(), m, givenTz);
-      if (res !== null && res.isValid()) {
-        return res;
+      const parsed = parsers[i].parse(m, s);
+      if (parsed !== null) {
+        const res = apply(s.clone(), parsed);
+        if (res.isValid()) {
+          return res;
+        }
       }
     }
   }

@@ -1,9 +1,7 @@
 // @ts-nocheck
 import normalizeTimezone from './timezone.ts'
-import ymd from '../input/formats/01-ymd.ts'
-import mdy from '../input/formats/02-mdy.ts'
-import dmy from '../input/formats/03-dmy.ts'
-import misc from '../input/formats/04-misc.ts'
+import parsers from '../input/formats/index.ts'
+import parseTime from '../input/formats/parseTime.ts'
 import normalize from '../input/normalize.ts'
 import namedDates from '../input/named-dates.ts'
 import { fields, temporal, fieldValues } from './_lib.ts'
@@ -28,7 +26,28 @@ const parseOffset = (s, offset) => {
   }
   return s
 }
-const parsers = [...ymd(walkTo, parseOffset), ...mdy(walkTo, parseOffset), ...dmy(walkTo), ...misc(walkTo)]
+
+// set a parsed date onto an instance, as wall-clock fields
+const apply = (s, parsed) => {
+  if (parsed.timezone) {
+    s = s.timezone(parsed.timezone)
+  } else if (parsed.offset) {
+    s = parseOffset(s, parsed.offset)
+  }
+  if (parsed.parts) {
+    walkTo(s, parsed.parts)
+  }
+  if (parsed.quarter) {
+    s = s.quarter(parsed.quarter)
+  }
+  if (parsed.season) {
+    s = s.season(parsed.season)
+  }
+  if (parsed.time !== undefined) {
+    s = parseTime(s, parsed.time)
+  }
+  return s
+}
 
 const parse = (s, input) => {
   const T = temporal()
@@ -76,7 +95,8 @@ const parse = (s, input) => {
     for (let i = 0; i < parsers.length; i++) {
       const match = str.match(parsers[i].reg)
       if (match) {
-        const result = parsers[i].parse(s, match)
+        const parsed = parsers[i].parse(match, s)
+        const result = parsed === null ? null : apply(s, parsed)
         if (result && result.isValid()) {
           result._value = result._pending.toZonedDateTime(result.tz)
           result._pending = null
