@@ -1,5 +1,6 @@
+import type { Spacetime } from '../../types/index.ts'
 //increment until dates are the same
-const climb = (a, b, unit) => {
+const climb = (a: Spacetime, b: Spacetime, unit: string): number => {
   let i = 0
   let next = a.clone()
   while (next.isBefore(b)) {
@@ -9,7 +10,7 @@ const climb = (a, b, unit) => {
     next = a.add(i, unit)
   }
   //oops, we went too-far..
-  if (next.isAfter(b, unit)) {
+  if (next.isAfter(b)) {
     i -= 1
   }
   return i
@@ -17,7 +18,7 @@ const climb = (a, b, unit) => {
 
 // do a thurough +=1 on the unit, until they match
 // for speed-reasons, only used on day, month, week.
-const diffOne = (a, b, unit) => {
+const diffOne = (a: Spacetime, b: Spacetime, unit: string): number => {
   if (a.isBefore(b)) {
     return climb(a, b, unit)
   } else {

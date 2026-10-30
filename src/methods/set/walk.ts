@@ -1,9 +1,8 @@
-// @ts-nocheck
- 
 import ms from '../../data/milliseconds.ts'
+import type { Spacetime, DateParts } from '../../types/index.ts'
 
 //basically, step-forward/backward until js Date object says we're there.
-const walk = (s, n, fn, unit, previous) => {
+const walk = (s: Spacetime, n: number, fn: string, unit: string, previous: string | null): void => {
   const current = s.d[fn]()
   if (current === n) {
     return //already there
@@ -102,7 +101,7 @@ const units = {
   }
 }
 
-const walkTo = (s, wants) => {
+const walkTo = (s: Spacetime, wants: DateParts): void => {
   const keys = Object.keys(units)
   const old = s.clone()
   for (let i = 0; i < keys.length; i++) {

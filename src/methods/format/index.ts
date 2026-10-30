@@ -3,8 +3,9 @@ import { short } from '../../data/months.ts'
 import { short as _short } from '../../data/days.ts'
 import { useTitleCase } from '../../data/caseFormat.ts'
 import isoOffset from './_offset.ts'
+import type { Spacetime } from '../../types/index.ts'
 
-const applyCaseFormat = (str) => {
+const applyCaseFormat = (str: string): string => {
   if (useTitleCase()) {
     return titleCase(str)
   }
@@ -12,7 +13,7 @@ const applyCaseFormat = (str) => {
 }
 
 // iso-year padding
-const padYear = (num) => {
+const padYear = (num: number): string => {
   if (num >= 0) {
     return zeroPad(num, 4)
   } else {
@@ -21,7 +22,9 @@ const padYear = (num) => {
   }
 }
 
-const format = {
+type Formatter = (s: Spacetime) => string | number | object
+
+const format: Record<string, Formatter> = {
   day: (s) => applyCaseFormat(s.dayName()),
   'day-short': (s) => applyCaseFormat(_short()[s.day()]),
   'day-number': (s) => s.day(),
@@ -139,14 +142,10 @@ const format = {
   //i made these up
   nice: (s) => `${short()[s.month()]} ${ordinal(s.date())}, ${s.time()}`,
   'nice-24': (s) =>
-    `${short()[s.month()]} ${ordinal(s.date())}, ${s.hour24()}:${zeroPad(
-      s.minute()
-    )}`,
+    `${short()[s.month()]} ${ordinal(s.date())}, ${s.hour24()}:${zeroPad(s.minute())}`,
   'nice-year': (s) => `${short()[s.month()]} ${ordinal(s.date())}, ${s.year()}`,
   'nice-day': (s) =>
-    `${_short()[s.day()]} ${applyCaseFormat(short()[s.month()])} ${ordinal(
-      s.date()
-    )}`,
+    `${_short()[s.day()]} ${applyCaseFormat(short()[s.month()])} ${ordinal(s.date())}`,
   'nice-full': (s) =>
     `${s.dayName()} ${applyCaseFormat(s.monthName())} ${ordinal(s.date())}, ${s.time()}`,
   'nice-full-24': (s) =>
@@ -155,7 +154,7 @@ const format = {
     )}, ${s.hour24()}:${zeroPad(s.minute())}`
 }
 //aliases
-const aliases = {
+const aliases: Record<string, string> = {
   'day-name': 'day',
   'month-name': 'month',
   'iso 8601': 'iso',
@@ -183,7 +182,8 @@ const aliases = {
 }
 Object.keys(aliases).forEach((k) => (format[k] = format[aliases[k]]))
 
-const printFormat = (s, str = '', overrides) => {
+// (usually a string, but .format('json') returns an object)
+const printFormat = (s: Spacetime, str = '', overrides?: Record<string, Formatter>) => {
   //don't print anything if it's an invalid date
   if (s.isValid() !== true) {
     return ''
@@ -191,7 +191,7 @@ const printFormat = (s, str = '', overrides) => {
   const formats = overrides ? { ...format, ...overrides } : format
   //support .format('month')
   if (formats.hasOwnProperty(str)) {
-    let out = formats[str](s) || ''
+    let out: any = formats[str](s) || ''
     if (str !== 'json') {
       out = String(out)
       if (str.toLowerCase() !== 'ampm') {

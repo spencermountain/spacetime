@@ -14,7 +14,7 @@ const titleCase$1 = (str) => {
   if (!str) {
     return "";
   }
-  return str[0].toUpperCase() + str.substr(1);
+  return str[0].toUpperCase() + str.slice(1);
 };
 const ordinal = (i) => {
   const j = i % 10;
@@ -1356,7 +1356,7 @@ const format = {
   "year-short": (s) => {
     let year = s.year();
     if (year > 0) {
-      return `'${String(s.year()).substr(2, 4)}`;
+      return `'${String(s.year()).slice(2, 6)}`;
     }
     year = Math.abs(year);
     return year + " BC";
@@ -1525,7 +1525,7 @@ const mapping = {
   //year
   y: (s) => s.year(),
   yy: (s) => {
-    return zeroPad(Number(String(s.year()).substr(2, 4)));
+    return zeroPad(Number(String(s.year()).slice(2, 6)));
   },
   yyy: (s) => s.year(),
   yyyy: (s) => s.year(),
@@ -1712,7 +1712,7 @@ const climb = (a, b, unit) => {
     i += 1;
     next = a.add(i, unit);
   }
-  if (next.isAfter(b, unit)) {
+  if (next.isAfter(b)) {
     i -= 1;
   }
   return i;
@@ -1737,10 +1737,10 @@ const diff = function(a, b) {
   const msDiff = b.epoch - a.epoch;
   const obj = {
     milliseconds: msDiff,
-    seconds: parseInt(msDiff / 1e3, 10)
+    seconds: Math.trunc(msDiff / 1e3)
   };
-  obj.minutes = parseInt(obj.seconds / 60, 10);
-  obj.hours = parseInt(obj.minutes / 60, 10);
+  obj.minutes = Math.trunc(obj.seconds / 60);
+  obj.hours = Math.trunc(obj.minutes / 60);
   let tmp = a.clone();
   obj.years = fastYear(tmp, b);
   tmp = a.add(obj.years, "year");
@@ -1748,7 +1748,7 @@ const diff = function(a, b) {
   tmp = a.add(obj.months, "month");
   obj.months += diffOne(tmp, b, "month");
   obj.quarters = obj.years * 4;
-  obj.quarters += parseInt(obj.months % 12 / 3, 10);
+  obj.quarters += Math.trunc(obj.months % 12 / 3);
   obj.weeks = obj.years * 52;
   tmp = a.add(obj.weeks, "week");
   obj.weeks += diffOne(tmp, b, "week");
@@ -1764,7 +1764,7 @@ const reverseDiff = function(obj) {
   });
   return obj;
 };
-const main$1 = function(a, b, unit) {
+function main$1(a, b, unit) {
   b = beADate(b, a);
   let reversed = false;
   if (a.isAfter(b)) {
@@ -1788,7 +1788,7 @@ const main$1 = function(a, b, unit) {
     return obj[unit];
   }
   return obj;
-};
+}
 
 const fmt = (n) => Math.abs(n) || 0;
 const toISO = function(diff) {
@@ -2168,14 +2168,14 @@ const units$1 = {
   decade: (s) => {
     s = s.startOf("year");
     const year = s.year();
-    const decade = parseInt(year / 10, 10) * 10;
+    const decade = Math.trunc(year / 10) * 10;
     s = s.year(decade);
     return s;
   },
   century: (s) => {
     s = s.startOf("year");
     const year = s.year();
-    const decade = parseInt(year / 100, 10) * 100;
+    const decade = Math.trunc(year / 100) * 100;
     s = s.year(decade);
     return s;
   }
@@ -2260,7 +2260,7 @@ const every = function(start, unit, end, stepCount = 1) {
 };
 
 const titleCase = (str) => {
-  str = str[0].toUpperCase() + str.substr(1);
+  str = str[0].toUpperCase() + str.slice(1);
   str = str.replace(/[/_-]([a-z])/gi, (s) => {
     return s.toUpperCase();
   });
@@ -2330,7 +2330,10 @@ const units = [
   "second",
   "millisecond"
 ];
-const methods$7 = {
+function diffMethod(d, unit) {
+  return main$1(this, d, unit);
+}
+const methods$8 = {
   set: function(input, tz) {
     let s = this.clone();
     s = parseInput(s, input, null);
@@ -2381,9 +2384,7 @@ const methods$7 = {
   nearest: function(unit) {
     return nearest(this, unit);
   },
-  diff: function(d, unit) {
-    return main$1(this, d, unit);
-  },
+  diff: diffMethod,
   since: function(d) {
     if (!d) {
       d = this.clone().set();
@@ -2483,10 +2484,10 @@ const methods$7 = {
       }
       return s;
     }
-    const obj = units.reduce((h, unit) => {
-      h[unit] = this[unit]();
-      return h;
-    }, {});
+    const obj = {};
+    units.forEach((unit) => {
+      obj[unit] = this[unit]();
+    });
     obj.offset = this.timezone().current.offset;
     obj.timezone = this.tz;
     return obj;
@@ -2528,9 +2529,13 @@ const methods$7 = {
     return this;
   }
 };
-methods$7.inDST = methods$7.isDST;
-methods$7.round = methods$7.nearest;
-methods$7.each = methods$7.every;
+var methods$7 = {
+  ...methods$8,
+  // aliases
+  inDST: methods$8.isDST,
+  round: methods$8.nearest,
+  each: methods$8.every
+};
 
 const getMonthLength = function(month, year) {
   if (month === 1 && isLeapYear(year)) {
@@ -2540,12 +2545,12 @@ const getMonthLength = function(month, year) {
 };
 const rollMonth = (want, old) => {
   if (want.month > 0) {
-    const years = parseInt(want.month / 12, 10);
+    const years = Math.trunc(want.month / 12);
     want.year = old.year() + years;
     want.month = want.month % 12;
   } else if (want.month < 0) {
     const m = Math.abs(want.month);
-    let years = parseInt(m / 12, 10);
+    let years = Math.trunc(m / 12);
     if (m % 12 !== 0) {
       years += 1;
     }

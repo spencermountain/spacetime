@@ -26,14 +26,14 @@ const qualifiers = {
 }
 
 // Expects a plural unit arg
-function pluralize(value, unit) {
+function pluralize(value: number, unit: string): string {
   if (value === 1) {
     return value + ' ' + unitsString(unit.slice(0, -1))
   }
   return value + ' ' + unitsString(unit)
 }
 
-const toSoft = function (diff) {
+const toSoft = function (diff: Record<string, number>) {
   let rounded = null
   let qualified = null
   const abbreviated = []

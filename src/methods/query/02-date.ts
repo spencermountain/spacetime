@@ -4,7 +4,7 @@ import walkTo from '../set/walk.ts'
 
 const methods = {
   // # day in the month
-  date: function (num?, goFwd?) {
+  date: function (num?: number, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
       num = parseInt(num, 10)
@@ -17,7 +17,7 @@ const methods = {
   },
 
   //like 'wednesday' (hard!)
-  day: function (input?, goFwd?) {
+  day: function (input?: string | number, goFwd?: boolean) {
     if (input === undefined) {
       return this.d.getUTCDay()
     }
@@ -55,7 +55,7 @@ const methods = {
   },
 
   //these are helpful name-wrappers
-  dayName: function (input?, goFwd?) {
+  dayName: function (input?: string | number, goFwd?: boolean) {
     if (input === undefined) {
       return long()[this.day()]
     }

@@ -13,9 +13,9 @@ M the number of minutes.
 S the number of seconds.
 */
 
-const fmt = (n) => Math.abs(n) || 0
+const fmt = (n: number): number => Math.abs(n) || 0
 
-const toISO = function (diff) {
+const toISO = function (diff: Record<string, number>): string {
   let iso = 'P'
   iso += fmt(diff.years) + 'Y'
   iso += fmt(diff.months) + 'M'

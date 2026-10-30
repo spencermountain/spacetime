@@ -1,6 +1,7 @@
+import type { Spacetime } from '../../types/index.ts'
 
 //get number of hours/minutes... between the two dates
-function getDiff(a, b) {
+function getDiff(a: Spacetime, b: Spacetime) {
   const isBefore = a.isBefore(b)
   const later = isBefore ? b : a
   let earlier = isBefore ? a : b

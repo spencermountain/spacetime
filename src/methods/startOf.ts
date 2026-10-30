@@ -1,24 +1,24 @@
-// @ts-nocheck
 import seasons from '../data/seasons.ts'
 import quarters from '../data/quarters.ts'
 import walkTo from './set/walk.ts'
 import { normalize } from '../fns.ts'
+import type { Spacetime } from '../types/index.ts'
 
 const units = {
-  second: (s) => {
+  second: (s: Spacetime) => {
     walkTo(s, {
       millisecond: 0
     })
     return s
   },
-  minute: (s) => {
+  minute: (s: Spacetime) => {
     walkTo(s, {
       second: 0,
       millisecond: 0
     })
     return s
   },
-  quarterhour: (s) => {
+  quarterhour: (s: Spacetime) => {
     const minute = s.minutes()
     if (minute >= 45) {
       s = s.minutes(45)
@@ -35,7 +35,7 @@ const units = {
     })
     return s
   },
-  hour: (s) => {
+  hour: (s: Spacetime) => {
     walkTo(s, {
       minute: 0,
       second: 0,
@@ -43,7 +43,7 @@ const units = {
     })
     return s
   },
-  day: (s) => {
+  day: (s: Spacetime) => {
     walkTo(s, {
       hour: 0,
       minute: 0,
@@ -52,7 +52,7 @@ const units = {
     })
     return s
   },
-  week: (s) => {
+  week: (s: Spacetime) => {
     const original = s.clone()
     s = s.day(s._weekStart) //monday
     if (s.isAfter(original)) {
@@ -66,7 +66,7 @@ const units = {
     })
     return s
   },
-  month: (s) => {
+  month: (s: Spacetime) => {
     walkTo(s, {
       date: 1,
       hour: 0,
@@ -76,7 +76,7 @@ const units = {
     })
     return s
   },
-  quarter: (s) => {
+  quarter: (s: Spacetime) => {
     const q = s.quarter()
     if (quarters[q]) {
       walkTo(s, {
@@ -90,7 +90,7 @@ const units = {
     }
     return s
   },
-  season: (s) => {
+  season: (s: Spacetime) => {
     const current = s.season()
     let hem = 'north'
     if (s.hemisphere() === 'South') {
@@ -117,7 +117,7 @@ const units = {
     }
     return s
   },
-  year: (s) => {
+  year: (s: Spacetime) => {
     walkTo(s, {
       month: 0,
       date: 1,
@@ -128,25 +128,33 @@ const units = {
     })
     return s
   },
-  decade: (s) => {
+  decade: (s: Spacetime) => {
     s = s.startOf('year')
     const year = s.year()
-    const decade = parseInt(year / 10, 10) * 10
+    const decade = Math.trunc(year / 10) * 10
     s = s.year(decade)
     return s
   },
-  century: (s) => {
+  century: (s: Spacetime) => {
     s = s.startOf('year')
     const year = s.year()
     // near 0AD goes '-1 | +1'
-    const decade = parseInt(year / 100, 10) * 100
+    const decade = Math.trunc(year / 100) * 100
     s = s.year(decade)
+    return s
+  },
+  date: (s: Spacetime) => {
+    walkTo(s, {
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0
+    })
     return s
   }
 }
-units.date = units.day
 
-const startOf = (a, unit) => {
+const startOf = (a: Spacetime, unit: string): Spacetime => {
   let s = a.clone()
   if (!s.isValid()) {
     return s
@@ -163,7 +171,7 @@ const startOf = (a, unit) => {
 }
 
 //piggy-backs off startOf
-const endOf = (a, unit) => {
+const endOf = (a: Spacetime, unit: string): Spacetime => {
   let s = a.clone()
   if (!s.isValid()) {
     return s
@@ -178,7 +186,4 @@ const endOf = (a, unit) => {
   }
   return s
 }
-export {
-  startOf,
-  endOf
-}
+export { startOf, endOf }

@@ -1,4 +1,3 @@
-// @ts-nocheck
  
 import format from './methods/format/index.ts'
 import unixFmt from './methods/format/unixFmt.ts'
@@ -13,6 +12,7 @@ import findTz from './timezone/find.ts'
 import handleInput from './input/index.ts'
 import { isLeapYear } from './fns.ts'
 import { short, long } from './data/days.ts'
+import type { Spacetime, SpacetimeInput } from './types/index.ts'
 const units = [
   'century',
   'decade',
@@ -25,6 +25,13 @@ const units = [
   'second',
   'millisecond'
 ]
+
+// a number for one unit, or the whole table
+function diffMethod(this: Spacetime, d: SpacetimeInput): Record<string, number>
+function diffMethod(this: Spacetime, d: SpacetimeInput, unit: string): number
+function diffMethod(this: Spacetime, d: SpacetimeInput, unit?: string): number | Record<string, number> {
+  return diff(this, d, unit)
+}
 
 //the spacetime instance methods (also, the API)
 const methods = {
@@ -57,43 +64,41 @@ const methods = {
   hemisphere: function () {
     return timezone(this).hemisphere
   },
-  format: function (fmt) {
+  format: function (fmt: string) {
     return format(this, fmt)
   },
-  unixFmt: function (fmt) {
+  unixFmt: function (fmt: string) {
     return unixFmt(this, fmt)
   },
-  startOf: function (unit) {
+  startOf: function (unit: string) {
     return _startOf(this, unit)
   },
-  endOf: function (unit) {
+  endOf: function (unit: string) {
     return _endOf(this, unit)
   },
   leapYear: function () {
     const year = this.year()
     return isLeapYear(year)
   },
-  progress: function (unit) {
+  progress: function (unit?: string) {
     return progress(this, unit)
   },
-  nearest: function (unit) {
+  nearest: function (unit: string) {
     return nearest(this, unit)
   },
-  diff: function (d, unit) {
-    return diff(this, d, unit)
-  },
+  diff: diffMethod,
   since: function (d) {
     if (!d) {
       d = this.clone().set()
     }
     return since(this, d)
   },
-  next: function (unit) {
+  next: function (unit: string) {
     const s = this.add(1, unit)
     return s.startOf(unit)
   },
   //the start of the previous year/week/century
-  last: function (unit) {
+  last: function (unit: string) {
     const s = this.subtract(1, unit)
     return s.startOf(unit)
   },
@@ -105,13 +110,13 @@ const methods = {
     return Number.isFinite(this.epoch) && !isNaN(new Date(this.epoch).getTime())
   },
   //travel to this timezone
-  goto: function (tz) {
+  goto: function (tz: string | null) {
     const s = this.clone()
     s.tz = findTz(tz, s.timezones) //science!
     return s
   },
   //get each week/month/day between a -> b
-  every: function (unit, to, stepCount) {
+  every: function (unit: string, to?, stepCount?: number) {
     // allow swapping these params:
     if (typeof unit === 'object' && typeof to === 'string') {
       const tmp = to
@@ -170,7 +175,7 @@ const methods = {
     console.log('\n' + format(this, 'full-short')) //eslint-disable-line no-console
     return this
   },
-  json: function (input) {
+  json: function (input?) {
     // setter for json input
     if (input !== undefined) {
       let s = this.clone()
@@ -186,10 +191,10 @@ const methods = {
       return s
     }
     // produce json output
-    const obj = units.reduce((h, unit) => {
-      h[unit] = this[unit]()
-      return h
-    }, {})
+    const obj: Record<string, any> = {}
+    units.forEach((unit) => {
+      obj[unit] = this[unit]()
+    })
     obj.offset = this.timezone().current.offset
     obj.timezone = this.tz
     return obj
@@ -233,8 +238,11 @@ const methods = {
     return this
   }
 }
-// aliases
-methods.inDST = methods.isDST
-methods.round = methods.nearest
-methods.each = methods.every
-export default methods
+
+export default {
+  ...methods,
+  // aliases
+  inDST: methods.isDST,
+  round: methods.nearest,
+  each: methods.every
+}

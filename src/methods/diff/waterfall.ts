@@ -1,10 +1,10 @@
-// @ts-nocheck
 import diffOne from './one.ts'
+import type { Spacetime } from '../../types/index.ts'
 
 // don't do anything too fancy here.
 // 2020 - 2019 may be 1 year, or 0 years
 // - '1 year difference' means 366 days during a leap year
-const fastYear = (a, b) => {
+const fastYear = (a: Spacetime, b: Spacetime): number => {
   let years = b.year() - a.year()
   // should we decrement it by 1?
   a = a.year(b.year())
@@ -17,16 +17,16 @@ const fastYear = (a, b) => {
 // use a waterfall-method for computing a diff of any 'pre-knowable' units
 // compute years, then compute months, etc..
 // ... then ms-math for any very-small units
-const diff = function (a, b) {
+const diff = function (a: Spacetime, b: Spacetime): Record<string, number> {
   // an hour is always the same # of milliseconds
   // so these units can be 'pre-calculated'
   const msDiff = b.epoch - a.epoch
-  const obj = {
+  const obj: Record<string, number> = {
     milliseconds: msDiff,
-    seconds: parseInt(msDiff / 1000, 10)
+    seconds: Math.trunc(msDiff / 1000)
   }
-  obj.minutes = parseInt(obj.seconds / 60, 10)
-  obj.hours = parseInt(obj.minutes / 60, 10)
+  obj.minutes = Math.trunc(obj.seconds / 60)
+  obj.hours = Math.trunc(obj.minutes / 60)
 
   //do the year
   let tmp = a.clone()
@@ -40,7 +40,7 @@ const diff = function (a, b) {
 
   // there's always 4 quarters in a year...
   obj.quarters = obj.years * 4
-  obj.quarters += parseInt((obj.months % 12) / 3, 10)
+  obj.quarters += Math.trunc((obj.months % 12) / 3)
 
   // there's always atleast 52 weeks in a year..
   // (month * 4) isn't as close

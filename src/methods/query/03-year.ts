@@ -1,20 +1,24 @@
-// @ts-nocheck
- 
-import { dayOfYear as _dayOfYear, week as setWeek, month as _month, year as _year } from '../set/set.ts'
+import {
+  dayOfYear as _dayOfYear,
+  week as setWeek,
+  month as _month,
+  year as _year
+} from '../set/set.ts'
 import { getMonthLength } from '../set/_model.ts'
 import { long } from '../../data/months.ts'
 import quarters from '../../data/quarters.ts'
 import seasons from '../../data/seasons.ts'
 import ms from '../../data/milliseconds.ts'
+import type { Spacetime } from '../../types/index.ts'
 
-const clearMinutes = (s) => {
+const clearMinutes = (s: Spacetime) => {
   s = s.minute(0)
   s = s.second(0)
   s = s.millisecond(1)
   return s
 }
 
-const millennium = function (input) {
+const millennium = function (input?: string | number) {
   if (input !== undefined) {
     if (typeof input === 'string') {
       input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
@@ -44,7 +48,7 @@ const millennium = function (input) {
 
 const methods = {
   // day 0-366
-  dayOfYear: function (num?, goFwd?) {
+  dayOfYear: function (num?: number, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = _dayOfYear(s, num, goFwd)
@@ -63,7 +67,7 @@ const methods = {
   },
 
   //since the start of the year
-  week: function (num?, goFwd?) {
+  week: function (num?: number, goFwd?: boolean) {
     // week-setter
     if (num !== undefined) {
       let s = this.clone()
@@ -111,7 +115,7 @@ const methods = {
     return 52
   },
   //either name or number
-  month: function (input?, goFwd?) {
+  month: function (input?: number | string, goFwd?: boolean) {
     if (input !== undefined) {
       const s = this.clone()
       s.epoch = _month(s, input, goFwd)
@@ -120,7 +124,7 @@ const methods = {
     return this.d.getUTCMonth()
   },
   //'january'
-  monthName: function (input?, goFwd?) {
+  monthName: function (input?: number | string, goFwd?: boolean) {
     if (input !== undefined) {
       let s = this.clone()
       s = s.month(input, goFwd)
@@ -130,7 +134,7 @@ const methods = {
   },
 
   //q1, q2, q3, q4
-  quarter: function (num?, goFwd?) {
+  quarter: function (num?: number, goFwd?: boolean) {
     if (num !== undefined) {
       if (typeof num === 'string') {
         num = num.replace(/^q/i, '')
@@ -155,12 +159,13 @@ const methods = {
   },
 
   //spring, summer, winter, fall
-  season: function (input?, goFwd?) {
+  season: function (input?: number | string, goFwd?: boolean) {
     let hem = 'north'
     if (this.hemisphere() === 'South') {
       hem = 'south'
     }
-    if (input !== undefined) {    // setter
+    if (input !== undefined) {
+      // setter
       let s = this.clone()
       for (let i = 0; i < seasons[hem].length; i++) {
         if (input === seasons[hem][i][0]) {
@@ -181,7 +186,7 @@ const methods = {
   },
 
   //the year number
-  year: function (num?) {
+  year: function (num?: number) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = _year(s, num)
@@ -191,7 +196,7 @@ const methods = {
   },
 
   //bc/ad years
-  era: function (str?) {
+  era: function (str?: string) {
     if (str !== undefined) {
       const s = this.clone()
       str = str.toLowerCase()
@@ -214,7 +219,7 @@ const methods = {
   },
 
   // 2019 -> 2010
-  decade: function (input?) {
+  decade: function (input?: number | string) {
     if (input !== undefined) {
       input = String(input)
       input = input.replace(/([0-9])'?s$/, '$1') //1950's
@@ -238,7 +243,7 @@ const methods = {
     return this.startOf('decade').year()
   },
   // 1950 -> 19+1
-  century: function (input?) {
+  century: function (input?: number | string) {
     if (input !== undefined) {
       if (typeof input === 'string') {
         input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
@@ -277,6 +282,6 @@ const methods = {
   // 2019 -> 2+1
   millenium: millennium,
   // alias without typo
-  millennium: millennium,
+  millennium: millennium
 }
 export default methods

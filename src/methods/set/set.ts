@@ -1,4 +1,3 @@
-// @ts-nocheck
 // javascript setX methods like setDate() can't be used because of the local bias
 //these methods wrap around them.
 import ms from '../../data/milliseconds.ts'
@@ -6,8 +5,10 @@ import { mapping } from '../../data/months.ts'
 import walkTo from './walk.ts'
 import { isLeapYear } from '../../fns.ts'
 import { getMonthLength } from './_model.ts'
+import type { Spacetime } from '../../types/index.ts'
 
-const validate = (n) => {
+// setters return the new epoch for `s`, rather than a new instance
+const validate = (n: number | string): number => {
   //handle number as a string
   if (typeof n === 'string') {
     n = parseInt(n, 10)
@@ -18,7 +19,7 @@ const validate = (n) => {
 const order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
 
 //reduce hostile micro-changes when moving dates by millisecond
-const confirm = (s, tmp, unit) => {
+const confirm = (s: Spacetime, tmp: Spacetime, unit: string): Spacetime => {
   const n = order.indexOf(unit)
   const arr = order.slice(n, order.length)
   for (let i = 0; i < arr.length; i++) {
@@ -29,7 +30,7 @@ const confirm = (s, tmp, unit) => {
 }
 
 // allow specifying setter direction
-const fwdBkwd = function (s, old, goFwd, unit) {
+const fwdBkwd = function (s: Spacetime, old: Spacetime, goFwd: boolean | undefined, unit: string): Spacetime {
   if (goFwd === true && s.isBefore(old)) {
     s = s.add(1, unit)
   } else if (goFwd === false && s.isAfter(old)) {
@@ -38,14 +39,14 @@ const fwdBkwd = function (s, old, goFwd, unit) {
   return s
 }
 
-const milliseconds = function (s, n) {
+const milliseconds = function (s: Spacetime, n: number | string): number {
   n = validate(n)
   const current = s.millisecond()
   const diff = current - n //milliseconds to shift by
   return s.epoch - diff
 }
 
-const seconds = function (s, n, goFwd) {
+const seconds = function (s: Spacetime, n: number | string, goFwd?: boolean): number {
   n = validate(n)
   const old = s.clone()
   const diff = s.second() - n
@@ -55,7 +56,7 @@ const seconds = function (s, n, goFwd) {
   return s.epoch
 }
 
-const minutes = function (s, n, goFwd) {
+const minutes = function (s: Spacetime, n: number | string, goFwd?: boolean): number {
   n = validate(n)
   const old = s.clone()
   const diff = s.minute() - n
@@ -66,7 +67,7 @@ const minutes = function (s, n, goFwd) {
   return s.epoch
 }
 
-const hours = function (s, n, goFwd) {
+const hours = function (s: Spacetime, n: number | string, goFwd?: boolean): number {
   n = validate(n)
   // Clamp to 0-23: hour 24 is rejected by walkTo(), which nulls the epoch.
   if (n >= 24) {
@@ -98,7 +99,7 @@ const hours = function (s, n, goFwd) {
   return s.epoch
 }
 
-const time = function (s, str, goFwd) {
+const time = function (s: Spacetime, str: string, goFwd?: boolean): number {
   let m = str.match(/([0-9]{1,2})[:h]([0-9]{1,2})(:[0-9]{1,2})? ?(am|pm)?/)
   if (!m) {
     //fallback to support just '2am'
@@ -142,7 +143,7 @@ const time = function (s, str, goFwd) {
   return s.epoch
 }
 
-const date = function (s, n, goFwd) {
+const date = function (s: Spacetime, n: number | string, goFwd?: boolean): number {
   n = validate(n)
   //avoid setting february 31st (leap-aware, same as add())
   if (n > 28) {
@@ -163,7 +164,7 @@ const date = function (s, n, goFwd) {
   return s.epoch
 }
 
-const month = function (s, n, goFwd) {
+const month = function (s: Spacetime, n: number | string, goFwd?: boolean): number {
   if (typeof n === 'string') {
     if (n === 'sept') {
       n = 'sep'
@@ -195,7 +196,7 @@ const month = function (s, n, goFwd) {
   return s.epoch
 }
 
-const year = function (s, n) {
+const year = function (s: Spacetime, n: number | string): number {
   // support '97
   if (typeof n === 'string' && /^'[0-9]{2}$/.test(n)) {
     n = n.replace(/'/, '').trim()
@@ -221,7 +222,8 @@ const year = function (s, n) {
   return s.epoch
 }
 
-const week = function (s, n, goFwd) {
+// (unlike the other setters, this returns a new instance)
+const week = function (s: Spacetime, n: number | string, goFwd?: boolean): Spacetime {
   const old = s.clone()
   n = validate(n)
 
@@ -249,7 +251,7 @@ const week = function (s, n, goFwd) {
   return s
 }
 
-const dayOfYear = function (s, n, goFwd) {
+const dayOfYear = function (s: Spacetime, n: number | string, goFwd?: boolean): number {
   n = validate(n)
   const old = s.clone()
   n -= 1 //days are 1-based

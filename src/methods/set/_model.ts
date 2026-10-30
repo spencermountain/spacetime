@@ -1,8 +1,8 @@
-// @ts-nocheck
 import monthLength from '../../data/monthLengths.ts'
 import { isLeapYear } from '../../fns.ts'
+import type { Spacetime, DateParts } from '../../types/index.ts'
 
-export const getMonthLength = function (month, year) {
+export const getMonthLength = function (month: number, year: number): number {
   if (month === 1 && isLeapYear(year)) {
     return 29
   }
@@ -11,15 +11,15 @@ export const getMonthLength = function (month, year) {
 
 //month is the one thing we 'model/compute'
 //- because ms-shifting can be off by enough
-const rollMonth = (want, old) => {
+const rollMonth = (want: DateParts, old: Spacetime): DateParts => {
   //increment year
   if (want.month > 0) {
-    const years = parseInt(want.month / 12, 10)
+    const years = Math.trunc(want.month / 12)
     want.year = old.year() + years
     want.month = want.month % 12
   } else if (want.month < 0) {
     const m = Math.abs(want.month)
-    let years = parseInt(m / 12, 10)
+    let years = Math.trunc(m / 12)
     if (m % 12 !== 0) {
       years += 1
     }
@@ -35,7 +35,7 @@ const rollMonth = (want, old) => {
 }
 
 // briefly support day=-2 (this does not need to be perfect.)
-const rollDaysDown = (want, old, sum) => {
+const rollDaysDown = (want: DateParts, old: Spacetime, sum: number): DateParts => {
   want.year = old.year()
   want.month = old.month()
   const date = old.date()
@@ -53,7 +53,7 @@ const rollDaysDown = (want, old, sum) => {
 }
 
 // briefly support day=33 (this does not need to be perfect.)
-const rollDaysUp = (want, old, sum) => {
+const rollDaysUp = (want: DateParts, old: Spacetime, sum: number): DateParts => {
   let year = old.year()
   let month = old.month()
   let max = getMonthLength(month, year)

@@ -1,37 +1,39 @@
-// @ts-nocheck
+import type { Spacetime } from '../types/index.ts'
 //make a string, for easy comparison between dates
 const print = {
-  millisecond: (s) => {
+  millisecond: (s: Spacetime) => {
     return s.epoch
   },
-  second: (s) => {
+  second: (s: Spacetime) => {
     return [s.year(), s.month(), s.date(), s.hour(), s.minute(), s.second()].join('-')
   },
-  minute: (s) => {
+  minute: (s: Spacetime) => {
     return [s.year(), s.month(), s.date(), s.hour(), s.minute()].join('-')
   },
-  hour: (s) => {
+  hour: (s: Spacetime) => {
     return [s.year(), s.month(), s.date(), s.hour()].join('-')
   },
-  day: (s) => {
+  day: (s: Spacetime) => {
     return [s.year(), s.month(), s.date()].join('-')
   },
-  week: (s) => {
+  week: (s: Spacetime) => {
     return [s.year(), s.week()].join('-')
   },
-  month: (s) => {
+  month: (s: Spacetime) => {
     return [s.year(), s.month()].join('-')
   },
-  quarter: (s) => {
+  quarter: (s: Spacetime) => {
     return [s.year(), s.quarter()].join('-')
   },
-  year: (s) => {
+  year: (s: Spacetime) => {
     return s.year()
+  },
+  date: (s: Spacetime) => {
+    return [s.year(), s.month(), s.date()].join('-')
   }
 }
-print.date = print.day
 
-const isSame = function (b, unit, tzAware = true) {
+const isSame = function (b, unit: string, tzAware = true): boolean | null {
   const a = this
   if (!unit) {
     return null

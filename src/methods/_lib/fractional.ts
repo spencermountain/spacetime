@@ -1,5 +1,5 @@
-// @ts-nocheck
 import ms from '../../data/milliseconds.ts'
+import type { Spacetime } from '../../types/index.ts'
 
 const precision = {
   second: 'millisecond',
@@ -15,7 +15,7 @@ const precision = {
 }
 const years = { decade: 10, century: 100 }
 
-const addFraction = (s, num, unit) => {
+const addFraction = (s: Spacetime, num: number, unit: string) => {
   if (Object.prototype.hasOwnProperty.call(years, unit)) {
     return s.add(num * years[unit], 'year')
   }

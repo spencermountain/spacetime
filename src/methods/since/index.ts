@@ -9,11 +9,12 @@ import {
   presentString,
   pastDistanceString,
   futureDistanceString
-} from "../../data/distance.ts";
+} from '../../data/distance.ts'
+import type { Spacetime } from '../../types/index.ts'
 //by spencermountain + Shaun Grady
 
 //create the human-readable diff between the two dates
-const since = (start, end) => {
+const since = (start: Spacetime, end: Spacetime) => {
   end = beADate(end, start)
   const diff = getDiff(start, end)
   const isNow = Object.keys(diff).every((u) => !diff[u])
@@ -25,7 +26,7 @@ const since = (start, end) => {
       precise: nowString(),
       abbreviated: [],
       iso: 'P0Y0M0DT0H0M0S',
-      direction: presentString(),
+      direction: presentString()
     }
   }
   let precise
@@ -48,7 +49,7 @@ const since = (start, end) => {
     precise = futureDistanceString(precise)
   }
   // https://en.wikipedia.org/wiki/ISO_8601#Durations
-  // P[n]Y[n]M[n]DT[n]H[n]M[n]S 
+  // P[n]Y[n]M[n]DT[n]H[n]M[n]S
   const iso = toISO(diff)
   return {
     diff,
@@ -57,7 +58,7 @@ const since = (start, end) => {
     precise,
     abbreviated,
     iso,
-    direction,
+    direction
   }
 }
 

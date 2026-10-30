@@ -1,6 +1,6 @@
 import { beADate, getEpoch } from '../fns.ts'
 
-const validEpoch = epoch => Number.isFinite(epoch) && !isNaN(new Date(epoch).getTime())
+const validEpoch = (epoch: number) => Number.isFinite(epoch) && !isNaN(new Date(epoch).getTime())
 
 const methods = {
   isAfter: function (d) {
@@ -39,7 +39,7 @@ const methods = {
       return false
     }
     if (isInclusive) {
-      return this.isBetween(start, end) || this.isEqual(start) || this.isEqual(end);
+      return this.isBetween(start, end) || this.isEqual(start) || this.isEqual(end)
     }
     return startEpoch < this.epoch && this.epoch < endEpoch
   }
