@@ -44,7 +44,7 @@ const millennium = function (input) {
 
 const methods = {
   // day 0-366
-  dayOfYear: function (num, goFwd) {
+  dayOfYear: function (num?, goFwd?) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = _dayOfYear(s, num, goFwd)
@@ -63,7 +63,7 @@ const methods = {
   },
 
   //since the start of the year
-  week: function (num, goFwd) {
+  week: function (num?, goFwd?) {
     // week-setter
     if (num !== undefined) {
       let s = this.clone()
@@ -111,7 +111,7 @@ const methods = {
     return 52
   },
   //either name or number
-  month: function (input, goFwd) {
+  month: function (input?, goFwd?) {
     if (input !== undefined) {
       const s = this.clone()
       s.epoch = _month(s, input, goFwd)
@@ -120,7 +120,7 @@ const methods = {
     return this.d.getUTCMonth()
   },
   //'january'
-  monthName: function (input, goFwd) {
+  monthName: function (input?, goFwd?) {
     if (input !== undefined) {
       let s = this.clone()
       s = s.month(input, goFwd)
@@ -130,7 +130,7 @@ const methods = {
   },
 
   //q1, q2, q3, q4
-  quarter: function (num, goFwd) {
+  quarter: function (num?, goFwd?) {
     if (num !== undefined) {
       if (typeof num === 'string') {
         num = num.replace(/^q/i, '')
@@ -155,7 +155,7 @@ const methods = {
   },
 
   //spring, summer, winter, fall
-  season: function (input, goFwd) {
+  season: function (input?, goFwd?) {
     let hem = 'north'
     if (this.hemisphere() === 'South') {
       hem = 'south'
@@ -181,7 +181,7 @@ const methods = {
   },
 
   //the year number
-  year: function (num) {
+  year: function (num?) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = _year(s, num)
@@ -191,7 +191,7 @@ const methods = {
   },
 
   //bc/ad years
-  era: function (str) {
+  era: function (str?) {
     if (str !== undefined) {
       const s = this.clone()
       str = str.toLowerCase()
@@ -214,7 +214,7 @@ const methods = {
   },
 
   // 2019 -> 2010
-  decade: function (input) {
+  decade: function (input?) {
     if (input !== undefined) {
       input = String(input)
       input = input.replace(/([0-9])'?s$/, '$1') //1950's
@@ -238,7 +238,7 @@ const methods = {
     return this.startOf('decade').year()
   },
   // 1950 -> 19+1
-  century: function (input) {
+  century: function (input?) {
     if (input !== undefined) {
       if (typeof input === 'string') {
         input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals

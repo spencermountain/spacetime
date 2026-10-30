@@ -28,7 +28,7 @@ const units = [
 
 //the spacetime instance methods (also, the API)
 const methods = {
-  set: function (input, tz) {
+  set: function (input, tz?) {
     let s = this.clone()
     s = handleInput(s, input, null)
     if (tz) {
@@ -36,7 +36,7 @@ const methods = {
     }
     return s
   },
-  timezone: function (tz) {
+  timezone: function (tz?) {
     // hot-swap the timezone, to avoid time-change 
     if (tz !== undefined) {
       const json = this.json()

@@ -1,7 +1,7 @@
- 
 import parsers from './formats/index.ts'
+import type { Spacetime } from '../types/index.ts'
 
-const parseString = function (s, input, givenTz) {
+const parseString = function (s: Spacetime, input: string, givenTz?: string): Spacetime {
   // let parsers = s.parsers || []
   //try each text-parse template, use the first good result
   for (let i = 0; i < parsers.length; i++) {

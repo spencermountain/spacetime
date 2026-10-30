@@ -1,9 +1,9 @@
 //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
 export const isLeapYear = (year) => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 // unsurprisingly-nasty `typeof date` call
-export const isArray = (input) => Object.prototype.toString.call(input) === '[object Array]'
-export const isObject = (input) => Object.prototype.toString.call(input) === '[object Object]'
-export const isBoolean = (input) => Object.prototype.toString.call(input) === '[object Boolean]'
+export const isArray = (input: unknown): input is unknown[] => Object.prototype.toString.call(input) === '[object Array]'
+export const isObject = (input: unknown): input is Record<string, any> => Object.prototype.toString.call(input) === '[object Object]'
+export const isBoolean = (input: unknown): input is boolean => Object.prototype.toString.call(input) === '[object Boolean]'
 const isDate = (d) => Object.prototype.toString.call(d) === '[object Date]' && !isNaN(d.valueOf())
 
 export const zeroPad = (str, len = 2) => {

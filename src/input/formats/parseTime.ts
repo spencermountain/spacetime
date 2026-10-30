@@ -1,5 +1,7 @@
+import type { Spacetime } from '../../types/index.ts'
+
 // truncate any sub-millisecond values
-const parseMs = function (str = '') {
+const parseMs = function (str: string = ''): number {
   str = String(str)
   //js does not support sub-millisecond values
   // so truncate these - 2021-11-02T19:55:30.087772
@@ -16,7 +18,7 @@ const parseMs = function (str = '') {
   return Number(str) || 0
 }
 
-const parseTime = (s, str = '') => {
+const parseTime = (s: Spacetime, str: string = ''): Spacetime => {
   str = str.trim().toLowerCase()
   if (!str) {
     return s.startOf('day')

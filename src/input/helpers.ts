@@ -1,13 +1,14 @@
- 
-const defaults = {
+import type { Spacetime, DateParts } from '../types/index.ts'
+
+const defaults: DateParts = {
   year: new Date().getFullYear(),
   month: 0,
   date: 1
 }
-const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
+const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'] as const
 
 //support [2016, 03, 01] format
-const parseArray = (s, arr, today) => {
+const parseArray = (s: Spacetime, arr: Array<number | string>, today: DateParts): Spacetime => {
   if (arr.length === 0) {
     return s
   }
@@ -28,7 +29,7 @@ const parseArray = (s, arr, today) => {
 }
 
 //support {year:2016, month:3} format
-const parseObject = (s, obj) => {
+const parseObject = (s: Spacetime, obj: DateParts): Spacetime => {
   if (Object.keys(obj).length === 0) {
     return s
   }
@@ -47,7 +48,7 @@ const parseObject = (s, obj) => {
 
 // this may seem like an arbitrary number, but it's 'within jan 1970'
 // this is only really ambiguous until 2054 or so
-const parseNumber = function (s, input) {
+const parseNumber = function (s: Spacetime, input: number): Spacetime {
   const minimumEpoch = 2500000000
   // if the given epoch is really small, they've probably given seconds and not milliseconds
   // anything below this number is likely (but not necessarily) a mistaken input.

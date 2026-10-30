@@ -1,5 +1,5 @@
 //little cleanup..
-const normalize = function (str) {
+const normalize = function (str: string): string {
   // remove all day-names
   str = str.replace(/\b(mon|tues?|wed|wednes|thur?s?|fri|sat|satur|sun)(day)?\b/i, '')
   //remove ordinal ending

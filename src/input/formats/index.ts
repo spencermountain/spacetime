@@ -6,4 +6,6 @@ import misc from './04-misc.ts'
 import walkTo from '../../methods/set/walk.ts'
 import parseOffset from './parseOffset.ts'
 
-export default [].concat(ymd(walkTo, parseOffset), mdy(walkTo, parseOffset), dmy(walkTo), misc(walkTo))
+const parsers = [...ymd(walkTo, parseOffset), ...mdy(walkTo, parseOffset), ...dmy(walkTo), ...misc(walkTo)]
+
+export default parsers

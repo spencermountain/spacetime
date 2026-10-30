@@ -1,7 +1,9 @@
 import { toCardinal } from '../../fns.ts'
-import { validate, parseTime, parseYear, parseMonth } from './_parsers.ts'
+import { validate, parseTime, parseYear, parseMonth, type Parser } from './_parsers.ts'
+import type walkTo from '../../methods/set/walk.ts'
+import type parseOffset from './parseOffset.ts'
 
-const create = (walkTo, parseOffset) => [
+const create = (walk: typeof walkTo, offset: typeof parseOffset): Parser[] => [
   // =====
   //  m-d-y
   // =====
@@ -25,7 +27,7 @@ const create = (walkTo, parseOffset) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s, arr[4])
       return s
     }
@@ -43,7 +45,7 @@ const create = (walkTo, parseOffset) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s, arr[4])
       return s
     }
@@ -63,7 +65,7 @@ const create = (walkTo, parseOffset) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s, arr[4])
       return s
     }
@@ -82,8 +84,8 @@ const create = (walkTo, parseOffset) => [
         s.epoch = null
         return s
       }
-      s = parseOffset(s, tz)
-      walkTo(s, obj)
+      s = offset(s, tz)
+      walk(s, obj)
       s = parseTime(s, time)
       return s
     }
@@ -103,8 +105,8 @@ const create = (walkTo, parseOffset) => [
         s.epoch = null
         return s
       }
-      s = parseOffset(s, tz)
-      walkTo(s, obj)
+      s = offset(s, tz)
+      walk(s, obj)
       s = parseTime(s, time)
       return s
     }

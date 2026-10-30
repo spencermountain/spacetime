@@ -1,7 +1,9 @@
 import { toCardinal } from '../../fns.ts'
-import { validate, parseTime, parseYear, parseMonth, parseTz } from './_parsers.ts'
+import { validate, parseTime, parseYear, parseMonth, parseTz, type Parser } from './_parsers.ts'
+import type walkTo from '../../methods/set/walk.ts'
+import type parseOffset from './parseOffset.ts'
 
-const create = (walkTo, parseOffset) => [
+const create = (walk: typeof walkTo, offset: typeof parseOffset): Parser[] => [
   // =====
   //  y-m-d
   // =====
@@ -13,9 +15,9 @@ const create = (walkTo, parseOffset) => [
     reg: /^(-?0{0,2}[0-9]{3,4})-([0-9]{1,2})-([0-9]{1,2})[T ]([0-9.:]+)(Z|[+-][0-9:]+)?(\[[^[\]]*\])?(\[[^[\]]*\])?$/i,
     parse: (s, m) => {
       const obj = {
-        year: m[1],
+        year: Number(m[1]),
         month: parseInt(m[2], 10) - 1,
-        date: m[3]
+        date: Number(m[3])
       }
       if (validate(obj) === false) {
         s.epoch = null
@@ -28,10 +30,10 @@ const create = (walkTo, parseOffset) => [
           s = s.timezone(tz)
         }
       } else {
-        parseOffset(s, m[5])
+        offset(s, m[5])
       }
       // For now, ignore Temporal calendar info in m[7]..
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s, m[4])
       return s
     }
@@ -41,7 +43,7 @@ const create = (walkTo, parseOffset) => [
     reg: /^([0-9]{4})[\-/. ]([0-9]{1,2})[\-/. ]([0-9]{1,2})( [0-9]{1,2}(:[0-9]{0,2})?(:[0-9]{0,3})? ?(am|pm)?)?$/i,
     parse: (s, m) => {
       const obj = {
-        year: m[1],
+        year: Number(m[1]),
         month: parseInt(m[2], 10) - 1,
         date: parseInt(m[3], 10)
       }
@@ -54,7 +56,7 @@ const create = (walkTo, parseOffset) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s, m[4])
       return s
     }
@@ -73,7 +75,7 @@ const create = (walkTo, parseOffset) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s, m[4])
       return s
     }

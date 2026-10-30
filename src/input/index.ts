@@ -1,11 +1,11 @@
-// @ts-nocheck
 import { parseTemporal } from './temporal.ts'
-import { isObject, isArray } from '../fns.ts'
+import { isObject } from '../fns.ts'
 import fns from './helpers.ts'
 const { parseArray, parseObject, parseNumber } = fns
 import namedDates from './named-dates.ts'
 import normalize from './normalize.ts'
 import parseString from './parse.ts'
+import type { Spacetime, SpacetimeInput, DateParts } from '../types/index.ts'
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
 //=========================================
@@ -15,14 +15,14 @@ import parseString from './parse.ts'
 // Full Date	"Wednesday March 25 2015"
 //=========================================
 
-const defaults = {
+const defaults: DateParts = {
   year: new Date().getFullYear(),
   month: 0,
   date: 1
 }
 
 //find the epoch from different input styles
-const parseInput = (s, input, timezone) => {
+const parseInput = (s: Spacetime, input: SpacetimeInput, timezone?: string): Spacetime => {
   const today = s._today || defaults
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
@@ -46,26 +46,26 @@ const parseInput = (s, input, timezone) => {
     return native
   }
   //support input of Date() object
-  if (Object.prototype.toString.call(input) === '[object Date]') {
+  if (input instanceof Date) {
     s.epoch = input.getTime()
     return s
   }
   //support [2016, 03, 01] format
-  if (isArray(input) === true) {
+  if (Array.isArray(input)) {
     s = parseArray(s, input, today)
     return s
   }
   //support {year:2016, month:3} format
-  if (isObject(input) === true) {
+  if (isObject(input)) {
     //support spacetime object as input
     if ('epoch' in input) {
       s.epoch = typeof input.epoch === 'number' ? input.epoch : NaN
-      if (timezone == null && input.tz) {
+      if (timezone == null && 'tz' in input && input.tz) {
         s.tz = input.tz
       }
       return s
     }
-    const obj = Object.assign({}, today, input)
+    const obj: DateParts = Object.assign({}, today, input)
     s = parseObject(s, obj)
     return s
   }

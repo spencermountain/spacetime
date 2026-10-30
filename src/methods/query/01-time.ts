@@ -3,7 +3,7 @@ import { am, pm } from '../../data/ampm.ts'
 import { zeroPad } from '../../fns.ts'
 
 const methods = {
-  millisecond: function (num) {
+  millisecond: function (num?) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = milliseconds(s, num)
@@ -11,7 +11,7 @@ const methods = {
     }
     return this.d.getUTCMilliseconds()
   },
-  second: function (num, goFwd) {
+  second: function (num?, goFwd?) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = seconds(s, num, goFwd)
@@ -19,7 +19,7 @@ const methods = {
     }
     return this.d.getUTCSeconds()
   },
-  minute: function (num, goFwd) {
+  minute: function (num?, goFwd?) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = minutes(s, num, goFwd)
@@ -27,7 +27,7 @@ const methods = {
     }
     return this.d.getUTCMinutes()
   },
-  hour: function (num, goFwd) {
+  hour: function (num?, goFwd?) {
     const d = this.d
     if (num !== undefined) {
       const s = this.clone()
@@ -38,7 +38,7 @@ const methods = {
   },
 
   //'3:30' is 3.5
-  hourFloat: function (num, goFwd) {
+  hourFloat: function (num?, goFwd?) {
     if (num !== undefined) {
       const s = this.clone()
       let minute = num % 1
@@ -56,7 +56,7 @@ const methods = {
   },
 
   // hour in 12h format
-  hour12: function (str, goFwd) {
+  hour12: function (str?, goFwd?) {
     const d = this.d
     if (str !== undefined) {
       const s = this.clone()
@@ -86,7 +86,7 @@ const methods = {
   },
 
   //some ambiguity here with 12/24h
-  time: function (str, goFwd) {
+  time: function (str?, goFwd?) {
     if (str !== undefined) {
       const s = this.clone()
       str = str.toLowerCase().trim()
@@ -97,7 +97,7 @@ const methods = {
   },
 
   // either 'am' or 'pm'
-  ampm: function (input, goFwd) {
+  ampm: function (input?, goFwd?) {
     // let which = 'am'
     let which = am()
     let hour = this.hour()
@@ -126,7 +126,7 @@ const methods = {
   },
 
   //some hard-coded times of day, like 'noon'
-  dayTime: function (str, goFwd) {
+  dayTime: function (str?, goFwd?) {
     if (str !== undefined) {
       const times = {
         morning: '7:00',
@@ -167,20 +167,20 @@ const methods = {
   },
 
   //get/set a traditional iso string
-  iso: function (num) {
+  iso: function (num?) {
     if (num !== undefined) {
       return this.set(num)
     }
     return this.format('iso')
   },
   // get/set a new iso string
-  isoFull: function (num) {
+  isoFull: function (num?) {
     if (num !== undefined) {
       return this.set(num)
     }
     return this.format('iso-full')
   },
-  epochSeconds: function (num) {
+  epochSeconds: function (num?) {
     if (num !== undefined) {
       this.epoch = num * 1000
       return this

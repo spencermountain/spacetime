@@ -1,6 +1,7 @@
-import { validate, parseTime, parseYear, parseMonth } from './_parsers.ts'
+import { validate, parseTime, parseYear, parseMonth, type Parser } from './_parsers.ts'
+import type walkTo from '../../methods/set/walk.ts'
 
-const create = (walkTo) => [
+const create = (walk: typeof walkTo): Parser[] => [
   // =====
   // no dates
   // =====
@@ -10,7 +11,7 @@ const create = (walkTo) => [
     reg: /^([0-9]{4})[\-/]([0-9]{2})$/,
     parse: (s, m) => {
       const obj = {
-        year: m[1],
+        year: Number(m[1]),
         month: parseInt(m[2], 10) - 1,
         date: 1
       }
@@ -18,7 +19,7 @@ const create = (walkTo) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s, m[4])
       return s
     }
@@ -37,7 +38,7 @@ const create = (walkTo) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s, arr[4])
       return s
     }
@@ -88,7 +89,7 @@ const create = (walkTo) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s)
       return s
     }
@@ -110,7 +111,7 @@ const create = (walkTo) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s)
       return s
     }
@@ -134,7 +135,7 @@ const create = (walkTo) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s)
       return s
     }

@@ -1,19 +1,23 @@
 import { formatTimezone } from '../fns.ts'
 import { warn, isoCalendar, incomplete } from './temporal-calendar.ts'
+import type { Spacetime } from '../types/index.ts'
+
+// Temporal values are `any` until we declare (or depend on) the Temporal API types
+const getTemporal = (): any => (typeof globalThis === 'undefined' ? undefined : (globalThis as any).Temporal)
 
 // Legacy fractional Etc/GMT zones need a native fixed-offset identifier.
-const temporalZone = s => {
+const temporalZone = (s: Spacetime): string => {
   const match = s.tz.match(/^etc\/gmt([+-][0-9]+(?:\.[0-9]+)?)$/i)
   return match ? formatTimezone(-Number(match[1]), ':') : s.timezone().name
 }
 
-const inputTimezone = input => {
-  const T = typeof globalThis === 'undefined' ? undefined : globalThis.Temporal
+const inputTimezone = (input: any): string | undefined => {
+  const T = getTemporal()
   return T && input instanceof T.ZonedDateTime ? input.timeZoneId : undefined
 }
 
-const parseTemporal = (s, input) => {
-  const T = typeof globalThis === 'undefined' ? undefined : globalThis.Temporal
+const parseTemporal = (s: Spacetime, input: any): Spacetime | null => {
+  const T = getTemporal()
   if (!T) {
     return null
   }
@@ -42,8 +46,8 @@ const parseTemporal = (s, input) => {
   return null
 }
 
-const toTemporal = s => {
-  const T = typeof globalThis === 'undefined' ? undefined : globalThis.Temporal
+const toTemporal = (s: Spacetime): any => {
+  const T = getTemporal()
   if (!T) {
     throw new Error('toTemporal() requires native Temporal (or a globally installed polyfill)')
   }

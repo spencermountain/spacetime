@@ -2,7 +2,6 @@
 'use strict';
 
 const isLeapYear = (year) => year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-const isArray = (input) => Object.prototype.toString.call(input) === "[object Array]";
 const isObject = (input) => Object.prototype.toString.call(input) === "[object Object]";
 const isBoolean = (input) => Object.prototype.toString.call(input) === "[object Boolean]";
 const isDate = (d) => Object.prototype.toString.call(d) === "[object Date]" && !isNaN(d.valueOf());
@@ -89,16 +88,17 @@ const isoCalendar = (s, value) => {
 };
 const incomplete = (input, T) => input instanceof T.PlainTime || input instanceof T.PlainYearMonth || input instanceof T.PlainMonthDay || input instanceof T.Duration;
 
+const getTemporal = () => typeof globalThis === "undefined" ? void 0 : globalThis.Temporal;
 const temporalZone = (s) => {
   const match = s.tz.match(/^etc\/gmt([+-][0-9]+(?:\.[0-9]+)?)$/i);
   return match ? formatTimezone(-Number(match[1]), ":") : s.timezone().name;
 };
 const inputTimezone = (input) => {
-  const T = typeof globalThis === "undefined" ? void 0 : globalThis.Temporal;
+  const T = getTemporal();
   return T && input instanceof T.ZonedDateTime ? input.timeZoneId : void 0;
 };
 const parseTemporal = (s, input) => {
-  const T = typeof globalThis === "undefined" ? void 0 : globalThis.Temporal;
+  const T = getTemporal();
   if (!T) {
     return null;
   }
@@ -127,7 +127,7 @@ const parseTemporal = (s, input) => {
   return null;
 };
 const toTemporal = (s) => {
-  const T = typeof globalThis === "undefined" ? void 0 : globalThis.Temporal;
+  const T = getTemporal();
   if (!T) {
     throw new Error("toTemporal() requires native Temporal (or a globally installed polyfill)");
   }
@@ -675,18 +675,18 @@ function set$5(i18n) {
 
 const months$1 = mapping$1();
 const validate$1 = (obj) => {
-  if (monthLengths.hasOwnProperty(obj.month) !== true || obj.date < 1) {
+  if (monthLengths.hasOwnProperty(obj.month) !== true || Number(obj.date) < 1) {
     return false;
   }
   if (obj.month === 1) {
-    if (isLeapYear(obj.year) && obj.date <= 29) {
+    if (isLeapYear(Number(obj.year)) && Number(obj.date) <= 29) {
       return true;
     } else {
-      return obj.date <= 28;
+      return Number(obj.date) <= 28;
     }
   }
-  const max = monthLengths[obj.month] || 0;
-  if (obj.date <= max) {
+  const max = monthLengths[Number(obj.month)] || 0;
+  if (Number(obj.date) <= max) {
     return true;
   }
   return false;
@@ -702,7 +702,7 @@ const parseYear = (str = "", today) => {
   }
   let year = parseInt(str, 10);
   if (!year && today) {
-    year = today.year;
+    year = Number(today.year);
   }
   year = year || (/* @__PURE__ */ new Date()).getFullYear();
   return year;
@@ -1243,10 +1243,7 @@ const parseOffset = (s, offset) => {
     return s;
   }
   num *= -1;
-  if (num >= 0) {
-    num = "+" + num;
-  }
-  const tz = "etc/gmt" + num;
+  const tz = "etc/gmt" + (num >= 0 ? "+" + num : num);
   const zones = s.timezones;
   if (zones[tz]) {
     s.tz = tz;
@@ -1254,7 +1251,7 @@ const parseOffset = (s, offset) => {
   return s;
 };
 
-var parsers = [].concat(create$3(walkTo, parseOffset), create$2(walkTo, parseOffset), create$1(walkTo), create(walkTo));
+const parsers = [...create$3(walkTo, parseOffset), ...create$2(walkTo, parseOffset), ...create$1(walkTo), ...create(walkTo)];
 
 const parseString = function(s, input, givenTz) {
   for (let i = 0; i < parsers.length; i++) {
@@ -1298,18 +1295,18 @@ const parseInput = (s, input, timezone) => {
   if (native) {
     return native;
   }
-  if (Object.prototype.toString.call(input) === "[object Date]") {
+  if (input instanceof Date) {
     s.epoch = input.getTime();
     return s;
   }
-  if (isArray(input) === true) {
+  if (Array.isArray(input)) {
     s = parseArray(s, input, today);
     return s;
   }
-  if (isObject(input) === true) {
+  if (isObject(input)) {
     if ("epoch" in input) {
       s.epoch = typeof input.epoch === "number" ? input.epoch : NaN;
-      if (timezone == null && input.tz) {
+      if (timezone == null && "tz" in input && input.tz) {
         s.tz = input.tz;
       }
       return s;
@@ -3380,15 +3377,20 @@ const methods$4 = {
   millennium
 };
 
-const methods$3 = Object.assign({}, methods$6, methods$5, methods$4);
-methods$3.milliseconds = methods$3.millisecond;
-methods$3.seconds = methods$3.second;
-methods$3.minutes = methods$3.minute;
-methods$3.hours = methods$3.hour;
-methods$3.hour24 = methods$3.hour;
-methods$3.h12 = methods$3.hour12;
-methods$3.h24 = methods$3.hour24;
-methods$3.days = methods$3.day;
+const methods$3 = {
+  ...methods$6,
+  ...methods$5,
+  ...methods$4,
+  //aliases
+  milliseconds: methods$6.millisecond,
+  seconds: methods$6.second,
+  minutes: methods$6.minute,
+  hours: methods$6.hour,
+  hour24: methods$6.hour,
+  h12: methods$6.hour12,
+  h24: methods$6.hour,
+  days: methods$5.day
+};
 
 const precision = {
   second: "millisecond",

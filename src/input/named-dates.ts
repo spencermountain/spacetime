@@ -1,5 +1,7 @@
+import type { Spacetime } from '../types/index.ts'
+
 // pull in 'today' data for the baseline moment
-const getNow = function (s) {
+const getNow = function (s: Spacetime) {
   s.epoch = Date.now()
   Object.keys(s._today || {}).forEach((k) => {
     if (typeof s[k] === 'function') {
@@ -10,35 +12,35 @@ const getNow = function (s) {
 }
 
 const dates = {
-  now: (s) => {
+  now: (s:Spacetime) => {
     return getNow(s)
   },
-  today: (s) => {
+  today: (s: Spacetime) => {
     return getNow(s)
   },
-  tonight: (s) => {
+  tonight: (s: Spacetime) => {
     s = getNow(s)
     s = s.hour(18) //6pm
     return s
   },
-  tomorrow: (s) => {
+  tomorrow: (s: Spacetime) => {
     s = getNow(s)
     s = s.add(1, 'day')
     s = s.startOf('day')
     return s
   },
-  yesterday: (s) => {
+  yesterday: (s: Spacetime) => {
     s = getNow(s)
     s = s.subtract(1, 'day')
     s = s.startOf('day')
     return s
   },
-  christmas: (s) => {
+  christmas: (s: Spacetime) => {
     const year = getNow(s).year()
     s = s.set([year, 11, 25, 18, 0, 0]) // Dec 25
     return s
   },
-  'new years': (s) => {
+  'new years': (s: Spacetime) => {
     const year = getNow(s).year()
     s = s.set([year, 11, 31, 18, 0, 0]) // Dec 31
     return s

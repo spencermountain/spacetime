@@ -1,6 +1,7 @@
-// @ts-nocheck
+import type { Spacetime } from '../../types/index.ts'
+
 //pull-apart ISO offsets, like "+0100"
-const parseOffset = (s, offset) => {
+const parseOffset = (s: Spacetime, offset?: string): Spacetime => {
   if (!offset) {
     return s
   }
@@ -28,11 +29,7 @@ const parseOffset = (s, offset) => {
   //remember - this is opposite! a -5 offset maps to Etc/GMT+5  ¯\_(:/)_/¯
   //https://askubuntu.com/questions/519550/why-is-the-8-timezone-called-gmt-8-in-the-filesystem
   num *= -1
-
-  if (num >= 0) {
-    num = '+' + num
-  }
-  const tz = 'etc/gmt' + num
+  const tz = 'etc/gmt' + (num >= 0 ? '+' + num : num)
   const zones = s.timezones
 
   if (zones[tz]) {

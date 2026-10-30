@@ -1,7 +1,8 @@
 import { toCardinal } from '../../fns.ts'
-import { validate, parseTime, parseYear, parseMonth } from './_parsers.ts'
+import { validate, parseTime, parseYear, parseMonth, type Parser } from './_parsers.ts'
+import type walkTo from '../../methods/set/walk.ts'
 
-const create = (walkTo) => [
+const create = (walk: typeof walkTo): Parser[] => [
   // =====
   //  d-m-y
   // =====
@@ -18,7 +19,7 @@ const create = (walkTo) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s, m[4])
       return s
     }
@@ -36,7 +37,7 @@ const create = (walkTo) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = parseTime(s, m[4])
       return s
     }
@@ -54,7 +55,7 @@ const create = (walkTo) => [
         s.epoch = null
         return s
       }
-      walkTo(s, obj)
+      walk(s, obj)
       s = s.startOf('day')
       s = parseTime(s, m[4])
       return s

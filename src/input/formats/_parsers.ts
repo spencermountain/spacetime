@@ -2,10 +2,17 @@ import monthLengths from '../../data/monthLengths.ts'
 import parseTime from './parseTime.ts'
 import { isLeapYear } from '../../fns.ts'
 import { mapping } from '../../data/months.ts'
+import type { Spacetime, DateParts } from '../../types/index.ts'
 const months = mapping()
 
+/** a date-string parsing template */
+export interface Parser {
+  reg: RegExp
+  parse: (s: Spacetime, m: RegExpMatchArray, givenTz?: string) => Spacetime
+}
+
 //given a month, return whether day number exists in it
-const validate = (obj) => {
+const validate = (obj: DateParts): boolean => {
   //invalid values
   if (monthLengths.hasOwnProperty(obj.month) !== true || obj.date < 1) {
     return false
@@ -26,7 +33,7 @@ const validate = (obj) => {
   return false
 }
 
-const parseYear = (str = '', today) => {
+const parseYear = (str: string = '', today?: DateParts): number => {
   str = str.trim()
   // Two-digit years share the '86 shorthand's century cutoff.
   if (/^'?[0-9][0-9]$/.test(str) === true) {
@@ -46,7 +53,7 @@ const parseYear = (str = '', today) => {
   return year
 }
 
-const parseMonth = function (str) {
+const parseMonth = function (str: string): number {
   str = str.toLowerCase().trim()
   if (str === 'sept') {
     return months.sep
@@ -54,7 +61,7 @@ const parseMonth = function (str) {
   return months[str]
 }
 
-const parseTz = function (str) {
+const parseTz = function (str: string): string {
   str = str.trim()
   str = str.replace(/[[\]]/g, '')
   return str

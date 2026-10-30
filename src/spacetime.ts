@@ -9,7 +9,7 @@ import addFns from './methods/add.ts'
 import sameFns from './methods/same.ts'
 import compareFns from './methods/compare.ts'
 import i18nFns from './methods/i18n.ts'
-import { SpacetimeInput,Options } from './types/index.ts'
+import type { SpacetimeInput, Options, DateParts } from './types/index.ts'
 
 // shared timezone data, swappable via `s.timezones = {...}`
 let timezones = zones
@@ -24,9 +24,9 @@ class Spacetime {
   silent: boolean
   british: boolean
   _weekStart: number
-  _today: object
+  _today: DateParts
 
-  constructor(input?:SpacetimeInput, tz?: string, options: Options = {}) {
+  constructor(input?: SpacetimeInput, tz?: string, options: Options = {}) {
     // the holy moment
     this.epoch = null
     // the shift for the given timezone
