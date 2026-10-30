@@ -2,11 +2,12 @@ import Spacetime from './spacetime.ts'
 import whereIts from './whereIts.ts'
 import version from './_version.ts'
 import { tzdbVersion } from '../zonefile/_build.js'
+import type { SpacetimeInput, Options } from './types/index.ts'
 
-const main = (input, tz, options) => new Spacetime(input, tz, options)
+const create = (input?: SpacetimeInput, tz?: string, options?: Options) => new Spacetime(input, tz, options)
 
 // set all properties of a given 'today' object
-const setToday = function (s) {
+const setToday = function (s: Spacetime): Spacetime {
   const today = s._today || {}
   Object.keys(today).forEach((k) => {
     s = s[k](today[k])
@@ -14,32 +15,14 @@ const setToday = function (s) {
   return s
 }
 
-//some helper functions on the main method
-main.now = (tz, options) => {
+const now = (tz?: string, options?: Options) => {
   let s = new Spacetime(new Date().getTime(), tz, options)
   s = setToday(s)
   return s
 }
-main.today = (tz, options) => {
-  let s = new Spacetime(new Date().getTime(), tz, options)
-  s = setToday(s)
-  return s.startOf('day')
-}
-main.tomorrow = (tz, options) => {
-  let s = new Spacetime(new Date().getTime(), tz, options)
-  s = setToday(s)
-  return s.add(1, 'day').startOf('day')
-}
-main.yesterday = (tz, options) => {
-  let s = new Spacetime(new Date().getTime(), tz, options)
-  s = setToday(s)
-  return s.subtract(1, 'day').startOf('day')
-}
-main.fromUnixSeconds = (secs, tz, options) => {
-  return new Spacetime(secs * 1000, tz, options)
-}
 
-main.extend = function (obj = {}) {
+// add methods to every instance (returns the main method, for chaining)
+const extend = function (obj: Record<string, any> = {}) {
   Object.keys(obj).forEach((k) => {
     // plugins should add methods, not replace existing ones
     // (re-registering the identical plugin is a harmless no-op)
@@ -48,28 +31,33 @@ main.extend = function (obj = {}) {
     }
     Spacetime.prototype[k] = obj[k]
   })
-  return this
-}
-main.timezones = function () {
-  const s = new Spacetime()
-  return s.timezones
-}
-main.max = function (tz, options) {
-  const s = new Spacetime(null, tz, options)
-  s.epoch = 8640000000000000
-  return s
-}
-main.min = function (tz, options) {
-  const s = new Spacetime(null, tz, options)
-  s.epoch = -8640000000000000
-  return s
+  return main // eslint-disable-line no-use-before-define
 }
 
-//find tz by time
-main.whereIts = whereIts
-main.version = version
-main.tzdbVersion = tzdbVersion
+//the main method, with some helper functions on it
+const main = Object.assign(create, {
+  now,
+  today: (tz?: string, options?: Options) => now(tz, options).startOf('day'),
+  tomorrow: (tz?: string, options?: Options) => now(tz, options).add(1, 'day').startOf('day'),
+  yesterday: (tz?: string, options?: Options) => now(tz, options).subtract(1, 'day').startOf('day'),
+  fromUnixSeconds: (secs: number, tz?: string, options?: Options) => new Spacetime(secs * 1000, tz, options),
+  extend,
+  plugin: extend,
+  timezones: () => new Spacetime().timezones,
+  max: (tz?: string, options?: Options) => {
+    const s = new Spacetime(null, tz, options)
+    s.epoch = 8640000000000000
+    return s
+  },
+  min: (tz?: string, options?: Options) => {
+    const s = new Spacetime(null, tz, options)
+    s.epoch = -8640000000000000
+    return s
+  },
+  //find tz by time
+  whereIts,
+  version,
+  tzdbVersion
+})
 
-//aliases:
-main.plugin = main.extend
 export default main

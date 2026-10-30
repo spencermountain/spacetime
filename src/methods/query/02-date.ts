@@ -4,12 +4,12 @@ import walkTo from '../set/walk.ts'
 
 const methods = {
   // # day in the month
-  date: function (num?: number, goFwd?: boolean) {
+  date: function (num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
-      num = parseInt(num, 10)
-      if (!Number.isNaN(num)) {
-        s.epoch = _date(s, num, goFwd)
+      const n = parseInt(String(num), 10)
+      if (!Number.isNaN(n)) {
+        s.epoch = _date(s, n, goFwd)
       }
       return s
     }
@@ -22,7 +22,7 @@ const methods = {
       return this.d.getUTCDay()
     }
     const original = this.clone()
-    let want = input
+    let want = Number(input)
     // accept 'wednesday'
     if (typeof input === 'string') {
       input = input.toLowerCase()

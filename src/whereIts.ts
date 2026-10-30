@@ -1,9 +1,8 @@
-// @ts-nocheck
 import Spacetime from './spacetime.ts'
 import titleCase from './timezone/titleCase.ts'
-// const timezones = require('../data');
 
-const whereIts = (a, b) => {
+// which timezones are currently between these two times-of-day?
+const whereIts = (a: string, b?: string): string[] => {
   let start = new Spacetime(null)
   let end = new Spacetime(null)
   start = start.time(a)

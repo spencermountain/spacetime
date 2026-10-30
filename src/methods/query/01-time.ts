@@ -3,7 +3,7 @@ import { am, pm } from '../../data/ampm.ts'
 import { zeroPad } from '../../fns.ts'
 
 const methods = {
-  millisecond: function (num?: number) {
+  millisecond: function (num?: number | string) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = milliseconds(s, num)
@@ -11,7 +11,7 @@ const methods = {
     }
     return this.d.getUTCMilliseconds()
   },
-  second: function (num?: number, goFwd?: boolean) {
+  second: function (num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = seconds(s, num, goFwd)
@@ -19,7 +19,7 @@ const methods = {
     }
     return this.d.getUTCSeconds()
   },
-  minute: function (num?: number, goFwd?: boolean) {
+  minute: function (num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = minutes(s, num, goFwd)
@@ -27,7 +27,7 @@ const methods = {
     }
     return this.d.getUTCMinutes()
   },
-  hour: function (num?: number, goFwd?: boolean) {
+  hour: function (num?: number | string, goFwd?: boolean) {
     const d = this.d
     if (num !== undefined) {
       const s = this.clone()
@@ -38,12 +38,13 @@ const methods = {
   },
 
   //'3:30' is 3.5
-  hourFloat: function (num?: number, goFwd?: boolean) {
+  hourFloat: function (num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
+      num = Number(num)
       let minute = num % 1
       minute = minute * 60
-      const hour = parseInt(num, 10)
+      const hour = Math.trunc(num)
       s.epoch = hours(s, hour, goFwd)
       s.epoch = minutes(s, minute, goFwd)
       return s

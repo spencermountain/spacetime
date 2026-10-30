@@ -5,9 +5,9 @@ const isLeapYear = (year) => year % 4 === 0 && year % 100 !== 0 || year % 400 ==
 const isObject = (input) => Object.prototype.toString.call(input) === "[object Object]";
 const isBoolean = (input) => Object.prototype.toString.call(input) === "[object Boolean]";
 const isDate = (d) => Object.prototype.toString.call(d) === "[object Date]" && !isNaN(d.valueOf());
-const zeroPad = (str, len = 2) => {
+const zeroPad = (num, len = 2) => {
   const pad = "0";
-  str = str + "";
+  const str = num + "";
   return str.length >= len ? str : new Array(len - str.length + 1).join(pad) + str;
 };
 const titleCase$1 = (str) => {
@@ -30,8 +30,8 @@ const ordinal = (i) => {
   }
   return i + "th";
 };
-const toCardinal = (str) => {
-  str = String(str);
+const toCardinal = (input) => {
+  let str = String(input);
   str = str.replace(/([0-9])(st|nd|rd|th)$/i, "$1");
   return parseInt(str, 10);
 };
@@ -69,7 +69,7 @@ const beADate = (d, s) => {
 const formatTimezone = (offset, delimiter = "") => {
   const sign = offset > 0 ? "+" : "-";
   const absOffset = Math.abs(offset);
-  const hours = zeroPad(parseInt("" + absOffset, 10));
+  const hours = zeroPad(Math.trunc(absOffset));
   const minutes = zeroPad(absOffset % 1 * 60);
   return `${sign}${hours}${delimiter}${minutes}`;
 };
@@ -1439,13 +1439,9 @@ const format = {
   },
   //i made these up
   nice: (s) => `${short$1()[s.month()]} ${ordinal(s.date())}, ${s.time()}`,
-  "nice-24": (s) => `${short$1()[s.month()]} ${ordinal(s.date())}, ${s.hour24()}:${zeroPad(
-    s.minute()
-  )}`,
+  "nice-24": (s) => `${short$1()[s.month()]} ${ordinal(s.date())}, ${s.hour24()}:${zeroPad(s.minute())}`,
   "nice-year": (s) => `${short$1()[s.month()]} ${ordinal(s.date())}, ${s.year()}`,
-  "nice-day": (s) => `${short()[s.day()]} ${applyCaseFormat(short$1()[s.month()])} ${ordinal(
-    s.date()
-  )}`,
+  "nice-day": (s) => `${short()[s.day()]} ${applyCaseFormat(short$1()[s.month()])} ${ordinal(s.date())}`,
   "nice-full": (s) => `${s.dayName()} ${applyCaseFormat(s.monthName())} ${ordinal(s.date())}, ${s.time()}`,
   "nice-full-24": (s) => `${s.dayName()} ${applyCaseFormat(s.monthName())} ${ordinal(
     s.date()
@@ -1764,8 +1760,8 @@ const reverseDiff = function(obj) {
   });
   return obj;
 };
-function main$1(a, b, unit) {
-  b = beADate(b, a);
+function main$1(a, d, unit) {
+  let b = beADate(d, a);
   let reversed = false;
   if (a.isAfter(b)) {
     const tmp = a;
@@ -1870,7 +1866,7 @@ function set$2(i18n = {}) {
 let past = "past";
 let future = "future";
 let present = "present";
-let now = "now";
+let now$1 = "now";
 let almost = "almost";
 let over = "over";
 let pastDistance = (value) => `${value} ago`;
@@ -1891,7 +1887,7 @@ function presentString() {
   return present;
 }
 function nowString() {
-  return now;
+  return now$1;
 }
 function almostString() {
   return almost;
@@ -1905,7 +1901,7 @@ function set$1(i18n) {
   past = i18n.past || past;
   future = i18n.future || future;
   present = i18n.present || present;
-  now = i18n.now || now;
+  now$1 = i18n.now || now$1;
   almost = i18n.almost || almost;
   over = i18n.over || over;
 }
@@ -2178,9 +2174,17 @@ const units$1 = {
     const decade = Math.trunc(year / 100) * 100;
     s = s.year(decade);
     return s;
+  },
+  date: (s) => {
+    walkTo(s, {
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0
+    });
+    return s;
   }
 };
-units$1.date = units$1.day;
 const startOf = (a, unit) => {
   let s = a.clone();
   if (!s.isValid()) {
@@ -2873,9 +2877,10 @@ const methods$6 = {
   hourFloat: function(num, goFwd) {
     if (num !== void 0) {
       const s = this.clone();
+      num = Number(num);
       let minute2 = num % 1;
       minute2 = minute2 * 60;
-      const hour2 = parseInt(num, 10);
+      const hour2 = Math.trunc(num);
       s.epoch = hours(s, hour2, goFwd);
       s.epoch = minutes(s, minute2, goFwd);
       return s;
@@ -3014,9 +3019,9 @@ const methods$5 = {
   date: function(num, goFwd) {
     if (num !== void 0) {
       const s = this.clone();
-      num = parseInt(num, 10);
-      if (!Number.isNaN(num)) {
-        s.epoch = date(s, num, goFwd);
+      const n = parseInt(String(num), 10);
+      if (!Number.isNaN(n)) {
+        s.epoch = date(s, n, goFwd);
       }
       return s;
     }
@@ -3028,7 +3033,7 @@ const methods$5 = {
       return this.d.getUTCDay();
     }
     const original = this.clone();
-    let want = input;
+    let want = Number(input);
     if (typeof input === "string") {
       input = input.toLowerCase();
       if (aliases$1.hasOwnProperty(input)) {
@@ -3285,7 +3290,7 @@ const methods$4 = {
         input = input.replace(/c$/, "");
       }
       let year = Number(input);
-      if (isNaN(input)) {
+      if (isNaN(year)) {
         console.warn("Spacetime: Invalid century input");
         return this;
       }
@@ -3553,9 +3558,11 @@ const print = {
   },
   year: (s) => {
     return s.year();
+  },
+  date: (s) => {
+    return [s.year(), s.month(), s.date()].join("-");
   }
 };
-print.date = print.day;
 const isSame = function(b, unit, tzAware = true) {
   const a = this;
   if (!unit) {
@@ -3748,7 +3755,7 @@ const whereIts = (a, b) => {
 
 var version = "7.17.0";
 
-const main = (input, tz, options) => new Spacetime(input, tz, options);
+const create = (input, tz, options) => new Spacetime(input, tz, options);
 const setToday = function(s) {
   const today = s._today || {};
   Object.keys(today).forEach((k) => {
@@ -3756,55 +3763,43 @@ const setToday = function(s) {
   });
   return s;
 };
-main.now = (tz, options) => {
+const now = (tz, options) => {
   let s = new Spacetime((/* @__PURE__ */ new Date()).getTime(), tz, options);
   s = setToday(s);
   return s;
 };
-main.today = (tz, options) => {
-  let s = new Spacetime((/* @__PURE__ */ new Date()).getTime(), tz, options);
-  s = setToday(s);
-  return s.startOf("day");
-};
-main.tomorrow = (tz, options) => {
-  let s = new Spacetime((/* @__PURE__ */ new Date()).getTime(), tz, options);
-  s = setToday(s);
-  return s.add(1, "day").startOf("day");
-};
-main.yesterday = (tz, options) => {
-  let s = new Spacetime((/* @__PURE__ */ new Date()).getTime(), tz, options);
-  s = setToday(s);
-  return s.subtract(1, "day").startOf("day");
-};
-main.fromUnixSeconds = (secs, tz, options) => {
-  return new Spacetime(secs * 1e3, tz, options);
-};
-main.extend = function(obj = {}) {
+const extend = function(obj = {}) {
   Object.keys(obj).forEach((k) => {
     if (k in Spacetime.prototype && Spacetime.prototype[k] !== obj[k]) {
       console.warn(`Spacetime Warning: .extend() is overriding the existing method '${k}'`);
     }
     Spacetime.prototype[k] = obj[k];
   });
-  return this;
+  return main;
 };
-main.timezones = function() {
-  const s = new Spacetime();
-  return s.timezones;
-};
-main.max = function(tz, options) {
-  const s = new Spacetime(null, tz, options);
-  s.epoch = 864e13;
-  return s;
-};
-main.min = function(tz, options) {
-  const s = new Spacetime(null, tz, options);
-  s.epoch = -864e13;
-  return s;
-};
-main.whereIts = whereIts;
-main.version = version;
-main.tzdbVersion = tzdbVersion;
-main.plugin = main.extend;
+const main = Object.assign(create, {
+  now,
+  today: (tz, options) => now(tz, options).startOf("day"),
+  tomorrow: (tz, options) => now(tz, options).add(1, "day").startOf("day"),
+  yesterday: (tz, options) => now(tz, options).subtract(1, "day").startOf("day"),
+  fromUnixSeconds: (secs, tz, options) => new Spacetime(secs * 1e3, tz, options),
+  extend,
+  plugin: extend,
+  timezones: () => new Spacetime().timezones,
+  max: (tz, options) => {
+    const s = new Spacetime(null, tz, options);
+    s.epoch = 864e13;
+    return s;
+  },
+  min: (tz, options) => {
+    const s = new Spacetime(null, tz, options);
+    s.epoch = -864e13;
+    return s;
+  },
+  //find tz by time
+  whereIts,
+  version,
+  tzdbVersion
+});
 
 module.exports = main;

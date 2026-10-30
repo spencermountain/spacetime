@@ -48,7 +48,7 @@ const millennium = function (input?: string | number) {
 
 const methods = {
   // day 0-366
-  dayOfYear: function (num?: number, goFwd?: boolean) {
+  dayOfYear: function (num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = _dayOfYear(s, num, goFwd)
@@ -67,7 +67,7 @@ const methods = {
   },
 
   //since the start of the year
-  week: function (num?: number, goFwd?: boolean) {
+  week: function (num?: number | string, goFwd?: boolean) {
     // week-setter
     if (num !== undefined) {
       let s = this.clone()
@@ -134,7 +134,7 @@ const methods = {
   },
 
   //q1, q2, q3, q4
-  quarter: function (num?: number, goFwd?: boolean) {
+  quarter: function (num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       if (typeof num === 'string') {
         num = num.replace(/^q/i, '')
@@ -186,7 +186,7 @@ const methods = {
   },
 
   //the year number
-  year: function (num?: number) {
+  year: function (num?: number | string) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = _year(s, num)
@@ -256,7 +256,7 @@ const methods = {
         input = input.replace(/c$/, '') //20thC
       }
       let year = Number(input)
-      if (isNaN(input)) {
+      if (isNaN(year)) {
         console.warn('Spacetime: Invalid century input') // eslint-disable-line no-console
         return this
       }
