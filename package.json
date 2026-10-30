@@ -37,10 +37,10 @@
   },
   "scripts": {
     "watch": "node --watch ./scratch.js",
-    "build:zones": "node ./zonefile/pack.js",
+    "tz:pack": "node ./zonefile/pack.js",
     "build:plugins": "pnpm --filter \"./plugins/*\" run build",
     "version": "node ./scripts/version.js",
-    "build": "pnpm run build:zones && pnpm run version && rollup -c --silent",
+    "build": "pnpm run tz:pack && pnpm run version && rollup -c --silent",
     "build:tz": "node ./scripts/tz/index.js",
     "test": "tape './tests/**/*.test.js' | tap-dancer",
     "testb": "TESTENV=prod pnpm run test",
