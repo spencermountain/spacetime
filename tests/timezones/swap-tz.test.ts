@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
@@ -22,7 +21,7 @@ test('swapTz', (t) => {
   t.equal(s.time(), '10:15am', 'first-time')
   arr.forEach(tz => {
     s = s.timezone(tz)
-    t.equal(s.timezone().name, tz, 'swapped tz ', tz)
+    t.equal(s.timezone().name, tz, 'swapped tz ' + tz)
     t.equal(s.time(), '10:15am', 'swap time ' + tz)
   })
   t.end()

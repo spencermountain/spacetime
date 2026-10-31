@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
@@ -79,7 +78,7 @@ test('month setters clamp immediately outside zero-based bounds', (t) => {
 })
 
 test('month and year setters clamp February in common and leap years', (t) => {
-  const cases = [
+  const cases: [string, string, number, string][] = [
     ['2023-01-31T12:34:56.789Z', 'month', 1, '2023-02-28T12:34:56.789Z'],
     ['2024-01-31T12:34:56.789Z', 'month', 1, '2024-02-29T12:34:56.789Z'],
     ['2024-03-31T12:34:56.789Z', 'month', 1, '2024-02-29T12:34:56.789Z'],

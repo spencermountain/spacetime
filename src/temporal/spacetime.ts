@@ -1,18 +1,32 @@
-// @ts-nocheck
 import attempt from './_errors.ts'
 import normalizeTimezone from './timezone.ts'
 import parse from './parse.ts'
 import format from '../methods/format/index.ts'
 import unixFmt from '../methods/format/unixFmt.ts'
-import { temporal, fieldValues, fields } from './_lib.ts'
+import { temporal, fieldValues, fields, asMain, type ClockFields } from './_lib.ts'
 import query from './query.ts'
 import arithmetic from './arithmetic.ts'
 import compare from './compare.ts'
+import type { SpacetimeInput, Options, DateParts, Spacetime as MainSpacetime } from '../types/index.ts'
 
-const formats = { 'iso-full': s => s.toTemporal().toString() }
+const formats = { 'iso-full': (s: MainSpacetime) => s.toTemporal().toString() }
+
+// instance methods mixed-in below; merged onto the class type here
+type Mixins = typeof query & typeof arithmetic & typeof compare
+interface Spacetime extends Mixins {}
 
 class Spacetime {
-  constructor(input, tz, options = {}) {
+  _tz: string
+  /** the instant, or null when invalid */
+  _value: Temporal.ZonedDateTime | null
+  /** wall-clock fields being collected during parsing, before resolving a dst gap/overlap */
+  _pending: Temporal.PlainDateTime | null
+  _weekStart: number
+  _today: DateParts
+  british: boolean
+  silent: boolean
+
+  constructor(input?: SpacetimeInput, tz?: string, options: Options = {}) {
     const T = temporal()
     this._tz = T.Now.timeZoneId()
     this._weekStart = options.weekStart == null ? 1 : options.weekStart
@@ -22,7 +36,8 @@ class Spacetime {
     this._pending = null
     // Only input errors become invalid dates; missing Temporal remains actionable.
     try {
-      this._tz = normalizeTimezone(tz, (input != null && input.timeZoneId) || this._tz)
+      const inputZone = input instanceof T.ZonedDateTime ? input.timeZoneId : undefined
+      this._tz = normalizeTimezone(tz, inputZone || this._tz)
       this._value = T.Instant.fromEpochMilliseconds(Date.now()).toZonedDateTimeISO(this.tz)
       if (Object.keys(this._today).length) {
         this._value = this._value.with(fieldValues({ month: 0, date: 1, ...this._today }))
@@ -40,9 +55,9 @@ class Spacetime {
     }
   }
 
-  get _clock() { return this._pending || this._value }
+  get _clock(): Temporal.ZonedDateTime | Temporal.PlainDateTime | null { return this._pending || this._value }
   get epoch() { return this._value == null ? null : this._value.epochMilliseconds }
-  set epoch(value) {
+  set epoch(value: number | null) {
     this._pending = null
     this._value = null
     if (typeof value === 'number' && Number.isFinite(value)) {
@@ -53,7 +68,7 @@ class Spacetime {
     }
   }
   get tz() { return this._tz }
-  set tz(value) {
+  set tz(value: string) {
     const result = attempt(this, () => {
       const s = this.clone()
       s._tz = normalizeTimezone(value, temporal().Now.timeZoneId())
@@ -65,30 +80,33 @@ class Spacetime {
     Object.assign(this, result)
   }
 
-  clone() { return Object.assign(Object.create(Object.getPrototypeOf(this)), this, { _today: { ...this._today } }) }
-  _result(value) {
+  clone(): Spacetime { return Object.assign(Object.create(Object.getPrototypeOf(this)), this, { _today: { ...this._today } }) }
+  _result(value: Temporal.ZonedDateTime | Temporal.PlainDateTime): Spacetime {
     const s = this.clone()
     if (this._pending) {
-      s._pending = value
+      s._pending = value as Temporal.PlainDateTime
     } else {
-      s._value = value
+      s._value = value as Temporal.ZonedDateTime
     }
     return s
   }
-  _with(values) { return this.isValid() ? this._result(this._clock.with(values)) : this.clone() }
+  _with(values: ClockFields): Spacetime { return this.isValid() ? this._result(this._clock.with(values)) : this.clone() }
   isValid() { return this._clock !== null }
   toTemporal() { return this._value }
   toNativeDate() { return new Date(this.isValid() ? this.epoch : NaN) }
   toLocalDate() { return this.toNativeDate() }
-  set(input, tz = this.tz) {
+  set(input: SpacetimeInput, tz: string = this.tz): Spacetime {
     return new Spacetime(input, tz, { today: this._today, weekStart: this._weekStart, british: this.british, silent: this.silent })
   }
-  goto(tz) {
+  goto(tz: string): Spacetime {
     const s = this.clone()
     s.tz = tz
     return s
   }
-  timezone(tz) {
+  /** metadata about the current timezone, or a copy in a new timezone (keeping the same wall-clock time) */
+  timezone(): { name: string; current: { offset: number } }
+  timezone(tz: string): Spacetime
+  timezone(tz?: string) {
     if (tz !== undefined) {
       tz = normalizeTimezone(tz, temporal().Now.timeZoneId())
       const s = this.clone()
@@ -101,18 +119,18 @@ class Spacetime {
     return { name: (this._value != null && this._value.timeZoneId) || this.tz, current: { offset: this.offset() / 60 } }
   }
   offset() { return this._value ? this._value.offsetNanoseconds / 60000000000 : NaN }
-  format(fmt) { return format(this, fmt, formats) }
-  unixFmt(fmt) { return this.isValid() ? unixFmt(this, fmt) : '' }
-  iso(input) { return input === undefined ? this.format('iso') : this.set(input) }
-  isoFull(input) { return input === undefined ? this.format('iso-full') : this.set(input) }
-  epochSeconds(value) {
+  format(fmt: string) { return format(asMain(this), fmt, formats) }
+  unixFmt(fmt: string): string { return this.isValid() ? unixFmt(asMain(this), fmt) : '' }
+  iso(input?: SpacetimeInput) { return input === undefined ? this.format('iso') : this.set(input) }
+  isoFull(input?: SpacetimeInput) { return input === undefined ? this.format('iso-full') : this.set(input) }
+  epochSeconds(value?: number) {
     if (value !== undefined) {
       this.epoch = value * 1000
       return this
     }
     return this.isValid() ? Math.floor(this.epoch / 1000) : NaN
   }
-  json(input) {
+  json(input?: DateParts) {
     if (input !== undefined) {
       return this.timezone(input.timezone || this.tz)._with(fieldValues(input))
     }

@@ -1,17 +1,20 @@
-// @ts-nocheck
 import normalizeTimezone from './timezone.ts'
 import parsers from '../input/formats/index.ts'
 import parseTime from '../input/formats/parseTime.ts'
 import normalize from '../input/normalize.ts'
 import namedDates from '../input/named-dates.ts'
-import { fields, temporal, fieldValues } from './_lib.ts'
+import { fields, temporal, fieldValues, asMain } from './_lib.ts'
 import { isoCalendar, incomplete, warn } from '../input/temporal-calendar.ts'
+import type { ParsedDate } from '../input/formats/_parsers.ts'
+import type Spacetime from './spacetime.ts'
+import type { SpacetimeInput, DateParts } from '../types/index.ts'
 
-const walkTo = (s, input) => {
-  s._pending = s._clock.with(fieldValues(input))
+const walkTo = (s: Spacetime, input: DateParts): void => {
+  // (only called while parsing a string, when the wall-clock fields are pending)
+  s._pending = s._pending.with(fieldValues(input))
 }
 
-const parseOffset = (s, offset) => {
+const parseOffset = (s: Spacetime, offset?: string): Spacetime => {
   if (offset) {
     offset = offset.trim().toUpperCase()
     if (offset === 'Z') {
@@ -28,7 +31,7 @@ const parseOffset = (s, offset) => {
 }
 
 // set a parsed date onto an instance, as wall-clock fields
-const apply = (s, parsed) => {
+const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
   if (parsed.timezone) {
     s = s.timezone(parsed.timezone)
   } else if (parsed.offset) {
@@ -41,15 +44,16 @@ const apply = (s, parsed) => {
     s = s.quarter(parsed.quarter)
   }
   if (parsed.season) {
-    s = s.season(parsed.season)
+    // the Temporal entry has no .season() yet; a TypeError here becomes an invalid date
+    throw new TypeError('spacetime/temporal does not support season input')
   }
   if (parsed.time !== undefined) {
-    s = parseTime(s, parsed.time)
+    s = parseTime(asMain(s), parsed.time) as unknown as Spacetime
   }
   return s
 }
 
-const parse = (s, input) => {
+const parse = (s: Spacetime, input: SpacetimeInput): Spacetime => {
   const T = temporal()
   if (input instanceof T.ZonedDateTime) {
     s._value = isoCalendar(s, input).withTimeZone(s.tz)
@@ -66,7 +70,7 @@ const parse = (s, input) => {
     s.epoch = input
   } else if (input && typeof input === 'object' && 'epoch' in input) {
     s._tz = normalizeTimezone(input.tz, s.tz)
-    if (input._value instanceof T.ZonedDateTime) {
+    if ('_value' in input && input._value instanceof T.ZonedDateTime) {
       s._value = input._value
     } else {
       s.epoch = input.epoch
@@ -78,7 +82,7 @@ const parse = (s, input) => {
     }
     const values = { year: s.year(), month: 0, date: 1, ...s._today, ...obj }
     s._tz = normalizeTimezone(values.timezone, s.tz)
-    s._value = T.ZonedDateTime.from({ timeZone: s.tz, ...fieldValues(values) })
+    s._value = T.ZonedDateTime.from({ timeZone: s.tz, ...fieldValues(values) } as Temporal.ZonedDateTimeLike)
   } else if (typeof input === 'string' && input) {
     // Native ISO parsing preserves an explicit offset in a repeated DST hour.
     if (/^[+-]?[0-9]{4,6}-[0-9]{2}-[0-9]{2}T[^[]*\[[^[\]]+\](?:\[[^[\]]+\])?$/i.test(input)) {

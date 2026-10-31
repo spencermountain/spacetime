@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import source from '../../src/index.ts'
 import built from 'spacetime'

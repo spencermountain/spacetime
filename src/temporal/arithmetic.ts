@@ -1,9 +1,8 @@
-// @ts-nocheck
 import addFraction from '../methods/_lib/fractional.ts'
-import { duration, unitName, isBoundary } from './_lib.ts'
+import { duration, unitName, isBoundary, asMain, type ClockFields } from './_lib.ts'
 
 const arithmetic = {
-  add(amount, unit) {
+  add(amount: number | string, unit: string) {
     if (!this.isValid() || !unit || Number(amount) === 0) {
       return this.clone()
     }
@@ -16,7 +15,7 @@ const arithmetic = {
       return this.clone()
     }
     if (Number.isFinite(Number(amount)) && !Number.isInteger(Number(amount))) {
-      const fractional = addFraction(this.clone(), Number(amount), name === 'day' ? 'date' : name)
+      const fractional = addFraction(asMain(this.clone()), Number(amount), name === 'day' ? 'date' : name)
       if (fractional) {
         return fractional
       }
@@ -27,14 +26,14 @@ const arithmetic = {
     }
     return result
   },
-  subtract(amount, unit) { return this.add(-Number(amount), unit) },
-  startOf(unit) {
+  subtract(amount: number | string, unit: string) { return this.add(-Number(amount), unit) },
+  startOf(unit: string) {
     unit = unitName(unit)
     if (!this.isValid() || !isBoundary(unit)) {
       return this.clone()
     }
     const s = this.clone()
-    const values = { microsecond: 0, nanosecond: 0 }
+    const values: ClockFields = { microsecond: 0, nanosecond: 0 }
     if (unit === 'millisecond') {
       return s._with(values)
     }
@@ -75,10 +74,10 @@ const arithmetic = {
     }
     return result._result(result._value.startOfDay())
   },
-  endOf(unit) { return isBoundary(unit) ? this.startOf(unit).add(1, unit).startOf(unit).subtract(1, 'millisecond') : this.clone() },
-  next(unit) { return isBoundary(unit) ? this.add(1, unit).startOf(unit) : this.clone() },
-  last(unit) { return isBoundary(unit) ? this.subtract(1, unit).startOf(unit) : this.clone() },
-  progress(unit) {
+  endOf(unit: string) { return isBoundary(unit) ? this.startOf(unit).add(1, unit).startOf(unit).subtract(1, 'millisecond') : this.clone() },
+  next(unit: string) { return isBoundary(unit) ? this.add(1, unit).startOf(unit) : this.clone() },
+  last(unit: string) { return isBoundary(unit) ? this.subtract(1, unit).startOf(unit) : this.clone() },
+  progress(unit: string): number {
     if (!this.isValid() || !isBoundary(unit)) {
       return NaN
     }
@@ -89,13 +88,16 @@ const arithmetic = {
     }
     return (this.epoch - start.epoch) / (end.epoch - start.epoch)
   },
-  nearest(unit) {
+  nearest(unit: string) {
     const start = this.startOf(unit)
     return this.progress(unit) >= 0.5 ? start.add(1, unit) : start
   }
 }
-arithmetic.plus = arithmetic.add
-arithmetic.minus = arithmetic.subtract
-arithmetic.round = arithmetic.nearest
 
-export default arithmetic
+export default {
+  ...arithmetic,
+  // aliases
+  plus: arithmetic.add,
+  minus: arithmetic.subtract,
+  round: arithmetic.nearest
+}

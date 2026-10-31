@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
@@ -35,14 +34,14 @@ test('set quarter', (t) => {
 test('startOf quarter', (t) => {
   const start = '2020-01-01'
   const d = spacetime(start).startOf('day')
-  const arr = [
+  const arr: [number, string][] = [
     [2, 'days'],
     [23, 'days'],
     [52, 'days'],
     [12, 'hours'],
     [112, 'hours'],
     [92, 'hours'],
-    [(192, 'hours')],
+    [192, 'hours'],
     [2, 'weeks'],
     [9, 'weeks'],
     [2, 'minutes'],

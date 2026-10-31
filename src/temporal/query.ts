@@ -1,19 +1,40 @@
-// @ts-nocheck
-import { fieldNumber, direction, clockField } from './_lib.ts'
+import { fieldNumber, direction, clockField, asMain, type ClockFields } from './_lib.ts'
 import { long as months } from '../data/months.ts'
 import { long as days, short as shortDays, aliases } from '../data/days.ts'
 import parseTime from '../input/formats/parseTime.ts'
+import type Spacetime from './spacetime.ts'
+
+// a getter/setter for one Temporal clock field, eg hour()/hour(n)
+interface ClockMethod {
+  (this: Spacetime): number
+  (this: Spacetime, value: number | string, forward?: boolean): Spacetime
+}
+const clockSetter = (key: string, field: string): ClockMethod =>
+  function (this: Spacetime, value?: number | string, forward?: boolean) {
+    if (value === undefined) {
+      return clockField(this, field)
+    }
+    const result = this._with({ [field]: fieldNumber(value, key) } as ClockFields)
+    const parent = { second: 'minute', minute: 'hour', hour: 'day', date: 'month' }[key]
+    return parent ? direction(result, this, forward, parent) : result
+  } as ClockMethod
 
 const query = {
-  month(value, forward) {
+  year: clockSetter('year', 'year'),
+  date: clockSetter('date', 'day'),
+  hour: clockSetter('hour', 'hour'),
+  minute: clockSetter('minute', 'minute'),
+  second: clockSetter('second', 'second'),
+  millisecond: clockSetter('millisecond', 'millisecond'),
+  month: function (this: Spacetime, value?: number | string, forward?: boolean) {
     if (value === undefined) {
       return clockField(this, 'month') - 1
     }
     const result = this._with({ month: fieldNumber(value, 'month') + 1 })
     return direction(result, this, forward, 'year')
-  },
-  monthName(value, forward) { return value === undefined ? months()[this.month()] || '' : this.month(value, forward) },
-  day(value, forward) {
+  } as ClockMethod,
+  monthName(value?: number | string, forward?: boolean) { return value === undefined ? months()[this.month()] || '' : this.month(value, forward) },
+  day: function (this: Spacetime, value?: number | string, forward?: boolean) {
     const day = clockField(this, 'dayOfWeek') % 7
     if (value === undefined) {
       return day
@@ -35,15 +56,15 @@ const query = {
       delta -= 7
     }
     return this.add(delta, 'day')
-  },
-  dayName(value, forward) { return value === undefined ? days()[this.day()] || '' : this.day(value, forward) },
-  dayOfYear(value) {
+  } as ClockMethod,
+  dayName(value?: number | string, forward?: boolean) { return value === undefined ? days()[this.day()] || '' : this.day(value, forward) },
+  dayOfYear: function (this: Spacetime, value?: number | string) {
     if (value === undefined) {
       return clockField(this, 'dayOfYear')
     }
     return this.add(Number(value) - this.dayOfYear(), 'day')
-  },
-  week(value, forward) {
+  } as ClockMethod,
+  week: function (this: Spacetime, value?: number | string, forward?: boolean) {
     if (value === undefined) {
       return clockField(this, 'weekOfYear')
     }
@@ -58,8 +79,8 @@ const query = {
       return inYear(this.year() - 1)
     }
     return result
-  },
-  weekStart(value) {
+  } as ClockMethod,
+  weekStart(value?: number | string) {
     if (typeof value === 'string') {
       const name = value.trim().toLowerCase()
       value = days().indexOf(name)
@@ -72,25 +93,25 @@ const query = {
     }
     return this
   },
-  quarter(value) {
+  quarter: function (this: Spacetime, value?: number | string) {
     if (value === undefined) {
       return Math.floor(this.month() / 3) + 1
     }
     value = Number(String(value).replace(/^q/i, ''))
     return this._with({ month: (value - 1) * 3 + 1, day: 1 }).startOf('day')
-  },
-  decade(value) { return value === undefined ? Math.trunc(this.year() / 10) * 10 : this.year(Number(value)) },
-  century(value) {
+  } as ClockMethod,
+  decade(value?: number | string) { return value === undefined ? Math.trunc(this.year() / 10) * 10 : this.year(Number(value)) },
+  century(value?: number | string) {
     if (value !== undefined) {
       return this.year((Number(value) - 1) * 100)
     }
     const num = Math.trunc(this.year() / 100)
     return num < 0 ? num - 1 : num + 1
   },
-  millennium(value) {
+  millennium(value?: number | string) {
     return value === undefined ? Math.floor(this.year() / 1000) + 1 : this.year((Number(value) - 1) * 1000 || 1)
   },
-  era(value) {
+  era(value?: string) {
     if (value !== undefined) {
       value = value.trim().toLowerCase()
       if (value !== 'bc' && value !== 'ad') {
@@ -103,7 +124,7 @@ const query = {
     }
     return this.year() < 0 ? 'BC' : 'AD'
   },
-  hour12(value, forward) {
+  hour12: function (this: Spacetime, value?: number | string, forward?: boolean) {
     if (value === undefined) {
       return this.isValid() ? this.hour() % 12 || 12 : NaN
     }
@@ -112,15 +133,16 @@ const query = {
       throw new RangeError('Invalid 12-hour clock value')
     }
     return this.hour(Number(match[1]) % 12 + (match[2] === 'pm' ? 12 : 0), forward)
-  },
-  hourFloat(value, forward) {
+  } as ClockMethod,
+  hourFloat: function (this: Spacetime, value?: number | string, forward?: boolean) {
     if (value === undefined) {
       return this.hour() + this.minute() / 60
     }
-    const result = this._with({ hour: Math.trunc(value), minute: Math.trunc(value % 1 * 60) })
+    const num = Number(value)
+    const result = this._with({ hour: Math.trunc(num), minute: Math.trunc(num % 1 * 60) })
     return direction(result, this, forward, 'day')
-  },
-  ampm(value, forward) {
+  } as ClockMethod,
+  ampm(value?: string, forward?: boolean) {
     if (value === undefined) {
       if (!this.isValid()) {
         return ''
@@ -133,7 +155,7 @@ const query = {
     }
     return this.hour(this.hour() % 12 + (value === 'pm' ? 12 : 0), forward)
   },
-  time(value, forward) {
+  time(value?: string, forward?: boolean) {
     if (value === undefined) {
       if (!this.isValid()) {
         return ''
@@ -145,7 +167,7 @@ const query = {
       return s
     }
     s._pending = s._value.toPlainDateTime()
-    const result = parseTime(s, value)
+    const result = parseTime(asMain(s), value) as unknown as Spacetime
     if (result.isValid()) {
       result._value = result._pending.toZonedDateTime(result.tz)
       result._pending = null
@@ -156,18 +178,18 @@ const query = {
   daysInMonth() { return clockField(this, 'daysInMonth') }
 }
 
-const fields = { year: 'year', date: 'day', hour: 'hour', minute: 'minute', second: 'second', millisecond: 'millisecond' }
-Object.keys(fields).forEach((key) => {
-  query[key] = function (value, forward) {
-    if (value === undefined) {
-      return clockField(this, fields[key])
-    }
-    const result = this._with({ [fields[key]]: fieldNumber(value, key) })
-    const parent = { second: 'minute', minute: 'hour', hour: 'day', date: 'month' }[key]
-    return parent ? direction(result, this, forward, parent) : result
-  }
-})
-const synonyms = { hours: 'hour', hour24: 'hour', h24: 'hour', h12: 'hour12', minutes: 'minute', seconds: 'second', milliseconds: 'millisecond', years: 'year', months: 'month', days: 'day', millenium: 'millennium' }
-Object.keys(synonyms).forEach((key) => { query[key] = query[synonyms[key]] })
-
-export default query
+export default {
+  ...query,
+  // synonyms
+  hours: query.hour,
+  hour24: query.hour,
+  h24: query.hour,
+  h12: query.hour12,
+  minutes: query.minute,
+  seconds: query.second,
+  milliseconds: query.millisecond,
+  years: query.year,
+  months: query.month,
+  days: query.day,
+  millenium: query.millennium
+}

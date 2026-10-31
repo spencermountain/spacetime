@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import { spawnSync } from 'node:child_process'
 
@@ -25,7 +24,7 @@ test('every rejects unsupported steps without hanging', t => {
     })
     const label = `2024-01-01 to 2024-01-05 UTC: every(day, step ${step})`
     if (result.error || result.status !== 0) {
-      t.fail(`${label}: child failed (${result.error?.code || result.signal || result.status})`)
+      t.fail(`${label}: child failed (${(result.error as NodeJS.ErrnoException)?.code || result.signal || result.status})`)
       return
     }
     const outcome = JSON.parse(result.stdout)

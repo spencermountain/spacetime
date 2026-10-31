@@ -37,7 +37,7 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "catalog:",
     "@rollup/plugin-terser": "catalog:",
-    "@turf/simplify": "^7.3.5",
+    "@turf/simplify": "^7.4.0",
     "rollup": "catalog:",
     "tap-dancer": "catalog:",
     "tape": "catalog:"

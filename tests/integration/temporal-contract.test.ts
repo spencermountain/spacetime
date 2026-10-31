@@ -1,9 +1,8 @@
-// @ts-nocheck
 import test from 'tape'
 import source from '../../src/index.ts'
 import built from '../../builds/spacetime.mjs'
 
-const spacetime = /prod/.test(process.env.TESTENV || '') ? built : source
+const spacetime = (/prod/.test(process.env.TESTENV || '') ? built : source) as typeof source
 
 test('toTemporal explicitly requires the Temporal runtime, even for invalid dates', t => {
   const valid = spacetime(0, 'UTC')

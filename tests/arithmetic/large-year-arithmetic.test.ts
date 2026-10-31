@@ -1,10 +1,9 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
 test('decade and century arithmetic respects amount and direction', t => {
   const s = spacetime('2026-01-15T09:30:45.123', 'UTC')
-  ;[['decade', 10], ['century', 100]].forEach(([unit, years]) => {
+  ;([['decade', 10], ['century', 100]] as [string, number][]).forEach(([unit, years]) => {
     ;[-2, -1, 0, 1, 2].forEach(amount => {
       const added = s.add(amount, unit)
       const subtracted = s.subtract(amount, unit)

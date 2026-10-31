@@ -1,6 +1,7 @@
-import type { Spacetime } from '../types/index.ts'
+// these helpers only read `.silent`, so either Spacetime class can use them
+type Warnable = { silent: boolean }
 
-const warn = (s: Spacetime, message: string): void => {
+const warn = (s: Warnable, message: string): void => {
   if (s.silent === false) {
     console.warn(`Warn: ${message}`) // eslint-disable-line no-console
   }
@@ -10,7 +11,7 @@ const warn = (s: Spacetime, message: string): void => {
 // anything with a calendar: ZonedDateTime, PlainDate, PlainDateTime..
 type WithCalendar = Temporal.ZonedDateTime | Temporal.PlainDate | Temporal.PlainDateTime
 
-const isoCalendar = <T extends WithCalendar>(s: Spacetime, value: T): T => {
+const isoCalendar = <T extends WithCalendar>(s: Warnable, value: T): T => {
   if (value.calendarId !== 'iso8601') {
     warn(s, `Temporal calendar "${value.calendarId}" converted to iso8601`)
     return value.withCalendar('iso8601') as T

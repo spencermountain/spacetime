@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import { normalizeZone } from '../../scripts/tz/lib.js'
 import inSummerTime from '../../src/timezone/summerTime.ts'
@@ -13,7 +12,7 @@ const normalize = (oldDst, start, end, year = 2026) => {
 }
 
 test('timezone build preserves equivalent 24:00 boundary spellings', t => {
-  const cases = [
+  const cases: [string, number, number, number][] = [
     ['03/28:24->10/24:24', Date.UTC(2026, 2, 29), Date.UTC(2026, 9, 25), 2026],
     ['03/31:24->10/31:24', Date.UTC(2026, 3, 1), Date.UTC(2026, 10, 1), 2026],
     ['02/28:24->10/24:24', Date.UTC(2026, 2, 1), Date.UTC(2026, 9, 25), 2026],

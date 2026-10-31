@@ -1,6 +1,15 @@
 import { mapping } from '../data/months.ts'
+import type Spacetime from './spacetime.ts'
+import type { Spacetime as MainSpacetime, DateParts } from '../types/index.ts'
 
-const clockField = (s, field, fallback = NaN) => {
+/** a partial set of wall-clock fields, for Temporal's .with() / .from() */
+export type ClockFields = Temporal.PartialTemporalLike<Temporal.ZonedDateTimeLikeObject>
+
+// the main library's format/parseTime helpers only use the clock getters and setters,
+// which this class shares with the main one
+export const asMain = (s: Spacetime): MainSpacetime => s as unknown as MainSpacetime
+
+const clockField = (s: Spacetime, field: string, fallback: number | boolean = NaN) => {
   const clock = s._clock
   const value = clock == null ? undefined : clock[field]
   return value == null ? fallback : value
@@ -14,7 +23,7 @@ const temporal = () => {
   return globalThis.Temporal
 }
 
-const unitName = (unit = '') => {
+const unitName = (unit: unknown = ''): string => {
   if (typeof unit !== 'string') {
     return ''
   }
@@ -22,7 +31,7 @@ const unitName = (unit = '') => {
   return { date: 'day', min: 'minute' }[name] || name
 }
 
-const duration = (amount, unit) => {
+const duration = (amount: number, unit: string): Temporal.DurationLike | null => {
   unit = unitName(unit)
   const scales = { quarter: ['month', 3], decade: ['year', 10], century: ['year', 100], millennium: ['year', 1000], quarterhour: ['minute', 15], fortnight: ['week', 2], weekend: ['week', 1], season: ['month', 3] }
   if (scales[unit]) {
@@ -43,7 +52,7 @@ const duration = (amount, unit) => {
   return null
 }
 
-const fieldNumber = (value, field) => {
+const fieldNumber = (value: number | string, field: string): number => {
   if (typeof value === 'string') {
     value = value.trim().toLowerCase()
     if (field === 'month' && Object.prototype.hasOwnProperty.call(mapping(), value)) {
@@ -54,7 +63,7 @@ const fieldNumber = (value, field) => {
   return Number(value)
 }
 
-const direction = (result, original, forward, unit) => {
+const direction = (result: Spacetime, original: Spacetime, forward: boolean | undefined, unit: string): Spacetime => {
   if (forward === true && result.epoch < original.epoch) {
     return result.add(1, unit)
   }
@@ -64,8 +73,8 @@ const direction = (result, original, forward, unit) => {
   return result
 }
 
-const fieldValues = (input) => {
-  const out = {}
+const fieldValues = (input: DateParts | Record<string, unknown>): ClockFields => {
+  const out: Record<string, number> = {}
   fields.forEach((field) => {
     if (input[field] !== undefined && input[field] !== null) {
       const name = field === 'date' ? 'day' : field
@@ -79,6 +88,6 @@ const fieldValues = (input) => {
 }
 
 const boundaryUnits = ['millisecond', 'second', 'minute', 'quarterhour', 'hour', 'day', 'week', 'month', 'quarter', 'year', 'decade', 'century', 'millennium']
-const isBoundary = unit => boundaryUnits.includes(unitName(unit))
+const isBoundary = (unit: unknown): boolean => boundaryUnits.includes(unitName(unit))
 
 export { clockField, isBoundary, fields, temporal, unitName, duration, fieldValues, fieldNumber, direction }

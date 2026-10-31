@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* eslint-disable no-console */
 import test from 'tape'
 import legacy from '../_lib/index.ts'

@@ -1,10 +1,10 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
+import type { Spacetime } from '../../src/types/index.ts'
 
 test('invalid dates stay invalid through transformations', t => {
   const inputs = ['not a date', NaN, new Date(NaN)]
-  const operations = [
+  const operations: [string, (s: Spacetime) => Spacetime][] = [
     ['clone', s => s.clone()],
     ['add one day', s => s.add(1, 'day')],
     ['subtract one month', s => s.subtract(1, 'month')],
@@ -35,7 +35,7 @@ test('invalid dates do not compare equal, before, after, or between', t => {
   const invalid = spacetime('not a date', 'UTC')
   const before = spacetime('2024-01-01', 'UTC')
   const after = spacetime('2024-02-01', 'UTC')
-  const cases = [
+  const cases: [string, () => boolean | null][] = [
     ['invalid isBefore valid', () => invalid.isBefore(before)],
     ['valid isBefore invalid', () => before.isBefore(invalid)],
     ['invalid isAfter valid', () => invalid.isAfter(before)],

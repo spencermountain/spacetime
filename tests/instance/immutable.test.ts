@@ -1,6 +1,6 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
+import type { Spacetime } from '../../src/types/index.ts'
 
 const input = '2020-01-15T08:30:00.001Z'
 const zone = 'UTC'
@@ -15,7 +15,7 @@ test('clone preserves the instant in a separate object', (t) => {
 })
 
 test('operations leave the original unchanged', (t) => {
-  const cases = [
+  const cases: [string, (s: Spacetime) => Spacetime, string][] = [
     ['add(1, day)', s => s.add(1, 'day'), '2020-01-16T08:30:00.001Z'],
     ['subtract(1, day)', s => s.subtract(1, 'day'), '2020-01-14T08:30:00.001Z'],
     ['hour(1)', s => s.hour(1), '2020-01-15T01:30:00.001Z'],
@@ -44,7 +44,7 @@ test('time setting works', (t) => {
 })
 
 test('setters return the requested value without mutating', (t) => {
-  const cases = [
+  const cases: [string, (string | number)[], string, string | number][] = [
     ['add', [3, 'days'], 'date', 18],
     ['ampm', ['pm'], 'ampm', 'pm'],
     ['date', [12], 'date', 12],

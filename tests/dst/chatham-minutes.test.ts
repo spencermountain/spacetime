@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 import quickOffset from '../../src/timezone/quick.ts'
@@ -26,7 +25,7 @@ test('Chatham updater preserves minute boundaries', t => {
 })
 
 test('Chatham and its alias switch at the exact minute', t => {
-  const cases = [
+  const cases: [string, number][] = [
     ['2026-04-04T13:59:59Z', 13.75],
     ['2026-04-04T14:00:00Z', 12.75],
     ['2026-09-26T13:59:59Z', 12.75],

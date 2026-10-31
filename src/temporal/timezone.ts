@@ -1,5 +1,5 @@
 // Normalize offset shorthand without loading Spacetime's timezone database.
-const timezone = (input, fallback) => {
+const timezone = (input: unknown, fallback: string): string => {
   if (input === undefined || input === null || input === '') {
     return fallback
   }

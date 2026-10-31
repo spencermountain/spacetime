@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 // run the full test-suite with the system clock traveled to hazard dates
-// usage:  pnpm run test:dates
+// usage:  pnpm run test:sweep
 import { spawnSync } from 'node:child_process'
 
 const runs = [
@@ -28,7 +28,10 @@ const runs = [
   // foreign machine-timezones
   ['2026-10-31T12:00:00', 'Australia/Adelaide'],
   ['2026-11-01T01:30:00', 'America/Los_Angeles'],
-  ['2026-03-29T00:30:00', 'Europe/London']
+  ['2026-03-29T00:30:00', 'Europe/London'],
+  // southern-hemisphere dst transitions
+  ['2026-09-27T01:30:00', 'Pacific/Auckland'],
+  ['2026-04-05T02:30:00', 'Australia/Adelaide']
 ]
 
 const runSuite = (fakeDate, tz) => {

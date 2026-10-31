@@ -1,4 +1,6 @@
-const invalid = s => {
+import type Spacetime from './spacetime.ts'
+
+const invalid = (s: Spacetime): Spacetime => {
   const result = s.clone()
   result._value = null
   result._pending = null
@@ -6,7 +8,7 @@ const invalid = s => {
 }
 
 // Convert rejected date values to invalid instances; keep unexpected bugs visible.
-const attempt = (s, operation) => {
+const attempt = <T>(s: Spacetime, operation: () => T): T | Spacetime => {
   try {
     return operation()
   } catch (error) {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
@@ -16,7 +15,7 @@ test('toronto/Santiago same in june', (t) => {
   t.equal(false, b.timezone().current.isDST, 'santiago not dst')
   t.equal('South', b.hemisphere(), 'santiago in south')
 
-  t.ok(a.format('nice'), b.format('nice'), 'same-calendar-time1')
+  t.equal(a.format('nice'), b.format('nice'), 'same-calendar-time1')
   t.end()
 })
 

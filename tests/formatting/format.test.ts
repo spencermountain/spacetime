@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
@@ -198,7 +197,7 @@ test('am-pm-variants', (t) => {
     ['{AMPM}', 'PM'],
   ]
   arr.forEach((a) => {
-    t.equal(s.format(a[0]), a[1], a[2], a[3])
+    t.equal(s.format(a[0]), a[1], a[0])
   })
   t.end()
 })

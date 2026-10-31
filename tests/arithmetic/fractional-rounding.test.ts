@@ -1,9 +1,8 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
 test('round the final result when the starting time is not on a boundary', (t) => {
-  const cases = [
+  const cases: [string, number, string, string][] = [
     ['2025-06-18T10:45:00Z', 0.5, 'day', '2025-06-18T23:00:00.000Z'],
     ['2025-06-18T10:15:00Z', 0.5, 'day', '2025-06-18T22:00:00.000Z'],
     ['2025-06-18T10:30:00Z', 0.5, 'day', '2025-06-18T22:00:00.000Z'],

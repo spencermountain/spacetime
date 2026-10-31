@@ -1,9 +1,8 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
 test('timezone offsets preserve fractions and support UTC+14', t => {
-  const cases = [
+  const cases: [string, number][] = [
     ['UTC+5:30', 5.5], ['UTC+5.75', 5.75], ['+5.5', 5.5],
     ['+5:45', 5.75], ['5.5hrs', 5.5], ['-3:30', -3.5],
     ['UTC-0:30', -0.5], ['GMT+5:30', -5.5], ['GMT-5.75', 5.75],
@@ -30,7 +29,7 @@ test('North Dakota shortcut follows Central time', t => {
 })
 
 test('standard US timezone names remain supported', t => {
-  const cases = [['EST5EDT', -5], ['CST6CDT', -6], ['MST7MDT', -7], ['PST8PDT', -8]]
+  const cases: [string, number][] = [['EST5EDT', -5], ['CST6CDT', -6], ['MST7MDT', -7], ['PST8PDT', -8]]
   cases.forEach(([zone, winter]) => {
     t.equal(spacetime('2026-01-15', zone).timezone().current.offset, winter, `${zone} winter`)
     t.equal(spacetime('2026-07-15', zone).timezone().current.offset, winter + 1, `${zone} summer`)

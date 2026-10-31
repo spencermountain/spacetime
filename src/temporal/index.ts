@@ -1,18 +1,24 @@
-// @ts-nocheck
 import Spacetime from './spacetime.ts'
 import version from '../_version.ts'
+import type { SpacetimeInput, Options } from '../types/index.ts'
 
-const spacetime = (input, tz, options) => new Spacetime(input, tz, options)
-spacetime.now = (tz, options) => spacetime(null, tz, options)
-spacetime.today = (tz, options) => spacetime.now(tz, options).startOf('day')
-spacetime.tomorrow = (tz, options) => spacetime.today(tz, options).add(1, 'day')
-spacetime.yesterday = (tz, options) => spacetime.today(tz, options).subtract(1, 'day')
-spacetime.fromUnixSeconds = (seconds, tz, options) => spacetime(seconds * 1000, tz, options)
-spacetime.extend = (methods = {}) => {
+const create = (input?: SpacetimeInput, tz?: string, options?: Options) => new Spacetime(input, tz, options)
+const now = (tz?: string, options?: Options) => create(null, tz, options)
+
+const extend = (methods: Record<string, any> = {}) => {
   Object.assign(Spacetime.prototype, methods)
-  return spacetime
+  return spacetime // eslint-disable-line no-use-before-define
 }
-spacetime.plugin = spacetime.extend
-spacetime.version = version
+
+const spacetime = Object.assign(create, {
+  now,
+  today: (tz?: string, options?: Options) => now(tz, options).startOf('day'),
+  tomorrow: (tz?: string, options?: Options) => now(tz, options).startOf('day').add(1, 'day'),
+  yesterday: (tz?: string, options?: Options) => now(tz, options).startOf('day').subtract(1, 'day'),
+  fromUnixSeconds: (seconds: number, tz?: string, options?: Options) => create(seconds * 1000, tz, options),
+  extend,
+  plugin: extend,
+  version
+})
 
 export default spacetime

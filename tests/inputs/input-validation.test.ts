@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
@@ -46,7 +45,7 @@ test('day zero is invalid across date formats', (t) => {
 })
 
 test('ISO offsets preserve both minutes and the instant', (t) => {
-  const cases = [
+  const cases: [string, number][] = [
     ['+0100', 60], ['-0100', -60], ['+01:00', 60], ['-01:00', -60],
     ['+01', 60], ['-01', -60], ['+0530', 330], ['-0330', -210],
     ['+05:30', 330], ['-03:30', -210], ['+0545', 345], ['+05:45', 345],

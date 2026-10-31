@@ -1,4 +1,3 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
@@ -59,7 +58,7 @@ test('long-every is stable', (t) => {
 
 test('every returns exact boundaries for short ranges', (t) => {
   // Include aligned starts, exclude ends, and iterate reversed ranges chronologically.
-  const cases = [
+  const cases: [string, string, string, number, string[]][] = [
     ['2024-04-01', '2024-04-01', 'day', 1, []],
     ['2024-04-03', '2024-04-01', 'day', 1,
       ['2024-04-01T00:00:00.000Z', '2024-04-02T00:00:00.000Z']],

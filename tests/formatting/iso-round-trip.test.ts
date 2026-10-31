@@ -1,9 +1,8 @@
-// @ts-nocheck
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
 test('ISO round trips preserve milliseconds, offsets, and the instant', t => {
-  const cases = [
+  const cases: [string, number][] = [
     ['1970-01-01T00:00:00.000Z', 0],
     ['1969-12-31T23:59:59.999Z', 0],
     ['2024-02-29T23:59:59.123+05:45', 345],
