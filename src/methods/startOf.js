@@ -97,9 +97,10 @@ const units = {
     }
     for (let i = 0; i < seasons[hem].length; i++) {
       if (seasons[hem][i][0] === current) {
-        //winter goes between years
+        //the season that starts in december goes between years
+        //(winter in the north, summer in the south)
         let year = s.year()
-        if (current === 'winter' && s.month() < 3) {
+        if (seasons[hem][i][1] === 11 && s.month() < 3) {
           year -= 1
         }
         walkTo(s, {
