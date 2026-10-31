@@ -1,4 +1,4 @@
-import getDstShift from '../../src/timezone/dstShift.js'
+import getDstShift from '../../src/timezone/dstShift.ts'
 
 // Pure parsing and normalization: no filesystem access or console output here.
 // Offsets are hours, epochs are UTC milliseconds, and DST boundaries are local times.

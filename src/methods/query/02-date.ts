@@ -1,0 +1,67 @@
+import { date as _date } from '../set/set.ts'
+import { aliases, short, long } from '../../data/days.ts'
+import walkTo from '../set/walk.ts'
+
+const methods = {
+  // # day in the month
+  date: function (num?: number | string, goFwd?: boolean) {
+    if (num !== undefined) {
+      const s = this.clone()
+      const n = parseInt(String(num), 10)
+      if (!Number.isNaN(n)) {
+        s.epoch = _date(s, n, goFwd)
+      }
+      return s
+    }
+    return this.d.getUTCDate()
+  },
+
+  //like 'wednesday' (hard!)
+  day: function (input?: string | number, goFwd?: boolean) {
+    if (input === undefined) {
+      return this.d.getUTCDay()
+    }
+    const original = this.clone()
+    let want = Number(input)
+    // accept 'wednesday'
+    if (typeof input === 'string') {
+      input = input.toLowerCase()
+      if (aliases.hasOwnProperty(input)) {
+        want = aliases[input]
+      } else {
+        want = short().indexOf(input)
+        if (want === -1) {
+          want = long().indexOf(input)
+        }
+      }
+    }
+    //move approx
+    const day = this.d.getUTCDay()
+    let diff = day - want
+    if (goFwd === true && diff > 0) {
+      diff = diff - 7
+    }
+    if (goFwd === false && diff < 0) {
+      diff = diff + 7
+    }
+    const s = this.subtract(diff, 'days')
+    //tighten it back up
+    walkTo(s, {
+      hour: original.hour(),
+      minute: original.minute(),
+      second: original.second()
+    })
+    return s
+  },
+
+  //these are helpful name-wrappers
+  dayName: function (input?: string | number, goFwd?: boolean) {
+    if (input === undefined) {
+      return long()[this.day()]
+    }
+    let s = this.clone()
+    s = s.day(input, goFwd)
+    return s
+  }
+}
+export default methods

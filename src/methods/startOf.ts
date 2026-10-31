@@ -1,0 +1,190 @@
+import seasons from '../data/seasons.ts'
+import quarters from '../data/quarters.ts'
+import walkTo from './set/walk.ts'
+import { normalize } from '../fns.ts'
+import type { Spacetime } from '../types/index.ts'
+
+const units = {
+  second: (s: Spacetime) => {
+    walkTo(s, {
+      millisecond: 0
+    })
+    return s
+  },
+  minute: (s: Spacetime) => {
+    walkTo(s, {
+      second: 0,
+      millisecond: 0
+    })
+    return s
+  },
+  quarterhour: (s: Spacetime) => {
+    const minute = s.minutes()
+    if (minute >= 45) {
+      s = s.minutes(45)
+    } else if (minute >= 30) {
+      s = s.minutes(30)
+    } else if (minute >= 15) {
+      s = s.minutes(15)
+    } else {
+      s = s.minutes(0)
+    }
+    walkTo(s, {
+      second: 0,
+      millisecond: 0
+    })
+    return s
+  },
+  hour: (s: Spacetime) => {
+    walkTo(s, {
+      minute: 0,
+      second: 0,
+      millisecond: 0
+    })
+    return s
+  },
+  day: (s: Spacetime) => {
+    walkTo(s, {
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0
+    })
+    return s
+  },
+  week: (s: Spacetime) => {
+    const original = s.clone()
+    s = s.day(s._weekStart) //monday
+    if (s.isAfter(original)) {
+      s = s.subtract(1, 'week')
+    }
+    walkTo(s, {
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0
+    })
+    return s
+  },
+  month: (s: Spacetime) => {
+    walkTo(s, {
+      date: 1,
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0
+    })
+    return s
+  },
+  quarter: (s: Spacetime) => {
+    const q = s.quarter()
+    if (quarters[q]) {
+      walkTo(s, {
+        month: quarters[q][0],
+        date: quarters[q][1],
+        hour: 0,
+        minute: 0,
+        second: 0,
+        millisecond: 0
+      })
+    }
+    return s
+  },
+  season: (s: Spacetime) => {
+    const current = s.season()
+    let hem = 'north'
+    if (s.hemisphere() === 'South') {
+      hem = 'south'
+    }
+    for (let i = 0; i < seasons[hem].length; i++) {
+      if (seasons[hem][i][0] === current) {
+        //the season that starts in december goes between years
+        //(winter in the north, summer in the south)
+        let year = s.year()
+        if (seasons[hem][i][1] === 11 && s.month() < 3) {
+          year -= 1
+        }
+        walkTo(s, {
+          year,
+          month: seasons[hem][i][1],
+          date: seasons[hem][i][2],
+          hour: 0,
+          minute: 0,
+          second: 0,
+          millisecond: 0
+        })
+        return s
+      }
+    }
+    return s
+  },
+  year: (s: Spacetime) => {
+    walkTo(s, {
+      month: 0,
+      date: 1,
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0
+    })
+    return s
+  },
+  decade: (s: Spacetime) => {
+    s = s.startOf('year')
+    const year = s.year()
+    const decade = Math.trunc(year / 10) * 10
+    s = s.year(decade)
+    return s
+  },
+  century: (s: Spacetime) => {
+    s = s.startOf('year')
+    const year = s.year()
+    // near 0AD goes '-1 | +1'
+    const decade = Math.trunc(year / 100) * 100
+    s = s.year(decade)
+    return s
+  },
+  date: (s: Spacetime) => {
+    walkTo(s, {
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0
+    })
+    return s
+  }
+}
+
+const startOf = (a: Spacetime, unit: string): Spacetime => {
+  let s = a.clone()
+  if (!s.isValid()) {
+    return s
+  }
+  unit = normalize(unit)
+  if (units[unit]) {
+    return units[unit](s)
+  }
+  if (unit === 'summer' || unit === 'winter') {
+    s = s.season(unit)
+    return units.season(s)
+  }
+  return s
+}
+
+//piggy-backs off startOf
+const endOf = (a: Spacetime, unit: string): Spacetime => {
+  let s = a.clone()
+  if (!s.isValid()) {
+    return s
+  }
+  unit = normalize(unit)
+  if (units[unit]) {
+    // go to beginning, go to next one, step back 1ms
+    s = units[unit](s) // startof
+    s = s.add(1, unit)
+    s = s.subtract(1, 'millisecond')
+    return s
+  }
+  return s
+}
+export { startOf, endOf }
