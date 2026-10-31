@@ -1,4 +1,4 @@
-import { validate, parseYear, parseMonth, type Parser } from './_parsers.ts'
+import { validate, parseYear, parseMonth, clampDate, type Parser } from './_parsers.ts'
 
 // =====
 // no dates
@@ -29,6 +29,7 @@ const parsers: Parser[] = [
         month: parseMonth(arr[1]),
         date: s._today.date || 1
       }
+      parts.date = clampDate(parts)
       if (validate(parts) === false) {
         return null
       }
@@ -65,6 +66,7 @@ const parsers: Parser[] = [
         month: d.getMonth(),
         date: d.getDate()
       }
+      parts.date = clampDate(parts)
       if (validate(parts) === false) {
         return null
       }
@@ -84,6 +86,7 @@ const parsers: Parser[] = [
         month: d.getMonth(),
         date: d.getDate()
       }
+      parts.date = clampDate(parts)
       if (validate(parts) === false) {
         return null
       }
@@ -102,6 +105,7 @@ const parsers: Parser[] = [
         // using today's date, but a new month is awkward.
         date: today.date || (today.month ? 1 : d.getDate())
       }
+      parts.date = clampDate(parts)
       if (validate(parts) === false) {
         return null
       }

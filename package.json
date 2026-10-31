@@ -53,9 +53,10 @@
     "testb": "TESTENV=prod pnpm run test",
     "test:plugins": "pnpm --filter \"./plugins/*\" run test",
     "test:temporal": "node --import tsx tests/_lib/run.ts tests/temporal/_require.ts tests/temporal | tap-dancer",
+    "test:sweep": "node ./scripts/test-sweep.js",
     "test:types": "tsc --project ./tests/types/tsconfig.json && node --import tsx ./tests/types/index.ts | tap-dancer",
     "typecheck": "tsc -p tsconfig.json",
-    "test:all": "pnpm run test && pnpm run test:temporal && pnpm run test:types && pnpm run test:plugins && pnpm run typecheck && pnpm run lint",
+    "test:all": "pnpm run test && pnpm test:sweep && pnpm run test:temporal && pnpm run test:types && pnpm run test:plugins && pnpm run typecheck && pnpm run lint",
     "bench": "node --import tsx ./scripts/bench/index.js",
     "bench:write": "node --import tsx ./scripts/bench/index.js --write",
     "lint": "eslint ."

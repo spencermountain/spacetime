@@ -7,8 +7,8 @@ import type { Spacetime } from '../../types/index.ts'
 const fastYear = (a: Spacetime, b: Spacetime): number => {
   let years = b.year() - a.year()
   // should we decrement it by 1?
-  a = a.year(b.year())
-  if (a.isAfter(b)) {
+  // verify with add(), so we land on the same side of a dst-fold as the month/day walks do
+  if (a.add(years, 'year').isAfter(b)) {
     years -= 1
   }
   return years
@@ -37,6 +37,8 @@ const diff = function (a: Spacetime, b: Spacetime): Record<string, number> {
   obj.months = obj.years * 12
   tmp = a.add(obj.months, 'month')
   obj.months += diffOne(tmp, b, 'month')
+  // a dst-fold can knock the year-estimate off-by-one - keep years consistent with the month-walk
+  obj.years = Math.trunc(obj.months / 12)
 
   // there's always 4 quarters in a year...
   obj.quarters = obj.years * 4

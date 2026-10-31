@@ -1,7 +1,11 @@
 import test from 'tape'
+import tk from 'timekeeper'
 import spacetime from '../_lib/index.ts'
 
 test('whereits', (t) => {
+  // whereIts() counts zones by the current time - pin the clock, so the subset-sizes are deterministic
+  t.teardown(() => tk.reset())
+  tk.freeze(new Date('2026-01-15T12:00:00Z'))
   let tzs = spacetime.whereIts('9am')
   t.ok(tzs.length > 0, '9am somewhere')
   t.ok(tzs.length < 90, '9am-is-subset')

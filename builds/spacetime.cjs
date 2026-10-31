@@ -2133,7 +2133,7 @@ const units$1 = {
     for (let i = 0; i < seasons[hem].length; i++) {
       if (seasons[hem][i][0] === current) {
         let year = s.year();
-        if (current === "winter" && s.month() < 3) {
+        if (seasons[hem][i][1] === 11 && s.month() < 3) {
           year -= 1;
         }
         walkTo(s, {

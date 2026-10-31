@@ -97,4 +97,32 @@ export interface I18nOptions {
   }
   /** Default dayname formatting */
   useTitleCase?: boolean
+  /** Alternatives to the words used by .since(), eg 'past', 'future', 'in 2 days', '2 days ago' */
+  distance?: {
+    past?: string
+    future?: string
+    present?: string
+    now?: string
+    almost?: string
+    over?: string
+    /** eg. (value) => `${value} ago` */
+    pastDistance?: (value: string) => string
+    /** eg. (value) => `in ${value}` */
+    futureDistance?: (value: string) => string
+  }
+  /** Alternatives to the unit names used by .since(), eg 'second', 'seconds', 'minute'.. */
+  units?: {
+    second?: string
+    seconds?: string
+    minute?: string
+    minutes?: string
+    hour?: string
+    hours?: string
+    day?: string
+    days?: string
+    month?: string
+    months?: string
+    year?: string
+    years?: string
+  }
 }

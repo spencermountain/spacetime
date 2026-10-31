@@ -39,7 +39,7 @@ test('goForward ', (t) => {
     ['month', 3, 6],
     ['monthName', 'june', 'sep'],
     ['quarter', 'q2', 'q4'],
-    ['season', 'spring', 'fall']
+    ['season', 'spring', 'summer'] // a forward-pair in both hemispheres
   ]
   arr.forEach((a) => {
     const fn = a[0]

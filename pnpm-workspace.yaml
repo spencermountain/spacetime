@@ -1,24 +1,20 @@
 packages:
   - plugins/*
 
-catalogMode: manual
-
-catalog:
-  '@rollup/plugin-commonjs': '^29.0.2'
-  '@rollup/plugin-node-resolve': '^16.0.3'
-  '@rollup/plugin-terser': '^1.0.0'
-  'minimist': '^1.2.5'
-  'rollup': '4.64.7'
-  'tap-dancer': '0.4.4'
-  'tape': '5.10.3'
-
 allowBuilds:
   esbuild: true
 
-# install native binaries for both the mac and the linux dev-shell, so one node_modules works from both
-supportedArchitectures:
-  os:
-    - darwin
-    - linux
-  cpu:
-    - arm64
+catalog:
+  '@rollup/plugin-commonjs': ^29.0.2
+  '@rollup/plugin-node-resolve': ^16.0.3
+  '@rollup/plugin-terser': ^1.0.0
+  minimist: ^1.2.5
+  rollup: 4.64.7
+  tap-dancer: 0.4.4
+  tape: 5.10.3
+
+catalogMode: manual
+
+overrides:
+  minimatch@<11.0.1: '>=11.0.1'
+  serialize-javascript@<7.1.3: '>=7.1.3'

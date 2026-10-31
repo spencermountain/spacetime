@@ -7,15 +7,18 @@ const warn = (s: Spacetime, message: string): void => {
 }
 
 // Spacetime's month and year getters always describe the ISO calendar.
-const isoCalendar = (s: Spacetime, value: any) => {
+// anything with a calendar: ZonedDateTime, PlainDate, PlainDateTime..
+type WithCalendar = Temporal.ZonedDateTime | Temporal.PlainDate | Temporal.PlainDateTime
+
+const isoCalendar = <T extends WithCalendar>(s: Spacetime, value: T): T => {
   if (value.calendarId !== 'iso8601') {
     warn(s, `Temporal calendar "${value.calendarId}" converted to iso8601`)
-    return value.withCalendar('iso8601')
+    return value.withCalendar('iso8601') as T
   }
   return value
 }
 
-const incomplete = (input: unknown, T: any): boolean => input instanceof T.PlainTime || input instanceof T.PlainYearMonth ||
+const incomplete = (input: unknown, T: typeof Temporal): boolean => input instanceof T.PlainTime || input instanceof T.PlainYearMonth ||
   input instanceof T.PlainMonthDay || input instanceof T.Duration
 
 export { warn, isoCalendar, incomplete }

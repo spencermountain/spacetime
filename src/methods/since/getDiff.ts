@@ -18,10 +18,21 @@ function getDiff(a: Spacetime, b: Spacetime) {
     if (earlier.isSame(later, unit)) {
       return
     }
-    const max = earlier.diff(later, unit)
-    earlier = earlier.add(max, unit)
+    let max = earlier.diff(later, unit)
+    let next = earlier.add(max, unit)
+    // a dst-fold can land the walk just-past the target - back off one
+    if (next.isAfter(later)) {
+      max -= 1
+      next = earlier.add(max, unit)
+    }
+    earlier = next
     diff[unit] = max
   })
+  // carry any full-12 months up into years
+  if (diff.months >= 12) {
+    diff.years += Math.trunc(diff.months / 12)
+    diff.months = diff.months % 12
+  }
   //reverse it, if necessary
   if (isBefore) {
     Object.keys(diff).forEach((u) => {

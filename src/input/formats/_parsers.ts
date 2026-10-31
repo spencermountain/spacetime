@@ -53,6 +53,15 @@ const validate = (obj: DateParts): boolean => {
   return false
 }
 
+//shrink a too-big date to fit its month - eg. feb 29 → feb 28 in a non-leap year
+const clampDate = (obj: DateParts): number => {
+  let max = monthLengths[obj.month] || 31
+  if (obj.month === 1 && isLeapYear(obj.year)) {
+    max = 29
+  }
+  return Math.min(obj.date, max)
+}
+
 const parseYear = (str: string = '', today?: DateParts): number => {
   str = str.trim()
   // Two-digit years share the '86 shorthand's century cutoff.
@@ -87,4 +96,4 @@ const parseTz = function (str: string): string {
   return str
 }
 
-export { parseTime, parseYear, parseMonth, validate, parseTz }
+export { parseTime, parseYear, parseMonth, validate, parseTz, clampDate }
