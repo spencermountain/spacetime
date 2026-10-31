@@ -14,3 +14,11 @@ catalog:
 
 allowBuilds:
   esbuild: true
+
+# install native binaries for both the mac and the linux dev-shell, so one node_modules works from both
+supportedArchitectures:
+  os:
+    - darwin
+    - linux
+  cpu:
+    - arm64

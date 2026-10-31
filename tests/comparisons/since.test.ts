@@ -161,13 +161,20 @@ test('since()', (t) => {
 })
 
 test('since now - default', (t) => {
-  const past = spacetime.now().subtract(23, 'months').subtract(23, 'seconds')
-  const since = past.since()
+  // a fixed reference date: starting from the 31st, subtracting months clamps
+  // to a 30-day month, and the round-trip is then off by a day
+  const now = spacetime('2026-06-15T12:00:00', 'UTC')
+  const past = now.subtract(23, 'months').subtract(23, 'seconds')
+  const since = past.since(now)
   t.equal(since.diff.years, -1, '1 year back')
   t.equal(since.diff.months, -11, '11 months back')
   t.equal(since.diff.seconds, -23, '23 seconds back')
   t.equal(since.precise, 'in 1 year, 11 months', 'precise is good')
   t.deepEqual(since.abbreviated, ['1y', '11m', '23s'], 'abbreviated is good')
+  // with no argument, since() compares against the present
+  const live = spacetime.now().subtract(2, 'years').since()
+  t.equal(live.direction, 'future', 'default since() compares against now')
+  t.equal(live.diff.years, -2, 'default since() measures from now')
   t.end()
 })
 

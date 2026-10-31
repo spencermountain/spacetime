@@ -63,8 +63,7 @@
   "files": [
     "api",
     "builds",
-    "types",
-    "zonefile"
+    "types"
   ],
   "keywords": [
     "date-time",
