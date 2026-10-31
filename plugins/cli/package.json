@@ -4,7 +4,7 @@
   "description": "a CLI timezone calculator",
   "license": "MIT",
   "repository": "github:spencermountain/spacetime",
-  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/tz",
+  "homepage": "https://github.com/spencermountain/spacetime/tree/master/plugins/cli",
   "type": "module",
   "exports": {
     ".": {
