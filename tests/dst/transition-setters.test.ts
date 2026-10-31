@@ -83,3 +83,26 @@ test('start-end-dst', (t) => {
   t.equal(d.iso(), '2020-11-01T00:00:00.000-05:00', 'start of day - fwd')
   t.end()
 })
+
+test('start-of-day when midnight is skipped', (t) => {
+  // dst starts at 12am in these zones, so the day begins at 1am
+  const s = spacetime(null, 'UTC')
+  const original = s.timezones
+  s.timezones = {
+    ...original,
+    'america/havana': { ...original['america/havana'], dst: '03/08:00->11/01:01' },
+    'america/santiago': { ...original['america/santiago'], dst: '04/04:24->09/06:00' }
+  }
+  t.teardown(() => { s.timezones = original })
+
+  let d = spacetime('2026-03-08T12:00:00', 'America/Havana')
+  t.equal(d.startOf('day').iso(), '2026-03-08T01:00:00.000-04:00', 'havana start of day')
+  d = spacetime('2026-09-06T12:00:00', 'America/Santiago')
+  t.equal(d.startOf('day').iso(), '2026-09-06T01:00:00.000-03:00', 'santiago start of day')
+  // the day before ends at 11:59pm
+  d = spacetime('2026-03-07T12:00:00', 'America/Havana')
+  t.equal(d.endOf('day').iso(), '2026-03-07T23:59:59.999-05:00', 'havana end of day before')
+  d = spacetime('2026-09-05T12:00:00', 'America/Santiago')
+  t.equal(d.endOf('day').iso(), '2026-09-05T23:59:59.999-04:00', 'santiago end of day before')
+  t.end()
+})

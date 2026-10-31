@@ -34,6 +34,16 @@ const walk = (s: Spacetime, n: number, fn: string, unit: string, previous: strin
 
   while (s.d[fn]() > n) {
     s.epoch -= halfStep
+    // DST gap: n was skipped, like midnight in Santiago.
+    // count from the clock time before the gap, so 00:00 lands on 01:00
+    if (previous !== null && startUnit !== s.d[previous]()) {
+      const before = s.d.getTime()
+      s.epoch += halfStep
+      const target = s.d
+      target[fn.replace('get', 'set')](n)
+      s.epoch += target.getTime() - before - halfStep
+      break
+    }
   }
   // 2nd time: did we change previous unit? revert it.
   if (previous !== null && startUnit !== s.d[previous]()) {
