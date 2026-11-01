@@ -1,5 +1,6 @@
 import test from 'tape'
 import spacetime from '../../src/temporal/index.ts'
+import type { Units } from '../../types/temporal-types.js'
 const options = { skip: !globalThis.Temporal }
 
 test('Temporal boundaries: month ends and leap years', options, t => {
@@ -9,7 +10,7 @@ test('Temporal boundaries: month ends and leap years', options, t => {
     ['2024-03-31', -1, 'month', '2024-02-29'],
     ['2024-02-29', 1, 'year', '2025-02-28'],
     ['2000-02-29', 100, 'year', '2100-02-28']
-  ] as [string, number, string, string][]) {
+  ] as [string, number, Units, string][]) {
     const s = spacetime(input, 'UTC')
     t.equal(s.add(amount, unit).format('iso-short'), expected)
     t.equal(s.format('iso-short'), input, 'immutable')

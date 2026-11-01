@@ -1,7 +1,8 @@
 import test from 'tape'
 import source from '../../src/index.ts'
 import built from 'spacetime'
-const spacetime = process.env.TESTENV === 'prod' ? built : source
+// (the published package's types describe the same api as the source)
+const spacetime = (process.env.TESTENV === 'prod' ? built : source) as typeof source
 const options = { skip: !globalThis.Temporal }
 
 test('main library: native Temporal instant and zone interop', options, t => {

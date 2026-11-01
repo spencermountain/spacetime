@@ -12,7 +12,7 @@ Object.keys(data).forEach((k) => {
   if (split[2]) {
     obj.dst = split[2]
   }
-  const names: string[] = data[k].split(',')
+  const names: string[] = (data as Record<string, string>)[k].split(',')
   names.forEach((str) => {
     str = str.replace(/(^[0-9]+)\//, (_before, num) => {
       return prefixes[Number(num)] + '/'

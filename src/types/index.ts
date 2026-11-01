@@ -1,6 +1,11 @@
 // Library-wide types, shared across src/. (The public API declarations live in /types at the repo root.)
 import type Spacetime from '../spacetime.ts'
-export type { Spacetime }
+import type { TimeUnit } from '../../types/constraints.js'
+import type { ParsableDate, DateFields } from '../../types/types.js'
+export type { Spacetime, TimeUnit }
+
+/** anything the constructor (or .set()) accepts. null/undefined mean 'now' */
+export type SpacetimeInput = ParsableDate | null | undefined
 
 /** calendar fields, as produced by a parser or given as options.today */
 export interface DateParts {
@@ -14,8 +19,6 @@ export interface DateParts {
   timezone?: string
 }
 
-/** anything the constructor accepts: epoch, Date, '2020-01-01', [2020, 0, 1], {year: 2020}, another spacetime, a Temporal value.. */
-export type SpacetimeInput = number | string | Date | Array<number | string> | DateParts | Spacetime | object | null | undefined
 
 export interface Options {
   silent?: boolean
@@ -25,7 +28,7 @@ export interface Options {
   /** 0=sunday, 1=monday .. */
   weekStart?: number
   /** reference 'today' date, for testing */
-  today?: DateParts
+  today?: DateFields
 }
 
 /** strings used for output, swappable via `s.i18n({...})`. Every field is optional; unset ones keep their current value */
@@ -64,4 +67,10 @@ export interface TimezoneMeta {
   hemisphere: 'North' | 'South'
   change?: { start: string; back: string }
   current: { offset: number; isDST: boolean }
+}
+
+/** a getter/setter method: with no argument it reads a value, with one it returns a changed copy */
+export interface GetSet<T, In = T> {
+  (this: Spacetime): T
+  (this: Spacetime, value: In, goFwd?: boolean): Spacetime
 }

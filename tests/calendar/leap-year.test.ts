@@ -1,7 +1,8 @@
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
+import type { Spacetime } from '../../src/types/index.ts'
 
-const fmt = (s) => {
+const fmt = (s: Spacetime) => {
   return s.format('nice-short')
 }
 
@@ -91,7 +92,7 @@ test('feb-29th-doesnt-exist', (t) => {
 })
 
 test('length of year', (t) => {
-  const right = {
+  const right: Record<number, number> = {
     2014: 365,
     2015: 365,
     2016: 366,

@@ -2,7 +2,7 @@ import test from 'tape'
 import { normalizeZone } from '../../scripts/tz/lib.js'
 import inSummerTime from '../../src/timezone/summerTime.ts'
 
-const normalize = (oldDst, start, end, year = 2026) => {
+const normalize = (oldDst: string, start: number, end: number, year = 2026) => {
   const initial = { offset: 0, dst: false }
   const transitions = [
     { epoch: start, offset: 1, dst: true },

@@ -1,9 +1,10 @@
 import { beADate, getEpoch } from '../fns.ts'
+import type { Spacetime, SpacetimeInput } from '../types/index.ts'
 
 const validEpoch = (epoch: number) => Number.isFinite(epoch) && !isNaN(new Date(epoch).getTime())
 
 const methods = {
-  isAfter: function (d) {
+  isAfter: function (this: Spacetime, d: SpacetimeInput) {
     d = beADate(d, this)
     const epoch = getEpoch(d)
     if (!this.isValid() || !validEpoch(epoch)) {
@@ -11,7 +12,7 @@ const methods = {
     }
     return this.epoch > epoch
   },
-  isBefore: function (d) {
+  isBefore: function (this: Spacetime, d: SpacetimeInput) {
     d = beADate(d, this)
     const epoch = getEpoch(d)
     if (!this.isValid() || !validEpoch(epoch)) {
@@ -19,7 +20,7 @@ const methods = {
     }
     return this.epoch < epoch
   },
-  isEqual: function (d) {
+  isEqual: function (this: Spacetime, d: SpacetimeInput) {
     d = beADate(d, this)
     const epoch = getEpoch(d)
     if (!this.isValid() || !validEpoch(epoch)) {
@@ -27,7 +28,7 @@ const methods = {
     }
     return this.epoch === epoch
   },
-  isBetween: function (start, end, isInclusive = false) {
+  isBetween: function (this: Spacetime, start: SpacetimeInput, end: SpacetimeInput, isInclusive = false) {
     start = beADate(start, this)
     end = beADate(end, this)
     const startEpoch = getEpoch(start)

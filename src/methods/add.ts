@@ -1,17 +1,17 @@
 import walkTo from './set/walk.ts'
 import ms from '../data/milliseconds.ts'
 import { months, daysBack, days, getMonthLength } from './set/_model.ts'
-import { normalize } from '../fns.ts'
+import { normalize, getUnit, type UnitKey } from '../fns.ts'
 import addFraction from './_lib/fractional.ts'
-import type { DateParts } from '../types/index.ts'
+import type { DateParts, TimeUnit, Spacetime } from '../types/index.ts'
 // this logic is a bit of a mess,
 // but briefly:
 // millisecond-math, and some post-processing covers most-things
 // we 'model' the calendar here only a little bit
 // and that usually works-out...
 
-const order = ['millisecond', 'second', 'minute', 'hour', 'date', 'month']
-const keep: Record<string, string[]> = {
+const order: UnitKey[] = ['millisecond', 'second', 'minute', 'hour', 'date', 'month']
+const keep: Record<string, UnitKey[]> = {
   second: order.slice(0, 1),
   minute: order.slice(0, 2),
   quarterhour: order.slice(0, 2),
@@ -29,7 +29,7 @@ keep.season = keep.date
 keep.quarter = keep.date
 
 // Units need to be dst adjuested
-const dstAwareUnits = {
+const dstAwareUnits: Record<string, boolean> = {
   year: true,
   quarter: true,
   season: true,
@@ -38,7 +38,7 @@ const dstAwareUnits = {
   date: true
 }
 
-const keepDate = {
+const keepDate: Record<string, boolean> = {
   month: true,
   quarter: true,
   season: true,
@@ -47,7 +47,7 @@ const keepDate = {
   century: true
 }
 
-const add = function (num: number, unit: string) {
+const add = function (this: Spacetime, num: number, unit: TimeUnit) {
   let s = this.clone()
 
   if (!s.isValid() || !unit || num === 0) {
@@ -95,7 +95,7 @@ const add = function (num: number, unit: string) {
   let want: DateParts = {}
   if (keep[unit]) {
     keep[unit].forEach((u) => {
-      want[u] = old[u]()
+      want[u] = getUnit(old, u)
     })
   }
 
@@ -188,7 +188,7 @@ const add = function (num: number, unit: string) {
 }
 
 //subtract is only add *-1
-const subtract = function (num: number, unit: string) {
+const subtract = function (this: Spacetime, num: number, unit: TimeUnit) {
   const s = this.clone()
   return s.add(num * -1, unit)
 }

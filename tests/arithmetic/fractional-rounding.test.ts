@@ -1,8 +1,9 @@
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
+import type { TimeUnit } from '../../src/types/index.ts'
 
 test('round the final result when the starting time is not on a boundary', (t) => {
-  const cases: [string, number, string, string][] = [
+  const cases: [string, number, TimeUnit, string][] = [
     ['2025-06-18T10:45:00Z', 0.5, 'day', '2025-06-18T23:00:00.000Z'],
     ['2025-06-18T10:15:00Z', 0.5, 'day', '2025-06-18T22:00:00.000Z'],
     ['2025-06-18T10:30:00Z', 0.5, 'day', '2025-06-18T22:00:00.000Z'],
@@ -33,7 +34,7 @@ test('rounded decimal and whole-unit transforms give the same result', (t) => {
     [0.75, 'weeks', 5, 'days'],
     [0.1, 'day', 2, 'hours'],
     [0.2, 'days', 5, 'hours']
-  ]
+  ] as const
   cases.forEach(([decimalAmount, decimalUnit, wholeAmount, wholeUnit]) => {
     const label = `${decimalAmount} ${decimalUnit} rounds to ${wholeAmount} ${wholeUnit}`
     t.equal(
@@ -89,7 +90,7 @@ test('round to the nearest subunit', (t) => {
     // The same rounding applies when converting minutes to seconds.
     [0.123, 'minute', '2023-04-01T00:00:07.000Z'],
     [0.129, 'minutes', '2023-04-01T00:00:08.000Z']
-  ]
+  ] as const
   cases.forEach(([amount, unit, expected]) => {
     const s = spacetime(start, 'UTC')
     t.equal(

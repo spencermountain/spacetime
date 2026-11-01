@@ -1,6 +1,6 @@
-import type { Spacetime } from '../types/index.ts'
+import type { Spacetime, SpacetimeInput, TimeUnit } from '../types/index.ts'
 //make a string, for easy comparison between dates
-const print = {
+const print: Record<string, (s: Spacetime) => string | number> = {
   millisecond: (s: Spacetime) => {
     return s.epoch
   },
@@ -33,7 +33,7 @@ const print = {
   }
 }
 
-const isSame = function (b, unit: string, tzAware = true): boolean | null {
+const isSame = function (this: Spacetime, b: SpacetimeInput, unit: TimeUnit, tzAware = true): boolean | null {
   const a = this
   if (!unit) {
     return null
@@ -42,24 +42,25 @@ const isSame = function (b, unit: string, tzAware = true): boolean | null {
   if (typeof b === 'string' && typeof unit === 'object') {
     const tmp = b
     b = unit
-    unit = tmp
+    unit = tmp as TimeUnit
   }
+  let other = b as Spacetime
   if (typeof b === 'string' || typeof b === 'number') {
-    b = new this.constructor(b, this.timezone.name)
+    other = this.clone().set(b)
   }
-  if (!a.isValid() || b == null || b.isValid == null || !b.isValid()) {
+  if (!a.isValid() || other == null || other.isValid == null || !other.isValid()) {
     return false
   }
   //support 'seconds' aswell as 'second'
-  unit = unit.replace(/s$/, '')
+  const name = unit.replace(/s$/, '')
 
   // make them the same timezone for proper comparison
-  if (tzAware === true && a.tz !== b.tz) {
-    b = b.clone()
-    b.tz = a.tz
+  if (tzAware === true && a.tz !== other.tz) {
+    other = other.clone()
+    other.tz = a.tz
   }
-  if (print[unit]) {
-    return print[unit](a) === print[unit](b)
+  if (print[name]) {
+    return print[name](a) === print[name](other)
   }
   return null
 }

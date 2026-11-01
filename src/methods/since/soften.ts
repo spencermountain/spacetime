@@ -2,7 +2,7 @@
 import { unitsString } from "../../data/units.ts";
 import { almostString, overString } from "../../data/distance.ts";
 
-const qualifiers = {
+const qualifiers: Record<string, { almost: number; over: number }> = {
   months: {
     almost: 10,
     over: 4
@@ -34,10 +34,10 @@ function pluralize(value: number, unit: string): string {
 }
 
 const toSoft = function (diff: Record<string, number>) {
-  let rounded = null
-  let qualified = null
-  const abbreviated = []
-  const englishValues = []
+  let rounded: string | null = null
+  let qualified: string | null = null
+  const abbreviated: string[] = []
+  const englishValues: string[] = []
   //go through each value and create its text-representation
   Object.keys(diff).forEach((unit, i, units) => {
     const value = Math.abs(diff[unit])

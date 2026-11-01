@@ -2,6 +2,7 @@ import { inputTimezone, toTemporal } from './input/temporal.ts'
 import quickOffset from './timezone/quick.ts'
 import findTz from './timezone/find.ts'
 import handleInput from './input/index.ts'
+import { toParts } from './input/helpers.ts'
 import methods from './methods.ts'
 import zones from '../zonefile/unpack.ts'
 import queryFns from './methods/query/index.ts'
@@ -14,9 +15,21 @@ import type { SpacetimeInput, Options, DateParts, TimezoneSet } from './types/in
 // shared timezone data, swappable via `s.timezones = {...}`
 let timezones = zones
 
-// instance methods mixed-in below; merged onto the class type here
-type Mixins = typeof methods & typeof queryFns & typeof addFns & typeof sameFns & typeof compareFns & typeof i18nFns
-interface Spacetime extends Mixins {}
+import type { Spacetime as Api } from '../types/types.js'
+
+// the instance api is declared in /types; the implementation is checked against it.
+// internals that the public declaration doesn't mention are added here, for src only.
+declare module '../types/types.js' {
+  interface Spacetime {
+    _weekStart: number
+    _today: DateParts
+    british: boolean
+    d: Date
+    /** with no input: now, respecting options.today */
+    set(): Spacetime
+  }
+}
+interface Spacetime extends Api {}
 
 class Spacetime {
   epoch: number
@@ -38,7 +51,7 @@ class Spacetime {
     // does the week start on sunday, or monday:
     this._weekStart = options.weekStart !== undefined ? options.weekStart : 1 // default to monday
     // the reference today date object, (for testing)
-    this._today = options.today !== undefined ? options.today : {}
+    this._today = toParts(options.today)
     // parse the various formats
     const tmp = handleInput(this, input, tz)
     this.epoch = tmp.epoch

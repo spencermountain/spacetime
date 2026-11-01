@@ -1,6 +1,6 @@
 import { beADate, normalize } from '../../fns.ts'
 import waterfall from './waterfall.ts'
-import type { Spacetime, SpacetimeInput } from '../../types/index.ts'
+import type { Spacetime, SpacetimeInput, TimeUnit } from '../../types/index.ts'
 
 const reverseDiff = function (obj: Record<string, number>): Record<string, number> {
   Object.keys(obj).forEach((k) => {
@@ -13,7 +13,7 @@ const reverseDiff = function (obj: Record<string, number>): Record<string, numbe
 // '1 month' means 28 days in february
 // '1 year' means 366 days in a leap year
 // the whole table of differences, or just one unit
-function main(a: Spacetime, d: SpacetimeInput, unit?: string) {
+function main(a: Spacetime, d: SpacetimeInput, unit?: TimeUnit) {
   let b: Spacetime = beADate(d, a)
   //reverse values, if necessary
   let reversed = false

@@ -1,10 +1,11 @@
 import { date as _date } from '../set/set.ts'
 import { aliases, short, long } from '../../data/days.ts'
 import walkTo from '../set/walk.ts'
+import type { Spacetime, GetSet } from '../../types/index.ts'
 
 const methods = {
   // # day in the month
-  date: function (num?: number | string, goFwd?: boolean) {
+  date: function (this: Spacetime, num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
       const n = parseInt(String(num), 10)
@@ -14,10 +15,10 @@ const methods = {
       return s
     }
     return this.d.getUTCDate()
-  },
+  } as GetSet<number, number | string>,
 
   //like 'wednesday' (hard!)
-  day: function (input?: string | number, goFwd?: boolean) {
+  day: function (this: Spacetime, input?: string | number, goFwd?: boolean) {
     if (input === undefined) {
       return this.d.getUTCDay()
     }
@@ -52,16 +53,16 @@ const methods = {
       second: original.second()
     })
     return s
-  },
+  } as GetSet<number, string | number>,
 
   //these are helpful name-wrappers
-  dayName: function (input?: string | number, goFwd?: boolean) {
+  dayName: function (this: Spacetime, input?: string | number, goFwd?: boolean) {
     if (input === undefined) {
       return long()[this.day()]
     }
     let s = this.clone()
     s = s.day(input, goFwd)
     return s
-  }
+  } as GetSet<string, string | number>,
 }
 export default methods

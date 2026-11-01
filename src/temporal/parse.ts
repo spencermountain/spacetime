@@ -7,7 +7,8 @@ import { fields, temporal, fieldValues, asMain } from './_lib.ts'
 import { isoCalendar, incomplete, warn } from '../input/temporal-calendar.ts'
 import type { ParsedDate } from '../input/formats/_parsers.ts'
 import type Spacetime from './spacetime.ts'
-import type { SpacetimeInput, DateParts } from '../types/index.ts'
+import type { DateParts } from '../types/index.ts'
+import type { Input } from '../../types/temporal-types.js'
 
 const walkTo = (s: Spacetime, input: DateParts): void => {
   // (only called while parsing a string, when the wall-clock fields are pending)
@@ -53,7 +54,7 @@ const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
   return s
 }
 
-const parse = (s: Spacetime, input: SpacetimeInput): Spacetime => {
+const parse = (s: Spacetime, input: Input): Spacetime => {
   const T = temporal()
   if (input instanceof T.ZonedDateTime) {
     s._value = isoCalendar(s, input).withTimeZone(s.tz)
@@ -70,8 +71,9 @@ const parse = (s: Spacetime, input: SpacetimeInput): Spacetime => {
     s.epoch = input
   } else if (input && typeof input === 'object' && 'epoch' in input) {
     s._tz = normalizeTimezone(input.tz, s.tz)
-    if ('_value' in input && input._value instanceof T.ZonedDateTime) {
-      s._value = input._value
+    const other = input as Spacetime
+    if (other._value instanceof T.ZonedDateTime) {
+      s._value = other._value
     } else {
       s.epoch = input.epoch
     }
@@ -92,7 +94,7 @@ const parse = (s: Spacetime, input: SpacetimeInput): Spacetime => {
     }
     const str = normalize(input)
     if (Object.prototype.hasOwnProperty.call(namedDates, str)) {
-      return namedDates[str](s)
+      return namedDates[str](asMain(s)) as unknown as Spacetime
     }
     // Collect wall-clock fields before resolving a gap or repeated hour once.
     s._pending = s._value.toPlainDateTime()

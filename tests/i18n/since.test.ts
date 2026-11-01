@@ -1,6 +1,7 @@
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 import defaultSettings from '../_lib/i18n-defaults.ts'
+import type { I18nOptions } from '../../types/constraints.js'
 
 test('i18n, past and future', (t) => {
   t.teardown(() => spacetime.now().i18n(defaultSettings))
@@ -11,7 +12,7 @@ test('i18n, past and future', (t) => {
         .add(3, 'hours')
         .add(1, 'day');
 
-    const translationValues = {
+    const translationValues: I18nOptions = {
         distance: {
             past: 'pasado',
             future: 'futuro',
@@ -76,7 +77,7 @@ test('i18n, almost and over', (t) => {
         .add(59, 'minutes')
     const overTwoMonths = start.clone().add(2, 'months').add(11, 'days')
 
-    const translationValues = {
+    const translationValues: I18nOptions = {
         distance: {
             past: 'pasado',
             future: 'futuro',
@@ -120,7 +121,7 @@ test('i18n, now', (t) => {
     const start = spacetime("Dec 25th 2021");
     const end = spacetime("Dec 25th 2021");
 
-    const translationValues = {
+    const translationValues: I18nOptions = {
         distance: {
             past: 'pasado',
             future: 'futuro',

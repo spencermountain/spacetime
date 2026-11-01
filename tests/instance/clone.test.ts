@@ -26,7 +26,7 @@ test('clones and setters preserve day-first parsing', t => {
     ['clone()', s.clone()],
     ['add(1, day)', s.add(1, 'day')],
     ['goto(Europe/London)', s.goto('Europe/London')]
-  ]
+  ] as const
   copies.forEach(([operation, copy]) => {
     t.notEqual(copy, s, `${operation}: returns a new object`)
     t.equal(copy.set('03/04/2026').format('iso-short'), '2026-04-03', `${operation}: set(03/04/2026) keeps day-first parsing`)

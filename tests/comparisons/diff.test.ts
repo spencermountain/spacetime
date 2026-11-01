@@ -1,8 +1,10 @@
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
+import type { TimeUnit } from '../../src/types/index.ts'
+import type { Diff } from '../../types/types.js'
 
 const numbers = [1, 2, 5, 7, 15, 30, 40, 100, 110]
-const units = ['day', 'week', 'month', 'quarter', 'year']
+const units = ['day', 'week', 'month', 'quarter', 'year'] as const
 
 test('simple-diff', (t) => {
   let a = spacetime('March 26, 1999 20:42:00', 'Canada/Eastern')
@@ -112,7 +114,7 @@ test('quick-diff-45-months', (t) => {
   const obj = start.diff(end)
   t.equal(obj.months, 45, '45-months')
 
-  Object.keys(obj).forEach((k) => {
+  ;(Object.keys(obj) as (keyof Diff & TimeUnit)[]).forEach((k) => {
     const val = start.diff(end, k)
     t.equal(obj[k], val, 'diff #1 -' + k)
   })
@@ -125,7 +127,7 @@ test('quick-diff-18-weeks', (t) => {
 
   const obj = start.diff(end)
   t.equal(obj.weeks, -18, '18-weeks')
-  Object.keys(obj).forEach((k) => {
+  ;(Object.keys(obj) as (keyof Diff & TimeUnit)[]).forEach((k) => {
     const val = start.diff(end, k)
     t.equal(obj[k], val, 'diff #2 -' + k)
   })
@@ -137,7 +139,7 @@ test('quick-diff-13-minutes', (t) => {
   const end = start.add(13, 'minutes')
 
   const obj = start.diff(end)
-  Object.keys(obj).forEach((k) => {
+  ;(Object.keys(obj) as (keyof Diff & TimeUnit)[]).forEach((k) => {
     const val = start.diff(end, k)
     t.equal(obj[k], val, 'diff #3 -' + k)
   })

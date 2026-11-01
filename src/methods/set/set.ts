@@ -3,9 +3,9 @@
 import ms from '../../data/milliseconds.ts'
 import { mapping } from '../../data/months.ts'
 import walkTo from './walk.ts'
-import { isLeapYear } from '../../fns.ts'
+import { isLeapYear, getUnit, setUnit, type UnitKey } from '../../fns.ts'
 import { getMonthLength } from './_model.ts'
-import type { Spacetime } from '../../types/index.ts'
+import type { Spacetime, TimeUnit } from '../../types/index.ts'
 
 // setters return the new epoch for `s`, rather than a new instance
 const validate = (n: number | string): number => {
@@ -16,21 +16,21 @@ const validate = (n: number | string): number => {
   return n
 }
 
-const order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
+const order: UnitKey[] = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond']
 
 //reduce hostile micro-changes when moving dates by millisecond
-const confirm = (s: Spacetime, tmp: Spacetime, unit: string): Spacetime => {
-  const n = order.indexOf(unit)
+const confirm = (s: Spacetime, tmp: Spacetime, unit: TimeUnit): Spacetime => {
+  const n = order.indexOf(unit as UnitKey)
   const arr = order.slice(n, order.length)
   for (let i = 0; i < arr.length; i++) {
-    const want = tmp[arr[i]]()
-    s[arr[i]](want)
+    const want = getUnit(tmp, arr[i])
+    setUnit(s, arr[i], want)
   }
   return s
 }
 
 // allow specifying setter direction
-const fwdBkwd = function (s: Spacetime, old: Spacetime, goFwd: boolean | undefined, unit: string): Spacetime {
+const fwdBkwd = function (s: Spacetime, old: Spacetime, goFwd: boolean | undefined, unit: TimeUnit): Spacetime {
   if (goFwd === true && s.isBefore(old)) {
     s = s.add(1, unit)
   } else if (goFwd === false && s.isAfter(old)) {

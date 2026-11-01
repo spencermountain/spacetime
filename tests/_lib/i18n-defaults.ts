@@ -1,4 +1,5 @@
-const defaults = {
+import type { I18nOptions } from '../../types/constraints.js'
+const defaults: I18nOptions = {
   days: {
     short: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
     long: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']

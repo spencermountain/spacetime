@@ -57,7 +57,7 @@ test('nearest rounds around midpoints and calendar boundaries', (t) => {
     ['2024-12-31T23:59:40.000Z', 'minute', '2025-01-01T00:00:00.000Z'],
     ['2024-12-31T12:00:00.000Z', 'month', '2025-01-01T00:00:00.000Z'],
     ['2024-01-15T03:00:00.000Z', 'hour', '2024-01-15T03:00:00.000Z']
-  ]
+  ] as const
   cases.forEach(([input, unit, expected]) => {
     const s = spacetime(input, 'UTC')
     const result = s.nearest(unit)

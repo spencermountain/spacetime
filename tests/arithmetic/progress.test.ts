@@ -52,7 +52,7 @@ test('progress measures exact fractions in UTC', (t) => {
     ['2024-02-15T12:00:00Z', 'month', 0.5],
     ['2023-07-02T12:00:00Z', 'year', 0.5],
     ['2024-07-02T00:00:00Z', 'year', 0.5]
-  ]
+  ] as const
   cases.forEach(([input, unit, expected]) => {
     const s = spacetime(input, 'UTC')
     const label = `${input} UTC: progress(${unit})`

@@ -15,7 +15,7 @@ const cases = [
   '2024-01-01T00:00:00-03:30[-03:30]',
   '+010000-01-01T00:00:00+00:00[UTC]',
   '0000-01-01T00:00:00+00:00[UTC]'
-]
+] as const
 
 test('Regular Spacetime transfer retains milliseconds and reports losses on request', { skip: !T }, t => {
   cases.forEach(value => {
@@ -26,7 +26,7 @@ test('Regular Spacetime transfer retains milliseconds and reports losses on requ
     t.equal(s.clone().toTemporal()?.epochMilliseconds, s.epoch, value + ' clone')
     t.equal(legacy(original, 'Asia/Tokyo').toTemporal()?.timeZoneId, 'Asia/Tokyo', value + ' explicit zone')
   })
-  const warnings = []
+  const warnings: string[] = []
   const warn = console.warn
   console.warn = message => warnings.push(message)
   try {

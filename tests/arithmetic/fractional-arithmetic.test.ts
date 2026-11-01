@@ -94,7 +94,7 @@ test('decimal and whole-unit transforms give the same result', (t) => {
     [0.1, 'millennium', 100, 'years'],
     [0.5, 'millennium', 500, 'years'],
     [-0.1, 'millennium', -100, 'years']
-  ]
+  ] as const
   cases.forEach(([decimalAmount, decimalUnit, wholeAmount, wholeUnit]) => {
     const label = `${decimalAmount} ${decimalUnit} equals ${wholeAmount} ${wholeUnit}`
     t.equal(
@@ -121,7 +121,7 @@ test('decimal transforms agree across timezones and DST changes', (t) => {
     ['2024-04-07T00:00:00', 'Australia/Sydney'],
     ['2024-07-01T00:00:00', 'Asia/Kathmandu'], // Quarter-hour offset.
     ['2024-09-01T00:00:00', 'Asia/Kolkata'] // Half-hour offset.
-  ]
+  ] as const
   const cases = [
     [0.5, 'day', 12, 'hours'],
     [1.5, 'days', 36, 'hours'],
@@ -129,7 +129,7 @@ test('decimal transforms agree across timezones and DST changes', (t) => {
     [2.5, 'hours', 150, 'minutes'],
     [0.5, 'minute', 30, 'seconds'],
     [0.125, 'second', 125, 'milliseconds']
-  ]
+  ] as const
   starts.forEach(([input, zone]) => {
     const s = spacetime(input, zone)
     const original = s.iso()
@@ -158,7 +158,7 @@ test('fractional additions cross calendar boundaries', (t) => {
     ['2025-05-01T00:00:15Z', -0.5, 'minute', '2025-04-30T23:59:45.000Z'],
     ['2025-12-31T23:59:59.750Z', 0.5, 'second', '2026-01-01T00:00:00.250Z'],
     ['2026-01-01T00:00:00.250Z', -0.5, 'second', '2025-12-31T23:59:59.750Z']
-  ]
+  ] as const
   cases.forEach(([input, amount, unit, expected]) => {
     const s = spacetime(input, 'UTC')
     t.equal(s.add(amount, unit).iso(), expected, `${input} + ${amount} ${unit}`)
@@ -183,7 +183,7 @@ test('repeated exact fractions equal one whole unit', (t) => {
       amount: 0.1, repeats: 10,
       units: ['millisecond', 'second', 'minute', 'hour', 'decade', 'century', 'millennium']
     }
-  ]
+  ] as const
   cases.forEach(({ amount, repeats, units }) => {
     units.forEach((unit) => {
       let result = s
@@ -221,7 +221,7 @@ test('keep the fractional part as smaller units', (t) => {
     [0.5, 'second', '2020-06-15T00:00:00.500Z'],
     [1.5, 'seconds', '2020-06-15T00:00:01.500Z'],
     [-0.5, 'second', '2020-06-14T23:59:59.500Z']
-  ]
+  ] as const
   cases.forEach(([amount, unit, expected]) => {
     const s = spacetime(start, 'UTC')
     t.equal(s.add(amount, unit).iso(), expected, `June 15 + ${amount} ${unit}`)
@@ -234,7 +234,7 @@ test('keep the fractional part as smaller units', (t) => {
 test('adding and subtracting the same amount returns to the start', (t) => {
   const start = '2022-12-20T12:00:00.000Z'
   const s = spacetime(start, 'UTC')
-  const reversibleUnits = ['day', 'hour', 'minute', 'second']
+  const reversibleUnits = ['day', 'hour', 'minute', 'second'] as const
   const amounts = [0.5, 1.5, 2.5]
   reversibleUnits.forEach((unit) => {
     amounts.forEach((amount) => {
@@ -260,7 +260,7 @@ test('half a month is two weeks', (t) => {
     { from: '2020-02-20', plus14Days: '2020-03-05', minus14Days: '2020-02-06' },
     { from: '2021-02-20', plus14Days: '2021-03-06', minus14Days: '2021-02-06' }
   ]
-  const zones = ['UTC', 'Asia/Kathmandu']
+  const zones = ['UTC', 'Asia/Kathmandu'] as const
   zones.forEach((zone) => {
     cases.forEach(({ from, plus14Days, minus14Days }) => {
       const s = spacetime(from, zone).startOf('day')

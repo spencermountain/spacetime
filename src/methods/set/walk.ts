@@ -1,8 +1,12 @@
 import ms from '../../data/milliseconds.ts'
-import type { Spacetime, DateParts } from '../../types/index.ts'
+import { getUnit, type UnitKey } from '../../fns.ts'
+import type { Spacetime, DateParts, TimeUnit } from '../../types/index.ts'
+
+// the Date getters we step towards, eg 'getUTCHours'
+type DateGetter = 'getUTCFullYear' | 'getUTCMonth' | 'getUTCDate' | 'getUTCHours' | 'getUTCMinutes'
 
 //basically, step-forward/backward until js Date object says we're there.
-const walk = (s: Spacetime, n: number, fn: string, unit: string, previous: string | null): void => {
+const walk = (s: Spacetime, n: number, fn: DateGetter, unit: TimeUnit, previous: DateGetter | null): void => {
   const current = s.d[fn]()
   if (current === n) {
     return //already there
@@ -40,7 +44,7 @@ const walk = (s: Spacetime, n: number, fn: string, unit: string, previous: strin
       const before = s.d.getTime()
       s.epoch += halfStep
       const target = s.d
-      target[fn.replace('get', 'set')](n)
+      ;(target as unknown as Record<string, (n: number) => number>)[fn.replace('get', 'set')](n)
       s.epoch += target.getTime() - before - halfStep
       break
     }
@@ -52,14 +56,18 @@ const walk = (s: Spacetime, n: number, fn: string, unit: string, previous: strin
   }
 }
 //find the desired date by a increment/check while loop
-const units = {
+interface Walker {
+  valid: (n: number) => boolean
+  walkTo: (s: Spacetime, n: number) => void
+}
+const units: Record<UnitKey, Walker> = {
   year: {
-    valid: (n) => n > -4000 && n < 4000,
-    walkTo: (s, n) => walk(s, n, 'getUTCFullYear', 'year', null)
+    valid: (n: number) => n > -4000 && n < 4000,
+    walkTo: (s: Spacetime, n: number) => walk(s, n, 'getUTCFullYear', 'year', null)
   },
   month: {
-    valid: (n) => n >= 0 && n <= 11,
-    walkTo: (s, n) => {
+    valid: (n: number) => n >= 0 && n <= 11,
+    walkTo: (s: Spacetime, n: number) => {
       const d = s.d
       const current = d.getUTCMonth()
       const original = s.epoch
@@ -84,27 +92,27 @@ const units = {
     }
   },
   date: {
-    valid: (n) => n > 0 && n <= 31,
-    walkTo: (s, n) => walk(s, n, 'getUTCDate', 'day', 'getUTCMonth')
+    valid: (n: number) => n > 0 && n <= 31,
+    walkTo: (s: Spacetime, n: number) => walk(s, n, 'getUTCDate', 'day', 'getUTCMonth')
   },
   hour: {
-    valid: (n) => n >= 0 && n < 24,
-    walkTo: (s, n) => walk(s, n, 'getUTCHours', 'hour', 'getUTCDate')
+    valid: (n: number) => n >= 0 && n < 24,
+    walkTo: (s: Spacetime, n: number) => walk(s, n, 'getUTCHours', 'hour', 'getUTCDate')
   },
   minute: {
-    valid: (n) => n >= 0 && n < 60,
-    walkTo: (s, n) => walk(s, n, 'getUTCMinutes', 'minute', 'getUTCHours')
+    valid: (n: number) => n >= 0 && n < 60,
+    walkTo: (s: Spacetime, n: number) => walk(s, n, 'getUTCMinutes', 'minute', 'getUTCHours')
   },
   second: {
-    valid: (n) => n >= 0 && n < 60,
-    walkTo: (s, n) => {
+    valid: (n: number) => n >= 0 && n < 60,
+    walkTo: (s: Spacetime, n: number) => {
       //do this one directly
       s.epoch = s.seconds(n).epoch
     }
   },
   millisecond: {
-    valid: (n) => n >= 0 && n < 1000,
-    walkTo: (s, n) => {
+    valid: (n: number) => n >= 0 && n < 1000,
+    walkTo: (s: Spacetime, n: number) => {
       //do this one directly
       s.epoch = s.milliseconds(n).epoch
     }
@@ -112,13 +120,13 @@ const units = {
 }
 
 const walkTo = (s: Spacetime, wants: DateParts): void => {
-  const keys = Object.keys(units)
+  const keys = Object.keys(units) as UnitKey[]
   const old = s.clone()
   for (let i = 0; i < keys.length; i++) {
     const k = keys[i]
-    let n = wants[k]
+    let n: number | string = wants[k]
     if (n === undefined) {
-      n = old[k]()
+      n = getUnit(old, k)
     }
     if (typeof n === 'string') {
       n = parseInt(n, 10)

@@ -1,5 +1,5 @@
 import test from 'tape'
-import spacetime from '../_lib/index.ts'
+import spacetime, { call } from '../_lib/index.ts'
 import type { Spacetime } from '../../src/types/index.ts'
 
 const input = '2020-01-15T08:30:00.001Z'
@@ -70,7 +70,7 @@ test('setters return the requested value without mutating', (t) => {
   ]
   cases.forEach(([method, args, getter, expected]) => {
     const original = spacetime(input, zone)
-    const result = original[method](...args)
+    const result = call(original, method, ...args)
     const label = `${input} ${zone}: ${method}(${args.join(', ')})`
     t.equal(original.epoch, Date.parse(input), `${label} preserves the original instant`)
     t.notEqual(result, original, `${label} returns a separate object`)
@@ -88,7 +88,7 @@ test('boolean methods identical', (t) => {
     ['isBefore', r, 'day', true],
     ['isEqual', r, 'day', false],
     ['isBetween', r, r2, false]
-  ]
+  ] as const
   arr.forEach((a) => {
     const immut = spacetime(1552114800001)
     const fn = a[0]

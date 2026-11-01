@@ -1,5 +1,6 @@
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
+import type { TimeUnit } from '../../src/types/index.ts'
 
 test('set quarter', (t) => {
   let s = spacetime('q1', 'Canada/Eastern')
@@ -34,7 +35,7 @@ test('set quarter', (t) => {
 test('startOf quarter', (t) => {
   const start = '2020-01-01'
   const d = spacetime(start).startOf('day')
-  const arr: [number, string][] = [
+  const arr: [number, TimeUnit][] = [
     [2, 'days'],
     [23, 'days'],
     [52, 'days'],

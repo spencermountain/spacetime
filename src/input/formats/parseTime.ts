@@ -37,7 +37,7 @@ const parseTime = (s: Spacetime, str: string = ''): Spacetime => {
     }
     s = s.hour(h)
     s = s.minute(m)
-    s = s.seconds(sec || 0)
+    s = s.second(Number(sec || 0))
     s = s.millisecond(parseMs(ms))
     //parse-out am/pm
     if (ampm) {

@@ -1,4 +1,7 @@
+import { setUnit } from '../fns.ts'
+import { parseMonth } from './formats/_parsers.ts'
 import type { Spacetime, DateParts } from '../types/index.ts'
+import type { DateFields } from '../../types/types.js'
 
 const defaults: DateParts = {
   year: new Date().getFullYear(),
@@ -23,7 +26,7 @@ const parseArray = (s: Spacetime, arr: Array<number | string>, today: DateParts)
     if (num == null) {
       num = 0
     }
-    s = s[units[i]](num)
+    s = setUnit(s, units[i], num)
   }
   return s
 }
@@ -40,10 +43,30 @@ const parseObject = (s: Spacetime, obj: DateParts): Spacetime => {
   for (let i = 0; i < units.length; i++) {
     const unit = units[i]
     if (obj[unit] !== undefined) {
-      s = s[unit](obj[unit])
+      s = setUnit(s, unit, obj[unit])
     }
   }
   return s
+}
+
+// options.today as numbers (month names become indexes), the way parsers expect it
+const toParts = (today: DateFields = {}): DateParts => {
+  const out: Record<string, number> = {}
+  units.forEach((unit) => {
+    const value = today[unit]
+    if (value === undefined || value === null) {
+      return
+    }
+    if (unit === 'month' && typeof value === 'string' && isNaN(Number(value))) {
+      const month = parseMonth(value)
+      if (month !== undefined) {
+        out.month = month
+      }
+      return
+    }
+    out[unit] = Number(value)
+  })
+  return out
 }
 
 // this may seem like an arbitrary number, but it's 'within jan 1970'
@@ -60,6 +83,7 @@ const parseNumber = function (s: Spacetime, input: number): Spacetime {
   return s
 }
 
+export { toParts }
 export default {
   parseArray,
   parseObject,

@@ -9,7 +9,7 @@ const week = 6.048e8
 const month = 8.64e7 * 29.5 //(average)
 const year = 3.154e10
 
-const ms = {
+const ms: Record<string, number> = {
   millisecond,
   second,
   minute,

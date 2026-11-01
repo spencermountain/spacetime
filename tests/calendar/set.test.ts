@@ -1,5 +1,6 @@
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
+import type { Spacetime } from '../../src/types/index.ts'
 
 test('set', (t) => {
   let s = spacetime('June 22, 2017 20:12:01', 'Canada/Pacific')
@@ -223,7 +224,7 @@ test('time parsing edge cases', (t) => {
   t.end()
 })
 
-const iso = (s) => s.format('iso-short')
+const iso = (s: Spacetime) => s.format('iso-short')
 test('month()/date() setters clamp the day to the month length', (t) => {
   // .month() must clamp the day to the target month's length
   t.equal(

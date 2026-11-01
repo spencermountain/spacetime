@@ -1,4 +1,4 @@
-import type { Spacetime } from '../../types/index.ts'
+import type { Spacetime, TimeUnit } from '../../types/index.ts'
 
 //get number of hours/minutes... between the two dates
 function getDiff(a: Spacetime, b: Spacetime) {
@@ -6,7 +6,7 @@ function getDiff(a: Spacetime, b: Spacetime) {
   const later = isBefore ? b : a
   let earlier = isBefore ? a : b
   earlier = earlier.clone()
-  const diff = {
+  const diff: Record<string, number> = {
     years: 0,
     months: 0,
     days: 0,
@@ -14,7 +14,7 @@ function getDiff(a: Spacetime, b: Spacetime) {
     minutes: 0,
     seconds: 0
   }
-  Object.keys(diff).forEach((unit) => {
+  ;(Object.keys(diff) as TimeUnit[]).forEach((unit) => {
     if (earlier.isSame(later, unit)) {
       return
     }

@@ -9,7 +9,7 @@
     "types": ["node"],
 
     "strict": false,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noImplicitThis": false,
 
     // source imports use real `.ts` extensions; tsx + esbuild run them directly

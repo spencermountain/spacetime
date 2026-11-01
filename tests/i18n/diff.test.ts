@@ -9,18 +9,18 @@ test('i18n', (t) => {
 
   const translationValues = {
     units: {
-      secondWord: 'segundo',
-      secondWordPlural: 'segundos',
-      minuteWord: 'minuto',
-      minuteWordPlural: 'minutos',
-      hourWord: 'hora',
-      hourWordPlural: 'horas',
-      dayWord: 'dia',
-      dayWordPlural: 'dias',
-      monthWord: 'mes',
-      monthWordPlural: 'meses',
-      yearWord: 'año',
-      yearWordPlural: 'años'
+      second: 'segundo',
+      seconds: 'segundos',
+      minute: 'minuto',
+      minutes: 'minutos',
+      hour: 'hora',
+      hours: 'horas',
+      day: 'dia',
+      days: 'dias',
+      month: 'mes',
+      months: 'meses',
+      year: 'año',
+      years: 'años'
     }
   }
 

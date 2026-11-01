@@ -1,6 +1,7 @@
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 import useOldTz from '../_lib/use-old-tz.ts'
+import type { Spacetime } from '../../src/types/index.ts'
 
 const months = [
   'january',
@@ -16,7 +17,7 @@ const months = [
   'november',
   'december'
 ]
-const allMonths = (s) =>
+const allMonths = (s: Spacetime) =>
   months.map((m) => {
     s = s.month(m)
     const meta = s.timezone()

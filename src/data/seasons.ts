@@ -22,4 +22,5 @@ const south: Season[] = [
   ['summer', 11, 1] //dec 1
 ]
 
-export default { north, south }
+const seasons: Record<string, Season[]> = { north, south }
+export default seasons

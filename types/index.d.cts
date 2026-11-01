@@ -18,6 +18,8 @@ declare namespace spacetime {
   export type Spacetime = types.Spacetime
   export type Diff = types.Diff
   export type ParsableDate = types.ParsableDate
+  export type DateFields = types.DateFields
+  export type Json = types.Json
   export type Progress = types.Progress
   export type Since = types.Since
   export type TimezoneMeta = types.TimezoneMeta

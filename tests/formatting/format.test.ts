@@ -29,7 +29,7 @@ test('to-from utc-format', (t) => {
     '-000098-05-04T23:16:19.444Z',
     '-000986-05-01T09:58:23.078-04:00',
     '-002345-05-04T23:12:01.970Z'
-  ]
+  ] as const
   arr.forEach((str) => {
     const s = spacetime(str)
     const out = s.format('iso')

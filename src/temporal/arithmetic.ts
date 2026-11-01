@@ -1,4 +1,5 @@
 import addFraction from '../methods/_lib/fractional.ts'
+import type { TimeUnit } from '../types/index.ts'
 import { duration, unitName, isBoundary, asMain, type ClockFields } from './_lib.ts'
 
 const arithmetic = {
@@ -15,7 +16,7 @@ const arithmetic = {
       return this.clone()
     }
     if (Number.isFinite(Number(amount)) && !Number.isInteger(Number(amount))) {
-      const fractional = addFraction(asMain(this.clone()), Number(amount), name === 'day' ? 'date' : name)
+      const fractional = addFraction(asMain(this.clone()), Number(amount), (name === 'day' ? 'date' : name) as TimeUnit)
       if (fractional) {
         return fractional
       }

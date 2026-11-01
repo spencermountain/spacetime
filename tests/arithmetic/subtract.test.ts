@@ -49,7 +49,7 @@ test('subtract-rollover', (t) => {
     [0, 'month', '2010-01-01', 1],
     [12, 'month', '2009-01-01', 1],
     [120, 'month', '2000-01-01', 1]
-  ]
+  ] as const
   cases.forEach(([amount, unit, date, hour]) => {
     const result = s.subtract(amount, unit)
     const label = `${input} ${zone}: subtract(${amount}, ${unit})`
@@ -68,7 +68,7 @@ test('month subtraction across multiple years', (t) => {
     [36, '2019-01-01'], [48, '2018-01-01'],
     [1, '2021-12-01'], [13, '2020-12-01'], [25, '2019-12-01'],
     [37, '2018-12-01'], [49, '2017-12-01']
-  ]
+  ] as const
   cases.forEach(([months, expected]) => {
     t.equal(s.subtract(months, 'month').format('iso-short'), expected, `${input} UTC: subtract(${months}, month)`)
   })
@@ -78,7 +78,7 @@ test('month subtraction across multiple years', (t) => {
 test('subtract overflow', (t) => {
   const input = '2024-03-31T12:30:00Z'
   const s = spacetime(input, 'UTC')
-  const cases = [[25, '2022-02-28T12:30:00.000Z'], [13, '2023-02-28T12:30:00.000Z']]
+  const cases = [[25, '2022-02-28T12:30:00.000Z'], [13, '2023-02-28T12:30:00.000Z']] as const
   cases.forEach(([months, expected]) => {
     t.equal(s.subtract(months, 'month').iso(), expected, `${input} UTC: subtract(${months}, month) clamps February`)
   })

@@ -1,17 +1,18 @@
+import { isUnitKey, setUnit } from '../fns.ts'
 import type { Spacetime } from '../types/index.ts'
 
 // pull in 'today' data for the baseline moment
 const getNow = function (s: Spacetime) {
   s.epoch = Date.now()
   Object.keys(s._today || {}).forEach((k) => {
-    if (typeof s[k] === 'function') {
-      s = s[k](s._today[k])
+    if (isUnitKey(k)) {
+      s = setUnit(s, k, s._today[k])
     }
   })
   return s
 }
 
-const dates = {
+const dates: Record<string, (s: Spacetime) => Spacetime> = {
   now: (s:Spacetime) => {
     return getNow(s)
   },

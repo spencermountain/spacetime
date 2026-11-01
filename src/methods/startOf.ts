@@ -2,9 +2,9 @@ import seasons from '../data/seasons.ts'
 import quarters from '../data/quarters.ts'
 import walkTo from './set/walk.ts'
 import { normalize } from '../fns.ts'
-import type { Spacetime } from '../types/index.ts'
+import type { Spacetime, TimeUnit } from '../types/index.ts'
 
-const units = {
+const units: Record<string, (s: Spacetime) => Spacetime> = {
   second: (s: Spacetime) => {
     walkTo(s, {
       millisecond: 0
@@ -155,24 +155,24 @@ const units = {
   }
 }
 
-const startOf = (a: Spacetime, unit: string): Spacetime => {
+const startOf = (a: Spacetime, unit: TimeUnit): Spacetime => {
   let s = a.clone()
   if (!s.isValid()) {
     return s
   }
-  unit = normalize(unit)
-  if (units[unit]) {
-    return units[unit](s)
+  const name: string = normalize(unit)
+  if (units[name]) {
+    return units[name](s)
   }
-  if (unit === 'summer' || unit === 'winter') {
-    s = s.season(unit)
+  if (name === 'summer' || name === 'winter') {
+    s = s.season(name)
     return units.season(s)
   }
   return s
 }
 
 //piggy-backs off startOf
-const endOf = (a: Spacetime, unit: string): Spacetime => {
+const endOf = (a: Spacetime, unit: TimeUnit): Spacetime => {
   let s = a.clone()
   if (!s.isValid()) {
     return s

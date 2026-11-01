@@ -1,9 +1,9 @@
 import { normalize } from '../fns.ts'
-import type { Spacetime } from '../types/index.ts'
+import type { Spacetime, TimeUnit } from '../types/index.ts'
 
 const units = ['year', 'season', 'quarter', 'month', 'week', 'date', 'quarterhour', 'hour', 'minute']
 
-const nearest = (s: Spacetime, unit: string): Spacetime => {
+const nearest = (s: Spacetime, unit: TimeUnit): Spacetime => {
   unit = normalize(unit)
   if (!units.includes(unit)) {
     if (s.silent === false) {

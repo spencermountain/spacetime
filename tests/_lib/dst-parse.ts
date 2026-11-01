@@ -1,21 +1,23 @@
 //local time of fall dst change-over
-const dstParse = (dstChange, num) => {
+const dstParse = (dstChange: string, num: number) => {
   const fall = dstChange.split('->')[num]
   const [month, rest] = fall.split('/')
-  let [day, hour] = rest.split(':')
-  if (hour === '24') {
-    hour = '0'
-    day = Number(day) + 1
+  const [dayStr, hourStr] = rest.split(':')
+  let day = Number(dayStr)
+  let hour = Number(hourStr)
+  if (hourStr === '24') {
+    hour = 0
+    day += 1
   }
-  if (hour === '00') {
-    hour = '23'
-    day = Number(day) - 1
+  if (hourStr === '00') {
+    hour = 23
+    day -= 1
   }
   return {
     year: new Date().getFullYear(),
     month: Number(month) - 1, //
-    date: Number(day),
-    hour: Number(hour),
+    date: day,
+    hour,
     minute: 2
   }
 }

@@ -40,7 +40,7 @@ test('dont leak milliseconds', (t) => {
     'June 5th, 1992',
     'June 5th',
     '2018/02/02'
-  ]
+  ] as const
   inputs.forEach((str) => {
     t.equal(spacetime(str).isEqual(str), true, str)
   })
@@ -57,10 +57,10 @@ test('goto is still equal', (t) => {
 })
 
 test('isEqual always boolean', (t) => {
-  t.equal(spacetime('1970-01-01', 'gmt').isEqual('1970-01-01', 'gmt'), true, 'isequal')
-  t.equal(spacetime('1970-01-02', 'gmt').isEqual('1970-01-02', 'gmt'), true, 'isequal')
-  t.equal(spacetime('1970-01-02', 'gmt').isEqual('1970-01-01', 'gmt'), false, 'isequal')
-  t.equal(spacetime('1970-01-01', 'gmt').isEqual('1970-01-02', 'gmt'), false, 'isequal')
+  t.equal(spacetime('1970-01-01', 'gmt').isEqual('1970-01-01'), true, 'isequal')
+  t.equal(spacetime('1970-01-02', 'gmt').isEqual('1970-01-02'), true, 'isequal')
+  t.equal(spacetime('1970-01-02', 'gmt').isEqual('1970-01-01'), false, 'isequal')
+  t.equal(spacetime('1970-01-01', 'gmt').isEqual('1970-01-02'), false, 'isequal')
   t.end()
 })
 

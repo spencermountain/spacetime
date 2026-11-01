@@ -1,7 +1,7 @@
 import ms from '../../data/milliseconds.ts'
-import type { Spacetime } from '../../types/index.ts'
+import type { Spacetime, TimeUnit } from '../../types/index.ts'
 
-const precision = {
+const precision: Record<string, TimeUnit> = {
   second: 'millisecond',
   minute: 'second',
   quarterhour: 'minute',
@@ -13,9 +13,9 @@ const precision = {
   season: 'day',
   year: 'day'
 }
-const years = { decade: 10, century: 100 }
+const years: Record<string, number> = { decade: 10, century: 100 }
 
-const addFraction = (s: Spacetime, num: number, unit: string) => {
+const addFraction = (s: Spacetime, num: number, unit: TimeUnit) => {
   if (Object.prototype.hasOwnProperty.call(years, unit)) {
     return s.add(num * years[unit], 'year')
   }

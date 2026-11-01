@@ -2,6 +2,7 @@ import Spacetime from './spacetime.ts'
 import whereIts from './whereIts.ts'
 import version from './_version.ts'
 import { tzdbVersion } from '../zonefile/_build.js'
+import { isUnitKey, setUnit } from './fns.ts'
 import type { SpacetimeInput, Options } from './types/index.ts'
 
 const create = (input?: SpacetimeInput, tz?: string, options?: Options) => new Spacetime(input, tz, options)
@@ -10,7 +11,9 @@ const create = (input?: SpacetimeInput, tz?: string, options?: Options) => new S
 const setToday = function (s: Spacetime): Spacetime {
   const today = s._today || {}
   Object.keys(today).forEach((k) => {
-    s = s[k](today[k])
+    if (isUnitKey(k)) {
+      s = setUnit(s, k, today[k])
+    }
   })
   return s
 }
@@ -26,10 +29,11 @@ const extend = function (obj: Record<string, any> = {}) {
   Object.keys(obj).forEach((k) => {
     // plugins should add methods, not replace existing ones
     // (re-registering the identical plugin is a harmless no-op)
-    if (k in Spacetime.prototype && Spacetime.prototype[k] !== obj[k]) {
+    const proto = Spacetime.prototype as unknown as Record<string, unknown>
+    if (k in proto && proto[k] !== obj[k]) {
       console.warn(`Spacetime Warning: .extend() is overriding the existing method '${k}'`) // eslint-disable-line no-console
     }
-    Spacetime.prototype[k] = obj[k]
+    proto[k] = obj[k]
   })
   return main // eslint-disable-line no-use-before-define
 }

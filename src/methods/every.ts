@@ -1,9 +1,9 @@
 import { normalize } from '../fns.ts'
 import { short, long } from '../data/days.ts'
-import type { Spacetime } from '../types/index.ts'
+import type { Spacetime, SpacetimeInput, TimeUnit } from '../types/index.ts'
 
 //is it 'wednesday'?
-const isDay = function (unit: string): boolean {
+const isDay = function (unit: TimeUnit): boolean {
   if (short().find((s) => s === unit)) {
     return true
   }
@@ -15,14 +15,14 @@ const isDay = function (unit: string): boolean {
 
 // return a list of the weeks/months/days between a -> b
 // returns spacetime objects in the timezone of the input
-const every = function (start: Spacetime, unit: string, end, stepCount = 1): Spacetime[] {
-  if (!unit || !end || !Number.isInteger(stepCount) || stepCount <= 0) {
+const every = function (start: Spacetime, unit: TimeUnit, to: SpacetimeInput, stepCount = 1): Spacetime[] {
+  if (!unit || !to || !Number.isInteger(stepCount) || stepCount <= 0) {
     return []
   }
   //cleanup unit param
   unit = normalize(unit)
   //cleanup to param
-  end = start.clone().set(end)
+  let end = start.clone().set(to)
   if (!start.isValid() || !end.isValid()) {
     return []
   }

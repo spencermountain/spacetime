@@ -61,7 +61,7 @@ test('south-increment-nov', (t) => {
 })
 
 // oracle: native Intl offset (minutes) for a UTC instant
-function intlOffsetMin(tz, utcISO) {
+function intlOffsetMin(tz: string, utcISO: string) {
   const v = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'longOffset' })
     .formatToParts(new Date(utcISO))
     .find((x) => x.type === 'timeZoneName').value // e.g. 'GMT+11:00'

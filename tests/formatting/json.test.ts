@@ -9,7 +9,7 @@ test('json in-out', (t) => {
     '2022-01-01T00:00:00.000Z',
     '2022-12-31T23:59:59.999Z',
     '2023-06-15T12:30:00.000-07:00'
-  ]
+  ] as const
   arr.forEach(str => {
     const a = spacetime(str)
     const json = a.json()
@@ -24,7 +24,7 @@ test('json in-out', (t) => {
 test('json', (t) => {
   const s = spacetime('2019-11-05T11:01:03.030-03:00')
   const json = s.format('json')
-  const want = {
+  const want: Record<string, number> = {
     century: 21,
     decade: 2010,
     year: 2019,
@@ -37,7 +37,7 @@ test('json', (t) => {
     millisecond: 30
   }
   Object.keys(want).forEach((k) => {
-    t.equal(want[k], json[k], 'json-' + k)
+    t.equal(want[k], (json as unknown as Record<string, unknown>)[k], 'json-' + k)
   })
   t.end()
 })

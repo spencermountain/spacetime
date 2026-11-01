@@ -45,7 +45,7 @@ const script = `
   console.log(JSON.stringify({rows, parsed, calendar}))
 `
 
-const run = host => JSON.parse(execFileSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', script], {
+const run = (host: string) => JSON.parse(execFileSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', script], {
   env: { ...process.env, TZ: host },
   encoding: 'utf8',
   timeout: 20000
@@ -59,7 +59,7 @@ test('clock fields and operations are independent of host DST', t => {
   t.equal(baseline.rows[8].iso, '2026-03-08T03:00:00.000-04:00', 'destination spring-forward still applies')
   t.equal(baseline.rows[10].iso, '2026-11-01T01:00:00.000-05:00', 'destination fallback still applies')
   t.deepEqual(baseline.calendar, [[4, 366], [99, 365], [1900, 365], [2000, 366], [2024, 366]], 'day-of-year handles small years and leap centuries')
-  baseline.rows.forEach(row => t.equal(row.native, row.epoch, 'native Date preserves the instant'))
+  baseline.rows.forEach((row: { native: number; epoch: number }) => t.equal(row.native, row.epoch, 'native Date preserves the instant'))
   ;['America/Toronto', 'Europe/Berlin', 'Australia/Lord_Howe', 'Asia/Kathmandu'].forEach(host => {
     t.deepEqual(run(host), baseline, host)
   })

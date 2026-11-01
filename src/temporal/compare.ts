@@ -1,10 +1,10 @@
 import { unitName, isBoundary } from './_lib.ts'
 import type Spacetime from './spacetime.ts'
-import type { SpacetimeInput } from '../types/index.ts'
+import type { Input, Units, BoundaryUnits } from '../../types/temporal-types.js'
 
 const diffUnits = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond']
 const compare = {
-  diff(this: Spacetime, input: SpacetimeInput, unit?: string) {
+  diff(this: Spacetime, input: Input, unit?: Units) {
     const other = this.set(input).goto(this.tz)
     if (!this.isValid() || !other.isValid()) {
       return NaN
@@ -20,17 +20,18 @@ const compare = {
         return NaN
       }
       const largestUnit = name as Temporal.DateUnit | Temporal.TimeUnit
-      return this._value.until(other._value, { largestUnit, smallestUnit: largestUnit, roundingMode: 'trunc' })[name + 's']
+      const between = this._value.until(other._value, { largestUnit, smallestUnit: largestUnit, roundingMode: 'trunc' })
+      return (between as unknown as Record<string, number>)[name + 's']
     }
     return unit ? get(unit) : Object.fromEntries(diffUnits.map((name) => [name + 's', get(name)]))
   },
-  isSame(this: Spacetime, input: SpacetimeInput, unit?: string, tzAware = true) {
+  isSame(this: Spacetime, input: Input, unit?: BoundaryUnits, tzAware = true) {
     if (!unit) {
       return null
     }
     if (typeof input === 'string' && typeof unit === 'object') {
       const date = unit
-      unit = input
+      unit = input as BoundaryUnits
       input = date
     }
     if (!isBoundary(unit)) {
@@ -48,7 +49,7 @@ const compare = {
     }
     return this.startOf(unit)._value.toPlainDateTime().equals(other.startOf(unit)._value.toPlainDateTime())
   },
-  isBetween(this: Spacetime, start: SpacetimeInput, end: SpacetimeInput, inclusive = false) {
+  isBetween(this: Spacetime, start: Input, end: Input, inclusive = false) {
     if (!this.isValid() || !this.set(start).isValid() || !this.set(end).isValid()) {
       return null
     }
@@ -60,7 +61,7 @@ const compare = {
 }
 // compare two instants, by their nanosecond epochs
 const operator = (compareFn: (a: bigint, b: bigint) => boolean) =>
-  function (this: Spacetime, input: SpacetimeInput): boolean | null {
+  function (this: Spacetime, input: Input): boolean | null {
     const other = this.set(input)
     return this.isValid() && other.isValid() ? compareFn(this._value.epochNanoseconds, other._value.epochNanoseconds) : null
   }

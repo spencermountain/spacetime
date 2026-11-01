@@ -27,7 +27,7 @@ test('random november time', (t) => {
     ['Europe/Kyiv', 'Thu 4:35am'],
     ['America/Winnipeg', 'Wed 9:35pm'], // permanent -05 since 2026
     ['Africa/Khartoum', 'Thu 4:35am']
-  ]
+  ] as const
   arr.forEach((a) => {
     const s = spacetime(epoch, a[0])
     const have = `${s.format('day-short')} ${s.time()}`
@@ -58,10 +58,10 @@ test('random march time', (t) => {
     ['Pacific/Efate', 'Mar 14 2018 14:55:50'],
     ['Pacific/Guam', 'Mar 14 2018 13:55:50'],
     ['Pacific/Pohnpei', 'Mar 14 2018 14:55:50']
-  ]
+  ] as const
   arr.forEach((a) => {
     const s = spacetime(epoch, a[0])
-    let hour = s.hour()
+    let hour: string | number = s.hour()
     if (hour <= 9) {
       hour = '0' + hour
     }
@@ -87,10 +87,10 @@ test('random july time', (t) => {
     ['Europe/Zagreb', 'Jul 17 3:55pm'],
     ['America/Caracas', 'Jul 17 9:55am'],
     ['Asia/Karachi', 'Jul 17 6:55pm']
-  ]
+  ] as const
   arr.forEach((a) => {
     const s = spacetime(epoch, a[0])
-    let hour = s.hour()
+    let hour: string | number = s.hour()
     if (hour <= 9) {
       hour = '0' + hour
     }
@@ -114,10 +114,10 @@ test('random january time', (t) => {
     ['Europe/Kiev', 'Jan 29 2:09pm'], // Alias to "Europe/Kyiv"
     ['Europe/Kyiv', 'Jan 29 2:09pm'],
     ['Pacific/Pohnpei', 'Jan 29 11:09pm']
-  ]
+  ] as const
   arr.forEach((a) => {
     const s = spacetime(epoch, a[0])
-    let hour = s.hour()
+    let hour: string | number = s.hour()
     if (hour <= 9) {
       hour = '0' + hour
     }

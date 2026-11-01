@@ -80,6 +80,7 @@ test('obj-input', (t) => {
   t.equal(s.monthName(), 'march', 'obj-month')
 
   //ignore null and undefined values
+  // @ts-expect-error - unknown and null fields are ignored
   const a = spacetime({
     month: '12',
     day: '25',
@@ -87,6 +88,7 @@ test('obj-input', (t) => {
     minute: '24',
     ampm: null
   })
+  // @ts-expect-error - unknown fields are ignored
   const b = spacetime({
     month: '12',
     day: '25',
@@ -394,6 +396,7 @@ test('weird inputs', (t) => {
   t.ok(isNull.isSame(now, 'hour'), 'null input')
   const isUndefined = spacetime(undefined)
   t.ok(isUndefined.isSame(now, 'hour'), 'Undefined input')
+  // @ts-expect-error - not a date
   const isFalse = spacetime(false)
   t.ok(isFalse.isSame(now, 'hour'), 'isFalse input')
   const isObj = spacetime({})

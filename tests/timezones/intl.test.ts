@@ -41,7 +41,7 @@ test('known aliases have independently specified offsets', (t) => {
     ['Asia/Katmandu', [345, 345]],
     ['US/Eastern', [-300, -240]],
     ['cet', [60, 120]]
-  ]
+  ] as const
   cases.forEach(([zone, offsets]) => {
     dates.forEach((date, i) => {
       t.equal(spacetime(date, zone).offset(), offsets[i], `${zone} offset on ${date}`)

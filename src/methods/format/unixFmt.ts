@@ -4,7 +4,7 @@ import type { Spacetime } from '../../types/index.ts'
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
 //time-symbols we support
-const mapping = {
+const mapping: Record<string, (s: Spacetime) => string | number> = {
   G: (s: Spacetime) => s.era(),
   GG: (s: Spacetime) => s.era(),
   GGG: (s: Spacetime) => s.era(),

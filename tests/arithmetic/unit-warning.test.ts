@@ -1,19 +1,20 @@
 /* eslint-disable no-console -- Intercept warnings to assert their contents. */
 import test from 'tape'
-import spacetime from '../_lib/index.ts'
+import spacetime, { call } from '../_lib/index.ts'
 
 test('unsupported arithmetic units warn only when requested', t => {
   const warn = console.warn
-  const warnings = []
+  const warnings: string[] = []
   console.warn = message => warnings.push(message)
   try {
     const quiet = spacetime('2026-01-15', 'UTC')
+    // @ts-expect-error - an unsupported unit is a no-op
     t.equal(quiet.add(3, 'daus').epoch, quiet.epoch, 'default remains a no-op')
     t.equal(warnings.length, 0, 'silent by default')
 
     const s = spacetime('2026-01-15', 'UTC', { silent: false })
     ;['add', 'subtract', 'plus', 'minus'].forEach(method => {
-      const result = s[method](3, 'daus')
+      const result = call(s, method, 3, 'daus')
       t.notEqual(result, s, method + ' returns a clone')
       t.equal(result.epoch, s.epoch, method + ' preserves the instant')
       t.equal(result.isValid(), true, method + ' remains valid')
@@ -24,9 +25,9 @@ test('unsupported arithmetic units warn only when requested', t => {
     })
 
     warnings.length = 0
-    ;['millisecond', 'seconds', 'minutes', 'hours', 'days', 'date', 'weeks',
+    ;(['millisecond', 'seconds', 'minutes', 'hours', 'days', 'date', 'weeks',
       'weekend', 'fortnight', 'months', 'quarterHour', 'quarters', 'seasons',
-      'years', 'decades', 'centuries'].forEach(unit => {
+      'years', 'decades', 'centuries'] as const).forEach(unit => {
       t.equal(s.add(1, unit).isValid(), true, unit + ' remains supported')
     })
     t.equal(warnings.length, 0, 'supported units and aliases do not warn')

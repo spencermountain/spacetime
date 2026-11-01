@@ -3,6 +3,7 @@ import { long as months } from '../data/months.ts'
 import { long as days, short as shortDays, aliases } from '../data/days.ts'
 import parseTime from '../input/formats/parseTime.ts'
 import type Spacetime from './spacetime.ts'
+import type { Units } from '../../types/temporal-types.js'
 
 // a getter/setter for one Temporal clock field, eg hour()/hour(n)
 interface ClockMethod {
@@ -15,7 +16,8 @@ const clockSetter = (key: string, field: string): ClockMethod =>
       return clockField(this, field)
     }
     const result = this._with({ [field]: fieldNumber(value, key) } as ClockFields)
-    const parent = { second: 'minute', minute: 'hour', hour: 'day', date: 'month' }[key]
+    const parents: Record<string, Units> = { second: 'minute', minute: 'hour', hour: 'day', date: 'month' }
+    const parent = parents[key]
     return parent ? direction(result, this, forward, parent) : result
   } as ClockMethod
 
@@ -69,7 +71,7 @@ const query = {
       return clockField(this, 'weekOfYear')
     }
     // January 4 always belongs to the first ISO week of the calendar year.
-    const inYear = year => this._with({ year, month: 1, day: 4 })
+    const inYear = (year: number) => this._with({ year, month: 1, day: 4 })
       .day(1, false).startOf('day').add(Number(value) - 1, 'week')
     const result = inYear(this.year())
     if (forward === true && result.epoch < this.epoch) {

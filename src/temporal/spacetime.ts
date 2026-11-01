@@ -3,17 +3,31 @@ import normalizeTimezone from './timezone.ts'
 import parse from './parse.ts'
 import format from '../methods/format/index.ts'
 import unixFmt from '../methods/format/unixFmt.ts'
-import { temporal, fieldValues, fields, asMain, type ClockFields } from './_lib.ts'
+import { temporal, fieldValues, fields, asMain, toParts, type ClockFields } from './_lib.ts'
 import query from './query.ts'
 import arithmetic from './arithmetic.ts'
 import compare from './compare.ts'
-import type { SpacetimeInput, Options, DateParts, Spacetime as MainSpacetime } from '../types/index.ts'
+import type { DateParts, Spacetime as MainSpacetime } from '../types/index.ts'
+import type { Input, Options, Timezone, DateFields, Json, Spacetime as Api } from '../../types/temporal-types.js'
 
 const formats = { 'iso-full': (s: MainSpacetime) => s.toTemporal().toString() }
 
-// instance methods mixed-in below; merged onto the class type here
-type Mixins = typeof query & typeof arithmetic & typeof compare
-interface Spacetime extends Mixins {}
+
+// the instance api is declared in /types; the implementation is checked against it.
+// internals that the public declaration doesn't mention are added here, for src only.
+declare module '../../types/temporal-types.js' {
+  interface Spacetime {
+    _tz: string
+    _value: Temporal.ZonedDateTime | null
+    _pending: Temporal.PlainDateTime | null
+    _weekStart: number
+    _today: DateParts
+    readonly _clock: Temporal.ZonedDateTime | Temporal.PlainDateTime | null
+    _result(value: Temporal.ZonedDateTime | Temporal.PlainDateTime): Spacetime
+    _with(values: ClockFields): Spacetime
+  }
+}
+interface Spacetime extends Api {}
 
 class Spacetime {
   _tz: string
@@ -26,11 +40,11 @@ class Spacetime {
   british: boolean
   silent: boolean
 
-  constructor(input?: SpacetimeInput, tz?: string, options: Options = {}) {
+  constructor(input?: Input, tz?: Timezone, options: Options = {}) {
     const T = temporal()
     this._tz = T.Now.timeZoneId()
     this._weekStart = options.weekStart == null ? 1 : options.weekStart
-    this._today = { ...options.today }
+    this._today = toParts(options.today)
     this.british = options.dmy || options.british
     this.silent = options.silent == null ? true : options.silent
     this._pending = null
@@ -67,8 +81,8 @@ class Spacetime {
       })
     }
   }
-  get tz() { return this._tz }
-  set tz(value: string) {
+  get tz(): string { return this._tz }
+  set tz(value: Timezone) {
     const result = attempt(this, () => {
       const s = this.clone()
       s._tz = normalizeTimezone(value, temporal().Now.timeZoneId())
@@ -95,18 +109,18 @@ class Spacetime {
   toTemporal() { return this._value }
   toNativeDate() { return new Date(this.isValid() ? this.epoch : NaN) }
   toLocalDate() { return this.toNativeDate() }
-  set(input: SpacetimeInput, tz: string = this.tz): Spacetime {
+  set(input?: Input, tz: Timezone = this.tz): Spacetime {
     return new Spacetime(input, tz, { today: this._today, weekStart: this._weekStart, british: this.british, silent: this.silent })
   }
-  goto(tz: string): Spacetime {
+  goto(tz?: Timezone): Spacetime {
     const s = this.clone()
     s.tz = tz
     return s
   }
   /** metadata about the current timezone, or a copy in a new timezone (keeping the same wall-clock time) */
   timezone(): { name: string; current: { offset: number } }
-  timezone(tz: string): Spacetime
-  timezone(tz?: string) {
+  timezone(tz: Timezone): Spacetime
+  timezone(tz?: Timezone) {
     if (tz !== undefined) {
       tz = normalizeTimezone(tz, temporal().Now.timeZoneId())
       const s = this.clone()
@@ -121,21 +135,30 @@ class Spacetime {
   offset() { return this._value ? this._value.offsetNanoseconds / 60000000000 : NaN }
   format(fmt: string) { return format(asMain(this), fmt, formats) }
   unixFmt(fmt: string): string { return this.isValid() ? unixFmt(asMain(this), fmt) : '' }
-  iso(input?: SpacetimeInput) { return input === undefined ? this.format('iso') : this.set(input) }
-  isoFull(input?: SpacetimeInput) { return input === undefined ? this.format('iso-full') : this.set(input) }
-  epochSeconds(value?: number) {
+  iso(): string
+  iso(input: Input): Spacetime
+  iso(input?: Input) { return input === undefined ? this.format('iso') : this.set(input) }
+  isoFull(): string
+  isoFull(input: Input): Spacetime
+  isoFull(input?: Input) { return input === undefined ? this.format('iso-full') : this.set(input) }
+  epochSeconds(): number
+  epochSeconds(value: number): Spacetime
+  epochSeconds(value?: number): number | Spacetime {
     if (value !== undefined) {
       this.epoch = value * 1000
       return this
     }
     return this.isValid() ? Math.floor(this.epoch / 1000) : NaN
   }
-  json(input?: DateParts) {
+  json(): Json
+  json(input: DateFields): Spacetime
+  json(input?: DateFields): Json | Spacetime {
     if (input !== undefined) {
       return this.timezone(input.timezone || this.tz)._with(fieldValues(input))
     }
-    const out = Object.fromEntries([...fields, 'century', 'decade', 'day'].map((key) => [key, this[key]()]))
-    return { ...out, offset: this.offset() / 60, timezone: this.tz }
+    const self = this as unknown as Record<string, () => number>
+    const out = Object.fromEntries([...fields, 'century', 'decade', 'day'].map((key) => [key, self[key]()]))
+    return { ...out, offset: this.offset() / 60, timezone: this.tz } as Json
   }
 }
 Object.assign(Spacetime.prototype, query, arithmetic, compare)
@@ -143,9 +166,10 @@ Object.assign(Spacetime.prototype, query, arithmetic, compare)
 // Guard value-changing APIs without changing the return types of their getters.
 const setters = [...Object.keys(query), 'timezone', 'json']
 const transformations = ['add', 'subtract', 'plus', 'minus', 'startOf', 'endOf', 'next', 'last', 'nearest', 'round', 'goto']
+const proto = Spacetime.prototype as unknown as Record<string, (this: Spacetime, ...args: unknown[]) => unknown>
 for (const name of [...setters, ...transformations]) {
-  const method = Spacetime.prototype[name]
-  Spacetime.prototype[name] = function (...args) {
+  const method = proto[name]
+  proto[name] = function (...args: unknown[]) {
     if (setters.includes(name) && args[0] === undefined) {
       return method.apply(this, args)
     }

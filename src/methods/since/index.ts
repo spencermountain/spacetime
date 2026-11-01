@@ -10,14 +10,14 @@ import {
   pastDistanceString,
   futureDistanceString
 } from '../../data/distance.ts'
-import type { Spacetime } from '../../types/index.ts'
+import type { Spacetime, SpacetimeInput } from '../../types/index.ts'
 //by spencermountain + Shaun Grady
 
 //create the human-readable diff between the two dates
-const since = (start: Spacetime, end: Spacetime) => {
-  end = beADate(end, start)
+const since = (start: Spacetime, input: SpacetimeInput) => {
+  const end = beADate(input, start)
   const diff = getDiff(start, end)
-  const isNow = Object.keys(diff).every((u) => !diff[u])
+  const isNow = Object.values(diff).every((v) => !v)
   if (isNow === true) {
     return {
       diff,

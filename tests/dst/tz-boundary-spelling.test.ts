@@ -2,7 +2,7 @@ import test from 'tape'
 import { normalizeZone } from '../../scripts/tz/lib.js'
 
 // A zone with no previous dst string, so spellings come from the generator, not preservation.
-const fresh = (hem, offset, shift, transitions, year = 2026) => {
+const fresh = (hem: string, offset: number, shift: number, transitions: unknown[], year = 2026) => {
   const initial = { offset, dst: hem === 's' }
   const previous = { offset, hem }
   return normalizeZone({ initial, transitions }, previous, 'test/zone', year).dst

@@ -1,4 +1,4 @@
-import type { Spacetime, SpacetimeInput } from './types/index.ts'
+import type { Spacetime, SpacetimeInput, TimeUnit, GetSet } from './types/index.ts'
 
 //git:blame @JuliasCaesar https://www.timeanddate.com/date/leapyear.html
 export const isLeapYear = (year: number): boolean => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
@@ -44,7 +44,8 @@ export const toCardinal = (input: number | string): number => {
 }
 
 //used mostly for cleanup of unit names, like 'months'
-export const normalize = (str = ''): string => {
+// (unknown units pass through unchanged; the caller warns or ignores them)
+export const normalize = (str = ''): TimeUnit => {
   str = str.toLowerCase().trim()
   str = str.replace(/ies$/, 'y') //'centuries'
   str = str.replace(/s$/, '')
@@ -55,7 +56,7 @@ export const normalize = (str = ''): string => {
   if (str === 'min' || str === 'mins') {
     return 'minute'
   }
-  return str
+  return str as TimeUnit
 }
 
 export const getEpoch = (tmp: number | Date | Spacetime | { epoch: number }): number | null => {
@@ -76,11 +77,18 @@ export const getEpoch = (tmp: number | Date | Spacetime | { epoch: number }): nu
 
 //make sure this input is a spacetime obj
 export const beADate = (d: SpacetimeInput, s: Spacetime): Spacetime => {
-  if (isObject(d) === false) {
-    return s.clone().set(d)
+  if (d instanceof Object && 'epoch' in d) {
+    return d as Spacetime
   }
-  return d as Spacetime
+  return d == null ? s.clone().set() : s.clone().set(d)
 }
+
+/** the clock-unit getter/setters, for looking a method up by name */
+export const unitKeys = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'] as const
+export type UnitKey = typeof unitKeys[number]
+export const isUnitKey = (k: string): k is UnitKey => (unitKeys as readonly string[]).includes(k)
+export const getUnit = (s: Spacetime, unit: UnitKey): number => (s[unit] as GetSet<number, number | string>).call(s)
+export const setUnit = (s: Spacetime, unit: UnitKey, value: number | string): Spacetime => (s[unit] as GetSet<number, number | string>).call(s, value)
 
 export const formatTimezone = (offset: number, delimiter = ''): string => {
   const sign = offset > 0 ? '+' : '-'

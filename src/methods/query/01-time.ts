@@ -1,33 +1,34 @@
 import { milliseconds, seconds, minutes, hours, time as _time } from '../set/set.ts'
 import { am, pm } from '../../data/ampm.ts'
 import { zeroPad } from '../../fns.ts'
+import type { Spacetime, GetSet, SpacetimeInput } from '../../types/index.ts'
 
 const methods = {
-  millisecond: function (num?: number | string) {
+  millisecond: function (this: Spacetime, num?: number | string) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = milliseconds(s, num)
       return s
     }
     return this.d.getUTCMilliseconds()
-  },
-  second: function (num?: number | string, goFwd?: boolean) {
+  } as GetSet<number, number | string>,
+  second: function (this: Spacetime, num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = seconds(s, num, goFwd)
       return s
     }
     return this.d.getUTCSeconds()
-  },
-  minute: function (num?: number | string, goFwd?: boolean) {
+  } as GetSet<number, number | string>,
+  minute: function (this: Spacetime, num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = minutes(s, num, goFwd)
       return s
     }
     return this.d.getUTCMinutes()
-  },
-  hour: function (num?: number | string, goFwd?: boolean) {
+  } as GetSet<number, number | string>,
+  hour: function (this: Spacetime, num?: number | string, goFwd?: boolean) {
     const d = this.d
     if (num !== undefined) {
       const s = this.clone()
@@ -35,10 +36,10 @@ const methods = {
       return s
     }
     return d.getUTCHours()
-  },
+  } as GetSet<number, number | string>,
 
   //'3:30' is 3.5
-  hourFloat: function (num?: number | string, goFwd?: boolean) {
+  hourFloat: function (this: Spacetime, num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
       num = Number(num)
@@ -54,10 +55,10 @@ const methods = {
     let minute = d.getUTCMinutes()
     minute = minute / 60
     return hour + minute
-  },
+  } as GetSet<number, number | string>,
 
   // hour in 12h format
-  hour12: function (str?: string, goFwd?: boolean) {
+  hour12: function (this: Spacetime, str?: string, goFwd?: boolean) {
     const d = this.d
     if (str !== undefined) {
       const s = this.clone()
@@ -84,10 +85,10 @@ const methods = {
       hour12 = 12
     }
     return hour12
-  },
+  } as GetSet<number, string>,
 
   //some ambiguity here with 12/24h
-  time: function (str?: string, goFwd?: boolean) {
+  time: function (this: Spacetime, str?: string, goFwd?: boolean) {
     if (str !== undefined) {
       const s = this.clone()
       str = str.toLowerCase().trim()
@@ -95,10 +96,10 @@ const methods = {
       return s
     }
     return `${this.h12()}:${zeroPad(this.minute())}${this.ampm()}`
-  },
+  } as GetSet<string, string>,
 
   // either 'am' or 'pm'
-  ampm: function (input?: string, goFwd?: boolean) {
+  ampm: function (this: Spacetime, input?: string, goFwd?: boolean) {
     // let which = 'am'
     let which = am()
     let hour = this.hour()
@@ -124,12 +125,12 @@ const methods = {
       return s.hour(hour, goFwd)
     }
     return s
-  },
+  } as GetSet<string, string>,
 
   //some hard-coded times of day, like 'noon'
-  dayTime: function (str?: string, goFwd?: boolean) {
+  dayTime: function (this: Spacetime, str?: string, goFwd?: boolean) {
     if (str !== undefined) {
-      const times = {
+      const times: Record<string, string> = {
         morning: '7:00',
         breakfast: '7:00',
         noon: '12:00',
@@ -165,23 +166,23 @@ const methods = {
       return 'evening'
     }
     return 'night'
-  },
+  } as GetSet<string, string>,
 
   //get/set a traditional iso string
-  iso: function (num?: number) {
+  iso: function (this: Spacetime, num?: number) {
     if (num !== undefined) {
       return this.set(num)
     }
     return this.format('iso')
-  },
+  } as GetSet<string, SpacetimeInput>,
   // get/set a new iso string
-  isoFull: function (num?: number) {
+  isoFull: function (this: Spacetime, num?: number) {
     if (num !== undefined) {
       return this.set(num)
     }
     return this.format('iso-full')
-  },
-  epochSeconds: function (num?: number) {
+  } as GetSet<string, SpacetimeInput>,
+  epochSeconds: function (this: Spacetime, num?: number) {
     if (num !== undefined) {
       this.epoch = num * 1000
       return this
@@ -190,6 +191,6 @@ const methods = {
       return null
     }
     return Math.floor(this.epoch / 1000)
-  }
+  } as GetSet<number | null, number>,
 }
 export default methods

@@ -1,5 +1,5 @@
 import test from 'tape'
-import spacetime from '../_lib/index.ts'
+import spacetime, { call } from '../_lib/index.ts'
 
 test('large date numbers', function (t) {
   let d = spacetime([2019, 'february'])
@@ -48,7 +48,7 @@ test('large month numbers', function (t) {
 test('date setters clamp immediately outside each month', (t) => {
   const months = [
     [2023, 1, 28], [2024, 1, 29], [2024, 3, 30], [2024, 0, 31]
-  ]
+  ] as const
   months.forEach(([year, month, last]) => {
     const s = spacetime([year, month, 15, 12, 34, 56, 789], 'UTC')
     const cases = [[-1, 1], [0, 1], [1, 1], [2, 2], [last - 1, last - 1], [last, last], [last + 1, last]]
@@ -89,7 +89,7 @@ test('month and year setters clamp February in common and leap years', (t) => {
   cases.forEach(([input, method, value, expected]) => {
     const s = spacetime(input, 'UTC')
     const label = `${input} UTC: ${method}(${value})`
-    t.equal(s[method](value).iso(), expected, label)
+    t.equal(call(s, method, value).iso(), expected, label)
     t.equal(s.epoch, Date.parse(input), `${label} preserves the source`)
   })
   t.end()

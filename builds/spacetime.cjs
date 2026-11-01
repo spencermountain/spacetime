@@ -61,11 +61,15 @@ const getEpoch = (tmp) => {
   return null;
 };
 const beADate = (d, s) => {
-  if (isObject(d) === false) {
-    return s.clone().set(d);
+  if (d instanceof Object && "epoch" in d) {
+    return d;
   }
-  return d;
+  return d == null ? s.clone().set() : s.clone().set(d);
 };
+const unitKeys = ["year", "month", "date", "hour", "minute", "second", "millisecond"];
+const isUnitKey = (k) => unitKeys.includes(k);
+const getUnit = (s, unit) => s[unit].call(s);
+const setUnit = (s, unit, value) => s[unit].call(s, value);
 const formatTimezone = (offset, delimiter = "") => {
   const sign = offset > 0 ? "+" : "-";
   const absOffset = Math.abs(offset);
@@ -103,14 +107,12 @@ const parseTemporal = (s, input) => {
     return null;
   }
   if (input instanceof T.ZonedDateTime || input instanceof T.Instant) {
-    if (input instanceof T.ZonedDateTime) {
-      input = isoCalendar(s, input);
-    }
-    if (input.epochNanoseconds % 1000000n !== 0n) {
+    const value = input instanceof T.ZonedDateTime ? isoCalendar(s, input) : input;
+    if (value.epochNanoseconds % 1000000n !== 0n) {
       warn(s, "Temporal sub-millisecond precision discarded; use spacetime/temporal to preserve it");
     }
-    s.epoch = input.epochMilliseconds;
-    const native = input instanceof T.Instant ? input.toZonedDateTimeISO(temporalZone(s)) : input.withTimeZone(temporalZone(s));
+    s.epoch = value.epochMilliseconds;
+    const native = value instanceof T.Instant ? value.toZonedDateTimeISO(temporalZone(s)) : value.withTimeZone(temporalZone(s));
     if (Math.round(s.offset() * 6e10) !== native.offsetNanoseconds) {
       warn(s, "Spacetime timezone rules differ from Temporal at this instant; use spacetime/temporal for native wall-clock values");
     }
@@ -425,116 +427,6 @@ const lookupTz = (str, zones) => {
   );
 };
 
-const defaults$1 = {
-  year: (/* @__PURE__ */ new Date()).getFullYear(),
-  month: 0,
-  date: 1
-};
-const units$6 = ["year", "month", "date", "hour", "minute", "second", "millisecond"];
-const parseArray$1 = (s, arr, today) => {
-  if (arr.length === 0) {
-    return s;
-  }
-  for (let i = 0; i < units$6.length; i++) {
-    let num = arr[i];
-    if (num == null) {
-      num = today[units$6[i]];
-    }
-    if (num == null) {
-      num = defaults$1[units$6[i]];
-    }
-    if (num == null) {
-      num = 0;
-    }
-    s = s[units$6[i]](num);
-  }
-  return s;
-};
-const parseObject$1 = (s, obj) => {
-  if (Object.keys(obj).length === 0) {
-    return s;
-  }
-  obj = Object.assign({}, defaults$1, obj);
-  if (obj.timezone) {
-    s.tz = obj.timezone;
-  }
-  for (let i = 0; i < units$6.length; i++) {
-    const unit = units$6[i];
-    if (obj[unit] !== void 0) {
-      s = s[unit](obj[unit]);
-    }
-  }
-  return s;
-};
-const parseNumber$1 = function(s, input) {
-  const minimumEpoch = 25e8;
-  if (input > 0 && input < minimumEpoch && s.silent === false) {
-    console.warn("  - Warning: You are setting the date to January 1970.");
-    console.warn("       -   did input seconds instead of milliseconds?");
-  }
-  s.epoch = input;
-  return s;
-};
-var fns = {
-  parseArray: parseArray$1,
-  parseObject: parseObject$1,
-  parseNumber: parseNumber$1
-};
-
-const getNow = function(s) {
-  s.epoch = Date.now();
-  Object.keys(s._today || {}).forEach((k) => {
-    if (typeof s[k] === "function") {
-      s = s[k](s._today[k]);
-    }
-  });
-  return s;
-};
-const dates = {
-  now: (s) => {
-    return getNow(s);
-  },
-  today: (s) => {
-    return getNow(s);
-  },
-  tonight: (s) => {
-    s = getNow(s);
-    s = s.hour(18);
-    return s;
-  },
-  tomorrow: (s) => {
-    s = getNow(s);
-    s = s.add(1, "day");
-    s = s.startOf("day");
-    return s;
-  },
-  yesterday: (s) => {
-    s = getNow(s);
-    s = s.subtract(1, "day");
-    s = s.startOf("day");
-    return s;
-  },
-  christmas: (s) => {
-    const year = getNow(s).year();
-    s = s.set([year, 11, 25, 18, 0, 0]);
-    return s;
-  },
-  "new years": (s) => {
-    const year = getNow(s).year();
-    s = s.set([year, 11, 31, 18, 0, 0]);
-    return s;
-  }
-};
-dates["new years eve"] = dates["new years"];
-
-const normalize = function(str) {
-  str = str.replace(/\b(mon|tues?|wed|wednes|thur?s?|fri|sat|satur|sun)(day)?\b/i, "");
-  str = str.replace(/([0-9])(th|rd|st|nd)/, "$1");
-  str = str.replace(/,/g, "");
-  str = str.replace(/ +/g, " ").trim();
-  return str;
-};
-
 const monthLengths = [
   31,
   // January - 31 days
@@ -590,7 +482,7 @@ const parseTime = (s, str = "") => {
     }
     s = s.hour(h);
     s = s.minute(m);
-    s = s.seconds(sec || 0);
+    s = s.second(Number(sec || 0));
     s = s.millisecond(parseMs(ms));
     if (ampm) {
       s = s.ampm(suffix);
@@ -686,6 +578,13 @@ const validate$1 = (obj) => {
   }
   return false;
 };
+const clampDate = (obj) => {
+  let max = monthLengths[obj.month] || 31;
+  if (obj.month === 1 && isLeapYear(obj.year)) {
+    max = 29;
+  }
+  return Math.min(obj.date, max);
+};
 const parseYear = (str = "", today) => {
   str = str.trim();
   if (/^'?[0-9][0-9]$/.test(str) === true) {
@@ -712,6 +611,134 @@ const parseMonth = function(str) {
 const parseTz = function(str) {
   str = str.trim();
   str = str.replace(/[[\]]/g, "");
+  return str;
+};
+
+const defaults$1 = {
+  year: (/* @__PURE__ */ new Date()).getFullYear(),
+  month: 0,
+  date: 1
+};
+const units$6 = ["year", "month", "date", "hour", "minute", "second", "millisecond"];
+const parseArray$1 = (s, arr, today) => {
+  if (arr.length === 0) {
+    return s;
+  }
+  for (let i = 0; i < units$6.length; i++) {
+    let num = arr[i];
+    if (num == null) {
+      num = today[units$6[i]];
+    }
+    if (num == null) {
+      num = defaults$1[units$6[i]];
+    }
+    if (num == null) {
+      num = 0;
+    }
+    s = setUnit(s, units$6[i], num);
+  }
+  return s;
+};
+const parseObject$1 = (s, obj) => {
+  if (Object.keys(obj).length === 0) {
+    return s;
+  }
+  obj = Object.assign({}, defaults$1, obj);
+  if (obj.timezone) {
+    s.tz = obj.timezone;
+  }
+  for (let i = 0; i < units$6.length; i++) {
+    const unit = units$6[i];
+    if (obj[unit] !== void 0) {
+      s = setUnit(s, unit, obj[unit]);
+    }
+  }
+  return s;
+};
+const toParts = (today = {}) => {
+  const out = {};
+  units$6.forEach((unit) => {
+    const value = today[unit];
+    if (value === void 0 || value === null) {
+      return;
+    }
+    if (unit === "month" && typeof value === "string" && isNaN(Number(value))) {
+      const month = parseMonth(value);
+      if (month !== void 0) {
+        out.month = month;
+      }
+      return;
+    }
+    out[unit] = Number(value);
+  });
+  return out;
+};
+const parseNumber$1 = function(s, input) {
+  const minimumEpoch = 25e8;
+  if (input > 0 && input < minimumEpoch && s.silent === false) {
+    console.warn("  - Warning: You are setting the date to January 1970.");
+    console.warn("       -   did input seconds instead of milliseconds?");
+  }
+  s.epoch = input;
+  return s;
+};
+var fns = {
+  parseArray: parseArray$1,
+  parseObject: parseObject$1,
+  parseNumber: parseNumber$1
+};
+
+const getNow = function(s) {
+  s.epoch = Date.now();
+  Object.keys(s._today || {}).forEach((k) => {
+    if (isUnitKey(k)) {
+      s = setUnit(s, k, s._today[k]);
+    }
+  });
+  return s;
+};
+const dates = {
+  now: (s) => {
+    return getNow(s);
+  },
+  today: (s) => {
+    return getNow(s);
+  },
+  tonight: (s) => {
+    s = getNow(s);
+    s = s.hour(18);
+    return s;
+  },
+  tomorrow: (s) => {
+    s = getNow(s);
+    s = s.add(1, "day");
+    s = s.startOf("day");
+    return s;
+  },
+  yesterday: (s) => {
+    s = getNow(s);
+    s = s.subtract(1, "day");
+    s = s.startOf("day");
+    return s;
+  },
+  christmas: (s) => {
+    const year = getNow(s).year();
+    s = s.set([year, 11, 25, 18, 0, 0]);
+    return s;
+  },
+  "new years": (s) => {
+    const year = getNow(s).year();
+    s = s.set([year, 11, 31, 18, 0, 0]);
+    return s;
+  }
+};
+dates["new years eve"] = dates["new years"];
+
+const normalize = function(str) {
+  str = str.replace(/\b(mon|tues?|wed|wednes|thur?s?|fri|sat|satur|sun)(day)?\b/i, "");
+  str = str.replace(/([0-9])(th|rd|st|nd)/, "$1");
+  str = str.replace(/,/g, "");
+  str = str.replace(/ +/g, " ").trim();
   return str;
 };
 
@@ -932,6 +959,7 @@ const parsers$1 = [
         month: parseMonth(arr[1]),
         date: s._today.date || 1
       };
+      parts.date = clampDate(parts);
       if (validate$1(parts) === false) {
         return null;
       }
@@ -966,6 +994,7 @@ const parsers$1 = [
         month: d.getMonth(),
         date: d.getDate()
       };
+      parts.date = clampDate(parts);
       if (validate$1(parts) === false) {
         return null;
       }
@@ -984,6 +1013,7 @@ const parsers$1 = [
         month: d.getMonth(),
         date: d.getDate()
       };
+      parts.date = clampDate(parts);
       if (validate$1(parts) === false) {
         return null;
       }
@@ -1002,6 +1032,7 @@ const parsers$1 = [
         // using today's date, but a new month is awkward.
         date: today.date || (today.month ? 1 : d.getDate())
       };
+      parts.date = clampDate(parts);
       if (validate$1(parts) === false) {
         return null;
       }
@@ -1097,6 +1128,14 @@ const walk = (s, n, fn, unit, previous) => {
   }
   while (s.d[fn]() > n) {
     s.epoch -= halfStep;
+    if (previous !== null && startUnit !== s.d[previous]()) {
+      const before = s.d.getTime();
+      s.epoch += halfStep;
+      const target = s.d;
+      target[fn.replace("get", "set")](n);
+      s.epoch += target.getTime() - before - halfStep;
+      break;
+    }
   }
   if (previous !== null && startUnit !== s.d[previous]()) {
     s.epoch = original;
@@ -1162,7 +1201,7 @@ const walkTo = (s, wants) => {
     const k = keys[i];
     let n = wants[k];
     if (n === void 0) {
-      n = old[k]();
+      n = getUnit(old, k);
     }
     if (typeof n === "string") {
       n = parseInt(n, 10);
@@ -1255,7 +1294,7 @@ const parseInput = (s, input, timezone) => {
   if (isObject(input)) {
     if ("epoch" in input) {
       s.epoch = typeof input.epoch === "number" ? input.epoch : NaN;
-      if (timezone == null && "tz" in input && input.tz) {
+      if (timezone == null && "tz" in input && typeof input.tz === "string") {
         s.tz = input.tz;
       }
       return s;
@@ -1723,8 +1762,7 @@ const diffOne = (a, b, unit) => {
 
 const fastYear = (a, b) => {
   let years = b.year() - a.year();
-  a = a.year(b.year());
-  if (a.isAfter(b)) {
+  if (a.add(years, "year").isAfter(b)) {
     years -= 1;
   }
   return years;
@@ -1743,6 +1781,7 @@ const diff = function(a, b) {
   obj.months = obj.years * 12;
   tmp = a.add(obj.months, "month");
   obj.months += diffOne(tmp, b, "month");
+  obj.years = Math.trunc(obj.months / 12);
   obj.quarters = obj.years * 4;
   obj.quarters += Math.trunc(obj.months % 12 / 3);
   obj.weeks = obj.years * 52;
@@ -1815,10 +1854,19 @@ function getDiff(a, b) {
     if (earlier.isSame(later, unit)) {
       return;
     }
-    const max = earlier.diff(later, unit);
-    earlier = earlier.add(max, unit);
+    let max = earlier.diff(later, unit);
+    let next = earlier.add(max, unit);
+    if (next.isAfter(later)) {
+      max -= 1;
+      next = earlier.add(max, unit);
+    }
+    earlier = next;
     diff[unit] = max;
   });
+  if (diff.months >= 12) {
+    diff.years += Math.trunc(diff.months / 12);
+    diff.months = diff.months % 12;
+  }
   if (isBefore) {
     Object.keys(diff).forEach((u) => {
       if (diff[u] !== 0) {
@@ -1966,10 +2014,10 @@ const toSoft = function(diff) {
   return { qualified, rounded, abbreviated, englishValues };
 };
 
-const since = (start, end) => {
-  end = beADate(end, start);
+const since = (start, input) => {
+  const end = beADate(input, start);
   const diff = getDiff(start, end);
-  const isNow = Object.keys(diff).every((u) => !diff[u]);
+  const isNow = Object.values(diff).every((v) => !v);
   if (isNow === true) {
     return {
       diff,
@@ -2024,7 +2072,7 @@ const south = [
   ["summer", 11, 1]
   //dec 1
 ];
-var seasons = { north, south };
+const seasons = { north, south };
 
 const quarters = [
   null,
@@ -2190,12 +2238,12 @@ const startOf = (a, unit) => {
   if (!s.isValid()) {
     return s;
   }
-  unit = normalize$2(unit);
-  if (units$1[unit]) {
-    return units$1[unit](s);
+  const name = normalize$2(unit);
+  if (units$1[name]) {
+    return units$1[name](s);
   }
-  if (unit === "summer" || unit === "winter") {
-    s = s.season(unit);
+  if (name === "summer" || name === "winter") {
+    s = s.season(name);
     return units$1.season(s);
   }
   return s;
@@ -2224,12 +2272,12 @@ const isDay = function(unit) {
   }
   return false;
 };
-const every = function(start, unit, end, stepCount = 1) {
-  if (!unit || !end || !Number.isInteger(stepCount) || stepCount <= 0) {
+const every = function(start, unit, to, stepCount = 1) {
+  if (!unit || !to || !Number.isInteger(stepCount) || stepCount <= 0) {
     return [];
   }
   unit = normalize$2(unit);
-  end = start.clone().set(end);
+  let end = start.clone().set(to);
   if (!start.isValid() || !end.isValid()) {
     return [];
   }
@@ -2322,20 +2370,16 @@ const timezone = (s) => {
   return result;
 };
 
-const units = [
-  "century",
-  "decade",
-  "year",
-  "month",
-  "date",
-  "day",
-  "hour",
-  "minute",
-  "second",
-  "millisecond"
-];
+const units = ["century", "decade", "year", "month", "date", "day", "hour", "minute", "second", "millisecond"];
 function diffMethod(d, unit) {
   return main$1(this, d, unit);
+}
+function timezoneMethod(tz) {
+  if (tz !== void 0) {
+    const json = { ...this.json(), timezone: tz };
+    return this.set(json, tz);
+  }
+  return timezone(this);
 }
 const methods$8 = {
   set: function(input, tz) {
@@ -2346,14 +2390,7 @@ const methods$8 = {
     }
     return s;
   },
-  timezone: function(tz) {
-    if (tz !== void 0) {
-      const json = this.json();
-      json.timezone = tz;
-      return this.set(json, tz);
-    }
-    return timezone(this);
-  },
+  timezone: timezoneMethod,
   isDST: function() {
     return timezone(this).current.isDST;
   },
@@ -2478,19 +2515,19 @@ const methods$8 = {
     if (input !== void 0) {
       let s = this.clone();
       if (input.timezone) {
-        s.tz = input.timezone;
+        s.tz = String(input.timezone);
       }
       for (let i = 0; i < units.length; i++) {
         const unit = units[i];
-        if (input[unit] !== void 0) {
-          s = s[unit](input[unit]);
+        if (input[unit] !== void 0 && isUnitKey(unit)) {
+          s = setUnit(s, unit, input[unit]);
         }
       }
       return s;
     }
     const obj = {};
     units.forEach((unit) => {
-      obj[unit] = this[unit]();
+      obj[unit] = isUnitKey(unit) ? getUnit(this, unit) : this[unit]();
     });
     obj.offset = this.timezone().current.offset;
     obj.timezone = this.tz;
@@ -2505,8 +2542,8 @@ const methods$8 = {
   },
   //alias of 'since' but opposite - like moment.js
   from: function(d) {
-    d = this.clone().set(d);
-    return d.since(this);
+    const other = this.clone().set(d);
+    return other.since(this);
   },
   fromNow: function() {
     const d = this.clone().set(Date.now());
@@ -2615,8 +2652,8 @@ const confirm = (s, tmp, unit) => {
   const n = order$1.indexOf(unit);
   const arr = order$1.slice(n, order$1.length);
   for (let i = 0; i < arr.length; i++) {
-    const want = tmp[arr[i]]();
-    s[arr[i]](want);
+    const want = getUnit(tmp, arr[i]);
+    setUnit(s, arr[i], want);
   }
   return s;
 };
@@ -3453,7 +3490,7 @@ const add = function(num, unit) {
   let want = {};
   if (keep[unit]) {
     keep[unit].forEach((u) => {
-      want[u] = old[u]();
+      want[u] = getUnit(old, u);
     });
   }
   if (dstAwareUnits[unit]) {
@@ -3573,19 +3610,20 @@ const isSame = function(b, unit, tzAware = true) {
     b = unit;
     unit = tmp;
   }
+  let other = b;
   if (typeof b === "string" || typeof b === "number") {
-    b = new this.constructor(b, this.timezone.name);
+    other = this.clone().set(b);
   }
-  if (!a.isValid() || b == null || b.isValid == null || !b.isValid()) {
+  if (!a.isValid() || other == null || other.isValid == null || !other.isValid()) {
     return false;
   }
-  unit = unit.replace(/s$/, "");
-  if (tzAware === true && a.tz !== b.tz) {
-    b = b.clone();
-    b.tz = a.tz;
+  const name = unit.replace(/s$/, "");
+  if (tzAware === true && a.tz !== other.tz) {
+    other = other.clone();
+    other.tz = a.tz;
   }
-  if (print[unit]) {
-    return print[unit](a) === print[unit](b);
+  if (print[name]) {
+    return print[name](a) === print[name](other);
   }
   return null;
 };
@@ -3673,7 +3711,7 @@ class Spacetime {
     this.silent = options.silent !== void 0 ? options.silent : true;
     this.british = options.dmy || options.british;
     this._weekStart = options.weekStart !== void 0 ? options.weekStart : 1;
-    this._today = options.today !== void 0 ? options.today : {};
+    this._today = toParts(options.today);
     const tmp = parseInput(this, input, tz);
     this.epoch = tmp.epoch;
     if (tmp.tz) {
@@ -3759,7 +3797,9 @@ const create = (input, tz, options) => new Spacetime(input, tz, options);
 const setToday = function(s) {
   const today = s._today || {};
   Object.keys(today).forEach((k) => {
-    s = s[k](today[k]);
+    if (isUnitKey(k)) {
+      s = setUnit(s, k, today[k]);
+    }
   });
   return s;
 };
@@ -3770,10 +3810,11 @@ const now = (tz, options) => {
 };
 const extend = function(obj = {}) {
   Object.keys(obj).forEach((k) => {
-    if (k in Spacetime.prototype && Spacetime.prototype[k] !== obj[k]) {
+    const proto = Spacetime.prototype;
+    if (k in proto && proto[k] !== obj[k]) {
       console.warn(`Spacetime Warning: .extend() is overriding the existing method '${k}'`);
     }
-    Spacetime.prototype[k] = obj[k];
+    proto[k] = obj[k];
   });
   return main;
 };

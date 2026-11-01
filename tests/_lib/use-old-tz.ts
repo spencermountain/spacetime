@@ -1,4 +1,6 @@
-const overrides = {
+import type { Test } from 'tape'
+import type { TimezoneSet } from '../../src/types/index.ts'
+const overrides: Record<string, string> = {
   'canada/eastern': '03/12:03->11/05:01',
   'australia/canberra': '04/02:02->10/01:03',
   'pacific/fiji': '01/15:02->11/05:03',
@@ -9,10 +11,10 @@ const overrides = {
 const configured = new WeakSet()
 
 // Historical fixtures replace shared data only for the current test.
-const useOldTz = (s, t) => {
+const useOldTz = <T extends { timezones: TimezoneSet }>(s: T, t: Test): T => {
   if (!configured.has(t)) {
     const original = s.timezones
-    const timezones = { ...original }
+    const timezones: TimezoneSet = { ...original }
     Object.keys(overrides).forEach(zone => {
       timezones[zone] = { ...original[zone], dst: overrides[zone] }
     })

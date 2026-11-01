@@ -10,32 +10,33 @@ import every from './methods/every.ts'
 import timezone from './timezone/index.ts'
 import findTz from './timezone/find.ts'
 import handleInput from './input/index.ts'
-import { isLeapYear } from './fns.ts'
+import { isLeapYear, getUnit, setUnit, isUnitKey } from './fns.ts'
 import { short, long } from './data/days.ts'
-import type { Spacetime, SpacetimeInput } from './types/index.ts'
-const units = [
-  'century',
-  'decade',
-  'year',
-  'month',
-  'date',
-  'day',
-  'hour',
-  'minute',
-  'second',
-  'millisecond'
-]
+import type { Spacetime, SpacetimeInput, TimezoneMeta, TimeUnit } from './types/index.ts'
+const units = ['century', 'decade', 'year', 'month', 'date', 'day', 'hour', 'minute', 'second', 'millisecond'] as const
 
 // a number for one unit, or the whole table
 function diffMethod(this: Spacetime, d: SpacetimeInput): Record<string, number>
-function diffMethod(this: Spacetime, d: SpacetimeInput, unit: string): number
-function diffMethod(this: Spacetime, d: SpacetimeInput, unit?: string): number | Record<string, number> {
+function diffMethod(this: Spacetime, d: SpacetimeInput, unit: TimeUnit): number
+function diffMethod(this: Spacetime, d: SpacetimeInput, unit?: TimeUnit): number | Record<string, number> {
   return diff(this, d, unit)
+}
+
+// metadata about the current timezone, or a copy in a new timezone (keeping the same wall-clock time)
+function timezoneMethod(this: Spacetime): TimezoneMeta
+function timezoneMethod(this: Spacetime, tz: string): Spacetime
+function timezoneMethod(this: Spacetime, tz?: string): TimezoneMeta | Spacetime {
+  // hot-swap the timezone, to avoid time-change
+  if (tz !== undefined) {
+    const json: Record<string, string | number> = { ...this.json(), timezone: tz }
+    return this.set(json, tz)
+  }
+  return timezone(this)
 }
 
 //the spacetime instance methods (also, the API)
 const methods = {
-  set: function (input, tz?) {
+  set: function (this: Spacetime, input?: SpacetimeInput, tz?: string) {
     let s = this.clone()
     s = handleInput(s, input, null)
     if (tz) {
@@ -43,66 +44,58 @@ const methods = {
     }
     return s
   },
-  timezone: function (tz?) {
-    // hot-swap the timezone, to avoid time-change 
-    if (tz !== undefined) {
-      const json = this.json()
-      json.timezone = tz
-      return this.set(json, tz)
-    }
-    return timezone(this)
-  },
-  isDST: function () {
+  timezone: timezoneMethod,
+  isDST: function (this: Spacetime) {
     return timezone(this).current.isDST
   },
-  hasDST: function () {
+  hasDST: function (this: Spacetime) {
     return timezone(this).hasDst
   },
-  offset: function () {
+  offset: function (this: Spacetime) {
     return timezone(this).current.offset * 60
   },
-  hemisphere: function () {
+  hemisphere: function (this: Spacetime) {
     return timezone(this).hemisphere
   },
-  format: function (fmt: string) {
+  format: function (this: Spacetime, fmt: string) {
     return format(this, fmt)
   },
-  unixFmt: function (fmt: string) {
+  unixFmt: function (this: Spacetime, fmt: string) {
     return unixFmt(this, fmt)
   },
-  startOf: function (unit: string) {
+  startOf: function (this: Spacetime, unit: TimeUnit) {
     return _startOf(this, unit)
   },
-  endOf: function (unit: string) {
+  endOf: function (this: Spacetime, unit: TimeUnit) {
     return _endOf(this, unit)
   },
-  leapYear: function () {
+  leapYear: function (this: Spacetime) {
     const year = this.year()
     return isLeapYear(year)
   },
-  progress: function (unit?: string) {
+  progress: function (this: Spacetime, unit?: TimeUnit) {
     return progress(this, unit)
   },
-  nearest: function (unit: string) {
+  nearest: function (this: Spacetime, unit: TimeUnit) {
     return nearest(this, unit)
   },
   diff: diffMethod,
-  since: function (d) {
+  since: function (this: Spacetime, d?: SpacetimeInput) {
     if (!d) {
       d = this.clone().set()
     }
     return since(this, d)
   },
-  next: function (unit: string) {
+  next: function (this: Spacetime, unit: TimeUnit) {
     const s = this.add(1, unit)
     return s.startOf(unit)
   },
   //the start of the previous year/week/century
-  last: function (unit: string) {
+  last: function (this: Spacetime, unit: TimeUnit) {
     const s = this.subtract(1, unit)
     return s.startOf(unit)
   },
-  isValid: function () {
+  isValid: function (this: Spacetime) {
     //null/undefined epochs
     if (!this.epoch && this.epoch !== 0) {
       return false
@@ -110,22 +103,22 @@ const methods = {
     return Number.isFinite(this.epoch) && !isNaN(new Date(this.epoch).getTime())
   },
   //travel to this timezone
-  goto: function (tz: string | null) {
+  goto: function (this: Spacetime, tz: string | null) {
     const s = this.clone()
     s.tz = findTz(tz, s.timezones) //science!
     return s
   },
   //get each week/month/day between a -> b
-  every: function (unit: string, to?, stepCount?: number) {
+  every: function (this: Spacetime, unit: TimeUnit | SpacetimeInput, to?: SpacetimeInput | TimeUnit, stepCount?: number) {
     // allow swapping these params:
     if (typeof unit === 'object' && typeof to === 'string') {
       const tmp = to
       to = unit
       unit = tmp
     }
-    return every(this, unit, to, stepCount)
+    return every(this, unit as TimeUnit, to, stepCount)
   },
-  isAwake: function () {
+  isAwake: function (this: Spacetime) {
     const hour = this.hour()
     //10pm -> 8am
     if (hour < 8 || hour > 22) {
@@ -133,10 +126,10 @@ const methods = {
     }
     return true
   },
-  isAsleep: function () {
+  isAsleep: function (this: Spacetime) {
     return !this.isAwake()
   },
-  daysInMonth: function () {
+  daysInMonth: function (this: Spacetime) {
     switch (this.month()) {
       case 0:
         return 31
@@ -167,25 +160,25 @@ const methods = {
     }
   },
   //pretty-printing
-  log: function () {
+  log: function (this: Spacetime) {
     console.log('\n' + format(this, 'nice-short')) //eslint-disable-line no-console
     return this
   },
-  logYear: function () {
+  logYear: function (this: Spacetime) {
     console.log('\n' + format(this, 'full-short')) //eslint-disable-line no-console
     return this
   },
-  json: function (input?) {
+  json: function (this: Spacetime, input?: Record<string, string | number>) {
     // setter for json input
     if (input !== undefined) {
       let s = this.clone()
       if (input.timezone) {
-        s.tz = input.timezone
+        s.tz = String(input.timezone)
       }
       for (let i = 0; i < units.length; i++) {
         const unit = units[i]
-        if (input[unit] !== undefined) {
-          s = s[unit](input[unit])
+        if (input[unit] !== undefined && isUnitKey(unit)) {
+          s = setUnit(s, unit, input[unit])
         }
       }
       return s
@@ -193,13 +186,13 @@ const methods = {
     // produce json output
     const obj: Record<string, any> = {}
     units.forEach((unit) => {
-      obj[unit] = this[unit]()
+      obj[unit] = isUnitKey(unit) ? getUnit(this, unit) : this[unit]()
     })
     obj.offset = this.timezone().current.offset
     obj.timezone = this.tz
     return obj
   },
-  debug: function () {
+  debug: function (this: Spacetime) {
     const tz = this.timezone()
     let date = this.format('MM') + ' ' + this.format('date-ordinal') + ' ' + this.year()
     date += '\n     - ' + this.format('time')
@@ -207,15 +200,15 @@ const methods = {
     return this
   },
   //alias of 'since' but opposite - like moment.js
-  from: function (d) {
-    d = this.clone().set(d)
-    return d.since(this)
+  from: function (this: Spacetime, d: SpacetimeInput) {
+    const other = this.clone().set(d)
+    return other.since(this)
   },
-  fromNow: function () {
+  fromNow: function (this: Spacetime) {
     const d = this.clone().set(Date.now())
     return d.since(this)
   },
-  weekStart: function (input) {
+  weekStart: function (this: Spacetime, input: number | string) {
     //accept a number directly
     if (typeof input === 'number') {
       this._weekStart = input

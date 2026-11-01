@@ -10,7 +10,7 @@ test('mixed fractional months clamp the whole month before adding the remainder'
     ['2024-01-31', -1.5, '2023-12-17'],
     ['2024-01-31', 2.25, '2024-04-07'],
     ['2024-12-31', 1.5, '2025-02-14']
-  ]
+  ] as const
   cases.forEach(([input, amount, expected]) => {
     const s = spacetime(input, 'UTC')
     const midnight = `${expected}T00:00:00.000Z`
@@ -28,7 +28,7 @@ test('fractional years starting on leap day round to midnight', (t) => {
     [-0.5, '2023-08-30'],
     [1.5, '2025-08-29'],
     [-1.5, '2022-08-29']
-  ]
+  ] as const
   cases.forEach(([amount, expected]) => {
     const midnight = `${expected}T00:00:00.000Z`
     t.equal(s.add(amount, 'years').iso(), midnight, `February 29 + ${amount} years`)

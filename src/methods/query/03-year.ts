@@ -9,7 +9,7 @@ import { long } from '../../data/months.ts'
 import quarters from '../../data/quarters.ts'
 import seasons from '../../data/seasons.ts'
 import ms from '../../data/milliseconds.ts'
-import type { Spacetime } from '../../types/index.ts'
+import type { Spacetime, GetSet } from '../../types/index.ts'
 
 const clearMinutes = (s: Spacetime) => {
   s = s.minute(0)
@@ -48,7 +48,7 @@ const millennium = function (input?: string | number) {
 
 const methods = {
   // day 0-366
-  dayOfYear: function (num?: number | string, goFwd?: boolean) {
+  dayOfYear: function (this: Spacetime, num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = _dayOfYear(s, num, goFwd)
@@ -64,10 +64,10 @@ const methods = {
       sum += getMonthLength(i, year)
     }
     return sum
-  },
+  } as GetSet<number, number | string>,
 
   //since the start of the year
-  week: function (num?: number | string, goFwd?: boolean) {
+  week: function (this: Spacetime, num?: number | string, goFwd?: boolean) {
     // week-setter
     if (num !== undefined) {
       let s = this.clone()
@@ -113,28 +113,28 @@ const methods = {
       tmp = tmp.add(1, 'week')
     }
     return 52
-  },
+  } as GetSet<number, number | string>,
   //either name or number
-  month: function (input?: number | string, goFwd?: boolean) {
+  month: function (this: Spacetime, input?: number | string, goFwd?: boolean) {
     if (input !== undefined) {
       const s = this.clone()
       s.epoch = _month(s, input, goFwd)
       return s
     }
     return this.d.getUTCMonth()
-  },
+  } as GetSet<number, number | string>,
   //'january'
-  monthName: function (input?: number | string, goFwd?: boolean) {
+  monthName: function (this: Spacetime, input?: number | string, goFwd?: boolean) {
     if (input !== undefined) {
       let s = this.clone()
       s = s.month(input, goFwd)
       return s
     }
     return long()[this.month()]
-  },
+  } as GetSet<string, number | string>,
 
   //q1, q2, q3, q4
-  quarter: function (num?: number | string, goFwd?: boolean) {
+  quarter: function (this: Spacetime, num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       if (typeof num === 'string') {
         num = num.replace(/^q/i, '')
@@ -156,10 +156,10 @@ const methods = {
       }
     }
     return 4
-  },
+  } as GetSet<number, number | string>,
 
   //spring, summer, winter, fall
-  season: function (input?: number | string, goFwd?: boolean) {
+  season: function (this: Spacetime, input?: number | string, goFwd?: boolean) {
     let hem = 'north'
     if (this.hemisphere() === 'South') {
       hem = 'south'
@@ -183,20 +183,20 @@ const methods = {
       }
     }
     return hem === 'north' ? 'winter' : 'summer'
-  },
+  } as GetSet<string, number | string>,
 
   //the year number
-  year: function (num?: number | string) {
+  year: function (this: Spacetime, num?: number | string) {
     if (num !== undefined) {
       const s = this.clone()
       s.epoch = _year(s, num)
       return s
     }
     return this.d.getUTCFullYear()
-  },
+  } as GetSet<number, number | string>,
 
   //bc/ad years
-  era: function (str?: string) {
+  era: function (this: Spacetime, str?: string) {
     if (str !== undefined) {
       const s = this.clone()
       str = str.toLowerCase()
@@ -216,10 +216,10 @@ const methods = {
       return 'BC'
     }
     return 'AD'
-  },
+  } as GetSet<string, string>,
 
   // 2019 -> 2010
-  decade: function (input?: number | string) {
+  decade: function (this: Spacetime, input?: number | string) {
     if (input !== undefined) {
       input = String(input)
       input = input.replace(/([0-9])'?s$/, '$1') //1950's
@@ -241,9 +241,9 @@ const methods = {
       return this.year(year) //.startOf('decade')
     }
     return this.startOf('decade').year()
-  },
+  } as GetSet<number, number | string>,
   // 1950 -> 19+1
-  century: function (input?: number | string) {
+  century: function (this: Spacetime, input?: number | string) {
     if (input !== undefined) {
       if (typeof input === 'string') {
         input = input.replace(/([0-9])(th|rd|st|nd)/, '$1') //fix ordinals
@@ -278,7 +278,7 @@ const methods = {
       return num - 1
     }
     return num + 1
-  },
+  } as GetSet<number, number | string>,
   // 2019 -> 2+1
   millenium: millennium,
   // alias without typo

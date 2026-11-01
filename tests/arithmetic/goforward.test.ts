@@ -1,5 +1,5 @@
 import test from 'tape'
-import spacetime from '../_lib/index.ts'
+import spacetime, { call } from '../_lib/index.ts'
 
 test('goForward [time]', (t) => {
   const d = spacetime('march 17 2021').time('3:20pm')
@@ -40,18 +40,18 @@ test('goForward ', (t) => {
     ['monthName', 'june', 'sep'],
     ['quarter', 'q2', 'q4'],
     ['season', 'spring', 'summer'] // a forward-pair in both hemispheres
-  ]
+  ] as const
   arr.forEach((a) => {
     const fn = a[0]
-    const s = spacetime.now()[fn](a[1])
+    const s = call(spacetime.now(), fn, a[1])
     // normal after
-    const after = s[fn](a[2])
+    const after = call(s, fn, a[2])
     t.equal(s.isBefore(after), true, `[${fn}] fwd-null`)
     // after-true
-    const fwd = s[fn](a[2], true)
+    const fwd = call(s, fn, a[2], true)
     t.equal(s.isBefore(fwd), true, `[${fn}] fwd`)
     // after-false (skip back)
-    const bkwd = s[fn](a[2], false)
+    const bkwd = call(s, fn, a[2], false)
     t.equal(s.isAfter(bkwd), true, `[${fn}] bkwd`)
 
     // after->before (definetly)

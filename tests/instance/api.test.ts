@@ -1,8 +1,9 @@
 import spacetime from '../_lib/index.ts'
 import test from 'tape'
-import api from '../../api/index.js'
+import apiDocs from '../../api/index.js'
+const api = apiDocs as Record<string, Record<string, { doc: string; out: string }>>
 
-const instanceSections = ['main', 'getters', 'utils']
+const instanceSections = ['main', 'getters', 'utils'] as const
 
 // methods that exist on the prototype but are intentionally left out of the docs
 // (aliases, deprecated members, or internal helpers)
@@ -35,7 +36,7 @@ test('documented instance methods exist', (t) => {
   const s = spacetime('1998-03-28')
   instanceSections.forEach((section) => {
     Object.keys(api[section]).forEach((k) => {
-      t.equal(typeof s[k], 'function', `${section}.${k} exists`)
+      t.equal(typeof (s as unknown as Record<string, unknown>)[k], 'function', `${section}.${k} exists`)
     })
   })
   t.end()
@@ -44,7 +45,7 @@ test('documented instance methods exist', (t) => {
 // every documented static method should actually exist as a function
 test('documented static methods exist', (t) => {
   Object.keys(api.statics).forEach((k) => {
-    t.equal(typeof spacetime[k], 'function', `statics.${k} exists`)
+    t.equal(typeof (spacetime as unknown as Record<string, unknown>)[k], 'function', `statics.${k} exists`)
   })
   t.end()
 })
@@ -55,7 +56,7 @@ test('public instance methods are documented', (t) => {
   const documented = new Set(instanceSections.flatMap((section) => Object.keys(api[section])))
   const proto = Object.getPrototypeOf(s)
   Object.getOwnPropertyNames(proto)
-    .filter((k) => k !== 'constructor' && typeof s[k] === 'function')
+    .filter((k) => k !== 'constructor' && typeof (s as unknown as Record<string, unknown>)[k] === 'function')
     .forEach((k) => {
       if (undocumented.has(k)) {
         return
@@ -69,7 +70,7 @@ test('public instance methods are documented', (t) => {
 test('public static methods are documented', (t) => {
   const documented = new Set(Object.keys(api.statics))
   Object.getOwnPropertyNames(spacetime)
-    .filter((k) => !['length', 'name', 'prototype'].includes(k) && typeof spacetime[k] === 'function')
+    .filter((k) => !['length', 'name', 'prototype'].includes(k) && typeof (spacetime as unknown as Record<string, unknown>)[k] === 'function')
     .forEach((k) => {
       if (staticUndocumented.has(k)) {
         return

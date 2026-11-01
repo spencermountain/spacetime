@@ -2,7 +2,11 @@ export type TimeUnit =
   | 'millisecond'
   | 'second'
   | 'minute'
+  | 'min'
+  | 'mins'
   | 'quarterHour'
+  | 'quarterhour'
+  | 'quarter-hour'
   | 'hour'
   | 'day'
   | 'week'
@@ -14,6 +18,8 @@ export type TimeUnit =
   | 'century'
   | 'millennium'
   | 'date'
+  | 'weekend'
+  | 'fortnight'
   | 'milliseconds' //plural forms
   | 'seconds'
   | 'minutes'
@@ -82,13 +88,13 @@ export type Format =
 export interface I18nOptions {
   /** Alternatives to Monday, Tuesday..*/
   days?: {
-    short: string[]
-    long: string[]
+    short?: string[]
+    long?: string[]
   }
   /** Alternatives to Jan, Feb..*/
   months?: {
-    short: string[]
-    long: string[]
+    short?: string[]
+    long?: string[]
   }
   /** Alternatives to am, pm*/
   ampm?: {

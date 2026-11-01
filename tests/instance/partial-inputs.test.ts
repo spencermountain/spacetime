@@ -1,11 +1,12 @@
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
+import type { DateFields } from '../../types/types.js'
 
 test('partial calendar inputs distinguish omitted fields from zero', t => {
   const today = { year: 2024, month: 5, date: 15, hour: 12, minute: 34, second: 56, millisecond: 789 }
   const options = { today }
   const snapshot = JSON.stringify(today)
-  const cases: [string, object | number[], typeof today][] = [
+  const cases: [string, DateFields | number[], typeof today][] = [
     ['empty object', {}, today],
     ['empty array', [], today],
     ['midnight hour', { hour: 0 }, { ...today, hour: 0 }],

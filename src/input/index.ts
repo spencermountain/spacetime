@@ -60,7 +60,7 @@ const parseInput = (s: Spacetime, input: SpacetimeInput, timezone?: string): Spa
     //support spacetime object as input
     if ('epoch' in input) {
       s.epoch = typeof input.epoch === 'number' ? input.epoch : NaN
-      if (timezone == null && 'tz' in input && input.tz) {
+      if (timezone == null && 'tz' in input && typeof input.tz === 'string') {
         s.tz = input.tz
       }
       return s
