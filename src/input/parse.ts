@@ -30,6 +30,10 @@ const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
 const parseString = function (s: Spacetime, input: string): Spacetime {
   // real names are short; reject any reDos input
   if (input.length > 500) {
+    if (s.silent === false) {
+      console.warn("Warning: didn't parse long date-string.") // eslint-disable-line no-console
+    }
+    s.epoch = null
     return s
   }
   //try each text-parse template, use the first good result

@@ -72,6 +72,10 @@ jobs:
         if: matrix.node-version == '26.x'
         run: pnpm run typecheck
 
+      - name: Check zero runtime dependencies
+        if: matrix.node-version == '26.x'
+        run: node -e "process.exit(Object.keys(require('./package.json').dependencies || {}).length)"
+
       - name: Lint
         if: matrix.node-version == '26.x'
         run: pnpm run lint
