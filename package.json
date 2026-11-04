@@ -78,6 +78,7 @@
     "@types/tape": "^5.8.1",
     "esbuild": "^0.28.2",
     "eslint": "^10.14.0",
+    "eslint-plugin-redos": "^4.6.2",
     "eslint-plugin-regexp": "3.3.2",
     "rollup": "catalog:",
     "rollup-plugin-esbuild": "^6.2.1",

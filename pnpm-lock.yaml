@@ -52,6 +52,9 @@ importers:
       eslint:
         specifier: ^10.14.0
         version: 10.14.0
+      eslint-plugin-redos:
+        specifier: ^4.6.2
+        version: 4.6.2(eslint@10.14.0)
       eslint-plugin-regexp:
         specifier: 3.3.2
         version: 3.3.2(eslint@10.14.0)
@@ -272,6 +275,9 @@ packages:
 
   '@cacheable/utils@2.5.0':
     resolution: {integrity: sha512-buipgOVDkkPXNR5+xBpDw7Zk2n1EvU7qBJCNUcL7rhQ//kfpOXPAvQ511Os0vpLYJ1pZnvudNytkQt2hst3wqA==}
+
+  '@dual-bundle/import-meta-resolve@4.2.1':
+    resolution: {integrity: sha512-id+7YRUgoUX6CgV0DtuhirQWodeeA7Lf4i2x71JS/vtA5pRb/hIGWlw+G6MeXvsM+MXrz0VAydTGElX1rAfgPg==}
 
   '@esbuild/aix-ppc64@0.28.2':
     resolution: {integrity: sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==}
@@ -527,6 +533,10 @@ packages:
 
   '@photostructure/tz-lookup@11.7.0':
     resolution: {integrity: sha512-QbKHXvleluMIlAHf2JiQTJNU5rLQBeQhLobyRqgXZ6NNGKqNikaRkjYviJ4nMU7Y75QE7bBYM8xjiFGjAukyhw==}
+
+  '@pkgr/core@0.3.6':
+    resolution: {integrity: sha512-SEeaJLb3qBNF/OaXnaR1NmmBbFYk1zC0ZH/52fATcRPLFg/p791YrcyFFy44Bo9sLaGuSuLp5Q6axbb/O+v/RA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
 
   '@rollup/plugin-commonjs@29.0.3':
     resolution: {integrity: sha512-ZaOxZceP7SOUW7Lqw5IRVweSQYWaeIPnXIGLiB690EBA3FGJTO40EEr2L5yZplJWsgTCogILRSpcAe7+U0Otdg==}
@@ -979,6 +989,12 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
+  eslint-plugin-redos@4.6.2:
+    resolution: {integrity: sha512-byNX+TkxAW+T3SzsW2URPJLcXUNtd9O7cI6NZg1ICcGWsYHOnOVb2SHDzxSfj5K2A3eOgTlG0ovEiTwbWanPoQ==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      eslint: '>= 3'
+
   eslint-plugin-regexp@3.3.2:
     resolution: {integrity: sha512-hdkHQVDUtP3+U66PMZSQxw++mburJyJbFY8fu8lryMvJ2glo7xjq1Ov8A/uczxNU+IS87TFXUUBIJ7dxqgcJwg==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
@@ -1426,6 +1442,38 @@ packages:
     resolution: {integrity: sha512-+Owyggi9IxT1ePKGafcI87ubSmxol6smwJ+RAHDQlx9+9cPwFWDiKFFCPuWhr9ignlGpZ9vDQLw67N4dcTVFEA==}
     engines: {node: '>=20'}
 
+  recheck-jar@4.6.2:
+    resolution: {integrity: sha512-mm0x9Vew58cUtW1zBbR3/qLFLrpwnn0agmQPjgLMFPWN5gykaw3UqmdoVCRSpmuT5T00eo5SaFfRwrE5uXYobA==}
+
+  recheck-linux-arm64@4.6.2:
+    resolution: {integrity: sha512-+RCQV4sCCQHNvOmyrWjYdDEExRZS0lzOvDWl0GLhkbXTWb2OBg2EhKtqkIwQPlc0ku1v0rqPmek9KZHtp6wvWQ==}
+    cpu: [arm64]
+    os: [linux]
+
+  recheck-linux-x64@4.6.2:
+    resolution: {integrity: sha512-jOUS5qrMh6aZilbaiPdzQf97/DdiI/ZBZcD1mLrtfaLhJKuLeTOXSqDsyKdhHc2ElZW3KVBhLKzTr7zipoBABQ==}
+    cpu: [x64]
+    os: [linux]
+
+  recheck-macos-arm64@4.6.2:
+    resolution: {integrity: sha512-ngvCW6Uz581hKACiofmxzs5NynU5ntkp3yz4TpdXhUynEz0Ek8DfveYx8HvaCI1UEZ+eFD9M+cePsK5erTmc+w==}
+    cpu: [arm64]
+    os: [darwin]
+
+  recheck-macos-x64@4.6.2:
+    resolution: {integrity: sha512-iEN67CpluJLbd2XkEcdjelDSi2+vgp55TVvjjlKybUhuIWza0DMNo2zwdEG4ZsvLpvYR5vV6Y06x69ywBsrXkw==}
+    cpu: [x64]
+    os: [darwin]
+
+  recheck-windows-x64@4.6.2:
+    resolution: {integrity: sha512-HeREed9Ua++XDjqYavQO2/tWq7PO4wkRm70reVab//WNwzNu0ct0x3x3cj5sS+6sohd8N2XTWvcMKAHTZ5nAng==}
+    cpu: [x64]
+    os: [win32]
+
+  recheck@4.6.2:
+    resolution: {integrity: sha512-u4aJX9skFz5VLMwEGtNv4BavU4qo6dSds/NZiJhoJ0QP1OJ0/VLbztD4nC4mlRuVM+Tj9kssGky4ysrIzRTA2Q==}
+    engines: {node: '>=22'}
+
   refa@0.12.1:
     resolution: {integrity: sha512-J8rn6v4DBb2nnFqkqwy6/NnTYMcgLA+sLr0iIO41qpv0n+ngb7ksag2tMRl0inb1bbO/esUwzW1vbJi7K0sI0g==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
@@ -1571,6 +1619,10 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  synckit@0.12.3:
+    resolution: {integrity: sha512-U+/AXT6LWsxnj2vz9HeUuPWBNgdWxjyIEjEPdbJARC9txmgPzo2VEdqnFo4hHaNyMPtycyVJrSaQYeQv/PoyyA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
 
   tap-dancer@0.4.4:
     resolution: {integrity: sha512-4ktRjx22JvsEnmy16xJcm9ofGJpTGye1dOJDSUktosUFLlejWVZnI1QbDjgIa7IsWlaAB3n96W5LR6/riCALpA==}
@@ -1718,6 +1770,8 @@ snapshots:
     dependencies:
       hashery: 1.5.1
       keyv: 5.6.0
+
+  '@dual-bundle/import-meta-resolve@4.2.1': {}
 
   '@esbuild/aix-ppc64@0.28.2':
     optional: true
@@ -1891,6 +1945,8 @@ snapshots:
     optional: true
 
   '@photostructure/tz-lookup@11.7.0': {}
+
+  '@pkgr/core@0.3.6': {}
 
   '@rollup/plugin-commonjs@29.0.3(rollup@4.67.2)':
     dependencies:
@@ -2474,6 +2530,11 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
+  eslint-plugin-redos@4.6.2(eslint@10.14.0):
+    dependencies:
+      eslint: 10.14.0
+      recheck: 4.6.2
+
   eslint-plugin-regexp@3.3.2(eslint@10.14.0):
     dependencies:
       '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0)
@@ -2959,6 +3020,35 @@ snapshots:
     dependencies:
       hookified: 2.2.0
 
+  recheck-jar@4.6.2:
+    optional: true
+
+  recheck-linux-arm64@4.6.2:
+    optional: true
+
+  recheck-linux-x64@4.6.2:
+    optional: true
+
+  recheck-macos-arm64@4.6.2:
+    optional: true
+
+  recheck-macos-x64@4.6.2:
+    optional: true
+
+  recheck-windows-x64@4.6.2:
+    optional: true
+
+  recheck@4.6.2:
+    dependencies:
+      synckit: 0.12.3
+    optionalDependencies:
+      recheck-jar: 4.6.2
+      recheck-linux-arm64: 4.6.2
+      recheck-linux-x64: 4.6.2
+      recheck-macos-arm64: 4.6.2
+      recheck-macos-x64: 4.6.2
+      recheck-windows-x64: 4.6.2
+
   refa@0.12.1:
     dependencies:
       '@eslint-community/regexpp': 4.12.2
@@ -3182,6 +3272,11 @@ snapshots:
   suncalc@1.9.0: {}
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  synckit@0.12.3:
+    dependencies:
+      '@dual-bundle/import-meta-resolve': 4.2.1
+      '@pkgr/core': 0.3.6
 
   tap-dancer@0.4.4:
     dependencies:
