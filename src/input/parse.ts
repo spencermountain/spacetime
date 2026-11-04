@@ -28,6 +28,10 @@ const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
 }
 
 const parseString = function (s: Spacetime, input: string): Spacetime {
+  // real names are short; reject any reDos input
+  if (input.length > 500) {
+    return s
+  }
   //try each text-parse template, use the first good result
   for (let i = 0; i < parsers.length; i++) {
     const m = input.match(parsers[i].reg)

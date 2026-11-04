@@ -137,6 +137,9 @@ const escapeChars = function (arr: string[]): string[] {
 const combineRepeated = function (arr: string[]): string[] {
   for (let i = 0; i < arr.length; i += 1) {
     const c = arr[i]
+    if (c === null) {
+      continue
+    }
     // greedy-forward
     for (let o = i + 1; o < arr.length; o += 1) {
       if (arr[o] === c) {

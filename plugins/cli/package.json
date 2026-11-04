@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "minimist": "catalog:",
-    "timezone-soft": "1.5.2"
+    "timezone-soft": "catalog:"
   },
   "prettier": {
     "trailingComma": "none",
