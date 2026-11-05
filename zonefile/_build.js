@@ -1,4 +1,4 @@
-export const tzdbVersion = "2026c"
+export const tzdbVersion = "2026e"
 export default {
   "9|s": "2/dili,2/jayapura",
   "9|n": "2/chita,2/khandyga,2/pyongyang,2/seoul,2/tokyo,2/yakutsk,11/palau,japan,rok",
@@ -63,11 +63,12 @@ export default {
   "-7|n": "1/creston,1/dawson,1/dawson_creek,1/fort_nelson,1/hermosillo,1/mazatlan,1/phoenix,1/whitehorse,6/yukon,10/bajasur,us/arizona,mst",
   "-6|s|04/04:22->09/05:22": "11/easter,7/easterisland",
   "-6|s": "11/galapagos",
-  "-6|n|03/08:02->12/31:23": "1/edmonton,1/yellowknife,6/mountain",
-  "-6|n|03/08:02->11/01:02": "1/boise,1/cambridge_bay,1/denver,1/inuvik,1/ciudad_juarez,1/shiprock,navajo,us/mountain,mst7mdt",
+  "-6|n|03/08:02->12/31:23": "1/edmonton,1/inuvik,1/yellowknife,6/mountain",
+  "-6|n|03/08:02->11/01:02": "1/boise,1/cambridge_bay,1/denver,1/ciudad_juarez,1/shiprock,navajo,us/mountain,mst7mdt",
   "-6|n": "1/bahia_banderas,1/belize,1/chihuahua,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/merida,1/mexico_city,1/monterrey,1/regina,1/swift_current,1/tegucigalpa,6/east-saskatchewan,6/saskatchewan,10/general",
   "-5|s": "1/eirunepe,1/guayaquil,1/lima,1/rio_branco,1/porto_acre,5/acre",
-  "-5|n|03/08:02->11/01:02": "1/chicago,1/matamoros,1/menominee,1/north_dakota,1/ojinaga,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,1/indiana/knox,1/indiana/tell_city,1/north_dakota/beulah,1/north_dakota/center,1/north_dakota/new_salem,1/knox_in,6/central,us/central,us/indiana-starke,cst6cdt",
+  "-5|n|03/08:02->12/31:23": "1/rainy_river,1/winnipeg,6/central",
+  "-5|n|03/08:02->11/01:02": "1/chicago,1/matamoros,1/menominee,1/north_dakota,1/ojinaga,1/rankin_inlet,1/resolute,1/indiana/knox,1/indiana/tell_city,1/north_dakota/beulah,1/north_dakota/center,1/north_dakota/new_salem,1/knox_in,us/central,us/indiana-starke,cst6cdt",
   "-5|n": "1/bogota,1/cancun,1/cayman,1/coral_harbour,1/jamaica,1/panama,1/atikokan,jamaica,est",
   "-4|s|04/04:24->09/06:00": "1/santiago,7/continental",
   "-4|s": "1/campo_grande,1/cuiaba,1/la_paz,1/manaus,1/porto_velho,5/west",

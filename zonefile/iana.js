@@ -1,4 +1,4 @@
-export const tzdbVersion = '2026c'
+export const tzdbVersion = '2026e'
 export default {
   'africa/abidjan': {
     offset: 0,
@@ -471,7 +471,7 @@ export default {
   'america/inuvik': {
     offset: -6,
     hem: 'n',
-    dst: '03/08:02->11/01:02'
+    dst: '03/08:02->12/31:23' //dst is permanent now
   },
   'america/iqaluit': {
     offset: -4,
@@ -680,7 +680,7 @@ export default {
   'america/rainy_river': {
     offset: -5,
     hem: 'n',
-    dst: '03/08:02->11/01:02'
+    dst: '03/08:02->12/31:23' //dst is permanent now
   },
   'america/rankin_inlet': {
     offset: -5,
@@ -805,7 +805,7 @@ export default {
   'america/winnipeg': {
     offset: -5,
     hem: 'n',
-    dst: '03/08:02->11/01:02'
+    dst: '03/08:02->12/31:23' //dst is permanent now
   },
   'america/yakutat': {
     offset: -8,
