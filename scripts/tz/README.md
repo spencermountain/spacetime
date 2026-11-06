@@ -1,56 +1,50 @@
 # Updating timezone data
 
-`npm run build:tz` reads the installed zoneinfo database with `zdump -i` and
-writes a review candidate at `zonefile.YYYY.js` in the repository root. It does
-not download tzdata. Install current tzdata first, or supply a compiled database
-with `--zoneinfo-dir`. The `zdump` executable must support `-i` and `-c`.
+`pnpm run build:tz` downloads a tzdata release from IANA, compiles it with the
+local `zic`, reads every zone in `zonefile/iana.js` with `zdump -i`, reports what
+changed, and rewrites `zonefile/iana.js`. Review the result with `git diff`, then
+`pnpm build` to repack and bundle. `awk`, `tar`, `zic` and `zdump` must be installed
+(they are on macOS and most Linux distributions).
 
-```sh
-npm run build:tz -- --year 2026 --check
-npm run build:tz -- --year 2026 --output /tmp/zonefile.2026.js
-# After reviewing the reported changes, update the input consumed by pack:
-npm run build:tz -- --year 2026 --output zonefile/iana.js
-npm run pack
-```
+Configuration is three constants at the top of `scripts/tz/index.js`:
 
-The default year is the current UTC year. Source version information is read
-from `+VERSION` or `tzdata.zi` when available and recorded in the generated file.
-An unknown version is reported explicitly. The entry point is `scripts/tz/update.js`.
+- `year` — the calendar year whose transitions are extracted. The runtime stores
+  one year's boundaries and applies them to every year, so this should be the
+  current year. The script refuses to run once the constant falls behind.
+- `version` — an IANA release name such as `2026f`, or `latest`. The release
+  actually inside the tarball is what gets recorded as `tzdbVersion`.
+- `ignore` — zones, keyed by year, that the runtime cannot model for that year.
+  Their existing records are kept without a warning. Entries are year-scoped so
+  every decision is re-examined when `year` is bumped; an ignored zone that
+  normalizes cleanly is reported so the entry can be removed.
 
-Console output groups field-level changes, unsupported zones with reasons, and a
-summary of changed/unchanged/unsupported counts. Terminal output uses colors;
-redirected output is plain text. Set `NO_COLOR=1` to disable colors explicitly.
-Equivalent midnight boundaries keep their existing spelling: `10/24:24` and
-`10/25:00` describe the same boundary. Each boundary is compared separately
-using the target year's calendar, so real changes are still reported while
-format-only changes are neither reported nor written.
-Unsupported entries show a compact, colored transition timeline and the failed
-constraint. Add `--verbose` for full diagnostics: the retained record, initial
-state, local before/after times, offset changes, and directory listings.
+Releases come from `https://data.iana.org/time-zones/releases/tzdata<version>.tar.gz`
+and are compiled in **rearguard** form, which keeps positive DST flags for Ireland,
+Morocco and similar zones. This matches what system zoneinfo ships and what the
+runtime's hemisphere model expects; the main form would flag those zones as
+unsupported.
 
-`--check` writes nothing and exits 1 if records differ or any zone is unsupported.
-Other runs refuse to write if there are unsupported zones. Pass
-`--allow-unsupported` to explicitly retain their existing records while updating
-supported zones; those retained zone names are recorded in the output header.
-Missing zones, command failures, and malformed output always fail the build.
-Writes use a temporary file in the output directory followed by a rename.
+## Reading the report
 
-The extractor applies the library's existing aliases and resolves keys to the
-actual case of on-disk names, including names with multiple path components.
-Directory-only legacy keys without an alias are reported as unsupported; they
-must never be interpreted as UTC. Files must have a compiled TZif header.
-It reads the initial
-interval and every transition within the requested UTC year. Fixed-offset zones
-receive their actual offset and lose obsolete DST rules. Offset-only changes
-count as changes.
+- **Changes** — field-level before/after for each zone whose record changed.
+- **Unsupported** — zones whose transitions do not fit the runtime's model (one
+  annual cycle of whole-minute boundaries, or a fixed offset). Their existing
+  records are kept and listed in the file header. Fix the data model, hand-edit
+  the record, or add the zone to `ignore` once you have decided how to handle it.
+- **Not in iana.js** — canonical tzdb zones with neither a record nor an alias.
+- **Ignored but now supported** — stale `ignore` entries to remove.
 
-The runtime format is intentionally limited: it stores one offset inside a
-single annual interval, another outside it, and whole-hour local boundaries
-measured **before** each clock change. `.offset` is the inside (usually July)
-offset, not necessarily standard time. The generator validates the cycle against
-the hemisphere and the runtime's supported shift (normally one hour, half an
-hour for Lord Howe, two hours for Troll). It does not guess geographic hemisphere
-from DST flags. Single permanent moves during the target year, extra seasonal
-changes, incompatible DST flags, and minute/second boundaries are reported as
-unsupported. They require a deliberate data-model/runtime change or an explicit
-preservation choice. Generating a year does not add historical timezone support.
+Read, parse and command failures always abort without writing.
+
+## Data format
+
+Each record stores the offset **inside** one annual interval (`offset`), the
+hemisphere (`hem`), and two whole-minute local boundaries measured on the clock
+**before** each change (`dst`). For northern zones `offset` is therefore the
+summer offset; London is `offset: 1, dst: '03/29:01->10/25:02'`. A midnight
+fall-back is spelled as the end of the previous day (`10/24:24`, never
+`10/25:00`); a midnight spring-forward keeps `:00`. Equivalent spellings of an
+unchanged boundary are preserved from the existing record.
+
+Permanent offset changes mid-year cannot be expressed, so those zones are usually
+hand-set to their final fixed offset and added to `ignore` for that year.

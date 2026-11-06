@@ -49,7 +49,8 @@ export interface Spacetime {
   timezone(tz: String): Spacetime
 
   /** output nicely-formatted strings */
-  format: (format: Format) => string
+  format(format: 'json'): Json
+  format(format?: Format): string
 
   /** output formatted string using unix formatting code (yyyy.MM.dd h:mm a) */
   unixFmt: (format: string) => string
@@ -66,6 +67,12 @@ export interface Spacetime {
   /** decrease the time by a number and unit - like an hour, minute, day, or year */
   subtract: (value: number, unit: TimeUnit) => Spacetime
 
+  /** alias of add() */
+  plus: (value: number, unit: TimeUnit) => Spacetime
+
+  /** alias of subtract() */
+  minus: (value: number, unit: TimeUnit) => Spacetime
+
   /** go to the beginning of the next unit */
   next: (unit: TimeUnit) => Spacetime
 
@@ -76,7 +83,7 @@ export interface Spacetime {
   round: (unit: TimeUnit) => Spacetime
 
   /** list all dates up to a certain time */
-  every: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit, stepCount: number) => Spacetime[]
+  every: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit, stepCount?: number) => Spacetime[]
 
   /** list all dates up to a certain time */
   each: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
@@ -85,23 +92,23 @@ export interface Spacetime {
   last: (unit: TimeUnit) => Spacetime
 
   /** pass-in a spacetime object or date input and see if it takes-place after your spacetime date/time */
-  isAfter: (date: Spacetime | Date) => boolean
+  isAfter: (date: Spacetime | ParsableDate) => boolean
 
   /** pass-in a spacetime object or date input and see if it takes-place before your spacetime date/time */
-  isBefore: (date: Spacetime | Date) => boolean
+  isBefore: (date: Spacetime | ParsableDate) => boolean
 
   /** is this date on the exact same millisecond as another */
-  isEqual: (date: Spacetime | Date) => boolean
+  isEqual: (date: Spacetime | ParsableDate) => boolean
 
   /** is this date between these start and end dates? */
-  isBetween: (start: Spacetime | Date, end: Spacetime | Date, isInclusive?: boolean) => boolean
+  isBetween: (start: Spacetime | ParsableDate, end: Spacetime | ParsableDate, isInclusive?: boolean) => boolean
 
   /** detect if two date/times are the same day, week, or year, etc */
   isSame: (
-    date: Spacetime | Date | TimeUnit,
-    unit: Spacetime | Date | TimeUnit,
+    date: Spacetime | ParsableDate | TimeUnit,
+    unit: Spacetime | ParsableDate | TimeUnit,
     tzSensitive?: boolean
-  ) => boolean
+  ) => boolean | null
 
   /** given a date and a unit, count how many of them you'd need to make the dates equal */
   diff(value: Spacetime | ParsableDate, unit: TimeUnit): number
@@ -110,7 +117,7 @@ export interface Spacetime {
   diff(value: Spacetime | ParsableDate): Diff
 
   /** create the human-readable diff between the two dates */
-  since(value: Spacetime | ParsableDate): Since
+  since(value?: Spacetime | ParsableDate): Since
 
   /** create the human-readable diff between the two dates */
   from(value: Spacetime | ParsableDate): Since
@@ -119,7 +126,7 @@ export interface Spacetime {
   fromNow(value: Spacetime | ParsableDate): Since
 
   /** change to a new date */
-  set(date: ParsableDate): Spacetime
+  set(date: ParsableDate, timezone?: string): Spacetime
 
   /** does this time exist on the gregorian/javascript calendar? */
   isValid: () => boolean
@@ -151,9 +158,13 @@ export interface Spacetime {
   logYear: () => Spacetime
 
   /** return all date units as a key-value map */
-  json(): object
+  json(): Json
   /** set the date via JSON object */
-  json(obj: object): Spacetime
+  json(obj: DateFields & {
+    day?: number | string
+    decade?: number | string
+    century?: number | string
+  }): Spacetime
 
   /** Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
   progress: (unit?: string) => Progress
@@ -185,27 +196,55 @@ export interface Spacetime {
   /** get the current number of milliseconds (0-999) */
   millisecond(): number
   /** set the current number of milliseconds (0-999) */
-  millisecond(value: number): Spacetime
+  millisecond(value: number | string): Spacetime
+
+  /** alias of millisecond() */
+  milliseconds(): number
+  milliseconds(value: number | string): Spacetime
 
   /** get the current number of seconds (0-59) */
   second(): number
   /** set the current number of seconds (0-59) */
-  second(value: number, goForward?: boolean): Spacetime
+  second(value: number | string, goForward?: boolean): Spacetime
+
+  /** alias of second() */
+  seconds(): number
+  seconds(value: number | string, goForward?: boolean): Spacetime
 
   /** get the current number of minutes (0-59) */
   minute(): number
   /** set the current number of minutes (0-59) */
-  minute(value: number, goForward?: boolean): Spacetime
+  minute(value: number | string, goForward?: boolean): Spacetime
+
+  /** alias of minute() */
+  minutes(): number
+  minutes(value: number | string, goForward?: boolean): Spacetime
 
   /** get the current hour, in 24 time (0-23). */
   hour(): number
   /** set the current hour, in 24 time (0-23). also accepts/parses '3pm' */
   hour(value: number | string, goForward?: boolean): Spacetime
 
+  /** alias of hour() */
+  hours(): number
+  hours(value: number | string, goForward?: boolean): Spacetime
+
   /** get the current hour, in 12-hour format (0-11). */
   hour12(): number
   /** set the current hour, in 12-hour format (0-11). also accepts/parses '3pm' */
   hour12(value: number | string, goForward?: boolean): Spacetime
+
+  /** alias of hour12() */
+  h12(): number
+  h12(value: number | string, goForward?: boolean): Spacetime
+
+  /** alias of hour() */
+  hour24(): number
+  hour24(value: number | string, goForward?: boolean): Spacetime
+
+  /** alias of hour() */
+  h24(): number
+  h24(value: number | string, goForward?: boolean): Spacetime
 
   /** get the date/time as ISO 8601*/
   iso(): string
@@ -220,7 +259,7 @@ export interface Spacetime {
   /** get the day-number of the month (1- max31) */
   date(): number
   /** set the day-number of the month (1- max31) */
-  date(value: number, goForward?: boolean): Spacetime
+  date(value: number | string, goForward?: boolean): Spacetime
 
   /** get the zero-based month-number (0-11). */
   month(): number
@@ -230,7 +269,7 @@ export interface Spacetime {
   /** get the 4-digit year as an integer */
   year(): number
   /** set the 4-digit year as an integer */
-  year(value: number): Spacetime
+  year(value: number | string): Spacetime
 
   /** get a formatted, 12-hour time, like '11:30pm' */
   time(): string
@@ -240,12 +279,12 @@ export interface Spacetime {
   /** get the week-number of the year (1-52) */
   week(): number
   /** set the week-number of the year (1-52) */
-  week(value: number, goForward?: boolean): Spacetime
+  week(value: number | string, goForward?: boolean): Spacetime
 
   /** get the fiscal-quarter (1-4) */
   quarter(): number
-  /** set the fiscal-quarter (1-4) */
-  quarter(value: number, goForward?: boolean): Spacetime
+  /** set the fiscal-quarter (1-4). also accepts 'q1'..'q4' */
+  quarter(value: number | string, goForward?: boolean): Spacetime
 
   /** get the name of the season, spring/summer/fall/autumn/winter */
   season(): string
@@ -267,6 +306,10 @@ export interface Spacetime {
   /** set the day of the week as an integer, starting on sunday (day-0). Also accepts names like 'wednesday', or 'thurs' */
   day(value: number | string, goForward?: boolean): Spacetime
 
+  /** alias of day() */
+  days(): number
+  days(value: number | string, goForward?: boolean): Spacetime
+
   /** get the day of the week as lower-case string */
   dayName(): string
   /** set the day of the week */
@@ -275,7 +318,7 @@ export interface Spacetime {
   /** get the day as an integer 1-365 */
   dayOfYear(): string
   /** set the day of the year */
-  dayOfYear(value: number, goForward?: boolean): Spacetime
+  dayOfYear(value: number | string, goForward?: boolean): Spacetime
 
   /** get whether the time is am or pm */
   ampm(): string
@@ -285,7 +328,7 @@ export interface Spacetime {
   /** get number of seconds since Jan 1 1970 */
   epochSeconds(): number | null
   /** set the time, using seconds since Jan 1 1970 */
-  epochSeconds(value: number): Spacetime
+  epochSeconds(value: number | string): Spacetime
 
   /** get the general time-of-day, like 'afternoon' */
   dayTime(): string
@@ -369,4 +412,40 @@ export interface TimezoneSet {
   }
 }
 
-export type ParsableDate = Spacetime | Date | number | Array<number> | string | TemporalInput
+/** a date as key-value fields, eg { year: 2019, month: 'june', date: 1 }. Omitted fields keep their current value */
+export interface DateFields {
+  year?: number | string
+  month?: number | string
+  date?: number | string
+  hour?: number | string
+  minute?: number | string
+  second?: number | string
+  millisecond?: number | string
+  timezone?: string
+}
+
+/** what .json() returns: every calendar field, plus the offset and timezone */
+export interface Json extends DateFields {
+  year: number
+  month: number
+  date: number
+  hour: number
+  minute: number
+  second: number
+  millisecond: number
+  century: number
+  decade: number
+  day: number
+  offset: number
+  timezone: string
+}
+
+export type ParsableDate =
+  | Spacetime
+  | Date
+  | number
+  | Array<number | string>
+  | string
+  | DateFields
+  | { epoch: number | null; tz?: string }
+  | TemporalInput

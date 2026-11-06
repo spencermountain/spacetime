@@ -7,6 +7,21 @@ This project follows semVer, where:
 <!--
  -->
 
+### 7.17.1 [Nov 2026]
+
+- **[fix]** - #479 year-arithmetic on leap
+- **[fix]** - #480 issue with clamped diffs
+- **[fix]** - #482 startOf('day') on DST change days
+- **[fix]** - #481 .startOf('season') issue (thanks Wei-Lun!)
+- **[fix]** - minimist dep vuln
+- **[fix]** - brittle tests on particular days
+- **[update]** - tzdbVersion 2026f
+- **[change]** - #477 remove DST change from edmonton,vancouver,yellowknife,winnipeg,rainy_river,inuvik
+- **[change]** - remove DST change from havana
+- **[change]** - remove DST change from casablanca,el_aaiun
+- **[change]** - use direct (more-frequent) tzdb source
+- **[update]** - dependencies
+
 ### 7.17.0 [Oct 2026]
 
 - **[change]** - #212 return proper titlecased IANA codes in `.whereIts()`

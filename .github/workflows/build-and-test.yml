@@ -3,7 +3,7 @@ name: Build and test
 on:
   pull_request:
   push:
-    branches: [master]
+    branches: [master, dev]
   workflow_dispatch:
   workflow_call:
 
@@ -67,6 +67,14 @@ jobs:
       - name: Check types
         if: matrix.node-version == '26.x'
         run: pnpm run test:types
+
+      - name: Typecheck source
+        if: matrix.node-version == '26.x'
+        run: pnpm run typecheck
+
+      - name: Check zero runtime dependencies
+        if: matrix.node-version == '26.x'
+        run: node -e "process.exit(Object.keys(require('./package.json').dependencies || {}).length)"
 
       - name: Lint
         if: matrix.node-version == '26.x'

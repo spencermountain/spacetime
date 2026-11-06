@@ -3,4 +3,4 @@ import fs from 'node:fs'
 // make a small file for our version number
 const pkg = JSON.parse(fs.readFileSync('./package.json').toString())
 
-fs.writeFileSync('./src/_version.js', `export default '${pkg.version}'`)
+fs.writeFileSync('./src/_version.ts', `export default '${pkg.version}'`)

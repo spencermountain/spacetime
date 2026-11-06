@@ -2,7 +2,11 @@ export type TimeUnit =
   | 'millisecond'
   | 'second'
   | 'minute'
+  | 'min'
+  | 'mins'
   | 'quarterHour'
+  | 'quarterhour'
+  | 'quarter-hour'
   | 'hour'
   | 'day'
   | 'week'
@@ -14,6 +18,8 @@ export type TimeUnit =
   | 'century'
   | 'millennium'
   | 'date'
+  | 'weekend'
+  | 'fortnight'
   | 'milliseconds' //plural forms
   | 'seconds'
   | 'minutes'
@@ -82,13 +88,13 @@ export type Format =
 export interface I18nOptions {
   /** Alternatives to Monday, Tuesday..*/
   days?: {
-    short: string[]
-    long: string[]
+    short?: string[]
+    long?: string[]
   }
   /** Alternatives to Jan, Feb..*/
   months?: {
-    short: string[]
-    long: string[]
+    short?: string[]
+    long?: string[]
   }
   /** Alternatives to am, pm*/
   ampm?: {
@@ -97,4 +103,32 @@ export interface I18nOptions {
   }
   /** Default dayname formatting */
   useTitleCase?: boolean
+  /** Alternatives to the words used by .since(), eg 'past', 'future', 'in 2 days', '2 days ago' */
+  distance?: {
+    past?: string
+    future?: string
+    present?: string
+    now?: string
+    almost?: string
+    over?: string
+    /** eg. (value) => `${value} ago` */
+    pastDistance?: (value: string) => string
+    /** eg. (value) => `in ${value}` */
+    futureDistance?: (value: string) => string
+  }
+  /** Alternatives to the unit names used by .since(), eg 'second', 'seconds', 'minute'.. */
+  units?: {
+    second?: string
+    seconds?: string
+    minute?: string
+    minutes?: string
+    hour?: string
+    hours?: string
+    day?: string
+    days?: string
+    month?: string
+    months?: string
+    year?: string
+    years?: string
+  }
 }

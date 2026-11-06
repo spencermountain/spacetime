@@ -1,6 +1,5 @@
 import test from 'tape'
-import spacetime from '../../../src/index.js'
-// import spacetime from 'spacetime'
+import spacetime from 'spacetime'
 import geo from '../src/index.js'
 // import geo from '../builds/spacetime-geo.mjs'
 

@@ -1,4 +1,4 @@
-import type { Spacetime, ParsableDate, TimezoneSet } from './types.js'
+import type { Spacetime, ParsableDate, DateFields, TimezoneSet } from './types.js'
 
 export interface SpacetimeConstructorOptions {
   /** javascript dates use millisecond-epochs, instead of second-epochs, like some other languages. This is a common bug, and by default spacetime warns if you set an epoch within January 1970. to disable set to true */
@@ -9,6 +9,9 @@ export interface SpacetimeConstructorOptions {
 
   /** pass true to change parsing behaviour to dd/mm/yyyy. By default American interpretation will be used. */
   dmy?: boolean
+
+  /** a reference date for relative parsing, like 'now' or '1992'. (mostly for testing) */
+  today?: DateFields
 }
 
 export interface SpacetimeConstructor {

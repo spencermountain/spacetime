@@ -7,7 +7,7 @@ const run = args => execFileSync(process.execPath, [cli, ...args], { encoding: '
 
 test('stz CLI', t => {
   const help = run(['--help'])
-  t.match(help, /Usage:.*stz/, 'prints usage')
+  t.match(help, /^ *Usage:.*stz/m, 'prints usage')
   t.notOk(/Could not find/.test(help), 'recognizes the help option')
   t.match(run(['boston']), /\d{1,2}:\d{2}(am|pm) E[DS]T/, 'prints Boston time and offset abbreviation')
   t.end()

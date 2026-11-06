@@ -36,7 +36,7 @@ const metadata = async () => {
   // Match the min.js build without changing checked-in build artifacts.
   const { rollup } = await import('rollup')
   const { default: terser } = await import('@rollup/plugin-terser')
-  const bundle = await rollup({ input: fileURLToPath(new URL('../../src/index.js', import.meta.url)) })
+  const bundle = await rollup({ input: fileURLToPath(new URL('../../src/index.ts', import.meta.url)) })
   const { output } = await bundle.generate({
     format: 'umd', name: 'spacetime', plugins: [terser()],
     banner: `/* spencermountain/${pkg.name} ${pkg.version} ${pkg.license} */`,
