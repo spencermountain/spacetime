@@ -5,7 +5,15 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!--
- -->
+### 7.17.1 [Unrelesed]
+
+fractional arithmetic fixes:
+- **[change]** - 12:10 + 0.001 day = 12:11:26.400
+- **[change]** - 2020-03-08 + 0.9999 day = 1 day
+- **[change]** - +- 0.5 week = 3.5 days
+
+
+-->
 
 ### 7.17.1 [Nov 2026]
 

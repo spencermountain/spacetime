@@ -30,8 +30,8 @@ test('round the final result when the starting time is not on a boundary', (t) =
 test('rounded decimal and whole-unit transforms give the same result', (t) => {
   const s = spacetime('2025-05-12T00:00:00.000Z', 'UTC')
   const cases = [
-    [0.25, 'week', 2, 'days'],
-    [0.75, 'weeks', 5, 'days'],
+    [0.1, 'week', 17, 'hours'],
+    [0.12, 'weeks', 20, 'hours'],
     [0.1, 'day', 2, 'hours'],
     [0.2, 'days', 5, 'hours']
   ] as const
@@ -74,11 +74,11 @@ test('round to the nearest subunit', (t) => {
   const start = '2023-04-01T00:00:00.000Z'
   // Avoid midpoint ties: these exercise rounding in both directions.
   const cases = [
-    // 1.75 days rounds to 2 days; 5.25 days rounds to 5 days.
-    [0.25, 'week', '2023-04-03T00:00:00.000Z'],
-    [0.75, 'weeks', '2023-04-06T00:00:00.000Z'],
-    [-0.25, 'week', '2023-03-30T00:00:00.000Z'],
-    [-0.75, 'weeks', '2023-03-27T00:00:00.000Z'],
+    // 16.8 hours rounds to 17 hours; 20.16 hours rounds to 20 hours.
+    [0.1, 'week', '2023-04-01T17:00:00.000Z'],
+    [0.12, 'weeks', '2023-04-01T20:00:00.000Z'],
+    [-0.1, 'week', '2023-03-31T07:00:00.000Z'],
+    [-0.12, 'weeks', '2023-03-31T04:00:00.000Z'],
     // 2.4 hours rounds to 2 hours; 4.8 hours rounds to 5 hours.
     [0.1, 'day', '2023-04-01T02:00:00.000Z'],
     [0.2, 'days', '2023-04-01T05:00:00.000Z'],

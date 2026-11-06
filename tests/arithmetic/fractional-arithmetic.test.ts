@@ -112,13 +112,14 @@ test('decimal and whole-unit transforms give the same result', (t) => {
 })
 
 test('decimal transforms agree across timezones and DST changes', (t) => {
+  // Bundled rules reuse one set of dates every year, so these follow those dates.
   const starts = [
-    ['2024-03-09T18:00:00', 'America/New_York'], // Spring forward.
-    ['2024-03-10T06:00:00', 'America/New_York'], // Subtract across the change.
-    ['2024-11-02T18:00:00', 'America/New_York'], // Fall back.
-    ['2024-11-03T06:00:00', 'America/New_York'],
-    ['2024-03-31T00:00:00', 'Europe/London'],
-    ['2024-04-07T00:00:00', 'Australia/Sydney'],
+    ['2026-03-07T18:00:00', 'America/New_York'], // Spring forward.
+    ['2026-03-08T06:00:00', 'America/New_York'], // Subtract across the change.
+    ['2026-10-31T18:00:00', 'America/New_York'], // Fall back.
+    ['2026-11-01T06:00:00', 'America/New_York'],
+    ['2026-03-28T18:00:00', 'Europe/London'],
+    ['2026-04-04T18:00:00', 'Australia/Sydney'],
     ['2024-07-01T00:00:00', 'Asia/Kathmandu'], // Quarter-hour offset.
     ['2024-09-01T00:00:00', 'Asia/Kolkata'] // Half-hour offset.
   ] as const
@@ -133,6 +134,11 @@ test('decimal transforms agree across timezones and DST changes', (t) => {
   starts.forEach(([input, zone]) => {
     const s = spacetime(input, zone)
     const original = s.iso()
+    // Fail loudly if regenerated rules move a transition away from these dates.
+    if (s.hasDST()) {
+      const offsets = [s.add(12, 'hours').offset(), s.subtract(12, 'hours').offset()]
+      t.ok(offsets.some((offset) => offset !== s.offset()), `${input} in ${zone}: is within 12 hours of a DST change`)
+    }
     cases.forEach(([amount, unit, wholeAmount, wholeUnit]) => {
       const label = `${input} in ${zone}: ${amount} ${unit} equals ${wholeAmount} ${wholeUnit}`
       const added = s.add(amount, unit)
