@@ -45,9 +45,9 @@ const parseInput = (s: Spacetime, input: SpacetimeInput, timezone?: string): Spa
   if (native) {
     return native
   }
-  //support input of Date() object
-  if (input instanceof Date) {
-    s.epoch = input.getTime()
+  // Date constructors differ across frames and VM contexts.
+  if (Object.prototype.toString.call(input) === '[object Date]') {
+    s.epoch = (input as Date).getTime()
     return s
   }
   //support [2016, 03, 01] format

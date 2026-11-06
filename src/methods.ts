@@ -10,9 +10,9 @@ import every from './methods/every.ts'
 import timezone from './timezone/index.ts'
 import findTz from './timezone/find.ts'
 import handleInput from './input/index.ts'
-import { isLeapYear, getUnit, setUnit, isUnitKey } from './fns.ts'
+import { isLeapYear, getUnit, isUnitKey } from './fns.ts'
 import { short, long } from './data/days.ts'
-import type { Spacetime, SpacetimeInput, TimezoneMeta, TimeUnit } from './types/index.ts'
+import type { Spacetime, SpacetimeInput, TimezoneMeta, TimeUnit, GetSet } from './types/index.ts'
 const units = ['century', 'decade', 'year', 'month', 'date', 'day', 'hour', 'minute', 'second', 'millisecond'] as const
 
 // a number for one unit, or the whole table
@@ -177,8 +177,8 @@ const methods = {
       }
       for (let i = 0; i < units.length; i++) {
         const unit = units[i]
-        if (input[unit] !== undefined && isUnitKey(unit)) {
-          s = setUnit(s, unit, input[unit])
+        if (input[unit] !== undefined) {
+          s = (s[unit] as GetSet<number, number | string>).call(s, input[unit])
         }
       }
       return s

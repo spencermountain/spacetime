@@ -160,7 +160,11 @@ export interface Spacetime {
   /** return all date units as a key-value map */
   json(): Json
   /** set the date via JSON object */
-  json(obj: DateFields): Spacetime
+  json(obj: DateFields & {
+    day?: number | string
+    decade?: number | string
+    century?: number | string
+  }): Spacetime
 
   /** Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
   progress: (unit?: string) => Progress

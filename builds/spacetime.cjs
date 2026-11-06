@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.17.0 Apache-2.0 */
+/* spencermountain/spacetime 7.17.1 Apache-2.0 */
 'use strict';
 
 const isLeapYear = (year) => year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
@@ -1239,6 +1239,13 @@ const apply = (s, parsed) => {
   return s;
 };
 const parseString = function(s, input) {
+  if (input.length > 500) {
+    if (s.silent === false) {
+      console.warn("Warning: didn't parse long date-string.");
+    }
+    s.epoch = null;
+    return s;
+  }
   for (let i = 0; i < parsers.length; i++) {
     const m = input.match(parsers[i].reg);
     if (m) {
@@ -1283,7 +1290,7 @@ const parseInput = (s, input, timezone) => {
   if (native) {
     return native;
   }
-  if (input instanceof Date) {
+  if (Object.prototype.toString.call(input) === "[object Date]") {
     s.epoch = input.getTime();
     return s;
   }
@@ -1668,6 +1675,9 @@ const escapeChars = function(arr) {
 const combineRepeated = function(arr) {
   for (let i = 0; i < arr.length; i += 1) {
     const c = arr[i];
+    if (c === null) {
+      continue;
+    }
     for (let o = i + 1; o < arr.length; o += 1) {
       if (arr[o] === c) {
         arr[i] += arr[o];
@@ -2519,8 +2529,8 @@ const methods$8 = {
       }
       for (let i = 0; i < units.length; i++) {
         const unit = units[i];
-        if (input[unit] !== void 0 && isUnitKey(unit)) {
-          s = setUnit(s, unit, input[unit]);
+        if (input[unit] !== void 0) {
+          s = s[unit].call(s, input[unit]);
         }
       }
       return s;
@@ -3791,7 +3801,7 @@ const whereIts = (a, b) => {
   return tzs.map(titleCase);
 };
 
-var version = "7.17.0";
+var version = "7.17.1";
 
 const create = (input, tz, options) => new Spacetime(input, tz, options);
 const setToday = function(s) {
