@@ -53,6 +53,7 @@ export const fetchRelease = async (release) => {
   const zi = run('awk', ['-v', `DATAFORM=${dataform}`, '-f', 'ziguard.awk', ...TDATA], src)
   writeFileSync(join(src, `${dataform}.zi`), zi)
   const zoneinfoDir = join(dir, 'zoneinfo')
-  run('zic', ['-d', zoneinfoDir, join(src, `${dataform}.zi`)])
+  // macOS zdump misses some slim-file DST rules; keep explicit transitions.
+  run('zic', ['-b', 'fat', '-d', zoneinfoDir, join(src, `${dataform}.zi`)])
   return { zoneinfoDir, version, released, source, zones: parseZoneNames(zi) }
 }
