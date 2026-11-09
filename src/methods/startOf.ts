@@ -182,6 +182,10 @@ const endOf = (a: Spacetime, unit: TimeUnit): Spacetime => {
     // go to beginning, go to next one, step back 1ms
     s = units[unit](s) // startof
     s = s.add(1, unit)
+    if (unit === 'date') {
+      // A skipped midnight may have moved the previous day's start to 1am.
+      s = units.date(s)
+    }
     s = s.subtract(1, 'millisecond')
     return s
   }
