@@ -187,3 +187,13 @@ test('add fortnight', (t) => {
   t.equal(a.iso(), b.iso(), 'fortnight')
   t.end()
 })
+
+test('add/subtract seasons moves 3 calendar months', (t) => {
+  t.equal(spacetime('2020-03-01', 'UTC').add(1, 'season').format('iso-short'), '2020-06-01', 'mar 1 + 1 season')
+  t.equal(spacetime('2020-09-01', 'UTC').add(2, 'season').format('iso-short'), '2021-03-01', 'sep 1 + 2 seasons')
+  t.equal(spacetime('2020-12-01', 'UTC').subtract(1, 'season').format('iso-short'), '2020-09-01', 'dec 1 - 1 season')
+  t.equal(spacetime('2020-11-30', 'UTC').add(1, 'season').format('iso-short'), '2021-02-28', 'nov 30 + 1 season')
+  t.equal(spacetime('2020-03-14', 'UTC').endOf('season').format('iso-short'), '2020-05-31', 'end of spring')
+  t.equal(spacetime('2021-01-10', 'UTC').endOf('season').format('iso-short'), '2021-02-28', 'end of winter')
+  t.end()
+})

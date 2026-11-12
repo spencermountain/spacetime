@@ -135,8 +135,8 @@ const add = function (this: Spacetime, num: number, unit: TimeUnit) {
       want.date = old.date() + num
     }
   }
-  // ensure a quarter is 3 months over
-  else if (unit === 'quarter') {
+  // ensure a quarter (or season) is 3 months over
+  else if (unit === 'quarter' || unit === 'season') {
     want.month = old.month() + (num * 3)
     want.year = old.year()
     // handle rollover
