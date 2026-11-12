@@ -12,8 +12,8 @@ const mapping: Record<string, (s: Spacetime) => string | number> = {
   //year
   y: (s: Spacetime) => s.year(),
   yy: (s: Spacetime) => {
-    //last two chars
-    return pad(Number(String(s.year()).slice(2, 6)))
+    //last two digits
+    return pad(Math.abs(s.year()) % 100)
   },
   yyy: (s: Spacetime) => s.year(),
   yyyy: (s: Spacetime) => s.year(),

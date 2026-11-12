@@ -187,6 +187,22 @@ test('unix-year-padding', t => {
   t.end()
 })
 
+test('two-digit year below 1000', (t) => {
+  let s = spacetime([5, 8, 1], 'UTC')
+  t.equal(s.unixFmt('yy'), '05', 'yy year 5')
+  t.equal(s.format('{year-short}'), "'05", 'year-short year 5')
+  s = spacetime([99, 8, 1], 'UTC')
+  t.equal(s.unixFmt('yy'), '99', 'yy year 99')
+  t.equal(s.format('{year-short}'), "'99", 'year-short year 99')
+  s = spacetime([987, 8, 1], 'UTC')
+  t.equal(s.unixFmt('yy'), '87', 'yy year 987')
+  t.equal(s.format('{year-short}'), "'87", 'year-short year 987')
+  s = spacetime([2005, 8, 1], 'UTC')
+  t.equal(s.unixFmt('yy'), '05', 'yy year 2005')
+  t.equal(s.format('{year-short}'), "'05", 'year-short year 2005')
+  t.end()
+})
+
 test('am-pm-variants', (t) => {
   let s = spacetime('January 1, 2023')
   s = s.time('4:45pm')
