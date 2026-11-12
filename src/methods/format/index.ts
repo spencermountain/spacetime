@@ -53,7 +53,7 @@ const format: Record<string, Formatter> = {
   'year-short': (s) => {
     let year = s.year()
     if (year > 0) {
-      return `'${String(s.year()).slice(2, 6)}`
+      return `'${zeroPad(year % 100)}`
     }
     year = Math.abs(year)
     return year + ' BC'
