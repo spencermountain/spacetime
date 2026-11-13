@@ -169,7 +169,7 @@ const unixFmt = (s: Spacetime, str: string): string => {
   arr = combineRepeated(arr)
   return arr.reduce((txt, c) => {
     if (mapping[c] !== undefined) {
-      txt += mapping[c](s) || ''
+      txt += mapping[c](s) ?? ''
     } else {
       // 'unescape'
       if (/^'.+'$/.test(c)) {
