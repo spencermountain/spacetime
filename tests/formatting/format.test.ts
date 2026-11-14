@@ -179,6 +179,14 @@ test('unix-fmt-padding', t => {
   t.end()
 })
 
+test('unix-fmt-zero-values', (t) => {
+  const s = spacetime([2024, 0, 7, 0, 0, 0], 'UTC')
+  t.equal(s.unixFmt('H:m:s'), '0:0:0', 'unpadded midnight')
+  t.equal(s.unixFmt('h:m a'), '12:0 AM', 'minute zero')
+  t.equal(s.unixFmt('e'), '0', 'sunday')
+  t.end()
+})
+
 test('unix-year-padding', t => {
   let s = spacetime('sep 1 2022')
   t.equal(s.unixFmt('yy'), '22', 'non-zero-end')
