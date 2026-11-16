@@ -24,7 +24,8 @@ const confirm = (s: Spacetime, tmp: Spacetime, unit: TimeUnit): Spacetime => {
   const arr = order.slice(n, order.length)
   for (let i = 0; i < arr.length; i++) {
     const want = getUnit(tmp, arr[i])
-    setUnit(s, arr[i], want)
+    // setters return a new instance, so copy its epoch back onto `s`
+    s.epoch = setUnit(s, arr[i], want).epoch
   }
   return s
 }
