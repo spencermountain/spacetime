@@ -175,7 +175,7 @@ const aliases: Record<string, string> = {
   ymd: 'numeric',
   'yyyy/mm/dd': 'numeric',
   'mm/dd/yyyy': 'numeric-us',
-  'dd/mm/yyyy': 'numeric-us',
+  'dd/mm/yyyy': 'numeric-uk',
   'little-endian': 'numeric-uk',
   'big-endian': 'numeric',
   'day-nice': 'nice-day'
