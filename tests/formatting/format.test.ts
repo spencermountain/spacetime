@@ -198,6 +198,15 @@ test('format-zero-values', (t) => {
   t.end()
 })
 
+test('numeric-aliases', (t) => {
+  const s = spacetime([2024, 2, 7], 'UTC')
+  t.equal(s.format('dd/mm/yyyy'), '07/03/2024', 'dd/mm/yyyy')
+  t.equal(s.format('mm/dd/yyyy'), '03/07/2024', 'mm/dd/yyyy')
+  t.equal(s.format('yyyy/mm/dd'), s.format('numeric'), 'yyyy/mm/dd')
+  t.equal(s.format('dd/mm/yyyy'), s.format('numeric-uk'), 'same as numeric-uk')
+  t.end()
+})
+
 test('unix-year-padding', t => {
   let s = spacetime('sep 1 2022')
   t.equal(s.unixFmt('yy'), '22', 'non-zero-end')
