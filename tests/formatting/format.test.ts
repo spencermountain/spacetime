@@ -187,6 +187,36 @@ test('unix-fmt-zero-values', (t) => {
   t.end()
 })
 
+test('unix-fmt-fractional-seconds', (t) => {
+  const s = spacetime('2024-03-05T10:07:45.678', 'UTC')
+  t.equal(s.unixFmt('ss.S'), '45.6', 'S is tenths of a second')
+  t.equal(s.unixFmt('ss.SS'), '45.67', 'SS is hundredths of a second')
+  t.equal(s.unixFmt('ss.SSS'), '45.678', 'SSS is milliseconds')
+  t.equal(s.unixFmt('ss.SSSS'), '45.6780', 'SSSS pads with zeros')
+  const early = spacetime('2024-03-05T10:07:45.020', 'UTC')
+  t.equal(early.unixFmt('ss.S'), '45.0', 'S truncates, keeps leading zero')
+  t.equal(early.unixFmt('ss.SS'), '45.02', 'SS keeps leading zero')
+  t.end()
+})
+
+test('unix-fmt-k-and-K-hours', (t) => {
+  const midnight = spacetime([2024, 0, 7, 0, 5], 'UTC')
+  t.equal(midnight.unixFmt('k'), '24', 'k is 1-24, midnight is 24')
+  t.equal(midnight.unixFmt('kk'), '24', 'kk midnight')
+  t.equal(midnight.unixFmt('K a'), '0 AM', 'K is 0-11, midnight is 0')
+  t.equal(midnight.unixFmt('KK'), '00', 'KK midnight')
+  const noon = spacetime([2024, 0, 7, 12, 5], 'UTC')
+  t.equal(noon.unixFmt('k'), '12', 'k noon')
+  t.equal(noon.unixFmt('K a'), '0 PM', 'K noon is 0')
+  const morning = spacetime([2024, 0, 7, 9, 5], 'UTC')
+  t.equal(morning.unixFmt('kk'), '09', 'kk pads')
+  t.equal(morning.unixFmt('KK'), '09', 'KK pads')
+  const evening = spacetime([2024, 0, 7, 23, 5], 'UTC')
+  t.equal(evening.unixFmt('k'), '23', 'k 23')
+  t.equal(evening.unixFmt('K'), '11', 'K 11')
+  t.end()
+})
+
 test('format-zero-values', (t) => {
   const s = spacetime([2024, 0, 7, 0, 0, 0], 'UTC')
   t.equal(s.format('hour-24'), '0', 'midnight')

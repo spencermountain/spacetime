@@ -3,6 +3,10 @@ import type { Spacetime } from '../../types/index.ts'
 //parse this insane unix-time-templating thing, from the 19th century
 //http://unicode.org/reports/tr35/tr35-25.html#Date_Format_Patterns
 
+const fraction = (s: Spacetime, n: number): string => {
+  return pad(s.millisecond(), 3).padEnd(n, '0').slice(0, n)
+}
+
 //time-symbols we support
 const mapping: Record<string, (s: Spacetime) => string | number> = {
   G: (s: Spacetime) => s.era(),
@@ -72,6 +76,12 @@ const mapping: Record<string, (s: Spacetime) => string | number> = {
   hh: (s: Spacetime) => pad(s.h12()),
   H: (s: Spacetime) => s.hour(),
   HH: (s: Spacetime) => pad(s.hour()),
+  //hour 1-24 (midnight is 24)
+  k: (s: Spacetime) => s.hour() || 24,
+  kk: (s: Spacetime) => pad(s.hour() || 24),
+  //hour 0-11 (noon is 0)
+  K: (s: Spacetime) => s.hour() % 12,
+  KK: (s: Spacetime) => pad(s.hour() % 12),
   // j: (s) => {},//weird hour format
 
   m: (s: Spacetime) => s.minute(),
@@ -79,8 +89,11 @@ const mapping: Record<string, (s: Spacetime) => string | number> = {
   s: (s: Spacetime) => s.second(),
   ss: (s: Spacetime) => pad(s.second()),
 
-  //milliseconds
-  SSS: (s: Spacetime) => pad(s.millisecond(), 3),
+  //fraction of a second, truncated to the number of letters
+  S: (s: Spacetime) => fraction(s, 1),
+  SS: (s: Spacetime) => fraction(s, 2),
+  SSS: (s: Spacetime) => fraction(s, 3),
+  SSSS: (s: Spacetime) => fraction(s, 4),
   //milliseconds in the day
   A: (s: Spacetime) => s.epoch - s.startOf('day').epoch,
   //timezone
@@ -107,9 +120,6 @@ addAlias('q', 'Q', 4)
 addAlias('L', 'M', 4)
 addAlias('Y', 'y', 4)
 addAlias('c', 'e', 4)
-addAlias('k', 'H', 2)
-addAlias('K', 'h', 2)
-addAlias('S', 's', 2)
 addAlias('v', 'z', 4)
 addAlias('V', 'Z', 4)
 
