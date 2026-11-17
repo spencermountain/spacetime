@@ -191,7 +191,7 @@ const printFormat = (s: Spacetime, str = '', overrides?: Record<string, Formatte
   const formats = overrides ? { ...format, ...overrides } : format
   //support .format('month')
   if (formats.hasOwnProperty(str)) {
-    let out: any = formats[str](s) || ''
+    let out: any = formats[str](s) ?? ''
     if (str !== 'json') {
       out = String(out)
       if (str.toLowerCase() !== 'ampm') {
