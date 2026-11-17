@@ -24,9 +24,11 @@ const parseTime = (s: Spacetime, str: string = ''): Spacetime => {
     return s.startOf('day')
   }
   //formal time format - 04:30.23
-  let arr = str.match(/^([0-9]{1,2}):([0-9]{2})(?::([0-9]{1,2}))?(?:[:.]([0-9]+))?(?: ?(am|pm|gmt))?$/)
+  // a ':' fraction needs the seconds before it, so '02:30:155' is not read as 02:30:00.155
+  let arr = str.match(/^([0-9]{1,2}):([0-9]{2})(?::([0-9]{1,2})(?:[:.]([0-9]+))?|\.([0-9]+))?(?: ?(am|pm|gmt))?$/)
   if (arr !== null) {
-    const [, hour, minute, sec, ms, suffix] = arr
+    const [, hour, minute, sec, secFraction, minFraction, suffix] = arr
+    const ms = secFraction ?? minFraction
     const h = Number(hour)
     const m = Number(minute)
     const ampm = suffix === 'am' || suffix === 'pm'
