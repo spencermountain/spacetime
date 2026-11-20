@@ -102,6 +102,10 @@ names or fixed offsets such as `'+05:30'`; city-only names are unsupported.
 - Rounding matches the main library: `nearest` rounds an exact halfway point down
   to the earlier boundary, and `season`, `decade`, and `century` work as boundary
   units. The `.season()` getter and season-name inputs are not available.
+- `diff` counts months and years from the receiver, as native Temporal does, so
+  month-end dates can differ by one from the main library, which always counts
+  from the earlier date: Aug 31 09:36 back to Jun 30 14:24 is `-1` month here and
+  `-2` there, and `a.diff(b)` may not equal `-b.diff(a)`.
 - `.toTemporal()` and `.format('iso-full')` retain native precision; `.epoch`,
   `.iso()`, `.json()`, and JavaScript Date conversion use milliseconds.
 - Rejected inputs produce invalid instances; check `.isValid()`.

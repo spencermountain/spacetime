@@ -173,7 +173,10 @@ export interface Spacetime {
   }): Spacetime
 
   /** Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
-  progress: (unit?: string) => Progress
+  progress: {
+    (): Progress
+    (unit: string): number
+  }
 
   /** is the current year a leap year? */
   leapYear: () => boolean
@@ -368,6 +371,10 @@ export interface TimezoneMeta {
 }
 
 export interface Progress {
+  /** Progress of value from 0-1 */
+  century: number
+  /** Progress of value from 0-1 */
+  decade: number
   /** Progress of value from 0-1 */
   day: number
   /** Progress of value from 0-1 */

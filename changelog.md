@@ -12,15 +12,20 @@ This project follows semVer, where:
 
 ### 7.18.0 [Nov 2026]
 
-- **[change]** - #376 inputs with iana
 - **[update]** - 2027 DST changes
 - - - [note] - `Havana` kept at −4hr, will include single-change before nov
+- **[change]** - #376 inputs with iana
 - **[new]** - #344 `.ceil(unit)` and `.floor(unit)` methods
+- **[change]** - support season decade and century in rounding methods
+- **[change]** - add century, decade, and season `progress()` result
 - **[new]** - support single dst-change years _'->11/07:01'_
 - **[new]** - `.ceil()` and `.floor()` methods - like `.nearest()`, they don't move a date already on a boundary
 - **[new]** - `season`, `decade` and `century` units in `.nearest()`, `.diff()` and `.isSame()`
+- **[new]** - `decade` and `century` in `.progress()`
 - **[fix]** - #491 set minutes on fractional tzs (thanks bardrop)
 - **[fix]** - #490 #492 #496 #480 unixFmt dropped values
+- **[fix]** - month diff overcounting after a clamped leap-day _(feb 29 2032 -> apr 29 2034)_
+- **[fix]** - `.progress(unit)` return type is a number
 - **[fix]** - fractional arithmetic fixes:
 - - [fix] - 12:10 + 0.001 day = 12:11:26.400
 - - [fix] - 2020-03-08 + 0.9999 day = 1 day

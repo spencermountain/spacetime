@@ -22,7 +22,7 @@ s.quarter() // 2 (1–4)
 s.season() // 'spring' (depends on hemisphere)
 s.week() // week number; see year-boundary caveat below
 s.dayOfYear() // 94 (1–365, or 1–366 in leap years)
-s.progress() // fractions for year, season, quarter, month, week, day, quarterHour, hour, minute
+s.progress() // fractions for century, decade, year, season, quarter, month, week, day, quarterHour, hour, minute
 s.json() // date fields plus timezone and offset (offset in HOURS)
 s.epochSeconds() // whole epoch seconds (method)
 ```

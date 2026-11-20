@@ -52,9 +52,12 @@ In all cases, we try our best to provide a consistent API here, and to never thr
 spacetime('2024-01-01T16:20:00') // 4:20pm local
 spacetime('2024-01-01T16:20:00', 'America/Los_Angeles') // 4:20pm LA-time +DST
 spacetime('2024-01-01T16:20:00-08:00') // 4:20pm LA-time [fixed-8h]
-spacetime('2024-01-01T16:20:00').goto('America/Los_Angeles') // 4:20pm LA-time +DST
 spacetime('2024-01-01T16:20:00-08:00', 'America/Los_Angeles') // 4:20pm LA-time +DST
 spacetime('2024-01-01T16:20:00-08:00[America/Los_Angeles]') // 4:20pm LA-time +DST
+
+// (hidden local-zone conversion)
+spacetime('2024-01-01T16:20:00').goto('America/Los_Angeles') // 1:20pm LA-time +DST
+spacetime('2024-01-01T16:20:00-08:00').goto('America/Los_Angeles') // 4:20pm LA-time +DST
 ```
 
 ## Current-date and extreme-date helpers

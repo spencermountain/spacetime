@@ -29,14 +29,12 @@ const diff = function (a: Spacetime, b: Spacetime): Record<string, number> {
   obj.hours = Math.trunc(obj.minutes / 60)
 
   //do the year
-  let tmp = a.clone()
-  obj.years = fastYear(tmp, b)
-  tmp = a.add(obj.years, 'year')
+  obj.years = fastYear(a, b)
 
   //there's always 12 months in a year...
-  obj.months = obj.years * 12
-  tmp = a.add(obj.months, 'month')
-  obj.months += diffOne(tmp, b, 'month')
+  // (keep walking from the original date - feb 29 plus two years is clamped to feb 28,
+  // and counting on from the 28th would find a month that isn't there)
+  obj.months = diffOne(a, b, 'month', obj.years * 12)
   // a dst-fold can knock the year-estimate off-by-one - keep years consistent with the month-walk
   obj.years = Math.trunc(obj.months / 12)
 
@@ -46,14 +44,10 @@ const diff = function (a: Spacetime, b: Spacetime): Record<string, number> {
 
   // there's always atleast 52 weeks in a year..
   // (month * 4) isn't as close
-  obj.weeks = obj.years * 52
-  tmp = a.add(obj.weeks, 'week')
-  obj.weeks += diffOne(tmp, b, 'week')
+  obj.weeks = diffOne(a, b, 'week', obj.years * 52)
 
   // there's always atleast 7 days in a week
-  obj.days = obj.weeks * 7
-  tmp = a.add(obj.days, 'day')
-  obj.days += diffOne(tmp, b, 'day')
+  obj.days = diffOne(a, b, 'day', obj.weeks * 7)
 
   return obj
 }

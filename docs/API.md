@@ -126,7 +126,7 @@ moving forward; equality is allowed. See [setter examples](./setters.md).
 - `s.leapYear() → boolean` — whether this year is a leap year.
 - `s.daysInMonth() → number` — 28, 29, 30, or 31.
 - `s.progress(unit) → number` — elapsed fraction through a supported unit, rounded to two decimal places, from 0 to 1.
-- `s.progress() → Progress` — fractions for year, season, quarter, month, week, day, quarterHour, hour, and minute.
+- `s.progress() → Progress` — fractions for century, decade, year, season, quarter, month, week, day, quarterHour, hour, and minute.
 - `s.isAwake() → boolean` — hour is 8 through 22 inclusive.
 - `s.isAsleep() → boolean` — inverse of `isAwake`.
 - `s.log() → s` — log a readable date; returns the same instance.
