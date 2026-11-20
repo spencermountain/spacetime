@@ -99,6 +99,9 @@ names or fixed offsets such as `'+05:30'`; city-only names are unsupported.
   Use native Temporal for other calendars or its full options surface.
 - `.week()` uses ISO week numbers. Legacy setter, alias, and error behavior may
   differ. `progress` and `nearest` require an explicit supported unit.
+- Rounding matches the main library: `nearest` rounds an exact halfway point down
+  to the earlier boundary, and `season`, `decade`, and `century` work as boundary
+  units. The `.season()` getter and season-name inputs are not available.
 - `.toTemporal()` and `.format('iso-full')` retain native precision; `.epoch`,
   `.iso()`, `.json()`, and JavaScript Date conversion use milliseconds.
 - Rejected inputs produce invalid instances; check `.isValid()`.

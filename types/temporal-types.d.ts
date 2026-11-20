@@ -2,7 +2,7 @@
 
 export type Timezone = string | number | null
 export type FieldValue = string | number
-export type BoundaryUnit = 'millisecond' | 'second' | 'minute' | 'quarterhour' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year' | 'decade' | 'century' | 'millennium'
+export type BoundaryUnit = 'millisecond' | 'second' | 'minute' | 'quarterhour' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'season' | 'year' | 'decade' | 'century' | 'millennium'
 export type Unit = BoundaryUnit | 'date' | 'min' | 'quarter-hour' | 'season' | 'fortnight' | 'weekend'
 export type Units = Unit | `${Unit}s` | 'centuries'
 export type BoundaryUnits = BoundaryUnit | `${BoundaryUnit}s` | 'centuries' | 'date' | 'dates' | 'min' | 'mins' | 'quarter-hour' | 'quarter-hours'

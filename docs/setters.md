@@ -66,6 +66,13 @@ s.ceil('hour').ceil('hour').time() // '2:00pm'
 s.next('hour').time() // '3:00pm'
 ```
 
+When a date is exactly halfway between two boundaries, `nearest` rounds down to
+the earlier one: 2:30pm to the nearest hour is 2:00pm.
+
+`startOf`, `endOf`, `next`, `last`, `floor`, `ceil`, and `nearest` all accept
+`season`, `decade`, and `century`. Seasons begin on the first of March, June,
+September, and December in both hemispheres.
+
 Whole calendar-day and week arithmetic preserve clock time across DST where that time
 exists. Hours measure elapsed time. See [edge cases](./README.md#edge-cases).
 

@@ -9,6 +9,12 @@ const reverseDiff = function (obj: Record<string, number>): Record<string, numbe
   return obj
 }
 
+const scales: Record<string, [string, number]> = {
+  seasons: ['months', 3],
+  decades: ['years', 10],
+  centurys: ['years', 100]
+}
+
 // this method counts a total # of each unit, between a, b.
 // '1 month' means 28 days in february
 // '1 year' means 366 days in a leap year
@@ -37,6 +43,11 @@ function main(a: Spacetime, d: SpacetimeInput, unit?: TimeUnit) {
     }
     if (unit === 'dates') {
       unit = 'days'
+    }
+    // whole seasons, decades and centuries are counted from the months and years
+    if (Object.prototype.hasOwnProperty.call(scales, unit)) {
+      const [base, size] = scales[unit]
+      return Math.trunc(obj[base] / size) || 0 // (avoid a negative zero)
     }
     return obj[unit]
   }

@@ -2,7 +2,7 @@ import { normalize } from '../fns.ts'
 import ceil from './ceil.ts'
 import type { Spacetime, TimeUnit } from '../types/index.ts'
 
-const units = ['year', 'season', 'quarter', 'month', 'week', 'date', 'quarterhour', 'hour', 'minute']
+const units = ['century', 'decade', 'year', 'season', 'quarter', 'month', 'week', 'date', 'quarterhour', 'hour', 'minute']
 
 const nearest = (s: Spacetime, unit: TimeUnit): Spacetime => {
   unit = normalize(unit)

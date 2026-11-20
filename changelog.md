@@ -18,6 +18,7 @@ This project follows semVer, where:
 - **[new]** - #344 `.ceil(unit)` and `.floor(unit)` methods
 - **[new]** - support single dst-change years _'->11/07:01'_
 - **[new]** - `.ceil()` and `.floor()` methods - like `.nearest()`, they don't move a date already on a boundary
+- **[new]** - `season`, `decade` and `century` units in `.nearest()`, `.diff()` and `.isSame()`
 - **[fix]** - #491 set minutes on fractional tzs (thanks bardrop)
 - **[fix]** - #490 #492 #496 #480 unixFmt dropped values
 - **[fix]** - fractional arithmetic fixes:

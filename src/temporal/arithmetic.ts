@@ -61,6 +61,15 @@ const arithmetic = {
       if (unit === 'quarter') {
         values.month = (s.quarter() - 1) * 3 + 1
       }
+    } else if (unit === 'season') {
+      // seasons begin on the 1st of march, june, september and december, in either hemisphere
+      // (january and february belong to the season that began last december)
+      const month = s.month() + 1
+      values.day = 1
+      values.month = month < 3 ? 12 : Math.floor(month / 3) * 3
+      if (month < 3) {
+        values.year = s.year() - 1
+      }
     } else if (['year', 'decade', 'century', 'millennium'].includes(unit)) {
       values.month = 1
       values.day = 1
@@ -93,7 +102,8 @@ const arithmetic = {
     // the closer of floor and ceil - both leave a boundary alone, so this does too
     const start = this.startOf(unit)
     const end = this.ceil(unit)
-    return this.epoch - start.epoch >= end.epoch - this.epoch ? end : start
+    // (an exact tie keeps the earlier boundary, like the main library)
+    return this.epoch - start.epoch > end.epoch - this.epoch ? end : start
   },
   // round up to the next boundary; a date already on one stays put
   ceil(unit: string) {

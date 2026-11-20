@@ -94,7 +94,7 @@ moving forward; equality is allowed. See [setter examples](./setters.md).
 - `s.endOf(unit) → Spacetime` — final millisecond of the selected calendar unit.
 - `s.next(unit) → Spacetime` — beginning of the next unit.
 - `s.last(unit) → Spacetime` — beginning of the previous unit.
-- `s.nearest(unit) → Spacetime` — round to a unit boundary; supports year, season, quarter, month, week, day, quarterHour, hour, and minute.
+- `s.nearest(unit) → Spacetime` — round to the closer unit boundary; an exact halfway point rounds down to the earlier one. Supports century, decade, year, season, quarter, month, week, day, quarterHour, hour, and minute.
 - `s.round(unit) → Spacetime` — alias of `nearest`.
 - `s.ceil(unit) → Spacetime` — round up to the beginning of the next unit; a date already at the beginning of a unit is returned unchanged (unlike `next`).
 - `s.floor(unit) → Spacetime` — round down to the beginning of the unit; alias of `startOf`.
@@ -108,8 +108,8 @@ moving forward; equality is allowed. See [setter examples](./setters.md).
 - `s.isBefore(other) → boolean` — whether **s is earlier** than `other`.
 - `s.isEqual(other) → boolean` — same epoch millisecond.
 - `s.isBetween(start, end, inclusive = false) → boolean` — between the bounds; pass `true` to include endpoints.
-- `s.isSame(other, unit, tzAware = true) → boolean | null` — compare calendar fields in `s`'s zone; `false` compares each object's own local fields. Supports millisecond, second, minute, hour, day/date, week, month, quarter, and year, including plurals; unsupported units return `null`.
-- `s.diff(other, unit) → number` — whole-unit difference, positive when `other` is later. Supports millisecond, second, minute, hour, day/date, week, month, quarter, and year, including plurals.
+- `s.isSame(other, unit, tzAware = true) → boolean | null` — compare calendar fields in `s`'s zone; `false` compares each object's own local fields. Supports millisecond, second, minute, hour, day/date, week, month, quarter, season, year, decade, and century, including plurals; unsupported units return `null`.
+- `s.diff(other, unit) → number` — whole-unit difference, positive when `other` is later. Supports millisecond, second, minute, hour, day/date, week, month, quarter, season, year, decade, and century, including plurals.
 - `s.diff(other) → Diff` — independent totals for milliseconds, seconds, minutes, hours, days, weeks, months, quarters, and years; do not sum them.
 - `s.since(other?) → Since` — describe `other` relative to `s`; defaults to now. Earlier receiver and later argument gives `'in …'`.
 - `s.from(other) → Since` — describe `s` relative to `other`; reverses `since`'s direction, **not an alias**.

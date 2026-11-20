@@ -25,7 +25,9 @@ all have identical input or invalid-value handling.
 `diff(other)` returns totals for each unit: `years`, `quarters`, `months`,
 `weeks`, `days`, `hours`, `minutes`, `seconds`, and `milliseconds`. These are
 alternative measurements, not components to sum. `diff(other, unit)` returns
-one integer total; the sign is positive when `other` is later.
+one integer total; the sign is positive when `other` is later. It also accepts
+`season`, `decade`, and `century`, counted as whole groups of 3 months, 10 years,
+and 100 years.
 
 ## Human-readable differences
 
