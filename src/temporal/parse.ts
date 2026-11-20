@@ -32,9 +32,15 @@ const parseOffset = (s: Spacetime, offset?: string): Spacetime => {
 }
 
 // set a parsed date onto an instance, as wall-clock fields
-const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
+// an offset decides the moment, and a named timezone decides where it is shown
+const apply = (s: Spacetime, parsed: ParsedDate, named: { tz?: string }): Spacetime => {
   if (parsed.timezone) {
     s = s.timezone(parsed.timezone)
+    // read the clock at the offset for now, and move to the named timezone after
+    if (/^(?:z|[+-][0-9]{2}(?::?[0-9]{2})?)$/i.test((parsed.offset || '').trim())) {
+      named.tz = s._tz
+      s = parseOffset(s, parsed.offset)
+    }
   } else if (parsed.offset) {
     s = parseOffset(s, parsed.offset)
   }
@@ -88,7 +94,8 @@ const parse = (s: Spacetime, input: Input): Spacetime => {
   } else if (typeof input === 'string' && input) {
     // Native ISO parsing preserves an explicit offset in a repeated DST hour.
     if (/^[+-]?[0-9]{4,6}-[0-9]{2}-[0-9]{2}T[^[]*\[[^[\]]+\](?:\[[^[\]]+\])?$/i.test(input)) {
-      s._value = isoCalendar(s, T.ZonedDateTime.from(input))
+      // a contradicting offset still names a moment, so use it instead of rejecting
+      s._value = isoCalendar(s, T.ZonedDateTime.from(input, { offset: 'use' }))
       s._tz = s._value.timeZoneId
       return s
     }
@@ -102,10 +109,15 @@ const parse = (s: Spacetime, input: Input): Spacetime => {
       const match = str.match(parsers[i].reg)
       if (match) {
         const parsed = parsers[i].parse(match, s)
-        const result = parsed === null ? null : apply(s, parsed)
+        const named: { tz?: string } = {}
+        const result = parsed === null ? null : apply(s, parsed, named)
         if (result && result.isValid()) {
           result._value = result._pending.toZonedDateTime(result.tz)
           result._pending = null
+          if (named.tz) {
+            result._value = result._value.withTimeZone(named.tz)
+            result._tz = named.tz
+          }
           return result
         }
       }

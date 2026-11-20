@@ -44,7 +44,7 @@ const main = Object.assign(create, {
   today: (tz?: string, options?: Options) => now(tz, options).startOf('day'),
   tomorrow: (tz?: string, options?: Options) => now(tz, options).add(1, 'day').startOf('day'),
   yesterday: (tz?: string, options?: Options) => now(tz, options).subtract(1, 'day').startOf('day'),
-  fromUnixSeconds: (secs: number, tz?: string, options?: Options) => new Spacetime(secs * 1000, tz, options),
+  fromUnixSeconds: (secs: number, tz?: string, options?: Options) => new Spacetime(Math.round(secs * 1000), tz, options),
   extend,
   plugin: extend,
   timezones: () => new Spacetime().timezones,

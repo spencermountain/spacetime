@@ -145,7 +145,7 @@ class Spacetime {
   epochSeconds(value: number): Spacetime
   epochSeconds(value?: number): number | Spacetime {
     if (value !== undefined) {
-      this.epoch = value * 1000
+      this.epoch = Math.round(value * 1000) // 1.005 * 1000 is 1004.9999999999999
       return this
     }
     return this.isValid() ? Math.floor(this.epoch / 1000) : NaN

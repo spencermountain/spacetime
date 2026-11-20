@@ -1,16 +1,24 @@
 import parsers from './formats/index.ts'
-import parseOffset from './formats/parseOffset.ts'
+import { offsetHours, fixedZone } from './formats/parseOffset.ts'
 import parseTime from './formats/parseTime.ts'
 import walkTo from '../methods/set/walk.ts'
 import type { ParsedDate } from './formats/_parsers.ts'
 import type { Spacetime } from '../types/index.ts'
 
+const MSEC_IN_HOUR = 60 * 60 * 1000
+
 // set a parsed date onto an instance
+// an offset decides the moment, and a named timezone decides where it is shown
 const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
+  let zone = s.tz
   if (parsed.timezone) {
     s = s.timezone(parsed.timezone)
-  } else if (parsed.offset) {
-    s = parseOffset(s, parsed.offset)
+    zone = s.tz
+  }
+  // read the clock as utc, and shift it by the offset after
+  const offset = offsetHours(parsed.offset)
+  if (offset !== null) {
+    s.tz = 'etc/gmt'
   }
   if (parsed.parts) {
     walkTo(s, parsed.parts)
@@ -23,6 +31,13 @@ const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
   }
   if (parsed.time !== undefined) {
     s = parseTime(s, parsed.time)
+  }
+  if (offset !== null) {
+    if (s.isValid()) {
+      s.epoch = Math.round(s.epoch - (offset * MSEC_IN_HOUR))
+    }
+    // show that moment in its named timezone, or else at the offset it was written in
+    s.tz = parsed.timezone ? zone : (fixedZone(offset, s.timezones) || zone)
   }
   return s
 }

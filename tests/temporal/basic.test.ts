@@ -85,3 +85,22 @@ test('Temporal entry: interop and invalid dates', options, (t) => {
   }
   t.end()
 })
+
+test('an offset sets the moment beside a bracketed timezone', options, (t) => {
+  const cases = [
+    ['2027-01-15T12:00:00-08:00[America/Los_Angeles]', '2027-01-15T12:00:00.000-08:00'],
+    ['2027-11-07T01:30:00-07:00[America/Los_Angeles]', '2027-11-07T01:30:00.000-07:00'],
+    ['2027-11-07T01:30:00-08:00[America/Los_Angeles]', '2027-11-07T01:30:00.000-08:00'],
+    // an offset that disagrees with the timezone is used, not rejected
+    ['2027-07-15T12:00:00-08:00[America/Los_Angeles]', '2027-07-15T13:00:00.000-07:00'],
+    ['2027-07-15T12:00:00-02:00[America/Los_Angeles]', '2027-07-15T07:00:00.000-07:00'],
+    ['2027-07-15T12:00:00Z[America/Los_Angeles]', '2027-07-15T05:00:00.000-07:00'],
+    ['2027-07-15 12:00:00Z[America/Los_Angeles]', '2027-07-15T05:00:00.000-07:00']
+  ]
+  cases.forEach(([input, expected]) => {
+    const s = spacetime(input)
+    t.equal(s.iso(), expected, input)
+    t.equal(s.tz, 'America/Los_Angeles', input + ' is in the named timezone')
+  })
+  t.end()
+})

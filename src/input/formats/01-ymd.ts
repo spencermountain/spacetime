@@ -20,10 +20,10 @@ const parsers: Parser[] = [
       if (validate(parts) === false) {
         return null
       }
-      // an iana code in brackets at the end wins over the offset
+      // the offset sets the moment, and an iana code in brackets sets the timezone
       // (for now, ignore Temporal calendar info in m[7]..)
       const timezone = m[6] ? parseTz(m[6]) : ''
-      return timezone ? { parts, timezone, time: m[4] } : { parts, offset: m[5], time: m[4] }
+      return timezone ? { parts, timezone, offset: m[5], time: m[4] } : { parts, offset: m[5], time: m[4] }
     }
   },
   //short-iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
