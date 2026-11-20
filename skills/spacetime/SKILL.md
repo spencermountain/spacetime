@@ -63,6 +63,9 @@ Host timezone updates do not update them; account for this when accuracy matters
   use 28 days, so half a month is 14 days. Rounding occurs on every call:
   `0.1` day rounds to two hours, so ten additions total 20 hours. Combine amounts
   when repeated rounding is unwanted.
+- `floor(unit)` (alias of `startOf`), `ceil(unit)` and `nearest(unit)` return a date
+  already on a boundary unchanged, so repeating them is safe. `next(unit)` always
+  moves forward; use `ceil` for "the next boundary, unless already on one".
 - `{ weekStart: 0 }` sets Sunday boundaries; Monday is the default. This does
   not redefine `week()` numbering. `day('monday', true)` allows equality; for a
   strictly later Monday use `s.add(1, 'day').day('monday', true)`.

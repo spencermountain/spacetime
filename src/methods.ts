@@ -3,6 +3,7 @@ import format from './methods/format/index.ts'
 import unixFmt from './methods/format/unixFmt.ts'
 import progress from './methods/progress.ts'
 import nearest from './methods/nearest.ts'
+import ceil from './methods/ceil.ts'
 import diff from './methods/diff/index.ts'
 import since from './methods/since/index.ts'
 import { startOf as _startOf, endOf as _endOf } from './methods/startOf.ts'
@@ -78,6 +79,10 @@ const methods = {
   },
   nearest: function (this: Spacetime, unit: TimeUnit) {
     return nearest(this, unit)
+  },
+  // round up to the next boundary, unless we're already on one
+  ceil: function (this: Spacetime, unit: TimeUnit) {
+    return ceil(this, unit)
   },
   diff: diffMethod,
   since: function (this: Spacetime, d?: SpacetimeInput) {
@@ -237,5 +242,6 @@ export default {
   // aliases
   inDST: methods.isDST,
   round: methods.nearest,
+  floor: methods.startOf,
   each: methods.every
 }

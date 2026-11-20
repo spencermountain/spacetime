@@ -12,9 +12,12 @@ This project follows semVer, where:
 
 ### 7.18.0 [Nov 2026]
 
+- **[change]** - #376 inputs with iana
 - **[update]** - 2027 DST changes
 - - - [note] - `Havana` kept at −4hr, will include single-change before nov
+- **[new]** - #344 `.ceil(unit)` and `.floor(unit)` methods
 - **[new]** - support single dst-change years _'->11/07:01'_
+- **[new]** - `.ceil()` and `.floor()` methods - like `.nearest()`, they don't move a date already on a boundary
 - **[fix]** - #491 set minutes on fractional tzs (thanks bardrop)
 - **[fix]** - #490 #492 #496 #480 unixFmt dropped values
 - **[fix]** - fractional arithmetic fixes:
@@ -25,6 +28,7 @@ This project follows semVer, where:
 - **[fix]** - #493 comma-based fractional iso seconds
 - **[fix]** - #489 better add 'season' support
 - **[fix]** - #487 off-by-1 DST in startOf('day')
+- **[fix]** - decimal-rounding issues is isos
 - **[update]** - dependencies
 
 ### 7.17.1 [Nov 2026]

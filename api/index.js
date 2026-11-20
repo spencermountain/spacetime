@@ -60,6 +60,14 @@ export default {
       "doc": "round to either the current, or +1 of this unit (alias of nearest)",
       "out": "clone"
     },
+    "ceil": {
+      "doc": "round up to the beginning of the next unit - unchanged if already at the beginning of one",
+      "out": "clone"
+    },
+    "floor": {
+      "doc": "round down to the beginning of this unit (alias of startOf)",
+      "out": "clone"
+    },
     "every": {
       "doc": "list all dates up to a certain time, by a given unit",
       "out": "Array"

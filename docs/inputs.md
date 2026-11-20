@@ -41,6 +41,21 @@ for timezone handling, precision, runtime requirements, and conversion limits.
 Enable TypeScript's `ESNext.Temporal` library for full native types; without it,
 the return declaration provides a minimal shape.
 
+## Offsets and IANA inputs
+
+a lot of complexity and ambiguity can come from inputs that have offset information and timezone information, because sometimes they can in conflict:
+
+In all cases, we try our best to provide a consistent API here, and to never throw:
+
+```js
+// consistant inputs:
+spacetime('2024-01-01T16:20:00') //4:20pm local
+spacetime('2024-01-01T16:20:00', 'America/Los_Angeles') //4:20pm L.A (with dst)
+spacetime('2024-01-01T16:20:00-08:00') //4:20pm L.A. (fixed -8h)
+spacetime('2024-01-01T16:20:00-08:00', 'America/Los_Angeles') //4:20pm L.A (with dst)
+spacetime('2024-01-01T16:20:00-08:00[America/Los_Angeles]')
+```
+
 ## Current-date and extreme-date helpers
 
 These helpers take `(timezone?, options?)`, with the timezone **first**:

@@ -82,6 +82,12 @@ export interface Spacetime {
   /** round to either current, or +1 of this unit */
   round: (unit: TimeUnit) => Spacetime
 
+  /** round up to the start of the next unit - unchanged if already at the start of one */
+  ceil: (unit: TimeUnit) => Spacetime
+
+  /** round down to the start of this unit (alias of startOf) */
+  floor: (unit: TimeUnit) => Spacetime
+
   /** list all dates up to a certain time */
   every: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit, stepCount?: number) => Spacetime[]
 

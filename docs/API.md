@@ -96,6 +96,8 @@ moving forward; equality is allowed. See [setter examples](./setters.md).
 - `s.last(unit) → Spacetime` — beginning of the previous unit.
 - `s.nearest(unit) → Spacetime` — round to a unit boundary; supports year, season, quarter, month, week, day, quarterHour, hour, and minute.
 - `s.round(unit) → Spacetime` — alias of `nearest`.
+- `s.ceil(unit) → Spacetime` — round up to the beginning of the next unit; a date already at the beginning of a unit is returned unchanged (unlike `next`).
+- `s.floor(unit) → Spacetime` — round down to the beginning of the unit; alias of `startOf`.
 - `s.every(unit, end, stepCount = 1) → Spacetime[]` — collect unit boundaries in chronological order; end excluded, aligned start can be included. Use a positive integer step; short spans can return `[]`.
 - `s.each(unit, end, stepCount = 1) → Spacetime[]` — alias of `every`.
 - `unit` — common arithmetic units: `millisecond`, `second`, `minute`, `quarterHour`, `hour`, `day`/`date`, `week`, `month`, `quarter`, `season`, `year`, `decade`, `century`; plurals work too. **Support varies by method**, despite the shared TypeScript `TimeUnit` union.

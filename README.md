@@ -274,6 +274,7 @@ let s = original.hour(9).minute(0)
 s = s.add(1, 'week')
 s.time() // '9:00am'
 s.startOf('day').time() // '12:00am'
+s.ceil('hour').time() // '9:00am' (already on the hour)
 original.time() // '5:01am' (unchanged)
 ```
 

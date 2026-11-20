@@ -90,8 +90,29 @@ const arithmetic = {
     return (this.epoch - start.epoch) / (end.epoch - start.epoch)
   },
   nearest(unit: string) {
+    // the closer of floor and ceil - both leave a boundary alone, so this does too
     const start = this.startOf(unit)
-    return this.progress(unit) >= 0.5 ? start.add(1, unit) : start
+    const end = this.ceil(unit)
+    return this.epoch - start.epoch >= end.epoch - this.epoch ? end : start
+  },
+  // round up to the next boundary; a date already on one stays put
+  ceil(unit: string) {
+    if (!this.isValid() || !isBoundary(unit)) {
+      return this.clone()
+    }
+    const start = this.startOf(unit)
+    // (compare the full-precision clocks, not the millisecond epochs)
+    if (String(start._clock) === String(this._clock)) {
+      return start
+    }
+    // step forward and re-align, in case a dst change moved us off the boundary
+    // one step is nearly always enough, but a repeated dst half-hour (lord howe)
+    // can land back on the same boundary, so allow a second
+    let upper = start
+    for (let i = 1; i <= 3 && upper.epoch <= this.epoch; i += 1) {
+      upper = start.add(i, unit).startOf(unit)
+    }
+    return upper.epoch > this.epoch ? upper : start.add(1, unit)
   }
 }
 
@@ -100,5 +121,6 @@ export default {
   // aliases
   plus: arithmetic.add,
   minus: arithmetic.subtract,
-  round: arithmetic.nearest
+  round: arithmetic.nearest,
+  floor: arithmetic.startOf
 }

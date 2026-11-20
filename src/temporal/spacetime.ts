@@ -165,7 +165,7 @@ Object.assign(Spacetime.prototype, query, arithmetic, compare)
 
 // Guard value-changing APIs without changing the return types of their getters.
 const setters = [...Object.keys(query), 'timezone', 'json']
-const transformations = ['add', 'subtract', 'plus', 'minus', 'startOf', 'endOf', 'next', 'last', 'nearest', 'round', 'goto']
+const transformations = ['add', 'subtract', 'plus', 'minus', 'startOf', 'endOf', 'next', 'last', 'nearest', 'round', 'ceil', 'floor', 'goto']
 const proto = Spacetime.prototype as unknown as Record<string, (this: Spacetime, ...args: unknown[]) => unknown>
 for (const name of [...setters, ...transformations]) {
   const method = proto[name]

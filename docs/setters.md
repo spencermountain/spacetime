@@ -52,6 +52,18 @@ s.next('month').format('iso-short') // '2023-12-01'
 s.last('year').format('iso-short') // '2022-01-01'
 s.nearest('hour').time() // '3:00pm'
 s.nearest('quarterHour').time() // '2:30pm'
+s.floor('hour').time() // '2:00pm' (same as startOf)
+s.ceil('hour').time() // '3:00pm'
+```
+
+`floor`, `ceil`, and `nearest` leave a date alone when it is already on a boundary,
+so they are safe to call repeatedly. `next` always moves forward:
+
+```js
+const s = spacetime('2024-01-15T14:00:00', 'UTC')
+s.ceil('hour').time() // '2:00pm'
+s.ceil('hour').ceil('hour').time() // '2:00pm'
+s.next('hour').time() // '3:00pm'
 ```
 
 Whole calendar-day and week arithmetic preserve clock time across DST where that time

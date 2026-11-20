@@ -73,7 +73,7 @@ s.toTemporal()                   // Temporal.ZonedDateTime
 
 This entry reuses Spacetime's parsers and formatters without bundling its timezone
 database. It supports common constructors, getters/setters, arithmetic,
-comparisons, `diff`, `startOf`, `endOf`, `next`, `last`, and formatting.
+comparisons, `diff`, `startOf`, `endOf`, `next`, `last`, `floor`, `ceil`, and formatting.
 Months remain zero-based, dates one-based, and numeric epochs use milliseconds.
 Most methods return new instances; `epochSeconds(value)` and `weekStart(value)`
 mutate the receiver. Use explicit timezones for reproducible results.
