@@ -29,9 +29,14 @@ test('consistent offset input handling', (t) => {
   t.equal(s.time(), '4:20pm', 'offset, bracket-iana')
   t.equal(s.timezone().name, 'America/Los_Angeles', 'offset, bracket-iana')
 
+  // -7h offset consistent in DST
   s = spacetime('2024-08-01T16:20:00-07:00[America/Los_Angeles]') // 4:20pm LA-time +DST
-  t.equal(s.time(), '4:20pm', 'offset, bracket-iana')
-  t.equal(s.timezone().name, 'America/Los_Angeles', 'offset, bracket-iana')
+  t.equal(s.time(), '4:20pm', 'dst-offset, bracket-iana')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'dst-offset, bracket-iana')
+
+  s = spacetime('2024-08-01T16:20:00-07:00', 'America/Los_Angeles') // 4:20pm LA-time +DST
+  t.equal(s.time(), '4:20pm', 'dst-offset, param')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'dst-offset, param')
 
   t.end()
 })
@@ -51,7 +56,7 @@ test('valid Z offsets', (t) => {
   t.equal(s.time(), '8:20am', 'utc-with-goto')
   t.equal(s.timezone().name, 'America/Los_Angeles', 'utc-with-goto')
   // assume local-time when omitted
-  s = spacetime('2024-01-01T16:20:00[America/Los_Angeles]') // 4:20pm->~8:20am LA-time +DST
+  s = spacetime('2024-01-01T16:20:00[America/Los_Angeles]') // 4:20pmLA-time +DST
   t.equal(s.timezone().name, 'America/Los_Angeles', 'omitted-with-bracket')
 
   t.end()
@@ -81,6 +86,14 @@ test('inconsistent offset inputs', (t) => {
   t.end()
 })
 
+test('two timezones', (t) => {
+  let s
+  s = spacetime('2024-01-01T16:20:00Z[America/New_York]', 'America/Los_Angeles')
+  // t.equal(s.time(), '4:20pm', 'two-timezones')
+  // t.equal(s.timezone().name, 'America/Los_Angeles', 'two-timezones')
+  t.end()
+})
+
 test('two-step offset inputs', (t) => {
   let s
   // two-step
@@ -103,7 +116,6 @@ test('two-step offset inputs', (t) => {
 test('all are 4:20pm', (t) => {
   const arr = [
     ['2024-01-01T16:20:00'], // 4:20pm local
-    ['2024-01-01T16:20:00', 'America/Los_Angeles'], // 4:20pm LA-time +DST
     ['2024-01-01T16:20:00-08:00'], // 4:20pm LA-time [fixed-8h]
     ['2024-01-01T16:20:00', 'America/Los_Angeles'], // 4:20pm LA-time +DST
     ['2024-01-01T16:20:00-08:00', 'America/Los_Angeles'], // 4:20pm LA-time +DST
