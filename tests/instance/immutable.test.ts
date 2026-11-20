@@ -80,8 +80,8 @@ test('setters return the requested value without mutating', (t) => {
 })
 
 test('boolean methods identical', (t) => {
-  const r = spacetime(1552124200401)
-  const r2 = spacetime(1552145200401)
+  const r = spacetime(1552124200401, 'UTC')
+  const r2 = spacetime(1552145200401, 'UTC')
   const arr = [
     ['isSame', r, 'day', true],
     ['isAfter', r, 'day', false],
@@ -90,7 +90,7 @@ test('boolean methods identical', (t) => {
     ['isBetween', r, r2, false]
   ] as const
   arr.forEach((a) => {
-    const immut = spacetime(1552114800001)
+    const immut = spacetime(1552114800001, 'UTC')
     const fn = a[0]
     const one = immut[fn](a[1], a[2])
     t.equal(one, a[3], fn + ' equal')

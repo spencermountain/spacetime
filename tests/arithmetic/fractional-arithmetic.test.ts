@@ -114,12 +114,12 @@ test('decimal and whole-unit transforms give the same result', (t) => {
 test('decimal transforms agree across timezones and DST changes', (t) => {
   // Bundled rules reuse one set of dates every year, so these follow those dates.
   const starts = [
-    ['2026-03-07T18:00:00', 'America/New_York'], // Spring forward.
-    ['2026-03-08T06:00:00', 'America/New_York'], // Subtract across the change.
-    ['2026-10-31T18:00:00', 'America/New_York'], // Fall back.
-    ['2026-11-01T06:00:00', 'America/New_York'],
-    ['2026-03-28T18:00:00', 'Europe/London'],
-    ['2026-04-04T18:00:00', 'Australia/Sydney'],
+    ['2027-03-13T18:00:00', 'America/New_York'], // Spring forward.
+    ['2027-03-14T06:00:00', 'America/New_York'], // Subtract across the change.
+    ['2027-11-06T18:00:00', 'America/New_York'], // Fall back.
+    ['2027-11-07T06:00:00', 'America/New_York'],
+    ['2027-03-27T18:00:00', 'Europe/London'],
+    ['2027-04-03T18:00:00', 'Australia/Sydney'],
     ['2024-07-01T00:00:00', 'Asia/Kathmandu'], // Quarter-hour offset.
     ['2024-09-01T00:00:00', 'Asia/Kolkata'] // Half-hour offset.
   ] as const

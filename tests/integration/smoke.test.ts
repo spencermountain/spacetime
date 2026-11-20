@@ -46,7 +46,7 @@ test('random march time', (t) => {
     ['America/Belem', 'Mar 14 2018 00:55:50'],
     ['America/Caracas', 'Mar 13 2018 23:55:50'],
     ['America/Grenada', 'Mar 13 2018 23:55:50'],
-    ['America/Resolute', 'Mar 13 2018 22:55:50'],
+    ['America/Resolute', 'Mar 13 2018 21:55:50'], // bundled 2027 rules start dst on 03/14
     ['Asia/Gaza', 'Mar 14 2018 05:55:50'],
     ['Europe/Minsk', 'Mar 14 2018 06:55:50'],
     ['Europe/Kiev', 'Mar 14 2018 05:55:50'], // Alias to "Europe/Kyiv"

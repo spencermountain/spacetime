@@ -6,8 +6,8 @@ import useOldTz from '../_lib/use-old-tz.ts'
 test('fall-dst-repeats-hour', (t) => {
   const tz = 'europe/brussels' // 10/25:03
   // create 12:01am
+  useOldTz(spacetime(null, 'UTC'), t)
   let s = spacetime('Oct 25th 2020 1:01am', tz)
-  s = useOldTz(s, t)
   t.equal(s.time(), '1:01am', 'current time 1:01am')
   t.equal(s.timezone().current.isDST, true, 'in dst first')
   s = s.time('2:59am')
@@ -32,8 +32,8 @@ test('fall-dst-repeats-hour', (t) => {
 test('spring-est-sneak', (t) => {
   const tz = 'europe/brussels'
   // create 12:01am
+  useOldTz(spacetime(null, 'UTC'), t)
   let s = spacetime('March 29th 2020 1:01am', tz)
-  s = useOldTz(s, t)
   t.equal(s.time(), '1:01am', 'current time 1:01am')
   t.equal(s.timezone().current.isDST, false, 'not in dst yet')
 
