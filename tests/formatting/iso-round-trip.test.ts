@@ -1,7 +1,7 @@
 import test from 'tape'
 import spacetime from '../_lib/index.ts'
 
-test('ISO round trips preserve milliseconds, offsets, and the instant', t => {
+test('ISO round trips preserve milliseconds, offsets, and the instant', (t) => {
   const cases: [string, number][] = [
     ['1970-01-01T00:00:00.000Z', 0],
     ['1969-12-31T23:59:59.999Z', 0],
@@ -14,13 +14,17 @@ test('ISO round trips preserve milliseconds, offsets, and the instant', t => {
     ['2024-06-15T12:34:56.100-09:30', -570]
   ]
   cases.forEach(([input, offset]) => {
-    const original = spacetime(input, 'UTC')
+    const original = spacetime(input)
     const encoded = original.iso()
     // A different default timezone exposes a lost offset during parsing.
-    const decoded = spacetime(encoded, 'America/Los_Angeles')
+    const decoded = spacetime(encoded)
     const label = `${input}: ISO round trip`
     t.equal(decoded.epoch, Date.parse(input), `${label} preserves the instant`)
-    t.equal(decoded.millisecond(), new Date(input).getUTCMilliseconds(), `${label} preserves milliseconds`)
+    t.equal(
+      decoded.millisecond(),
+      new Date(input).getUTCMilliseconds(),
+      `${label} preserves milliseconds`
+    )
     t.equal(decoded.offset(), offset, `${label} preserves offset minutes`)
     t.equal(decoded.iso(), encoded, `${label} serializes consistently`)
     t.equal(original.epoch, Date.parse(input), `${label} leaves the original unchanged`)

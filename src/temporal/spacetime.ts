@@ -56,7 +56,7 @@ class Spacetime {
       if (Object.keys(this._today).length) {
         this._value = this._value.with(fieldValues({ month: 0, date: 1, ...this._today }))
       }
-      const result = parse(this, input)
+      const result = parse(this, input, tz != null)
       this._value = result._value
       this._tz = result._tz
       this._pending = result._pending

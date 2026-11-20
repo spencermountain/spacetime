@@ -9,7 +9,9 @@ const MSEC_IN_HOUR = 60 * 60 * 1000
 
 // set a parsed date onto an instance
 // an offset decides the moment, and a named timezone decides where it is shown
-const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
+// (a timezone given beside the input is shown instead of one written in it)
+const apply = (s: Spacetime, parsed: ParsedDate, given: boolean): Spacetime => {
+  const asked = s.tz
   let zone = s.tz
   if (parsed.timezone) {
     s = s.timezone(parsed.timezone)
@@ -45,10 +47,14 @@ const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
       s.tz = fixedZone(offset, s.timezones) || zone
     }
   }
+  // the input named its own moment, so only move it to the given timezone
+  if (given && (offset !== null || parsed.timezone)) {
+    s.tz = asked
+  }
   return s
 }
 
-const parseString = function (s: Spacetime, input: string): Spacetime {
+const parseString = function (s: Spacetime, input: string, given = false): Spacetime {
   // real names are short; reject any reDos input
   if (input.length > 500) {
     if (s.silent === false) {
@@ -63,7 +69,7 @@ const parseString = function (s: Spacetime, input: string): Spacetime {
     if (m) {
       const parsed = parsers[i].parse(m, s)
       if (parsed !== null) {
-        const res = apply(s.clone(), parsed)
+        const res = apply(s.clone(), parsed, given)
         if (res.isValid()) {
           return res
         }

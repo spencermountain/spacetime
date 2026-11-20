@@ -81,6 +81,6 @@ const parseInput = (s: Spacetime, input: SpacetimeInput, timezone?: string): Spa
     return s
   }
   //try each text-parse template, use the first good result
-  return parseString(s, input)
+  return parseString(s, input, timezone != null)
 }
 export default parseInput

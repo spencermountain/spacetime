@@ -62,8 +62,10 @@ const apply = (s: Spacetime, parsed: ParsedDate, named: { tz?: string }): Spacet
   return s
 }
 
-const parse = (s: Spacetime, input: Input): Spacetime => {
+// a timezone given beside a string is where its moment is shown
+const parse = (s: Spacetime, input: Input, given = false): Spacetime => {
   const T = temporal()
+  const asked = s._tz
   if (input instanceof T.ZonedDateTime) {
     s._value = isoCalendar(s, input).withTimeZone(s.tz)
   } else if (input instanceof T.Instant) {
@@ -99,7 +101,7 @@ const parse = (s: Spacetime, input: Input): Spacetime => {
       // a contradicting offset still names a moment, so use it instead of rejecting
       s._value = isoCalendar(s, T.ZonedDateTime.from(input.replace(/\[z\]/i, '[UTC]'), { offset: 'use' }))
       // '[Z]' and '[Etc/UTC]' are both 'UTC'
-      s._tz = normalizeTimezone(s._value.timeZoneId, s.tz)
+      s._tz = given ? asked : normalizeTimezone(s._value.timeZoneId, s.tz)
       s._value = s._value.withTimeZone(s._tz)
       return s
     }
@@ -118,9 +120,11 @@ const parse = (s: Spacetime, input: Input): Spacetime => {
         if (result && result.isValid()) {
           result._value = result._pending.toZonedDateTime(result.tz)
           result._pending = null
-          if (named.tz) {
-            result._value = result._value.withTimeZone(named.tz)
-            result._tz = named.tz
+          // the string's own offset or timezone only sets the moment, beside a given one
+          const zone = given ? asked : named.tz
+          if (zone && zone !== result._tz) {
+            result._value = result._value.withTimeZone(zone)
+            result._tz = zone
           }
           return result
         }
