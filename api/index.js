@@ -240,6 +240,10 @@ export default {
       "doc": "pretty-print the full date to the console, for nicer debugging",
       "out": "clone"
     },
+    "debug": {
+      "doc": "pretty-print the date, time, and timezone to the console, for nicer debugging",
+      "out": "clone"
+    },
     "progress": {
       "doc": "Between 0-1, how far the moment lands between the start and end of the day/week/month/year.",
       "out": "Object"

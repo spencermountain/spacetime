@@ -21,11 +21,42 @@ test('consistent offset input handling', (t) => {
   t.equal(s.time(), '4:20pm', 'offset, consistent-iana')
   t.equal(s.timezone().name, 'America/Los_Angeles', 'offset, consistent-iana')
 
+  s = spacetime('2024-01-01T16:20:00[America/Los_Angeles]') // 4:20pm LA-time +DST
+  t.equal(s.time(), '4:20pm', 'no-offset, bracket-iana')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'no-offset, bracket-iana')
+
   s = spacetime('2024-01-01T16:20:00-08:00[America/Los_Angeles]') // 4:20pm LA-time +DST
   t.equal(s.time(), '4:20pm', 'offset, bracket-iana')
   t.equal(s.timezone().name, 'America/Los_Angeles', 'offset, bracket-iana')
+
   t.end()
 })
+
+test('valid Z offsets', (t) => {
+  let s
+  // this is actually consistent (per ISO spec)
+  s = spacetime('2024-01-01T16:20:00Z', 'America/Los_Angeles') // 8:20am LA-time +DST
+  t.equal(s.time(), '8:20am', 'utc-with-param')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'utc-with-param')
+  // (same for this)
+  s = spacetime('2024-01-01T16:20:00Z[America/Los_Angeles]') // 8:20am LA-time +DST
+  t.equal(s.time(), '8:20am', 'utc-with-bracket')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'utc-with-bracket')
+
+  // (and for this)
+  s = spacetime('2024-01-01T16:20:00', 'Z').goto('America/Los_Angeles') // 8:20am LA-time +DST
+  t.equal(s.time(), '8:20am', 'utc-with-goto')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'utc-with-goto')
+
+  t.end()
+})
+
+// test('inconsistent offset inputs', (t) => {
+// s = spacetime('2024-01-01T16:20:00-02:00', 'America/Los_Angeles') // 4:20pm LA-time +DST
+// t.equal(s.time(), '4:20pm', 'offset, inconsistent-param')
+// t.equal(s.timezone().name, 'America/Los_Angeles', 'offset, inconsistent-param')
+// t.end()
+// })
 
 test('two-step offset inputs', (t) => {
   let s

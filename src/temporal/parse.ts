@@ -25,6 +25,8 @@ const parseOffset = (s: Spacetime, offset?: string): Spacetime => {
       if (/^[+-][0-9]{2}$/.test(offset)) {
         offset += ':00'
       }
+      // (there is no '-00:00')
+      offset = offset.replace(/^-00:00$/, '+00:00')
     }
     s._tz = offset
   }
@@ -95,8 +97,10 @@ const parse = (s: Spacetime, input: Input): Spacetime => {
     // Native ISO parsing preserves an explicit offset in a repeated DST hour.
     if (/^[+-]?[0-9]{4,6}-[0-9]{2}-[0-9]{2}T[^[]*\[[^[\]]+\](?:\[[^[\]]+\])?$/i.test(input)) {
       // a contradicting offset still names a moment, so use it instead of rejecting
-      s._value = isoCalendar(s, T.ZonedDateTime.from(input, { offset: 'use' }))
-      s._tz = s._value.timeZoneId
+      s._value = isoCalendar(s, T.ZonedDateTime.from(input.replace(/\[z\]/i, '[UTC]'), { offset: 'use' }))
+      // '[Z]' and '[Etc/UTC]' are both 'UTC'
+      s._tz = normalizeTimezone(s._value.timeZoneId, s.tz)
+      s._value = s._value.withTimeZone(s._tz)
       return s
     }
     const str = normalize(input)

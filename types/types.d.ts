@@ -163,6 +163,9 @@ export interface Spacetime {
   /** pretty-print the full-date to the console, for nice debugging */
   logYear: () => Spacetime
 
+  /** pretty-print the date, time, and timezone to the console, for nicer debugging */
+  debug: () => Spacetime
+
   /** return all date units as a key-value map */
   json(): Json
   /** set the date via JSON object */

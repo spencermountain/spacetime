@@ -83,11 +83,17 @@ export interface SpacetimeStatic extends SpacetimeConstructor {
   /** Extend Spacetime with a custom function/object.  */
   extend: (extension: { [key: string]: any } | {}) => SpacetimeStatic
 
+  /** alias of extend */
+  plugin: (extension: { [key: string]: any } | {}) => SpacetimeStatic
+
   /** get a list of current timezones and their offsets  */
   timezones: () => TimezoneSet
 
   /** list timezones by their time */
   whereIts: (a: string, b?: string) => string[]
+
+  /** the installed spacetime version, like '7.18.0' */
+  version: string
 
   /** IANA tzdb release of the bundled timezone data, like '2026c' */
   tzdbVersion: string

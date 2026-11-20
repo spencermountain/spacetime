@@ -26,6 +26,8 @@ For runnable examples, see the [usage guide](./README.md).
 - `spacetime.timezones() → TimezoneSet` — shared timezone data keyed by lowercase zone names; treat it as read-only.
 - `spacetime.whereIts(startTime, endTime?) → string[]` — zones whose current local time falls in the window, such as `'8:30pm'` to `'9:30pm'`; omitted end means 59 minutes after the start. Use a window that does not cross midnight.
 - `spacetime.extend(methods) → spacetime` — add methods to the shared instance prototype. Use regular functions for instance `this`; affects existing and future instances.
+- `spacetime.version → string` — the installed spacetime version.
+- `spacetime.tzdbVersion → string` — IANA tzdb release of the bundled timezone data, like `'2026c'`.
 - `options.silent` — boolean, default `true`; set `false` to enable warnings.
 - `options.dmy` — boolean, default `false`; parse ambiguous numeric dates as day/month/year when `true`.
 - `options.weekStart` — weekday number, default `1` (Monday); sets week boundaries.
@@ -131,6 +133,7 @@ moving forward; equality is allowed. See [setter examples](./setters.md).
 - `s.isAsleep() → boolean` — inverse of `isAwake`.
 - `s.log() → s` — log a readable date; returns the same instance.
 - `s.logYear() → s` — log a date including the year; returns the same instance.
+- `s.debug() → s` — log the date, time, and timezone name with its current offset; returns the same instance.
 
 ## Configuration, aliases, and deprecated members
 

@@ -1,6 +1,12 @@
+/* eslint-disable no-console */
 import spacetime from './src/index.ts'
-// import spacetime from 'spacetime/temporal'
 
-const s = spacetime('2023-03-12T01:39:00-08:00')
+// const input = '2024-07-15T09:00:00+02:00[America/Los_Angeles]'
+//
+// const t = Temporal.ZonedDateTime.from(input, { offset: 'use' })
+// console.log('t:', t.toString({ smallestUnit: 'millisecond' }))
+//
+// console.log('s:', spacetime(input).format('iso-full'))
 
+const s = spacetime('2024-01-01T16:20:00Z')
 console.log(s.timezone())

@@ -54,11 +54,14 @@ spacetime('2024-01-01T16:20:00', 'America/Los_Angeles') // 4:20pm LA-time +DST
 spacetime('2024-01-01T16:20:00-08:00') // 4:20pm LA-time [fixed-8h]
 spacetime('2024-01-01T16:20:00-08:00', 'America/Los_Angeles') // 4:20pm LA-time +DST
 spacetime('2024-01-01T16:20:00-08:00[America/Los_Angeles]') // 4:20pm LA-time +DST
+spacetime('2024-01-01T16:20:00[America/Los_Angeles]') // 4:20pm LA-time +DST
 
 // (hidden local-zone conversion)
 spacetime('2024-01-01T16:20:00').goto('America/Los_Angeles') // 1:20pm LA-time +DST
 spacetime('2024-01-01T16:20:00-08:00').goto('America/Los_Angeles') // 4:20pm LA-time +DST
 ```
+
+see MDN's [Temporal/Offset Ambiguity docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal/ZonedDateTime#offset_ambiguity)
 
 ## Current-date and extreme-date helpers
 

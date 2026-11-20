@@ -158,4 +158,5 @@ s.toNativeDate().getTime() === s.epoch // true
 `iso(value)` and `isoFull(value)` parse a new date and return a new object.
 `toNativeDate()` preserves the instant; native Date objects do not retain the
 IANA timezone, and their local getters use the host timezone. `toLocalDate()`
-is a deprecated alias. `log()` prints a date for debugging and returns the receiver.
+is a deprecated alias. `log()` prints a date for debugging and returns the receiver;
+`debug()` does the same with the time, timezone name, and current offset.

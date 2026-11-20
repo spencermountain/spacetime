@@ -18,6 +18,10 @@ This project follows semVer, where:
 - **[new]** - #344 `.ceil(unit)` and `.floor(unit)` methods
 - **[change]** - support season decade and century in rounding methods
 - **[change]** - add century, decade, and season `progress()` result
+- **[change]** - make `'Z'`, `'UTC'`, `'Zulu'`, and `'+00:00'` consistent
+- - [fix] - trailing Z → UTC (not Etc/GMT)
+- - [new] - support `'Z'` as valid iana code
+- - [change] - use `'+00:00'` not `'-00:00'` in /temporal library
 - **[new]** - support single dst-change years _'->11/07:01'_
 - **[new]** - `.ceil()` and `.floor()` methods - like `.nearest()`, they don't move a date already on a boundary
 - **[new]** - `season`, `decade` and `century` units in `.nearest()`, `.diff()` and `.isSame()`
@@ -35,6 +39,7 @@ This project follows semVer, where:
 - **[fix]** - #489 better add 'season' support
 - **[fix]** - #487 off-by-1 DST in startOf('day')
 - **[fix]** - decimal-rounding issues is isos
+- **[fix]** - typescript issues
 - **[update]** - dependencies
 
 ### 7.17.1 [Nov 2026]

@@ -21,6 +21,10 @@ const parseOffset = (tz: string): string | null => {
   if (num > 14 || !Number.isInteger(num * 4)) {
     return null
   }
+  // a zero offset has one name
+  if (num === 0) {
+    return 'etc/gmt'
+  }
   if (sign === '-') {
     num *= -1
   }

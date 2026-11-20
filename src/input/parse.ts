@@ -37,7 +37,13 @@ const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
       s.epoch = Math.round(s.epoch - (offset * MSEC_IN_HOUR))
     }
     // show that moment in its named timezone, or else at the offset it was written in
-    s.tz = parsed.timezone ? zone : (fixedZone(offset, s.timezones) || zone)
+    if (parsed.timezone) {
+      s.tz = zone
+    } else if (/^\s*z\s*$/i.test(parsed.offset)) {
+      s.tz = 'utc' // 'Z' means utc, not a fixed offset
+    } else {
+      s.tz = fixedZone(offset, s.timezones) || zone
+    }
   }
   return s
 }

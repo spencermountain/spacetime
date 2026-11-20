@@ -22,9 +22,7 @@ const undocumented = new Set([
   'hour24',
   'millenium', // misspelled alias of millennium
   // deprecated
-  'toLocalDate',
-  // internal
-  'debug'
+  'toLocalDate'
 ])
 
 const staticUndocumented = new Set([
