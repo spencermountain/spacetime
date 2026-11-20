@@ -5,13 +5,15 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!--
+### 7.18.0 [Unreleased]
 
 
 -->
 
-### 7.18.0 [Unrelesed]
+### 7.18.0 [Nov 2026]
 
 - **[update]** - 2027 DST changes
+- - - [note] - `Havana` kept at −4hr, will include single-change before nov
 - **[new]** - support single dst-change years _'->11/07:01'_
 - **[fix]** - #491 set minutes on fractional tzs (thanks bardrop)
 - **[fix]** - #490 #492 #496 #480 unixFmt dropped values

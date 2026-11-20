@@ -28,7 +28,7 @@ unsupported.
 
 - **Changes** — field-level before/after for each zone whose record changed.
 - **Unsupported** — zones whose transitions do not fit the runtime's model (one
-  annual cycle of whole-minute boundaries, or a fixed offset). Their existing
+  annual cycle of whole-minute boundaries, a single change, or a fixed offset). Their existing
   records are kept and listed in the file header. Fix the data model, hand-edit
   the record, or add the zone to `ignore` once you have decided how to handle it.
 - **Not in iana.js** — canonical tzdb zones with neither a record nor an alias.
@@ -46,5 +46,10 @@ fall-back is spelled as the end of the previous day (`10/24:24`, never
 `10/25:00`); a midnight spring-forward keeps `:00`. Equivalent spellings of an
 unchanged boundary are preserved from the existing record.
 
-Permanent offset changes mid-year cannot be expressed, so those zones are usually
-hand-set to their final fixed offset and added to `ignore` for that year.
+A year with a single change leaves one side of `dst` empty. `'->11/07:01'` begins
+the year inside the interval and leaves it on November 7; `'03/14:02->'` enters it
+on March 14 and stays. Because the rules repeat, the missing change happens
+where the UTC year turns over. The change must be the zone's normal DST shift,
+with the DST flag flipping; any other mid-year offset change cannot be expressed,
+so those zones are usually hand-set to their final fixed offset and added to
+`ignore` for that year.

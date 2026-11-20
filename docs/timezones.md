@@ -109,8 +109,8 @@ For an unambiguous instant, supply an epoch or an ISO string with a known
 offset, then convert to the regional zone:
 
 ```js
-const first = spacetime('2026-11-01T01:30:00-04:00').goto('America/New_York')
-const second = spacetime('2026-11-01T01:30:00-05:00').goto('America/New_York')
+const first = spacetime('2027-11-07T01:30:00-04:00').goto('America/New_York')
+const second = spacetime('2027-11-07T01:30:00-05:00').goto('America/New_York')
 first.time() // '1:30am'
 second.time() // '1:30am'
 first.isDST() // true
@@ -118,7 +118,7 @@ second.isDST() // false
 first.diff(second, 'hour') // 1 (different instants)
 ```
 
-This example uses the November 1 transition in the currently bundled rules.
+This example uses the November 7 transition in the currently bundled rules.
 
 ## Data model and historical limits
 

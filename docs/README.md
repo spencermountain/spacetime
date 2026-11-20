@@ -55,13 +55,13 @@ Supports Browsers Typescript, Commonjs, and Node 18+.
 
 Adding a calendar day preserves the local clock time where it exists. Adding
 24 hours measures elapsed time; the results can differ across DST. This example
-uses the March 8 transition in the currently bundled New York rules.
+uses the March 14 transition in the currently bundled New York rules.
 
 ```js
-const s = spacetime('2026-03-07T09:00:00', 'America/New_York')
+const s = spacetime('2027-03-13T09:00:00', 'America/New_York')
 const nextDay = s.add(1, 'day')
-nextDay.iso() // '2026-03-08T09:00:00.000-04:00'
-s.add(24, 'hours').iso() // '2026-03-08T10:00:00.000-04:00'
+nextDay.iso() // '2027-03-14T09:00:00.000-04:00'
+s.add(24, 'hours').iso() // '2027-03-14T10:00:00.000-04:00'
 const elapsedHours = (nextDay.epoch - s.epoch) / 3600000
 elapsedHours // 23
 ```
