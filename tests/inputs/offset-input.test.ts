@@ -88,9 +88,32 @@ test('inconsistent offset inputs', (t) => {
 
 test('two timezones', (t) => {
   let s
-  s = spacetime('2024-01-01T16:20:00Z[America/New_York]', 'America/Los_Angeles')
-  // t.equal(s.time(), '4:20pm', 'two-timezones')
-  // t.equal(s.timezone().name, 'America/Los_Angeles', 'two-timezones')
+  // the string sets the moment, and the param is where it is shown
+  s = spacetime('2024-01-01T16:20:00[America/New_York]', 'America/Los_Angeles') // 4:20pm NY->1:20pm LA-time +DST
+  t.equal(s.time(), '1:20pm', 'no-offset, bracket, param')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'no-offset, bracket, param')
+
+  s = spacetime('2024-01-01T16:20:00-05:00[America/New_York]', 'America/Los_Angeles') // 4:20pm NY->1:20pm LA-time +DST
+  t.equal(s.time(), '1:20pm', 'consistent-offset, bracket, param')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'consistent-offset, bracket, param')
+
+  s = spacetime('2024-01-01T16:20:00-08:00[America/New_York]', 'America/Los_Angeles') // 4:20pm LA-time +DST
+  t.equal(s.time(), '4:20pm', 'inconsistent-offset, bracket, param')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'inconsistent-offset, bracket, param')
+
+  s = spacetime('2024-01-01T16:20:00Z[America/New_York]', 'America/Los_Angeles') // 4:20pm->8:20am LA-time +DST
+  t.equal(s.time(), '8:20am', 'utc, bracket, param')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'utc, bracket, param')
+
+  // in summer, too
+  s = spacetime('2024-08-01T16:20:00[America/New_York]', 'America/Los_Angeles') // 4:20pm NY->1:20pm LA-time +DST
+  t.equal(s.time(), '1:20pm', 'summer, bracket, param')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'summer, bracket, param')
+
+  // the same timezone twice changes nothing
+  s = spacetime('2024-01-01T16:20:00[America/Los_Angeles]', 'America/Los_Angeles') // 4:20pm LA-time +DST
+  t.equal(s.time(), '4:20pm', 'same bracket and param')
+  t.equal(s.timezone().name, 'America/Los_Angeles', 'same bracket and param')
   t.end()
 })
 

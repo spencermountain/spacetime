@@ -43,29 +43,43 @@ the return declaration provides a minimal shape.
 
 ## Offsets and IANA inputs
 
-a lot of complexity and ambiguity can come from inputs that have offset information and timezone information, because sometimes they can in conflict:
+a lot of complexity and ambiguity can come from inputs that have offset information and timezone information, because sometimes they can be in conflict:
 
 In all cases, we try our best to provide a consistent API here, and to never throw:
 
 ```js
-// consistent inputs:
-spacetime('2024-01-01T16:20:00') // 4:20pm local
-spacetime('2024-01-01T16:20:00', 'America/Los_Angeles') // 4:20pm LA-time +DST
-spacetime('2024-01-01T16:20:00-08:00') // 4:20pm LA-time [fixed-8h]
-spacetime('2024-01-01T16:20:00-08:00', 'America/Los_Angeles') // 4:20pm LA-time +DST
-spacetime('2024-01-01T16:20:00-08:00[America/Los_Angeles]') // 4:20pm LA-time +DST
-spacetime('2024-01-01T16:20:00[America/Los_Angeles]') // 4:20pm LA-time +DST
+// 16:20:00 → 4:20pm
+spacetime('2024-01-01T16:20:00') // 4:20pm local-time
+spacetime('2024-01-01T16:20:00', 'America/Los_Angeles') // 4:20pm LA-time
 
-// (hidden local-zone conversion)
-spacetime('2024-01-01T16:20:00').goto('America/Los_Angeles') // 1:20pm LA-time +DST
-spacetime('2024-01-01T16:20:00-08:00').goto('America/Los_Angeles') // 4:20pm LA-time +DST
+spacetime('2024-01-01T16:20:00-08:00') // 4:20pm [fixed-8h]
+spacetime('2024-01-01T16:20:00[America/Los_Angeles]') // 4:20pm LA-time
+
+// consistent offset-iana pairs:
+spacetime('2024-01-01T16:20:00-08:00', 'America/Los_Angeles') // 4:20pm LA-time
+spacetime('2024-01-01T16:20:00-08:00[America/Los_Angeles]') // 4:20pm LA-time
+spacetime('2024-08-01T16:20:00-07:00[America/Los_Angeles]') // 4:20pm LA-time (dst)
 
 // explicit conversion
-spacetime('2024-01-01T16:20:00Z', 'America/Los_Angeles') // 8:20am LA-time +DST
+spacetime('2024-01-01T16:20:00Z', 'America/Los_Angeles') // UTC → 8:20am LA-time
+// add rando offsets
+spacetime('2024-01-01T16:20:00-02:00', 'America/Los_Angeles') // 4:20pm @-2h → 10:20am LA-time
+// inconsistent offsets are interpreted
+spacetime('2024-01-01T16:20:00+02:00[America/Los_Angeles]') // 4:20pm @+2h → 6:20am LA-time
 
-// inconsistent inputs:
-spacetime('2024-01-01T16:20:00-02:00', 'America/Los_Angeles') // 4:20pm->10:20am LA-time +DST
-spacetime('2024-01-01T16:20:00+02:00[America/Los_Angeles]') // 4:20pm->6:20am LA-time +DST
+// double-tz? sure. whynot
+spacetime('2024-01-01T16:20:00-05:00[America/New_York]', 'America/Los_Angeles') // 4:20pm NYC → 1:20pm LA-time
+```
+
+these behaviours should also be consistent with a two-step interpretation using `.goto()`
+
+```js
+spacetime('2024-01-01T16:20:00-08:00').goto('America/Los_Angeles') // remains 4:20pm LA-time
+spacetime('2024-01-01T16:20:00Z').goto('America/Los_Angeles') // UTC → 8:20am LA-time
+
+spacetime('2024-01-01T16:20:00').goto('America/Los_Angeles') // 4:20pm local-time → LA-time
+
+spacetime('2024-01-01T16:20:00', 'America/New_York').goto('America/Los_Angeles') // 4:20pm NYC → 1:20pm LA-time
 ```
 
 see MDN's [Temporal/Offset Ambiguity docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal/ZonedDateTime#offset_ambiguity)
