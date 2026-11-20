@@ -109,7 +109,7 @@ export default {
       "out": "Object"
     },
     "fromNow": {
-      "doc": "create a human-readable diff between now and the given date",
+      "doc": "create a human-readable diff between now and this date",
       "out": "Object"
     }
   },

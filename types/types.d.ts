@@ -92,7 +92,7 @@ export interface Spacetime {
   every: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit, stepCount?: number) => Spacetime[]
 
   /** list all dates up to a certain time */
-  each: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
+  each: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit, stepCount?: number) => Spacetime[]
 
   /** go to the beginning of the previous unit */
   last: (unit: TimeUnit) => Spacetime
@@ -128,8 +128,8 @@ export interface Spacetime {
   /** create the human-readable diff between the two dates */
   from(value: Spacetime | ParsableDate): Since
 
-  /** create the human-readable diff between now and the given date */
-  fromNow(value: Spacetime | ParsableDate): Since
+  /** create the human-readable diff between now and this date */
+  fromNow(): Since
 
   /** change to a new date */
   set(date: ParsableDate, timezone?: string): Spacetime

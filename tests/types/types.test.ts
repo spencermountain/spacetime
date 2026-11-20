@@ -19,3 +19,11 @@ test('era getter/setter types', (t: test.Test) => {
   t.equal(typeof obj.era('bc').epoch, 'number', '.era(value) returns a Spacetime')
   t.end()
 })
+
+test('fromNow and each signatures', (t: test.Test) => {
+  const obj = spacetime('2019-06-05', 'UTC')
+  t.equal(typeof obj.fromNow().rounded, 'string', '.fromNow() takes no argument')
+  const end = obj.add(10, 'days')
+  t.equal(obj.each('day', end, 2).length, obj.every('day', end, 2).length, '.each() accepts a stepCount')
+  t.end()
+})
