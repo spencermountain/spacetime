@@ -12,6 +12,7 @@ This project follows semVer, where:
 ### 7.18.0 [Unrelesed]
 
 - **[update]** - 2027 DST changes
+- **[new]** - support single dst-change years _'->11/07:01'_
 - **[fix]** - #491 set minutes on fractional tzs (thanks bardrop)
 - **[fix]** - #490 #492 #496 #480 unixFmt dropped values
 - **[fix]** - fractional arithmetic fixes:
