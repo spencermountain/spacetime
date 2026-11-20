@@ -65,6 +65,7 @@ export interface TimezoneMeta {
   hasDst: boolean
   default_offset: number
   hemisphere: 'North' | 'South'
+  /** local times of this year's changes, like '03/14:02'. A side is '' when the year only has the other change */
   change?: { start: string; back: string }
   current: { offset: number; isDST: boolean }
 }

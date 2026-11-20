@@ -450,7 +450,7 @@ export default {
   'america/havana': {
     offset: -4,
     hem: 'n',
-    dst: '01/01:00->11/07:02'
+    dst: '->11/07:01'
   },
   'america/hermosillo': {
     offset: -7,

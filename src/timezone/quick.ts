@@ -22,7 +22,7 @@ const quickOffset = (s: Spacetime): number => {
   if (obj.hem === 'n') {
     dec = jul - shift
   }
-  const [start, end] = obj.dst.split('->')
+  const [start = '', end = ''] = obj.dst.split('->')
   const inSummer = isSummer(s.epoch, start, end, jul, dec)
   if (inSummer === true) {
     return jul

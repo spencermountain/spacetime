@@ -21,7 +21,8 @@ const timezone = (s: Spacetime): TimezoneMeta => {
     current: { offset: found.offset, isDST: false }
   }
   if (result.hasDst) {
-    const [start, back] = found.dst.split('->')
+    // a side is '' in a year with only one change, like '->11/07:01'
+    const [start = '', back = ''] = found.dst.split('->')
     result.change = { start, back }
   }
   //find the offsets for summer/winter times

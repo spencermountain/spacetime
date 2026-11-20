@@ -21,6 +21,30 @@ const boundaryTime = (text, year) => {
   return Date.UTC(year, month - 1, day, hour, minute)
 }
 
+// Spell one change as the runtime reads it: the local clock BEFORE the jump.
+const boundary = (change, year) => {
+  // Runtime boundaries use the clock BEFORE the jump, unlike zdump's local time.
+  const d = new Date(change.epoch + (change.before.offset * 3600000))
+  if (d.getUTCFullYear() !== year || d.getUTCSeconds() || d.getUTCMilliseconds()) {
+    throw unsupported('Unsupported boundary: runtime requires whole minutes in the target year', [
+      `Pre-change local boundary: ${d.toISOString().replace('T', ' ').replace('.000Z', '')} (must be a whole minute in ${year}).`,
+      `Transition instant: ${new Date(change.epoch).toISOString()}`
+    ])
+  }
+  // Convention: a midnight fall-back is the end of the previous day (10/24:24), not 10/25:00.
+  // Both run identically, but tests and readers expect the ':24' spelling.
+  const fallsBack = change.after.offset < change.before.offset
+  if (fallsBack && d.getUTCHours() === 0 && d.getUTCMinutes() === 0) {
+    const eve = new Date(d.getTime() - 1)
+    return `${pad(eve.getUTCMonth() + 1)}/${pad(eve.getUTCDate())}:24`
+  }
+  let text = `${pad(d.getUTCMonth() + 1)}/${pad(d.getUTCDate())}:${pad(d.getUTCHours())}`
+  if (d.getUTCMinutes()) {
+    text += ':' + pad(d.getUTCMinutes())
+  }
+  return text
+}
+
 // zdump -i emits an initial state followed by transitions with POST-change local times.
 // Fields are date, time, offset, optional abbreviation, and optional DST flag.
 // Split on tabs: an empty abbreviation must not shift the DST flag into its place.
@@ -87,6 +111,8 @@ export const parseIntervals = (text) => {
 
 // The runtime stores one chronological interval, with the opposite offset outside it.
 // Its boundaries are local wall times BEFORE each change, with optional minutes.
+// A year with a single change leaves one side open: '03/14:02->' enters the interval
+// and stays, '->11/07:01' begins the year inside it and leaves.
 export const normalizeZone = (intervals, previous, tz, year) => {
   const { initial, transitions } = intervals
   const start = Date.UTC(year, 0, 1)
@@ -111,8 +137,8 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   const result = { ...previous, offset: initial.offset }
   delete result.dst
   if (changes.length === 0) {return result}
-  if (changes.length !== 2) {throw unsupported(`Unsupported pattern: ${changes.length} state changes`, [
-    'The runtime supports a fixed offset or exactly two changes forming one annual cycle.',
+  if (changes.length > 2) {throw unsupported(`Unsupported pattern: ${changes.length} state changes`, [
+    'The runtime supports a fixed offset, a single change, or two changes forming one annual cycle.',
     `Observed ${changes.length} offset/DST changes across ${transitions.length} transition records.`
   ])}
   const [a, b] = changes
@@ -121,6 +147,33 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   // decreasing their offset, unlike northern cycles.
   const expected = previous.hem === 'n' ? shift : -shift
   const mismatches = []
+  // DST is on inside a northern interval, and outside a southern one.
+  const inside = previous.hem === 'n'
+  if (b === undefined) {
+    const delta = a.after.offset - initial.offset
+    const enters = delta === expected
+    if (!enters && delta !== -expected) {
+      mismatches.push(`Single offset change: expected ${expected * 60} or ${-expected * 60} minutes, observed ${delta * 60} minutes.`)
+    } else {
+      if (initial.dst !== (enters ? !inside : inside)) {
+        mismatches.push(`Initial DST flag for hemisphere "${previous.hem}": expected ${enters ? !inside : inside}, observed ${initial.dst}.`)
+      }
+      if (a.after.dst !== (enters ? inside : !inside)) {
+        mismatches.push(`DST flag after the change for hemisphere "${previous.hem}": expected ${enters ? inside : !inside}, observed ${a.after.dst}.`)
+      }
+    }
+    if (mismatches.length > 0) {
+      throw unsupported('Unsupported offset/DST cycle for runtime hemisphere and shift', mismatches)
+    }
+    // The stored offset is always the one inside the interval.
+    result.offset = enters ? a.after.offset : initial.offset
+    const [oldStart = '', oldBack = ''] = (previous.dst || '').split('->')
+    const old = enters ? oldStart : oldBack
+    const next = boundary(a, year)
+    const text = boundaryTime(old, year) === boundaryTime(next, year) ? old : next
+    result.dst = enters ? text + '->' : '->' + text
+    return result
+  }
   if (b.after.offset !== initial.offset) {
     mismatches.push(`Final offset must return to the initial offset: expected ${initial.offset}h, observed ${b.after.offset}h.`)
   }
@@ -139,31 +192,9 @@ export const normalizeZone = (intervals, previous, tz, year) => {
   if (mismatches.length > 0) {
     throw unsupported('Unsupported offset/DST cycle for runtime hemisphere and shift', mismatches)
   }
-  const boundary = (change) => {
-    // Runtime boundaries use the clock BEFORE the jump, unlike zdump's local time.
-    const d = new Date(change.epoch + (change.before.offset * 3600000))
-    if (d.getUTCFullYear() !== year || d.getUTCSeconds() || d.getUTCMilliseconds()) {
-      throw unsupported('Unsupported boundary: runtime requires whole minutes in the target year', [
-        `Pre-change local boundary: ${d.toISOString().replace('T', ' ').replace('.000Z', '')} (must be a whole minute in ${year}).`,
-        `Transition instant: ${new Date(change.epoch).toISOString()}`
-      ])
-    }
-    // Convention: a midnight fall-back is the end of the previous day (10/24:24), not 10/25:00.
-    // Both run identically, but tests and readers expect the ':24' spelling.
-    const fallsBack = change.after.offset < change.before.offset
-    if (fallsBack && d.getUTCHours() === 0 && d.getUTCMinutes() === 0) {
-      const eve = new Date(d.getTime() - 1)
-      return `${pad(eve.getUTCMonth() + 1)}/${pad(eve.getUTCDate())}:24`
-    }
-    let text = `${pad(d.getUTCMonth() + 1)}/${pad(d.getUTCDate())}:${pad(d.getUTCHours())}`
-    if (d.getUTCMinutes()) {
-      text += ':' + pad(d.getUTCMinutes())
-    }
-    return text
-  }
   result.offset = a.after.offset
   const oldBoundaries = (previous.dst || '').split('->')
-  result.dst = [boundary(a), boundary(b)].map((next, i) => {
+  result.dst = [boundary(a, year), boundary(b, year)].map((next, i) => {
     const old = oldBoundaries[i]
     // Keep each equivalent boundary's spelling, even when the other boundary changes.
     return oldBoundaries.length === 2 && boundaryTime(old, year) === boundaryTime(next, year)
