@@ -40,9 +40,12 @@ test('every name for utc is UTC', (t) => {
 })
 
 test("a 'Z' string is utc", (t) => {
-  const s = spacetime('2024-01-01T16:20:00Z', 'America/Toronto')
+  const s = spacetime('2024-01-01T16:20:00Z')
   t.equal(s.timezone().name, 'UTC', 'trailing Z')
   t.equal(s.format('iso-full'), '2024-01-01T16:20:00.000Z[UTC]', 'iso-full')
+  // a given timezone shows that utc moment on its own clock
+  const given = spacetime('2024-01-01T16:20:00Z', 'America/Toronto')
+  t.equal(given.format('iso-full'), '2024-01-01T11:20:00.000-05:00[America/Toronto]', 'given timezone')
   const utc = spacetime('2024-01-01T16:20:00', 'UTC')
   t.equal(spacetime(utc.iso()).timezone().name, 'UTC', 'iso round-trip')
   t.equal(spacetime(utc.isoFull()).timezone().name, 'UTC', 'iso-full round-trip')

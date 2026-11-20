@@ -35,7 +35,9 @@ test('text dates with offsets do not shift across midnight', (t) => {
         for (const [input, expected] of inputs) {
           const s = spacetime(input, zone)
           const label = `${input} from ${zone} at ${hour}:00 UTC`
-          t.equal(s.format('iso-short'), '2019-06-17', label + ' preserves date')
+          // the moment is shown in the given timezone, so its date is the date there
+          const want = spacetime(Date.parse(expected), zone).format('iso-short')
+          t.equal(s.format('iso-short'), want, label + ' preserves date')
           t.equal(s.epoch, Date.parse(expected), label + ' preserves instant')
         }
       }

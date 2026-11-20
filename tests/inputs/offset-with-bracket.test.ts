@@ -64,11 +64,11 @@ test('no offset reads the clock in the named timezone', (t) => {
   t.end()
 })
 
-test('the named timezone beats the timezone argument', (t) => {
+test('the timezone argument beats the named timezone', (t) => {
   pinRules(t)
   const s = spacetime('2027-07-15T12:00:00-08:00[America/Los_Angeles]', 'America/New_York')
-  t.equal(s.tz, 'america/los_angeles', 'timezone')
-  t.equal(s.iso(), '2027-07-15T13:00:00.000-07:00', 'iso')
+  t.equal(s.tz, 'america/new_york', 'timezone')
+  t.equal(s.iso(), '2027-07-15T16:00:00.000-04:00', 'iso')
   t.end()
 })
 

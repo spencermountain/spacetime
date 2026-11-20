@@ -37,7 +37,7 @@ test('to-from utc-format', (t) => {
   })
 
   const str = '2016-01-01T09:00:00.122Z'
-  const s = spacetime(str, 'Canada/Eastern')
+  const s = spacetime(str)
   t.equal(s.format('iso'), str, 'input matches output')
 
   t.end()

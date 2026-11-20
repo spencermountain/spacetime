@@ -23,7 +23,8 @@ test('Temporal entry: every name for utc is UTC', options, (t) => {
     t.equal(spacetime(`2024-07-15T12:00:00Z[${tz}]`).tz, 'UTC', `[${tz}]`)
   })
   t.equal(spacetime('2024-07-15T12:00:00', 'GMT').tz, 'GMT', 'gmt is a different zone')
-  t.equal(spacetime('2024-01-01T16:20:00Z', 'America/Toronto').tz, 'UTC', 'trailing Z')
+  t.equal(spacetime('2024-01-01T16:20:00Z').tz, 'UTC', 'trailing Z')
+  t.equal(spacetime('2024-01-01T16:20:00Z', 'America/Toronto').tz, 'America/Toronto', 'given timezone')
   t.end()
 })
 
