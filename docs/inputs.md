@@ -48,27 +48,28 @@ a lot of complexity and ambiguity can come from inputs that have offset informat
 In all cases, we try our best to provide a consistent API here, and to never throw:
 
 ```js
+const iso = '2024-01-01T16:20:00'
 // 16:20:00 → 4:20pm
-spacetime('2024-01-01T16:20:00') // 4:20pm local-time
-spacetime('2024-01-01T16:20:00', 'America/Los_Angeles') // 4:20pm LA-time
+spacetime(iso) // 4:20pm local-time
+spacetime(iso, 'America/Los_Angeles') // 4:20pm LA-time
 
-spacetime('2024-01-01T16:20:00-08:00') // 4:20pm [fixed-8h]
-spacetime('2024-01-01T16:20:00[America/Los_Angeles]') // 4:20pm LA-time
+spacetime(`${iso}-08:00`) // 4:20pm [fixed-8h]
+spacetime(`${iso}[America/Los_Angeles]`) // 4:20pm LA-time
 
 // consistent offset-iana pairs:
-spacetime('2024-01-01T16:20:00-08:00', 'America/Los_Angeles') // 4:20pm LA-time
-spacetime('2024-01-01T16:20:00-08:00[America/Los_Angeles]') // 4:20pm LA-time
-spacetime('2024-08-01T16:20:00-07:00[America/Los_Angeles]') // 4:20pm LA-time (dst)
+spacetime(`${iso}-08:00`, 'America/Los_Angeles') // 4:20pm LA-time
+spacetime(`${iso}-08:00[America/Los_Angeles]`) // 4:20pm LA-time
+spacetime(`${iso}-07:00[America/Los_Angeles]`) // 4:20pm LA-time (dst)
 
 // explicit conversion
-spacetime('2024-01-01T16:20:00Z', 'America/Los_Angeles') // UTC → 8:20am LA-time
+spacetime(`${iso}Z`, 'America/Los_Angeles') // UTC → 8:20am LA-time
 // add rando offsets
-spacetime('2024-01-01T16:20:00-02:00', 'America/Los_Angeles') // 4:20pm @-2h → 10:20am LA-time
+spacetime(`${iso}-02:00`, 'America/Los_Angeles') // 4:20pm @-2h → 10:20am LA-time
 // inconsistent offsets are interpreted
-spacetime('2024-01-01T16:20:00+02:00[America/Los_Angeles]') // 4:20pm @+2h → 6:20am LA-time
+spacetime(`${iso}+02:00[America/Los_Angeles]`) // 4:20pm @+2h → 6:20am LA-time
 
 // double-tz? sure. whynot
-spacetime('2024-01-01T16:20:00-05:00[America/New_York]', 'America/Los_Angeles') // 4:20pm NYC → 1:20pm LA-time
+spacetime(`${iso}-05:00[America/New_York]`, 'America/Los_Angeles') // 4:20pm NYC → 1:20pm LA-time
 ```
 
 these behaviours should also be consistent with a two-step interpretation using `.goto()`
