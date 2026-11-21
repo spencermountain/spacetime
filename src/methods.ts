@@ -38,12 +38,12 @@ function timezoneMethod(this: Spacetime, tz?: string): TimezoneMeta | Spacetime 
 //the spacetime instance methods (also, the API)
 const methods = {
   set: function (this: Spacetime, input?: SpacetimeInput, tz?: string) {
-    let s = this.clone()
-    s = handleInput(s, input, null)
+    const s = this.clone()
+    // a given timezone is where the input is read, like in the constructor
     if (tz) {
       s.tz = findTz(tz, s.timezones)
     }
-    return s
+    return handleInput(s, input, tz || null)
   },
   timezone: timezoneMethod,
   isDST: function (this: Spacetime) {

@@ -8,5 +8,9 @@ import spacetime from './src/index.ts'
 //
 // console.log('s:', spacetime(input).format('iso-full'))
 
-const s = spacetime('2024-01-01T16:20:00Z')
-console.log(s.timezone())
+// let s = spacetime('2024-01-01T16:20:00').goto('Asia/Tokyo')
+let s = spacetime.now('America/Los_Angeles').time('16:20:00')
+console.log(s.time())
+
+// s = spacetime.now('America/Los_Angeles').set('2024-01-01T16:20:00')
+// console.log(s.time())

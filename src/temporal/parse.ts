@@ -80,10 +80,13 @@ const parse = (s: Spacetime, input: Input, given = false): Spacetime => {
   } else if (typeof input === 'number') {
     s.epoch = input
   } else if (input && typeof input === 'object' && 'epoch' in input) {
-    s._tz = normalizeTimezone(input.tz, s.tz)
+    // keep the other instance's timezone, unless we were given one
+    if (!given) {
+      s._tz = normalizeTimezone(input.tz, s.tz)
+    }
     const other = input as Spacetime
     if (other._value instanceof T.ZonedDateTime) {
-      s._value = other._value
+      s._value = other._value.withTimeZone(s._tz)
     } else {
       s.epoch = input.epoch
     }

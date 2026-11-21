@@ -45,45 +45,48 @@ the return declaration provides a minimal shape.
 
 a lot of complexity and ambiguity can come from inputs that have offset information and timezone information, because sometimes they can be in conflict:
 
-In all cases, we try our best to provide a consistent API here, and to never throw:
+In all cases, we try our best to provide a consistent API, and to never throw an error on mixed or ambiguous inputs.
 
 ```js
+//4:20pm
 const iso = '2024-01-01T16:20:00'
-// 16:20:00 → 4:20pm
+// inputs that return 4:20pm
 spacetime(iso) // 4:20pm local-time
 spacetime(iso, 'America/Los_Angeles') // 4:20pm LA-time
-
-spacetime(`${iso}-08:00`) // 4:20pm [fixed-8h]
 spacetime(`${iso}[America/Los_Angeles]`) // 4:20pm LA-time
-
-// consistent offset-iana pairs:
+spacetime(`${iso}-08:00`) // 4:20pm [fixed-8h]
+// (consistent iana/offsets)
 spacetime(`${iso}-08:00`, 'America/Los_Angeles') // 4:20pm LA-time
 spacetime(`${iso}-08:00[America/Los_Angeles]`) // 4:20pm LA-time
 spacetime(`${iso}-07:00[America/Los_Angeles]`) // 4:20pm LA-time (dst)
 
-// explicit conversion
+// inputs that do not produce 4:20pm
 spacetime(`${iso}Z`, 'America/Los_Angeles') // UTC → 8:20am LA-time
-// add rando offsets
+// (inconsistent iana/offsets)
 spacetime(`${iso}-02:00`, 'America/Los_Angeles') // 4:20pm @-2h → 10:20am LA-time
-// inconsistent offsets are interpreted
 spacetime(`${iso}+02:00[America/Los_Angeles]`) // 4:20pm @+2h → 6:20am LA-time
-
-// double-tz? sure. whynot
 spacetime(`${iso}-05:00[America/New_York]`, 'America/Los_Angeles') // 4:20pm NYC → 1:20pm LA-time
+
+// note that when mixing offsets like this, the date can also change
+// (afternoon at -8h is already tomorrow in Tokyo)
+spacetime(`${iso}-08:00`, 'Asia/Tokyo') // Jan 1 4:20pm @-8h → Jan 2 6:20pm Tokyo-time
 ```
 
-these behaviours should also be consistent with a two-step interpretation using `.goto()`
+these inputs could be contrasted with explicit two-step interpretation using `.goto()` and `.set()`:
 
 ```js
 spacetime('2024-01-01T16:20:00-08:00').goto('America/Los_Angeles') // remains 4:20pm LA-time
-spacetime('2024-01-01T16:20:00Z').goto('America/Los_Angeles') // UTC → 8:20am LA-time
+spacetime('2024-01-01T16:20:00Z').goto('America/Los_Angeles') // UTC 4:20pm → 8:20am LA-time
+spacetime('2024-01-01T16:20:00').goto('America/Los_Angeles') // local 4:20pm →  ? LA-time
 
-spacetime('2024-01-01T16:20:00').goto('America/Los_Angeles') // 4:20pm local-time → LA-time
-
-spacetime('2024-01-01T16:20:00', 'America/New_York').goto('America/Los_Angeles') // 4:20pm NYC → 1:20pm LA-time
+spacetime.now('America/Los_Angeles').set('2024-01-01T16:20:00') //4:20pm LA-time
+spacetime.now('America/Los_Angeles').time('16:20:00') //4:20pm LA-time
+// but heads-up using .set() with offset or timezone info:
+spacetime.now('America/Los_Angeles').set('2024-01-01T22:00:00Z') // Jan 1 10pm UTC (leaves LA)
+spacetime.now('America/Los_Angeles').set('2024-01-01T22:00:00', 'Asia/Tokyo') // Jan 1 10pm Tokyo-time
 ```
 
-see MDN's [Temporal/Offset Ambiguity docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal/ZonedDateTime#offset_ambiguity)
+see MDN's [Temporal/Offset Ambiguity docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal/ZonedDateTime#offset_ambiguity) for best-practices and the ISO spec details.
 
 ## Current-date and extreme-date helpers
 

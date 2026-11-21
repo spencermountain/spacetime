@@ -14,26 +14,27 @@ This project follows semVer, where:
 
 - **[update]** - 2027 DST changes
 - - - [note] - `Havana` kept at −4hr, will include single-change before nov
-- **[change]** - #376 inputs with iana
-- **[new]** - #344 `.ceil(unit)` and `.floor(unit)` methods
-- **[change]** - support season decade and century in rounding methods
-- **[change]** - add century, decade, and season `progress()` result
+- **[change]** - #376 ambiguous offset inputs
+- - - [change] -
 - **[change]** - make `'Z'`, `'UTC'`, `'Zulu'`, and `'+00:00'` consistent
 - - [fix] - trailing Z → UTC (not Etc/GMT)
 - - [new] - support `'Z'` as valid iana code
-- - [change] - use `'+00:00'` not `'-00:00'` in /temporal library
+- **[change]** - support season decade and century in rounding methods
+- **[change]** - add century, decade, and season `progress()` result
+- **[change]** - use `'+00:00'` not `'-00:00'` in /temporal library
+- **[new]** - #344 `.ceil(unit)` and `.floor(unit)` methods
 - **[new]** - support single dst-change years _'->11/07:01'_
 - **[new]** - `.ceil()` and `.floor()` methods - like `.nearest()`, they don't move a date already on a boundary
 - **[new]** - `season`, `decade` and `century` units in `.nearest()`, `.diff()` and `.isSame()`
 - **[new]** - `decade` and `century` in `.progress()`
-- **[fix]** - #491 set minutes on fractional tzs (thanks bardrop)
-- **[fix]** - #490 #492 #496 #480 unixFmt dropped values
-- **[fix]** - month diff overcounting after a clamped leap-day _(feb 29 2032 -> apr 29 2034)_
-- **[fix]** - `.progress(unit)` return type is a number
 - **[fix]** - fractional arithmetic fixes:
 - - [fix] - 12:10 + 0.001 day = 12:11:26.400
 - - [fix] - 2020-03-08 + 0.9999 day = 1 day
 - - [fix] - +- 0.5 week = 3.5 days
+- **[fix]** - #491 set minutes on fractional tzs (thanks bardrop)
+- **[fix]** - #490 #492 #496 #480 unixFmt dropped values
+- **[fix]** - month diff overcounting after a clamped leap-day _(feb 29 2032 -> apr 29 2034)_
+- **[fix]** - `.progress(unit)` return type is a number
 - **[fix]** - #495 `dd/mm/yyyy` fmt
 - **[fix]** - #493 comma-based fractional iso seconds
 - **[fix]** - #489 better add 'season' support
@@ -41,6 +42,34 @@ This project follows semVer, where:
 - **[fix]** - decimal-rounding issues is isos
 - **[fix]** - typescript issues
 - **[update]** - dependencies
+
+notes:
+an explicit timezone is now always kept - even if the input has incompatible offsets:
+
+```js
+// mixing -2hr offset with -8hr timezone
+spacetime('2024-01-01T16:20:00-02:00', 'America/Los_Angeles')
+// before: 4:20pm, Etc/GMT+2  (tz ignored)
+// now:    10:20am, America/Los_Angeles  (same moment)
+
+// mixing 'Z' with a explicit timezone
+spacetime('2024-01-01T16:20:00Z', 'America/Los_Angeles')
+// before: 4:20pm, UTC  (tz ignored)
+// now:    8:20am, America/Los_Angeles  (same moment)
+
+// mixing 2 iana inputs
+spacetime('2024-01-01T16:20:00[America/New_York]', 'America/Los_Angeles')
+// before: 4:20pm, America/New_York  (tz ignored)
+// now:    1:20pm, America/Los_Angeles  (same moment)
+
+// same behaviour for .set():
+const s = spacetime('2024-06-01T09:00:00', 'America/Los_Angeles')
+s.set('2024-01-01T22:00:00', 'Asia/Tokyo')
+// before: Jan 2 3:00pm, Asia/Tokyo  (read as 10pm LA, then converted)
+// now:    Jan 1 10:00pm, Asia/Tokyo  (read on Tokyo's clock)
+```
+
+see [docs/input.md](docs/input.md) and #376 for details
 
 ### 7.17.1 [Nov 2026]
 
