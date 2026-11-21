@@ -103,7 +103,7 @@ const fieldValues = (parts: DateParts | DateFields | Record<string, unknown>): C
   return out
 }
 
-const boundaryUnits = ['millisecond', 'second', 'minute', 'quarterhour', 'hour', 'day', 'week', 'month', 'quarter', 'year', 'decade', 'century', 'millennium']
+const boundaryUnits = ['millisecond', 'second', 'minute', 'quarterhour', 'hour', 'day', 'week', 'month', 'quarter', 'season', 'year', 'decade', 'century', 'millennium']
 const isBoundary = (unit: unknown): boolean => boundaryUnits.includes(unitName(unit))
 
 export { clockField, isBoundary, fields, temporal, unitName, duration, fieldValues, fieldNumber, direction, toParts }

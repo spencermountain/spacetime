@@ -184,7 +184,7 @@ const methods = {
   } as GetSet<string, SpacetimeInput>,
   epochSeconds: function (this: Spacetime, num?: number) {
     if (num !== undefined) {
-      this.epoch = num * 1000
+      this.epoch = Math.round(num * 1000) // 1.005 * 1000 is 1004.9999999999999
       return this
     }
     if (!this.isValid()) {

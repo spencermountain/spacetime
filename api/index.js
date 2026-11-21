@@ -60,6 +60,14 @@ export default {
       "doc": "round to either the current, or +1 of this unit (alias of nearest)",
       "out": "clone"
     },
+    "ceil": {
+      "doc": "round up to the beginning of the next unit - unchanged if already at the beginning of one",
+      "out": "clone"
+    },
+    "floor": {
+      "doc": "round down to the beginning of this unit (alias of startOf)",
+      "out": "clone"
+    },
     "every": {
       "doc": "list all dates up to a certain time, by a given unit",
       "out": "Array"
@@ -101,7 +109,7 @@ export default {
       "out": "Object"
     },
     "fromNow": {
-      "doc": "create a human-readable diff between now and the given date",
+      "doc": "create a human-readable diff between now and this date",
       "out": "Object"
     }
   },
@@ -230,6 +238,10 @@ export default {
     },
     "logYear": {
       "doc": "pretty-print the full date to the console, for nicer debugging",
+      "out": "clone"
+    },
+    "debug": {
+      "doc": "pretty-print the date, time, and timezone to the console, for nicer debugging",
       "out": "clone"
     },
     "progress": {

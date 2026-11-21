@@ -3,6 +3,7 @@
 import spacetime from '../src/index.ts'
 import aliases from '../zonefile/aliases.js'
 import { tzdbVersion } from '../zonefile/iana.js'
+import dstShift from '../src/timezone/dstShift.ts'
 
 const MSEC_IN_HOUR = 60 * 60 * 1000
 
@@ -30,14 +31,19 @@ const events = []
 for (let i = 0; i < names.length; i += 1) {
   const tz = names[i]
   const [start, back] = zones[tz].dst.split('->')
-  // january + july offsets, according to the library
-  const jan = spacetime([thisYear, 0, 10], tz).timezone().current.offset
-  const jul = spacetime([thisYear, 6, 10], tz).timezone().current.offset
+  // the offsets outside + inside the rule's period, as the library reads them
+  const jul = zones[tz].offset
+  const jan = zones[tz].hem === 'n' ? jul - dstShift(tz) : jul + dstShift(tz)
   // 'start' begins the july-offset period, 'back' ends it
   // (future years re-use this year's rule dates, like the library does)
   for (let year = thisYear; year <= thisYear + 1; year += 1) {
-    events.push({ tz, epoch: toUtc(start, jan, year), shift: jul - jan })
-    events.push({ tz, epoch: toUtc(back, jul, year), shift: jan - jul })
+    // a year with one change leaves the other side empty
+    if (start) {
+      events.push({ tz, epoch: toUtc(start, jan, year), shift: jul - jan })
+    }
+    if (back) {
+      events.push({ tz, epoch: toUtc(back, jul, year), shift: jan - jul })
+    }
   }
 }
 const upcoming = events.filter(e => e.epoch > now).sort((a, b) => a.epoch - b.epoch)

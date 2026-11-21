@@ -40,7 +40,8 @@ class Spacetime {
   british: boolean
   silent: boolean
 
-  constructor(input?: Input, tz?: Timezone, options: Options = {}) {
+  // (given: whether the timezone was asked for, or is only a fallback for the input)
+  constructor(input?: Input, tz?: Timezone, options: Options = {}, given = tz != null) {
     const T = temporal()
     this._tz = T.Now.timeZoneId()
     this._weekStart = options.weekStart == null ? 1 : options.weekStart
@@ -56,7 +57,7 @@ class Spacetime {
       if (Object.keys(this._today).length) {
         this._value = this._value.with(fieldValues({ month: 0, date: 1, ...this._today }))
       }
-      const result = parse(this, input)
+      const result = parse(this, input, given)
       this._value = result._value
       this._tz = result._tz
       this._pending = result._pending
@@ -109,8 +110,10 @@ class Spacetime {
   toTemporal() { return this._value }
   toNativeDate() { return new Date(this.isValid() ? this.epoch : NaN) }
   toLocalDate() { return this.toNativeDate() }
-  set(input?: Input, tz: Timezone = this.tz): Spacetime {
-    return new Spacetime(input, tz, { today: this._today, weekStart: this._weekStart, british: this.british, silent: this.silent })
+  set(input?: Input, tz?: Timezone): Spacetime {
+    // our own timezone is only a fallback, for an input without one
+    const options = { today: this._today, weekStart: this._weekStart, british: this.british, silent: this.silent }
+    return new Spacetime(input, tz || this.tz, options, Boolean(tz))
   }
   goto(tz?: Timezone): Spacetime {
     const s = this.clone()
@@ -145,7 +148,7 @@ class Spacetime {
   epochSeconds(value: number): Spacetime
   epochSeconds(value?: number): number | Spacetime {
     if (value !== undefined) {
-      this.epoch = value * 1000
+      this.epoch = Math.round(value * 1000) // 1.005 * 1000 is 1004.9999999999999
       return this
     }
     return this.isValid() ? Math.floor(this.epoch / 1000) : NaN
@@ -165,7 +168,7 @@ Object.assign(Spacetime.prototype, query, arithmetic, compare)
 
 // Guard value-changing APIs without changing the return types of their getters.
 const setters = [...Object.keys(query), 'timezone', 'json']
-const transformations = ['add', 'subtract', 'plus', 'minus', 'startOf', 'endOf', 'next', 'last', 'nearest', 'round', 'goto']
+const transformations = ['add', 'subtract', 'plus', 'minus', 'startOf', 'endOf', 'next', 'last', 'nearest', 'round', 'ceil', 'floor', 'goto']
 const proto = Spacetime.prototype as unknown as Record<string, (this: Spacetime, ...args: unknown[]) => unknown>
 for (const name of [...setters, ...transformations]) {
   const method = proto[name]

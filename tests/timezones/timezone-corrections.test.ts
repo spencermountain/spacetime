@@ -10,11 +10,11 @@ const check = (t: Test, zone: string, instant: string, offset: number) => {
 
 test('Lord Howe and LHI share a half-hour DST shift', t => {
   ;['Australia/Lord_Howe', 'Australia/LHI'].forEach(zone => {
-    check(t, zone, '2026-01-15T12:00:00Z', 11)
-    check(t, zone, '2026-04-04T14:59:59Z', 11)
-    check(t, zone, '2026-04-04T15:00:00Z', 10.5)
-    check(t, zone, '2026-10-03T15:29:59Z', 10.5)
-    check(t, zone, '2026-10-03T15:30:00Z', 11)
+    check(t, zone, '2027-01-15T12:00:00Z', 11)
+    check(t, zone, '2027-04-03T14:59:59Z', 11)
+    check(t, zone, '2027-04-03T15:00:00Z', 10.5)
+    check(t, zone, '2027-10-02T15:29:59Z', 10.5)
+    check(t, zone, '2027-10-02T15:30:00Z', 11)
   })
   t.end()
 })

@@ -2,7 +2,7 @@
 
 export type Timezone = string | number | null
 export type FieldValue = string | number
-export type BoundaryUnit = 'millisecond' | 'second' | 'minute' | 'quarterhour' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year' | 'decade' | 'century' | 'millennium'
+export type BoundaryUnit = 'millisecond' | 'second' | 'minute' | 'quarterhour' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'season' | 'year' | 'decade' | 'century' | 'millennium'
 export type Unit = BoundaryUnit | 'date' | 'min' | 'quarter-hour' | 'season' | 'fortnight' | 'weekend'
 export type Units = Unit | `${Unit}s` | 'centuries'
 export type BoundaryUnits = BoundaryUnit | `${BoundaryUnit}s` | 'centuries' | 'date' | 'dates' | 'min' | 'mins' | 'quarter-hour' | 'quarter-hours'
@@ -134,6 +134,8 @@ export interface Spacetime {
   last(unit?: BoundaryUnits): Spacetime
   progress(unit: BoundaryUnits): number
   nearest(unit?: BoundaryUnits): Spacetime
+  /** round up to the start of the next unit - unchanged if already at the start of one */
+  ceil(unit?: BoundaryUnits): Spacetime
   diff(input: Input): Difference | number
   diff(input: Input, unit: DifferenceUnits): number
   isSame(input: Input, unit: BoundaryUnits, timezoneAware?: boolean): boolean | null
@@ -156,6 +158,8 @@ export interface Spacetime {
   plus: Spacetime['add']
   minus: Spacetime['subtract']
   round: Spacetime['nearest']
+  /** round down to the start of this unit (alias of startOf) */
+  floor: Spacetime['startOf']
 }
 export interface TemporalStatic {
   (input?: Input, timezone?: Timezone, options?: Options): Spacetime

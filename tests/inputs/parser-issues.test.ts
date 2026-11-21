@@ -56,3 +56,21 @@ test('numeric dates accept two-digit years with a clock', t => {
   t.equal(spacetime('12/30/19 12:99:08 PM', 'UTC').isValid(), false, 'invalid clock stays invalid')
   t.end()
 })
+
+test('time fractions keep the seconds', t => {
+  const cases = [
+    ['2024-03-10T02:30:15.5Z', '2024-03-10T02:30:15.500Z'],
+    ['2024-03-10T02:30:15,5Z', '2024-03-10T02:30:15.500Z'],
+    ['2024-03-10T02:30:00,25Z', '2024-03-10T02:30:00.250Z'],
+    ['2024-03-10T02:30:59,999Z', '2024-03-10T02:30:59.999Z'],
+    ['2024-03-10T02:30:15,5+01:00', '2024-03-10T01:30:15.500Z'],
+    ['2024-03-10 02:30:15,5', '2024-03-10T02:30:15.500Z'],
+    ['1998-05-30T22:00:00:123Z', '1998-05-30T22:00:00.123Z']
+  ]
+  cases.forEach(([input, expected]) => {
+    t.equal(spacetime(input, 'UTC').iso(), expected, input)
+  })
+  t.equal(spacetime('2024-03-10T02:30:155Z', 'UTC').isValid(), false, '3-digit seconds are invalid')
+  t.equal(spacetime('2024-03-10T02:30:0025Z', 'UTC').isValid(), false, '4-digit seconds are invalid')
+  t.end()
+})

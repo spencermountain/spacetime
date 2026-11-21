@@ -1,7 +1,7 @@
 {
   "name": "spacetime",
-  "version": "7.17.1",
-  "description": "figure-out dates across timezones",
+  "version": "7.18.0",
+  "description": "calculate dates across timezones",
   "license": "Apache-2.0",
   "repository": "github:spencermountain/spacetime",
   "homepage": "https://spacetime.how",
@@ -44,10 +44,10 @@
   },
   "scripts": {
     "watch": "node --import tsx --watch ./scratch.ts",
-    "tz:pack": "node ./zonefile/pack.js",
+    "pack": "node ./zonefile/pack.js",
     "build:plugins": "pnpm --filter \"./plugins/*\" run build",
     "version": "node ./scripts/version.js",
-    "build": "pnpm run tz:pack && pnpm run version && rollup -c --silent",
+    "build": "pnpm run pack && pnpm run version && rollup -c --silent",
     "build:tz": "node --import tsx ./scripts/tz/index.js",
     "dst:calendar": "node --import tsx ./scripts/dst-calendar.js",
     "test": "node --import tsx tests/_lib/run.ts tests | tap-dancer",
@@ -77,9 +77,9 @@
     "@types/node": "^26.6.6",
     "@types/tape": "^5.8.1",
     "esbuild": "^0.28.2",
-    "eslint": "^10.14.0",
+    "eslint": "^10.15.0",
     "eslint-plugin-redos": "^4.6.2",
-    "eslint-plugin-regexp": "3.3.2",
+    "eslint-plugin-regexp": "3.3.3",
     "rollup": "catalog:",
     "rollup-plugin-esbuild": "^6.2.1",
     "rollup-plugin-filesize-check": "2.0.1",
@@ -88,7 +88,7 @@
     "timekeeper": "2.3.1",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.72.1"
+    "typescript-eslint": "^8.73.0"
   },
   "unpkg": "builds/spacetime.min.js",
   "prettier": {

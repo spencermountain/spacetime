@@ -8,10 +8,12 @@ const toUtc = (dstChange: string, offset: number, year: number): number => {
 }
 
 // compare epoch with dst change events (in utc)
+// a year with only one change leaves a side empty: '->11/07:01' is on from the start
+// of the (utc) year, and '03/14:02->' stays on until the end of it
 const inSummerTime = (epoch: number, start: string, end: string, summerOffset: number, winterOffset: number): boolean => {
   const year = new Date(epoch).getUTCFullYear()
-  const startUtc = toUtc(start, winterOffset, year)
-  const endUtc = toUtc(end, summerOffset, year)
+  const startUtc = start ? toUtc(start, winterOffset, year) : -Infinity
+  const endUtc = end ? toUtc(end, summerOffset, year) : Infinity
   // simple number comparison now
   return epoch >= startUtc && epoch < endUtc
 }

@@ -25,6 +25,8 @@ const parseOffset = (s: Spacetime, offset?: string): Spacetime => {
       if (/^[+-][0-9]{2}$/.test(offset)) {
         offset += ':00'
       }
+      // (there is no '-00:00')
+      offset = offset.replace(/^-00:00$/, '+00:00')
     }
     s._tz = offset
   }
@@ -32,9 +34,15 @@ const parseOffset = (s: Spacetime, offset?: string): Spacetime => {
 }
 
 // set a parsed date onto an instance, as wall-clock fields
-const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
+// an offset decides the moment, and a named timezone decides where it is shown
+const apply = (s: Spacetime, parsed: ParsedDate, named: { tz?: string }): Spacetime => {
   if (parsed.timezone) {
     s = s.timezone(parsed.timezone)
+    // read the clock at the offset for now, and move to the named timezone after
+    if (/^(?:z|[+-][0-9]{2}(?::?[0-9]{2})?)$/i.test((parsed.offset || '').trim())) {
+      named.tz = s._tz
+      s = parseOffset(s, parsed.offset)
+    }
   } else if (parsed.offset) {
     s = parseOffset(s, parsed.offset)
   }
@@ -54,8 +62,10 @@ const apply = (s: Spacetime, parsed: ParsedDate): Spacetime => {
   return s
 }
 
-const parse = (s: Spacetime, input: Input): Spacetime => {
+// a timezone given beside a string is where its moment is shown
+const parse = (s: Spacetime, input: Input, given = false): Spacetime => {
   const T = temporal()
+  const asked = s._tz
   if (input instanceof T.ZonedDateTime) {
     s._value = isoCalendar(s, input).withTimeZone(s.tz)
   } else if (input instanceof T.Instant) {
@@ -70,10 +80,13 @@ const parse = (s: Spacetime, input: Input): Spacetime => {
   } else if (typeof input === 'number') {
     s.epoch = input
   } else if (input && typeof input === 'object' && 'epoch' in input) {
-    s._tz = normalizeTimezone(input.tz, s.tz)
+    // keep the other instance's timezone, unless we were given one
+    if (!given) {
+      s._tz = normalizeTimezone(input.tz, s.tz)
+    }
     const other = input as Spacetime
     if (other._value instanceof T.ZonedDateTime) {
-      s._value = other._value
+      s._value = other._value.withTimeZone(s._tz)
     } else {
       s.epoch = input.epoch
     }
@@ -88,8 +101,11 @@ const parse = (s: Spacetime, input: Input): Spacetime => {
   } else if (typeof input === 'string' && input) {
     // Native ISO parsing preserves an explicit offset in a repeated DST hour.
     if (/^[+-]?[0-9]{4,6}-[0-9]{2}-[0-9]{2}T[^[]*\[[^[\]]+\](?:\[[^[\]]+\])?$/i.test(input)) {
-      s._value = isoCalendar(s, T.ZonedDateTime.from(input))
-      s._tz = s._value.timeZoneId
+      // a contradicting offset still names a moment, so use it instead of rejecting
+      s._value = isoCalendar(s, T.ZonedDateTime.from(input.replace(/\[z\]/i, '[UTC]'), { offset: 'use' }))
+      // '[Z]' and '[Etc/UTC]' are both 'UTC'
+      s._tz = given ? asked : normalizeTimezone(s._value.timeZoneId, s.tz)
+      s._value = s._value.withTimeZone(s._tz)
       return s
     }
     const str = normalize(input)
@@ -102,10 +118,17 @@ const parse = (s: Spacetime, input: Input): Spacetime => {
       const match = str.match(parsers[i].reg)
       if (match) {
         const parsed = parsers[i].parse(match, s)
-        const result = parsed === null ? null : apply(s, parsed)
+        const named: { tz?: string } = {}
+        const result = parsed === null ? null : apply(s, parsed, named)
         if (result && result.isValid()) {
           result._value = result._pending.toZonedDateTime(result.tz)
           result._pending = null
+          // the string's own offset or timezone only sets the moment, beside a given one
+          const zone = given ? asked : named.tz
+          if (zone && zone !== result._tz) {
+            result._value = result._value.withTimeZone(zone)
+            result._tz = zone
+          }
           return result
         }
       }

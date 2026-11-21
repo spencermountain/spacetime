@@ -27,7 +27,9 @@ const value = (key, v) => {
   if (key === 'offset') {return offset(v)}
   if (key === 'hem') {return v === 'n' ? 'North' : 'South'}
   if (key === 'dst') {
-    return v.replace(/:(\d{2})(?::(\d{2}))?/g, (_, hour, minute = '00') => ` ${hour}:${minute}`).replace('->', ' – ')
+    // A single-change year leaves one side of the interval open.
+    const [start, back] = v.replace(/:(\d{2})(?::(\d{2}))?/g, (_, hour, minute = '00') => ` ${hour}:${minute}`).split('->')
+    return `${start || 'year start'} – ${back || 'year end'}`
   }
   return String(v)
 }

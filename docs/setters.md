@@ -52,7 +52,26 @@ s.next('month').format('iso-short') // '2023-12-01'
 s.last('year').format('iso-short') // '2022-01-01'
 s.nearest('hour').time() // '3:00pm'
 s.nearest('quarterHour').time() // '2:30pm'
+s.floor('hour').time() // '2:00pm' (same as startOf)
+s.ceil('hour').time() // '3:00pm'
 ```
+
+`floor`, `ceil`, and `nearest` leave a date alone when it is already on a boundary,
+so they are safe to call repeatedly. `next` always moves forward:
+
+```js
+const s = spacetime('2024-01-15T14:00:00', 'UTC')
+s.ceil('hour').time() // '2:00pm'
+s.ceil('hour').ceil('hour').time() // '2:00pm'
+s.next('hour').time() // '3:00pm'
+```
+
+When a date is exactly halfway between two boundaries, `nearest` rounds down to
+the earlier one: 2:30pm to the nearest hour is 2:00pm.
+
+`startOf`, `endOf`, `next`, `last`, `floor`, `ceil`, and `nearest` all accept
+`season`, `decade`, and `century`. Seasons begin on the first of March, June,
+September, and December in both hemispheres.
 
 Whole calendar-day and week arithmetic preserve clock time across DST where that time
 exists. Hours measure elapsed time. See [edge cases](./README.md#edge-cases).
@@ -74,10 +93,20 @@ Results round to a smaller unit boundary, clearing smaller fields:
 | `second` | Millisecond |
 | `minute` | Second |
 | `hour`, `quarterHour` | Minute |
-| `day` / `date` | Hour |
-| `week`, `month`, `quarter`, `season`, `year` | Day (midnight) |
+| `day` / `date`, `week` | Hour |
+| `month`, `quarter`, `season`, `year` | Day (midnight) |
 
-Fractional days use elapsed time: half a day is 12 hours, even across DST.
+Exact ties round toward the starting time, so `add` and `subtract` mirror each
+other. A result always stays between the whole amounts on either side of it. If
+rounding would pass one of them, the exact time is kept instead:
+
+```js
+const s = spacetime('2020-06-15T12:10:00', 'UTC')
+s.add(0.001, 'day').iso() // '2020-06-15T12:11:26.400Z', rounding would go back to 12:00
+```
+
+Fractional days and weeks use elapsed time: half a day is 12 hours, even across
+DST. On a 23-hour day, amounts close to 1 stop at the result of `add(1, 'day')`.
 For months through years, the whole part uses calendar arithmetic first, then
 the fraction uses the resulting unit's duration. Fractional months are the
 exception: they use 28 days, so half a month is always 14 days. Fractional

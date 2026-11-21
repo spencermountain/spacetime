@@ -274,6 +274,7 @@ let s = original.hour(9).minute(0)
 s = s.add(1, 'week')
 s.time() // '9:00am'
 s.startOf('day').time() // '12:00am'
+s.ceil('hour').time() // '9:00am' (already on the hour)
 original.time() // '5:01am' (unchanged)
 ```
 
@@ -371,7 +372,7 @@ If, for some reason, you want to change the timezone _without changing the date_
 let s = spacetime('2023-01-01T5:30[America/Denver]')
 s = s.timezone('Europe/Zagreb') // hot-swap
 console.log(s.isoFull())
-// '2023-01-01T05:30:00.000+01:00[Europe/Zagreb]' (same time, new tz)
+// '2023-01-01T05:30:00+01:00[Europe/Zagreb]' (same time, new tz)
 ```
 
 Under the hood, each instance stores an epoch in milliseconds (`s.epoch`) and a timezone identifier (`s.tz`). The main entry uses bundled timezone rules to find the offset, then reads a shifted native Date's UTC fields for the local clock. `.goto()` changes the timezone while keeping the epoch. Use `.toNativeDate()` to get a native Date representing the actual instant.
@@ -402,7 +403,7 @@ s.format('{time} sharp') // '5:01am sharp'
 s.unixFmt('yyyy.MM.dd h:mm a') // '2017.04.14 5:01 AM'
 
 // support for the new Temporal ISO format
-s.format('iso-full') // '2017-04-14T05:01:00.000+02:00[Europe/Paris]'
+s.format('iso-full') // '2017-04-14T05:01:00+02:00[Europe/Paris]'
 
 // support for the SQL ISO 9075 format
 s.format('sql') // '2017-04-14 05:01:00'

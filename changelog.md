@@ -5,7 +5,89 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!--
- -->
+### 7.19.0 [Unreleased]
+
+
+-->
+
+### 7.18.0 [Nov 2026]
+
+- **[update]** - 2027 DST changes
+- - - [note] - `Havana` kept at −4hr, will support single-change between jan-nov
+- **[change]** - #376 ambiguous offset input behaviour - see [docs/inputs](./docs/inputs.md#offsets-and-iana-inputs)
+- - [change] - given timezone arguments are never dropped, even with inconsistent offsets
+- - [fix] - iso offsets beside a bracketed timezone are no longer ignored - `'…16:20:00Z[America/Los_Angeles]'`
+- - [change] - `.set(input, tz)` reads an input without an offset in the given timezone, like constructor
+- - [new] - any whole-minute offset is a fixed-offset timezone, like `'+05:14'` - not only quarter-hours
+- **[change]** - interpret `'Z'`, `'UTC'`, `'Zulu'`, and `'+00:00'` more consistently
+- - [fix] - trailing Z → UTC (not Etc/GMT)
+- - [new] - support `'Z'` as valid iana code
+- **[change]** - non-standard offsets like `+05:17` are no longer ignored
+- **[change]** - remove pretend fractional-hour iana codes like `Etc/GMT-5.5`
+- **[change]** - support season decade and century in rounding methods
+- **[change]** - add century, decade, and season `progress()` result
+- **[change]** - use `'+00:00'` not `'-00:00'` in /temporal library
+- **[change]** - trim zero milliseconds in iso-full, like temporal does
+- **[new]** - #344 `.ceil(unit)` and `.floor(unit)` methods
+- **[new]** - support single dst-change years _'->11/07:01'_
+- **[new]** - `.ceil()` and `.floor()` methods - like `.nearest()`, they don't move a date already on a boundary
+- **[new]** - `season`, `decade` and `century` units in `.nearest()`, `.diff()` and `.isSame()`
+- **[new]** - `decade` and `century` in `.progress()`
+- **[fix]** - fractional arithmetic fixes:
+- - [fix] - 12:10 + 0.001 day = 12:11:26.400
+- - [fix] - 2020-03-08 + 0.9999 day = 1 day
+- - [fix] - +- 0.5 week = 3.5 days
+- **[fix]** - #491 set minutes on fractional tzs (thanks bardrop)
+- **[fix]** - #490 #492 #496 #480 unixFmt dropped values
+- **[fix]** - month diff overcounting after a clamped leap-day _(feb 29 2032 -> apr 29 2034)_
+- **[fix]** - `.progress(unit)` return type is a number
+- **[fix]** - #495 `dd/mm/yyyy` fmt
+- **[fix]** - #493 comma-based fractional iso seconds
+- **[fix]** - #489 better add 'season' support
+- **[fix]** - #487 off-by-1 DST in startOf('day')
+- **[fix]** - decimal-rounding issues is isos
+- **[fix]** - typescript issues
+- **[update]** - dependencies
+
+notes:
+an explicit timezone is now always kept - even if the input has incompatible offsets:
+
+```js
+// mixing -2hr offset with -8hr timezone
+spacetime('2024-01-01T16:20:00-02:00', 'America/Los_Angeles')
+// before: 4:20pm, Etc/GMT+2  (tz ignored)
+// now:    10:20am, America/Los_Angeles  (same moment)
+
+// mixing 'Z' with a explicit timezone
+spacetime('2024-01-01T16:20:00Z', 'America/Los_Angeles')
+// before: 4:20pm, UTC  (tz ignored)
+// now:    8:20am, America/Los_Angeles  (same moment)
+
+// mixing 2 iana inputs
+spacetime('2024-01-01T16:20:00[America/New_York]', 'America/Los_Angeles')
+// before: 4:20pm, America/New_York  (tz ignored)
+// now:    1:20pm, America/Los_Angeles  (same moment)
+
+// same behaviour for .set():
+const s = spacetime('2024-06-01T09:00:00', 'America/Los_Angeles')
+s.set('2024-01-01T22:00:00', 'Asia/Tokyo')
+// before: Jan 2 3:00pm, Asia/Tokyo  (read as 10pm LA, then converted)
+// now:    Jan 1 10:00pm, Asia/Tokyo  (read on Tokyo's clock)
+```
+
+see [docs/input.md](docs/input.md) and #376 for details
+
+non-standard offsets like `+05:17` are now supported:
+
+```js
+spacetime('2024-01-01T16:20:00+05:17')
+// before: 4:20pm Local-time  (21:20 UTC — offset silently ignored)
+// now:    4:20pm, +5.23hrs time  (11:03 UTC — the correct moment)
+
+spacetime('2024-01-01T16:20:00+05:14') // 4:20pm, +05:14
+spacetime('2024-01-01T16:20:00+05:30') // 4:20pm, +05:30  (was Etc/GMT-5.5)
+spacetime('2024-01-01T16:20:00+05:00') // 4:20pm, Etc/GMT-5  (unchanged)
+```
 
 ### 7.17.1 [Nov 2026]
 

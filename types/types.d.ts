@@ -82,11 +82,17 @@ export interface Spacetime {
   /** round to either current, or +1 of this unit */
   round: (unit: TimeUnit) => Spacetime
 
+  /** round up to the start of the next unit - unchanged if already at the start of one */
+  ceil: (unit: TimeUnit) => Spacetime
+
+  /** round down to the start of this unit (alias of startOf) */
+  floor: (unit: TimeUnit) => Spacetime
+
   /** list all dates up to a certain time */
   every: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit, stepCount?: number) => Spacetime[]
 
   /** list all dates up to a certain time */
-  each: (unit: TimeUnit, end: Spacetime | string) => Spacetime[]
+  each: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit, stepCount?: number) => Spacetime[]
 
   /** go to the beginning of the previous unit */
   last: (unit: TimeUnit) => Spacetime
@@ -122,8 +128,8 @@ export interface Spacetime {
   /** create the human-readable diff between the two dates */
   from(value: Spacetime | ParsableDate): Since
 
-  /** create the human-readable diff between now and the given date */
-  fromNow(value: Spacetime | ParsableDate): Since
+  /** create the human-readable diff between now and this date */
+  fromNow(): Since
 
   /** change to a new date */
   set(date: ParsableDate, timezone?: string): Spacetime
@@ -157,6 +163,9 @@ export interface Spacetime {
   /** pretty-print the full-date to the console, for nice debugging */
   logYear: () => Spacetime
 
+  /** pretty-print the date, time, and timezone to the console, for nicer debugging */
+  debug: () => Spacetime
+
   /** return all date units as a key-value map */
   json(): Json
   /** set the date via JSON object */
@@ -167,7 +176,10 @@ export interface Spacetime {
   }): Spacetime
 
   /** Between 0-1, how far the moment lands between the start and end of the day/week/month/year. */
-  progress: (unit?: string) => Progress
+  progress: {
+    (): Progress
+    (unit: string): number
+  }
 
   /** is the current year a leap year? */
   leapYear: () => boolean
@@ -351,6 +363,7 @@ export interface Spacetime {
 }
 
 export interface TimezoneMeta {
+  /** local times of this year's changes, like '03/14:02'. A side is '' when the year only has the other change */
   change?: { start: string; back: string }
   current: { offset: number; isDST: boolean }
   default_offset: number
@@ -361,6 +374,10 @@ export interface TimezoneMeta {
 }
 
 export interface Progress {
+  /** Progress of value from 0-1 */
+  century: number
+  /** Progress of value from 0-1 */
+  decade: number
   /** Progress of value from 0-1 */
   day: number
   /** Progress of value from 0-1 */

@@ -24,7 +24,7 @@ s.format('on {day-short} {date-pad}') // 'on Mon 03'
 | `iso` | `2017-04-03T17:01:00.000-04:00` | `iso 8601` |  |
 | `iso-short` | `2017-04-03` |  |  |
 | `iso-utc` | `2017-04-03T21:01:00.000Z` |  | same instant in UTC |
-| `iso-full` | `2017-04-03T17:01:00.000-04:00[America/New_York]` |  |  |
+| `iso-full` | `2017-04-03T17:01:00-04:00[America/New_York]` |  |  |
 | `sql` | `2017-04-03 17:01:00` | `iso 9075` | no timezone offset |
 | `nice` | `Apr 3rd, 5:01pm` | `nice-short` |  |
 | `nice-24` | `Apr 3rd, 17:01` | `nice-short-24` |  |
@@ -115,15 +115,22 @@ other Moment or Unicode tokens may not be supported. `""` means an empty string.
 | `EEEEE` | `M` | `eeeee` | first letter of weekday |
 | `e` | `1` | `c`, `ee`, `cc` | weekday number (Sunday = 0) |
 | `a` | `PM` | `aa`, `aaa`, `aaaa` | AM/PM |
-| `h` | `5` | `K` | 12-hour clock |
-| `hh` | `05` | `KK` | padded 12-hour clock |
-| `H` | `17` | `k` | 24-hour clock |
-| `HH` | `17` | `kk` | padded 24-hour clock |
+| `h` | `5` |  | 12-hour clock (1-12) |
+| `hh` | `05` |  | padded 12-hour clock |
+| `H` | `17` |  | 24-hour clock (0-23) |
+| `HH` | `17` |  | padded 24-hour clock |
+| `K` | `5` |  | 12-hour clock from zero (0-11) |
+| `KK` | `05` |  | padded 12-hour clock from zero |
+| `k` | `17` |  | 24-hour clock from one (1-24, midnight is 24) |
+| `kk` | `17` |  | padded 24-hour clock from one |
 | `m` | `1` |  | minute |
 | `mm` | `01` |  | padded minute |
-| `s` | `""` | `S` | second; empty string when zero |
-| `ss` | `00` | `SS` | padded second |
+| `s` | `0` |  | second |
+| `ss` | `00` |  | padded second |
+| `S` | `0` |  | tenths of a second |
+| `SS` | `00` |  | hundredths of a second |
 | `SSS` | `000` |  | milliseconds, three digits |
+| `SSSS` | `0000` |  | milliseconds, padded with a trailing zero |
 | `A` | `61260000` |  | elapsed milliseconds since the start of the day |
 | `z` | `America/New_York` | `v`, `zz`, `vv`, `zzz`, `vvv`, `zzzz`, `vvvv` | timezone name |
 | `Z` | `-0400` | `V`, `ZZ`, `VV`, `ZZZ`, `VVV` | UTC offset without colon |
@@ -144,11 +151,12 @@ These examples also use the same `s` defined above.
 
 ```js
 s.iso() // '2017-04-03T17:01:00.000-04:00'
-s.isoFull() // '2017-04-03T17:01:00.000-04:00[America/New_York]'
+s.isoFull() // '2017-04-03T17:01:00-04:00[America/New_York]'
 s.toNativeDate().getTime() === s.epoch // true
 ```
 
 `iso(value)` and `isoFull(value)` parse a new date and return a new object.
 `toNativeDate()` preserves the instant; native Date objects do not retain the
 IANA timezone, and their local getters use the host timezone. `toLocalDate()`
-is a deprecated alias. `log()` prints a date for debugging and returns the receiver.
+is a deprecated alias. `log()` prints a date for debugging and returns the receiver;
+`debug()` does the same with the time, timezone name, and current offset.

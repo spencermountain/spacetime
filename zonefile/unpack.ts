@@ -26,8 +26,8 @@ all.utc = {
   hem: 'n' //default to northern hemisphere - (sorry!)
 }
 
-//add fixed offsets in quarter-hour steps (including +05:45 and +12:45)
-for (let i = -14; i <= 14; i += 0.25) {
+//add the whole-hour fixed offsets (any other offset is named like '+05:45', and needs no data)
+for (let i = -14; i <= 14; i += 1) {
   const num = i > 0 ? '+' + i : String(i)
   let name = 'etc/gmt' + num
   all[name] = {

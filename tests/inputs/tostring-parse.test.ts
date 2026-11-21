@@ -21,7 +21,7 @@ test('Date.toString() format', (t) => {
   t.end()
 })
 
-test('text dates with offsets do not shift across midnight', (t) => {
+test('text dates with offsets can shift across midnight', (t) => {
   const inputs = [
     ['Mon Jun 17 2019 11:00:00 GMT+0530 (India Standard Time)', '2019-06-17T11:00:00+05:30'],
     ['Mon Jun 17 2019 11:00:00 GMT-0700 (Pacific Daylight Time)', '2019-06-17T11:00:00-07:00'],
@@ -35,7 +35,9 @@ test('text dates with offsets do not shift across midnight', (t) => {
         for (const [input, expected] of inputs) {
           const s = spacetime(input, zone)
           const label = `${input} from ${zone} at ${hour}:00 UTC`
-          t.equal(s.format('iso-short'), '2019-06-17', label + ' preserves date')
+          // the moment is shown in the given timezone, so its date is the date there
+          const want = spacetime(Date.parse(expected), zone).format('iso-short')
+          t.equal(s.format('iso-short'), want, label + ' preserves date')
           t.equal(s.epoch, Date.parse(expected), label + ' preserves instant')
         }
       }

@@ -10,6 +10,9 @@ test('static api exists', (t: test.Test) => {
   t.equal(typeof spacetime.fromUnixSeconds, 'function', '.fromUnixSeconds is a function')
   t.equal(typeof spacetime.yesterday, 'function', '.yesterday is a function')
   t.equal(typeof spacetime.extend, 'function', '.extend is a function')
+  t.equal(typeof spacetime.plugin, 'function', '.plugin is a function')
+  t.equal(typeof spacetime.version, 'string', '.version is a string')
+  t.equal(typeof spacetime.tzdbVersion, 'string', '.tzdbVersion is a string')
   t.end()
 })
 

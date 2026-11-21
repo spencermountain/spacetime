@@ -5,6 +5,9 @@ import type { TimezoneSet } from '../types/index.ts'
 
 let local = guessTz()
 
+// 'z', 'zulu', 'etc/utc' ..
+const isUtc = /^(?:z|(?:etc\/)?(?:utc|uct|universal|zulu))$/
+
 //add all the city names by themselves
 const cities: Record<string, string> = {}
 Object.keys(tzs).forEach((k) => {
@@ -38,6 +41,10 @@ const lookupTz = (str: string | null | undefined, zones: TimezoneSet): string =>
   }
   let tz = str.trim()
   tz = tz.toLowerCase()
+  // every name for utc is 'utc', including the iso 'Z' designator
+  if (isUtc.test(tz)) {
+    return 'utc'
+  }
   if (zones.hasOwnProperty(tz) === true) {
     return tz
   }

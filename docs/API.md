@@ -26,6 +26,8 @@ For runnable examples, see the [usage guide](./README.md).
 - `spacetime.timezones() → TimezoneSet` — shared timezone data keyed by lowercase zone names; treat it as read-only.
 - `spacetime.whereIts(startTime, endTime?) → string[]` — zones whose current local time falls in the window, such as `'8:30pm'` to `'9:30pm'`; omitted end means 59 minutes after the start. Use a window that does not cross midnight.
 - `spacetime.extend(methods) → spacetime` — add methods to the shared instance prototype. Use regular functions for instance `this`; affects existing and future instances.
+- `spacetime.version → string` — the installed spacetime version.
+- `spacetime.tzdbVersion → string` — IANA tzdb release of the bundled timezone data, like `'2026c'`.
 - `options.silent` — boolean, default `true`; set `false` to enable warnings.
 - `options.dmy` — boolean, default `false`; parse ambiguous numeric dates as day/month/year when `true`.
 - `options.weekStart` — weekday number, default `1` (Monday); sets week boundaries.
@@ -94,8 +96,10 @@ moving forward; equality is allowed. See [setter examples](./setters.md).
 - `s.endOf(unit) → Spacetime` — final millisecond of the selected calendar unit.
 - `s.next(unit) → Spacetime` — beginning of the next unit.
 - `s.last(unit) → Spacetime` — beginning of the previous unit.
-- `s.nearest(unit) → Spacetime` — round to a unit boundary; supports year, season, quarter, month, week, day, quarterHour, hour, and minute.
+- `s.nearest(unit) → Spacetime` — round to the closer unit boundary; an exact halfway point rounds down to the earlier one. Supports century, decade, year, season, quarter, month, week, day, quarterHour, hour, and minute.
 - `s.round(unit) → Spacetime` — alias of `nearest`.
+- `s.ceil(unit) → Spacetime` — round up to the beginning of the next unit; a date already at the beginning of a unit is returned unchanged (unlike `next`).
+- `s.floor(unit) → Spacetime` — round down to the beginning of the unit; alias of `startOf`.
 - `s.every(unit, end, stepCount = 1) → Spacetime[]` — collect unit boundaries in chronological order; end excluded, aligned start can be included. Use a positive integer step; short spans can return `[]`.
 - `s.each(unit, end, stepCount = 1) → Spacetime[]` — alias of `every`.
 - `unit` — common arithmetic units: `millisecond`, `second`, `minute`, `quarterHour`, `hour`, `day`/`date`, `week`, `month`, `quarter`, `season`, `year`, `decade`, `century`; plurals work too. **Support varies by method**, despite the shared TypeScript `TimeUnit` union.
@@ -106,8 +110,8 @@ moving forward; equality is allowed. See [setter examples](./setters.md).
 - `s.isBefore(other) → boolean` — whether **s is earlier** than `other`.
 - `s.isEqual(other) → boolean` — same epoch millisecond.
 - `s.isBetween(start, end, inclusive = false) → boolean` — between the bounds; pass `true` to include endpoints.
-- `s.isSame(other, unit, tzAware = true) → boolean | null` — compare calendar fields in `s`'s zone; `false` compares each object's own local fields. Supports millisecond, second, minute, hour, day/date, week, month, quarter, and year, including plurals; unsupported units return `null`.
-- `s.diff(other, unit) → number` — whole-unit difference, positive when `other` is later. Supports millisecond, second, minute, hour, day/date, week, month, quarter, and year, including plurals.
+- `s.isSame(other, unit, tzAware = true) → boolean | null` — compare calendar fields in `s`'s zone; `false` compares each object's own local fields. Supports millisecond, second, minute, hour, day/date, week, month, quarter, season, year, decade, and century, including plurals; unsupported units return `null`.
+- `s.diff(other, unit) → number` — whole-unit difference, positive when `other` is later. Supports millisecond, second, minute, hour, day/date, week, month, quarter, season, year, decade, and century, including plurals.
 - `s.diff(other) → Diff` — independent totals for milliseconds, seconds, minutes, hours, days, weeks, months, quarters, and years; do not sum them.
 - `s.since(other?) → Since` — describe `other` relative to `s`; defaults to now. Earlier receiver and later argument gives `'in …'`.
 - `s.from(other) → Since` — describe `s` relative to `other`; reverses `since`'s direction, **not an alias**.
@@ -124,11 +128,12 @@ moving forward; equality is allowed. See [setter examples](./setters.md).
 - `s.leapYear() → boolean` — whether this year is a leap year.
 - `s.daysInMonth() → number` — 28, 29, 30, or 31.
 - `s.progress(unit) → number` — elapsed fraction through a supported unit, rounded to two decimal places, from 0 to 1.
-- `s.progress() → Progress` — fractions for year, season, quarter, month, week, day, quarterHour, hour, and minute.
+- `s.progress() → Progress` — fractions for century, decade, year, season, quarter, month, week, day, quarterHour, hour, and minute.
 - `s.isAwake() → boolean` — hour is 8 through 22 inclusive.
 - `s.isAsleep() → boolean` — inverse of `isAwake`.
 - `s.log() → s` — log a readable date; returns the same instance.
 - `s.logYear() → s` — log a date including the year; returns the same instance.
+- `s.debug() → s` — log the date, time, and timezone name with its current offset; returns the same instance.
 
 ## Configuration, aliases, and deprecated members
 

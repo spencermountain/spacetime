@@ -14,8 +14,8 @@ const runs = [
   ['2026-02-28T12:00:00'],
   ['2024-02-29T12:00:00'],
   // dst transitions (north-american)
-  ['2026-03-08T01:30:00'],
-  ['2026-11-01T01:30:00'],
+  ['2027-03-14T01:30:00'],
+  ['2027-11-07T01:30:00'],
   // local date differs from utc date
   ['2026-10-31T23:55:00'],
   // year boundary + iso-week edges
@@ -27,11 +27,11 @@ const runs = [
   ['2026-07-15T12:00:00'],
   // foreign machine-timezones
   ['2026-10-31T12:00:00', 'Australia/Adelaide'],
-  ['2026-11-01T01:30:00', 'America/Los_Angeles'],
-  ['2026-03-29T00:30:00', 'Europe/London'],
+  ['2027-11-07T01:30:00', 'America/Los_Angeles'],
+  ['2027-03-28T00:30:00', 'Europe/London'],
   // southern-hemisphere dst transitions
-  ['2026-09-27T01:30:00', 'Pacific/Auckland'],
-  ['2026-04-05T02:30:00', 'Australia/Adelaide']
+  ['2027-09-26T01:30:00', 'Pacific/Auckland'],
+  ['2027-04-04T02:30:00', 'Australia/Adelaide']
 ]
 
 const runSuite = (fakeDate, tz) => {

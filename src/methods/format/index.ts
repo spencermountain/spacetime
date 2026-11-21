@@ -53,7 +53,7 @@ const format: Record<string, Formatter> = {
   'year-short': (s) => {
     let year = s.year()
     if (year > 0) {
-      return `'${String(s.year()).slice(2, 6)}`
+      return `'${zeroPad(year % 100)}`
     }
     year = Math.abs(year)
     return year + ' BC'
@@ -121,7 +121,11 @@ const format: Record<string, Formatter> = {
     return new Date(s.epoch).toISOString() //2017-03-08T19:45:28.367Z
   },
   'iso-full': (s) => {
-    let iso = s.format('iso')
+    // like Temporal, leave off any trailing zeros in the milliseconds ('.120' is '.12')
+    const offset = isoOffset(s)
+    const ms = s.millisecond()
+    const fraction = ms ? '.' + String(ms / 1000).slice(2) : ''
+    let iso = s.format('iso').slice(0, -(offset.length + 4)) + fraction + offset
     const iana = s.timezone().name
     if (iana) {
       iso += `[${iana}]`
@@ -175,7 +179,7 @@ const aliases: Record<string, string> = {
   ymd: 'numeric',
   'yyyy/mm/dd': 'numeric',
   'mm/dd/yyyy': 'numeric-us',
-  'dd/mm/yyyy': 'numeric-us',
+  'dd/mm/yyyy': 'numeric-uk',
   'little-endian': 'numeric-uk',
   'big-endian': 'numeric',
   'day-nice': 'nice-day'
@@ -191,7 +195,7 @@ const printFormat = (s: Spacetime, str = '', overrides?: Record<string, Formatte
   const formats = overrides ? { ...format, ...overrides } : format
   //support .format('month')
   if (formats.hasOwnProperty(str)) {
-    let out: any = formats[str](s) || ''
+    let out: any = formats[str](s) ?? ''
     if (str !== 'json') {
       out = String(out)
       if (str.toLowerCase() !== 'ampm') {

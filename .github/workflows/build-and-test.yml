@@ -1,20 +1,25 @@
 name: Build and test
 
+# runs when a pull request is opened, and again for each new commit pushed to it
+# (also by hand from the Actions tab, and before a release)
 on:
   pull_request:
-  push:
-    branches: [master, dev]
   workflow_dispatch:
   workflow_call:
 
 permissions:
   contents: read
 
+# a new commit on a pull request replaces the run for the commit before it
+concurrency:
+  group: test-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   test:
     name: Node ${{ matrix.node-version }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:
@@ -23,15 +28,15 @@ jobs:
       CI: true
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
       # Build tooling requires a newer Node than the library itself.
       - name: Set up build runtime
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 26.x
           cache: pnpm
@@ -43,11 +48,15 @@ jobs:
       - name: Build library
         run: pnpm run build
 
+      # zonefile/_build.js is generated from zonefile/iana.js, and both are committed
+      - name: Check packed timezone data is up to date
+        run: git diff --exit-code -- zonefile/_build.js
+
       - name: Build plugins
         run: pnpm --filter './plugins/*' --if-present run build
 
       - name: Set up test runtime
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -60,9 +69,15 @@ jobs:
       - name: Test plugins
         run: pnpm run test:plugins
 
+      # Temporal is only tested where the runtime has it
       - name: Test Temporal source
         if: matrix.node-version == '26.x'
         run: pnpm run test:temporal
+
+      # re-run the suite with the clock moved to month-ends, dst changes and year boundaries
+      - name: Test hazard dates
+        if: matrix.node-version == '26.x'
+        run: pnpm run test:sweep
 
       - name: Check types
         if: matrix.node-version == '26.x'

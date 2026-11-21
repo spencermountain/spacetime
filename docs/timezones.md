@@ -84,10 +84,10 @@ fixed.hasDST() // false
 ```
 
 `Etc/GMT` names reverse the usual sign: `etc/gmt+7` means UTC−07:00, while
-`etc/gmt-5` means UTC+05:00. Spacetime also generates fixed-offset names in
-quarter-hour steps from UTC−14 to UTC+14, including fractional names such as
-`etc/gmt-5.75`. These fractional names are library extensions; do not assume
-other IANA consumers accept them. Prefer regional names for interoperability.
+`etc/gmt-5` means UTC+05:00. Any other whole-minute offset is a fixed-offset
+timezone named by the offset itself, such as `+05:45` or `-03:30`, which
+`Temporal` and `Intl` also accept. Older fractional names such as `etc/gmt-5.75`
+are still read, and become `+05:45`. Prefer regional names for interoperability.
 
 ## How DST is applied
 
@@ -109,8 +109,8 @@ For an unambiguous instant, supply an epoch or an ISO string with a known
 offset, then convert to the regional zone:
 
 ```js
-const first = spacetime('2026-11-01T01:30:00-04:00').goto('America/New_York')
-const second = spacetime('2026-11-01T01:30:00-05:00').goto('America/New_York')
+const first = spacetime('2027-11-07T01:30:00-04:00').goto('America/New_York')
+const second = spacetime('2027-11-07T01:30:00-05:00').goto('America/New_York')
 first.time() // '1:30am'
 second.time() // '1:30am'
 first.isDST() // true
@@ -118,7 +118,7 @@ second.isDST() // false
 first.diff(second, 'hour') // 1 (different instants)
 ```
 
-This example uses the November 1 transition in the currently bundled rules.
+This example uses the November 7 transition in the currently bundled rules.
 
 ## Data model and historical limits
 

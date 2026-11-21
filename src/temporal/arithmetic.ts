@@ -61,6 +61,15 @@ const arithmetic = {
       if (unit === 'quarter') {
         values.month = (s.quarter() - 1) * 3 + 1
       }
+    } else if (unit === 'season') {
+      // seasons begin on the 1st of march, june, september and december, in either hemisphere
+      // (january and february belong to the season that began last december)
+      const month = s.month() + 1
+      values.day = 1
+      values.month = month < 3 ? 12 : Math.floor(month / 3) * 3
+      if (month < 3) {
+        values.year = s.year() - 1
+      }
     } else if (['year', 'decade', 'century', 'millennium'].includes(unit)) {
       values.month = 1
       values.day = 1
@@ -90,8 +99,30 @@ const arithmetic = {
     return (this.epoch - start.epoch) / (end.epoch - start.epoch)
   },
   nearest(unit: string) {
+    // the closer of floor and ceil - both leave a boundary alone, so this does too
     const start = this.startOf(unit)
-    return this.progress(unit) >= 0.5 ? start.add(1, unit) : start
+    const end = this.ceil(unit)
+    // (an exact tie keeps the earlier boundary, like the main library)
+    return this.epoch - start.epoch > end.epoch - this.epoch ? end : start
+  },
+  // round up to the next boundary; a date already on one stays put
+  ceil(unit: string) {
+    if (!this.isValid() || !isBoundary(unit)) {
+      return this.clone()
+    }
+    const start = this.startOf(unit)
+    // (compare the full-precision clocks, not the millisecond epochs)
+    if (String(start._clock) === String(this._clock)) {
+      return start
+    }
+    // step forward and re-align, in case a dst change moved us off the boundary
+    // one step is nearly always enough, but a repeated dst half-hour (lord howe)
+    // can land back on the same boundary, so allow a second
+    let upper = start
+    for (let i = 1; i <= 3 && upper.epoch <= this.epoch; i += 1) {
+      upper = start.add(i, unit).startOf(unit)
+    }
+    return upper.epoch > this.epoch ? upper : start.add(1, unit)
   }
 }
 
@@ -100,5 +131,6 @@ export default {
   // aliases
   plus: arithmetic.add,
   minus: arithmetic.subtract,
-  round: arithmetic.nearest
+  round: arithmetic.nearest,
+  floor: arithmetic.startOf
 }

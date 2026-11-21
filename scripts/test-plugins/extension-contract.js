@@ -23,8 +23,9 @@ const testExtension = (name, plugin) => {
 
   test(`${name}: extension preserves DST-aware calendar arithmetic`, t => {
     spacetime.extend(plugin)
-    const spring = spacetime('2026-03-07T12:00:00', 'America/New_York')
-    const autumn = spacetime('2026-10-31T12:00:00', 'America/New_York')
+    // the days before the bundled (2027) changes, on march 14 and november 7
+    const spring = spacetime('2027-03-13T12:00:00', 'America/New_York')
+    const autumn = spacetime('2027-11-06T12:00:00', 'America/New_York')
     const nextSpring = spring.add(1, 'day')
     const nextAutumn = autumn.add(1, 'day')
 

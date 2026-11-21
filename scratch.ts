@@ -1,36 +1,14 @@
-// import spacetime from './src/index.ts'
-import spacetime from 'spacetime/temporal'
+/* eslint-disable no-console */
+import spacetime from './src/index.ts'
 
-// let today = { date: 17, month: 3, year: 1999 }
-// let wantDate = { month: 'august', date: '1st', year: '2019' }
-// let s = spacetime(wantDate, null, { today: today })
-// console.log(s.format('{nice} {year}'));
+// const input = '2024-07-15T09:00:00+02:00[America/Los_Angeles]'
 //
-// const s = spacetime('june 8th 2021', 'America/Los_Angeles').time('16:22')
-// const dt = s.toTemporal() //Temporal.ZonedDateTime
+// const t = Temporal.ZonedDateTime.from(input, { offset: 'use' })
+// console.log('t:', t.toString({ smallestUnit: 'millisecond' }))
 //
-// // get current time
-// let str = `${dt.hour}:${String(dt.minute).padStart(2, "0")}`
-// // 16:22
-// let tz = dt.timeZoneId
-// // "America/Los_Angeles"
-//
-// console.log(str, tz)
+// console.log('s:', spacetime(input).format('iso-full'))
 
-const s=spacetime('2024-02-29').add(13, 'year')
-  // .debug()
-// s.format('{month-short} {date-ordinal}') // Oct 11th
-console.log(s.format(''))
-// Warn: unsupported arithmetic unit "daus"
-// const s = spacetime('March 1 2012 3:22pm', 'America/New_York')
-// const tomorrow = s.add(1, 'day')
-// console.log('Original:', s.format('{month} {date-ordinal}, {time}'))
-// console.log('Tomorrow:', tomorrow.format('{month} {date-ordinal}, {time}'))
-// console.log('Los Angeles:', s.goto('America/Los_Angeles').time())
-// console.log('Native Temporal:', s.toTemporal().toString())
-//
-// // Calendar days keep the local hour across daylight saving changes.
-// const beforeDST = spacetime('2024-03-09T12:00:00', 'America/New_York')
-// const afterDST = beforeDST.add(1, 'day')
-// console.log('Next calendar day:', afterDST.iso())
-// console.log('Elapsed hours:', beforeDST.diff(afterDST, 'hours')) // 23
+// non-recognized offsets
+const s = spacetime('2024-01-01T16:20:00+05:17')
+console.log('s:', s.format('time'), s.timezone())
+console.log('s:', s.isoFull())

@@ -14,7 +14,17 @@ test('timezone offsets preserve fractions and support UTC+14', t => {
     t.equal(s.timezone().current.offset + 0, offset, zone)
     t.equal(s.offset() + 0, offset * 60, `${zone} minutes`)
   })
-  ;['UTC+14:15', 'UTC-14.25', 'UTC+5:60', 'UTC+5:10', '+5.1', 'UTC+5.5:30', 'UTC+5junk', 'nonsense5'].forEach(zone => {
+  // any whole-minute offset under a day is a timezone
+  const minutes: [string, number, string][] = [
+    ['UTC+14:15', 855, '+14:15'], ['UTC-14.25', -855, '-14:15'], ['UTC+5:10', 310, '+05:10'],
+    ['+5.1', 306, '+05:06'], ['UTC+23:59', 1439, '+23:59'], ['UTC-15', -900, '-15:00']
+  ]
+  minutes.forEach(([zone, mins, name]) => {
+    const s = spacetime('2026-07-01', zone)
+    t.equal(s.offset(), mins, `${zone} minutes`)
+    t.equal(s.timezone().name, name, `${zone} name`)
+  })
+  ;['UTC+24', 'UTC-25:00', 'UTC+5:60', 'UTC+5.5:30', 'UTC+5junk', 'nonsense5'].forEach(zone => {
     t.throws(() => spacetime('2026-07-01', zone), /Cannot find timezone/, `reject ${zone}`)
   })
   t.end()

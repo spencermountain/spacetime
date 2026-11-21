@@ -25,9 +25,10 @@ test('fractional years starting on leap day round to midnight', (t) => {
   const s = spacetime('2024-02-29', 'UTC')
   const cases = [
     [0.5, '2024-08-29'],
-    [-0.5, '2023-08-30'],
+    // These land exactly on noon, and ties round toward the start.
+    [-0.5, '2023-08-31'],
     [1.5, '2025-08-29'],
-    [-1.5, '2022-08-29']
+    [-1.5, '2022-08-30']
   ] as const
   cases.forEach(([amount, expected]) => {
     const midnight = `${expected}T00:00:00.000Z`

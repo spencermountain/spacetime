@@ -20,6 +20,10 @@ const whereIts = (a: string, b?: string): string[] => {
       return false
     }
     const m = new Spacetime(null, tz)
+    // skip names that resolve to another, like 'etc/zulu'
+    if (m.tz !== tz) {
+      return false
+    }
     const hour = m.hour()
     //do 'calendar-compare' not real-time-compare
     if (hour >= startHour && hour <= endHour) {

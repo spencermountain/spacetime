@@ -30,6 +30,17 @@ const print: Record<string, (s: Spacetime) => string | number> = {
   },
   date: (s: Spacetime) => {
     return [s.year(), s.month(), s.date()].join('-')
+  },
+  // (a season can begin in the december of the year before)
+  season: (s: Spacetime) => {
+    const start = s.startOf('season')
+    return [start.year(), start.month()].join('-')
+  },
+  decade: (s: Spacetime) => {
+    return s.startOf('decade').year()
+  },
+  century: (s: Spacetime) => {
+    return s.startOf('century').year()
   }
 }
 
@@ -52,7 +63,7 @@ const isSame = function (this: Spacetime, b: SpacetimeInput, unit: TimeUnit, tzA
     return false
   }
   //support 'seconds' aswell as 'second'
-  const name = unit.replace(/s$/, '')
+  const name = unit.replace(/ies$/, 'y').replace(/s$/, '')
 
   // make them the same timezone for proper comparison
   if (tzAware === true && a.tz !== other.tz) {

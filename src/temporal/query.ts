@@ -140,8 +140,10 @@ const query = {
     if (value === undefined) {
       return this.hour() + this.minute() / 60
     }
-    const num = Number(value)
-    const result = this._with({ hour: Math.trunc(num), minute: Math.trunc(num % 1 * 60) })
+    // count whole minutes, so 5.3 is 5:18 and not 5:17 (0.3 * 60 is 17.999999999999996)
+    // (drop the float noise first, then truncate any part-minute like the main library does)
+    const total = Math.trunc(Number((Number(value) * 60).toFixed(6)))
+    const result = this._with({ hour: Math.trunc(total / 60), minute: total % 60 })
     return direction(result, this, forward, 'day')
   } as ClockMethod,
   ampm(value?: string, forward?: boolean) {

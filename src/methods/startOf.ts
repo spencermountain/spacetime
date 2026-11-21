@@ -182,9 +182,29 @@ const endOf = (a: Spacetime, unit: TimeUnit): Spacetime => {
     // go to beginning, go to next one, step back 1ms
     s = units[unit](s) // startof
     s = s.add(1, unit)
+    if (unit === 'date') {
+      // A skipped midnight may have moved the previous day's start to 1am.
+      s = units.date(s)
+    }
     s = s.subtract(1, 'millisecond')
     return s
   }
   return s
 }
-export { startOf, endOf }
+// the start and end of a unit together, sharing the walk to the start
+// (the same results as startOf and endOf, for around half the work)
+const bounds = (a: Spacetime, unit: TimeUnit): [Spacetime, Spacetime] => {
+  const name: string = normalize(unit)
+  if (!a.isValid() || !units[name]) {
+    return [startOf(a, unit), endOf(a, unit)]
+  }
+  const start = units[name](a.clone())
+  let end = start.add(1, name as TimeUnit)
+  if (name === 'date') {
+    // A skipped midnight may have moved the previous day's start to 1am.
+    end = units.date(end)
+  }
+  end.epoch -= 1
+  return [start, end]
+}
+export { startOf, endOf, bounds }

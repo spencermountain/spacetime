@@ -91,9 +91,11 @@ export const getUnit = (s: Spacetime, unit: UnitKey): number => (s[unit] as GetS
 export const setUnit = (s: Spacetime, unit: UnitKey, value: number | string): Spacetime => (s[unit] as GetSet<number, number | string>).call(s, value)
 
 export const formatTimezone = (offset: number, delimiter = ''): string => {
-  const sign = offset > 0 ? '+' : '-'
-  const absOffset = Math.abs(offset)
-  const hours = zeroPad(Math.trunc(absOffset))
-  const minutes = zeroPad((absOffset % 1) * 60)
+  // count whole minutes - fractional hours like 5.2833 (+05:17) are not exact in binary,
+  // so `(hours % 1) * 60` gives 16.999999999999993
+  const total = Math.round(Math.abs(offset) * 60)
+  const sign = offset > 0 || total === 0 ? '+' : '-'
+  const hours = zeroPad(Math.trunc(total / 60))
+  const minutes = zeroPad(total % 60)
   return `${sign}${hours}${delimiter}${minutes}`
 }

@@ -5,10 +5,10 @@ import type { Spacetime } from '../types/index.ts'
 // the Temporal global, when the runtime has one (node 26+, or a polyfill)
 const getTemporal = (): typeof Temporal | undefined => (typeof globalThis === 'undefined' ? undefined : globalThis.Temporal)
 
-// Legacy fractional Etc/GMT zones need a native fixed-offset identifier.
+// not every 'etc/gmt' name is a real iana zone ('etc/gmt+13'), so hand those over as an offset
 const temporalZone = (s: Spacetime): string => {
-  const match = s.tz.match(/^etc\/gmt([+-][0-9]+(?:\.[0-9]+)?)$/i)
-  return match ? formatTimezone(-Number(match[1]), ':') : s.timezone().name
+  const zone = s.timezone()
+  return /^etc\/gmt[+-]/.test(s.tz) ? formatTimezone(zone.current.offset, ':') : zone.name
 }
 
 const inputTimezone = (input: unknown): string | undefined => {

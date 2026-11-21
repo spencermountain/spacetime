@@ -54,12 +54,15 @@ test('ISO offsets preserve both minutes and the instant', (t) => {
     ['Z', 0], ['z', 0], ['+0000', 0], ['-00:00', 0]
   ]
   cases.forEach(([offset, minutes]) => {
-    // A non-UTC default exposes offsets that are accidentally ignored.
-    const s = spacetime('2020-01-01T12:00:00' + offset, 'America/New_York')
+    const s = spacetime('2020-01-01T12:00:00' + offset)
     t.equal(s.offset(), minutes, offset + ' offset in minutes')
     t.equal(s.epoch, Date.UTC(2020, 0, 1, 12) - minutes * 60000, offset + ' instant')
     t.equal(s.hour(), 12, offset + ' preserves local hour')
     t.equal(s.clone().epoch, s.epoch, offset + ' survives cloning')
+    // a given timezone shows the same instant, on its own clock
+    const ny = spacetime('2020-01-01T12:00:00' + offset, 'America/New_York')
+    t.equal(ny.epoch, s.epoch, offset + ' instant in a given timezone')
+    t.equal(ny.offset(), -300, offset + ' offset of the given timezone')
   })
   t.end()
 })

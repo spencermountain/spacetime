@@ -34,7 +34,7 @@ const main = {
       plugins: [
         terser(),
         sizeCheck({
-          expect: 45, // sizes in kb
+          expect: 49, // sizes in kb
           warn: 10, // acceptable change (+/-)
           throw: 25 // unacceptable change (+/-)
         })

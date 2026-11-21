@@ -6,7 +6,6 @@ import spacetime from '../_lib/index.ts'
 test('set-offset-from-ISO-8601', (t) => {
   const defaultTz = 'Canada/Eastern'
   const arr = [
-    ['2017-04-03T08:00:00', defaultTz],
     ['2017-04-03T08:00:00-0700', 'Etc/GMT+7'],
     ['2017-04-03T08:00:00-1000', 'Etc/GMT+10'],
     ['2017-04-03T08:00:00+0700', 'Etc/GMT-7'],
@@ -20,13 +19,18 @@ test('set-offset-from-ISO-8601', (t) => {
     ['2018-04-10T08:00:00-03', 'Etc/GMT+3'],
     ['2017-04-03T12:00:00+03', 'Etc/GMT-3'],
     ['2017-04-03T01:00:00+00', 'Etc/GMT'],
-    ['2017-04-03T01:00:00Z', 'Etc/GMT'],
-    ['2019-02-22T20:00:00+05:30', 'Etc/GMT-5.5'],
-    ['2019-02-22T01:00:00+0530', 'Etc/GMT-5.5']
+    ['2017-04-03T01:00:00Z', 'UTC'],
+    ['2019-02-22T20:00:00+05:30', '+05:30'],
+    ['2019-02-22T01:00:00+0530', '+05:30']
   ]
+  t.equal(spacetime('2017-04-03T08:00:00', defaultTz).timezone().name, defaultTz, 'no offset')
   arr.forEach((a) => {
-    const s = spacetime(a[0], defaultTz)
+    const s = spacetime(a[0])
     t.equal(s.timezone().name, a[1], a[0])
+    // a given timezone shows the same moment, in that timezone
+    const given = spacetime(a[0], defaultTz)
+    t.equal(given.timezone().name, defaultTz, a[0] + ' with timezone')
+    t.equal(given.epoch, s.epoch, a[0] + ' same moment')
   })
 
   t.end()

@@ -15,7 +15,7 @@ const spacetime = Object.assign(create, {
   today: (tz?: Timezone, options?: Options) => now(tz, options).startOf('day'),
   tomorrow: (tz?: Timezone, options?: Options) => now(tz, options).startOf('day').add(1, 'day'),
   yesterday: (tz?: Timezone, options?: Options) => now(tz, options).startOf('day').subtract(1, 'day'),
-  fromUnixSeconds: (seconds: number, tz?: Timezone, options?: Options) => create(seconds * 1000, tz, options),
+  fromUnixSeconds: (seconds: number, tz?: Timezone, options?: Options) => create(Math.round(seconds * 1000), tz, options),
   extend,
   plugin: extend,
   version

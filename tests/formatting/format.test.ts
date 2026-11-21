@@ -37,7 +37,7 @@ test('to-from utc-format', (t) => {
   })
 
   const str = '2016-01-01T09:00:00.122Z'
-  const s = spacetime(str, 'Canada/Eastern')
+  const s = spacetime(str)
   t.equal(s.format('iso'), str, 'input matches output')
 
   t.end()
@@ -179,11 +179,85 @@ test('unix-fmt-padding', t => {
   t.end()
 })
 
+test('unix-fmt-zero-values', (t) => {
+  const s = spacetime([2024, 0, 7, 0, 0, 0], 'UTC')
+  t.equal(s.unixFmt('H:m:s'), '0:0:0', 'unpadded midnight')
+  t.equal(s.unixFmt('h:m a'), '12:0 AM', 'minute zero')
+  t.equal(s.unixFmt('e'), '0', 'sunday')
+  t.end()
+})
+
+test('unix-fmt-fractional-seconds', (t) => {
+  const s = spacetime('2024-03-05T10:07:45.678', 'UTC')
+  t.equal(s.unixFmt('ss.S'), '45.6', 'S is tenths of a second')
+  t.equal(s.unixFmt('ss.SS'), '45.67', 'SS is hundredths of a second')
+  t.equal(s.unixFmt('ss.SSS'), '45.678', 'SSS is milliseconds')
+  t.equal(s.unixFmt('ss.SSSS'), '45.6780', 'SSSS pads with zeros')
+  const early = spacetime('2024-03-05T10:07:45.020', 'UTC')
+  t.equal(early.unixFmt('ss.S'), '45.0', 'S truncates, keeps leading zero')
+  t.equal(early.unixFmt('ss.SS'), '45.02', 'SS keeps leading zero')
+  t.end()
+})
+
+test('unix-fmt-k-and-K-hours', (t) => {
+  const midnight = spacetime([2024, 0, 7, 0, 5], 'UTC')
+  t.equal(midnight.unixFmt('k'), '24', 'k is 1-24, midnight is 24')
+  t.equal(midnight.unixFmt('kk'), '24', 'kk midnight')
+  t.equal(midnight.unixFmt('K a'), '0 AM', 'K is 0-11, midnight is 0')
+  t.equal(midnight.unixFmt('KK'), '00', 'KK midnight')
+  const noon = spacetime([2024, 0, 7, 12, 5], 'UTC')
+  t.equal(noon.unixFmt('k'), '12', 'k noon')
+  t.equal(noon.unixFmt('K a'), '0 PM', 'K noon is 0')
+  const morning = spacetime([2024, 0, 7, 9, 5], 'UTC')
+  t.equal(morning.unixFmt('kk'), '09', 'kk pads')
+  t.equal(morning.unixFmt('KK'), '09', 'KK pads')
+  const evening = spacetime([2024, 0, 7, 23, 5], 'UTC')
+  t.equal(evening.unixFmt('k'), '23', 'k 23')
+  t.equal(evening.unixFmt('K'), '11', 'K 11')
+  t.end()
+})
+
+test('format-zero-values', (t) => {
+  const s = spacetime([2024, 0, 7, 0, 0, 0], 'UTC')
+  t.equal(s.format('hour-24'), '0', 'midnight')
+  t.equal(s.format('minute'), '0', 'minute zero')
+  t.equal(s.format('second'), '0', 'second zero')
+  t.equal(s.format('day-number'), '0', 'sunday')
+  t.equal(s.format('month-number'), '0', 'january')
+  t.equal(s.format('minute'), s.format('{minute}'), 'same as template')
+  t.end()
+})
+
+test('numeric-aliases', (t) => {
+  const s = spacetime([2024, 2, 7], 'UTC')
+  t.equal(s.format('dd/mm/yyyy'), '07/03/2024', 'dd/mm/yyyy')
+  t.equal(s.format('mm/dd/yyyy'), '03/07/2024', 'mm/dd/yyyy')
+  t.equal(s.format('yyyy/mm/dd'), s.format('numeric'), 'yyyy/mm/dd')
+  t.equal(s.format('dd/mm/yyyy'), s.format('numeric-uk'), 'same as numeric-uk')
+  t.end()
+})
+
 test('unix-year-padding', t => {
   let s = spacetime('sep 1 2022')
   t.equal(s.unixFmt('yy'), '22', 'non-zero-end')
   s = spacetime('sep 1 2000')
   t.equal(s.unixFmt('yy'), '00', 'zero-end')
+  t.end()
+})
+
+test('two-digit year below 1000', (t) => {
+  let s = spacetime([5, 8, 1], 'UTC')
+  t.equal(s.unixFmt('yy'), '05', 'yy year 5')
+  t.equal(s.format('{year-short}'), "'05", 'year-short year 5')
+  s = spacetime([99, 8, 1], 'UTC')
+  t.equal(s.unixFmt('yy'), '99', 'yy year 99')
+  t.equal(s.format('{year-short}'), "'99", 'year-short year 99')
+  s = spacetime([987, 8, 1], 'UTC')
+  t.equal(s.unixFmt('yy'), '87', 'yy year 987')
+  t.equal(s.format('{year-short}'), "'87", 'year-short year 987')
+  s = spacetime([2005, 8, 1], 'UTC')
+  t.equal(s.unixFmt('yy'), '05', 'yy year 2005')
+  t.equal(s.format('{year-short}'), "'05", 'year-short year 2005')
   t.end()
 })
 
