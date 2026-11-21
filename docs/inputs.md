@@ -91,6 +91,16 @@ spacetime.now('America/Los_Angeles').set('2024-01-01T22:00:00', 'Asia/Tokyo') //
 
 see MDN's [Temporal/Offset Ambiguity docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal/ZonedDateTime#offset_ambiguity) for best-practices and the ISO spec details.
 
+### Non-standard offsets
+
+Non-IANA offsets like `+05:17` are supported as custom timezones. They map to a full-year decimal-offset, with no DST.
+
+```js
+spacetime('2024-01-01T16:20:00+05:14') // 4:20pm, +05:14
+spacetime('2024-01-01T16:20:00+05:30') // 4:20pm, +05:30
+spacetime('2024-01-01T16:20:00+05:00') // 4:20pm, Etc/GMT-5
+```
+
 ## Current-date and extreme-date helpers
 
 These helpers take `(timezone?, options?)`, with the timezone **first**:

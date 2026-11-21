@@ -66,7 +66,7 @@ class Spacetime {
       return new Date(NaN)
     }
     const offset = quickOffset(this)
-    return new Date(this.epoch + (offset * 3600000))
+    return new Date(this.epoch + Math.round(offset * 3600000))
   }
 
   // timezone data lives on the instance, to allow adding new timezones

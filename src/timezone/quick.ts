@@ -1,12 +1,13 @@
 import isSummer from './summerTime.ts'
 import dstShift from './dstShift.ts'
+import { fixedZone } from './fixed.ts'
 import type { Spacetime } from '../types/index.ts'
 
 // this method avoids having to do a full dst-calculation on every operation
 // it reproduces some things in ./index.ts, but speeds up spacetime considerably
 const quickOffset = (s: Spacetime): number => {
   const zones = s.timezones
-  const obj = zones[s.tz]
+  const obj = zones[s.tz] || fixedZone(s.tz)
   if (obj === undefined) {
     console.warn("Warning: couldn't find timezone " + s.tz) // eslint-disable-line no-console
     return 0

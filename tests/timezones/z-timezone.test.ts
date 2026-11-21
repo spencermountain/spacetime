@@ -14,15 +14,15 @@ test("'Z' is a utc timezone", (t) => {
 
 test("goto and set 'Z'", (t) => {
   const s = spacetime('2024-07-15T12:00:00', 'America/Toronto')
-  t.equal(s.goto('Z').format('iso-full'), '2024-07-15T16:00:00.000Z[UTC]', 'goto')
-  t.equal(s.timezone('Z').format('iso-full'), '2024-07-15T12:00:00.000Z[UTC]', 'timezone')
+  t.equal(s.goto('Z').format('iso-full'), '2024-07-15T16:00:00Z[UTC]', 'goto')
+  t.equal(s.timezone('Z').format('iso-full'), '2024-07-15T12:00:00Z[UTC]', 'timezone')
   const obj = spacetime({ year: 2024, month: 6, date: 15, hour: 12, timezone: 'Z' })
   t.equal(obj.timezone().name, 'UTC', 'object input')
   t.end()
 })
 
 test("parse '[Z]' annotation", (t) => {
-  const want = '2024-07-15T12:00:00.000Z[UTC]'
+  const want = '2024-07-15T12:00:00Z[UTC]'
   t.equal(spacetime('2024-07-15T12:00:00Z[Z]').format('iso-full'), want, 'Z[Z]')
   t.equal(spacetime('2024-07-15T12:00:00+00:00[Z]').format('iso-full'), want, '+00:00[Z]')
   t.end()
@@ -42,10 +42,10 @@ test('every name for utc is UTC', (t) => {
 test("a 'Z' string is utc", (t) => {
   const s = spacetime('2024-01-01T16:20:00Z')
   t.equal(s.timezone().name, 'UTC', 'trailing Z')
-  t.equal(s.format('iso-full'), '2024-01-01T16:20:00.000Z[UTC]', 'iso-full')
+  t.equal(s.format('iso-full'), '2024-01-01T16:20:00Z[UTC]', 'iso-full')
   // a given timezone shows that utc moment on its own clock
   const given = spacetime('2024-01-01T16:20:00Z', 'America/Toronto')
-  t.equal(given.format('iso-full'), '2024-01-01T11:20:00.000-05:00[America/Toronto]', 'given timezone')
+  t.equal(given.format('iso-full'), '2024-01-01T11:20:00-05:00[America/Toronto]', 'given timezone')
   const utc = spacetime('2024-01-01T16:20:00', 'UTC')
   t.equal(spacetime(utc.iso()).timezone().name, 'UTC', 'iso round-trip')
   t.equal(spacetime(utc.isoFull()).timezone().name, 'UTC', 'iso-full round-trip')

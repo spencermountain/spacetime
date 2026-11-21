@@ -24,7 +24,7 @@ s.format('on {day-short} {date-pad}') // 'on Mon 03'
 | `iso` | `2017-04-03T17:01:00.000-04:00` | `iso 8601` |  |
 | `iso-short` | `2017-04-03` |  |  |
 | `iso-utc` | `2017-04-03T21:01:00.000Z` |  | same instant in UTC |
-| `iso-full` | `2017-04-03T17:01:00.000-04:00[America/New_York]` |  |  |
+| `iso-full` | `2017-04-03T17:01:00-04:00[America/New_York]` |  |  |
 | `sql` | `2017-04-03 17:01:00` | `iso 9075` | no timezone offset |
 | `nice` | `Apr 3rd, 5:01pm` | `nice-short` |  |
 | `nice-24` | `Apr 3rd, 17:01` | `nice-short-24` |  |
@@ -151,7 +151,7 @@ These examples also use the same `s` defined above.
 
 ```js
 s.iso() // '2017-04-03T17:01:00.000-04:00'
-s.isoFull() // '2017-04-03T17:01:00.000-04:00[America/New_York]'
+s.isoFull() // '2017-04-03T17:01:00-04:00[America/New_York]'
 s.toNativeDate().getTime() === s.epoch // true
 ```
 

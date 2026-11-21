@@ -18,13 +18,18 @@ This project follows semVer, where:
 - - [change] - a given timezone arguments are never dropped, even with inconsistent offsets
 - - [fix] - iso offsets beside a bracketed timezone are no longer ignored - `'…16:20:00Z[America/Los_Angeles]'`
 - - [change] - `.set(input, tz)` reads an input without an offset in the given timezone, like constructor
+- - [change] - `iso-full` leaves off trailing zeros in milliseconds, like Temporal - `'…17:01:00-04:00[America/New_York]'`
+- - [new] - any whole-minute offset is a fixed-offset timezone, like `'+05:14'` - not only quarter-hours
+- - [change] - fractional offsets are named by their offset - `'+05:30'`, not `'Etc/GMT-5.5'` _(old names still work as input)_
 - **[change]** - interpret `'Z'`, `'UTC'`, `'Zulu'`, and `'+00:00'` more consistently
 - - [fix] - trailing Z → UTC (not Etc/GMT)
 - - [new] - support `'Z'` as valid iana code
 - **[change]** - non-standard offsets like `+05:17` are no longer ignored
+- **[change]** - remove pretend fractional-hour iana codes like `Etc/GMT-5.5`
 - **[change]** - support season decade and century in rounding methods
 - **[change]** - add century, decade, and season `progress()` result
 - **[change]** - use `'+00:00'` not `'-00:00'` in /temporal library
+- **[change]** - trim zero milliseconds in iso-full, like temporal does
 - **[new]** - #344 `.ceil(unit)` and `.floor(unit)` methods
 - **[new]** - support single dst-change years _'->11/07:01'_
 - **[new]** - `.ceil()` and `.floor()` methods - like `.nearest()`, they don't move a date already on a boundary
@@ -70,14 +75,21 @@ const s = spacetime('2024-06-01T09:00:00', 'America/Los_Angeles')
 s.set('2024-01-01T22:00:00', 'Asia/Tokyo')
 // before: Jan 2 3:00pm, Asia/Tokyo  (read as 10pm LA, then converted)
 // now:    Jan 1 10:00pm, Asia/Tokyo  (read on Tokyo's clock)
-
-// non-standard offsets now supported
-spacetime('2024-01-01T16:20:00+05:17')
-// before: 4:20pm Local-time  (21:20 UTC — offset silently ignored)
-// now:    6:03am Local-time  (11:03 UTC — the moment the string names)
 ```
 
 see [docs/input.md](docs/input.md) and #376 for details
+
+non-standard offsets like `+05:17` are now supported:
+
+```js
+spacetime('2024-01-01T16:20:00+05:17')
+// before: 4:20pm Local-time  (21:20 UTC — offset silently ignored)
+// now:    4:20pm, +5.23hrs time  (11:03 UTC — the correct moment)
+
+spacetime('2024-01-01T16:20:00+05:14') // 4:20pm, +05:14
+spacetime('2024-01-01T16:20:00+05:30') // 4:20pm, +05:30  (was Etc/GMT-5.5)
+spacetime('2024-01-01T16:20:00+05:00') // 4:20pm, Etc/GMT-5  (unchanged)
+```
 
 ### 7.17.1 [Nov 2026]
 

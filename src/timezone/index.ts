@@ -2,6 +2,7 @@ import findTz from './find.ts'
 import inSummerTime from './summerTime.ts'
 import getDstShift from './dstShift.ts'
 import titleCase from './titleCase.ts'
+import { fixedZone } from './fixed.ts'
 import type { Spacetime, TimezoneMeta } from '../types/index.ts'
 
 //get metadata about this timezone
@@ -11,7 +12,7 @@ const timezone = (s: Spacetime): TimezoneMeta => {
   if (zones.hasOwnProperty(tz) === false) {
     tz = findTz(s.tz, zones)
   }
-  const found = zones[tz]
+  const found = zones[tz] || fixedZone(tz)
   const result: TimezoneMeta = {
     name: titleCase(tz),
     hasDst: Boolean(found.dst),

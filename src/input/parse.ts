@@ -1,5 +1,6 @@
 import parsers from './formats/index.ts'
-import { offsetHours, fixedZone } from './formats/parseOffset.ts'
+import { offsetHours } from './formats/parseOffset.ts'
+import { fixedName } from '../timezone/fixed.ts'
 import parseTime from './formats/parseTime.ts'
 import walkTo from '../methods/set/walk.ts'
 import type { ParsedDate } from './formats/_parsers.ts'
@@ -44,7 +45,7 @@ const apply = (s: Spacetime, parsed: ParsedDate, given: boolean): Spacetime => {
     } else if (/^\s*z\s*$/i.test(parsed.offset)) {
       s.tz = 'utc' // 'Z' means utc, not a fixed offset
     } else {
-      s.tz = fixedZone(offset, s.timezones) || zone
+      s.tz = fixedName(offset) || zone
     }
   }
   // the input named its own moment, so only move it to the given timezone

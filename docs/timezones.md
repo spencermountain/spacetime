@@ -84,10 +84,10 @@ fixed.hasDST() // false
 ```
 
 `Etc/GMT` names reverse the usual sign: `etc/gmt+7` means UTC−07:00, while
-`etc/gmt-5` means UTC+05:00. Spacetime also generates fixed-offset names in
-quarter-hour steps from UTC−14 to UTC+14, including fractional names such as
-`etc/gmt-5.75`. These fractional names are library extensions; do not assume
-other IANA consumers accept them. Prefer regional names for interoperability.
+`etc/gmt-5` means UTC+05:00. Any other whole-minute offset is a fixed-offset
+timezone named by the offset itself, such as `+05:45` or `-03:30`, which
+`Temporal` and `Intl` also accept. Older fractional names such as `etc/gmt-5.75`
+are still read, and become `+05:45`. Prefer regional names for interoperability.
 
 ## How DST is applied
 

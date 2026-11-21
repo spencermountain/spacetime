@@ -1,7 +1,10 @@
-const offsetPattern = /^(?:(utc|gmt)\s*)?([+-]?)(\d+)(?:(\.\d+)|:([0-5]\d))?(?:\s*(?:h|hrs?|hours?))?$/i
+import { fixedName } from './fixed.ts'
+
+const offsetPattern = /^(?:(?:etc|utc)\/)?(?:(utc|gmt)\s*)?([+-]?)(\d+)(?:(\.\d+)|:([0-5]\d))?(?:\s*(?:h|hrs?|hours?))?$/i
 const embeddedHours = /(?:^|\s)([+-]?\d+(?:\.\d+|:[0-5]\d)?\s*(?:h|hrs?|hours?))$/i
 
-// turn '-5h', 'utc+5:30', 'gmt-3' into our 'etc/gmt+5' style zone id
+// turn '-5h', 'utc+5:30', 'gmt-3' into a fixed-offset zone id, like 'etc/gmt+5' or '+05:30'
+// (and older ids like 'etc/gmt-5.5')
 const parseOffset = (tz: string): string | null => {
   const input = tz.trim()
   let match = input.match(offsetPattern)
@@ -17,22 +20,14 @@ const parseOffset = (tz: string): string | null => {
   }
   const [, prefix, sign, hours, fraction = '0', minutes = '0'] = match
   let num = Number(hours) + Number(fraction) + Number(minutes) / 60
-  // Fixed-offset entries exist in quarter-hour steps up to UTC±14.
-  if (num > 14 || !Number.isInteger(num * 4)) {
-    return null
-  }
-  // a zero offset has one name
-  if (num === 0) {
-    return 'etc/gmt'
-  }
   if (sign === '-') {
     num *= -1
   }
-  // Preserve the existing GMT convention; UTC and bare offsets use normal signs.
-  if (prefix == null || prefix.toLowerCase() !== 'gmt') {
+  // Preserve the existing GMT convention, where the sign is reversed; UTC and bare offsets use normal signs.
+  if (prefix != null && prefix.toLowerCase() === 'gmt') {
     num *= -1
   }
-  return 'etc/gmt' + (num > 0 ? '+' : '') + num
+  return fixedName(num)
 }
 
 export default parseOffset

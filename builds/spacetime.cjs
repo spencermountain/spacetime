@@ -94,8 +94,8 @@ const incomplete = (input, T) => input instanceof T.PlainTime || input instanceo
 
 const getTemporal = () => typeof globalThis === "undefined" ? void 0 : globalThis.Temporal;
 const temporalZone = (s) => {
-  const match = s.tz.match(/^etc\/gmt([+-][0-9]+(?:\.[0-9]+)?)$/i);
-  return match ? formatTimezone(-Number(match[1]), ":") : s.timezone().name;
+  const zone = s.timezone();
+  return /^etc\/gmt[+-]/.test(s.tz) ? formatTimezone(zone.current.offset, ":") : zone.name;
 };
 const inputTimezone = (input) => {
   const T = getTemporal();
@@ -162,9 +162,37 @@ const dstShift = (tz) => {
   return 1;
 };
 
+const reg = /^([+-])([01][0-9]|2[0-3]):([0-5][0-9])$/;
+const found = {};
+const fixedName = (hours) => {
+  const mins = Math.round(hours * 60);
+  if (!(Math.abs(mins) < 1440)) {
+    return null;
+  }
+  if (mins === 0) {
+    return "etc/gmt";
+  }
+  if (mins % 60 === 0 && mins >= -720 && mins <= 840) {
+    const num = mins / -60;
+    return "etc/gmt" + (num > 0 ? "+" : "") + num;
+  }
+  return formatTimezone(mins / 60, ":");
+};
+const fixedZone = (tz) => {
+  if (found[tz] === void 0) {
+    const m = tz.match(reg);
+    if (!m) {
+      return void 0;
+    }
+    const mins = Number(m[2]) * 60 + Number(m[3]);
+    found[tz] = { offset: (m[1] === "-" ? -mins : mins) / 60, hem: "n" };
+  }
+  return found[tz];
+};
+
 const quickOffset = (s) => {
   const zones = s.timezones;
-  const obj = zones[s.tz];
+  const obj = zones[s.tz] || fixedZone(s.tz);
   if (obj === void 0) {
     console.warn("Warning: couldn't find timezone " + s.tz);
     return 0;
@@ -311,7 +339,7 @@ all.utc = {
   hem: "n"
   //default to northern hemisphere - (sorry!)
 };
-for (let i = -14; i <= 14; i += 0.25) {
+for (let i = -14; i <= 14; i += 1) {
   const num = i > 0 ? "+" + i : String(i);
   let name = "etc/gmt" + num;
   all[name] = {
@@ -350,7 +378,7 @@ const guessTz = () => {
   return timezone;
 };
 
-const offsetPattern = /^(?:(utc|gmt)\s*)?([+-]?)(\d+)(?:(\.\d+)|:([0-5]\d))?(?:\s*(?:h|hrs?|hours?))?$/i;
+const offsetPattern = /^(?:(?:etc|utc)\/)?(?:(utc|gmt)\s*)?([+-]?)(\d+)(?:(\.\d+)|:([0-5]\d))?(?:\s*(?:h|hrs?|hours?))?$/i;
 const embeddedHours = /(?:^|\s)([+-]?\d+(?:\.\d+|:[0-5]\d)?\s*(?:h|hrs?|hours?))$/i;
 const parseOffset = (tz) => {
   const input = tz.trim();
@@ -366,19 +394,13 @@ const parseOffset = (tz) => {
   }
   const [, prefix, sign, hours, fraction = "0", minutes = "0"] = match;
   let num = Number(hours) + Number(fraction) + Number(minutes) / 60;
-  if (num > 14 || !Number.isInteger(num * 4)) {
-    return null;
-  }
-  if (num === 0) {
-    return "etc/gmt";
-  }
   if (sign === "-") {
     num *= -1;
   }
-  if (prefix == null || prefix.toLowerCase() !== "gmt") {
+  if (prefix != null && prefix.toLowerCase() === "gmt") {
     num *= -1;
   }
-  return "etc/gmt" + (num > 0 ? "+" : "") + num;
+  return fixedName(num);
 };
 
 let local = guessTz();
@@ -1071,14 +1093,6 @@ const offsetHours = (offset) => {
   }
   return (hours + minutes / 60) * (match[1] === "-" ? -1 : 1) || 0;
 };
-const fixedZone = (hours, zones) => {
-  if (hours === 0) {
-    return "etc/gmt";
-  }
-  const num = hours * -1;
-  const tz = "etc/gmt" + (num >= 0 ? "+" + num : num);
-  return zones[tz] ? tz : null;
-};
 
 const millisecond = 1;
 const second = 1e3;
@@ -1256,7 +1270,7 @@ const apply = (s, parsed, given) => {
     } else if (/^\s*z\s*$/i.test(parsed.offset)) {
       s.tz = "utc";
     } else {
-      s.tz = fixedZone(offset, s.timezones) || zone;
+      s.tz = fixedName(offset) || zone;
     }
   }
   if (given && (offset !== null || parsed.timezone)) {
@@ -1493,7 +1507,10 @@ const format = {
     return new Date(s.epoch).toISOString();
   },
   "iso-full": (s) => {
-    let iso = s.format("iso");
+    const offset = isoOffset(s);
+    const ms = s.millisecond();
+    const fraction = ms ? "." + String(ms / 1e3).slice(2) : "";
+    let iso = s.format("iso").slice(0, -(offset.length + 4)) + fraction + offset;
     const iana = s.timezone().name;
     if (iana) {
       iso += `[${iana}]`;
@@ -2416,7 +2433,7 @@ const timezone = (s) => {
   if (zones.hasOwnProperty(tz) === false) {
     tz = lookupTz(s.tz, zones);
   }
-  const found = zones[tz];
+  const found = zones[tz] || fixedZone(tz);
   const result = {
     name: titleCase(tz),
     hasDst: Boolean(found.dst),
@@ -2479,7 +2496,7 @@ const methods$8 = {
     return timezone(this).hasDst;
   },
   offset: function() {
-    return timezone(this).current.offset * 60;
+    return Math.round(timezone(this).current.offset * 60);
   },
   hemisphere: function() {
     return timezone(this).hemisphere;
@@ -3842,7 +3859,7 @@ class Spacetime {
       return /* @__PURE__ */ new Date(NaN);
     }
     const offset = quickOffset(this);
-    return new Date(this.epoch + offset * 36e5);
+    return new Date(this.epoch + Math.round(offset * 36e5));
   }
   // timezone data lives on the instance, to allow adding new timezones
   get timezones() {

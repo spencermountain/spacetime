@@ -121,7 +121,11 @@ const format: Record<string, Formatter> = {
     return new Date(s.epoch).toISOString() //2017-03-08T19:45:28.367Z
   },
   'iso-full': (s) => {
-    let iso = s.format('iso')
+    // like Temporal, leave off any trailing zeros in the milliseconds ('.120' is '.12')
+    const offset = isoOffset(s)
+    const ms = s.millisecond()
+    const fraction = ms ? '.' + String(ms / 1000).slice(2) : ''
+    let iso = s.format('iso').slice(0, -(offset.length + 4)) + fraction + offset
     const iana = s.timezone().name
     if (iana) {
       iso += `[${iana}]`

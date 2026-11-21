@@ -29,6 +29,10 @@ function getCurrent(tz) {
     return null
   }
   tz = tz.toLowerCase()
+  // spacetime calls every utc timezone 'utc'
+  if (tz === 'utc') {
+    tz = 'etc/utc'
+  }
   const zone = iana[tz]
   if (!zone) {
     return null

@@ -53,7 +53,7 @@ const methods = {
     return timezone(this).hasDst
   },
   offset: function (this: Spacetime) {
-    return timezone(this).current.offset * 60
+    return Math.round(timezone(this).current.offset * 60)
   },
   hemisphere: function (this: Spacetime) {
     return timezone(this).hemisphere

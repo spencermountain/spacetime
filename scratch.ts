@@ -11,3 +11,4 @@ import spacetime from './src/index.ts'
 // non-recognized offsets
 const s = spacetime('2024-01-01T16:20:00+05:17')
 console.log('s:', s.format('time'), s.timezone())
+console.log('s:', s.isoFull())

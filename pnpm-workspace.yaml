@@ -9,7 +9,7 @@ catalog:
   '@rollup/plugin-node-resolve': ^16.0.3
   '@rollup/plugin-terser': ^1.0.2
   minimist: ^1.2.8
-  rollup: 4.68.7
+  rollup: 4.68.8
   tap-dancer: 0.4.4
   tape: 5.11.0
   timezone-soft: 1.7.1

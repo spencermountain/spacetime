@@ -12,7 +12,10 @@ test('uses the timezone of the spacetime object', t => {
 })
 
 test('general timezones return a location', t => {
-  t.deepEqual(spacetime.now('Etc/Zulu').weekStart(), { day: 'monday', location: 'zulu' })
+  // every name for utc is the same timezone
+  ;['UTC', 'Etc/UTC', 'Etc/Zulu', 'Z'].forEach((tz) => {
+    t.deepEqual(spacetime.now(tz).weekStart(), { day: 'monday', location: 'utc' }, tz)
+  })
   t.end()
 })
 
