@@ -71,8 +71,8 @@ spacetime(`${iso}-05:00[America/New_York]`, 'America/Los_Angeles') // 4:20pm NYC
 // (afternoon at -8h is already tomorrow in Tokyo)
 spacetime(`${iso}-08:00`, 'Asia/Tokyo') // Jan 1 4:20pm @-8h → Jan 2 9:20am Tokyo-time
 
-// non-standard offsets are interpreted and cast into local-time
-spacetime('2024-01-01T16:20:00+05:17') // 4:20pm @+05:17h → ~6:03am Local-time
+// any whole-minute offset is its own fixed timezone
+spacetime('2024-01-01T16:20:00+05:17') // 4:20pm [fixed +05:17]
 ```
 
 these inputs could be contrasted with explicit two-step interpretation using `.goto()` and `.set()`:

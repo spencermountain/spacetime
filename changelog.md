@@ -15,12 +15,10 @@ This project follows semVer, where:
 - **[update]** - 2027 DST changes
 - - - [note] - `Havana` kept at −4hr, will support single-change between jan-nov
 - **[change]** - #376 ambiguous offset input behaviour - see [docs/inputs](./docs/inputs.md#offsets-and-iana-inputs)
-- - [change] - a given timezone arguments are never dropped, even with inconsistent offsets
+- - [change] - given timezone arguments are never dropped, even with inconsistent offsets
 - - [fix] - iso offsets beside a bracketed timezone are no longer ignored - `'…16:20:00Z[America/Los_Angeles]'`
 - - [change] - `.set(input, tz)` reads an input without an offset in the given timezone, like constructor
-- - [change] - `iso-full` leaves off trailing zeros in milliseconds, like Temporal - `'…17:01:00-04:00[America/New_York]'`
 - - [new] - any whole-minute offset is a fixed-offset timezone, like `'+05:14'` - not only quarter-hours
-- - [change] - fractional offsets are named by their offset - `'+05:30'`, not `'Etc/GMT-5.5'` _(old names still work as input)_
 - **[change]** - interpret `'Z'`, `'UTC'`, `'Zulu'`, and `'+00:00'` more consistently
 - - [fix] - trailing Z → UTC (not Etc/GMT)
 - - [new] - support `'Z'` as valid iana code

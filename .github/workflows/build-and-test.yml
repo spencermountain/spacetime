@@ -1,14 +1,19 @@
 name: Build and test
 
+# runs when a pull request is opened, and again for each new commit pushed to it
+# (also by hand from the Actions tab, and before a release)
 on:
   pull_request:
-  push:
-    branches: [master, dev]
   workflow_dispatch:
   workflow_call:
 
 permissions:
   contents: read
+
+# a new commit on a pull request replaces the run for the commit before it
+concurrency:
+  group: test-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   test:
