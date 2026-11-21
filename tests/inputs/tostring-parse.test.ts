@@ -21,7 +21,7 @@ test('Date.toString() format', (t) => {
   t.end()
 })
 
-test('text dates with offsets do not shift across midnight', (t) => {
+test('text dates with offsets can shift across midnight', (t) => {
   const inputs = [
     ['Mon Jun 17 2019 11:00:00 GMT+0530 (India Standard Time)', '2019-06-17T11:00:00+05:30'],
     ['Mon Jun 17 2019 11:00:00 GMT-0700 (Pacific Daylight Time)', '2019-06-17T11:00:00-07:00'],

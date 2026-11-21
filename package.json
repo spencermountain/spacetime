@@ -1,7 +1,7 @@
 {
   "name": "spacetime",
   "version": "7.18.0",
-  "description": "figure-out dates across timezones",
+  "description": "calculate dates across timezones",
   "license": "Apache-2.0",
   "repository": "github:spencermountain/spacetime",
   "homepage": "https://spacetime.how",
@@ -44,10 +44,10 @@
   },
   "scripts": {
     "watch": "node --import tsx --watch ./scratch.ts",
-    "tz:pack": "node ./zonefile/pack.js",
+    "pack": "node ./zonefile/pack.js",
     "build:plugins": "pnpm --filter \"./plugins/*\" run build",
     "version": "node ./scripts/version.js",
-    "build": "pnpm run tz:pack && pnpm run version && rollup -c --silent",
+    "build": "pnpm run pack && pnpm run version && rollup -c --silent",
     "build:tz": "node --import tsx ./scripts/tz/index.js",
     "dst:calendar": "node --import tsx ./scripts/dst-calendar.js",
     "test": "node --import tsx tests/_lib/run.ts tests | tap-dancer",

@@ -5,7 +5,7 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!--
-### 7.18.0 [Unreleased]
+### 7.19.0 [Unreleased]
 
 
 -->
@@ -13,12 +13,15 @@ This project follows semVer, where:
 ### 7.18.0 [Nov 2026]
 
 - **[update]** - 2027 DST changes
-- - - [note] - `Havana` kept at −4hr, will include single-change before nov
-- **[change]** - #376 ambiguous offset inputs
-- - - [change] -
-- **[change]** - make `'Z'`, `'UTC'`, `'Zulu'`, and `'+00:00'` consistent
+- - - [note] - `Havana` kept at −4hr, will support single-change between jan-nov
+- **[change]** - #376 ambiguous offset input behaviour - see [docs](./docs/inputs.md#offsets-and-iana-inputs)
+- - [change] - a given timezone arguments are never dropped, even with inconsistent offsets
+- - [fix] - iso offsets beside a bracketed timezone are no longer ignored - `'…16:20:00Z[America/Los_Angeles]'`
+- - [change] - `.set(input, tz)` reads an input without an offset in the given timezone, like constructor
+- **[change]** - interpret `'Z'`, `'UTC'`, `'Zulu'`, and `'+00:00'` more consistently
 - - [fix] - trailing Z → UTC (not Etc/GMT)
 - - [new] - support `'Z'` as valid iana code
+- **[change]** - non-standard offsets like `+05:17` are no longer ignored
 - **[change]** - support season decade and century in rounding methods
 - **[change]** - add century, decade, and season `progress()` result
 - **[change]** - use `'+00:00'` not `'-00:00'` in /temporal library
@@ -67,6 +70,11 @@ const s = spacetime('2024-06-01T09:00:00', 'America/Los_Angeles')
 s.set('2024-01-01T22:00:00', 'Asia/Tokyo')
 // before: Jan 2 3:00pm, Asia/Tokyo  (read as 10pm LA, then converted)
 // now:    Jan 1 10:00pm, Asia/Tokyo  (read on Tokyo's clock)
+
+// non-standard offsets now supported
+spacetime('2024-01-01T16:20:00+05:17')
+// before: 4:20pm Local-time  (21:20 UTC — offset silently ignored)
+// now:    6:03am Local-time  (11:03 UTC — the moment the string names)
 ```
 
 see [docs/input.md](docs/input.md) and #376 for details

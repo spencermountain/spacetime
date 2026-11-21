@@ -99,7 +99,10 @@ test('single changes in the southern hemisphere', (t) => {
   t.end()
 })
 
+// (the bundled Havana data stays at a fixed -4h until nearer the change, so set its 2027 rule here)
 test('Havana only falls back in 2027', (t) => {
+  const rule = { offset: -4, hem: 'n', dst: '->11/07:01' }
+  withZones(t, { 'america/havana': rule, cuba: rule })
   ;['America/Havana', 'Cuba'].forEach((zone) => {
     check(t, zone, '2027-01-01T00:00:00Z', -4, true)
     check(t, zone, '2027-11-07T04:59:59Z', -4, true)

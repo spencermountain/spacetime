@@ -58,7 +58,7 @@ spacetime(`${iso}-08:00`) // 4:20pm [fixed-8h]
 // (consistent iana/offsets)
 spacetime(`${iso}-08:00`, 'America/Los_Angeles') // 4:20pm LA-time
 spacetime(`${iso}-08:00[America/Los_Angeles]`) // 4:20pm LA-time
-spacetime(`${iso}-07:00[America/Los_Angeles]`) // 4:20pm LA-time (dst)
+spacetime('2024-08-01T16:20:00-07:00[America/Los_Angeles]') // 4:20pm LA-time (august, dst)
 
 // inputs that do not produce 4:20pm
 spacetime(`${iso}Z`, 'America/Los_Angeles') // UTC → 8:20am LA-time
@@ -69,7 +69,10 @@ spacetime(`${iso}-05:00[America/New_York]`, 'America/Los_Angeles') // 4:20pm NYC
 
 // note that when mixing offsets like this, the date can also change
 // (afternoon at -8h is already tomorrow in Tokyo)
-spacetime(`${iso}-08:00`, 'Asia/Tokyo') // Jan 1 4:20pm @-8h → Jan 2 6:20pm Tokyo-time
+spacetime(`${iso}-08:00`, 'Asia/Tokyo') // Jan 1 4:20pm @-8h → Jan 2 9:20am Tokyo-time
+
+// non-standard offsets are interpreted and cast into local-time
+spacetime('2024-01-01T16:20:00+05:17') // 4:20pm @+05:17h → ~6:03am Local-time
 ```
 
 these inputs could be contrasted with explicit two-step interpretation using `.goto()` and `.set()`:

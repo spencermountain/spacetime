@@ -450,7 +450,7 @@ export default {
   'america/havana': {
     offset: -4,
     hem: 'n'
-    // add before november
+    // set this after jan 2026, before nov 2027
     // dst: '->11/07:01'
   },
   'america/hermosillo': {

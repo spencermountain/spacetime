@@ -71,10 +71,10 @@ const isUnitKey = (k) => unitKeys.includes(k);
 const getUnit = (s, unit) => s[unit].call(s);
 const setUnit = (s, unit, value) => s[unit].call(s, value);
 const formatTimezone = (offset, delimiter = "") => {
-  const sign = offset > 0 ? "+" : "-";
-  const absOffset = Math.abs(offset);
-  const hours = zeroPad(Math.trunc(absOffset));
-  const minutes = zeroPad(absOffset % 1 * 60);
+  const total = Math.round(Math.abs(offset) * 60);
+  const sign = offset > 0 || total === 0 ? "+" : "-";
+  const hours = zeroPad(Math.trunc(total / 60));
+  const minutes = zeroPad(total % 60);
   return `${sign}${hours}${delimiter}${minutes}`;
 };
 
@@ -139,11 +139,11 @@ const toTemporal = (s) => {
   return T.Instant.fromEpochMilliseconds(Math.trunc(s.epoch)).toZonedDateTimeISO(temporalZone(s));
 };
 
-const MSEC_IN_HOUR = 60 * 60 * 1e3;
+const MSEC_IN_HOUR$1 = 60 * 60 * 1e3;
 const toUtc = (dstChange, offset, year) => {
   const [month, rest] = dstChange.split("/");
   const [day, hour, minute = "0"] = rest.split(":");
-  return Date.UTC(year, Number(month) - 1, Number(day), Number(hour), Number(minute)) - offset * MSEC_IN_HOUR;
+  return Date.UTC(year, Number(month) - 1, Number(day), Number(hour), Number(minute)) - offset * MSEC_IN_HOUR$1;
 };
 const inSummerTime = (epoch, start, end, summerOffset, winterOffset) => {
   const year = new Date(epoch).getUTCFullYear();
@@ -256,8 +256,7 @@ var data = {
   "-4|s|04/03:24->09/05:00": "1/santiago,7/continental",
   "-4|s": "1/campo_grande,1/cuiaba,1/la_paz,1/manaus,1/porto_velho,5/west",
   "-4|n|03/14:02->11/07:02": "1/detroit,1/grand_turk,1/indiana,1/indianapolis,1/iqaluit,1/kentucky,1/louisville,1/montreal,1/nassau,1/new_york,1/nipigon,1/pangnirtung,1/port-au-prince,1/thunder_bay,1/toronto,1/indiana/marengo,1/indiana/petersburg,1/indiana/vevay,1/indiana/vincennes,1/indiana/winamac,1/kentucky/monticello,1/fort_wayne,1/indiana/indianapolis,1/kentucky/louisville,6/eastern,us/east-indiana,us/eastern,us/michigan,est5edt",
-  "-4|n|->11/07:01": "1/havana,cuba",
-  "-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin",
+  "-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/havana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin,cuba",
   "-3|s": "1/araguaina,1/argentina,1/asuncion,1/bahia,1/belem,1/buenos_aires,1/catamarca,1/cordoba,1/coyhaique,1/fortaleza,1/jujuy,1/maceio,1/mendoza,1/montevideo,1/punta_arenas,1/recife,1/santarem,1/sao_paulo,12/palmer,12/rothera,3/stanley,1/argentina/la_rioja,1/argentina/rio_gallegos,1/argentina/salta,1/argentina/san_juan,1/argentina/san_luis,1/argentina/tucuman,1/argentina/ushuaia,1/argentina/comodrivadavia,1/argentina/buenos_aires,1/argentina/catamarca,1/argentina/cordoba,1/argentina/jujuy,1/argentina/mendoza,1/argentina/rosario,1/rosario,5/east",
   "-3|n|03/14:02->11/07:02": "1/glace_bay,1/goose_bay,1/halifax,1/moncton,1/thule,3/bermuda,6/atlantic",
   "-3|n": "1/cayenne,1/paramaribo",
@@ -353,7 +352,7 @@ const guessTz = () => {
 
 const offsetPattern = /^(?:(utc|gmt)\s*)?([+-]?)(\d+)(?:(\.\d+)|:([0-5]\d))?(?:\s*(?:h|hrs?|hours?))?$/i;
 const embeddedHours = /(?:^|\s)([+-]?\d+(?:\.\d+|:[0-5]\d)?\s*(?:h|hrs?|hours?))$/i;
-const parseOffset$1 = (tz) => {
+const parseOffset = (tz) => {
   const input = tz.trim();
   let match = input.match(offsetPattern);
   if (!match) {
@@ -370,6 +369,9 @@ const parseOffset$1 = (tz) => {
   if (num > 14 || !Number.isInteger(num * 4)) {
     return null;
   }
+  if (num === 0) {
+    return "etc/gmt";
+  }
   if (sign === "-") {
     num *= -1;
   }
@@ -380,6 +382,7 @@ const parseOffset$1 = (tz) => {
 };
 
 let local = guessTz();
+const isUtc = /^(?:z|(?:etc\/)?(?:utc|uct|universal|zulu))$/;
 const cities = {};
 Object.keys(all).forEach((k) => {
   const city = k.split("/").pop().replace(/_/g, " ");
@@ -407,6 +410,9 @@ const lookupTz = (str, zones) => {
   }
   let tz = str.trim();
   tz = tz.toLowerCase();
+  if (isUtc.test(tz)) {
+    return "utc";
+  }
   if (zones.hasOwnProperty(tz) === true) {
     return tz;
   }
@@ -418,7 +424,7 @@ const lookupTz = (str, zones) => {
     return cities[tz];
   }
   if (/[0-9]/.test(tz) === true) {
-    const id = parseOffset$1(tz);
+    const id = parseOffset(tz);
     if (id) {
       return id;
     }
@@ -762,7 +768,7 @@ const parsers$4 = [
         return null;
       }
       const timezone = m[6] ? parseTz(m[6]) : "";
-      return timezone ? { parts, timezone, time: m[4] } : { parts, offset: m[5], time: m[4] };
+      return timezone ? { parts, timezone, offset: m[5], time: m[4] } : { parts, offset: m[5], time: m[4] };
     }
   },
   //short-iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
@@ -1046,36 +1052,32 @@ const parsers$1 = [
 
 const parsers = [...parsers$4, ...parsers$3, ...parsers$2, ...parsers$1];
 
-const parseOffset = (s, offset) => {
+const offsetHours = (offset) => {
   if (!offset) {
-    return s;
+    return null;
   }
   offset = offset.trim().toLowerCase();
   if (offset === "z") {
-    s.tz = "etc/gmt";
-    return s;
+    return 0;
   }
   const match = offset.match(/^([+-]?)([0-9]{2})(?::?([0-9]{2}))?$/);
   if (!match) {
-    return s;
+    return null;
   }
   const hours = Number(match[2]);
   const minutes = Number(match[3] || 0);
   if (minutes > 59) {
-    return s;
+    return null;
   }
-  let num = (hours + minutes / 60) * (match[1] === "-" ? -1 : 1);
-  if (num === 0) {
-    s.tz = "etc/gmt";
-    return s;
+  return (hours + minutes / 60) * (match[1] === "-" ? -1 : 1) || 0;
+};
+const fixedZone = (hours, zones) => {
+  if (hours === 0) {
+    return "etc/gmt";
   }
-  num *= -1;
+  const num = hours * -1;
   const tz = "etc/gmt" + (num >= 0 ? "+" + num : num);
-  const zones = s.timezones;
-  if (zones[tz]) {
-    s.tz = tz;
-  }
-  return s;
+  return zones[tz] ? tz : null;
 };
 
 const millisecond = 1;
@@ -1221,11 +1223,17 @@ const walkTo = (s, wants) => {
   return;
 };
 
-const apply = (s, parsed) => {
+const MSEC_IN_HOUR = 60 * 60 * 1e3;
+const apply = (s, parsed, given) => {
+  const asked = s.tz;
+  let zone = s.tz;
   if (parsed.timezone) {
     s = s.timezone(parsed.timezone);
-  } else if (parsed.offset) {
-    s = parseOffset(s, parsed.offset);
+    zone = s.tz;
+  }
+  const offset = offsetHours(parsed.offset);
+  if (offset !== null) {
+    s.tz = "etc/gmt";
   }
   if (parsed.parts) {
     walkTo(s, parsed.parts);
@@ -1239,9 +1247,24 @@ const apply = (s, parsed) => {
   if (parsed.time !== void 0) {
     s = parseTime(s, parsed.time);
   }
+  if (offset !== null) {
+    if (s.isValid()) {
+      s.epoch = Math.round(s.epoch - offset * MSEC_IN_HOUR);
+    }
+    if (parsed.timezone) {
+      s.tz = zone;
+    } else if (/^\s*z\s*$/i.test(parsed.offset)) {
+      s.tz = "utc";
+    } else {
+      s.tz = fixedZone(offset, s.timezones) || zone;
+    }
+  }
+  if (given && (offset !== null || parsed.timezone)) {
+    s.tz = asked;
+  }
   return s;
 };
-const parseString = function(s, input) {
+const parseString = function(s, input, given = false) {
   if (input.length > 500) {
     if (s.silent === false) {
       console.warn("Warning: didn't parse long date-string.");
@@ -1254,7 +1277,7 @@ const parseString = function(s, input) {
     if (m) {
       const parsed = parsers[i].parse(m, s);
       if (parsed !== null) {
-        const res = apply(s.clone(), parsed);
+        const res = apply(s.clone(), parsed, given);
         if (res.isValid()) {
           return res;
         }
@@ -1321,7 +1344,7 @@ const parseInput = (s, input, timezone) => {
     s = dates[input](s);
     return s;
   }
-  return parseString(s, input);
+  return parseString(s, input, timezone != null);
 };
 
 let shortDays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
@@ -1725,359 +1748,6 @@ const unixFmt = (s, str) => {
   }, "");
 };
 
-const units$4 = ["year", "season", "quarter", "month", "week", "day", "quarterHour", "hour", "minute"];
-const doUnit = function(s, k) {
-  const start = s.clone().startOf(k);
-  const end = s.clone().endOf(k);
-  const duration = end.epoch - start.epoch;
-  const percent = (s.epoch - start.epoch) / duration;
-  return parseFloat(percent.toFixed(2));
-};
-const progress = (s, unit) => {
-  if (unit) {
-    unit = normalize$2(unit);
-    return doUnit(s, unit);
-  }
-  const obj = {};
-  units$4.forEach((k) => {
-    obj[k] = doUnit(s, k);
-  });
-  return obj;
-};
-
-const units$3 = ["year", "season", "quarter", "month", "week", "date", "quarterhour", "hour", "minute"];
-const nearest = (s, unit) => {
-  unit = normalize$2(unit);
-  if (!units$3.includes(unit)) {
-    if (s.silent === false) {
-      console.warn("no known unit '" + unit + "'");
-    }
-    return s;
-  }
-  const lower = s.startOf(unit);
-  const upper = lower.add(1, unit);
-  if (s.epoch - lower.epoch > upper.epoch - s.epoch) {
-    return upper;
-  }
-  return lower;
-};
-
-const climb = (a, b, unit) => {
-  let i = 0;
-  let next = a.clone();
-  while (next.isBefore(b)) {
-    i += 1;
-    next = a.add(i, unit);
-  }
-  if (next.isAfter(b)) {
-    i -= 1;
-  }
-  return i;
-};
-const diffOne = (a, b, unit) => {
-  if (a.isBefore(b)) {
-    return climb(a, b, unit);
-  } else {
-    return climb(b, a, unit) * -1;
-  }
-};
-
-const fastYear = (a, b) => {
-  let years = b.year() - a.year();
-  if (a.add(years, "year").isAfter(b)) {
-    years -= 1;
-  }
-  return years;
-};
-const diff = function(a, b) {
-  const msDiff = b.epoch - a.epoch;
-  const obj = {
-    milliseconds: msDiff,
-    seconds: Math.trunc(msDiff / 1e3)
-  };
-  obj.minutes = Math.trunc(obj.seconds / 60);
-  obj.hours = Math.trunc(obj.minutes / 60);
-  let tmp = a.clone();
-  obj.years = fastYear(tmp, b);
-  tmp = a.add(obj.years, "year");
-  obj.months = obj.years * 12;
-  tmp = a.add(obj.months, "month");
-  obj.months += diffOne(tmp, b, "month");
-  obj.years = Math.trunc(obj.months / 12);
-  obj.quarters = obj.years * 4;
-  obj.quarters += Math.trunc(obj.months % 12 / 3);
-  obj.weeks = obj.years * 52;
-  tmp = a.add(obj.weeks, "week");
-  obj.weeks += diffOne(tmp, b, "week");
-  obj.days = obj.weeks * 7;
-  tmp = a.add(obj.days, "day");
-  obj.days += diffOne(tmp, b, "day");
-  return obj;
-};
-
-const reverseDiff = function(obj) {
-  Object.keys(obj).forEach((k) => {
-    obj[k] *= -1;
-  });
-  return obj;
-};
-function main$1(a, d, unit) {
-  let b = beADate(d, a);
-  let reversed = false;
-  if (a.isAfter(b)) {
-    const tmp = a;
-    a = b;
-    b = tmp;
-    reversed = true;
-  }
-  let obj = diff(a, b);
-  if (reversed) {
-    obj = reverseDiff(obj);
-  }
-  if (unit) {
-    unit = normalize$2(unit);
-    if (/s$/.test(unit) !== true) {
-      unit += "s";
-    }
-    if (unit === "dates") {
-      unit = "days";
-    }
-    return obj[unit];
-  }
-  return obj;
-}
-
-const fmt = (n) => Math.abs(n) || 0;
-const toISO = function(diff) {
-  let iso = "P";
-  iso += fmt(diff.years) + "Y";
-  iso += fmt(diff.months) + "M";
-  iso += fmt(diff.days) + "DT";
-  iso += fmt(diff.hours) + "H";
-  iso += fmt(diff.minutes) + "M";
-  iso += fmt(diff.seconds) + "S";
-  return iso;
-};
-
-function getDiff(a, b) {
-  const isBefore = a.isBefore(b);
-  const later = isBefore ? b : a;
-  let earlier = isBefore ? a : b;
-  earlier = earlier.clone();
-  const diff = {
-    years: 0,
-    months: 0,
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  };
-  Object.keys(diff).forEach((unit) => {
-    if (earlier.isSame(later, unit)) {
-      return;
-    }
-    let max = earlier.diff(later, unit);
-    let next = earlier.add(max, unit);
-    if (next.isAfter(later)) {
-      max -= 1;
-      next = earlier.add(max, unit);
-    }
-    earlier = next;
-    diff[unit] = max;
-  });
-  if (diff.months >= 12) {
-    diff.years += Math.trunc(diff.months / 12);
-    diff.months = diff.months % 12;
-  }
-  if (isBefore) {
-    Object.keys(diff).forEach((u) => {
-      if (diff[u] !== 0) {
-        diff[u] *= -1;
-      }
-    });
-  }
-  return diff;
-}
-
-let units$2 = {
-  second: "second",
-  seconds: "seconds",
-  minute: "minute",
-  minutes: "minutes",
-  hour: "hour",
-  hours: "hours",
-  day: "day",
-  days: "days",
-  month: "month",
-  months: "months",
-  year: "year",
-  years: "years"
-};
-function unitsString(unit) {
-  return units$2[unit] || "";
-}
-function set$2(i18n = {}) {
-  units$2 = {
-    second: i18n.second || units$2.second,
-    seconds: i18n.seconds || units$2.seconds,
-    minute: i18n.minute || units$2.minute,
-    minutes: i18n.minutes || units$2.minutes,
-    hour: i18n.hour || units$2.hour,
-    hours: i18n.hours || units$2.hours,
-    day: i18n.day || units$2.day,
-    days: i18n.days || units$2.days,
-    month: i18n.month || units$2.month,
-    months: i18n.months || units$2.months,
-    year: i18n.year || units$2.year,
-    years: i18n.years || units$2.years
-  };
-}
-
-let past = "past";
-let future = "future";
-let present = "present";
-let now$1 = "now";
-let almost = "almost";
-let over = "over";
-let pastDistance = (value) => `${value} ago`;
-let futureDistance = (value) => `in ${value}`;
-function pastDistanceString(value) {
-  return pastDistance(value);
-}
-function futureDistanceString(value) {
-  return futureDistance(value);
-}
-function pastString() {
-  return past;
-}
-function futureString() {
-  return future;
-}
-function presentString() {
-  return present;
-}
-function nowString() {
-  return now$1;
-}
-function almostString() {
-  return almost;
-}
-function overString() {
-  return over;
-}
-function set$1(i18n) {
-  pastDistance = i18n.pastDistance || pastDistance;
-  futureDistance = i18n.futureDistance || futureDistance;
-  past = i18n.past || past;
-  future = i18n.future || future;
-  present = i18n.present || present;
-  now$1 = i18n.now || now$1;
-  almost = i18n.almost || almost;
-  over = i18n.over || over;
-}
-
-const qualifiers = {
-  months: {
-    almost: 10,
-    over: 4
-  },
-  days: {
-    almost: 25,
-    over: 10
-  },
-  hours: {
-    almost: 20,
-    over: 8
-  },
-  minutes: {
-    almost: 50,
-    over: 20
-  },
-  seconds: {
-    almost: 50,
-    over: 20
-  }
-};
-function pluralize(value, unit) {
-  if (value === 1) {
-    return value + " " + unitsString(unit.slice(0, -1));
-  }
-  return value + " " + unitsString(unit);
-}
-const toSoft = function(diff) {
-  let rounded = null;
-  let qualified = null;
-  const abbreviated = [];
-  const englishValues = [];
-  Object.keys(diff).forEach((unit, i, units) => {
-    const value = Math.abs(diff[unit]);
-    if (value === 0) {
-      return;
-    }
-    abbreviated.push(value + unit[0]);
-    const englishValue = pluralize(value, unit);
-    englishValues.push(englishValue);
-    if (!rounded) {
-      rounded = englishValue;
-      qualified = englishValue;
-      if (i > 4) {
-        return;
-      }
-      const nextUnit = units[i + 1];
-      const nextValue = Math.abs(diff[nextUnit]);
-      if (nextValue > qualifiers[nextUnit].almost) {
-        rounded = pluralize(value + 1, unit);
-        qualified = almostString() + " " + rounded;
-      } else if (nextValue > qualifiers[nextUnit].over) {
-        qualified = overString() + " " + englishValue;
-      }
-    }
-  });
-  return { qualified, rounded, abbreviated, englishValues };
-};
-
-const since = (start, input) => {
-  const end = beADate(input, start);
-  const diff = getDiff(start, end);
-  const isNow = Object.values(diff).every((v) => !v);
-  if (isNow === true) {
-    return {
-      diff,
-      rounded: nowString(),
-      qualified: nowString(),
-      precise: nowString(),
-      abbreviated: [],
-      iso: "P0Y0M0DT0H0M0S",
-      direction: presentString()
-    };
-  }
-  let precise;
-  let direction = futureString();
-  let { rounded, qualified } = toSoft(diff);
-  const { englishValues, abbreviated } = toSoft(diff);
-  precise = englishValues.splice(0, 2).join(", ");
-  if (start.isAfter(end) === true) {
-    rounded = pastDistanceString(rounded);
-    qualified = pastDistanceString(qualified);
-    precise = pastDistanceString(precise);
-    direction = pastString();
-  } else {
-    rounded = futureDistanceString(rounded);
-    qualified = futureDistanceString(qualified);
-    precise = futureDistanceString(precise);
-  }
-  const iso = toISO(diff);
-  return {
-    diff,
-    rounded,
-    qualified,
-    precise,
-    abbreviated,
-    iso,
-    direction
-  };
-};
-
 const north = [
   ["spring", 2, 1],
   ["summer", 5, 1],
@@ -2108,7 +1778,7 @@ const quarters = [
   //oct 1
 ];
 
-const units$1 = {
+const units$4 = {
   second: (s) => {
     walkTo(s, {
       millisecond: 0
@@ -2261,12 +1931,12 @@ const startOf = (a, unit) => {
     return s;
   }
   const name = normalize$2(unit);
-  if (units$1[name]) {
-    return units$1[name](s);
+  if (units$4[name]) {
+    return units$4[name](s);
   }
   if (name === "summer" || name === "winter") {
     s = s.season(name);
-    return units$1.season(s);
+    return units$4.season(s);
   }
   return s;
 };
@@ -2276,16 +1946,403 @@ const endOf = (a, unit) => {
     return s;
   }
   unit = normalize$2(unit);
-  if (units$1[unit]) {
-    s = units$1[unit](s);
+  if (units$4[unit]) {
+    s = units$4[unit](s);
     s = s.add(1, unit);
     if (unit === "date") {
-      s = units$1.date(s);
+      s = units$4.date(s);
     }
     s = s.subtract(1, "millisecond");
     return s;
   }
   return s;
+};
+const bounds = (a, unit) => {
+  const name = normalize$2(unit);
+  if (!a.isValid() || !units$4[name]) {
+    return [startOf(a, unit), endOf(a, unit)];
+  }
+  const start = units$4[name](a.clone());
+  let end = start.add(1, name);
+  if (name === "date") {
+    end = units$4.date(end);
+  }
+  end.epoch -= 1;
+  return [start, end];
+};
+
+const units$3 = ["century", "decade", "year", "season", "quarter", "month", "week", "day", "quarterHour", "hour", "minute"];
+const yearSpans = { decade: 10, century: 100 };
+const toPercent = (s, start, end) => {
+  const duration = end.epoch - start.epoch;
+  const percent = (s.epoch - start.epoch) / duration;
+  return parseFloat(percent.toFixed(2));
+};
+const doUnit = function(s, k) {
+  const [start, end] = bounds(s, k);
+  return toPercent(s, start, end);
+};
+const doYears = function(s, size, yearStart) {
+  const first = Math.trunc(yearStart.year() / size) * size;
+  const start = yearStart.year(first);
+  const end = start.year(first + size);
+  end.epoch -= 1;
+  return toPercent(s, start, end);
+};
+const progress = (s, unit) => {
+  if (unit) {
+    unit = normalize$2(unit);
+    if (yearSpans[unit] && s.isValid()) {
+      return doYears(s, yearSpans[unit], s.startOf("year"));
+    }
+    return doUnit(s, unit);
+  }
+  const obj = {};
+  const yearStart = s.startOf("year");
+  units$3.forEach((k) => {
+    obj[k] = yearSpans[k] && s.isValid() ? doYears(s, yearSpans[k], yearStart) : doUnit(s, k);
+  });
+  return obj;
+};
+
+const ceil = (s, unit) => {
+  const lower = s.startOf(unit);
+  if (!s.isValid() || lower.epoch === s.epoch) {
+    return lower;
+  }
+  let upper = lower;
+  for (let i = 1; i <= 3 && upper.epoch <= s.epoch; i += 1) {
+    upper = lower.add(i, unit).startOf(unit);
+  }
+  return upper.epoch > s.epoch ? upper : lower.add(1, unit);
+};
+
+const units$2 = ["century", "decade", "year", "season", "quarter", "month", "week", "date", "quarterhour", "hour", "minute"];
+const nearest = (s, unit) => {
+  unit = normalize$2(unit);
+  if (!units$2.includes(unit)) {
+    if (s.silent === false) {
+      console.warn("no known unit '" + unit + "'");
+    }
+    return s;
+  }
+  const lower = s.startOf(unit);
+  const upper = ceil(s, unit);
+  if (s.epoch - lower.epoch > upper.epoch - s.epoch) {
+    return upper;
+  }
+  return lower;
+};
+
+const diffOne = (a, b, unit, from = 0) => {
+  let i = from;
+  let next = a.add(i, unit);
+  while (next.isBefore(b)) {
+    i += 1;
+    next = a.add(i, unit);
+  }
+  while (i > 0 && next.isAfter(b)) {
+    i -= 1;
+    next = a.add(i, unit);
+  }
+  return i;
+};
+
+const fastYear = (a, b) => {
+  let years = b.year() - a.year();
+  if (a.add(years, "year").isAfter(b)) {
+    years -= 1;
+  }
+  return years;
+};
+const diff = function(a, b) {
+  const msDiff = b.epoch - a.epoch;
+  const obj = {
+    milliseconds: msDiff,
+    seconds: Math.trunc(msDiff / 1e3)
+  };
+  obj.minutes = Math.trunc(obj.seconds / 60);
+  obj.hours = Math.trunc(obj.minutes / 60);
+  obj.years = fastYear(a, b);
+  obj.months = diffOne(a, b, "month", obj.years * 12);
+  obj.years = Math.trunc(obj.months / 12);
+  obj.quarters = obj.years * 4;
+  obj.quarters += Math.trunc(obj.months % 12 / 3);
+  obj.weeks = diffOne(a, b, "week", obj.years * 52);
+  obj.days = diffOne(a, b, "day", obj.weeks * 7);
+  return obj;
+};
+
+const reverseDiff = function(obj) {
+  Object.keys(obj).forEach((k) => {
+    obj[k] *= -1;
+  });
+  return obj;
+};
+const scales = {
+  seasons: ["months", 3],
+  decades: ["years", 10],
+  centurys: ["years", 100]
+};
+function main$1(a, d, unit) {
+  let b = beADate(d, a);
+  let reversed = false;
+  if (a.isAfter(b)) {
+    const tmp = a;
+    a = b;
+    b = tmp;
+    reversed = true;
+  }
+  let obj = diff(a, b);
+  if (reversed) {
+    obj = reverseDiff(obj);
+  }
+  if (unit) {
+    unit = normalize$2(unit);
+    if (/s$/.test(unit) !== true) {
+      unit += "s";
+    }
+    if (unit === "dates") {
+      unit = "days";
+    }
+    if (Object.prototype.hasOwnProperty.call(scales, unit)) {
+      const [base, size] = scales[unit];
+      return Math.trunc(obj[base] / size) || 0;
+    }
+    return obj[unit];
+  }
+  return obj;
+}
+
+const fmt = (n) => Math.abs(n) || 0;
+const toISO = function(diff) {
+  let iso = "P";
+  iso += fmt(diff.years) + "Y";
+  iso += fmt(diff.months) + "M";
+  iso += fmt(diff.days) + "DT";
+  iso += fmt(diff.hours) + "H";
+  iso += fmt(diff.minutes) + "M";
+  iso += fmt(diff.seconds) + "S";
+  return iso;
+};
+
+function getDiff(a, b) {
+  const isBefore = a.isBefore(b);
+  const later = isBefore ? b : a;
+  let earlier = isBefore ? a : b;
+  earlier = earlier.clone();
+  const diff = {
+    years: 0,
+    months: 0,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  };
+  Object.keys(diff).forEach((unit) => {
+    if (earlier.isSame(later, unit)) {
+      return;
+    }
+    let max = earlier.diff(later, unit);
+    let next = earlier.add(max, unit);
+    if (next.isAfter(later)) {
+      max -= 1;
+      next = earlier.add(max, unit);
+    }
+    earlier = next;
+    diff[unit] = max;
+  });
+  if (diff.months >= 12) {
+    diff.years += Math.trunc(diff.months / 12);
+    diff.months = diff.months % 12;
+  }
+  if (isBefore) {
+    Object.keys(diff).forEach((u) => {
+      if (diff[u] !== 0) {
+        diff[u] *= -1;
+      }
+    });
+  }
+  return diff;
+}
+
+let units$1 = {
+  second: "second",
+  seconds: "seconds",
+  minute: "minute",
+  minutes: "minutes",
+  hour: "hour",
+  hours: "hours",
+  day: "day",
+  days: "days",
+  month: "month",
+  months: "months",
+  year: "year",
+  years: "years"
+};
+function unitsString(unit) {
+  return units$1[unit] || "";
+}
+function set$2(i18n = {}) {
+  units$1 = {
+    second: i18n.second || units$1.second,
+    seconds: i18n.seconds || units$1.seconds,
+    minute: i18n.minute || units$1.minute,
+    minutes: i18n.minutes || units$1.minutes,
+    hour: i18n.hour || units$1.hour,
+    hours: i18n.hours || units$1.hours,
+    day: i18n.day || units$1.day,
+    days: i18n.days || units$1.days,
+    month: i18n.month || units$1.month,
+    months: i18n.months || units$1.months,
+    year: i18n.year || units$1.year,
+    years: i18n.years || units$1.years
+  };
+}
+
+let past = "past";
+let future = "future";
+let present = "present";
+let now$1 = "now";
+let almost = "almost";
+let over = "over";
+let pastDistance = (value) => `${value} ago`;
+let futureDistance = (value) => `in ${value}`;
+function pastDistanceString(value) {
+  return pastDistance(value);
+}
+function futureDistanceString(value) {
+  return futureDistance(value);
+}
+function pastString() {
+  return past;
+}
+function futureString() {
+  return future;
+}
+function presentString() {
+  return present;
+}
+function nowString() {
+  return now$1;
+}
+function almostString() {
+  return almost;
+}
+function overString() {
+  return over;
+}
+function set$1(i18n) {
+  pastDistance = i18n.pastDistance || pastDistance;
+  futureDistance = i18n.futureDistance || futureDistance;
+  past = i18n.past || past;
+  future = i18n.future || future;
+  present = i18n.present || present;
+  now$1 = i18n.now || now$1;
+  almost = i18n.almost || almost;
+  over = i18n.over || over;
+}
+
+const qualifiers = {
+  months: {
+    almost: 10,
+    over: 4
+  },
+  days: {
+    almost: 25,
+    over: 10
+  },
+  hours: {
+    almost: 20,
+    over: 8
+  },
+  minutes: {
+    almost: 50,
+    over: 20
+  },
+  seconds: {
+    almost: 50,
+    over: 20
+  }
+};
+function pluralize(value, unit) {
+  if (value === 1) {
+    return value + " " + unitsString(unit.slice(0, -1));
+  }
+  return value + " " + unitsString(unit);
+}
+const toSoft = function(diff) {
+  let rounded = null;
+  let qualified = null;
+  const abbreviated = [];
+  const englishValues = [];
+  Object.keys(diff).forEach((unit, i, units) => {
+    const value = Math.abs(diff[unit]);
+    if (value === 0) {
+      return;
+    }
+    abbreviated.push(value + unit[0]);
+    const englishValue = pluralize(value, unit);
+    englishValues.push(englishValue);
+    if (!rounded) {
+      rounded = englishValue;
+      qualified = englishValue;
+      if (i > 4) {
+        return;
+      }
+      const nextUnit = units[i + 1];
+      const nextValue = Math.abs(diff[nextUnit]);
+      if (nextValue > qualifiers[nextUnit].almost) {
+        rounded = pluralize(value + 1, unit);
+        qualified = almostString() + " " + rounded;
+      } else if (nextValue > qualifiers[nextUnit].over) {
+        qualified = overString() + " " + englishValue;
+      }
+    }
+  });
+  return { qualified, rounded, abbreviated, englishValues };
+};
+
+const since = (start, input) => {
+  const end = beADate(input, start);
+  const diff = getDiff(start, end);
+  const isNow = Object.values(diff).every((v) => !v);
+  if (isNow === true) {
+    return {
+      diff,
+      rounded: nowString(),
+      qualified: nowString(),
+      precise: nowString(),
+      abbreviated: [],
+      iso: "P0Y0M0DT0H0M0S",
+      direction: presentString()
+    };
+  }
+  let precise;
+  let direction = futureString();
+  let { rounded, qualified } = toSoft(diff);
+  const { englishValues, abbreviated } = toSoft(diff);
+  precise = englishValues.splice(0, 2).join(", ");
+  if (start.isAfter(end) === true) {
+    rounded = pastDistanceString(rounded);
+    qualified = pastDistanceString(qualified);
+    precise = pastDistanceString(precise);
+    direction = pastString();
+  } else {
+    rounded = futureDistanceString(rounded);
+    qualified = futureDistanceString(qualified);
+    precise = futureDistanceString(precise);
+  }
+  const iso = toISO(diff);
+  return {
+    diff,
+    rounded,
+    qualified,
+    precise,
+    abbreviated,
+    iso,
+    direction
+  };
 };
 
 const isDay = function(unit) {
@@ -2408,12 +2465,11 @@ function timezoneMethod(tz) {
 }
 const methods$8 = {
   set: function(input, tz) {
-    let s = this.clone();
-    s = parseInput(s, input, null);
+    const s = this.clone();
     if (tz) {
       s.tz = lookupTz(tz, s.timezones);
     }
-    return s;
+    return parseInput(s, input, tz || null);
   },
   timezone: timezoneMethod,
   isDST: function() {
@@ -2449,6 +2505,10 @@ const methods$8 = {
   },
   nearest: function(unit) {
     return nearest(this, unit);
+  },
+  // round up to the next boundary, unless we're already on one
+  ceil: function(unit) {
+    return ceil(this, unit);
   },
   diff: diffMethod,
   since: function(d) {
@@ -2600,6 +2660,7 @@ var methods$7 = {
   // aliases
   inDST: methods$8.isDST,
   round: methods$8.nearest,
+  floor: methods$8.startOf,
   each: methods$8.every
 };
 
@@ -3066,7 +3127,7 @@ const methods$6 = {
   },
   epochSeconds: function(num) {
     if (num !== void 0) {
-      this.epoch = num * 1e3;
+      this.epoch = Math.round(num * 1e3);
       return this;
     }
     if (!this.isValid()) {
@@ -3644,6 +3705,17 @@ const print = {
   },
   date: (s) => {
     return [s.year(), s.month(), s.date()].join("-");
+  },
+  // (a season can begin in the december of the year before)
+  season: (s) => {
+    const start = s.startOf("season");
+    return [start.year(), start.month()].join("-");
+  },
+  decade: (s) => {
+    return s.startOf("decade").year();
+  },
+  century: (s) => {
+    return s.startOf("century").year();
   }
 };
 const isSame = function(b, unit, tzAware = true) {
@@ -3663,7 +3735,7 @@ const isSame = function(b, unit, tzAware = true) {
   if (!a.isValid() || other == null || other.isValid == null || !other.isValid()) {
     return false;
   }
-  const name = unit.replace(/s$/, "");
+  const name = unit.replace(/ies$/, "y").replace(/s$/, "");
   if (tzAware === true && a.tz !== other.tz) {
     other = other.clone();
     other.tz = a.tz;
@@ -3822,6 +3894,9 @@ const whereIts = (a, b) => {
       return false;
     }
     const m = new Spacetime(null, tz);
+    if (m.tz !== tz) {
+      return false;
+    }
     const hour = m.hour();
     if (hour >= startHour && hour <= endHour) {
       if (hour === startHour && m.minute() < start.minute()) {
@@ -3869,7 +3944,7 @@ const main = Object.assign(create, {
   today: (tz, options) => now(tz, options).startOf("day"),
   tomorrow: (tz, options) => now(tz, options).add(1, "day").startOf("day"),
   yesterday: (tz, options) => now(tz, options).subtract(1, "day").startOf("day"),
-  fromUnixSeconds: (secs, tz, options) => new Spacetime(secs * 1e3, tz, options),
+  fromUnixSeconds: (secs, tz, options) => new Spacetime(Math.round(secs * 1e3), tz, options),
   extend,
   plugin: extend,
   timezones: () => new Spacetime().timezones,
