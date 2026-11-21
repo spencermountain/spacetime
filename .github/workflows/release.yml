@@ -25,13 +25,13 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 26.x
           registry-url: 'https://registry.npmjs.org'
@@ -55,7 +55,6 @@ jobs:
       - name: Build library
         run: pnpm run build
 
+      # npm trusted publishing: the job's id-token signs in to the registry, so there is no token secret
       - name: Publish
         run: pnpm publish --access public --provenance --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

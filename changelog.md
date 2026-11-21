@@ -14,7 +14,7 @@ This project follows semVer, where:
 
 - **[update]** - 2027 DST changes
 - - - [note] - `Havana` kept at −4hr, will support single-change between jan-nov
-- **[change]** - #376 ambiguous offset input behaviour - see [docs](./docs/inputs.md#offsets-and-iana-inputs)
+- **[change]** - #376 ambiguous offset input behaviour - see [docs/inputs](./docs/inputs.md#offsets-and-iana-inputs)
 - - [change] - a given timezone arguments are never dropped, even with inconsistent offsets
 - - [fix] - iso offsets beside a bracketed timezone are no longer ignored - `'…16:20:00Z[America/Los_Angeles]'`
 - - [change] - `.set(input, tz)` reads an input without an offset in the given timezone, like constructor
