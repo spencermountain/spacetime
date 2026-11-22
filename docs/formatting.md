@@ -137,13 +137,14 @@ other Moment or Unicode tokens may not be supported. `""` means an empty string.
 | `ZZZZ` | `-04:00` | `VVVV` | UTC offset with colon |
 
 Combine tokens into a pattern, and quote literal text with single quotes.
-Use `''` outside quoted text for a literal apostrophe.
+Use `''` for a literal apostrophe, inside or outside quoted text.
 
 - `s.unixFmt("yyyy.MM.dd h:mm a")`  →  ***2017.04.03 5:01 PM***
 - `s.unixFmt("yyyy.MMM.dd h:mm a")`  →  ***2017.Apr.03 5:01 PM***
 - `s.unixFmt("yyyy-MM-dd'T'HH:mm:ss ZZZZ")`  →  ***2017-04-03T17:01:00 -04:00***
 - `s.unixFmt("h 'hours' a")`  →  ***5 hours PM***
 - `s.unixFmt("''")`  →  ***'***
+- `s.unixFmt("h 'o''clock' a")`  →  ***5 o'clock PM***
 
 ## Other helpers
 
