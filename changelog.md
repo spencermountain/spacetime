@@ -45,7 +45,7 @@ This project follows semVer, where:
 - **[fix]** - #493 comma-based fractional iso seconds
 - **[fix]** - #489 better add 'season' support
 - **[fix]** - #487 off-by-1 DST in startOf('day')
-- **[fix]** - decimal-rounding issues is isos
+- **[fix]** - decimal-rounding issues in isos
 - **[fix]** - typescript issues
 - **[update]** - dependencies
 
@@ -75,7 +75,7 @@ s.set('2024-01-01T22:00:00', 'Asia/Tokyo')
 // now:    Jan 1 10:00pm, Asia/Tokyo  (read on Tokyo's clock)
 ```
 
-see [docs/input.md](docs/input.md) and #376 for details
+see [docs/inputs](./docs/inputs.md#offsets-and-iana-inputs) and #376 for details
 
 non-standard offsets like `+05:17` are now supported:
 
