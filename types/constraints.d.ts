@@ -68,6 +68,7 @@ export type Format =
   | 'season'
   | 'era'
   | 'timezone'
+  | 'timezone-short'
   | 'offset'
   | 'numeric'
   | 'numeric-us'
