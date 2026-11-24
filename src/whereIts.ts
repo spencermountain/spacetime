@@ -13,8 +13,8 @@ const whereIts = (a: string, b?: string): string[] => {
     end = start.add(59, 'minutes')
   }
 
-  const startHour = start.hour()
-  const endHour = end.hour()
+  const startMinute = start.hour() * 60 + start.minute()
+  const endMinute = end.hour() * 60 + end.minute()
   const tzs = Object.keys(start.timezones).filter((tz) => {
     if (tz.indexOf('/') === -1) {
       return false
@@ -24,19 +24,12 @@ const whereIts = (a: string, b?: string): string[] => {
     if (m.tz !== tz) {
       return false
     }
-    const hour = m.hour()
+    const minute = m.hour() * 60 + m.minute()
     //do 'calendar-compare' not real-time-compare
-    if (hour >= startHour && hour <= endHour) {
-      //test minutes too, if applicable
-      if (hour === startHour && m.minute() < start.minute()) {
-        return false
-      }
-      if (hour === endHour && m.minute() > end.minute()) {
-        return false
-      }
-      return true
+    if (!b && endMinute < startMinute) {
+      return minute >= startMinute || minute <= endMinute
     }
-    return false
+    return minute >= startMinute && minute <= endMinute
   })
   return tzs.map(titleCase)
 }
