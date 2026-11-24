@@ -132,7 +132,7 @@ const units: Record<string, (s: Spacetime) => Spacetime> = {
   decade: (s: Spacetime) => {
     s = s.startOf('year')
     const year = s.year()
-    const decade = Math.trunc(year / 10) * 10
+    const decade = Math.floor(year / 10) * 10
     s = s.year(decade)
     return s
   },
