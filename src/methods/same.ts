@@ -17,7 +17,8 @@ const print: Record<string, (s: Spacetime) => string | number> = {
     return [s.year(), s.month(), s.date()].join('-')
   },
   week: (s: Spacetime) => {
-    return [s.year(), s.week()].join('-')
+    const start = s.startOf('week')
+    return [start.year(), start.month(), start.date()].join('-')
   },
   month: (s: Spacetime) => {
     return [s.year(), s.month()].join('-')
