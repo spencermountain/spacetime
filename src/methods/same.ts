@@ -56,7 +56,7 @@ const isSame = function (this: Spacetime, b: SpacetimeInput, unit: TimeUnit, tzA
     unit = tmp as TimeUnit
   }
   let other = b as Spacetime
-  if (typeof b === 'string' || typeof b === 'number') {
+  if (b != null && typeof other.isValid !== 'function') {
     other = this.clone().set(b)
   }
   if (!a.isValid() || other == null || other.isValid == null || !other.isValid()) {
