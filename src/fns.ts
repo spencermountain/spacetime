@@ -77,7 +77,7 @@ export const getEpoch = (tmp: number | Date | Spacetime | { epoch: number }): nu
 
 //make sure this input is a spacetime obj
 export const beADate = (d: SpacetimeInput, s: Spacetime): Spacetime => {
-  if (d instanceof Object && 'epoch' in d) {
+  if (d instanceof Object && 'epoch' in d && typeof (d as Spacetime).clone === 'function') {
     return d as Spacetime
   }
   return d == null ? s.clone().set() : s.clone().set(d)
