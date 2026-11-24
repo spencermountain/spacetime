@@ -26,15 +26,24 @@ const methods = {
     let want = Number(input)
     // accept 'wednesday'
     if (typeof input === 'string') {
-      input = input.toLowerCase()
+      input = input.toLowerCase().trim()
+      if (!input) {
+        return original
+      }
       if (aliases.hasOwnProperty(input)) {
         want = aliases[input]
-      } else {
+      } else if (Number.isNaN(want)) {
         want = short().indexOf(input)
         if (want === -1) {
           want = long().indexOf(input)
         }
+        if (want === -1) {
+          return original
+        }
       }
+    }
+    if (!Number.isInteger(want)) {
+      return original
     }
     //move approx
     const day = this.d.getUTCDay()
