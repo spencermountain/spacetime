@@ -1,6 +1,6 @@
 import { parseTemporal } from './temporal.ts'
 import { isObject } from '../fns.ts'
-import fns from './helpers.ts'
+import fns, { getDefaults } from './helpers.ts'
 const { parseArray, parseObject, parseNumber } = fns
 import namedDates from './named-dates.ts'
 import normalize from './normalize.ts'
@@ -15,19 +15,13 @@ import type { Spacetime, SpacetimeInput, DateParts } from '../types/index.ts'
 // Full Date	"Wednesday March 25 2015"
 //=========================================
 
-const defaults: DateParts = {
-  year: new Date().getFullYear(),
-  month: 0,
-  date: 1
-}
-
 //find the epoch from different input styles
 const parseInput = (s: Spacetime, input: SpacetimeInput, timezone?: string): Spacetime => {
-  const today = s._today || defaults
   //if we've been given a epoch number, it's easy
   if (typeof input === 'number') {
     return parseNumber(s, input)
   }
+  const today = s._today || getDefaults()
   //set tmp time
   s.epoch = Date.now()
   // overwrite tmp time with 'today' value, if exists

@@ -3,11 +3,11 @@ import { parseMonth } from './formats/_parsers.ts'
 import type { Spacetime, DateParts } from '../types/index.ts'
 import type { DateFields } from '../../types/types.js'
 
-const defaults: DateParts = {
+const getDefaults = (): DateParts => ({
   year: new Date().getFullYear(),
   month: 0,
   date: 1
-}
+})
 const units = ['year', 'month', 'date', 'hour', 'minute', 'second', 'millisecond'] as const
 
 //support [2016, 03, 01] format
@@ -15,6 +15,7 @@ const parseArray = (s: Spacetime, arr: Array<number | string>, today: DateParts)
   if (arr.length === 0) {
     return s
   }
+  const defaults = getDefaults()
   for (let i = 0; i < units.length; i++) {
     let num = arr[i]
     if (num == null) {
@@ -36,7 +37,7 @@ const parseObject = (s: Spacetime, obj: DateParts): Spacetime => {
   if (Object.keys(obj).length === 0) {
     return s
   }
-  obj = Object.assign({}, defaults, obj)
+  obj = Object.assign({}, getDefaults(), obj)
   if (obj.timezone) {
     s.tz = obj.timezone
   }
@@ -83,7 +84,7 @@ const parseNumber = function (s: Spacetime, input: number): Spacetime {
   return s
 }
 
-export { toParts }
+export { toParts, getDefaults }
 export default {
   parseArray,
   parseObject,
