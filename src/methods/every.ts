@@ -16,7 +16,7 @@ const isDay = function (unit: TimeUnit): boolean {
 // return a list of the weeks/months/days between a -> b
 // returns spacetime objects in the timezone of the input
 const every = function (start: Spacetime, unit: TimeUnit, to: SpacetimeInput, stepCount = 1): Spacetime[] {
-  if (!unit || !to || !Number.isInteger(stepCount) || stepCount <= 0) {
+  if (!unit || (!to && to !== 0) || !Number.isInteger(stepCount) || stepCount <= 0) {
     return []
   }
   //cleanup unit param
