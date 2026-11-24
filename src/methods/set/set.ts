@@ -283,4 +283,5 @@ export {
   year,
   week,
   dayOfYear,
+  fwdBkwd,
 }
