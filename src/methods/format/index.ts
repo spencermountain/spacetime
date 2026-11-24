@@ -60,6 +60,9 @@ const format: Record<string, Formatter> = {
   },
   'iso-year': (s) => {
     const year = s.year()
+    if (year > 9999) {
+      return '+' + zeroPad(year, 6)
+    }
     const isNegative = year < 0
     let str = zeroPad(Math.abs(year), 4) //0-padded
     if (isNegative) {
