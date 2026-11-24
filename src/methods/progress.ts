@@ -20,7 +20,8 @@ const doUnit = function (s: Spacetime, k: TimeUnit): number {
 // decades and centuries begin on a jan 1st, so step there from the start of this year
 // (quicker than a full startOf + endOf)
 const doYears = function (s: Spacetime, size: number, yearStart: Spacetime): number {
-  const first = Math.trunc(yearStart.year() / size) * size
+  const round = size === 10 ? Math.floor : Math.trunc
+  const first = round(yearStart.year() / size) * size
   const start = yearStart.year(first)
   const end = start.year(first + size)
   end.epoch -= 1 // the last millisecond, like endOf
