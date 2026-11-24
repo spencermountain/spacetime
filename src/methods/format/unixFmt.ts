@@ -7,6 +7,11 @@ const fraction = (s: Spacetime, n: number): string => {
   return pad(s.millisecond(), 3).padEnd(n, '0').slice(0, n)
 }
 
+const yearWidth = (s: Spacetime, n: number): string => {
+  const year = s.year()
+  return (year < 0 ? '-' : '') + pad(Math.abs(year), n)
+}
+
 //time-symbols we support
 const mapping: Record<string, (s: Spacetime) => string | number> = {
   G: (s: Spacetime) => s.era(),
@@ -19,9 +24,9 @@ const mapping: Record<string, (s: Spacetime) => string | number> = {
     //last two digits
     return pad(Math.abs(s.year()) % 100)
   },
-  yyy: (s: Spacetime) => s.year(),
-  yyyy: (s: Spacetime) => s.year(),
-  yyyyy: (s: Spacetime) => '0' + s.year(),
+  yyy: (s: Spacetime) => yearWidth(s, 3),
+  yyyy: (s: Spacetime) => yearWidth(s, 4),
+  yyyyy: (s: Spacetime) => yearWidth(s, 5),
   // u: (s) => {},//extended non-gregorian years
 
   //quarter
