@@ -167,10 +167,11 @@ const date = function (s: Spacetime, n: number | string, goFwd?: boolean): numbe
 
 const month = function (s: Spacetime, n: number | string, goFwd?: boolean): number {
   if (typeof n === 'string') {
+    n = n.trim().toLowerCase()
     if (n === 'sept') {
       n = 'sep'
     }
-    n = mapping()[n.toLowerCase()]
+    n = mapping()[n]
   }
   n = validate(n)
   //don't go past december
