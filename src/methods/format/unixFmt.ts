@@ -95,7 +95,7 @@ const mapping: Record<string, (s: Spacetime) => string | number> = {
   SSS: (s: Spacetime) => fraction(s, 3),
   SSSS: (s: Spacetime) => fraction(s, 4),
   //milliseconds in the day
-  A: (s: Spacetime) => s.epoch - s.startOf('day').epoch,
+  A: (s: Spacetime) => ((s.hour() * 60 + s.minute()) * 60 + s.second()) * 1000 + s.millisecond(),
   //timezone
   z: (s: Spacetime) => s.timezone().name,
   zz: (s: Spacetime) => s.timezone().name,
