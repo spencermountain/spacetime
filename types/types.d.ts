@@ -89,10 +89,10 @@ export interface Spacetime {
   floor: (unit: TimeUnit) => Spacetime
 
   /** list all dates up to a certain time */
-  every: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit, stepCount?: number) => Spacetime[]
+  every: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | number | TimeUnit, stepCount?: number) => Spacetime[]
 
   /** list all dates up to a certain time */
-  each: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | TimeUnit, stepCount?: number) => Spacetime[]
+  each: (unit: Spacetime | string | TimeUnit, end: Spacetime | string | number | TimeUnit, stepCount?: number) => Spacetime[]
 
   /** go to the beginning of the previous unit */
   last: (unit: TimeUnit) => Spacetime
