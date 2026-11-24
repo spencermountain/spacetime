@@ -2,7 +2,8 @@ import {
   dayOfYear as _dayOfYear,
   week as setWeek,
   month as _month,
-  year as _year
+  year as _year,
+  fwdBkwd
 } from '../set/set.ts'
 import { getMonthLength } from '../set/_model.ts'
 import { long } from '../../data/months.ts'
@@ -143,10 +144,10 @@ const methods = {
       if (quarters[num]) {
         let s = this.clone()
         const month = quarters[num][0]
-        s = s.month(month, goFwd)
-        s = s.date(1, goFwd)
+        s = s.month(month)
+        s = s.date(1)
         s = s.startOf('day')
-        return s
+        return fwdBkwd(s, this, goFwd, 'year')
       }
     }
     const month = this.d.getUTCMonth()
@@ -169,9 +170,10 @@ const methods = {
       let s = this.clone()
       for (let i = 0; i < seasons[hem].length; i++) {
         if (input === seasons[hem][i][0]) {
-          s = s.month(seasons[hem][i][1], goFwd)
+          s = s.month(seasons[hem][i][1])
           s = s.date(1)
           s = s.startOf('day')
+          return fwdBkwd(s, this, goFwd, 'year')
         }
       }
       return s

@@ -1,4 +1,4 @@
-import { milliseconds, seconds, minutes, hours, time as _time } from '../set/set.ts'
+import { milliseconds, seconds, minutes, hours, time as _time, fwdBkwd } from '../set/set.ts'
 import { am, pm } from '../../data/ampm.ts'
 import { zeroPad } from '../../fns.ts'
 import type { Spacetime, GetSet, SpacetimeInput } from '../../types/index.ts'
@@ -46,9 +46,9 @@ const methods = {
       let minute = num % 1
       minute = minute * 60
       const hour = Math.trunc(num)
-      s.epoch = hours(s, hour, goFwd)
-      s.epoch = minutes(s, minute, goFwd)
-      return s
+      s.epoch = hours(s, hour)
+      s.epoch = minutes(s, minute)
+      return fwdBkwd(s, this, goFwd, 'day')
     }
     const d = this.d
     const hour = d.getUTCHours()
