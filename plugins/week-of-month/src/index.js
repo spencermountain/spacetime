@@ -5,7 +5,7 @@ const getFirstWeek = function (s) {
   const month = s.month()
   let start = s.date(1)
   start = start.startOf('week')
-  const thu = start.add(3, 'days')
+  const thu = start.day(4, true)
   if (thu.month() !== month) {
     start = start.add(1, 'week')
   }
@@ -34,7 +34,7 @@ const plugin = {
   whichWeek: function () {
     const s = this.startOf('week')
     // it's always in the same month that it's thursday is...
-    const thurs = s.add(3, 'days')
+    const thurs = s.day(4, true)
     const month = thurs.monthName()
     const num = thurs.weekOfMonth()
 
