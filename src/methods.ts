@@ -178,7 +178,7 @@ const methods = {
     if (input !== undefined) {
       let s = this.clone()
       if (input.timezone) {
-        s.tz = String(input.timezone)
+        s.tz = findTz(String(input.timezone), s.timezones)
       }
       for (let i = 0; i < units.length; i++) {
         const unit = units[i]
