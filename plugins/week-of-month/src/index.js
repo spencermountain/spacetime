@@ -44,14 +44,9 @@ const plugin = {
     return getFirstWeek(this.clone())
   },
   lastSunday: function () {
-    let s = this.endOf('month') //last day
-    // if it's after thursday
-    if (s.day() > 4) {
-      return s.endOf('week')
-    }
-    // else, the previous sunday
-    s = s.minus(1, 'week')
-    return s.endOf('week')
+    // The final month week contains its last Thursday and ends on Sunday.
+    const thursday = this.endOf('month').day(4, false)
+    return thursday.day(0, true).endOf('day')
   }
 }
 
