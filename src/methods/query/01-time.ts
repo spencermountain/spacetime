@@ -42,10 +42,10 @@ const methods = {
   hourFloat: function (this: Spacetime, num?: number | string, goFwd?: boolean) {
     if (num !== undefined) {
       const s = this.clone()
-      num = Number(num)
-      let minute = num % 1
-      minute = minute * 60
-      const hour = Math.trunc(num)
+      // Remove floating-point noise before truncating partial minutes.
+      const total = Math.trunc(Number((Number(num) * 60).toFixed(6)))
+      const minute = total % 60
+      const hour = Math.trunc(total / 60)
       s.epoch = hours(s, hour)
       s.epoch = minutes(s, minute)
       return fwdBkwd(s, this, goFwd, 'day')
