@@ -3,7 +3,6 @@ import parseTime from './parseTime.ts'
 import { isLeapYear } from '../../fns.ts'
 import { mapping } from '../../data/months.ts'
 import type { DateParts } from '../../types/index.ts'
-const months = mapping()
 
 /** what a parser needs to know about the instance it is parsing for */
 export interface ParseContext {
@@ -83,6 +82,7 @@ const parseYear = (str: string = '', today?: DateParts): number => {
 }
 
 const parseMonth = function (str: string): number {
+  const months = mapping()
   str = str.toLowerCase().trim()
   if (str === 'sept') {
     return months.sep
