@@ -71,7 +71,7 @@ const isSame = function (this: Spacetime, b: SpacetimeInput, unit: TimeUnit, tzA
     other = other.clone()
     other.tz = a.tz
   }
-  if (print[name]) {
+  if (Object.hasOwn(print, name)) {
     return print[name](a) === print[name](other)
   }
   return null
