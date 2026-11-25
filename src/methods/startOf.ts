@@ -161,7 +161,7 @@ const startOf = (a: Spacetime, unit: TimeUnit): Spacetime => {
     return s
   }
   const name: string = normalize(unit)
-  if (units[name]) {
+  if (Object.prototype.hasOwnProperty.call(units, name)) {
     return units[name](s)
   }
   if (name === 'summer' || name === 'winter') {
@@ -178,7 +178,7 @@ const endOf = (a: Spacetime, unit: TimeUnit): Spacetime => {
     return s
   }
   unit = normalize(unit)
-  if (units[unit]) {
+  if (Object.prototype.hasOwnProperty.call(units, unit)) {
     // go to beginning, go to next one, step back 1ms
     s = units[unit](s) // startof
     s = s.add(1, unit)
@@ -195,7 +195,7 @@ const endOf = (a: Spacetime, unit: TimeUnit): Spacetime => {
 // (the same results as startOf and endOf, for around half the work)
 const bounds = (a: Spacetime, unit: TimeUnit): [Spacetime, Spacetime] => {
   const name: string = normalize(unit)
-  if (!a.isValid() || !units[name]) {
+  if (!a.isValid() || !Object.prototype.hasOwnProperty.call(units, name)) {
     return [startOf(a, unit), endOf(a, unit)]
   }
   const start = units[name](a.clone())
