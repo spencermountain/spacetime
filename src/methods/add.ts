@@ -91,6 +91,9 @@ const add = function (this: Spacetime, num: number, unit: TimeUnit) {
   } else if (unit === 'quarterhour') {
     s.epoch += ms.minute * 15 * num
   }
+  if (!s.isValid()) {
+    return s
+  }
   //now ensure our milliseconds/etc are in-line
   let want: DateParts = {}
   if (keep[unit]) {
