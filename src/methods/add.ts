@@ -117,8 +117,8 @@ const add = function (this: Spacetime, num: number, unit: TimeUnit) {
       want.date = sum
     }
   }
-  if (unit === 'weekend' && s.dayName() !== 'saturday') {
-    s = s.day('saturday', true) //ensure it's saturday
+  if (unit === 'weekend' && s.day() !== 6) {
+    s = s.day(6, true) //ensure it's saturday
   }
   //support 25-hour day-changes on dst-changes
   else if (unit === 'date') {

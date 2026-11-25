@@ -8,7 +8,10 @@ test('week calculations do not depend on translated calendar names', (t) => {
   const zones = ['UTC', 'America/New_York']
   const cases = zones.flatMap(tz => dates.map(date => {
     const s = spacetime(date, tz)
-    return { date, tz, week: s.week(), first: s.week(1).epoch, second: s.week(2).epoch }
+    return {
+      date, tz, week: s.week(), first: s.week(1).epoch, second: s.week(2).epoch,
+      nextWeekend: s.add(1, 'weekend').epoch, previousWeekend: s.subtract(1, 'weekend').epoch
+    }
   }))
 
   spacetime.now().i18n({
@@ -22,12 +25,14 @@ test('week calculations do not depend on translated calendar names', (t) => {
     }
   })
 
-  cases.forEach(({ date, tz, week, first, second }) => {
+  cases.forEach(({ date, tz, week, first, second, nextWeekend, previousWeekend }) => {
     const s = spacetime(date, tz)
     const original = s.epoch
     t.equal(s.week(), week, `${date} ${tz} week number`)
     t.equal(s.week(1).epoch, first, `${date} ${tz} first week`)
     t.equal(s.week(2).epoch, second, `${date} ${tz} second week`)
+    t.equal(s.add(1, 'weekend').epoch, nextWeekend, `${date} ${tz} next weekend`)
+    t.equal(s.subtract(1, 'weekend').epoch, previousWeekend, `${date} ${tz} previous weekend`)
     t.equal(s.epoch, original, `${date} ${tz} preserves input`)
   })
   t.equal(spacetime('2021-01-04', 'UTC').monthName(), 'enero', 'names remain localized')
