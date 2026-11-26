@@ -4,7 +4,10 @@
       <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
     </a>
   </div>
-
+  <div>calculate time across timezones</div>
+  <div>
+    <img width="300" height="8" alt="image" src="https://github.com/user-attachments/assets/a8454327-add3-4486-ad7d-c24be50f9d8d" />
+  </div>
   <a href="https://npmjs.org/package/spacetime">
     <img src="https://img.shields.io/npm/v/spacetime.svg?style=flat-square" />
   </a>
@@ -472,12 +475,12 @@ Pass constructor options as the third argument:
 spacetime('12/01/2018', 'UTC', { dmy: true }).format('iso-short') // '2018-01-12'
 ```
 
-| Option | Purpose | Default |
-| --- | --- | --- |
-| `silent` | Set `false` to enable warnings | `true` |
-| `dmy` | Interpret ambiguous numeric dates as day/month/year | `false` |
-| `today` | Supply reference date fields for partial inputs | Current date |
-| `weekStart` | Set week boundaries (0 = Sunday, 1 = Monday) | `1` |
+| Option      | Purpose                                             | Default      |
+| ----------- | --------------------------------------------------- | ------------ |
+| `silent`    | Set `false` to enable warnings                      | `true`       |
+| `dmy`       | Interpret ambiguous numeric dates as day/month/year | `false`      |
+| `today`     | Supply reference date fields for partial inputs     | Current date |
+| `weekStart` | Set week boundaries (0 = Sunday, 1 = Monday)        | `1`          |
 
 See [constructor options](./docs/inputs.md#constructor-options-third-argument)
 for examples. For country-specific week starts, use

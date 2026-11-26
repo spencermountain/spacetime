@@ -1,7 +1,7 @@
 {
   "name": "spacetime",
   "version": "7.18.1",
-  "description": "calculate dates across timezones",
+  "description": "calculate time across timezones",
   "license": "Apache-2.0",
   "repository": "github:spencermountain/spacetime",
   "homepage": "https://spacetime.how",
