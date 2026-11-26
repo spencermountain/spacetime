@@ -91,6 +91,9 @@ const add = function (this: Spacetime, num: number, unit: TimeUnit) {
   } else if (unit === 'quarterhour') {
     s.epoch += ms.minute * 15 * num
   }
+  if (!s.isValid()) {
+    return s
+  }
   //now ensure our milliseconds/etc are in-line
   let want: DateParts = {}
   if (keep[unit]) {
@@ -117,8 +120,8 @@ const add = function (this: Spacetime, num: number, unit: TimeUnit) {
       want.date = sum
     }
   }
-  if (unit === 'weekend' && s.dayName() !== 'saturday') {
-    s = s.day('saturday', true) //ensure it's saturday
+  if (unit === 'weekend' && s.day() !== 6) {
+    s = s.day(6, true) //ensure it's saturday
   }
   //support 25-hour day-changes on dst-changes
   else if (unit === 'date') {
