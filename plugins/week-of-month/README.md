@@ -1,8 +1,9 @@
 <div align="center">
 
   <div>calculate the week number of a month</div>
-  <div><img src="https://cloud.githubusercontent.com/assets/399657/23590290/ede73772-01aa-11e7-8915-181ef21027bc.png" /></div>
-
+  <div>
+    <img width="300" height="8" alt="image" src="https://github.com/user-attachments/assets/a8454327-add3-4486-ad7d-c24be50f9d8d" />
+  </div>
   <div align="center">
     <a href="https://npmjs.org/package/spacetime-week-of-month">
       <img src="https://img.shields.io/npm/v/spacetime-week-of-month.svg?style=flat-square" />
