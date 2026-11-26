@@ -50,7 +50,7 @@ const parsers: Parser[] = [
     reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?$/i,
     parse: (arr) => {
       const year = (arr[3] || '').trim()
-      return { season: arr[1] || '', parts: year ? { year: Number(year) } : undefined }
+      return { season: arr[1].toLowerCase(), parts: year ? { year: Number(year) } : undefined }
     }
   },
   {
