@@ -19,7 +19,7 @@ const parsers: Parser[] = [
       const parts = {
         date,
         month,
-        year: parseYear(arr[3], s._today) || new Date().getFullYear()
+        year: parseYear(arr[3], s._today)
       }
       if (validate(parts) === false) {
         return null

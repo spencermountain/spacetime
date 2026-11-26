@@ -72,14 +72,12 @@ const parseYear = (str: string = '', today?: DateParts): number => {
     }
     return 2000 + num
   }
-  let year = parseInt(str, 10)
-  // use a given year from options.today
-  if (!year && today) {
-    year = today.year
+  const year = parseInt(str, 10)
+  if (!Number.isNaN(year)) {
+    return year
   }
-  // fallback to this year
-  year = year || new Date().getFullYear()
-  return year
+  // use options.today or the current year only when no year was supplied
+  return today?.year ?? new Date().getFullYear()
 }
 
 const parseMonth = function (str: string): number {

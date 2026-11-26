@@ -20,6 +20,10 @@ const apply = (s: Spacetime, parsed: ParsedDate, given: boolean): Spacetime => {
   }
   // read the clock as utc, and shift it by the offset after
   const offset = offsetHours(parsed.offset)
+  if (parsed.offset !== undefined && offset === null) {
+    s.epoch = null
+    return s
+  }
   if (offset !== null) {
     s.tz = 'etc/gmt'
   }
