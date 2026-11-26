@@ -12,9 +12,13 @@ This project follows semVer, where:
 
 ### 7.18.1 [Nov 2026]
 
-- **[fix]** - [20-some hardening fixes](https://github.com/spencermountain/spacetime/pulls?q=is%3Apr+state%3Aclosed+author%3AAschenbath) by Nash Aschenbath 💝
+- **[fix]** - [30-some hardening fixes](https://github.com/spencermountain/spacetime/pulls?q=is%3Apr+state%3Aclosed+author%3AAschenbath) by Nash Aschenbath 💝
 - **[change]** - support `{month:0}` as january #528
 - **[fix]** - support week 53 #530
+- **[fix]** - prevent inf-loop in set #517
+- **[fix]** - unixFmt escaping and year-widths #506 #512 #498
+- **[change]** - plugins/week-of-month calculation #526 #527
+- **[update]** - dependencies
 
 ### 7.18.0 [Nov 2026]
 

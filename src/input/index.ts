@@ -5,6 +5,7 @@ const { parseArray, parseObject, parseNumber } = fns
 import namedDates from './named-dates.ts'
 import normalize from './normalize.ts'
 import parseString from './parse.ts'
+import findTz from '../timezone/find.ts'
 import type { Spacetime, SpacetimeInput, DateParts } from '../types/index.ts'
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
@@ -55,7 +56,8 @@ const parseInput = (s: Spacetime, input: SpacetimeInput, timezone?: string): Spa
     if ('epoch' in input) {
       s.epoch = typeof input.epoch === 'number' ? input.epoch : NaN
       if (timezone == null && 'tz' in input && typeof input.tz === 'string') {
-        s.tz = input.tz
+        // a plain object may carry any spelling of the name, like 'Asia/Kolkata'
+        s.tz = findTz(input.tz, s.timezones)
       }
       return s
     }

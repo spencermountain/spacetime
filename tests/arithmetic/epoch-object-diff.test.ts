@@ -15,6 +15,9 @@ test('differences accept plain epoch objects', t => {
       t.deepEqual(input, tz ? { epoch, tz } : { epoch }, 'input is not changed')
     }
   }
+  const kolkata = spacetime({ epoch: 0, tz: 'Asia/Kolkata' })
+  t.equal(kolkata.tz, 'asia/kolkata', 'object tz is resolved to its zonefile name')
+  t.equal(kolkata.format('iso'), '1970-01-01T05:30:00.000+05:30', 'object tz gets its real offset')
   t.equal(start.epoch, 0, 'receiver is unchanged')
   t.end()
 })

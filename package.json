@@ -1,6 +1,6 @@
 {
   "name": "spacetime",
-  "version": "7.18.0",
+  "version": "7.18.1",
   "description": "calculate dates across timezones",
   "license": "Apache-2.0",
   "repository": "github:spencermountain/spacetime",
@@ -74,7 +74,7 @@
   ],
   "devDependencies": {
     "@rollup/plugin-terser": "catalog:",
-    "@types/node": "^26.6.6",
+    "@types/node": "^26.6.11",
     "@types/tape": "^5.8.1",
     "esbuild": "^0.28.2",
     "eslint": "^10.15.0",
@@ -88,7 +88,7 @@
     "timekeeper": "2.3.1",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.73.0"
+    "typescript-eslint": "^8.74.0"
   },
   "unpkg": "builds/spacetime.min.js",
   "prettier": {
