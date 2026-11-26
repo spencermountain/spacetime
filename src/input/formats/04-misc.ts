@@ -50,7 +50,7 @@ const parsers: Parser[] = [
     reg: /^(spring|summer|winter|fall|autumn)( of)?( [0-9]{4})?$/i,
     parse: (arr) => {
       const year = (arr[3] || '').trim()
-      return { season: arr[1] || '', parts: year ? { year: Number(year) } : undefined }
+      return { season: arr[1].toLowerCase(), parts: year ? { year: Number(year) } : undefined }
     }
   },
   {
@@ -101,9 +101,9 @@ const parsers: Parser[] = [
       const d = new Date()
       const parts = {
         year: parseYear(arr[0], today),
-        month: today.month || d.getMonth(),
+        month: today.month ?? d.getMonth(),
         // using today's date, but a new month is awkward.
-        date: today.date || (today.month ? 1 : d.getDate())
+        date: today.date || (today.month !== undefined ? 1 : d.getDate())
       }
       parts.date = clampDate(parts)
       if (validate(parts) === false) {
