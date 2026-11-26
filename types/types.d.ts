@@ -463,6 +463,7 @@ export type ParsableDate =
   | number
   | Array<number | string>
   | string
-  | DateFields
+  | (DateFields & { tz?: string })
   | { epoch: number | null; tz?: string }
+  | { epoch: number | null; timezone?: string }
   | TemporalInput

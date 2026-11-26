@@ -17,6 +17,7 @@ export interface DateParts {
   second?: number
   millisecond?: number
   timezone?: string
+  tz?: string
 }
 
 

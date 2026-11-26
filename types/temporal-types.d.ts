@@ -25,7 +25,7 @@ export interface Options {
   today?: DateFields
 }
 export type DateArray = [FieldValue?, FieldValue?, FieldValue?, FieldValue?, FieldValue?, FieldValue?, FieldValue?]
-export type Input = string | number | Date | DateArray | DateFields | Spacetime | { epoch: number | null; tz?: string } | Temporal.Instant | Temporal.ZonedDateTime | Temporal.PlainDate | Temporal.PlainDateTime | null
+export type Input = string | number | Date | DateArray | (DateFields & { tz?: Timezone }) | Spacetime | { epoch: number | null; tz?: string } | { epoch: number | null; timezone?: string } | Temporal.Instant | Temporal.ZonedDateTime | Temporal.PlainDate | Temporal.PlainDateTime | null
 export interface Json {
   year: number
   month: number
