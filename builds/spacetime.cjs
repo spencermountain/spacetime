@@ -1,4 +1,4 @@
-/* spencermountain/spacetime 7.18.1 Apache-2.0 */
+/* spencermountain/spacetime 7.19.0 Apache-2.0 */
 'use strict';
 
 const isLeapYear = (year) => year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
@@ -669,13 +669,24 @@ const parseArray$1 = (s, arr, today) => {
   }
   return s;
 };
+const objectTimezone$1 = (obj, first, second) => {
+  const fields = obj;
+  for (const key of [first, second]) {
+    const value = fields[key];
+    if (typeof value === "string" && value !== "") {
+      return value;
+    }
+  }
+  return void 0;
+};
 const parseObject$1 = (s, obj) => {
   if (Object.keys(obj).length === 0) {
     return s;
   }
   obj = Object.assign({}, getDefaults(), obj);
-  if (obj.timezone) {
-    s.tz = obj.timezone;
+  const zone = objectTimezone$1(obj, "timezone", "tz");
+  if (zone !== void 0) {
+    s.tz = lookupTz(zone, s.timezones);
   }
   for (let i = 0; i < units$6.length; i++) {
     const unit = units$6[i];
@@ -715,7 +726,8 @@ const parseNumber$1 = function(s, input) {
 var fns = {
   parseArray: parseArray$1,
   parseObject: parseObject$1,
-  parseNumber: parseNumber$1
+  parseNumber: parseNumber$1,
+  objectTimezone: objectTimezone$1
 };
 
 const getNow = function(s) {
@@ -1309,7 +1321,7 @@ const parseString = function(s, input, given = false) {
   return s;
 };
 
-const { parseArray, parseObject, parseNumber } = fns;
+const { parseArray, parseObject, parseNumber, objectTimezone } = fns;
 const parseInput = (s, input, timezone) => {
   if (typeof input === "number") {
     return parseNumber(s, input);
@@ -1340,13 +1352,21 @@ const parseInput = (s, input, timezone) => {
   if (isObject(input)) {
     if ("epoch" in input) {
       s.epoch = typeof input.epoch === "number" ? input.epoch : NaN;
-      if (timezone == null && "tz" in input && typeof input.tz === "string") {
-        s.tz = lookupTz(input.tz, s.timezones);
+      const zone = objectTimezone(input, "tz", "timezone");
+      if (zone !== void 0) {
+        const found = lookupTz(zone, s.timezones);
+        if (timezone == null) {
+          s.tz = found;
+        }
       }
       return s;
     }
     const obj = Object.assign({}, today, input);
+    const asked = s.tz;
     s = parseObject(s, obj);
+    if (timezone != null && s.tz !== asked) {
+      s.tz = asked;
+    }
     return s;
   }
   if (typeof input !== "string") {
@@ -3970,7 +3990,7 @@ const whereIts = (a, b) => {
   return tzs.map(titleCase);
 };
 
-var version = "7.18.1";
+var version = "7.19.0";
 
 const create = (input, tz, options) => new Spacetime(input, tz, options);
 const setToday = function(s) {
