@@ -86,7 +86,7 @@ const methods = {
   },
   diff: diffMethod,
   since: function (this: Spacetime, d?: SpacetimeInput) {
-    if (!d) {
+    if (!d && d !== 0) {
       d = this.clone().set()
     }
     return since(this, d)
