@@ -52,11 +52,9 @@ and worse - there's no real **_date-calculator_**?
 
 <img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<code>npm install spacetime</code>
+<code>npm install spacetime</code> 👈
 
-<div >
-  <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><sub>It's very small, and very handy.</sub>
-</div>
+<br/>
 
 ```js
 import spacetime from 'spacetime'
@@ -76,17 +74,15 @@ s.isBetween(s.time('11:00am'), s.time('2:00pm'))
 // true 🥐
 ```
 
-These results depend on when you run the example.
-
 - calculate time in remote timezones
 - support **daylight savings**, **leap years**, and **hemispheres**
 - [Moment-like API](./docs/API.md) _(mostly immutable)_
 - Orient time by quarter, season, month, week..
-- _Zero Dependencies_ - timezone math uses bundled data; `Intl` is used only to detect your local timezone
-- see the size badge above for the current minified bundle size
+- _Zero Dependencies_ - timezone math uses bundled data
+- ~50kb minified
 - has a cool _[plugin thing](https://observablehq.com/@spencermountain/spacetime)_.
 - frequent updates for approaching DST changes
-- [Temporal interoperability and an optional Temporal-backed entry](./docs/Temporal.md)
+- [Temporal interop and on-ramp](./docs/Temporal.md)
 
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 <div align="center">
