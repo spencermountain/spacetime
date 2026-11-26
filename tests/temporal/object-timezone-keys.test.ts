@@ -1,7 +1,9 @@
 import test from 'tape'
 import spacetime from '../../src/temporal/index.ts'
 
-test('temporal: object inputs accept their timezone as either tz or timezone', (t) => {
+const options = { skip: !globalThis.Temporal }
+
+test('Temporal object inputs accept their timezone as either tz or timezone', options, (t) => {
   const parts = { year: 2024, month: 5, date: 1, hour: 9, minute: 0, second: 0, millisecond: 0 }
   for (const key of ['tz', 'timezone']) {
     const fromEpoch = spacetime({ epoch: 0, [key]: 'Asia/Kolkata' })
