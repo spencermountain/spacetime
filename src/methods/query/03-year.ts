@@ -81,7 +81,7 @@ const methods = {
     let tmp = this.clone()
 
     // first - are we in week 1 of the next year?
-    if (tmp.monthName() === 'december' && tmp.date() >= 29) {
+    if (tmp.month() === 11 && tmp.date() >= 29) {
       const startNext = setWeek(tmp.add(15, 'days'), 1, false)
       if (startNext.epoch <= tmp.epoch) {
         return 1
@@ -92,8 +92,8 @@ const methods = {
     tmp = tmp.month(0) // go to jan 1
     tmp = tmp.date(1)
     tmp = clearMinutes(tmp)
-    tmp = tmp.day('monday', false) // go backward to monday
-    if (tmp.monthName() === 'december' && tmp.date() < 29) {
+    tmp = tmp.day(1, false) // go backward to monday
+    if (tmp.month() === 11 && tmp.date() < 29) {
       tmp = tmp.add(1, 'week')
     }
 

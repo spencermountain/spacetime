@@ -232,7 +232,7 @@ const week = function (s: Spacetime, n: number | string, goFwd?: boolean): Space
   // don't set week=1, if we're already week=1 in late december
   // because this could send us to another year
   if (n === 1) {
-    if (s.monthName() === 'december' && s.date() >= 29) {
+    if (s.month() === 11 && s.date() >= 29) {
       if (s.week() === 1) {
         return s
       }
@@ -242,9 +242,9 @@ const week = function (s: Spacetime, n: number | string, goFwd?: boolean): Space
   // get the first week of the year
   s = s.month(0)
   s = s.date(1)
-  s = s.day('monday', false)//go backwards to monday
+  s = s.day(1, false)//go backwards to monday
   // did we go back too far?
-  if (s.monthName() === 'december' && s.date() < 29) {
+  if (s.month() === 11 && s.date() < 29) {
     s = s.add(1, 'week')
   }
   n -= 1 //1-based
