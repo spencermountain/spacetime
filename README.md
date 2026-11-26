@@ -48,7 +48,7 @@ and worse - there's no real **_date-calculator_**?
   <sub>people end up asking google, and going to weird websites.</sub>
 </div>
 
-<div align="center"><sub>that's bad.</sub></div>
+<div align="center"><sub>that's bad!</sub></div>
 
 <img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
