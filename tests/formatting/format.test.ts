@@ -52,7 +52,7 @@ test('unix-formatting', (t) => {
     ['LLL', 'Nov'],
     [`yyyy.MM.dd G 'at' HH:mm:ss zzz`, '2017.11.16 AD at 11:34:25 Canada/Eastern'],
     [`EEE, MMM d, ''yy`, "Thu, Nov 16, '17"],
-    [`hh 'o''clock' a`, '11 oclock AM'],
+    [`hh 'o''clock' a`, "11 o'clock AM"],
     ['yyyyy.MMMM.dd GGG hh:mm aaa', '02017.November.16 AD 11:34 AM'],
     ['yyyy-MM-ddTHH:mm:ssZ', '2017-11-16T11:34:25-0500'],
     ['yyyy-MM-ddTHH:mm:ssZZ', '2017-11-16T11:34:25-0500'],
@@ -214,6 +214,16 @@ test('unix-fmt-k-and-K-hours', (t) => {
   const evening = spacetime([2024, 0, 7, 23, 5], 'UTC')
   t.equal(evening.unixFmt('k'), '23', 'k 23')
   t.equal(evening.unixFmt('K'), '11', 'K 11')
+  t.end()
+})
+
+test('unix-fmt-escaped-apostrophe-in-quotes', (t) => {
+  const s = spacetime([2024, 0, 7, 17, 5], 'UTC')
+  t.equal(s.unixFmt(`h 'o''clock' a`), "5 o'clock PM", 'doubled apostrophe inside quotes')
+  t.equal(s.unixFmt(`'it''s' h`), "it's 5", 'doubled apostrophe mid-word')
+  t.equal(s.unixFmt(`'a''b''c'`), "a'b'c", 'several doubled apostrophes')
+  t.equal(s.unixFmt(`h''mm`), "5'05", 'doubled apostrophe outside quotes')
+  t.equal(s.unixFmt(`'h'`), 'h', 'quoted letter')
   t.end()
 })
 

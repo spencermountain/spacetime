@@ -137,6 +137,12 @@ const escapeChars = function (arr: string[]): string[] {
         if (arr[o]) {
           arr[i] += arr[o]
         }
+        if (arr[o] === `'` && o > i + 1 && arr[o + 1] === `'`) {
+          arr[o] = null
+          arr[o + 1] = null
+          o += 1
+          continue
+        }
         if (arr[o] === `'`) {
           arr[o] = null
           break
@@ -188,7 +194,7 @@ const unixFmt = (s: Spacetime, str: string): string => {
     } else {
       // 'unescape'
       if (/^'.+'$/.test(c)) {
-        c = c.replace(/'/g, '')
+        c = c.slice(1, -1)
       }
       txt += c
     }
