@@ -5,10 +5,16 @@ This project follows semVer, where:
 - **[patch]** is a bugfix
 
 <!--
-### 7.19.0 [Unreleased]
+### 17.0.0 [Unreleased]
 
 
 -->
+
+### 7.18.1 [Nov 2026]
+
+- **[fix]** - [20-some hardening fixes](https://github.com/spencermountain/spacetime/pulls?q=is%3Apr+state%3Aclosed+author%3AAschenbath) by Nash Aschenbath 💝
+- **[change]** - support `{month:0}` as january #528
+- **[fix]** - support week 53 #530
 
 ### 7.18.0 [Nov 2026]
 
