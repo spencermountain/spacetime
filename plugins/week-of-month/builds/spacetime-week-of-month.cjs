@@ -1,7 +1,7 @@
-/* spencermountain/spacetime-week-of-month 0.3.0 Apache 2.0 */
+/* spencermountain/spacetime-week-of-month 0.4.0 Apache 2.0 */
 'use strict';
 
-var version = '0.3.0';
+var version = '0.4.0';
 
 // the first week of a month includes a thursday, in that month
 // (leap days do not effect week-ordering!)
@@ -9,7 +9,7 @@ const getFirstWeek = function (s) {
   const month = s.month();
   let start = s.date(1);
   start = start.startOf('week');
-  const thu = start.add(3, 'days');
+  const thu = start.day(4, true);
   if (thu.month() !== month) {
     start = start.add(1, 'week');
   }
@@ -27,7 +27,7 @@ const plugin = {
     let num = 0;
     let end = start.endOf('week');
     for (let i = 0; i < 5; i += 1) {
-      if (end.isAfter(this)) {
+      if (end.epoch >= this.epoch) {
         return num + 1
       }
       end = end.add(1, 'week');
@@ -38,7 +38,7 @@ const plugin = {
   whichWeek: function () {
     const s = this.startOf('week');
     // it's always in the same month that it's thursday is...
-    const thurs = s.add(3, 'days');
+    const thurs = s.day(4, true);
     const month = thurs.monthName();
     const num = thurs.weekOfMonth();
 
@@ -48,14 +48,9 @@ const plugin = {
     return getFirstWeek(this.clone())
   },
   lastSunday: function () {
-    let s = this.endOf('month'); //last day
-    // if it's after thursday
-    if (s.day() > 4) {
-      return s.endOf('week')
-    }
-    // else, the previous sunday
-    s = s.minus(1, 'week');
-    return s.endOf('week')
+    // The final month week contains its last Thursday and ends on Sunday.
+    const thursday = this.endOf('month').day(4, false);
+    return thursday.day(0, true).endOf('day')
   }
 };
 
