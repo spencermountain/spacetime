@@ -1,10 +1,11 @@
 import { parseTemporal } from './temporal.ts'
 import { isObject } from '../fns.ts'
 import fns, { getDefaults } from './helpers.ts'
-const { parseArray, parseObject, parseNumber } = fns
+const { parseArray, parseObject, parseNumber, objectTimezone } = fns
 import namedDates from './named-dates.ts'
 import normalize from './normalize.ts'
 import parseString from './parse.ts'
+import findTz from '../timezone/find.ts'
 import type { Spacetime, SpacetimeInput, DateParts } from '../types/index.ts'
 //we have to actually parse these inputs ourselves
 //  -  can't use built-in js parser ;(
@@ -54,13 +55,24 @@ const parseInput = (s: Spacetime, input: SpacetimeInput, timezone?: string): Spa
     //support spacetime object as input
     if ('epoch' in input) {
       s.epoch = typeof input.epoch === 'number' ? input.epoch : NaN
-      if (timezone == null && 'tz' in input && typeof input.tz === 'string') {
-        s.tz = input.tz
+      // a plain object may carry any spelling of the name, like 'Asia/Kolkata', under either key
+      // (it is checked even when a timezone given beside the input is shown instead)
+      const zone = objectTimezone(input, 'tz', 'timezone')
+      if (zone !== undefined) {
+        const found = findTz(zone, s.timezones)
+        if (timezone == null) {
+          s.tz = found
+        }
       }
       return s
     }
     const obj: DateParts = Object.assign({}, today, input)
+    const asked = s.tz
     s = parseObject(s, obj)
+    // the object's own timezone only sets the moment, beside a given one
+    if (timezone != null && s.tz !== asked) {
+      s.tz = asked
+    }
     return s
   }
   //input as a string..

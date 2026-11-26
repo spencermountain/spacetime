@@ -3,6 +3,7 @@ import { short } from '../../data/months.ts'
 import { short as _short } from '../../data/days.ts'
 import { useTitleCase } from '../../data/caseFormat.ts'
 import isoOffset from './_offset.ts'
+import timezoneShort from './_timezoneShort.ts'
 import type { Spacetime } from '../../types/index.ts'
 
 const applyCaseFormat = (str: string): string => {
@@ -95,6 +96,7 @@ const format: Record<string, Formatter> = {
   era: (s) => s.era(),
   json: (s) => s.json(),
   timezone: (s) => s.timezone().name,
+  'timezone-short': timezoneShort,
   offset: (s) => isoOffset(s),
 
   numeric: (s) => `${s.year()}/${zeroPad(s.month() + 1)}/${zeroPad(s.date())}`, // yyyy/mm/dd

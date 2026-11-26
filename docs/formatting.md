@@ -72,7 +72,21 @@ s.format('on {day-short} {date-pad}') // 'on Mon 03'
 | `season` | `Spring` |  |  |
 | `era` | `AD` |  |  |
 | `timezone` | `America/New_York` | `tz`, `iana` |  |
+| `timezone-short` | `EDT` |  | short English name for this instant; see below |
 | `offset` | `-04:00` |  |  |
+
+`timezone-short` uses the runtime's optional `Intl.DateTimeFormat` display data
+with the instance's timezone and timestamp. For example,
+`spacetime('2024-01-15', 'America/Chicago').format('{timezone-short}')` returns
+`CST`, while the same zone in July returns `CDT`. It does not use the host's
+timezone or today's date.
+
+The label depends on the runtime's timezone data and may be a short offset such
+as `GMT+1` instead of an acronym. If `Intl` is unavailable or does not recognize
+the zone, the token uses spacetime's offset, for example `UTC+05:45` or `UTC`.
+Timezone calculations continue to use spacetime's own data. Use `timezone` for
+an IANA identifier; short names such as `CST` are ambiguous and should not be
+used as timezone identifiers.
 
 ## Inline templates with `{}`
 

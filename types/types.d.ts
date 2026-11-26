@@ -288,9 +288,9 @@ export interface Spacetime {
   /** set a formatted, 12-hour time, like '11:30pm' */
   time(value: string, goForward?: boolean): Spacetime
 
-  /** get the week-number of the year (1-52) */
+  /** get the week-number of the year (1-53) */
   week(): number
-  /** set the week-number of the year (1-52) */
+  /** set the week-number of the year (1-53) */
   week(value: number | string, goForward?: boolean): Spacetime
 
   /** get the fiscal-quarter (1-4) */
@@ -463,6 +463,7 @@ export type ParsableDate =
   | number
   | Array<number | string>
   | string
-  | DateFields
+  | (DateFields & { tz?: string })
   | { epoch: number | null; tz?: string }
+  | { epoch: number | null; timezone?: string }
   | TemporalInput

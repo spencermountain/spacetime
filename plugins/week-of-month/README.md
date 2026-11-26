@@ -1,15 +1,16 @@
 <div align="center">
 
   <div>calculate the week number of a month</div>
-  <div><img src="https://cloud.githubusercontent.com/assets/399657/23590290/ede73772-01aa-11e7-8915-181ef21027bc.png" /></div>
-
+  <div>
+    <img width="300" height="8" alt="image" src="https://github.com/user-attachments/assets/a8454327-add3-4486-ad7d-c24be50f9d8d" />
+  </div>
   <div align="center">
     <a href="https://npmjs.org/package/spacetime-week-of-month">
       <img src="https://img.shields.io/npm/v/spacetime-week-of-month.svg?style=flat-square" />
     </a>
-    <a href="https://unpkg.com/spacetime-week-of-month/builds/spacetime-week-of-month.min.js">
-      <img src="https://img.shields.io/bundlephobia/min/spacetime-week-of-month" />
-    </a>
+    <a href="https://bundlephobia.com/result?p=spacetime-week-of-month@latest">
+      <img src="https://badgen.net/bundlejs/min/spacetime-week-of-month" />
+    </a> 
   </div>
   <div align="center">
     <code>spacetime-week-of-month</code>
@@ -70,8 +71,6 @@ s.weekOfMonth()
 ```
 
 Sep 28th is considered the 5th week of September.
-
-work-in-progress.
 
 ### See also
 

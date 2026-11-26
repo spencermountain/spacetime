@@ -1,6 +1,7 @@
 import { setUnit } from '../fns.ts'
 import { parseMonth } from './formats/_parsers.ts'
 import type { Spacetime, DateParts } from '../types/index.ts'
+import findTz from '../timezone/find.ts'
 import type { DateFields } from '../../types/types.js'
 
 const getDefaults = (): DateParts => ({
@@ -32,14 +33,28 @@ const parseArray = (s: Spacetime, arr: Array<number | string>, today: DateParts)
   return s
 }
 
+// the timezone named by an input object, which may be under 'tz' or 'timezone'
+// (a spacetime instance has a .timezone() method, so only strings count)
+const objectTimezone = (obj: object, first: 'tz' | 'timezone', second: 'tz' | 'timezone'): string | undefined => {
+  const fields = obj as { tz?: unknown; timezone?: unknown }
+  for (const key of [first, second]) {
+    const value = fields[key]
+    if (typeof value === 'string' && value !== '') {
+      return value
+    }
+  }
+  return undefined
+}
+
 //support {year:2016, month:3} format
 const parseObject = (s: Spacetime, obj: DateParts): Spacetime => {
   if (Object.keys(obj).length === 0) {
     return s
   }
   obj = Object.assign({}, getDefaults(), obj)
-  if (obj.timezone) {
-    s.tz = obj.timezone
+  const zone = objectTimezone(obj, 'timezone', 'tz')
+  if (zone !== undefined) {
+    s.tz = findTz(zone, s.timezones)
   }
   for (let i = 0; i < units.length; i++) {
     const unit = units[i]
@@ -88,5 +103,6 @@ export { toParts, getDefaults }
 export default {
   parseArray,
   parseObject,
-  parseNumber
+  parseNumber,
+  objectTimezone
 }

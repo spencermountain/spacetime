@@ -62,6 +62,14 @@ const apply = (s: Spacetime, parsed: ParsedDate, named: { tz?: string }): Spacet
   return s
 }
 
+// the timezone named by an input object, which may be under 'tz' or 'timezone'
+// (an instance has a .timezone() method, so only names and numeric offsets count)
+const objectTimezone = (obj: object, first: 'tz' | 'timezone', second: 'tz' | 'timezone'): string | number | undefined => {
+  const named = obj as { tz?: unknown; timezone?: unknown }
+  const isZone = (value: unknown): value is string | number => (typeof value === 'string' && value !== '') || typeof value === 'number'
+  return [named[first], named[second]].find(isZone)
+}
+
 // a timezone given beside a string is where its moment is shown
 const parse = (s: Spacetime, input: Input, given = false): Spacetime => {
   const T = temporal()
@@ -82,7 +90,7 @@ const parse = (s: Spacetime, input: Input, given = false): Spacetime => {
   } else if (input && typeof input === 'object' && 'epoch' in input) {
     // keep the other instance's timezone, unless we were given one
     if (!given) {
-      s._tz = normalizeTimezone(input.tz, s.tz)
+      s._tz = normalizeTimezone(objectTimezone(input, 'tz', 'timezone'), s.tz)
     }
     const other = input as Spacetime
     if (other._value instanceof T.ZonedDateTime) {
@@ -96,7 +104,7 @@ const parse = (s: Spacetime, input: Input, given = false): Spacetime => {
       obj = Object.fromEntries(fields.map((key, i) => [key, input[i]]).filter(([, value]) => value !== undefined))
     }
     const values = { year: s.year(), month: 0, date: 1, ...s._today, ...obj }
-    s._tz = normalizeTimezone(values.timezone, s.tz)
+    s._tz = normalizeTimezone(objectTimezone(values, 'timezone', 'tz'), s.tz)
     s._value = T.ZonedDateTime.from({ timeZone: s.tz, ...fieldValues(values) } as Temporal.ZonedDateTimeLike)
   } else if (typeof input === 'string' && input) {
     // Native ISO parsing preserves an explicit offset in a repeated DST hour.

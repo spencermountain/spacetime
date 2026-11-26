@@ -4,7 +4,10 @@
       <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
     </a>
   </div>
-
+  <div>calculate date/time across timezones</div>
+  <div>
+    <img width="300" height="8" alt="image" src="https://github.com/user-attachments/assets/a8454327-add3-4486-ad7d-c24be50f9d8d" />
+  </div>
   <a href="https://npmjs.org/package/spacetime">
     <img src="https://img.shields.io/npm/v/spacetime.svg?style=flat-square" />
   </a>
@@ -23,33 +26,35 @@ isn't it weird how we can do <i>math</i> in our head, but not <b><i>date-math</i
 
 <div align="left">
 <div >
-  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><i>- how many days until the end of the year?</i>
+  <a href="javascript:void(0);">
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/></a><i>- how many days until the end of the year?</i>
 </div>
 <div >
-  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><i>-what time was it, 11 hours ago?</i>
+  <a href="javascript:void(0);">
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/></a><i>-what time was it, 11 hours ago?</i>
 </div>
 <div >
-  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><i>-is it lunchtime in france?</i>
+  <a href="javascript:void(0);">
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/></a><i>-is it lunchtime in france?</i>
 </div>
 </div>
 
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<br/>
+<br/>
 
-and worse - there's no real **_date calculator_**?
+and worse - there's no real **_date-calculator_**?
 
 <div align="center">
   <sub>people end up asking google, and going to weird websites.</sub>
 </div>
 
-<div align="center"><sub>that's bad.</sub></div>
+<div align="center"><sub>that's bad!</sub></div>
 
 <img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<b>spacetime</b> is a date-calculator
+<code>npm install spacetime</code> 👈
 
-<div >
-  <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><sub>It's very small, and very handy.</sub>
-</div>
+<br/>
 
 ```js
 import spacetime from 'spacetime'
@@ -69,27 +74,15 @@ s.isBetween(s.time('11:00am'), s.time('2:00pm'))
 // true 🥐
 ```
 
-These results depend on when you run the example.
-
 - calculate time in remote timezones
 - support **daylight savings**, **leap years**, and **hemispheres**
 - [Moment-like API](./docs/API.md) _(mostly immutable)_
 - Orient time by quarter, season, month, week..
-- _Zero Dependencies_ - timezone math uses bundled data; `Intl` is used only to detect your local timezone
-- see the size badge above for the current minified bundle size
+- _Zero Dependencies_ - timezone math uses bundled data
+- ~50kb minified
 - has a cool _[plugin thing](https://observablehq.com/@spencermountain/spacetime)_.
 - frequent updates for approaching DST changes
-- [Temporal interoperability and an optional Temporal-backed entry](./docs/Temporal.md)
-
-<!-- spacer -->
-<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
-<code>npm install spacetime</code>
-
-<div align="right">
-  <code>npx skills add spencermountain/spacetime</code>
-  <div><i>(for computers)</i></div>
-</div>
+- [Temporal interop and on-ramp](./docs/Temporal.md)
 
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 <div align="center">
@@ -134,6 +127,14 @@ d.dayName()
 d.format('nice')
 //'Apr 1st, 4:32pm'
 ```
+
+<!-- spacer -->
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+<div align="right">
+  <code>npx skills add spencermountain/spacetime</code>
+  <div><i>(for computers)</i></div>
+</div>
 
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
@@ -472,12 +473,12 @@ Pass constructor options as the third argument:
 spacetime('12/01/2018', 'UTC', { dmy: true }).format('iso-short') // '2018-01-12'
 ```
 
-| Option | Purpose | Default |
-| --- | --- | --- |
-| `silent` | Set `false` to enable warnings | `true` |
-| `dmy` | Interpret ambiguous numeric dates as day/month/year | `false` |
-| `today` | Supply reference date fields for partial inputs | Current date |
-| `weekStart` | Set week boundaries (0 = Sunday, 1 = Monday) | `1` |
+| Option      | Purpose                                             | Default      |
+| ----------- | --------------------------------------------------- | ------------ |
+| `silent`    | Set `false` to enable warnings                      | `true`       |
+| `dmy`       | Interpret ambiguous numeric dates as day/month/year | `false`      |
+| `today`     | Supply reference date fields for partial inputs     | Current date |
+| `weekStart` | Set week boundaries (0 = Sunday, 1 = Monday)        | `1`          |
 
 See [constructor options](./docs/inputs.md#constructor-options-third-argument)
 for examples. For country-specific week starts, use

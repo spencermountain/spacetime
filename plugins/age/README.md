@@ -7,9 +7,9 @@
     <a href="https://npmjs.org/package/spacetime-cal">
       <img src="https://img.shields.io/npm/v/spacetime-cal.svg?style=flat-square" />
     </a>
-    <a href="https://unpkg.com/spacetime-cal/builds/spacetime-cal.min.js">
-      <img src="https://img.shields.io/bundlephobia/min/spacetime-cal" />
-    </a>
+    <a href="https://bundlephobia.com/result?p=spacetime-cal@latest">
+      <img src="https://badgen.net/bundlejs/min/spacetime-cal" />
+    </a> 
   </div>
   <div align="center">
     <code>npm i space-age</code>
@@ -24,6 +24,7 @@
 a spacetime plugin to reckon a person's age, in any unit, given their birthday.
 
 ### javascript api:
+
 ```js
 import spacetime from 'spacetime'
 import plugin from 'space-age'
@@ -43,12 +44,13 @@ s.age('months')
 ```
 
 ### command-line api:
+
 ```bash
 npx space-age may 18 1984
 
 npx space-age may 1st 1984 --months
 ```
-or you can install it locally with `npm i -g space-age`
 
+or you can install it locally with `npm i -g space-age`
 
 MIT
