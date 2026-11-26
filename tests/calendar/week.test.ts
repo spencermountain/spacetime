@@ -108,3 +108,29 @@ test('week number', (t) => {
   t.equal(spacetime('jan 15th 2019').week(), 3, '2019 third week') //tuesday
   t.end()
 })
+
+test('53rd week', (t) => {
+  // years with 53 ISO weeks: the last Monday-week is week 53, not a second week 52
+  const arr: [string, number][] = [
+    ['2015-12-21', 52],
+    ['2015-12-28', 53],
+    ['2015-12-31', 53],
+    ['2020-12-28', 53],
+    ['2020-12-31', 53],
+    ['2026-12-27', 52],
+    ['2026-12-28', 53],
+    ['2026-12-31', 53],
+    ['2032-12-27', 53],
+  ]
+  arr.forEach(([iso, want]) => {
+    t.equal(spacetime(iso, 'UTC').week(), want, iso)
+  })
+  // setter and getter agree on week 53
+  ;[2015, 2020, 2026, 2032, 2037].forEach((year) => {
+    const s = spacetime(`${year}-06-01`, 'UTC').week(53)
+    t.equal(s.week(), 53, `${year} week(53).week()`)
+  })
+  // a year with only 52 weeks still ends on week 52
+  t.equal(spacetime('2025-12-28', 'UTC').week(), 52, '2025-12-28')
+  t.end()
+})

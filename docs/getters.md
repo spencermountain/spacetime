@@ -28,7 +28,8 @@ s.epochSeconds() // whole epoch seconds (method)
 ```
 
 `week()` uses Monday-based week numbering with special year-boundary handling;
-it is not simply the number of seven-day periods since January 1. Do not assume
+it is not simply the number of seven-day periods since January 1. Years with 53
+ISO weeks return `53` for their last week. Do not assume
 changing `weekStart` changes this getter's numbering.
 
 `progress(unit)` returns a fraction from 0 to 1 rounded to two decimal places;
