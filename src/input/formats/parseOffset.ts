@@ -15,7 +15,7 @@ export const offsetHours = (offset?: string): number | null => {
   }
   const hours = Number(match[2])
   const minutes = Number(match[3] || 0)
-  if (minutes > 59) {
+  if (hours > 23 || minutes > 59) {
     return null
   }
   // (avoid a negative zero)
