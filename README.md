@@ -4,7 +4,7 @@
       <img width="277" alt="spacetime logo" src="https://user-images.githubusercontent.com/399657/31140478-80a4269a-a842-11e7-8dbf-b541fe3e87a7.png">
     </a>
   </div>
-  <div>calculate time across timezones</div>
+  <div>calculate date/time across timezones</div>
   <div>
     <img width="300" height="8" alt="image" src="https://github.com/user-attachments/assets/a8454327-add3-4486-ad7d-c24be50f9d8d" />
   </div>
@@ -26,19 +26,23 @@ isn't it weird how we can do <i>math</i> in our head, but not <b><i>date-math</i
 
 <div align="left">
 <div >
-  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><i>- how many days until the end of the year?</i>
+  <a href="javascript:void(0);">
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/></a><i>- how many days until the end of the year?</i>
 </div>
 <div >
-  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><i>-what time was it, 11 hours ago?</i>
+  <a href="javascript:void(0);">
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/></a><i>-what time was it, 11 hours ago?</i>
 </div>
 <div >
-  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><i>-is it lunchtime in france?</i>
+  <a href="javascript:void(0);">
+  <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/></a><i>-is it lunchtime in france?</i>
 </div>
 </div>
 
-<img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<br/>
+<br/>
 
-and worse - there's no real **_date calculator_**?
+and worse - there's no real **_date-calculator_**?
 
 <div align="center">
   <sub>people end up asking google, and going to weird websites.</sub>
@@ -48,7 +52,7 @@ and worse - there's no real **_date calculator_**?
 
 <img height="15px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<b>spacetime</b> is a date-calculator
+<code>npm install spacetime</code>
 
 <div >
   <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/><sub>It's very small, and very handy.</sub>
@@ -83,16 +87,6 @@ These results depend on when you run the example.
 - has a cool _[plugin thing](https://observablehq.com/@spencermountain/spacetime)_.
 - frequent updates for approaching DST changes
 - [Temporal interoperability and an optional Temporal-backed entry](./docs/Temporal.md)
-
-<!-- spacer -->
-<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
-<code>npm install spacetime</code>
-
-<div align="right">
-  <code>npx skills add spencermountain/spacetime</code>
-  <div><i>(for computers)</i></div>
-</div>
 
 <img height="30px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 <div align="center">
@@ -137,6 +131,14 @@ d.dayName()
 d.format('nice')
 //'Apr 1st, 4:32pm'
 ```
+
+<!-- spacer -->
+<img height="20px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+<div align="right">
+  <code>npx skills add spencermountain/spacetime</code>
+  <div><i>(for computers)</i></div>
+</div>
 
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
