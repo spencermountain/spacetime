@@ -23,7 +23,7 @@ const plugin = {
     let num = 0
     let end = start.endOf('week')
     for (let i = 0; i < 5; i += 1) {
-      if (end.isAfter(this)) {
+      if (end.epoch >= this.epoch) {
         return num + 1
       }
       end = end.add(1, 'week')
